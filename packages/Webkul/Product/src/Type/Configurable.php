@@ -207,6 +207,9 @@ class Configurable extends AbstractType
 
                     $variantData['tax_category_id'] = $data['tax_category_id'] ?? null;
 
+                    $variantData['inventories'] = $data['inventories'] ?? [];
+                    $variantData['price'] = $data['price'] ?? 0;
+                    
                     $this->updateVariant($variantData, $variantId);
                 }
             }
