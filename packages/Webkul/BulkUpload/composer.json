@@ -1,0 +1,26 @@
+{
+    "name": "bagisto/bulk-upload",
+    "license": "MIT",
+    "description" : "Shop package for store front and customers",
+    "authors": [
+        {
+            "name": "Bagisto",
+            "email": "support@bagisto.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Webkul\\BulkUpload\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webkul\\BulkUpload\\Providers\\BulkUploadServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "minimum-stability": "dev"
+}

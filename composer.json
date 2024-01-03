@@ -42,7 +42,9 @@
         "pusher/pusher-php-server": "^7.0",
         "shetabit/visitor": "^4.1",
         "spatie/laravel-responsecache": "^7.4",
-        "spatie/laravel-sitemap": "^6.2"
+        "spatie/laravel-sitemap": "^6.2",
+        "spatie/laravel-webhook-client": "^3.2",
+        "spatie/laravel-webhook-server": "^3.8"
     },
     "require-dev": {
         "bagisto/laravel-datafaker": "^2.0@alpha",
@@ -88,7 +90,9 @@
             "Webkul\\SocialShare\\": "packages/Webkul/SocialShare/src",
             "Webkul\\Tax\\": "packages/Webkul/Tax/src",
             "Webkul\\Theme\\": "packages/Webkul/Theme/src",
-            "Webkul\\User\\": "packages/Webkul/User/src"
+            "Webkul\\User\\": "packages/Webkul/User/src",
+            "Webkul\\KrayinConnector\\": "packages/Webkul/KrayinConnector/src",
+            "Webkul\\BulkUpload\\": "packages/Webkul/BulkUpload/src"
         }
     },
     "autoload-dev": {
