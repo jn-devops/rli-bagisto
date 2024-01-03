@@ -367,15 +367,17 @@
 
                                     <!-- Add To Cart Button -->
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
-
-                                    <button
-                                        type="submit"
-                                        class="secondary-button w-full max-w-full"
-                                        {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
-                                    >
-                                        @lang('shop::app.products.view.add-to-cart')
-                                    </button>
-
+                                    
+                                    @if ($product->getTypeInstance()->showQuantityBox())
+                                        <button
+                                            type="submit"
+                                            class="secondary-button w-full max-w-full"
+                                            {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
+                                        >
+                                            @lang('shop::app.products.view.add-to-cart')
+                                        </button>
+                                    @endif
+                                    
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
                                 </div>
 
