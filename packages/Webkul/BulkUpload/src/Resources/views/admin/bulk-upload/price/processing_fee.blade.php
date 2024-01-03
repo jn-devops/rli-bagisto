@@ -1,0 +1,1 @@
+<span>₱ {{ $product->processing_fee }} Processing Fee </span>
