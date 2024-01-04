@@ -41,14 +41,13 @@ return [
                 'update-profile' => 'Update',
                 'data-grid' => [
                     'created-at'  => 'Created At',
-                    'locale_code' => 'Locale code'
-                ]
+                    'locale_code' => 'Locale code',
+                ],
             ],
 
             /**
              * Run profiler configuration 
              */
-
             'run-profile' => [
                 'run'               => 'Import Products',
                 'index'             => 'Run Profile',
@@ -129,7 +128,17 @@ return [
                 'id'        => 'id',
                 'url'       => 'Url',
                 'product'   => 'Product',
-            ]
+                'heading'   => 'Select Product',
+                'info'      => 'Select product and add flat details',
+            ],
+        ],
+    ],
+
+    'shop' => [
+        'bulk-upload' => [
+            'checkout' => [
+                'title' => 'Propery Map',
+            ],
         ],
     ],
 ];

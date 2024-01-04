@@ -38,6 +38,8 @@ class BulkUploadServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/../Routes/admin-routes.php');
 
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/shop-routes.php');
+
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'bulkupload');
 
         $this->publishes([

@@ -504,7 +504,7 @@ return [
             'add-to-compare'         => 'Product added in compare.',
             'already-in-compare'     => 'Product is already added in compare.',
             'additional-information' => 'Additional Information',
-            'buy-now'                => 'Buy Now',
+            'buy-now'                => 'Reserve Now',
             'compare'                => 'Compare',
             'description'            => 'Description',
             'review'                 => 'Reviews',

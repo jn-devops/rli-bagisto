@@ -4,6 +4,6 @@ namespace Webkul\BulkUpload\Models;
 
 use Konekt\Concord\Proxies\ModelProxy;
 
-class ProductFlatSlotsProxy extends ModelProxy
+class ProductPropertiesProxy extends ModelProxy
 {
 }
