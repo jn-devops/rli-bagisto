@@ -137,7 +137,9 @@ return [
     'shop' => [
         'bulk-upload' => [
             'checkout' => [
-                'title' => 'Propery Map',
+                'title'          => 'Propery Map',
+                'code'           => 'Property Code',
+                'authentication' => 'Authentication',
             ],
         ],
     ],

@@ -20,27 +20,91 @@
                 </x-slot:header>
 
                 <x-slot:content>
-                    <div class="flex flex-wrap gap-1">
-                        <div class="grid justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group"
-                            v-for="flat in flats"
-                        >
-                            <!-- Image Preview -->
-                            <img
-                                :src="flat.image_url"
-                                :style="{'width': '120px', 'height': '120px', 'cursor': 'pointer'}"
-                                @click="selectImage(flat.image_url, flat.product_id)"
-                            />
-                        </div>
-                    </div>
-
-                    <!-- Image Preview -->
-                    <v-checkout-properties-image
-                        :product-id = productId
-                        :image-url = imageUrl
-                        :key = refresh_product_image
+                {{-- property choose form --}}
+                    <x-shop::form
+                        v-slot="{ meta, errors, handleSubmit }"
+                        as="div"
                     >
-                    </v-checkout-properties-image>
-                    
+                        <form @submit="handleSubmit($event, handlePropertyForm)">
+
+                            <div class="flex flex-wrap gap-1">
+                                <div class="grid justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group"
+                                    v-for="flat in flats"
+                                >
+                                    <!-- Image Preview -->
+                                    <img
+                                        :src="flat.image_url"
+                                        :style="{'width': '120px', 'height': '120px', 'cursor': 'pointer'}"
+                                        @click="selectImage(flat.image_url, flat.product_id)"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Image Preview -->
+                            <v-checkout-properties-image
+                                :product-id = productId
+                                :image-url = imageUrl
+                                :key = refresh_product_image
+                            >
+                            </v-checkout-properties-image>
+                            
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <x-shop::form
+                                        v-slot="{ meta, errors, handleSubmit }"
+                                        as="div"
+                                        >
+                                        <form @submit="handleSubmit($event, handlePropertyAuthenticationForm)">
+
+                                            <div class="mt-2">
+                                                <x-shop::form.control-group>
+                                                    <x-shop::form.control-group.label class="required">
+                                                        @lang('bulkupload::app.shop.bulk-upload.checkout.code')
+                                                    </x-shop::form.control-group.label>
+                                                    
+                                                    <x-shop::form.control-group.control
+                                                        type="text"
+                                                        name="code"
+                                                        rules="required"
+                                                        :label="trans('bulkupload::app.shop.bulk-upload.checkout.code')"
+                                                        :placeholder="trans('bulkupload::app.shop.bulk-upload.checkout.code')"
+                                                        v-model="code"
+                                                    >
+                                                    </x-shop::form.control-group.control>
+                                                
+                                                    <x-shop::form.control-group.error
+                                                        control-name="code"
+                                                    >
+                                                    </x-shop::form.control-group.error>
+                                                </x-shop::form.control-group>
+
+                                                <div 
+                                                    class="flex justify-end mt-4 mb-4"
+                                                >
+                                                    <button
+                                                        type="submit"
+                                                        class="block w-max px-[43px] py-[11px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer"
+                                                    >
+                                                        @lang('bulkupload::app.shop.bulk-upload.checkout.authentication')
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </x-shop::form>
+                                </div>
+
+                                <div class="flex justify-end mt-4 mb-4">
+                                    <button
+                                        type="submit"
+                                        disabled
+                                        class="block w-max px-[43px] py-[11px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer"
+                                    >
+                                        @lang('shop::app.checkout.onepage.addresses.shipping.confirm')
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </x-shop::form>
                 </x-slot:content>
             </x-shop::accordion>
         </template>
@@ -59,6 +123,59 @@
 </script>
 
 <script type="module">
+    app.component('v-checkout-properties', {
+        template: '#v-checkout-properties-template',
+
+        data() {
+            return  {
+                isShowProperties: true,
+                flats: [],
+                refresh_product_image: 1,
+                productId: null,
+                imageUrl: null,
+                code: null,
+                disabled: true,
+            }
+        },
+
+        mounted() {
+            this.$emitter.on('slot', (slot) => {
+                this.code = slot.flat_numbers;
+            });
+
+            console.log(this.code);
+        },
+        
+        created() {
+            this.getImages();
+        },
+
+        methods: {
+            getImages(){
+                this.$axios.get("{{ route('shop.checkout.slot.index') }}")
+                    .then(response => {
+                        this.flats = response.data.flats;
+                    })
+                    .catch(error => {});
+            },
+
+            selectImage(url, productId) {
+                this.productId = productId;
+                this.imageUrl = url;
+
+                ++this.refresh_product_image;
+            },
+
+            handlePropertyAuthenticationForm($event) {
+                console.log($event);
+            },
+
+            handlePropertyForm($event) {
+                console.log($event);
+            },
+        },
+    });
+
     app.component('v-checkout-properties-image', {
         props: ['productId', 'imageUrl'],
 
@@ -96,7 +213,7 @@
                         document.querySelector('#slots').append(img);
 
                         flat.slots.forEach(slot => {
-                            this.callSpot(slot.x_coordinate, slot.y_coordinate, slot.flat_numbers);
+                            this.callSpot(slot);
                         });
                     });
 
@@ -105,60 +222,31 @@
                 .catch(error => {});
             },
 
-            callSpot(x_coordinate, y_coordinate, slot_number) {
+            callSpot(slot) {
                 var div = document.createElement("div");
                 
                 div.style.position = 'absolute';
-                div.style.top = y_coordinate + 'px';
-                div.style.left = x_coordinate + 'px';
+                div.style.top = slot.y_coordinate + 'px';
+                div.style.left = slot.x_coordinate + 'px';
                 div.style.width = this.size;
                 div.style.height = this.size;
                 div.style.color = '#000';
-                div.style.border = '1px solid red';
-                div.style.backgroundColor = 'red';
-                div.textContent = slot_number;
-                div.setAttribute('id', slot_number);
+              //  div.style.border = '1px solid red';
+               // div.style.backgroundColor = 'red';
+                //div.textContent = slot.flat_numbers;
+                div.setAttribute('id', slot.slot_id);
 
                 div.setAttribute('class', 'slots');
+
+                let emitter = this.$emitter;
+
+                div.addEventListener('click', function handleClick() {
+                    emitter.emit('slot', slot);
+                });
 
                 document.querySelector('#slots-image').after(div);
             },
         }
-    });
-
-    app.component('v-checkout-properties', {
-        template: '#v-checkout-properties-template',
-
-        data() {
-            return  {
-                isShowProperties: true,
-                flats: [],
-                refresh_product_image: 1,
-                productId: null,
-                imageUrl: null,
-            }
-        }, 
-        
-        created() {
-            this.getImages();
-        },
-
-        methods: {
-            getImages(){
-                this.$axios.get("{{ route('shop.checkout.slot.index') }}")
-                    .then(response => {
-                        this.flats = response.data.flats;
-                    })
-                    .catch(error => {});
-            },
-
-            selectImage(url, productId) {
-                this.productId = productId;
-                this.imageUrl = url;
-
-                ++this.refresh_product_image;
-            }
-        },
     });
 </script>
 @endPushOnce

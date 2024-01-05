@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('flat_numbers');
             $table->string('x_coordinate');
             $table->string('y_coordinate');
+            $table->string('width');
+            $table->string('height');
             $table->timestamps();
         });
     }

@@ -132,7 +132,11 @@ class ReadProductUrlController extends Controller
         if(request()->has('slot_id') && request()->has('product_id'))
         {
             return new JsonResponse([
-                'slot'  => $this->productPropertyFlatsRepository->getFlatNumbers(request()->all()),
+                'flat'  => $this->productPropertiesRepository->with('slot')->where([
+                                'product_id' => request('product_id'),
+                                'image_url'  => request('image_url'),
+                            ])
+                            ->first(),
             ]);
         }
 

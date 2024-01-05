@@ -1,4 +1,4 @@
-<div>
+<div v-if="forms.billing.isEnable">
     <div v-if="! forms.billing.isNew">
         <x-shop::accordion class="!border-b-[0px]">
             <x-slot:header >
