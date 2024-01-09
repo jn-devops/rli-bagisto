@@ -15,11 +15,8 @@ class CreateBulkProductImportersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('locale_code');
-
             $table->integer('attribute_family_id')->unsigned();
-
             $table->foreign('attribute_family_id')->references('id')->on('attribute_families')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

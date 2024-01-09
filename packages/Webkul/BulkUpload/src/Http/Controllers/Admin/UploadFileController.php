@@ -2,17 +2,12 @@
 
 namespace Webkul\BulkUpload\Http\Controllers\Admin;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\File;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
-use League\OAuth1\Client\Server\Tumblr;
-use Webkul\Admin\Exports\DataGridExport;
 use Webkul\Admin\Imports\DataGridImport;
 use Webkul\BulkUpload\Jobs\ProductUploadJob;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
-use Webkul\BulkUpload\Repositories\Products\SimpleProductRepository;
 use Webkul\BulkUpload\Repositories\{ImportProductRepository, BulkProductImporterRepository};
 
 class UploadFileController extends Controller
