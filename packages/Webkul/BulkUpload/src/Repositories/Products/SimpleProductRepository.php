@@ -102,21 +102,21 @@ class SimpleProductRepository extends BaseRepository
                 ];
             }
 
-            $productSuperAttributes = [];
+            $productSuperAttributes = $productSuperAttributesPrice = [];
            
             foreach (explode(',',$superAttributes['super_attributes']) as $attributeKey => $super_attributes) 
             {
                 $attributeOption = $this->attributeOptionRepository->findOneByField([
-                                    'admin_name'    => explode(',', $csvData['super_attribute_option'])[$attributeKey],
-                                    'attribute_id'  => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
-                                ]);
-
+                                'admin_name'    => explode(',', $csvData['super_attribute_option'])[$attributeKey],
+                                'attribute_id'  => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
+                            ]);
+                
                 $productSuperAttributes[$super_attributes][] = $attributeOption->id ?? null;
             }
 
             $createProduct['super_attributes'] = $productSuperAttributes;
         }
-
+        
         // Check for Duplicate SKU
         $product = $this->productRepository->firstWhere('sku', $csvData['sku']);
 
@@ -168,8 +168,7 @@ class SimpleProductRepository extends BaseRepository
         }
 
         // Process inventory for configurable product
-        if($product->type == "configurable")
-        {
+        if($product->type == "configurable") {
             $this->processProductInventoryForConfiguration($csvData, $data);
         }
   
@@ -347,7 +346,7 @@ class SimpleProductRepository extends BaseRepository
         }
         
         $data['inventories'] = array_combine($inventoryId, $inventoryData);
-
+      
         $data['price'] = $csvData['super_attribute_price'];
         
         $data['weight'] = $csvData['super_attribute_weight'];

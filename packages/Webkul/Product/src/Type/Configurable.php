@@ -177,7 +177,7 @@ class Configurable extends AbstractType
     public function update(array $data, $id, $attribute = 'id')
     {
         $product = parent::update($data, $id, $attribute);
-
+   
         $this->updateDefaultVariantId();
 
         if (request()->route()?->getName() == 'admin.catalog.products.mass_update') {
@@ -185,7 +185,7 @@ class Configurable extends AbstractType
         }
 
         $previousVariantIds = $product->variants->pluck('id');
-
+        
         if (isset($data['variants'])) {
             foreach ($data['variants'] as $variantId => $variantData) {
                 if (Str::contains($variantId, 'variant_')) {
@@ -207,9 +207,18 @@ class Configurable extends AbstractType
 
                     $variantData['tax_category_id'] = $data['tax_category_id'] ?? null;
 
-                    $variantData['inventories'] = $data['inventories'] ?? [];
-                    $variantData['price'] = $data['price'] ?? 0;
-                    
+                    if(! empty($data['inventories'])) {
+                        $variantData['inventories'] = $data['inventories'] ?? [];
+                    }
+
+                    if(! empty($data['price'])) {
+                        $variantData['price'] = $data['price'];
+                    }
+
+                    if(! empty($data['categories'])) {
+                        $variantData['categories'] = $data['categories'];
+                    }
+
                     $this->updateVariant($variantData, $variantId);
                 }
             }
@@ -373,8 +382,13 @@ class Configurable extends AbstractType
     public function updateVariant(array $data, $id)
     {
         $variant = $this->productRepository->find($id);
-
+        
         $variant->update(['sku' => $data['sku']]);
+
+        if(! empty($data['categories']))
+        {
+            $variant->categories()->sync($data['categories']);
+        }
 
         foreach ($this->fillableTypes as $attributeCode) {
             if (! isset($data[$attributeCode])) {

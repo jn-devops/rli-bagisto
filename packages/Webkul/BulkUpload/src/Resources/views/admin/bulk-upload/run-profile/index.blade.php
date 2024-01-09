@@ -157,14 +157,14 @@
                 </div>
 
                 <!-- Not Uploaded Product Records Due to Validation error -->
-                <div class="relative p-4 bg-white dark:bg-gray-900 rounded box-shadow">
+                <!-- <div class="relative p-4 bg-white dark:bg-gray-900 rounded box-shadow">
                     <p v-if="isProductError" class="text-base mb-4 text-gray-800 dark:text-white font-semibold mb-4">@lang('bulkupload::app.admin.bulk-upload.run-profile.error-in-product')</p>
                     <ul class="p-4 w-full border-3 border-gray-800 bg-gray-200 rounded dark:border-gray-800 dark:bg-gray-200" style="max-height: 250px;overflow: auto;">
                         <li v-for="(item, index) in notUploadedProductList" :key="index">
                             @lang('bulkupload::app.admin.bulk-upload.upload-files.not-uploaded-product') : <span class="italic"> @{{ item.error }}</span>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </script>
 

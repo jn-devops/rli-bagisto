@@ -2,6 +2,6 @@
 
 namespace Webkul\BulkUpload\Contracts;
 
-interface ProductFlatSlots
+interface ProductProperties
 {
 }

@@ -1,4 +1,4 @@
-<div v-if="! forms.billing.isUsedForShipping">
+<div v-if="! forms.billing.isUsedForShipping && forms.shipping.isEnable">
     <div 
         class="mt-[30px]"
         v-if="! forms.shipping.isNew"

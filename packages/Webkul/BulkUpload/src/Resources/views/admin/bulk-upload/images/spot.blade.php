@@ -1,19 +1,5 @@
 <v-product-image-spot-url></v-product-image-spot-url>
 
-@push('css')
-    <style>
-        .draw{
-            background: white;
-            width: 50vw;
-            height: 50vw;
-            border-style: solid;
-        }
-        .large {
-            transform: scale(1.3);
-        }
-    </style>
-@endpush
-
 @pushOnce('scripts')
 
 <script type="text/x-template" id="v-product-image-spot-url-template">
@@ -23,16 +9,16 @@
         <div class="flex gap-5 justify-between mb-4">
             <div class="flex flex-col gap-2">
                 <p class="text-base text-gray-800 dark:text-white font-semibold">
-                    Select Image
+                    @lang('bulkupload::app.admin.bulk-upload.slot.heading')
                 </p>
 
                 <p class="text-xs text-gray-500 dark:text-gray-300 font-medium">
-                    Select Image
+                    @lang('bulkupload::app.admin.bulk-upload.slot.info')
                 </p>
             </div>
         </div>
 
-            <!-- Image Blade Component -->
+        <!-- Image Blade Component -->
         <div class="flex flex-wrap gap-1">
             <div class="grid justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group"
                 v-for="image in images"
@@ -67,20 +53,21 @@
                 </v-product-spot>
             </div>
         </div>
-
     </div>
 </script>
 
 <script  type="text/x-template" id="v-product-spot-template">
     <div
-        class="mt-4 draw" 
-        style="border: 1px solid red; padding: 40px"
-    >
+        class="mt-4" 
+        style="border: 1px solid red;"
+        >
+        
         <img
+            :src="flats.image_url" 
+            :alt="flats.image_url" 
+            @click="handleClick()"
             id="slot-image"
-            :src="slot.image_url" 
-            :alt="slot.image_url" 
-            @click="handleClick"
+            style="height: 500px; width: 650px;"
         />
 
         <x-admin::form
@@ -89,7 +76,6 @@
             >
             <form @submit="handleSubmit($event, addSlot)">
                 <!-- Model Form -->
-
                 <x-admin::modal ref="addSpotModal">
                     <!-- Model Header -->
                     <x-slot:header>
@@ -105,12 +91,12 @@
                             <x-admin::form.control-group.label class="required">
                                 @lang('bulkupload::app.admin.bulk-upload.slot.flate')
                             </x-admin::form.control-group.label>
-
+                            
                             <x-admin::form.control-group.control
                                 type="text"
                                 name="flat_numbers"
                                 rules="required"
-                                v-model="slot.flat_numbers"
+                                v-model="flats.slot.flat_numbers"
                                 :label="trans('bulkupload::app.admin.bulk-upload.slot.flate')"
                                 :placeholder="trans('bulkupload::app.admin.bulk-upload.slot.flate')"
                             >
@@ -125,7 +111,7 @@
                                 type="hidden"
                                 name="x_coordinate"
                                 rules="required"
-                                v-model="slot.x_coordinate"
+                                v-model="flats.slot.x_coordinate"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
@@ -136,7 +122,7 @@
                                 type="hidden"
                                 name="y_coordinate"
                                 rules="required"
-                                v-model="slot.y_coordinate"
+                                v-model="flats.slot.y_coordinate"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
@@ -147,7 +133,7 @@
                                 type="hidden"
                                 name="slot_id"
                                 rules="required"
-                                v-model="slot.slot_id"
+                                v-model="flats.slot.slot_id"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
@@ -158,7 +144,7 @@
                                 type="hidden"
                                 name="image_url"
                                 rules="required"
-                                v-model="slot.image_url"
+                                v-model="flats.image_url"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
@@ -169,7 +155,7 @@
                                 type="hidden"
                                 name="product_id"
                                 rules="required"
-                                v-model="slot.product_id"
+                                v-model="flats.product_id"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
@@ -203,15 +189,16 @@
 
         data() {
             return {
-                slot: {
+                flats: {
                     product_id: '{{ $product->id }}',
                     image_url: null,
-                    x_coordinate: 0,
-                    y_coordinate: 0,
-                    slot_id: 0,
-                    flat_numbers: null,
+                    slot: {
+                        x_coordinate: 0,
+                        y_coordinate: 0,
+                        slot_id: 0,
+                        flat_numbers: null,
+                    }
                 },
-                
                 number: 0,
                 color: '#ed3838',
                 bcolor: '#292727',
@@ -221,7 +208,7 @@
         },
 
         created() {
-            this.slot.image_url = this.imageUrl;
+            this.flats.image_url = this.imageUrl;
             
             this.getSlots();
         },
@@ -229,22 +216,21 @@
         methods: {
             // add slot into image
             handleClick() {
-                this.slot.x_coordinate = event.pageX;
+                this.flats.slot.x_coordinate = event.offsetX;
 
-                this.slot.y_coordinate = event.pageY;
+                this.flats.slot.y_coordinate = event.offsetY;
 
                 ++this.number;
 
-                this.callSpot(this.slot.x_coordinate, this.slot.y_coordinate, this.number);
+                this.callSpot(this.flats.slot, this.number);
             },
 
             // add slot
             addSlot(params, { resetForm, setErrors }) {
                 this.$axios.post("{{ route('admin.bulk-upload.product.url.store') }}", params)
                     .then(response => {
-                       
                         this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
-                        resetForm();
+                       // resetForm();
                         this.$refs.addSpotModal.close();
 
                     }).catch(error => {
@@ -256,8 +242,8 @@
             getSlots() {
                 this.$axios.get("{{ route('admin.bulk-upload.product.url.get') }}", {
                     params: {
-                        product_id: this.slot.product_id,
-                        image_url: this.slot.image_url,
+                        product_id: this.flats.product_id,
+                        image_url: this.flats.image_url,
                     }
                 })
                 .then(response => {
@@ -266,11 +252,13 @@
                         e.remove();
                     });
 
-                    // Add Slot on image
-                    response.data.slots.forEach(slot => {
-                        this.number = slot.slot_id;
+                    response.data.flats.forEach(flat => {
+                        // Add Slot on image
+                        flat.slots.forEach(slot => {
+                            this.number = slot.slot_id;
 
-                        this.callSpot(slot.x_coordinate, slot.y_coordinate, this.number);
+                            this.callSpot(slot, slot.slot_id);
+                        });
                     });
                     
                 }).catch(error => {
@@ -280,16 +268,25 @@
 
             // get single slot with condition.
             getSlot(slot_id) {
+                this.flats.slot.flat_numbers = null;
+
                 this.$axios.get("{{ route('admin.bulk-upload.product.url.slot') }}", {
                     params: {
                         slot_id: slot_id,
-                        product_id: this.slot.product_id,
-                        image_url: this.slot.image_url,
+                        product_id: this.flats.product_id,
+                        image_url: this.flats.image_url,
                     }
                 })
                 .then(response => {
-                    if(response.data.slot) {
-                        this.slot = response.data.slot;
+                    let slot = this.flats.slot;
+
+                    if(response.data.flat) {
+                        this.flats = response.data.flat;
+                    }
+
+                    // If flat slot is null
+                    if(! this.flats.slot) {
+                        this.flats.slot = slot;
                     }
 
                     this.$refs.addSpotModal.open();
@@ -299,25 +296,28 @@
             },
 
             // create slot attribute.
-            callSpot(x_coordinate, y_coordinate, slot_number) {
+            callSpot(slot, slot_number) {
                 var div = document.createElement("div");
                 
                 div.style.position = 'absolute';
-                div.style.top = y_coordinate + 'px';
-                div.style.left = x_coordinate + 'px';
+                div.style.top = slot.y_coordinate + 'px';
+                div.style.left = slot.x_coordinate + 'px';
                 div.style.width = this.size;
                 div.style.height = this.size;
                 div.style.color = '#000';
                 div.style.border = '1px solid red';
-                div.textContent = slot_number;
+                div.style.backgroundColor = 'red';
+                div.textContent = slot.flat_numbers ?? slot_number;
                 div.setAttribute('id', slot_number);
+
                 div.setAttribute('class', 'slots');
+
                 div.addEventListener("dblclick", (e) => {
-                    this.slot.slot_id = e.target.id;
-                    this.getSlot(this.slot.slot_id);
+                    this.flats.slot.slot_id = e.target.id;
+                    this.getSlot(this.flats.slot.slot_id);
                 });
 
-                document.body.appendChild(div);
+                document.querySelector('#slot-image').after(div);
             },
 
             // close form model
