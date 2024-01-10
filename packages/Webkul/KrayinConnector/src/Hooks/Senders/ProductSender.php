@@ -80,11 +80,14 @@ class ProductSender
             'api_entity_source_type_id' => 2,
             'api_entity_id'             => $id,
         ];
-
-        WebhookCall::create()
-                    ->url(webhook_server_url())
-                    ->useSecret(webhook_server_secret())
-                    ->payload($payload)
-                    ->dispatch();
+        try {
+            WebhookCall::create()
+                ->url(webhook_server_url())
+                ->useSecret(webhook_server_secret())
+                ->payload($payload)
+                ->dispatch();
+        } catch (\Throwable $th) {
+            //throw $th;
+        } 
     }
 }

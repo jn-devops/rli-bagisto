@@ -42,6 +42,8 @@
 
                             isNew: false,
 
+                            isEnable: false,
+
                             isUsedForShipping: true,
                         },
 
@@ -53,6 +55,12 @@
                             },
 
                             isNew: false,
+
+                            isEnable: false,
+                        },
+
+                        property: {
+
                         },
                     },
 

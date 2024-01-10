@@ -23,9 +23,13 @@ class EventServiceProvider extends ServiceProvider
             $viewRenderEventManager->addTemplate('bulkupload::admin.bulk-upload.images.url');
         });
 
-        //bagisto.admin.catalog.product.edit.form.images.after
-        Event::listen('bagisto.admin.catalog.product.edit.actions.before', function($viewRenderEventManager) {
+        //bagisto.admin.catalog.product.edit.form.images.after | bagisto.admin.catalog.product.edit.actions.before 
+        Event::listen('bagisto.admin.catalog.product.edit.form.images.after', function($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('bulkupload::admin.bulk-upload.images.spot');
+        });
+
+        Event::listen('bagisto.shop.checkout.addresses.after', function($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('bulkupload::shop.bulk-upload.checkout.properties');
         });
 
         Event::listen('catalog.product.update.after', function($product) {

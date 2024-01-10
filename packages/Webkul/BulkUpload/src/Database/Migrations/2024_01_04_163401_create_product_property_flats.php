@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_flat_slots', function (Blueprint $table) {
+        Schema::create('product_property_flats', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
             $table->integer('slot_id');
-            $table->integer('x_coordinate');
-            $table->integer('y_coordinate');
-            $table->string('image_url');
+            $table->integer('property_id');
             $table->string('flat_numbers');
+            $table->string('x_coordinate');
+            $table->string('y_coordinate');
+            $table->string('width');
+            $table->string('height');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_flat_slots');
+        Schema::dropIfExists('product_property_flats');
     }
 };
