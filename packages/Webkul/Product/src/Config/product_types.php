@@ -37,9 +37,16 @@ return [
     ],
     
     'bundle'       => [
-        'key'  => 'bundle',
+        'key'   => 'bundle',
         'name'  => 'Bundle',
         'class' => 'Webkul\Product\Type\Bundle',
         'sort'  => 6,
-    ]
+    ],
+
+    'variant'      => [
+        'key'   => 'variant',
+        'name'  => 'Variant',
+        'class' => 'Webkul\Product\Type\Variant',
+        'sort'  => 7,
+    ],
 ];

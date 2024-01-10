@@ -73,7 +73,7 @@ class SimpleProductRepository extends BaseRepository
     {
         //Validation
         $createValidation = $this->helperRepository->createProductValidation($csvData, $key);
-           
+       
         if (isset($createValidation)) {
             return $createValidation;
         }
@@ -92,8 +92,10 @@ class SimpleProductRepository extends BaseRepository
             'type'                => $csvData['type'],
             'attribute_family_id' => $dataFlowProfileRecord->profiler->attribute_family_id,
         ];
-        
-        if ($csvData['type'] == 'configurable') {
+       
+        if (trim($csvData['type']) == 'variant') {
+            $csvData['parent_id'] = $this->productRepository->findOneByField('sku', $csvData['parent'])->id;
+
             $superAttributes['super_attributes'] = $csvData['super_attributes'];
             
             if (! isset($superAttributes['super_attributes']) || empty($superAttributes['super_attributes'])) {
@@ -102,19 +104,18 @@ class SimpleProductRepository extends BaseRepository
                 ];
             }
 
-            $productSuperAttributes = $productSuperAttributesPrice = [];
+            $productSuperAttributes = [];
            
-            foreach (explode(',',$superAttributes['super_attributes']) as $attributeKey => $super_attributes) 
-            {
+            foreach (explode(',',$superAttributes['super_attributes']) as $attributeKey => $super_attributes) {
                 $attributeOption = $this->attributeOptionRepository->findOneByField([
-                                'admin_name'    => explode(',', $csvData['super_attribute_option'])[$attributeKey],
-                                'attribute_id'  => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
-                            ]);
-                
+                                        'admin_name'   => $csvData[$super_attributes],
+                                        'attribute_id' => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
+                                    ]);
+
                 $productSuperAttributes[$super_attributes][] = $attributeOption->id ?? null;
             }
 
-            $createProduct['super_attributes'] = $productSuperAttributes;
+            $csvData['super_attributes'] = $productSuperAttributes;
         }
         
         // Check for Duplicate SKU
@@ -125,9 +126,9 @@ class SimpleProductRepository extends BaseRepository
             Event::dispatch('catalog.product.create.before');
 
             $product = $this->productRepository->create($createProduct);
-          
-            Event::dispatch('catalog.product.create.after', $product);
 
+            Event::dispatch('catalog.product.create.after', $product);
+            
             // Product Update Procesing
             $this->updateProduct($csvData, $product, $dataFlowProfileRecord);
 
@@ -161,17 +162,14 @@ class SimpleProductRepository extends BaseRepository
         
         // Process product attributes
         $data = $this->processProductAttributes($csvData, $product);
-        
-        // Process inventory
-        if ($product->type != 'configurable') {
+      
+        // Process inventory for configurable product
+        if(in_array($product->type, ["variant", "configurable"])) {
+            $this->processProductInventoryForConfiguration($csvData, $data);
+        } else {
             $this->processProductInventory($csvData, $data);
         }
 
-        // Process inventory for configurable product
-        if($product->type == "configurable") {
-            $this->processProductInventoryForConfiguration($csvData, $data);
-        }
-  
         // Process categories
         $categories = $this->processProductCategories($csvData);
        
@@ -184,25 +182,19 @@ class SimpleProductRepository extends BaseRepository
         $data['categories'] = $categories;
         $data['locale'] = $dataFlowProfileRecord->profiler->locale_code;
         $data['channel'] = core()->getCurrentChannel()->code;
-        
-        // Product variant Processing
-        $productVariants = $this->productRepository->with('variants')->findOrFail($product->id)->variants->toArray() ?? [];
+        $data['type'] = $csvData['type'] ?? 0;
 
-        $variants = [];
+        $data['parent_id'] = $csvData['parent_id'] ?? 0;
+        $data['super_attributes'] = $csvData['super_attributes'] ?? 0;
 
-        foreach ($productVariants as $key => $variant) {
-            $variants[$variant['id']] = $variant;
-        }
-
-        $data['variants'] = $variants;
-       
         // Process customer group pricing
         $this->processCustomerGroupPricing($csvData, $data, $product);
 
         // Process product images
         $data['images'] = $this->processProductImages($csvData);
-
-        if ($product->type == 'downloadable' && isset($csvData['link_titles'])) {
+        
+        if ($product->type == 'downloadable' 
+                && isset($csvData['link_titles'])) {
             $downloadableLinks = $this->addLinksAndSamples($csvData, $dataFlowProfileRecord, $product);
 
             if (isset($downloadableLinks['error'])) {
@@ -214,7 +206,9 @@ class SimpleProductRepository extends BaseRepository
             $data['downloadable_links'] = $downloadableLinks;
         }
 
-        if ($product->type == 'downloadable' && isset($csvData['samples_title'])) {
+        
+        if ($product->type == 'downloadable' 
+                    && isset($csvData['samples_title'])) {
             $downloadableSamples = $this->addSamples($csvData, $dataFlowProfileRecord, $product);
             if (isset($downloadableSamples['error'])) {
                 $this->helperRepository->deleteProductIfNotValidated($product->id);
@@ -241,7 +235,7 @@ class SimpleProductRepository extends BaseRepository
         
         // Validate product data and handle errors
         $validationErrors = $this->validateProductData($data, $product);
-
+        
         if ($validationErrors) {
             $this->helperRepository->deleteProductIfNotValidated($product->id);
 
@@ -249,9 +243,9 @@ class SimpleProductRepository extends BaseRepository
         }
 
         Event::dispatch('catalog.product.update.before',  $product->id);
-        
-        $productFlat = $this->productRepository->update($data, $product->id);
 
+        $productFlat = $this->productRepository->update($data, $product->id);
+       
         Event::dispatch('catalog.product.update.after', $productFlat);
         
         // Upload images
@@ -338,8 +332,7 @@ class SimpleProductRepository extends BaseRepository
     
         $inventoryId = $this->inventorySourceRepository->whereIn('code', $inventoryCode)->pluck('id')->toArray();
         
-        $inventoryData = preg_split('/,\s*|,/', $csvData['super_attribute_qty']);
-       
+        $inventoryData = preg_split('/,\s*|,/', $csvData['manage_stock']);
 
         if (count($inventoryId) != count($inventoryData)) {
             $inventoryData = array_fill(0, count($inventoryId), 0);
@@ -347,9 +340,9 @@ class SimpleProductRepository extends BaseRepository
         
         $data['inventories'] = array_combine($inventoryId, $inventoryData);
       
-        $data['price'] = $csvData['super_attribute_price'];
+        $data['price'] = $csvData['price'];
         
-        $data['weight'] = $csvData['super_attribute_weight'];
+        $data['weight'] = 1;
     }
 
     /**
@@ -365,9 +358,9 @@ class SimpleProductRepository extends BaseRepository
         $inventoryCode = preg_split('/,\s*|,/', $csvData['inventory_sources']);
         
         $inventoryId = $this->inventorySourceRepository->whereIn('code', $inventoryCode)->pluck('id')->toArray();
+      
+        $inventoryData = preg_split('/,\s*|,/', $csvData['manage_stock']);
 
-        $inventoryData = preg_split('/,\s*|,/', $csvData['inventories']);
-        
         if (count($inventoryId) != count($inventoryData)) {
             $inventoryData = array_fill(0, count($inventoryId), 0);
         }
