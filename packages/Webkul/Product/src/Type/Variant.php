@@ -154,6 +154,11 @@ class Variant extends AbstractType
     {
         $product = parent::update($data, $id, $attribute);
    
+        // processing without super_attribute
+        if(empty($data['super_attributes'])) {
+            return $product;
+        }
+
         $superAttributes = [];
 
         foreach ($data['super_attributes'] as $attributeCode => $attributeOptions) {
@@ -171,12 +176,8 @@ class Variant extends AbstractType
             ];
 
             if(! DB::table('product_super_attributes')->where($superAttributesValue)->first()) {
-                DB::table('product_super_attributes')->insert([
-                    'product_id'   => $product->parent->id,
-                    'attribute_id' => $attribute->id,
-                ]);
+                DB::table('product_super_attributes')->insert($superAttributesValue);
             }
-           
         }
 
         foreach (array_permutation($superAttributes) as $permutation) {
@@ -198,16 +199,7 @@ class Variant extends AbstractType
     {
         $typeOfVariants = 'simple';
 
-        $productInstance = app(config('product_types.' . $product->type . '.class'));
-
-        if (
-            isset($productInstance->variantsType)
-            && ! in_array($productInstance->variantsType, ['bundle', 'configurable', 'grouped'])
-        ) {
-            $typeOfVariants = $productInstance->variantsType;
-        }
-
-        $variant = $this->productRepository->getModel()->updateOrCreate(['sku' => $product->sku],[
+        $variant = $this->productRepository->getModel()->updateOrCreate(['sku' => $product->sku], [
             'parent_id'           => $data['parent_id'],
             'type'                => $typeOfVariants,
             'attribute_family_id' => $product->attribute_family_id,

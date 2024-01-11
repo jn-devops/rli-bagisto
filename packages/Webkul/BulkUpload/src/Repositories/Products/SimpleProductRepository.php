@@ -77,12 +77,12 @@ class SimpleProductRepository extends BaseRepository
         if (isset($createValidation)) {
             return $createValidation;
         }
-        
+
+        //processing inventory sources
         $inventory_sources = collect(explode(',', $csvData['inventory_sources']))->map( function($inventory_sources) {
             return trim($inventory_sources);
         });
         
-        $csvData['inventory_sources'] = $csvData['inventory_sources'];
         $csvData['inventories'] = $this->inventorySourceRepository->findWhereIn('code', $inventory_sources->toArray())->pluck('id')->toArray();
         $csvData['weight'] = 1;
         $csvData['visible_individually'] = 1;
@@ -106,7 +106,7 @@ class SimpleProductRepository extends BaseRepository
 
             $productSuperAttributes = [];
            
-            foreach (explode(',',$superAttributes['super_attributes']) as $attributeKey => $super_attributes) {
+            foreach (explode(',', $superAttributes['super_attributes']) as $super_attributes) {
                 $attributeOption = $this->attributeOptionRepository->findOneByField([
                                         'admin_name'   => $csvData[$super_attributes],
                                         'attribute_id' => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
@@ -116,6 +116,7 @@ class SimpleProductRepository extends BaseRepository
             }
 
             $csvData['super_attributes'] = $productSuperAttributes;
+            $csvData['visible_individually'] = 0;
         }
         
         // Check for Duplicate SKU
@@ -180,12 +181,16 @@ class SimpleProductRepository extends BaseRepository
         }
         
         $data['categories'] = $categories;
+
         $data['locale'] = $dataFlowProfileRecord->profiler->locale_code;
+
         $data['channel'] = core()->getCurrentChannel()->code;
+
         $data['type'] = $csvData['type'] ?? 0;
 
-        $data['parent_id'] = $csvData['parent_id'] ?? 0;
-        $data['super_attributes'] = $csvData['super_attributes'] ?? 0;
+        $data['parent_id'] = $csvData['parent_id'] ?? null;
+
+        $data['super_attributes'] = $csvData['super_attributes'] ?? [];
 
         // Process customer group pricing
         $this->processCustomerGroupPricing($csvData, $data, $product);
@@ -341,8 +346,6 @@ class SimpleProductRepository extends BaseRepository
         $data['inventories'] = array_combine($inventoryId, $inventoryData);
       
         $data['price'] = $csvData['price'];
-        
-        $data['weight'] = 1;
     }
 
     /**
@@ -441,7 +444,6 @@ class SimpleProductRepository extends BaseRepository
      * @param string|array $data
      * @param string|array $product
      * @return string
-     * 
      */
     private function validateProductData($data, $product)
     {
@@ -478,7 +480,6 @@ class SimpleProductRepository extends BaseRepository
      * @param array $dataFlowProfileRecord
      * @param string|array $product
      * @return mixed
-     *
      */
     public function addLinksAndSamples($csvData, $dataFlowProfileRecord, $product)
     {
@@ -586,7 +587,6 @@ class SimpleProductRepository extends BaseRepository
      * @param array $dataFlowProfileRecord
      * @param string|array $product
      * @return mixed
-     *
      */
     public function addSamples($csvData, $dataFlowProfileRecord, $product)
     {
