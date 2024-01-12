@@ -192,6 +192,8 @@ class SimpleProductRepository extends BaseRepository
 
         $data['super_attributes'] = $csvData['super_attributes'] ?? [];
 
+        $data['weight'] = 1;
+
         // Process customer group pricing
         $this->processCustomerGroupPricing($csvData, $data, $product);
 

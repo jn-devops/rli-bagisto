@@ -110,6 +110,9 @@ Route::middleware(['web', 'admin'])
 
                 Route::get('/get-slot/', [ReadProductUrlController::class, 'getSlot'])
                     ->name('admin.bulk-upload.product.url.slot');
+
+                Route::post('/update-slot/', [ReadProductUrlController::class, 'updateSlotCoordinate'])
+                    ->name('admin.bulk-upload.product.url.slot.update');
             });
         });
     });

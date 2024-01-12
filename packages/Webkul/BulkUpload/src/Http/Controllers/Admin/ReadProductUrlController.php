@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
 use Webkul\BulkUpload\Repositories\ProductPropertyFlatsRepository;
 
@@ -25,6 +26,9 @@ class ReadProductUrlController extends Controller
     
     /**
      * Read All URL and return image
+     * 
+     * @param int
+     * @return \Illuminate\Http\JsonResponse
      */
     public function readUrls($id)
     {
@@ -64,6 +68,8 @@ class ReadProductUrlController extends Controller
 
     /**
      * Store Product URL
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function productUrlStore() 
     {
@@ -82,8 +88,8 @@ class ReadProductUrlController extends Controller
         ]);
 
         $slot = $this->productPropertiesRepository->updateOrCreate([
-            'product_id'    => $property['product_id'],
-            'image_url'     => $property['image_url'],
+            'product_id' => $property['product_id'],
+            'image_url'  => $property['image_url'],
         ], $property);
 
         request()->request->add(['property_id' => $slot->id]);
@@ -111,6 +117,8 @@ class ReadProductUrlController extends Controller
 
     /**
      * get Product URL
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function productUrlGet()
     {
@@ -120,12 +128,18 @@ class ReadProductUrlController extends Controller
         }
 
         return new JsonResponse([
-            'flats'  => $this->productPropertiesRepository->with('slots')->where(['product_id' => request('product_id'), 'image_url' => request('image_url')])->get(),
+            'flats'  => $this->productPropertiesRepository->with('slots')
+                    ->where([
+                        'product_id' => request('product_id'),
+                        'image_url'  => request('image_url'),
+                    ])->get(),
         ]);
     }
 
     /**
      * get slot
+     * 
+     * @return mixed
      */
     public function getSlot()
     {
@@ -141,5 +155,44 @@ class ReadProductUrlController extends Controller
         }
 
         return false;
+    }
+
+    /**
+     * update slot Coordinate
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateSlotCoordinate()
+    {
+        request()->validate([
+            'product_id'        => 'required',
+            'image_url'         => 'required',
+            'slot.x_coordinate' => 'required',
+            'slot.y_coordinate' => 'required',
+            'slot.slot_id'      => 'required',
+        ]);
+
+        $slot = [
+            'product_id' => request()->input('product_id'),
+            'image_url'  => request()->input('image_url'),
+            'slot'       => [
+                'x_coordinate' => request()->input('slot.x_coordinate'),
+                'y_coordinate' => request()->input('slot.y_coordinate'),
+                'slot_id'      => request()->input('slot.slot_id'),
+            ],
+        ];
+
+       $productProperties = $this->productPropertiesRepository->findOneByField([
+            'product_id' => request()->input('product_id'),
+            'image_url'  => request()->input('image_url'),
+        ]);
+
+        return $this->productPropertyFlatsRepository->where([
+            'slot_id'     => request()->input('slot.slot_id'),
+            'property_id' => $productProperties->id,
+        ])->update([
+            'x_coordinate' => request()->input('slot.x_coordinate'),
+            'y_coordinate' => request()->input('slot.y_coordinate'),
+        ]);
     }
 }
