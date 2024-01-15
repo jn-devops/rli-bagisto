@@ -19,6 +19,13 @@ class AttributeTableSeeder extends Seeder
     public static int $veranda_id;
     public static int $end_unit_id;
 
+    public static int $ground_floor;
+    public static int $bedrooms;
+    public static int $t_and_b;
+    public static int $carports;
+    public static int $parking;
+    public static int $inventory_sources;
+
     public function run(): void
     {
         $now = Carbon::now();
@@ -172,6 +179,139 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$end_unit_id = DB::getPdo()->lastInsertId();
 
+
+        DB::table('attributes')->insert([
+            'code'                => 'ground_floor',
+            'admin_name'          => 'Ground Floor',
+            'type'                => 'select',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$ground_floor = DB::getPdo()->lastInsertId();
+
+
+        DB::table('attributes')->insert([
+            'code'                => 'bedrooms',
+            'admin_name'          => 'Bedrooms',
+            'type'                => 'text',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$bedrooms = DB::getPdo()->lastInsertId();
+
+
+        DB::table('attributes')->insert([
+            'code'                => 't_and_b',
+            'admin_name'          => 'T and B',
+            'type'                => 'text',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$t_and_b = DB::getPdo()->lastInsertId();
+
+
+        DB::table('attributes')->insert([
+            'code'                => 'carports',
+            'admin_name'          => 'Carports',
+            'type'                => 'text',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$carports = DB::getPdo()->lastInsertId();
+
+
+        DB::table('attributes')->insert([
+            'code'                => 'parking',
+            'admin_name'          => 'Parking',
+            'type'                => 'text',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$parking = DB::getPdo()->lastInsertId();
+
+
+        DB::table('attributes')->insert([
+            'code'                => 'inventory_sources',
+            'admin_name'          => 'Inventory Sources',
+            'type'                => 'text',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$inventory_sources = DB::getPdo()->lastInsertId();
+
+
         DB::table('attribute_translations')->insert([
             [
                 'id'           => self::$processing_fee_id,
@@ -208,6 +348,36 @@ class AttributeTableSeeder extends Seeder
                 'locale'       => 'en',
                 'name'         => 'End Unit',
                 'attribute_id' => self::$end_unit_id,
+            ], [
+                'id'           => self::$ground_floor,
+                'locale'       => 'en',
+                'name'         => 'End Unit',
+                'attribute_id' => self::$ground_floor,
+            ], [
+                'id'           => self::$bedrooms,
+                'locale'       => 'en',
+                'name'         => 'End Unit',
+                'attribute_id' => self::$bedrooms,
+            ], [
+                'id'           => self::$t_and_b,
+                'locale'       => 'en',
+                'name'         => 'End Unit',
+                'attribute_id' => self::$t_and_b,
+            ], [
+                'id'           => self::$carports,
+                'locale'       => 'en',
+                'name'         => 'End Unit',
+                'attribute_id' => self::$carports,
+            ], [
+                'id'           => self::$parking,
+                'locale'       => 'en',
+                'name'         => 'End Unit',
+                'attribute_id' => self::$parking,
+            ], [
+                'id'           => self::$inventory_sources,
+                'locale'       => 'en',
+                'name'         => 'End Unit',
+                'attribute_id' => self::$inventory_sources,
             ],
         ]);
 
@@ -240,6 +410,30 @@ class AttributeTableSeeder extends Seeder
                                 'attribute_id'        => self::$end_unit_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 105,
+                            ], [
+                                'attribute_id'        => self::$ground_floor,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 106,
+                            ], [
+                                'attribute_id'        => self::$bedrooms,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 107,
+                            ], [
+                                'attribute_id'        => self::$t_and_b,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 108,
+                            ], [
+                                'attribute_id'        => self::$carports,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 109,
+                            ], [
+                                'attribute_id'        => self::$parking,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 110,
+                            ], [
+                                'attribute_id'        => self::$inventory_sources,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 111,
                             ],
                         ]);
                         break;
