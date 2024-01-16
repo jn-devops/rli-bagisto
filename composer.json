@@ -47,6 +47,7 @@
         "spatie/laravel-webhook-server": "^3.8"
     },
     "require-dev": {
+        "bagisto/bagisto-package-generator": "dev-master",
         "bagisto/laravel-datafaker": "^2.0@alpha",
         "barryvdh/laravel-debugbar": "^3.8",
         "fakerphp/faker": "^1.9.1",
@@ -92,7 +93,9 @@
             "Webkul\\Theme\\": "packages/Webkul/Theme/src",
             "Webkul\\User\\": "packages/Webkul/User/src",
             "Webkul\\KrayinConnector\\": "packages/Webkul/KrayinConnector/src",
-            "Webkul\\BulkUpload\\": "packages/Webkul/BulkUpload/src"
+            "Webkul\\BulkUpload\\": "packages/Webkul/BulkUpload/src",
+            "RLI\\Attribute\\": "packages/RLI/Attribute/src",
+            "RLI\\Category\\": "packages/RLI/Category/src"
         }
     },
     "autoload-dev": {
