@@ -2,6 +2,7 @@
 
 namespace Webkul\BulkUpload\Repositories\Products;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Webkul\BulkUpload\Type\Configurable;
@@ -107,6 +108,9 @@ class SimpleProductRepository extends BaseRepository
             $productSuperAttributes = [];
            
             foreach (explode(',', $superAttributes['super_attributes']) as $super_attributes) {
+        
+                $super_attributes = trim($super_attributes);
+
                 $attributeOption = $this->attributeOptionRepository->findOneByField([
                                         'admin_name'   => $csvData[$super_attributes],
                                         'attribute_id' => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
@@ -163,7 +167,7 @@ class SimpleProductRepository extends BaseRepository
         
         // Process product attributes
         $data = $this->processProductAttributes($csvData, $product);
-      
+
         // Process inventory for configurable product
         if(in_array($product->type, ["variant", "configurable"])) {
             $this->processProductInventoryForConfiguration($csvData, $data);
@@ -191,6 +195,8 @@ class SimpleProductRepository extends BaseRepository
         $data['parent_id'] = $csvData['parent_id'] ?? null;
 
         $data['super_attributes'] = $csvData['super_attributes'] ?? [];
+
+        $data['weight'] = 1;
 
         // Process customer group pricing
         $this->processCustomerGroupPricing($csvData, $data, $product);
@@ -288,7 +294,7 @@ class SimpleProductRepository extends BaseRepository
            
             switch ($attribute['type']) {
                 case "select":
-                    $attributeOption = $this->attributeOptionRepository->findOneByField(['admin_name' => $csvValue]);
+                    $attributeOption = $this->attributeOptionRepository->findOneByField(['attribute_id' => $attribute['id'],'admin_name' => $csvValue]);
 
                     $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
 
@@ -387,7 +393,7 @@ class SimpleProductRepository extends BaseRepository
 
             $categoryID = array_map(function ($value) {
                 try {
-                    return $this->categoryRepository->findBySlugOrFail(strtolower($value))->id;
+                    return $this->categoryRepository->findBySlugOrFail(Str::slug(strtolower($value)))->id;
 
                 } catch(\Exception $e) {
                     return [

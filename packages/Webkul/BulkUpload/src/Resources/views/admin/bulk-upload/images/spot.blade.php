@@ -61,7 +61,6 @@
         class="mt-4" 
         style="border: 1px solid red;"
         >
-        
         <img
             :src="flats.image_url" 
             :alt="flats.image_url" 
@@ -74,7 +73,7 @@
             v-slot="{ meta, errors, handleSubmit }"
             as="div"
             >
-            <form @submit="handleSubmit($event, addSlot)">
+            <form @submit="handleSubmit($event, storeSlot)">
                 <!-- Model Form -->
                 <x-admin::modal ref="addSpotModal">
                     <!-- Model Header -->
@@ -108,7 +107,7 @@
                         <!-- x_coordinate Number -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.control
-                                type="hidden"
+                                type="text"
                                 name="x_coordinate"
                                 rules="required"
                                 v-model="flats.slot.x_coordinate"
@@ -119,7 +118,7 @@
                         <!-- y_coordinate Number -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.control
-                                type="hidden"
+                                type="text"
                                 name="y_coordinate"
                                 rules="required"
                                 v-model="flats.slot.y_coordinate"
@@ -130,7 +129,7 @@
                         <!-- Id -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.control
-                                type="hidden"
+                                type="text"
                                 name="slot_id"
                                 rules="required"
                                 v-model="flats.slot.slot_id"
@@ -141,7 +140,7 @@
                         <!-- Url -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.control
-                                type="hidden"
+                                type="text"
                                 name="image_url"
                                 rules="required"
                                 v-model="flats.image_url"
@@ -152,7 +151,7 @@
                         <!-- Product Id -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.control
-                                type="hidden"
+                                type="text"
                                 name="product_id"
                                 rules="required"
                                 v-model="flats.product_id"
@@ -225,8 +224,8 @@
                 this.callSpot(this.flats.slot, this.number);
             },
 
-            // add slot
-            addSlot(params, { resetForm, setErrors }) {
+            // store slot in db
+            storeSlot(params, { resetForm, setErrors }) {
                 this.$axios.post("{{ route('admin.bulk-upload.product.url.store') }}", params)
                     .then(response => {
                         this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
@@ -298,26 +297,103 @@
             // create slot attribute.
             callSpot(slot, slot_number) {
                 var div = document.createElement("div");
-                
+
                 div.style.position = 'absolute';
                 div.style.top = slot.y_coordinate + 'px';
                 div.style.left = slot.x_coordinate + 'px';
                 div.style.width = this.size;
                 div.style.height = this.size;
                 div.style.color = '#000';
-                div.style.border = '1px solid red';
-                div.style.backgroundColor = 'red';
+                div.style.border = '2px solid red';
+                div.style.backgroundColor = '#bb8a8a52';
                 div.textContent = slot.flat_numbers ?? slot_number;
                 div.setAttribute('id', slot_number);
-
+               // div.setAttribute('draggable', true);
                 div.setAttribute('class', 'slots');
 
                 div.addEventListener("dblclick", (e) => {
                     this.flats.slot.slot_id = e.target.id;
+
                     this.getSlot(this.flats.slot.slot_id);
                 });
 
+                this.dragSlots(div);
+
                 document.querySelector('#slot-image').after(div);
+            },
+
+            dragSlots(div) {
+                let self = this;
+                
+                var xDrogCoordinate = 0, yDrogCoordinate = 0, drogClientX = 0, drogClientY = 0;
+
+                div.onmousedown = dragMouseDown;
+
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    
+                    e.preventDefault();
+
+                    // get the mouse cursor position at startup:
+                    drogClientX = e.clientX;
+
+                    drogClientY = e.clientY;
+
+                    document.onmouseup = closeDragElement;
+
+                    // call a function whenever the cursor moves:
+                    document.onmousemove = elementDrag;
+                    
+                    // call a function whenever the cursor stop:
+                    document.onmouseleave = elementDragEnd;
+                }
+
+                function elementDrag(e) {
+                    e = e || window.event;
+
+                    e.preventDefault();
+
+                    // calculate the new cursor position:
+                    xDrogCoordinate = drogClientX - e.clientX;
+                    yDrogCoordinate = drogClientY - e.clientY;
+
+                    // Reset X & Y
+                    drogClientX = e.clientX;
+                    drogClientY = e.clientY;
+
+                    // set the element's new position:
+                    div.style.top = (div.offsetTop - yDrogCoordinate) + "px";
+
+                    div.style.left = (div.offsetLeft - xDrogCoordinate) + "px";
+
+                    self.flats.slot.x_coordinate = (div.offsetLeft - xDrogCoordinate);
+
+                    self.flats.slot.y_coordinate = (div.offsetTop - yDrogCoordinate);
+
+                    self.flats.slot.slot_id = e.target.id;
+                }
+
+                function elementDragEnd(e) {
+                    self.updateCoordinates(self.flats)
+                }
+
+                function closeDragElement() {
+                    /* stop moving when mouse button is released:*/
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+            },
+
+            updateCoordinates(params) {
+                setTimeout(() => {
+                    this.$axios.post("{{ route('admin.bulk-upload.product.url.slot.update') }}", params)
+                        .then(response => {
+
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                }, 1000);
+               
             },
 
             // close form model

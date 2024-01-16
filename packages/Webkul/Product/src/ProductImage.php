@@ -122,7 +122,7 @@ class ProductImage
      */
     private function getCachedImageUrls($path): array
     {
-        if ($this->isDriverLocal()) {
+        if (! $this->isDriverLocal()) {
             return [
                 'small_image_url'    => Storage::url($path),
                 'medium_image_url'   => Storage::url($path),

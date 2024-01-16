@@ -27,15 +27,17 @@
                     >
                         <form @submit="handleSubmit($event, handlePropertyForm)">
 
-                            <div class="flex flex-wrap gap-1">
+                            <div class="flex flex-wrap gap-1"
+                                v-for="flat in flats"    
+                            >
                                 <div class="grid justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group"
-                                    v-for="flat in flats"
+                                    v-for="flat_details in flat"
                                 >
                                     <!-- Image Preview -->
                                     <img
-                                        :src="flat.image_url"
+                                        :src="flat_details.image_url"
                                         :style="{'width': '120px', 'height': '120px', 'cursor': 'pointer'}"
-                                        @click="selectImage(flat.image_url, flat.product_id)"
+                                        @click="selectImage(flat_details.image_url, flat_details.product_id)"
                                     />
                                 </div>
                             </div>
@@ -142,8 +144,6 @@
             this.$emitter.on('slot', (slot) => {
                 this.code = slot.flat_numbers;
             });
-
-            console.log(this.code);
         },
         
         created() {
@@ -207,7 +207,7 @@
                         img.src = flat.image_url;
                         img.style.height = "500px";
                         img.style.width = "650px";
-
+                        
                         img.setAttribute('id', "slots-image");
                         
                         document.querySelector('#slots').append(img);
@@ -231,8 +231,8 @@
                 div.style.width = this.size;
                 div.style.height = this.size;
                 div.style.color = '#000';
-              //  div.style.border = '1px solid red';
-               // div.style.backgroundColor = 'red';
+                div.style.border = '1px solid #8184b1';
+                div.style.backgroundColor = '#4b49a947';
                 //div.textContent = slot.flat_numbers;
                 div.setAttribute('id', slot.slot_id);
 
