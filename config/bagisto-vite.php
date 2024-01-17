@@ -28,5 +28,11 @@ return [
             'build_directory'          => 'themes/installer/default/build',
             'package_assets_directory' => 'src/Resources/assets',
         ],
+
+        'bulk-upload' => [
+            'hot_file'                 => 'bulk-upload-vite.hot',
+            'build_directory'          => 'themes/bulk-upload/build',
+            'package_assets_directory' => 'src/Resources/assets',
+        ],
     ],
 ];

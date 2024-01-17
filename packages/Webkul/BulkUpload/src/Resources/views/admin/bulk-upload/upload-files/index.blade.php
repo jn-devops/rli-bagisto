@@ -4,12 +4,10 @@
         @lang('bulkupload::app.admin.bulk-upload.upload-files.index')
     </x-slot>
 
-    <div class="grid gap-2.5">
-        <div class="flex gap-4 mb-4 justify-between items-center max-sm:flex-wrap">
-            <p class="text-gray-800 dark:text-white font-bold leading-6">
-                @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.upload')
-            </p> 
-        </div> 
+    <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
+        <p class="text-[20px] text-gray-800 dark:text-white font-bold">
+            @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.upload')
+        </p> 
     </div>
   
     <!-- Import New products -->
@@ -17,15 +15,16 @@
 
     @pushOnce('scripts')
         <script type="text/x-template" id="importer-product-input-template">
-            <div class="flex gap-2.5 mt-3.5 max-xl:flex-wrap">
-                <div class="flex flex-col gap-2 flex-1 max-xl:flex-auto">
-                    <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
+            {{-- Full Pannel --}}
+            <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
+
+                {{-- Left Section --}}
+                <div class="flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
+                    <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                         <!-- download samples -->
-                        <div class="flex justify-between items-center">
-                            <p class="text-base text-gray-800 dark:text-white font-semibold mb-4">
-                                @lang('bulkupload::app.admin.bulk-upload.upload-files.sample-file')
-                            </p>  
-                        </div>
+                        <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
+                            @lang('bulkupload::app.admin.bulk-upload.upload-files.sample-file')
+                        </p>
 
                         <x-admin::form
                             :action="route('admin.bulk-upload.upload-file.download-sample-files')"
@@ -33,7 +32,7 @@
                             >
                             @csrf
 
-                            <x-admin::form.control-group class="w-full mb-2.5">
+                            <x-admin::form.control-group>
                                 <x-admin::form.control-group.label class="required">
                                     @lang('bulkupload::app.admin.bulk-upload.run-profile.please-select')
                                 </x-admin::form.control-group.label>
@@ -78,10 +77,11 @@
                         </x-admin::form>
                     </div>
                 </div>
-
-                <div class="flex flex-col gap-2 flex-1 max-xl:flex-auto">
-                    <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
-                        <p class="text-base text-gray-800 dark:text-white font-semibold mb-4">
+                
+                {{-- Right Section --}}
+                <div class="flex flex-col gap-[8px] w-[360px] max-w-full">
+                    <div class="p-[16px] bg-white dark:bg-gray-900 rounded box-shadow">
+                        <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
                             @lang('bulkupload::app.admin.bulk-upload.upload-files.import-products')
                         </p>  
 

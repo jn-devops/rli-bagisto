@@ -1,5 +1,7 @@
 <v-product-image-spot-url></v-product-image-spot-url>
 
+@bagistoVite(['src/Resources/assets/css/app.css'], 'bulk-upload')
+
 @pushOnce('scripts')
 
 <script type="text/x-template" id="v-product-image-spot-url-template">
@@ -19,25 +21,16 @@
         </div>
 
         <!-- Image Blade Component -->
-        <div class="flex flex-wrap gap-1">
-            <div class="grid justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group"
+        <div class="flex flex-wrap gap-[4px]">
+            <div class="grid gap-[8px] justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group cursor-pointer"
                 v-for="image in images"
                 >
                 <!-- Image Preview -->
                 <img
                     :src="image.url"
                     :style="{'width': '120px', 'height': '120px'}"
+                    @click="selectImage(image.url)"
                 />
-
-                <div class="flex flex-col justify-between invisible w-full p-3 bg-white dark:bg-gray-900 absolute top-0 bottom-0 opacity-80 transition-all group-hover:visible">
-                    <!-- Action -->
-                    <div class="flex justify-between">
-                        <span
-                            class="icon-edit text-2xl p-1.5 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
-                            @click="selectImage(image.url)"
-                        ></span>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -58,9 +51,10 @@
 
 <script  type="text/x-template" id="v-product-spot-template">
     <div
+        id="spotsCollection"
         class="mt-4" 
-        style="border: 1px solid red;"
-        >
+        style="border: 1px solid red; margin-top:10px;"
+    >
         <img
             :src="flats.image_url" 
             :alt="flats.image_url" 
@@ -86,7 +80,9 @@
                     <!--Model Content -->
                     <x-slot:content>
                         <!-- Flot Number -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group
+                            class="mb-[10px] justify-between p-[10px] dark:border-gray-800"
+                            >
                             <x-admin::form.control-group.label class="required">
                                 @lang('bulkupload::app.admin.bulk-upload.slot.flate')
                             </x-admin::form.control-group.label>
@@ -105,9 +101,9 @@
                         </x-admin::form.control-group>
 
                         <!-- x_coordinate Number -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="x_coordinate"
                                 rules="required"
                                 v-model="flats.slot.x_coordinate"
@@ -116,9 +112,9 @@
                         </x-admin::form.control-group>
 
                         <!-- y_coordinate Number -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="y_coordinate"
                                 rules="required"
                                 v-model="flats.slot.y_coordinate"
@@ -127,9 +123,9 @@
                         </x-admin::form.control-group>
 
                         <!-- Id -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="slot_id"
                                 rules="required"
                                 v-model="flats.slot.slot_id"
@@ -138,9 +134,9 @@
                         </x-admin::form.control-group>
 
                         <!-- Url -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="image_url"
                                 rules="required"
                                 v-model="flats.image_url"
@@ -149,9 +145,9 @@
                         </x-admin::form.control-group>
 
                         <!-- Product Id -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="product_id"
                                 rules="required"
                                 v-model="flats.product_id"
@@ -163,7 +159,7 @@
 
                     <!-- Model Footer -->
                     <x-slot:footer>
-                        <div class="flex gap-x-2.5 items-center">
+                        <div class="flex gap-x-[10px] items-center">
                             <!-- Add Group Button -->
                             <button
                                 type="submit"
@@ -196,6 +192,8 @@
                         y_coordinate: 0,
                         slot_id: 0,
                         flat_numbers: null,
+                        width: '50px',
+                        height: '50px',
                     }
                 },
                 number: 0,
@@ -203,6 +201,8 @@
                 bcolor: '#292727',
                 size: '50px',
                 textColor: "#fffff",
+
+                flatsSlots: [],
             };
         },
 
@@ -210,6 +210,10 @@
             this.flats.image_url = this.imageUrl;
             
             this.getSlots();
+
+            this.$emitter.on('emitter-flats', (data) => {
+                console.log(data);
+            });
         },
 
         methods: {
@@ -304,18 +308,26 @@
                 div.style.width = this.size;
                 div.style.height = this.size;
                 div.style.color = '#000';
-                div.style.border = '2px solid red';
+                div.style.border = '2px solid #4286f4';
                 div.style.backgroundColor = '#bb8a8a52';
                 div.textContent = slot.flat_numbers ?? slot_number;
-                div.setAttribute('id', slot_number);
-               // div.setAttribute('draggable', true);
-                div.setAttribute('class', 'slots');
+                div.setAttribute('id', 'resizable_' + slot_number);
+
+                div.setAttribute('class', 'slots resizable_' + slot_number);
 
                 div.addEventListener("dblclick", (e) => {
                     this.flats.slot.slot_id = e.target.id;
 
                     this.getSlot(this.flats.slot.slot_id);
                 });
+
+                this.makeResizableDiv('resizer top-left', div);
+
+                this.makeResizableDiv('resizer top-right', div);
+
+                this.makeResizableDiv('resizer bottom-left', div);
+
+                this.makeResizableDiv('resizer bottom-right', div);
 
                 this.dragSlots(div);
 
@@ -330,22 +342,25 @@
                 div.onmousedown = dragMouseDown;
 
                 function dragMouseDown(e) {
-                    e = e || window.event;
-                    
-                    e.preventDefault();
+                    // Box drag with out ctrl Key.
+                    if(! e.ctrlKey) {
+                        e = e || window.event;
+                        
+                        e.preventDefault();
 
-                    // get the mouse cursor position at startup:
-                    drogClientX = e.clientX;
+                        // get the mouse cursor position at startup:
+                        drogClientX = e.clientX;
 
-                    drogClientY = e.clientY;
+                        drogClientY = e.clientY;
 
-                    document.onmouseup = closeDragElement;
-
-                    // call a function whenever the cursor moves:
-                    document.onmousemove = elementDrag;
-                    
-                    // call a function whenever the cursor stop:
-                    document.onmouseleave = elementDragEnd;
+                        document.onmouseup = closeDragElement;
+                        
+                        // call a function whenever the cursor moves:
+                        document.onmousemove = elementDrag;
+                        
+                        // call a function whenever the cursor stop:
+                        document.onmouseleave = elementDragEnd;
+                    }
                 }
 
                 function elementDrag(e) {
@@ -385,20 +400,143 @@
             },
 
             updateCoordinates(params) {
-                setTimeout(() => {
-                    this.$axios.post("{{ route('admin.bulk-upload.product.url.slot.update') }}", params)
-                        .then(response => {
 
-                        }).catch(error => {
-                            console.log(error);
-                        });
-                }, 1000);
+                this.$emitter.emit('emitter-flats', params);
+                
+                // setTimeout(() => {
+                //     this.$axios.post("{{ route('admin.bulk-upload.product.url.slot.update') }}", params)
+                //         .then(response => {
+
+                //         }).catch(error => {
+                //             console.log(error);
+                //         });
+                // }, 1000);
                
             },
 
             // close form model
             closeModal() {
                 this.$refs.addSpotModal.close();
+            },
+
+            makeResizableDiv(classNames, div) {
+                let self = this;
+
+                var dots = document.createElement("div");
+                
+                dots.setAttribute('class', classNames);
+
+                const minimum_size = 20;
+                let original_width = 0;
+                let original_height = 0;
+                let original_x = 0;
+                let original_y = 0;
+                let original_mouse_x = 0;
+                let original_mouse_y = 0;
+
+                dots.addEventListener('mousedown', function(e) {
+                    // Zoom move with ctrl Key
+                    if(e.ctrlKey) {
+                        e.preventDefault();
+
+                        original_width = parseFloat(getComputedStyle(dots, null).getPropertyValue('width').replace('px', ''));
+
+                        original_height = parseFloat(getComputedStyle(dots, null).getPropertyValue('height').replace('px', ''));
+
+                        original_x = dots.getBoundingClientRect().left;
+
+                        original_y = dots.getBoundingClientRect().top;
+
+                        original_mouse_x = e.offsetX;
+
+                        original_mouse_y = e.offsetY;
+                       
+                        window.addEventListener('mousemove', resize);
+
+                        window.addEventListener('mouseup', stopResize);
+                    }
+                })
+                
+                function resize(dotSize) {
+                    if (dots.classList.contains('bottom-right')) {
+                        console.log('bottom-right');
+
+                        const width = original_width + (dotSize.offsetX - original_mouse_x);
+                        
+                        const height = original_height + (dotSize.offsetY - original_mouse_y);
+
+                        if (width > minimum_size) {
+                            div.style.width = width + 'px';
+                        }
+
+                        if (height > minimum_size) {
+                            div.style.height = height + 'px';
+                        }
+
+                        self.flats.slot.width = width;
+                        self.flats.slot.height = height;
+
+                        self.$emitter.emit('emitter-flats', self.flats);
+
+                    } else if (dots.classList.contains('bottom-left')) {
+                        console.log('bottom-left');
+
+                        const height = original_height + (dotSize.offsetY - original_mouse_y);
+
+                        const width = original_width - (edotSize.offsetX - original_mouse_x);
+
+                        if (height > minimum_size) {
+                            div.style.height = height + 'px';
+                        }
+
+                        if (width > minimum_size) {
+                            div.style.width = width + 'px';
+                            div.style.left = original_x + (dotSize.offsetX - original_mouse_x) + 'px';
+                        }
+
+                    } else if (dots.classList.contains('top-right')) {
+                        console.log('top-right');
+
+                        const width = original_width + (dotSize.offsetX - original_mouse_x);
+
+                        const height = original_height - (dotSize.offsetY - original_mouse_y);
+
+                        if (width > minimum_size) {
+                            div.style.width = width + 'px'
+                        }
+
+                        if (height > minimum_size) {
+                            div.style.height = height + 'px'
+                            div.style.top = original_y + (dotSize.offsetY - original_mouse_y) + 'px'
+                        }
+
+                    } else {
+                        console.log('top-left');
+
+                        const width = original_width - (dotSize.offsetX - original_mouse_x);
+
+                        const height = original_height - (dotSize.offsetY - original_mouse_y);
+
+                        if (width > minimum_size) {
+                            div.style.width = width + 'px';
+                            div.style.left = original_x + (dotSize.offsetX - original_mouse_x) + 'px';
+                        }
+
+                        if (height > minimum_size) {
+                            div.style.height = height + 'px';
+                            div.style.top = original_y + (dotSize.offsetY - original_mouse_y) + 'px';
+                        }
+                    }
+
+
+
+                }
+
+                function stopResize() {
+                    window.removeEventListener('mousemove', resize)
+                }
+
+                div.appendChild(dots);
             },
         },
     });

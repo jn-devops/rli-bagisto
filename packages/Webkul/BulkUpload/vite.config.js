@@ -27,6 +27,9 @@ export default defineConfig(({ mode }) => {
                 hotFile: "../../../public/bulk-upload-vite.hot",
                 publicDirectory: "../../../public",
                 buildDirectory: "themes/bulk-upload/build",
+                input: [
+                    "src/Resources/assets/css/app.css",
+                ],
                 refresh: true,
             }),
         ],

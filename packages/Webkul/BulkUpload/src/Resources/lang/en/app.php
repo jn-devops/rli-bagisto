@@ -129,7 +129,7 @@ return [
                 'url'       => 'Url',
                 'product'   => 'Product',
                 'heading'   => 'Select Product',
-                'info'      => 'Select product and add flat details',
+                'info'      => 'click on product and add flat details',
             ],
         ],
     ],

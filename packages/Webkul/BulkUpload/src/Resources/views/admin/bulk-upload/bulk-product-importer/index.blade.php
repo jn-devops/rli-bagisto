@@ -8,24 +8,22 @@
     @pushOnce('scripts')
         <script type="text/x-template" id="v-create-bulk-product-template">
             <div>
-                <div class="flex justify-between items-center">
-                    <p class="text text-gray-800 dark:text-white font-bold">
+                <div class="flex  gap-[16px] justify-between items-center max-sm:flex-wrap">
+                    <p class="text-[20px] text-gray-800 dark:text-white font-bold">
                         @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.add-profile')
                     </p>
             
-                    <div class="flex gap-x-2.5 items-center">
-                        <div class="flex gap-x-2.5 items-center">
-                            <!-- Create a new Group -->
-                            @if (bouncer()->hasPermission('admin.bulk-upload.bulk-product-importer.index'))
-                                <button 
-                                    type="button"
-                                    class="primary-button"
-                                    @click="$refs.bulkProductUpdateOrCreateModal.open()"
-                                >
-                                    @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.add-profile')
-                                </button>
-                            @endif
-                        </div>
+                    <div class="flex gap-x-[10px] items-center">
+                        <!-- Create a new Group -->
+                        @if (bouncer()->hasPermission('admin.bulk-upload.bulk-product-importer.index'))
+                            <button 
+                                type="button"
+                                class="primary-button"
+                                @click="$refs.bulkProductUpdateOrCreateModal.open()"
+                            >
+                                @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.add-profile')
+                            </button>
+                        @endif
                     </div>
                 </div>
 
@@ -38,7 +36,7 @@
                     <template #body="{ columns, records, performAction, setCurrentSelectionMode, applied}">
                         <div
                             v-for="record in records"
-                            class="row grid gap-2.5 items-center px-4 py-4 border dark:border-gray-800 text-gray-600 dark:text-gray-300 transition-all hover:bg-gray-50 dark:hover:bg-gray-950"
+                            class="row grid gap-[10px] items-center px-[16px] py-[16px] border-b-[1px] dark:border-gray-800 text-gray-600 dark:text-gray-300 transition-all hover:bg-gray-50 dark:hover:bg-gray-950"
                             :style="'grid-template-columns: repeat(' + (record.actions.length ? 6 : 5) + ', 1fr);'"
                         >
                             @if ($hasPermission)
@@ -53,7 +51,7 @@
                                 >
 
                                 <label
-                                    class="icon-uncheckbox rounded text cursor-pointer peer-checked:icon-checked peer-checked:text-blue-600"
+                                    class="icon-uncheckbox rounded text cursor-pointer peer-checked:icon-checked peer-checked:text-blue-600 rounded-[6px] text-[24px]"
                                     :for="`mass_action_select_record_${record.id}`"
                                 >
                                 </label>
@@ -74,8 +72,8 @@
                             <div class="flex justify-end">
                                 <a @click="id=1; editModal(record)">
                                     <span
-                                        :class="record.actions.find(action => action.title === 'Edit')?.icon "
-                                        class="cursor-pointer rounded p-1.5 transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center icon-edit"
+                                        :class="record.actions.find(action => action.title === 'Edit')?.icon"
+                                        class="icon-edit cursor-pointer rounded-[6px] p-[6px] text-[24px] transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
                                         :title="record.actions.find(action => action.title === 'Edit')?.title"
                                     >
                                     </span>
@@ -84,12 +82,13 @@
                                 <a @click="performAction(record.actions.find(action => action.method === 'POST'))">
                                     <span
                                         :class="record.actions.find(action => action.method === 'POST')?.icon"
-                                        class="icon-delete cursor-pointer rounded p-1.5 transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
+                                        class="cursor-pointer rounded-[6px] p-[6px] text-[24px] transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
                                         :title="record.actions.find(action => action.method === 'POST')?.title"
                                     >
                                     </span>
                                 </a>
                             </div>
+                            
                         </div>
                     </template>
                 </x-admin::datagrid>
