@@ -152,7 +152,7 @@
 
         methods: {
             getImages(){
-                this.$axios.get("{{ route('shop.checkout.slot.index') }}")
+                this.$axios.get("{{ route('shop.checkout.bulkUpload.property.images') }}")
                     .then(response => {
                         this.flats = response.data.flats;
                     })
@@ -194,14 +194,14 @@
 
         methods: {
             getImage(){
-                this.$axios.get("{{ route('shop.checkout.slot.image') }}", {
+                this.$axios.get("{{ route('shop.checkout.bulkUpload.property.image') }}", {
                     params: {
                         product_id: this.productId,
                         imageUrl: this.imageUrl,
                     }
                 })
                 .then(response => {
-                    response.data.flats.forEach(flat => {
+                    response.data.slots.forEach(flat => {
                         var img = document.createElement("img");
 
                         img.src = flat.image_url;
@@ -228,11 +228,11 @@
                 div.style.position = 'absolute';
                 div.style.top = slot.y_coordinate + 'px';
                 div.style.left = slot.x_coordinate + 'px';
-                div.style.width = this.size;
-                div.style.height = this.size;
+                div.style.width = slot.width;
+                div.style.height = slot.height;
                 div.style.color = '#000';
-                div.style.border = '1px solid #8184b1';
-                div.style.backgroundColor = '#4b49a947';
+                div.style.border = '1px solid #7f84b114';
+                div.style.backgroundColor = '#7f84b114';
                 //div.textContent = slot.flat_numbers;
                 div.setAttribute('id', slot.slot_id);
 

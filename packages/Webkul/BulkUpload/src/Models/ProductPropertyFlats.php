@@ -16,10 +16,12 @@ class ProductPropertyFlats extends Model implements ProductPropertyFlatsContract
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-            'x_coordinate',
-            'y_coordinate',
-            'property_id',
-            'slot_id',
-            'flat_numbers',
+        'x_coordinate',
+        'y_coordinate',
+        'property_id',
+        'slot_id',
+        'flat_numbers',
+        'width',
+        'height',
     ];
 }

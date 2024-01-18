@@ -201,7 +201,6 @@
                 bcolor: '#292727',
                 size: '50px',
                 textColor: "#fffff",
-
                 flatsSlots: [],
             };
         },
@@ -212,7 +211,7 @@
             this.getSlots();
 
             this.$emitter.on('emitter-flats', (data) => {
-                console.log(data);
+                this.updateCoordinates(data);
             });
         },
 
@@ -222,6 +221,14 @@
                 this.flats.slot.x_coordinate = event.offsetX;
 
                 this.flats.slot.y_coordinate = event.offsetY;
+
+                this.flats.slot.slot_id = 0;
+
+                this.flats.slot.flat_numbers = null;
+
+                this.flats.slot.width = '50px';
+
+                this.flats.slot.height = '50px';
 
                 ++this.number;
 
@@ -305,8 +312,8 @@
                 div.style.position = 'absolute';
                 div.style.top = slot.y_coordinate + 'px';
                 div.style.left = slot.x_coordinate + 'px';
-                div.style.width = this.size;
-                div.style.height = this.size;
+                div.style.width = slot.width;
+                div.style.height = slot.height;
                 div.style.color = '#000';
                 div.style.border = '2px solid #4286f4';
                 div.style.backgroundColor = '#bb8a8a52';
@@ -314,12 +321,6 @@
                 div.setAttribute('id', 'resizable_' + slot_number);
 
                 div.setAttribute('class', 'slots resizable_' + slot_number);
-
-                div.addEventListener("dblclick", (e) => {
-                    this.flats.slot.slot_id = e.target.id;
-
-                    this.getSlot(this.flats.slot.slot_id);
-                });
 
                 this.makeResizableDiv('resizer top-left', div);
 
@@ -330,6 +331,16 @@
                 this.makeResizableDiv('resizer bottom-right', div);
 
                 this.dragSlots(div);
+
+                div.addEventListener("dblclick", (e) => {
+                    this.flats.slot.slot_id = e.target.id;
+                    this.flats.slot.width = e.target.style.width;
+                    this.flats.slot.height = e.target.style.height;
+                    this.flats.slot.x_coordinate = e.target.style.left.replace('px', '');
+                    this.flats.slot.y_coordinate = e.target.style.top.replace('px', '');
+
+                    this.getSlot(this.flats.slot.slot_id);
+                });
 
                 document.querySelector('#slot-image').after(div);
             },
@@ -353,13 +364,10 @@
 
                         drogClientY = e.clientY;
 
-                        document.onmouseup = closeDragElement;
+                        document.querySelector('#spotsCollection').onmouseup = closeDragElement;
                         
                         // call a function whenever the cursor moves:
-                        document.onmousemove = elementDrag;
-                        
-                        // call a function whenever the cursor stop:
-                        document.onmouseleave = elementDragEnd;
+                        document.querySelector('#spotsCollection').onmousemove = elementDrag;
                     }
                 }
 
@@ -384,34 +392,32 @@
                     self.flats.slot.x_coordinate = (div.offsetLeft - xDrogCoordinate);
 
                     self.flats.slot.y_coordinate = (div.offsetTop - yDrogCoordinate);
+                    
+                    self.flats.slot.width = e.target.style.width;
+
+                    self.flats.slot.height = e.target.style.height;
 
                     self.flats.slot.slot_id = e.target.id;
                 }
 
-                function elementDragEnd(e) {
-                    self.updateCoordinates(self.flats)
-                }
-
                 function closeDragElement() {
+                    self.$emitter.emit('emitter-flats', self.flats);
+
                     /* stop moving when mouse button is released:*/
-                    document.onmouseup = null;
-                    document.onmousemove = null;
+                    document.querySelector('#spotsCollection').onmouseup = null;
+                    document.querySelector('#spotsCollection').onmousemove = null;
                 }
             },
 
             updateCoordinates(params) {
+                setTimeout(() => {
+                    this.$axios.post("{{ route('admin.bulk-upload.product.url.slot.update') }}", params)
+                        .then(response => {
 
-                this.$emitter.emit('emitter-flats', params);
-                
-                // setTimeout(() => {
-                //     this.$axios.post("{{ route('admin.bulk-upload.product.url.slot.update') }}", params)
-                //         .then(response => {
-
-                //         }).catch(error => {
-                //             console.log(error);
-                //         });
-                // }, 1000);
-               
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                }, 1000);
             },
 
             // close form model
@@ -451,46 +457,60 @@
 
                         original_mouse_y = e.offsetY;
                        
-                        window.addEventListener('mousemove', resize);
+                        // set Slot Id
+                        self.flats.slot.slot_id = e.toElement.parentElement.id;
 
-                        window.addEventListener('mouseup', stopResize);
+                        // set Slot width
+                        self.flats.slot.width = e.toElement.parentElement.style.width;
+                        
+                        // set Slot height
+                        self.flats.slot.height = e.toElement.parentElement.style.height;
+
+                        // id
+                        self.flats.slot.slot_id = e.toElement.parentElement.id;
+
+                        // set Slot left
+                        self.flats.slot.x_coordinate = e.toElement.parentElement.style.left.replace('px', '');
+
+                        // set Slot top
+                        self.flats.slot.y_coordinate = e.toElement.parentElement.style.top.replace('px', '');
+
+                        document.querySelector('#spotsCollection').addEventListener('mousemove', resize);
+
+                        document.querySelector('#spotsCollection').addEventListener('mouseup', stopResize);
+
+                        self.$emitter.emit('emitter-flats', self.flats);
                     }
                 })
                 
                 function resize(dotSize) {
                     if (dots.classList.contains('bottom-right')) {
-                        console.log('bottom-right');
-
                         const width = original_width + (dotSize.offsetX - original_mouse_x);
                         
                         const height = original_height + (dotSize.offsetY - original_mouse_y);
 
                         if (width > minimum_size) {
-                            div.style.width = width + 'px';
+                            div.style.width = self.flats.slot.width = width + 'px';
                         }
 
                         if (height > minimum_size) {
-                            div.style.height = height + 'px';
+                            div.style.height = self.flats.slot.height = height + 'px';
                         }
 
-                        self.flats.slot.width = width;
-                        self.flats.slot.height = height;
-
-                        self.$emitter.emit('emitter-flats', self.flats);
-
+                        console.log('bottom-right');
                     } else if (dots.classList.contains('bottom-left')) {
                         console.log('bottom-left');
 
                         const height = original_height + (dotSize.offsetY - original_mouse_y);
 
-                        const width = original_width - (edotSize.offsetX - original_mouse_x);
+                        const width = original_width - (dotSize.offsetX - original_mouse_x);
 
                         if (height > minimum_size) {
-                            div.style.height = height + 'px';
+                            div.style.height = self.flats.slot.height = height + 'px';
                         }
 
                         if (width > minimum_size) {
-                            div.style.width = width + 'px';
+                            div.style.width =  self.flats.slot.width = width + 'px';
                             div.style.left = original_x + (dotSize.offsetX - original_mouse_x) + 'px';
                         }
 
@@ -502,11 +522,11 @@
                         const height = original_height - (dotSize.offsetY - original_mouse_y);
 
                         if (width > minimum_size) {
-                            div.style.width = width + 'px'
+                            div.style.width = self.flats.slot.width = width + 'px'
                         }
 
                         if (height > minimum_size) {
-                            div.style.height = height + 'px'
+                            div.style.height = self.flats.slot.height = height + 'px'
                             div.style.top = original_y + (dotSize.offsetY - original_mouse_y) + 'px'
                         }
 
@@ -518,22 +538,19 @@
                         const height = original_height - (dotSize.offsetY - original_mouse_y);
 
                         if (width > minimum_size) {
-                            div.style.width = width + 'px';
+                            div.style.width = self.flats.slot.width = width + 'px';
                             div.style.left = original_x + (dotSize.offsetX - original_mouse_x) + 'px';
                         }
 
                         if (height > minimum_size) {
-                            div.style.height = height + 'px';
+                            div.style.height = self.flats.slot.height = height + 'px';
                             div.style.top = original_y + (dotSize.offsetY - original_mouse_y) + 'px';
                         }
                     }
-
-
-
                 }
 
                 function stopResize() {
-                    window.removeEventListener('mousemove', resize)
+                    document.querySelector('#spotsCollection').removeEventListener('mousemove', resize);
                 }
 
                 div.appendChild(dots);
