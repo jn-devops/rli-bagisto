@@ -363,6 +363,7 @@ class UploadFileController extends Controller
                 continue;
             }
             
+
             foreach (json_decode($images['url_links']) as $image_key => $image) 
             {
                 $path = $image;
@@ -374,7 +375,6 @@ class UploadFileController extends Controller
                 $fileName = $images['sku'] .'_'. $image_key . '.' . $extension[0];
 
                 $imageZipName[] = $fileName;
-
                 Storage::put('imported-products/admin/images/'. $images['sku'] .'/'. $fileName, file_get_contents($path));
             }
         }
