@@ -87,31 +87,29 @@ class ReadProductUrlController extends Controller
             'product_id',
         ]);
 
-        $slot = $this->productPropertiesRepository->updateOrCreate([
+        $property = $this->productPropertiesRepository->updateOrCreate([
             'product_id' => $property['product_id'],
             'image_url'  => $property['image_url'],
         ], $property);
 
-        request()->request->add(['property_id' => $slot->id]);
-
-        $propertyFlats = request()->only([
-            'property_id',
-            'slot_id',
-            'flat_numbers',
-            'x_coordinate',
-            'y_coordinate',
-        ]);
+        $slot_id = str_replace('resizable_', '', request()->input('slot_id'));
 
         $propertyFlats = $this->productPropertyFlatsRepository->updateOrCreate([
-                'x_coordinate' => $propertyFlats['x_coordinate'],
-                'y_coordinate' => $propertyFlats['y_coordinate'],
-                'property_id'  => $propertyFlats['property_id'],
-                'slot_id'      => $propertyFlats['slot_id'],
-            ], $propertyFlats);
+                'x_coordinate' => request()->input('x_coordinate'),
+                'y_coordinate' => request()->input('y_coordinate'),
+                'property_id'  => $property->id,
+                'slot_id'      => $slot_id,
+            ], [
+                'property_id'  => $property->id,
+                'slot_id'      => $slot_id,
+                'flat_numbers' => request()->input('flat_numbers'),
+                'x_coordinate' => request()->input('x_coordinate'),
+                'y_coordinate' => request()->input('y_coordinate'),
+            ]);
 
         return new JsonResponse([
-            'slot'      => $propertyFlats,
-            'message'   => 'slot added successfully',
+            'slot'    => $propertyFlats,
+            'message' => 'slot added successfully',
         ]);
     }
 
@@ -172,27 +170,26 @@ class ReadProductUrlController extends Controller
             'slot.slot_id'      => 'required',
         ]);
 
-        $slot = [
+       $productProperties = $this->productPropertiesRepository->updateOrCreate([
             'product_id' => request()->input('product_id'),
             'image_url'  => request()->input('image_url'),
-            'slot'       => [
-                'x_coordinate' => request()->input('slot.x_coordinate'),
-                'y_coordinate' => request()->input('slot.y_coordinate'),
-                'slot_id'      => request()->input('slot.slot_id'),
-            ],
-        ];
-
-       $productProperties = $this->productPropertiesRepository->findOneByField([
+        ], [
             'product_id' => request()->input('product_id'),
             'image_url'  => request()->input('image_url'),
         ]);
 
-        return $this->productPropertyFlatsRepository->where([
-            'slot_id'     => request()->input('slot.slot_id'),
+        $slot_id = str_replace('resizable_', '', request()->input('slot.slot_id'));
+
+        return $this->productPropertyFlatsRepository->updateOrCreate([
+            'slot_id'     => (int)$slot_id,
             'property_id' => $productProperties->id,
-        ])->update([
+        ],[
+            'slot_id'      => (int)$slot_id,
+            'property_id'  => $productProperties->id,
             'x_coordinate' => request()->input('slot.x_coordinate'),
             'y_coordinate' => request()->input('slot.y_coordinate'),
+            'width'        => request()->input('slot.width'),
+            'height'       => request()->input('slot.height'),
         ]);
     }
 }

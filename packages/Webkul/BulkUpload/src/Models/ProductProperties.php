@@ -38,7 +38,7 @@ class ProductProperties extends Model implements ProductPropertiesContract
     public function slot(): HasOne
     {
         if(request('slot_id')) {
-            return $this->hasOne(ProductPropertyFlats::class, 'property_id')->where('slot_id', request('slot_id'));
+            return $this->hasOne(ProductPropertyFlats::class, 'property_id')->where('slot_id', str_replace('resizable_', '', request('slot_id')));
         }
 
         return $this->hasOne(ProductPropertyFlats::class, 'property_id');

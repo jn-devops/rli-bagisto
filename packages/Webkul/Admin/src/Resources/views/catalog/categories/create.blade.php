@@ -41,7 +41,7 @@
         <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
 
             {{-- Left Section --}}
-            <div class=" flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
+            <div class="flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
 
                 {!! view_render_event('bagisto.admin.catalog.categories.create.card.general.before') !!}
 

@@ -26,34 +26,35 @@ class OnepageCheckoutController extends APIController
     }
 
     /**
-     * Display a listing of the resource.
+     * Fetch properties on image.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         // process all product Ids
         $item = Cart::getCart()->items->pluck('product_id')->toArray();
 
-        $products = $this->productRepository
-                        ->with('variants')
-                        ->findWhereIn('id', $item);
+        $products = $this->productRepository->with('variants')->findWhereIn('id', $item);
 
         return new JsonResponse([
-            'flats' => $products->map( function ($product)  {
-                                return $this->productPropertiesRepository
-                                    ->with('slots')
-                                    ->findWhereIn('product_id', $product->variants->pluck('id')->toArray());
-    
-            }),
+            'flats' => $products->map( function ($product) {
+                        return $this->productPropertiesRepository
+                            ->with('slots')
+                            ->findWhereIn('product_id', $product->pluck('id')->toArray());
+                }),
         ]);
     }
 
-
+    /**
+     * Fetch slot on image
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function property()
     {
         return new JsonResponse([
-            'flats' => $this->productPropertiesRepository
+            'slots' => $this->productPropertiesRepository
                             ->with('slots')
                             ->where(['product_id' => request('product_id'), 'image_url' => request('imageUrl')])->get(),
         ]);

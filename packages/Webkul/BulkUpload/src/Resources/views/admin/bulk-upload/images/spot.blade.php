@@ -1,5 +1,7 @@
 <v-product-image-spot-url></v-product-image-spot-url>
 
+@bagistoVite(['src/Resources/assets/css/app.css'], 'bulk-upload')
+
 @pushOnce('scripts')
 
 <script type="text/x-template" id="v-product-image-spot-url-template">
@@ -19,25 +21,16 @@
         </div>
 
         <!-- Image Blade Component -->
-        <div class="flex flex-wrap gap-1">
-            <div class="grid justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group"
+        <div class="flex flex-wrap gap-[4px]">
+            <div class="grid gap-[8px] justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group cursor-pointer"
                 v-for="image in images"
                 >
                 <!-- Image Preview -->
                 <img
                     :src="image.url"
                     :style="{'width': '120px', 'height': '120px'}"
+                    @click="selectImage(image.url)"
                 />
-
-                <div class="flex flex-col justify-between invisible w-full p-3 bg-white dark:bg-gray-900 absolute top-0 bottom-0 opacity-80 transition-all group-hover:visible">
-                    <!-- Action -->
-                    <div class="flex justify-between">
-                        <span
-                            class="icon-edit text-2xl p-1.5 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
-                            @click="selectImage(image.url)"
-                        ></span>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -58,9 +51,10 @@
 
 <script  type="text/x-template" id="v-product-spot-template">
     <div
+        id="spotsCollection"
         class="mt-4" 
-        style="border: 1px solid red;"
-        >
+        style="border: 1px solid red; margin-top:10px;"
+    >
         <img
             :src="flats.image_url" 
             :alt="flats.image_url" 
@@ -86,7 +80,9 @@
                     <!--Model Content -->
                     <x-slot:content>
                         <!-- Flot Number -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group
+                            class="mb-[10px] justify-between p-[10px] dark:border-gray-800"
+                            >
                             <x-admin::form.control-group.label class="required">
                                 @lang('bulkupload::app.admin.bulk-upload.slot.flate')
                             </x-admin::form.control-group.label>
@@ -105,9 +101,9 @@
                         </x-admin::form.control-group>
 
                         <!-- x_coordinate Number -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="x_coordinate"
                                 rules="required"
                                 v-model="flats.slot.x_coordinate"
@@ -116,9 +112,9 @@
                         </x-admin::form.control-group>
 
                         <!-- y_coordinate Number -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="y_coordinate"
                                 rules="required"
                                 v-model="flats.slot.y_coordinate"
@@ -127,9 +123,9 @@
                         </x-admin::form.control-group>
 
                         <!-- Id -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="slot_id"
                                 rules="required"
                                 v-model="flats.slot.slot_id"
@@ -138,9 +134,9 @@
                         </x-admin::form.control-group>
 
                         <!-- Url -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="image_url"
                                 rules="required"
                                 v-model="flats.image_url"
@@ -149,9 +145,9 @@
                         </x-admin::form.control-group>
 
                         <!-- Product Id -->
-                        <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.control
-                                type="text"
+                                type="hidden"
                                 name="product_id"
                                 rules="required"
                                 v-model="flats.product_id"
@@ -163,7 +159,7 @@
 
                     <!-- Model Footer -->
                     <x-slot:footer>
-                        <div class="flex gap-x-2.5 items-center">
+                        <div class="flex gap-x-[10px] items-center">
                             <!-- Add Group Button -->
                             <button
                                 type="submit"
@@ -196,6 +192,8 @@
                         y_coordinate: 0,
                         slot_id: 0,
                         flat_numbers: null,
+                        width: '50px',
+                        height: '50px',
                     }
                 },
                 number: 0,
@@ -203,6 +201,7 @@
                 bcolor: '#292727',
                 size: '50px',
                 textColor: "#fffff",
+                flatsSlots: [],
             };
         },
 
@@ -210,6 +209,10 @@
             this.flats.image_url = this.imageUrl;
             
             this.getSlots();
+
+            this.$emitter.on('emitter-flats', (data) => {
+                this.updateCoordinates(data);
+            });
         },
 
         methods: {
@@ -218,6 +221,14 @@
                 this.flats.slot.x_coordinate = event.offsetX;
 
                 this.flats.slot.y_coordinate = event.offsetY;
+
+                this.flats.slot.slot_id = 0;
+
+                this.flats.slot.flat_numbers = null;
+
+                this.flats.slot.width = '50px';
+
+                this.flats.slot.height = '50px';
 
                 ++this.number;
 
@@ -301,23 +312,35 @@
                 div.style.position = 'absolute';
                 div.style.top = slot.y_coordinate + 'px';
                 div.style.left = slot.x_coordinate + 'px';
-                div.style.width = this.size;
-                div.style.height = this.size;
+                div.style.width = slot.width;
+                div.style.height = slot.height;
                 div.style.color = '#000';
-                div.style.border = '2px solid red';
+                div.style.border = '2px solid #4286f4';
                 div.style.backgroundColor = '#bb8a8a52';
                 div.textContent = slot.flat_numbers ?? slot_number;
-                div.setAttribute('id', slot_number);
-               // div.setAttribute('draggable', true);
-                div.setAttribute('class', 'slots');
+                div.setAttribute('id', 'resizable_' + slot_number);
+
+                div.setAttribute('class', 'slots resizable_' + slot_number);
+
+                this.makeResizableDiv('resizer top-left', div);
+
+                this.makeResizableDiv('resizer top-right', div);
+
+                this.makeResizableDiv('resizer bottom-left', div);
+
+                this.makeResizableDiv('resizer bottom-right', div);
+
+                this.dragSlots(div);
 
                 div.addEventListener("dblclick", (e) => {
                     this.flats.slot.slot_id = e.target.id;
+                    this.flats.slot.width = e.target.style.width;
+                    this.flats.slot.height = e.target.style.height;
+                    this.flats.slot.x_coordinate = e.target.style.left.replace('px', '');
+                    this.flats.slot.y_coordinate = e.target.style.top.replace('px', '');
 
                     this.getSlot(this.flats.slot.slot_id);
                 });
-
-                this.dragSlots(div);
 
                 document.querySelector('#slot-image').after(div);
             },
@@ -330,22 +353,22 @@
                 div.onmousedown = dragMouseDown;
 
                 function dragMouseDown(e) {
-                    e = e || window.event;
-                    
-                    e.preventDefault();
+                    // Box drag with out ctrl Key.
+                    if(! e.ctrlKey) {
+                        e = e || window.event;
+                        
+                        e.preventDefault();
 
-                    // get the mouse cursor position at startup:
-                    drogClientX = e.clientX;
+                        // get the mouse cursor position at startup:
+                        drogClientX = e.clientX;
 
-                    drogClientY = e.clientY;
+                        drogClientY = e.clientY;
 
-                    document.onmouseup = closeDragElement;
-
-                    // call a function whenever the cursor moves:
-                    document.onmousemove = elementDrag;
-                    
-                    // call a function whenever the cursor stop:
-                    document.onmouseleave = elementDragEnd;
+                        document.querySelector('#spotsCollection').onmouseup = closeDragElement;
+                        
+                        // call a function whenever the cursor moves:
+                        document.querySelector('#spotsCollection').onmousemove = elementDrag;
+                    }
                 }
 
                 function elementDrag(e) {
@@ -369,18 +392,20 @@
                     self.flats.slot.x_coordinate = (div.offsetLeft - xDrogCoordinate);
 
                     self.flats.slot.y_coordinate = (div.offsetTop - yDrogCoordinate);
+                    
+                    self.flats.slot.width = e.target.style.width;
+
+                    self.flats.slot.height = e.target.style.height;
 
                     self.flats.slot.slot_id = e.target.id;
                 }
 
-                function elementDragEnd(e) {
-                    self.updateCoordinates(self.flats)
-                }
-
                 function closeDragElement() {
+                    self.$emitter.emit('emitter-flats', self.flats);
+
                     /* stop moving when mouse button is released:*/
-                    document.onmouseup = null;
-                    document.onmousemove = null;
+                    document.querySelector('#spotsCollection').onmouseup = null;
+                    document.querySelector('#spotsCollection').onmousemove = null;
                 }
             },
 
@@ -393,12 +418,142 @@
                             console.log(error);
                         });
                 }, 1000);
-               
             },
 
             // close form model
             closeModal() {
                 this.$refs.addSpotModal.close();
+            },
+
+            makeResizableDiv(classNames, div) {
+                let self = this;
+
+                var dots = document.createElement("div");
+                
+                dots.setAttribute('class', classNames);
+
+                const minimum_size = 20;
+                let original_width = 0;
+                let original_height = 0;
+                let original_x = 0;
+                let original_y = 0;
+                let original_mouse_x = 0;
+                let original_mouse_y = 0;
+
+                dots.addEventListener('mousedown', function(e) {
+                    // Zoom move with ctrl Key
+                    if(e.ctrlKey) {
+                        e.preventDefault();
+
+                        original_width = parseFloat(getComputedStyle(dots, null).getPropertyValue('width').replace('px', ''));
+
+                        original_height = parseFloat(getComputedStyle(dots, null).getPropertyValue('height').replace('px', ''));
+
+                        original_x = dots.getBoundingClientRect().left;
+
+                        original_y = dots.getBoundingClientRect().top;
+
+                        original_mouse_x = e.offsetX;
+
+                        original_mouse_y = e.offsetY;
+                       
+                        // set Slot Id
+                        self.flats.slot.slot_id = e.toElement.parentElement.id;
+
+                        // set Slot width
+                        self.flats.slot.width = e.toElement.parentElement.style.width;
+                        
+                        // set Slot height
+                        self.flats.slot.height = e.toElement.parentElement.style.height;
+
+                        // id
+                        self.flats.slot.slot_id = e.toElement.parentElement.id;
+
+                        // set Slot left
+                        self.flats.slot.x_coordinate = e.toElement.parentElement.style.left.replace('px', '');
+
+                        // set Slot top
+                        self.flats.slot.y_coordinate = e.toElement.parentElement.style.top.replace('px', '');
+
+                        document.querySelector('#spotsCollection').addEventListener('mousemove', resize);
+
+                        document.querySelector('#spotsCollection').addEventListener('mouseup', stopResize);
+
+                        self.$emitter.emit('emitter-flats', self.flats);
+                    }
+                })
+                
+                function resize(dotSize) {
+                    if (dots.classList.contains('bottom-right')) {
+                        const width = original_width + (dotSize.offsetX - original_mouse_x);
+                        
+                        const height = original_height + (dotSize.offsetY - original_mouse_y);
+
+                        if (width > minimum_size) {
+                            div.style.width = self.flats.slot.width = width + 'px';
+                        }
+
+                        if (height > minimum_size) {
+                            div.style.height = self.flats.slot.height = height + 'px';
+                        }
+
+                        console.log('bottom-right');
+                    } else if (dots.classList.contains('bottom-left')) {
+                        console.log('bottom-left');
+
+                        const height = original_height + (dotSize.offsetY - original_mouse_y);
+
+                        const width = original_width - (dotSize.offsetX - original_mouse_x);
+
+                        if (height > minimum_size) {
+                            div.style.height = self.flats.slot.height = height + 'px';
+                        }
+
+                        if (width > minimum_size) {
+                            div.style.width =  self.flats.slot.width = width + 'px';
+                            div.style.left = original_x + (dotSize.offsetX - original_mouse_x) + 'px';
+                        }
+
+                    } else if (dots.classList.contains('top-right')) {
+                        console.log('top-right');
+
+                        const width = original_width + (dotSize.offsetX - original_mouse_x);
+
+                        const height = original_height - (dotSize.offsetY - original_mouse_y);
+
+                        if (width > minimum_size) {
+                            div.style.width = self.flats.slot.width = width + 'px'
+                        }
+
+                        if (height > minimum_size) {
+                            div.style.height = self.flats.slot.height = height + 'px'
+                            div.style.top = original_y + (dotSize.offsetY - original_mouse_y) + 'px'
+                        }
+
+                    } else {
+                        console.log('top-left');
+
+                        const width = original_width - (dotSize.offsetX - original_mouse_x);
+
+                        const height = original_height - (dotSize.offsetY - original_mouse_y);
+
+                        if (width > minimum_size) {
+                            div.style.width = self.flats.slot.width = width + 'px';
+                            div.style.left = original_x + (dotSize.offsetX - original_mouse_x) + 'px';
+                        }
+
+                        if (height > minimum_size) {
+                            div.style.height = self.flats.slot.height = height + 'px';
+                            div.style.top = original_y + (dotSize.offsetY - original_mouse_y) + 'px';
+                        }
+                    }
+                }
+
+                function stopResize() {
+                    document.querySelector('#spotsCollection').removeEventListener('mousemove', resize);
+                }
+
+                div.appendChild(dots);
             },
         },
     });
