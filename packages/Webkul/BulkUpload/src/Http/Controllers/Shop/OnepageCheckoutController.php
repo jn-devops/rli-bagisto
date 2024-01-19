@@ -3,9 +3,12 @@
 namespace Webkul\BulkUpload\Http\Controllers\Shop;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Checkout\Facades\Cart;
-use Webkul\Shop\Http\Controllers\API\APIController;
+use Webkul\Payment\Facades\Payment;
+use Webkul\Shop\Http\Resources\CartResource;
 use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Shop\Http\Controllers\API\APIController;
 use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
 
 class OnepageCheckoutController extends APIController
@@ -58,5 +61,42 @@ class OnepageCheckoutController extends APIController
                             ->with('slots')
                             ->where(['product_id' => request('product_id'), 'image_url' => request('imageUrl')])->get(),
         ]);
+    }
+
+    /**
+     * Store customer authentication.
+     */
+    public function authentication(): JsonResource
+    {
+        if (
+            ! auth()->guard('customer')->check()
+            && ! Cart::getCart()->hasGuestCheckoutItems()
+        ) {
+            return new JsonResource([
+                'redirect' => true,
+                'data'     => route('shop.customer.session.index'),
+            ]);
+        }
+
+        return new JsonResource([
+            'redirect' => false,
+            'data'     => Payment::getSupportedPaymentMethods(),
+        ]);
+    }
+
+    /**
+     * processing fee appling.
+     */
+    public function processingApply()
+    {
+        // $cart = new CartResource(Cart::getCart());
+        // dd($cart->grand_total, request()->all());
+
+        // Cart::setCouponCode($couponCode)->collectTotals();
+
+        // return new JsonResource([
+        //     'data'     => new CartResource(Cart::getCart()),
+        //     'message'  => trans('shop::app.checkout.cart.coupon.success-apply'),
+        // ]);
     }
 }

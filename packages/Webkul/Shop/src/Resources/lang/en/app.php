@@ -640,7 +640,7 @@ return [
             ],
 
             'summary' => [
-                'cart-summary'        => 'Cart Summary',
+                'cart-summary'        => 'Reservation',
                 'delivery-charges'    => 'Delivery Charges',
                 'discount-amount'     => 'Discount Amount',
                 'grand-total'         => 'Grand Total',
@@ -726,13 +726,13 @@ return [
             ],
 
             'summary' => [
-                'cart-summary'     => 'Cart Summary',
+                'cart-summary'     => 'Reservation',
                 'delivery-charges' => 'Delivery Charges',
                 'discount-amount'  => 'Discount Amount',
                 'grand-total'      => 'Grand Total',
                 'place-order'      => 'Place Order',
                 'processing'       => 'Processing',
-                'sub-total'        => 'Subtotal',
+                'sub-total'        => 'Total Contract Price',
                 'tax'              => 'Tax',
             ],
         ],

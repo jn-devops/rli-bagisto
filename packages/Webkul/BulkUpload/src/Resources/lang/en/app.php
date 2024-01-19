@@ -140,6 +140,9 @@ return [
                 'title'          => 'Propery Map',
                 'code'           => 'Property Code',
                 'authentication' => 'Authentication',
+                'onepage'        => [
+                    'processing_fee' => 'Processing Fee',
+                ]
             ],
         ],
     ],

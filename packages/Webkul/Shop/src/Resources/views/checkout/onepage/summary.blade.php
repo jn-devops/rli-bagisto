@@ -43,7 +43,7 @@
                             </p>
 
                             <p class="mt-[10px] text-[18px] font-medium max-sm:text-[14px] max-sm:font-normal">
-                                @{{ item.formatted_price }} X @{{ item.quantity }}
+                                @{{ item.formatted_price }}
                             </p>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
 
                     <div 
                         class="flex text-right justify-between"
-                        v-if="cart.selected_shipping_rate"
+                        v-if="! cart.selected_shipping_rate"
                     >
                         <p class="text-[16px]">
                             @lang('shop::app.checkout.onepage.summary.delivery-charges')
@@ -109,6 +109,8 @@
                     </div>
 
                     @include('shop::checkout.onepage.coupon')
+
+                    @include('bulkupload::shop.bulk-upload.checkout.onepage.index')
 
                     <div class="flex text-right justify-between">
                         <p class="text-[18px] font-semibold">
