@@ -230,10 +230,9 @@
                                 @lang('admin::app.sales.orders.view.summary-tax')
                             </p>
 
-                            @if ($haveStockableItems = $order->haveStockableItems())
-                                <p class="text-gray-600 dark:text-gray-300">
-                                    @lang('admin::app.sales.orders.view.shipping-and-handling')</p>
-                            @endif
+                            <p class="text-gray-600 dark:text-gray-300">
+                                @lang('bulkupload::app.shop.bulk-upload.checkout.onepage.processing_fee')
+                            </p>
 
                             <p class="text-[16px] text-gray-800 dark:text-white font-semibold">
                                 @lang('admin::app.sales.orders.view.summary-grand-total')
@@ -251,7 +250,8 @@
                                 @lang('admin::app.sales.orders.view.total-due')
                             </p>
                         </div>
-                        <div class="flex  flex-col gap-y-[6px]">
+
+                        <div class="flex flex-col gap-y-[6px]">
                             <p class="text-gray-600 dark:text-gray-300  font-semibold">
                                 {{ core()->formatBasePrice($order->base_sub_total) }}
                             </p>
@@ -260,11 +260,9 @@
                                 {{ core()->formatBasePrice($order->base_tax_amount) }}
                             </p>
 
-                            @if ($haveStockableItems)
-                                <p class="text-gray-600 dark:text-gray-300">
-                                    {{ core()->formatBasePrice($order->base_shipping_amount) }}
-                                </p>
-                            @endif
+                            <p class="text-gray-600 dark:text-gray-300">
+                                {{ core()->formatBasePrice($order->processing_fee) }}
+                            </p>
 
                             <p class="text-[16px] text-gray-800 dark:text-white font-semibold">
                                 {{ core()->formatBasePrice($order->base_grand_total) }}

@@ -66,7 +66,7 @@ class ShipmentController extends Controller
     {
         $order = $this->orderRepository->findOrFail($orderId);
 
-        if (!$order->canShip()) {
+        if (! $order->canShip()) {
             session()->flash('error', trans('admin::app.sales.shipments.create.order-error'));
 
             return redirect()->back();

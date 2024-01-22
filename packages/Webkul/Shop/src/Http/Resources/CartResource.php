@@ -24,6 +24,7 @@ class CartResource extends JsonResource
             'items_count'                    => $this->items_count,
             'items_qty'                      => $this->items_qty,
             'grand_total'                    => $this->grand_total,
+            'processing_fee'                 => core()->currency($this->processing_fee * $this->items_qty),
             'base_sub_total'                 => core()->currency($this->base_sub_total),
             'base_tax_total'                 => $this->base_tax_total,
             'base_tax_amounts'               => $taxes,

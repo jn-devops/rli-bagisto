@@ -15,14 +15,14 @@
             >
                 <span class="icon-cancel text-[24px]"></span> 
 
-                @lang('admin::app.sales.orders.view.refund')     
+                @lang('admin::app.sales.orders.view.refund')
             </div>
 
             <!-- refund Create Drawer -->
             <x-admin::form  
                 method="POST"
                 :action="route('admin.sales.refunds.store', $order->id)"
-            >
+                >
                 <x-admin::drawer ref="refund">
                     <!-- Drawer Header -->
                     <x-slot:header>
@@ -187,7 +187,7 @@
                                                         <p class="text-gray-600 dark:text-gray-300"> 
                                                             {{ core()->formatBasePrice($item->base_tax_amount) }} 
                                                         </p>
-
+                                                        
                                                         @if ($order->base_discount_amount > 0)
                                                             <p class="text-gray-600 dark:text-gray-300"> 
                                                                 {{ core()->formatBasePrice($item->base_discount_amount) }}

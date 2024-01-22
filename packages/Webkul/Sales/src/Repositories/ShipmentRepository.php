@@ -56,7 +56,7 @@ class ShipmentRepository extends Repository
             Event::dispatch('sales.shipment.save.before', $data);
 
             $order = $this->orderRepository->find($data['order_id']);
-
+  
             $shipment = $this->model->create([
                 'order_id'            => $order->id,
                 'total_qty'           => 0,
@@ -65,7 +65,7 @@ class ShipmentRepository extends Repository
                 'track_number'        => $data['shipment']['track_number'],
                 'customer_id'         => $order->customer_id,
                 'customer_type'       => $order->customer_type,
-                'order_address_id'    => $order->shipping_address->id,
+                'order_address_id'    => $order->shipping_address->id ?? 0,
                 'inventory_source_id' => $data['shipment']['source'],
             ]);
 
@@ -84,19 +84,20 @@ class ShipmentRepository extends Repository
                 $totalWeight += $orderItem->weight * $qty;
 
                 $this->shipmentItemRepository->create([
-                    'shipment_id'   => $shipment->id,
-                    'order_item_id' => $orderItem->id,
-                    'name'          => $orderItem->name,
-                    'sku'           => $orderItem->getTypeInstance()->getOrderedItem($orderItem)->sku,
-                    'qty'           => $qty,
-                    'weight'        => $orderItem->weight * $qty,
-                    'price'         => $orderItem->price,
-                    'base_price'    => $orderItem->base_price,
-                    'total'         => $orderItem->price * $qty,
-                    'base_total'    => $orderItem->base_price * $qty,
-                    'product_id'    => $orderItem->product_id,
-                    'product_type'  => $orderItem->product_type,
-                    'additional'    => $orderItem->additional,
+                    'shipment_id'    => $shipment->id,
+                    'order_item_id'  => $orderItem->id,
+                    'name'           => $orderItem->name,
+                    'sku'            => $orderItem->getTypeInstance()->getOrderedItem($orderItem)->sku,
+                    'qty'            => $qty,
+                    'weight'         => $orderItem->weight * $qty,
+                    'price'          => $orderItem->price,
+                    'processing_fee' => $orderItem->processing_fee,
+                    'base_price'     => $orderItem->base_price,
+                    'total'          => ($orderItem->price + $orderItem->processing_fee) * $qty,
+                    'base_total'     => $orderItem->base_price * $qty,
+                    'product_id'     => $orderItem->product_id,
+                    'product_type'   => $orderItem->product_type,
+                    'additional'     => $orderItem->additional,
                 ]);
 
                 if ($orderItem->getTypeInstance()->isComposite()) {

@@ -171,8 +171,6 @@
             },
 
             handlePropertyForm($event) {
-                console.log($event);
-
                 this.$axios.post('{{ route("shop.checkout.authentication.store") }}', {
                     isAuthenticate: true
                 })

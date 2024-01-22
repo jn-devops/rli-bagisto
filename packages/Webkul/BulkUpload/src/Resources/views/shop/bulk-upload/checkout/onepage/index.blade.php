@@ -1,6 +1,6 @@
 
 <v-processing 
-    :sub-total="cart.base_grand_total"
+    :processing-fee="cart.processing_fee"
 ></v-processing>
 
 
@@ -13,7 +13,7 @@
 
         <p 
             class="text-[18px]"
-            v-text="'₱ 20000'"
+            v-text="processingFee"
         >
         </p>
     </div>
@@ -24,56 +24,7 @@
     app.component('v-processing', {
         template: '#v-processing-template',
         
-        props: ['subTotal'],
-
-        data() {
-            return {
-                code: '',
-            }
-        },
-
-        mounted() {
-            this.applyCoupon();
-        },
-
-        methods: {
-            applyCoupon() {
-                console.log(this.subTotal);
-
-                    this.$axios.post("{{ route('shop.api.checkout.cart.processing.apply') }}", {
-                            subTotal: this.subTotal,
-                        }
-                    )
-                    .then((response) => {
-                    })
-                    .catch((error) => {
-                    });
-
-                // this.$axios.post("{{ route('shop.api.checkout.cart.coupon.apply') }}", params)
-                //     .then((response) => {
-                //         this.$parent.$parent.getOrderSummary();
-
-                //         this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
-
-                //         this.$refs.couponModel.toggle();
-
-                //         resetForm();
-                //     })
-                //     .catch((error) => {
-                //         if ([400, 422].includes(error.response.request.status)) {
-                //             this.$emitter.emit('add-flash', { type: 'warning', message: error.response.data.message });
-
-                //             this.$refs.couponModel.toggle();
-
-                //             return;
-                //         }
-
-                //         this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
-
-                //         this.$refs.couponModel.toggle();
-                //     });
-            },
-        }
+        props: ['processingFee'],
     })
 </script>
 @endPushOnce
