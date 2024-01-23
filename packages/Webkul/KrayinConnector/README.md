@@ -62,7 +62,7 @@ A webhook is a way for an app to provide information to another app about a part
 When setting up, it's common to generate, store, and share a secret between your app and the app that wants to receive webhooks.
 
 ~~~ php
-$data = 'X-Krayin-Signature'; 
+$data = 'X-Krayin-Bagisto-Signature'; 
 $secret = 'krayin123';
 
 $signature = hash_hmac('sha256', $data, $secret);
@@ -73,6 +73,6 @@ $signature = hash_hmac('sha256', $data, $secret);
 For development purposes we are giving direct hash but in production we should compute.
 
 ~~~ headers
-X-Krayin-Signature : 83bdbbc385f0d59aa2b944305e598789d54aa8103136a657644c1e6934dde8f8 // signature value
+X-Krayin-Bagisto-Signature : 2b91413f1c973ca506c64f0894790aca4d08697d136c959fb485c0e5c11670ab // signature value
 Accept            : application/json
 ~~~

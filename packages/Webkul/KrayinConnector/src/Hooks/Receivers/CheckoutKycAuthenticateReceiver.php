@@ -4,7 +4,7 @@ namespace Webkul\KrayinConnector\Hooks\Receivers;
 
 use Illuminate\Support\Facades\Log;
 
-class ProductReceiver
+class CheckoutKycAuthenticateReceiver
 {
     /**
      * Create account.

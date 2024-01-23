@@ -18,6 +18,8 @@ class KrayinConnectorServiceProvider extends ServiceProvider
     {
         include __DIR__ . '/../Http/helpers.php';
 
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
+        
         $this->publishes([
             dirname(__DIR__) . '/Config/webhook-client.php' => config_path('webhook-client.php'),
             dirname(__DIR__) . '/Config/webhook-server.php' => config_path('webhook-server.php'),

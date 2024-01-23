@@ -2,8 +2,7 @@
 
 namespace Webkul\KrayinConnector\Jobs;
 
-use Illuminate\Support\Facades\Log;
-use Webkul\KrayinConnector\Hooks\Receivers\ProductReceiver;
+use Webkul\KrayinConnector\Hooks\Receivers\CheckoutKycAuthenticateReceiver;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as BaseProcessWebhookJob;
 
 class ProcessReceiverJob extends BaseProcessWebhookJob
@@ -16,21 +15,19 @@ class ProcessReceiverJob extends BaseProcessWebhookJob
     public function handle()
     {
         $payload = $this->webhookCall->payload;
-        
-        Log::info($payload);
 
-        // switch ($payload['api_entity_type']) {
-        //     case 'product.update':
-        //         try {
-        //             ProductReceiver::create($payload);
-        //         } catch(\Exception $exception) {
-        //             $this->exceptionResponse($exception, $payload['api_entity_type']);
-        //         }
+        switch ($payload['entity_type']) {
+            case 'checkout.property.kyc.authenticate.after':
+                try {
+                    CheckoutKycAuthenticateReceiver::create($payload);
+                } catch(\Exception $exception) {
+                    $this->exceptionResponse($exception, $payload['entity_type']);
+                }
                 
-        //         break;
-        //     default:
-        //         break;
-        // }
+                break;
+            default:
+                break;
+        }
     }
 
     /**
