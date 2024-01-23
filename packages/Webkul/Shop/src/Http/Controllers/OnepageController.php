@@ -43,7 +43,7 @@ class OnepageController extends Controller
         }
 
         $cart = Cart::getCart();
-
+        
         /**
          * If cart is has downloadable items and customer is not logged in
          * then redirect back to the cart page

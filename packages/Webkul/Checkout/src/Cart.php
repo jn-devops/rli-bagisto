@@ -2,22 +2,25 @@
 
 namespace Webkul\Checkout;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Arr;
-use Webkul\Checkout\Traits\CartValidators;
+use Webkul\Tax\Helpers\Tax;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Event;
 use Webkul\Checkout\Traits\CartTools;
+use Webkul\Shipping\Facades\Shipping;
+use Webkul\Checkout\Models\CartAddress;
+use Webkul\Checkout\Models\CartPayment;
 use Webkul\Checkout\Traits\CartCoupons;
+use Webkul\Checkout\Traits\CartValidators;
 use Webkul\Checkout\Repositories\CartRepository;
-use Webkul\Checkout\Repositories\CartItemRepository;
-use Webkul\Customer\Repositories\CustomerAddressRepository;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Tax\Repositories\TaxCategoryRepository;
+use Webkul\Checkout\Repositories\CartItemRepository;
 use Webkul\Customer\Repositories\WishlistRepository;
+use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Checkout\Repositories\CartAddressRepository;
-use Webkul\Shipping\Facades\Shipping;
-use Webkul\Checkout\Models\CartPayment;
-use Webkul\Checkout\Models\CartAddress;
-use Webkul\Tax\Helpers\Tax;
+use Webkul\Customer\Repositories\CustomerAddressRepository;
+use Webkul\Product\Repositories\ProductAttributeValueRepository;
 
 class Cart
 {
@@ -207,7 +210,7 @@ class Cart
         }
 
         $cartProducts = $product->getTypeInstance()->prepareForCart($data);
-
+        
         if (is_string($cartProducts)) {
             if (! $cart->all_items->count()) {
                 $this->removeCart($cart);
@@ -250,7 +253,7 @@ class Cart
         Event::dispatch('checkout.cart.add.after', $cart);
 
         $this->collectTotals();
-
+        
         return $this->getCart();
     }
 
@@ -311,6 +314,7 @@ class Cart
      */
     public function updateItems($data)
     {
+        Log::info($data);
         foreach ($data['qty'] as $itemId => $quantity) {
             $item = $this->cartItemRepository->find($itemId);
 
@@ -456,8 +460,8 @@ class Cart
 
     /**
      * Updates cart totals.
-     *
-     * @return void
+     * 
+     * @param array $data
      */
     public function collectTotals(): void
     {
@@ -483,15 +487,27 @@ class Cart
         $cart->tax_total = $cart->base_tax_total = 0;
         $cart->discount_amount = $cart->base_discount_amount = 0;
 
-        $quantities = 0;
+        $cart->processing_fee = 0;
 
+        $quantities = 0;
+        
         foreach ($cart->items as $item) {
             $cart->discount_amount += $item->discount_amount;
             $cart->base_discount_amount += $item->base_discount_amount;
-
+           
             $cart->sub_total = (float) $cart->sub_total + $item->total;
             $cart->base_sub_total = (float) $cart->base_sub_total + $item->base_total;
 
+            $attribute = app(AttributeRepository::class)->findOneByField('code', 'processing_fee');
+
+            $attributeValue = app(ProductAttributeValueRepository::class)
+                                    ->findOneWhere([
+                                        'product_id'   => $item->additional['selected_configurable_option'],
+                                        'attribute_id' => $attribute->id
+                                    ]);
+
+            $cart->processing_fee += $cart->processing_fee + (float)$attributeValue->float_value;
+            
             $quantities += $item->quantity;
         }
 
@@ -501,9 +517,9 @@ class Cart
 
         $cart->tax_total = Tax::getTaxTotal($cart, false);
         $cart->base_tax_total = Tax::getTaxTotal($cart, true);
-
-        $cart->grand_total = $cart->sub_total + $cart->tax_total - $cart->discount_amount;
-        $cart->base_grand_total = $cart->base_sub_total + $cart->base_tax_total - $cart->base_discount_amount;
+       
+        $cart->grand_total = $cart->sub_total + $cart->tax_total + ($cart->processing_fee ?? 0) - $cart->discount_amount;
+        $cart->base_grand_total = $cart->base_sub_total + $cart->base_tax_total + ($cart->processing_fee ?? 0) - $cart->base_discount_amount;
 
         if ($shipping = $cart->selected_shipping_rate) {
             $cart->grand_total = (float) $cart->grand_total + $shipping->price - $shipping->discount_amount;
@@ -523,7 +539,7 @@ class Cart
         $cart->base_grand_total = round($cart->base_grand_total, 2);
 
         $cart->cart_currency_code = core()->getCurrentCurrencyCode();
-
+     
         $cart->save();
 
         Event::dispatch('checkout.cart.collect.totals.after', $cart);
@@ -803,6 +819,7 @@ class Cart
             'channel_currency_code' => $data['channel_currency_code'],
             'order_currency_code'   => $data['cart_currency_code'],
             'grand_total'           => $data['grand_total'],
+            'processing_fee'        => ($this->getCart()->processing_fee * $data['items_qty']),
             'base_grand_total'      => $data['base_grand_total'],
             'sub_total'             => $data['sub_total'],
             'base_sub_total'        => $data['base_sub_total'],
@@ -817,18 +834,21 @@ class Cart
             'channel'               => core()->getCurrentChannel(),
         ];
 
-        if ($this->getCart()->haveStockableItems()) {
-            $finalData = array_merge($finalData, [
-                'shipping_method'               => $data['selected_shipping_rate']['method'],
-                'shipping_title'                => $data['selected_shipping_rate']['carrier_title'] . ' - ' . $data['selected_shipping_rate']['method_title'],
-                'shipping_description'          => $data['selected_shipping_rate']['method_description'],
-                'shipping_amount'               => $data['selected_shipping_rate']['price'],
-                'base_shipping_amount'          => $data['selected_shipping_rate']['base_price'],
-                'shipping_address'              => Arr::except($data['shipping_address'], ['id', 'cart_id']),
-                'shipping_discount_amount'      => $data['selected_shipping_rate']['discount_amount'],
-                'base_shipping_discount_amount' => $data['selected_shipping_rate']['base_discount_amount'],
-            ]);
-        }
+        /**
+         * Avoid for customization requiment.
+         */
+        // if ($this->getCart()->haveStockableItems()) {
+        //     $finalData = array_merge($finalData, [
+        //         'shipping_method'               => $data['selected_shipping_rate']['method'],
+        //         'shipping_title'                => $data['selected_shipping_rate']['carrier_title'] . ' - ' . $data['selected_shipping_rate']['method_title'],
+        //         'shipping_description'          => $data['selected_shipping_rate']['method_description'],
+        //         'shipping_amount'               => $data['selected_shipping_rate']['price'],
+        //         'base_shipping_amount'          => $data['selected_shipping_rate']['base_price'],
+        //         'shipping_address'              => Arr::except($data['shipping_address'], ['id', 'cart_id']),
+        //         'shipping_discount_amount'      => $data['selected_shipping_rate']['discount_amount'],
+        //         'base_shipping_discount_amount' => $data['selected_shipping_rate']['base_discount_amount'],
+        //     ]);
+        // }
 
         foreach ($data['items'] as $item) {
             $finalData['items'][] = $this->prepareDataForOrderItem($item);
@@ -861,6 +881,7 @@ class Cart
             'base_price'           => $data['base_price'],
             'total'                => $data['total'],
             'base_total'           => $data['base_total'],
+            'processing_fee'       => $this->getCart()->processing_fee,
             'tax_percent'          => $data['tax_percent'],
             'tax_amount'           => $data['tax_amount'],
             'base_tax_amount'      => $data['base_tax_amount'],
@@ -899,10 +920,10 @@ class Cart
 
         $data = $cart->toArray();
 
-        $data['billing_address'] = $cart->billing_address->toArray();
+        $data['billing_address'] = $cart->billing_address?->toArray() ?? [];
 
         if ($cart->haveStockableItems()) {
-            $data['shipping_address'] = $cart->shipping_address->toArray();
+            $data['shipping_address'] = $cart->shipping_address?->toArray() ?? [];
 
             $data['selected_shipping_rate'] = $cart->selected_shipping_rate?->toArray() ?? 0;
         }

@@ -92,12 +92,13 @@
                                 <!-- Option Details -->
                                 <div class="grid gap-[8px]" v-show="item.option_show">
                                     <div class="" v-for="option in item.options">
-                                        <p class="text-[14px] font-medium">
-                                            @{{ option.attribute_name + ':' }}
-                                        </p>
-
                                         <p class="text-[14px]">
-                                            @{{ option.option_label }}
+                                            <span class="font-medium">
+                                                @{{ option.attribute_name + ': ' }} 
+                                            </span>
+                                            <span>
+                                                @{{ option.option_label }}
+                                            </span>
                                         </p>
                                     </div>
 
@@ -105,15 +106,6 @@
                             </div>
 
                             <div class="flex gap-[20px] items-center flex-wrap">
-
-                                <!-- Cart Item Quantity Changer -->
-                                <x-shop::quantity-changer
-                                    name="quantity"
-                                    ::value="item?.quantity"
-                                    class="gap-x-[10px] max-w-[150px] max-h-[36px] py-[5px] px-[14px] rounded-[54px]"
-                                    @change="updateItem($event, item)"
-                                >
-                                </x-shop::quantity-changer>
 
                                 <!-- Cart Item Remove Button -->
                                 <button
@@ -166,12 +158,6 @@
                         >
                             @lang('shop::app.checkout.cart.mini-cart.continue-to-checkout')
                         </a>
-
-                        <div class="block m-0 ml-[0px] py-[15px] text-base text-center font-medium cursor-pointer">
-                            <a href="{{ route('shop.checkout.cart.index') }}">
-                                @lang('shop::app.checkout.cart.mini-cart.view-cart')
-                            </a>
-                        </div>
                     </div>
                 </div>
             </x-slot:footer>

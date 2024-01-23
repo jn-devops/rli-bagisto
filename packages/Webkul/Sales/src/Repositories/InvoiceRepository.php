@@ -72,6 +72,7 @@ class InvoiceRepository extends Repository
                 'total_qty'             => $totalQty,
                 'state'                 => $state,
                 'base_currency_code'    => $order->base_currency_code,
+                'processing_fee'        => $order->processing_fee,
                 'channel_currency_code' => $order->channel_currency_code,
                 'order_currency_code'   => $order->order_currency_code,
                 'order_address_id'      => $order->billing_address->id,
@@ -97,7 +98,8 @@ class InvoiceRepository extends Repository
                     'price'                => $orderItem->price,
                     'base_price'           => $orderItem->base_price,
                     'total'                => $orderItem->price * $qty,
-                    'base_total'           => $orderItem->base_price * $qty,
+                    'base_total'           => ($orderItem->base_price + $orderItem->processing_fee) * $qty,
+                    'processing_fee'       => $orderItem->processing_fee,
                     'tax_amount'           => (($orderItem->tax_amount / $orderItem->qty_ordered) * $qty),
                     'base_tax_amount'      => (($orderItem->base_tax_amount / $orderItem->qty_ordered) * $qty),
                     'discount_amount'      => (($orderItem->discount_amount / $orderItem->qty_ordered) * $qty),
@@ -123,7 +125,8 @@ class InvoiceRepository extends Repository
                             'price'                => $childOrderItem->price,
                             'base_price'           => $childOrderItem->base_price,
                             'total'                => $childOrderItem->price * $finalQty,
-                            'base_total'           => $childOrderItem->base_price * $finalQty,
+                            'base_total'           => ($childOrderItem->base_price + $orderItem->processing_fee) * $finalQty,
+                            'processing_fee'       => $childOrderItem->processing_fee,
                             'tax_amount'           => 0,
                             'base_tax_amount'      => 0,
                             'discount_amount'      => 0,
@@ -160,7 +163,7 @@ class InvoiceRepository extends Repository
                         'vendor_id' => $data['vendor_id'] ?? 0,
                     ]);
                 }
-
+                
                 $this->orderItemRepository->collectTotals($orderItem);
 
                 $this->downloadableLinkPurchasedRepository->updateStatus($orderItem, 'available');

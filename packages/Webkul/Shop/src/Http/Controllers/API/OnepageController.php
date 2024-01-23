@@ -32,7 +32,7 @@ class OnepageController extends APIController
     public function summary(): JsonResource
     {
         $cart = Cart::getCart();
-
+        
         return new CartResource($cart);
     }
 
@@ -232,20 +232,23 @@ class OnepageController extends APIController
             throw new \Exception(trans('shop::app.checkout.cart.minimum-order-message', ['amount' => core()->currency($minimumOrderAmount)]));
         }
 
-        if ($cart->haveStockableItems() && ! $cart->shipping_address) {
-            throw new \Exception(trans('shop::app.checkout.cart.check-shipping-address'));
-        }
+        /**
+         * Avoid for customization requiment.
+         */
+        // if ($cart->haveStockableItems() && ! $cart->shipping_address) {
+        //     throw new \Exception(trans('shop::app.checkout.cart.check-shipping-address'));
+        // }
 
-        if (! $cart->billing_address) {
-            throw new \Exception(trans('shop::app.checkout.cart.check-billing-address'));
-        }
+        // if (! $cart->billing_address) {
+        //     throw new \Exception(trans('shop::app.checkout.cart.check-billing-address'));
+        // }
 
-        if (
-            $cart->haveStockableItems()
-            && ! $cart->selected_shipping_rate
-        ) {
-            throw new \Exception(trans('shop::app.checkout.cart.specify-shipping-method'));
-        }
+        // if (
+        //     $cart->haveStockableItems()
+        //     && ! $cart->selected_shipping_rate
+        // ) {
+        //     throw new \Exception(trans('shop::app.checkout.cart.specify-shipping-method'));
+        // }
 
         if (! $cart->payment) {
             throw new \Exception(trans('shop::app.checkout.cart.specify-payment-method'));

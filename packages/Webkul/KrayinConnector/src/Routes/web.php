@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::webhooks('webhooks');
+Route::webhooks('kyc-authenticate/webhooks');

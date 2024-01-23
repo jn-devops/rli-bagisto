@@ -11,6 +11,9 @@ class CartController extends Controller
      */
     public function index()
     {
+        // client want disable cart index page.
+        return abort(401, 'Cart Page disabled by admin');
+
         return view('shop::checkout.cart.index');
     }
 }

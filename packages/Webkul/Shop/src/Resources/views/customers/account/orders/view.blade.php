@@ -205,7 +205,7 @@
                                         class="px-6 py-[16px] text-black font-medium"
                                         data-value="@lang('shop::app.customers.account.orders.view.information.grand-total')"
                                     >
-                                        {{ core()->formatPrice($item->total + $item->tax_amount - $item->discount_amount, $order->order_currency_code) }}
+                                        {{ core()->formatPrice($item->total + $item->tax_amount + $item->processing_fee - $item->discount_amount, $order->order_currency_code) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -231,7 +231,7 @@
                                     </div>
                                 </div>
 
-                                @if ($order->haveStockableItems())
+                                <!-- @if ($order->haveStockableItems())
                                     <div class="flex w-full gap-x-[20px] justify-between">
                                         <p class="text-[14px]">
                                             @lang('shop::app.customers.account.orders.view.information.shipping-handling')
@@ -245,7 +245,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                @endif
+                                @endif -->
 
                                 @if ($order->base_discount_amount > 0)
                                     <div class="flex gap-x-[20px] justify-between w-full">
@@ -277,6 +277,20 @@
 
                                         <p class="text-[14px]">
                                             {{ core()->formatPrice($order->tax_amount, $order->order_currency_code) }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-x-[20px] justify-between w-full">
+                                    <p class="text-[14px]">
+                                        @lang('bulkupload::app.shop.bulk-upload.checkout.onepage.processing_fee')
+                                    </p>
+
+                                    <div class="flex gap-x-[20px]">
+                                        <p class="text-[14px]">-</p>
+
+                                        <p class="text-[14px]">
+                                            {{ core()->formatPrice($order->processing_fee, $order->order_currency_code) }}
                                         </p>
                                     </div>
                                 </div>
@@ -322,6 +336,7 @@
                                         </p>
                                     </div>
                                 </div>
+
                                 <div class="flex gap-x-[20px] justify-between w-full">
                                     <p class="text-[14px]">
                                         @lang('shop::app.customers.account.orders.view.information.total-due')
@@ -882,55 +897,8 @@
         </x-shop::tabs>
 
         <div class="flex flex-wrap gap-x-[64px] gap-y-[30px] justify-between mt-[42px] pt-[26px] border-t-[1px] border-[#E9E9E9]">
-            {{-- Biiling Address --}}
-            @if ($order->billing_address)
-                <div class="grid gap-[15px] max-w-[200px] max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-sm:max-w-full">
-                    <p class="text-[16px] text-[#6E6E6E]">
-                        @lang('shop::app.customers.account.orders.view.billing-address')
-                    </p>
 
-                    <div class="grid gap-[10px]">
-                        <p class="text-[14px]">
-                            @include ('admin::sales.address', ['address' => $order->billing_address])
-                        </p>
-
-                        {!! view_render_event('bagisto.shop.customers.account.orders.view.billing_address.after', ['order' => $order]) !!}
-                    </div>
-                </div>
-            @endif
-
-            {{-- Shipping Address --}}
-            @if ($order->shipping_address)
-                <div class="grid gap-[15px] max-w-[200px] max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-sm:max-w-full">
-                    <p class="text-[16px] text-[#6E6E6E]">
-                        @lang('shop::app.customers.account.orders.view.shipping-address')
-                    </p>
-
-                    <div class="grid gap-[10px]">
-                        <p class="text-[14px]">
-                            @include ('admin::sales.address', ['address' => $order->shipping_address])
-
-                            {!! view_render_event('bagisto.shop.customers.account.orders.view.shipping_address.after', ['order' => $order]) !!}
-                        </p>
-                    </div>
-                </div>
-
-                {{-- Shipping Method --}}
-                <div class="grid gap-[15px] max-w-[200px] place-content-baseline max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-sm:max-w-full">
-                    <p class="text-[16px] text-[#6E6E6E]">
-                        @lang('shop::app.customers.account.orders.view.shipping-method')
-                    </p>
-
-                    <p class="text-[14px]">
-                        {{ $order->shipping_title }}
-                    </p>
-                </div>
-
-                {!! view_render_event('bagisto.shop.customers.account.orders.view.shipping_method.after', ['order' => $order]) !!}
-
-            @endif
-
-            {{-- Billing Method --}}
+            {{-- Payment Method --}}
             <div class="grid gap-[15px] place-content-baseline max-w-[200px] max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-sm:max-w-full">
                 <p class="text-[16px] text-[#6E6E6E]">
                     @lang('shop::app.customers.account.orders.view.payment-method')

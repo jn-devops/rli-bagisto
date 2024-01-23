@@ -120,7 +120,8 @@ abstract class AbstractType
         protected ProductInventoryRepository $productInventoryRepository,
         protected ProductImageRepository $productImageRepository,
         protected ProductVideoRepository $productVideoRepository,
-        protected ProductCustomerGroupPriceRepository $productCustomerGroupPriceRepository
+        protected ProductCustomerGroupPriceRepository $productCustomerGroupPriceRepository,
+        protected ProductAttributeValueRepository $productAttributeValueRepository,
     )
     {
     }

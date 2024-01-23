@@ -20,7 +20,7 @@
                 </x-slot:header>
 
                 <x-slot:content>
-                {{-- property choose form --}}
+                <!-- property choose form -->
                     <x-shop::form
                         v-slot="{ meta, errors, handleSubmit }"
                         as="div"
@@ -98,7 +98,7 @@
                                 <div class="flex justify-end mt-4 mb-4">
                                     <button
                                         type="submit"
-                                        disabled
+                                        
                                         class="block w-max px-[43px] py-[11px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer"
                                     >
                                         @lang('shop::app.checkout.onepage.addresses.shipping.confirm')
@@ -152,7 +152,7 @@
 
         methods: {
             getImages(){
-                this.$axios.get("{{ route('shop.checkout.bulkUpload.property.images') }}")
+                this.$axios.get("{{ route('shop.checkout.property.images') }}")
                     .then(response => {
                         this.flats = response.data.flats;
                     })
@@ -171,7 +171,21 @@
             },
 
             handlePropertyForm($event) {
-                console.log($event);
+                this.$axios.post('{{ route("shop.checkout.authentication.store") }}', {
+                    isAuthenticate: true
+                })
+                .then(response => {
+                    if (response.data.data.payment_methods) {
+                        this.$parent.$refs.vPaymentMethod.payment_methods = response.data.data.payment_methods;
+                        
+                        this.$parent.$refs.vPaymentMethod.isShowPaymentMethod = true;
+
+                        this.$parent.$refs.vPaymentMethod.isPaymentMethodLoading = false;
+                    }
+                })
+                .catch(error => {                 
+                    console.log(error);
+                });
             },
         },
     });
@@ -194,7 +208,7 @@
 
         methods: {
             getImage(){
-                this.$axios.get("{{ route('shop.checkout.bulkUpload.property.image') }}", {
+                this.$axios.get("{{ route('shop.checkout.property.image') }}", {
                     params: {
                         product_id: this.productId,
                         imageUrl: this.imageUrl,

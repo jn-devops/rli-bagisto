@@ -576,7 +576,7 @@ class Configurable extends AbstractType
         }
 
         $data = $this->getQtyRequest($data);
-
+        
         $childProduct = $this->productRepository->find($data['selected_configurable_option']);
 
         if (! $childProduct->haveSufficientQuantity($data['quantity'])) {
@@ -584,6 +584,14 @@ class Configurable extends AbstractType
         }
 
         $price = $childProduct->getTypeInstance()->getFinalPrice();
+        
+        $attribute = $this->attributeRepository->findOneByField('code', 'processing_fee');
+
+        $attributeValue = $this->productAttributeValueRepository
+                                ->findOneWhere([
+                                    'product_id'   => $childProduct->id,
+                                    'attribute_id' => $attribute->id
+                                ]);
 
         return [
             [
@@ -594,7 +602,7 @@ class Configurable extends AbstractType
                 'quantity'          => $data['quantity'],
                 'price'             => $convertedPrice = core()->convertPrice($price),
                 'base_price'        => $price,
-                'total'             => $convertedPrice * $data['quantity'],
+                'total'             => $convertedPrice + ((float)$attributeValue->float_value ?? 0) * $data['quantity'],
                 'base_total'        => $price * $data['quantity'],
                 'weight'            => $childProduct->weight,
                 'total_weight'      => $childProduct->weight * $data['quantity'],

@@ -141,7 +141,7 @@
                         @endif
                     @endif
                 </x-slot:content>
-            </x-admin::accordion> 
+            </x-admin::accordion>
          
             {{-- component 2 --}}
             <x-admin::accordion>
