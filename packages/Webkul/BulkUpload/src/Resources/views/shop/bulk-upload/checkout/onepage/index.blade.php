@@ -3,7 +3,6 @@
     :processing-fee="cart.processing_fee"
 ></v-processing>
 
-
 @pushOnce('scripts')
 <script type="text/x-template" id="v-processing-template">
     <div class="flex text-right justify-between">
@@ -18,7 +17,6 @@
         </p>
     </div>
 </script>
-
 
 <script type="module">
     app.component('v-processing', {

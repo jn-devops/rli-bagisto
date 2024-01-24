@@ -1,0 +1,41 @@
+<?php
+
+namespace Webkul\BulkUpload\Listeners;
+
+use Illuminate\Support\Facades\Log;
+use Webkul\BulkUpload\Repositories\EkycVerficationRepository;
+
+class PaymentsListener
+{
+    public function __construct(
+        protected EkycVerficationRepository $ekycVerficationRepository
+    ) {
+    }
+
+    /**
+     * Create product in Krayin.
+     *
+     * @param  object  $product
+     * @return void
+     */
+    public function payments($payload)
+    {
+        $this->ekycVerficationRepository->updateOrCreate([
+            'cart_id' => $payload['transaction_id'],
+            'sku'     => $payload['sku']
+        ], [
+            'cart_id' => $payload['transaction_id'],
+            'sku'     => $payload['sku'],
+            'status'  => 1,
+            'payload' => json_encode($payload),
+        ]);
+    }
+
+    /**
+     * Return webhook response
+     */
+    public function response()
+    {
+        return $this->ekycVerficationRepository->get();
+    }
+}

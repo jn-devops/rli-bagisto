@@ -72,7 +72,7 @@
             @endif
 
             {{-- Mini cart --}}
-            @include('shop::checkout.cart.mini-cart')
+            <!-- @include('shop::checkout.cart.mini-cart') -->
 
             {{-- user profile --}}
             <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">

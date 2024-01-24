@@ -2,7 +2,8 @@
 
 namespace Webkul\KrayinConnector\Hooks\Receivers;
 
-use Illuminate\Support\Facades\Log;
+use Webkul\BulkUpload\Listeners\PaymentsListener;
+
 
 class CheckoutKycAuthenticateReceiver
 {
@@ -14,6 +15,6 @@ class CheckoutKycAuthenticateReceiver
      */
     public static function create(array $payload)
     {
-        Log::info($payload);
+        app(PaymentsListener::class)->payments($payload);
     }
 }

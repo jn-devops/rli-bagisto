@@ -146,7 +146,7 @@
                     </a>
                 @endif
 
-                @include('shop::checkout.cart.mini-cart')
+                <!-- @include('shop::checkout.cart.mini-cart') -->
 
                 <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                     <x-slot:toggle>
