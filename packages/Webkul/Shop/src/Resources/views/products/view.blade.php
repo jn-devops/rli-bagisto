@@ -348,7 +348,6 @@
 
                                 @include('shop::products.view.types.downloadable')
 
-
                                 <!-- Product Actions and Qunatity Box -->
                                 <div class="flex gap-[15px] max-w-[470px] mt-[30px]">
 
@@ -384,11 +383,21 @@
                                 <!-- Buy Now Button -->
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
 
-                                @if (core()->getConfigData('catalog.products.storefront.buy_now_button_display'))
+                                @if (core()->getConfigData('catalog.products.storefront.buy_now_button_display') 
+                                        && auth()->guard('customer')->check())
                                     <button
                                         type="submit"
                                         class="primary-button w-full max-w-[470px] mt-[20px]"
-                                        @click="is_buy_now=1;"
+                                        @click="is_buy_now=1; is_kyc_process=0;"
+                                        {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
+                                    >
+                                        @lang('shop::app.products.view.buy-now')
+                                    </button>
+                                @else
+                                    <button
+                                        type="submit"
+                                        class="primary-button w-full max-w-[470px] mt-[20px]"
+                                        @click="is_buy_now=1; is_kyc_process=1;"
                                         {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                     >
                                         @lang('shop::app.products.view.buy-now')
@@ -434,32 +443,36 @@
                         isCustomer: '{{ auth()->guard('customer')->check() }}',
 
                         is_buy_now: 0,
+
+                        is_kyc_process: 0,
                     }
                 },
 
                 methods: {
                     addToCart(params) {
-                        let formData = new FormData(this.$refs.formData);
+                            let formData = new FormData(this.$refs.formData);
 
-                        this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                }
-                            })
-                            .then(response => {
-                                if (response.data.message) {
-                                    this.$emitter.emit('update-mini-cart', response.data.data);
-
-                                    this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
-
-                                    if (response.data.redirect) {
-                                        window.location.href= response.data.redirect;
+                            this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data'
                                     }
-                                } else {
-                                    this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
-                                }
-                            })
-                            .catch(error => {});
+                                })
+                                .then(response => {
+                                    if (response.data.message) {
+                                        this.$emitter.emit('update-mini-cart', response.data.data);
+
+                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                        
+                                        if (response.data.redirect && ! this.is_kyc_process) {
+                                            window.location.href = response.data.redirect;
+                                        } else {
+                                            window.location.href = response.data.ekyc_redirect;
+                                        }
+                                    } else {
+                                        this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                                    }
+                                })
+                                .catch(error => {});
                     },
 
                     addToWishlist() {

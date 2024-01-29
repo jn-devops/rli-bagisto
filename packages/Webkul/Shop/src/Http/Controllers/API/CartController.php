@@ -2,14 +2,16 @@
 
 namespace Webkul\Shop\Http\Controllers\API;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Webkul\Customer\Repositories\WishlistRepository;
-use Webkul\Product\Repositories\ProductRepository;
-use Webkul\CartRule\Repositories\CartRuleCouponRepository;
 use Webkul\Checkout\Facades\Cart;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Event;
 use Webkul\Shop\Http\Resources\CartResource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Customer\Repositories\WishlistRepository;
+use Webkul\CartRule\Repositories\CartRuleCouponRepository;
 
 class CartController extends APIController
 {
@@ -54,7 +56,7 @@ class CartController extends APIController
 
             if (request()->get('is_buy_now')) {
                 Cart::deActivateCart();
-            } 
+            }
 
             $cart = Cart::addProduct($product->id, request()->all());
 
@@ -82,9 +84,10 @@ class CartController extends APIController
                     Event::dispatch('shop.item.buy-now', request()->input('product_id'));
 
                     return new JsonResource([
-                        'data'     => new CartResource(Cart::getCart()),
-                        'redirect' => route('shop.checkout.onepage.index'),
-                        'message'  => trans('shop::app.checkout.cart.item-add-to-cart'),
+                        'data'          => new CartResource(Cart::getCart()),
+                        'ekyc_redirect' => route('shop.checkout.ekyc.index', ['slug' => Str::slug(strtolower($product->getAttribute('name')))]),
+                        'redirect'      => route('shop.checkout.onepage.index'),
+                        'message'       => trans('shop::app.checkout.cart.item-add-to-cart'),
                     ]);
                 }
 

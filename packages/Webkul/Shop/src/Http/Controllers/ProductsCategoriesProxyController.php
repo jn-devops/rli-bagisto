@@ -48,7 +48,7 @@ class ProductsCategoriesProxyController extends Controller
                 'status'     => self::STATUS,
                 'channel_id' => core()->getCurrentChannel()->id
             ]);
-    
+
             return view('shop::home.index', compact('customizations'));
         }
 
