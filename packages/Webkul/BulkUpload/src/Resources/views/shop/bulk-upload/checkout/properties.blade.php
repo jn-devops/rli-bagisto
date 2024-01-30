@@ -71,6 +71,7 @@
                                                         :label="trans('bulkupload::app.shop.bulk-upload.checkout.code')"
                                                         :placeholder="trans('bulkupload::app.shop.bulk-upload.checkout.code')"
                                                         v-model="code"
+                                                        autocomplete="off"
                                                     >
                                                     </x-shop::form.control-group.control>
                                                 
@@ -95,13 +96,22 @@
                                     </x-shop::form>
                                 </div>
 
-                                <div class="flex justify-end mt-4 mb-4">
+                                <div class="flex justify-end mt-4 mb-4" v-if="confirmBtn">
                                     <button
                                         type="submit"
-                                        
                                         class="block w-max px-[43px] py-[11px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer"
+                                        v-if="disabled"
+                                        disabled
                                     >
-                                        @lang('shop::app.checkout.onepage.addresses.shipping.confirm')
+                                        @lang('shop::app.checkout.onepage.addresses.index.confirm')
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        class="block w-max px-[43px] py-[11px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer"
+                                        v-else
+                                    >
+                                        @lang('shop::app.checkout.onepage.addresses.index.confirm')
                                     </button>
                                 </div>
                             </div>
@@ -136,6 +146,7 @@
                 productId: null,
                 imageUrl: null,
                 code: null,
+                confirmBtn: false,
                 disabled: true,
             }
         },
@@ -167,7 +178,20 @@
             },
 
             handlePropertyAuthenticationForm($event) {
-                console.log($event);
+                this.waitingResponse();
+
+                this.$axios.post('{{ route("shop.checkout.authentication.api.verify") }}', $event)
+                .then(response => {
+                    this.confirmBtn = true;
+
+                    window.open(
+                        response.data.data,
+                            '_blank'
+                        );
+                })
+                .catch(error => {                 
+                    console.log(error);
+                });
             },
 
             handlePropertyForm($event) {
@@ -187,6 +211,24 @@
                     console.log(error);
                 });
             },
+
+            waitingResponse() {
+                let responseIntervalId = setInterval(() => {
+                            this.$axios.get('{{ route("shop.checkout.kyc.response") }}')
+                            .then(response => {
+                                console.log(response);
+                                if(response.data.status) {
+                                   clearInterval(responseIntervalId);
+
+                                   this.disabled = false;
+                                }
+                            })
+                            .catch(error => {                 
+                                console.log(error);
+                            });
+                }, 5000);
+            },
+            
         },
     });
 

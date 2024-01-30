@@ -17,6 +17,14 @@
                 <p class="text-xs text-gray-500 dark:text-gray-300 font-medium">
                     @lang('bulkupload::app.admin.bulk-upload.slot.info')
                 </p>
+
+                <p class="text-xs text-gray-500 dark:text-gray-300 font-medium">
+                    @lang('bulkupload::app.admin.bulk-upload.slot.big_info')
+                </p>
+
+                <p class="text-xs text-gray-500 dark:text-gray-300 font-medium">
+                    @lang('bulkupload::app.admin.bulk-upload.slot.big_info_secound')
+                </p>
             </div>
         </div>
 
@@ -84,7 +92,7 @@
                             class="mb-[10px] justify-between p-[10px] dark:border-gray-800"
                             >
                             <x-admin::form.control-group.label class="required">
-                                @lang('bulkupload::app.admin.bulk-upload.slot.flate')
+                                @lang('bulkupload::app.admin.bulk-upload.slot.flat')
                             </x-admin::form.control-group.label>
                             
                             <x-admin::form.control-group.control
@@ -92,8 +100,8 @@
                                 name="flat_numbers"
                                 rules="required"
                                 v-model="flats.slot.flat_numbers"
-                                :label="trans('bulkupload::app.admin.bulk-upload.slot.flate')"
-                                :placeholder="trans('bulkupload::app.admin.bulk-upload.slot.flate')"
+                                :label="trans('bulkupload::app.admin.bulk-upload.slot.flat')"
+                                :placeholder="trans('bulkupload::app.admin.bulk-upload.slot.flat')"
                             >
                             </x-admin::form.control-group.control>
 
@@ -192,8 +200,8 @@
                         y_coordinate: 0,
                         slot_id: 0,
                         flat_numbers: null,
-                        width: '50px',
-                        height: '50px',
+                        width: '200px',
+                        height: '200px',
                     }
                 },
                 number: 0,
@@ -226,9 +234,9 @@
 
                 this.flats.slot.flat_numbers = null;
 
-                this.flats.slot.width = '50px';
+                this.flats.slot.width = '200px';
 
-                this.flats.slot.height = '50px';
+                this.flats.slot.height = '200px';
 
                 ++this.number;
 
@@ -242,7 +250,6 @@
                         this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
                        // resetForm();
                         this.$refs.addSpotModal.close();
-
                     }).catch(error => {
                         console.log(error);
                     });
@@ -270,7 +277,6 @@
                             this.callSpot(slot, slot.slot_id);
                         });
                     });
-                    
                 }).catch(error => {
                     console.log(error);
                 });
@@ -308,7 +314,7 @@
             // create slot attribute.
             callSpot(slot, slot_number) {
                 var div = document.createElement("div");
-
+                console.log(slot);
                 div.style.position = 'absolute';
                 div.style.top = slot.y_coordinate + 'px';
                 div.style.left = slot.x_coordinate + 'px';
@@ -413,7 +419,6 @@
                 setTimeout(() => {
                     this.$axios.post("{{ route('admin.bulk-upload.product.url.slot.update') }}", params)
                         .then(response => {
-
                         }).catch(error => {
                             console.log(error);
                         });
@@ -497,7 +502,7 @@
                             div.style.height = self.flats.slot.height = height + 'px';
                         }
 
-                        console.log('bottom-right');
+                        console.log(width, height, 'bottom-right');
                     } else if (dots.classList.contains('bottom-left')) {
                         console.log('bottom-left');
 

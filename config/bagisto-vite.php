@@ -34,5 +34,11 @@ return [
             'build_directory'          => 'themes/bulk-upload/build',
             'package_assets_directory' => 'src/Resources/assets',
         ],
+
+        'ekyc'       => [
+            'hot_file'                 => 'ekyc-vite.hot',
+            'build_directory'          => 'themes/ekyc/build',
+            'package_assets_directory' => 'src/Resources/assets',
+        ],
     ],
 ];

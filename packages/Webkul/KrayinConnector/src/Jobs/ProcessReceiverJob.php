@@ -39,11 +39,11 @@ class ProcessReceiverJob extends BaseProcessWebhookJob
     private function exceptionResponse($exception, $type)
     {
         $response = response()->json([
-            'status'         => false,
-            'retry'          => true,
-            'webhook_type'   => $type,
-            'trace'          => $this->webhookCall->id,
-            'message'        => $exception->getMessage() ?? 'Something went wrong!'
+            'status'       => false,
+            'retry'        => true,
+            'webhook_type' => $type,
+            'trace'        => $this->webhookCall->id,
+            'message'      => $exception->getMessage() ?? 'Something went wrong!',
         ], 400)
         ->header('Content-Type', 'json')->send();
         $response->getContent();

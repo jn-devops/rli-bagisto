@@ -10,22 +10,18 @@
         <div
             class='grid gap-2.5 content-start w-full relative'
             v-if="mode != 'list'"
-        >
+            >
             <div class="relative overflow-hidden group max-w-[291px] max-h-[300px] rounded-[4px]">
-                <a
-                    :href="`{{ route('shop.product_or_category.index', '') }}/${product.url_key}`"
-                    :aria-label="product.name + ' '"
-                >
-                    <x-shop::media.images.lazy
-                        class="relative after:content-[' '] after:block after:pb-[calc(100%+9px)] bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
-                        ::src="product.base_image.medium_image_url"
-                        ::key="product.id"
-                        ::index="product.id"
-                        width="291"
-                        height="300"
-                        ::alt="product.name"
-                    ></x-shop::media.images.lazy>
-                </a>
+                <x-shop::media.images.lazy
+                    class="relative after:content-[' '] after:block after:pb-[calc(100%+9px)] bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
+                    ::src="product.base_image.medium_image_url"
+                    ::key="product.id"
+                    ::index="product.id"
+                    width="291"
+                    height="300"
+                    ::alt="product.name"
+                    @click="$refs.confirmProductModal.open()"
+                ></x-shop::media.images.lazy>
                 
                 <div class="action-items bg-black">
                     <p
@@ -59,13 +55,6 @@
                             >
                             </span>
                         @endif
-
-                        <button
-                            class="absolute bottom-[15px] left-[50%] py-[11px] px-[43px] bg-white rounded-xl text-navyBlue text-xs w-max font-medium cursor-pointer -translate-x-[50%] translate-y-[54px] group-hover:translate-y-0 transition-all duration-300"
-                            @click="addToCart()"
-                        >
-                            @lang('shop::app.components.products.card.add-to-cart')
-                        </button>
                     </div>
                 </div>
             </div>
@@ -92,16 +81,15 @@
         <div
             class="flex gap-[15px] grid-cols-2 max-w-max relative max-sm:flex-wrap rounded-[4px] overflow-hidden"
             v-else
-        >
+            >
             <div class="relative max-w-[250px] max-h-[258px] overflow-hidden group"> 
-                <a :href="`{{ route('shop.product_or_category.index', '') }}/${product.url_key}`">
-                    <x-shop::media.images.lazy
-                        class="min-w-[250px] relative after:content-[' '] after:block after:pb-[calc(100%+9px)] bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
-                        ::src="product.base_image.medium_image_url"
-                        width="291"
-                        height="300"
-                    ></x-shop::media.images.lazy>
-                </a>
+                <x-shop::media.images.lazy
+                    class="min-w-[250px] relative after:content-[' '] after:block after:pb-[calc(100%+9px)] bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
+                    ::src="product.base_image.medium_image_url"
+                    width="291"
+                    height="300"
+                    @click="$refs.confirmProductModal.open()"
+                ></x-shop::media.images.lazy>
             
                 <div class="action-items bg-black"> 
                     <p
@@ -172,15 +160,66 @@
                     >
                     </x-shop::products.star-rating>
                 </p>
-            
-                <div 
-                    class="primary-button px-[30px] py-[10px] whitespace-nowrap"
-                    @click="addToCart()"
-                >
-                    @lang('shop::app.components.products.card.add-to-cart')
-                </div> 
             </div> 
         </div>
+
+        <!-- Product Confirm -->
+        <x-shop::form
+            v-slot="{ meta, errors, handleSubmit }"
+            as="div"
+        >
+            <form 
+                @submit="handleSubmit($event, productConfirmModal)"
+                ref="confirmProduct"
+            >
+                <x-shop::modal ref="confirmProductModal">
+                    <!-- Modal Header -->
+                    <x-slot:header>
+                        <p class="text-[18px] text-gray-800 dark:text-white font-bold">
+                            @lang('Confirm Product Before Order')
+                        </p>
+                    </x-slot:header>
+
+                    <x-slot:content>
+                        <div class="p-[20px]">
+                            <div class="flex">
+                                <p>@lang('Name:')&nbsp;</p>
+                                <p v-text="product.name"></p>
+                            </div>
+
+                            <div class="flex">
+                                <p>@lang('SKU:')&nbsp;</p>
+                                <p v-text="' ' + product.sku"></p>
+                            </div>
+
+                            <div class="flex">
+                                <p>@lang('Price:')&nbsp;</p>
+                                <p v-text="product.min_price"></p>
+                            </div>
+                        </div>
+
+                        <x-admin::form.control-group.control
+                            type="hidden"
+                            name="product"
+                            ::value="product"
+                        >
+                        </x-admin::form.control-group.control>
+                    </x-slot:content>
+
+                    <x-slot:footer>
+                        <!-- Modal Submission -->
+                        <div class="flex gap-x-[10px] items-center">
+                            <button 
+                                type="submit"
+                                class="primary-button"
+                            >
+                                @lang('Confirm This Product')
+                            </button>
+                        </div>
+                    </x-slot:footer>
+                </x-shop::modal>
+            </form>
+        </x-shop::form>
     </script>
 
     <script type="module">
@@ -291,6 +330,12 @@
                             this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
                         });
                 },
+
+                productConfirmModal(params, { resetForm }) {
+                    window.location.href = `{{ route('shop.product_or_category.index', '') }}/` + params.product.url_key;
+
+                    this.$refs.confirmProductModal.toggle();
+                }
             },
         });
     </script>

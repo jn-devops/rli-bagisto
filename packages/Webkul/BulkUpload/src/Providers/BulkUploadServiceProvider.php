@@ -3,7 +3,7 @@
 namespace Webkul\BulkUpload\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
+use Webkul\BulkUpload\Console\Commands\CheckoutPaymentsCommand;
 
 class BulkUploadServiceProvider extends ServiceProvider
 {
@@ -60,7 +60,15 @@ class BulkUploadServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        /**
+         * Register Config
+         */
         $this->registerConfig();
+
+        /**
+         * Register Commands
+         */
+        $this->registerCommands();
     }
 
     /**
@@ -77,5 +85,19 @@ class BulkUploadServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
         );
+    }
+
+    /**
+     * Register the console commands of this package
+     *
+     * @return void
+     */
+    protected function registerCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CheckoutPaymentsCommand::class,
+            ]);
+        }
     }
 }

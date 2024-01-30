@@ -11,5 +11,6 @@ class ModuleServiceProvider extends BaseModuleServiceProvider
         \Webkul\BulkUpload\Models\ImportProduct::class,
         \Webkul\BulkUpload\Models\ProductProperties::class,
         \Webkul\BulkUpload\Models\ProductPropertyFlats::class,
+        \Webkul\BulkUpload\Models\EkycVerification::class,
     ];
 }

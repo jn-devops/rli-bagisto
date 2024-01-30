@@ -3,10 +3,11 @@
 namespace Webkul\BulkUpload\Http\Controllers\Shop;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Checkout\Facades\Cart;
+use Illuminate\Support\Facades\Log;
 use Webkul\Payment\Facades\Payment;
-use Webkul\Shop\Http\Resources\CartResource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\BulkUpload\Listeners\PaymentsListener;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Controllers\API\APIController;
 use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
@@ -35,7 +36,9 @@ class OnepageCheckoutController extends APIController
      */
     public function index()
     {
-        // process all product Ids
+        /**
+         * process all product Ids
+         */
         $item = Cart::getCart()->items->pluck('product_id')->toArray();
 
         $products = $this->productRepository->with('variants')->findWhereIn('id', $item);
@@ -85,18 +88,46 @@ class OnepageCheckoutController extends APIController
     }
 
     /**
-     * processing fee appling.
+     * Checking property valid via client api
      */
-    public function processingApply()
+    public function verifingProperty()
     {
-        // $cart = new CartResource(Cart::getCart());
-        // dd($cart->grand_total, request()->all());
+        $formData = request()->only([
+            'code',
+        ]);
 
-        // Cart::setCouponCode($couponCode)->collectTotals();
+        return new JsonResource([
+            'request_data' => $formData,
+            'data'         => $this->getSiteVerifyEndpoint(),
+        ]);
+    }
 
-        // return new JsonResource([
-        //     'data'     => new CartResource(Cart::getCart()),
-        //     'message'  => trans('shop::app.checkout.cart.coupon.success-apply'),
-        // ]);
+    /**
+     * EndPoint URL
+     */
+    private function getSiteVerifyEndpoint() : string
+    {
+        $sku = "ABC-123";
+
+        $transaction_id = "REF004";
+
+        return "https://book-dev.enclaves.ph/auto-reserve/{$sku}/{$transaction_id}";
+    }
+
+    /**
+     * kyc Response waiting.
+     * 
+     * @return Illuminate\Http\Resources\Json\JsonResource
+     */
+    public function kycResponse()
+    {
+        $paymentsListener = app(PaymentsListener::class)->response();
+
+        Log::info($paymentsListener);
+        
+        return new JsonResource([
+            'status' => false,
+            'data'   => $paymentsListener,
+        ]);
     }
 }
