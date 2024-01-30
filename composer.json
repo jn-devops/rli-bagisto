@@ -94,6 +94,7 @@
             "Webkul\\User\\": "packages/Webkul/User/src",
             "Webkul\\KrayinConnector\\": "packages/Webkul/KrayinConnector/src",
             "Webkul\\BulkUpload\\": "packages/Webkul/BulkUpload/src",
+            "Webkul\\Ekyc\\": "packages/Webkul/Ekyc/src",
             "RLI\\Attribute\\": "packages/RLI/Attribute/src",
             "RLI\\Category\\": "packages/RLI/Category/src"
         }

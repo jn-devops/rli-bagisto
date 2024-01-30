@@ -4,7 +4,7 @@ namespace Webkul\BulkUpload\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
 
-class EkycVerficationRepository extends Repository
+class EkycVerificationRepository extends Repository
 {
     /**
      * Specify Model class name
@@ -13,6 +13,6 @@ class EkycVerficationRepository extends Repository
      */
     function model()
     {
-        return 'Webkul\BulkUpload\Contracts\EkycVerfication';
+        return 'Webkul\BulkUpload\Contracts\EkycVerification';
     }
 }

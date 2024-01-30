@@ -224,7 +224,8 @@ return [
         Webkul\Theme\Providers\ThemeServiceProvider::class,
         Webkul\User\Providers\UserServiceProvider::class,
         Webkul\KrayinConnector\Providers\KrayinConnectorServiceProvider::class,
-        Webkul\BulkUpload\Providers\BulkUploadServiceProvider::class
+        Webkul\BulkUpload\Providers\BulkUploadServiceProvider::class,
+        Webkul\Ekyc\Providers\EkycServiceProvider::class,
     ])->toArray(),
 
     /*

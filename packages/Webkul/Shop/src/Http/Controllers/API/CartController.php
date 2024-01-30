@@ -83,9 +83,11 @@ class CartController extends APIController
                 if (request()->get('is_buy_now')) {
                     Event::dispatch('shop.item.buy-now', request()->input('product_id'));
 
+                    $cartResource = new CartResource(Cart::getCart());
+
                     return new JsonResource([
-                        'data'          => new CartResource(Cart::getCart()),
-                        'ekyc_redirect' => route('shop.checkout.ekyc.index', ['slug' => Str::slug(strtolower($product->getAttribute('name')))]),
+                        'data'          => $cartResource,
+                        'ekyc_redirect' => route('ekyc.verification.index', ['slug' => Str::slug(strtolower($product->getAttribute('name'))), 'cartId' => $cartResource->id]),
                         'redirect'      => route('shop.checkout.onepage.index'),
                         'message'       => trans('shop::app.checkout.cart.item-add-to-cart'),
                     ]);

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\Shop\Http\Controllers\CartController;
-use Webkul\Shop\Http\Controllers\EkycController;
 use Webkul\Shop\Http\Controllers\OnepageController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
@@ -17,9 +16,5 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         Route::get('', 'index')->name('shop.checkout.onepage.index');
 
         Route::get('success', 'success')->name('shop.checkout.onepage.success');
-    });
-
-    Route::controller(EkycController::class)->prefix('checkout/ekyc')->group(function () {
-        Route::get('/{slug}', 'index')->name('shop.checkout.ekyc.index');
     });
 });

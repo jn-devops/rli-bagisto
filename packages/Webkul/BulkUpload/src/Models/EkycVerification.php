@@ -3,9 +3,9 @@
 namespace Webkul\BulkUpload\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Webkul\BulkUpload\Contracts\EkycVerfication as EkycVerficationContract;
+use Webkul\BulkUpload\Contracts\EkycVerification as EkycVerificationContract;
 
-class EkycVerfication extends Model implements EkycVerficationContract
+class EkycVerification extends Model implements EkycVerificationContract
 {
     /**
      * The attributes that are mass assignable.

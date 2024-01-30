@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ekyc_verfications', function (Blueprint $table) {
+        Schema::create('ekyc_verifications', function (Blueprint $table) {
             $table->id();
             $table->string('cart_id');
             $table->string('sku');

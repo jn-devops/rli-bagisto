@@ -2,13 +2,12 @@
 
 namespace Webkul\BulkUpload\Listeners;
 
-use Illuminate\Support\Facades\Log;
-use Webkul\BulkUpload\Repositories\EkycVerficationRepository;
+use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
 
 class PaymentsListener
 {
     public function __construct(
-        protected EkycVerficationRepository $ekycVerficationRepository
+        protected EkycVerificationRepository $ekycVerificationRepository
     ) {
     }
 
@@ -20,7 +19,7 @@ class PaymentsListener
      */
     public function payments($payload)
     {
-        $this->ekycVerficationRepository->updateOrCreate([
+        $this->ekycVerificationRepository->updateOrCreate([
             'cart_id' => $payload['transaction_id'],
             'sku'     => $payload['sku']
         ], [
@@ -36,6 +35,6 @@ class PaymentsListener
      */
     public function response()
     {
-        return $this->ekycVerficationRepository->get();
+        return $this->ekycVerificationRepository->get();
     }
 }
