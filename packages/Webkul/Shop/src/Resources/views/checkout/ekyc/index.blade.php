@@ -60,9 +60,9 @@
                 
                 <div class="w-full flex justify-center pt-[30px]">
                     <button
-                        v-if="! sended"
+                        v-if="sended"
                         class="primary-button"
-                        @click="handleKycVerification"
+                        disabled
                     >
                         @lang('ekyc Verification')
                     </button>
@@ -70,7 +70,7 @@
                     <button
                         v-else
                         class="primary-button"
-                        disabled
+                        @click="handleKycVerification"
                     >
                         @lang('ekyc Verification')
                     </button>
@@ -94,7 +94,7 @@
             },
             
             mounted() {
-                if(this.verification && this.verification.status) {
+                if(this.verification) {
                     this.sended = true;
                     this.opacity = 'opacity-20';
                     this.loadingText = "Kyc Request already Sent";
@@ -108,6 +108,7 @@
                     })
                     .then(response => {
                         this.opacity = 'opacity-20';
+                        this.loadingText = "Kyc Request Sent";
 
                         this.sended = true;
 

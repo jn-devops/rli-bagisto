@@ -792,9 +792,10 @@ return [
     ],
 
     'emails' => [
-        'dear'   => 'Dear :customer_name',
-        'thanks' => 'If you need any kind of help please contact us at <a href=":link" style=":style">:email</a>.<br/>Thanks!',
-
+        'dear'      => 'Dear :customer_name',
+        'user_name' => 'User Name:  :user_name',
+        'password'  => 'Password:  :password',
+        'thanks'    => 'If you need any kind of help please contact us at <a href=":link" style=":style">:email</a>.<br/>Thanks!',
         'customers' => [
             'registration' => [
                 'description' => 'Your account has now been created successfully and you can login using your email address and password credentials. Upon logging in, you will be able to access other services including reviewing past orders, wishlists and editing your account information.',

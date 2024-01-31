@@ -3,10 +3,9 @@
 namespace Webkul\BulkUpload\Http\Controllers\Shop;
 
 use Illuminate\Http\JsonResponse;
-use Webkul\Checkout\Facades\Cart;
-use Illuminate\Support\Facades\Log;
-use Webkul\Payment\Facades\Payment;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\Checkout\Facades\Cart;
+use Webkul\Payment\Facades\Payment;
 use Webkul\BulkUpload\Listeners\PaymentsListener;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Controllers\API\APIController;
@@ -16,17 +15,13 @@ class OnepageCheckoutController extends APIController
 {
     /**
      * Create a new controller instance.
-     *
-     * \Webkul\BulkUpload\Repositories\ProductPropertiesRepository $productPropertiesRepository
-     * \Webkul\Product\Repositories\ProductRepository $productRepository
      * 
      * @return void
      */
     public function __construct(
         protected ProductPropertiesRepository $productPropertiesRepository,
         protected ProductRepository $productRepository,
-    )
-    {
+    ) {
     }
 
     /**
@@ -122,8 +117,6 @@ class OnepageCheckoutController extends APIController
     public function kycResponse()
     {
         $paymentsListener = app(PaymentsListener::class)->response();
-
-        Log::info($paymentsListener);
         
         return new JsonResource([
             'status' => false,

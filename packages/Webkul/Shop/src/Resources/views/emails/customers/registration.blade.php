@@ -13,6 +13,14 @@
         @lang('shop::app.emails.customers.registration.description')
     </p>
 
+    <p style="font-size: 16px;color: #384860;line-height: 24px;margin-bottom: 40px">
+        @lang('shop::app.emails.user_name', ['user_name' => $user_name])
+    </p>
+
+    <p style="font-size: 16px;color: #384860;line-height: 24px;margin-bottom: 40px">
+        @lang('shop::app.emails.password', ['password' => $password])
+    </p>
+
     <div style="display: flex;margin-bottom: 95px">
         <a
             href="{{ route('shop.customer.session.index') }}"

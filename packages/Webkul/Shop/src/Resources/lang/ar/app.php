@@ -793,6 +793,8 @@ return [
 
     'emails' => [
         'dear'   => 'عزيزي :customer_name',
+        'user_name' => 'اسم المستخدم :user_name',
+        'password'  => 'كلمة المرور :password',
         'thanks' => 'إذا كنت بحاجة إلى أي نوع من المساعدة، يرجى الاتصال بنا على <a href=":link" style=":style">:email</a>.<br/>شكرًا لك!',
 
         'customers' => [

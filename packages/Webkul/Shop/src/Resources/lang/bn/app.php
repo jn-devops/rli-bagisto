@@ -792,7 +792,9 @@ return [
     ],
 
     'emails' => [
-        'dear'   => 'প্রিয় :customer_name',
+        'dear'      => 'প্রিয় :customer_name',
+        'user_name' => 'User Name :user_name',
+        'password'  => 'Password :password',
         'thanks' => 'আপনি যদি কোনও সাহায্য চান তবে দয়া করে আমাদের সাথে <a href=":link" style=":style">:email</a> যোগাযোগ করুন।<br/>ধন্যবাদ!',
 
         'customers' => [

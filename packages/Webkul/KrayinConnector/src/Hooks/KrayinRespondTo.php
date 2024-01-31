@@ -21,7 +21,7 @@ class KrayinRespondTo implements RespondsToWebhook
         return response()->json([
             'status' => true,
             'retry'   => false,
-            'message' => 'Request processed successfully!'
+            'message' => 'Request processed successfully!',
         ]);
     }
 }

@@ -3,11 +3,12 @@
 namespace Webkul\Shop\Listeners;
 
 use Illuminate\Support\Facades\Mail;
-use Webkul\Shop\Mail\Customer\RegistrationNotification;
-use Webkul\Shop\Mail\Customer\EmailVerificationNotification;
-use Webkul\Shop\Mail\Customer\UpdatePasswordNotification;
+use Illuminate\Support\Facades\Crypt;
 use Webkul\Shop\Mail\Customer\NoteNotification;
+use Webkul\Shop\Mail\Customer\RegistrationNotification;
 use Webkul\Shop\Mail\Customer\SubscriptionNotification;
+use Webkul\Shop\Mail\Customer\UpdatePasswordNotification;
+use Webkul\Shop\Mail\Customer\EmailVerificationNotification;
 
 class Customer extends Base
 {
@@ -39,8 +40,7 @@ class Customer extends Base
             if (! core()->getConfigData('emails.general.notifications.emails.general.notifications.registration')) {
                 return;
             }
-
-            Mail::queue(new RegistrationNotification($customer));
+            Mail::queue(new RegistrationNotification($customer, $customer->original_password));
         } catch (\Exception $e) {
             report($e);
         }

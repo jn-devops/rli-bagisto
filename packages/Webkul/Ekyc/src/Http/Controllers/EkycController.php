@@ -42,7 +42,7 @@ class EkycController extends Controller
             'cart_id' => $request['cartId'],
             'sku'     => $product->sku,
         ]);
-       
+        
         return view('shop::checkout.ekyc.index', compact('request', 'verification'));
     }
 

@@ -2,7 +2,7 @@
 
 namespace Webkul\KrayinConnector\Jobs;
 
-use Webkul\KrayinConnector\Hooks\Receivers\CheckoutKycAuthenticateReceiver;
+use Webkul\KrayinConnector\Hooks\Receivers\eKycReceiver;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as BaseProcessWebhookJob;
 
 class ProcessReceiverJob extends BaseProcessWebhookJob
@@ -19,7 +19,7 @@ class ProcessReceiverJob extends BaseProcessWebhookJob
         switch ($payload['entity_type']) {
             case 'checkout.property.kyc.authenticate.after':
                 try {
-                    CheckoutKycAuthenticateReceiver::create($payload);
+                    eKycReceiver::create($payload);
                 } catch(\Exception $exception) {
                     $this->exceptionResponse($exception, $payload['entity_type']);
                 }
