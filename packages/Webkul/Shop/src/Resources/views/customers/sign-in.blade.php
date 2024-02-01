@@ -152,17 +152,6 @@
                     </div>
                 </x-shop::form>
             </div>
-
-            <p class="mt-[20px] text-[#6E6E6E] font-medium">
-                @lang('shop::app.customers.login-form.new-customer')
-
-                <a
-                    class="text-navyBlue"
-                    href="{{ route('shop.customers.register.index') }}"
-                >
-                    @lang('shop::app.customers.login-form.create-your-account')
-                </a>
-            </p>
         </div>
 
         <p class="mt-[30px] mb-[15px] text-center text-[#6E6E6E] text-xs">

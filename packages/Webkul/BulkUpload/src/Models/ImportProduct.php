@@ -7,8 +7,14 @@ use Webkul\BulkUpload\Contracts\ImportProduct as ImportProductContract;
 
 class ImportProduct extends Model implements ImportProductContract
 {
+    /**
+     * The attributes that aren't mass assignable.
+     */
     protected $table = "import_products";
 
+    /**
+     * The attributes that aren't mass assignable.
+     */
     protected $guarded = [];
 
     /**

@@ -24,8 +24,7 @@ class ProductUploadJob implements ShouldQueue
         protected $dataFlowProfileRecord,
         protected $chunk,
         protected $countCSV,
-    )
-    {
+    ) {
     }
 
     /**

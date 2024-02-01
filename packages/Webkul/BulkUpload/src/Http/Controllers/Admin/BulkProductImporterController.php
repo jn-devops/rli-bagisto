@@ -20,8 +20,7 @@ class BulkProductImporterController extends Controller
     public function __construct(
         protected AttributeFamilyRepository $attributeFamilyRepository,
         protected BulkProductImporterRepository $bulkProductImporterRepository
-    )
-    {
+    ) {
     }
 
     /**
@@ -50,7 +49,7 @@ class BulkProductImporterController extends Controller
         request()->validate([
             'name'                => 'required|unique:bulk_product_importers',
             'attribute_family_id' => 'required',
-            'locale_code'         => 'required'
+            'locale_code'         => 'required',
         ]);
 
         try {
@@ -61,7 +60,7 @@ class BulkProductImporterController extends Controller
 
         return new JsonResponse([
             'message' => trans('bulkupload::app.admin.bulk-upload.messages.profile-saved'),
-            'status'  => true
+            'status'  => true,
         ]);
     }
 
@@ -94,7 +93,7 @@ class BulkProductImporterController extends Controller
         
         $this->validate(request(), [
             'name'                => ['required', 'unique:bulk_product_importers,name,' . $id],
-            'attribute_family_id' => 'required'
+            'attribute_family_id' => 'required',
         ]);
 
         $data = [
@@ -102,7 +101,7 @@ class BulkProductImporterController extends Controller
             'name'                => request()->name,
             'attribute_family_id' => is_numeric(request()->attribute_family_id) ? request()->attribute_family_id : request()->family_id,
             'locale_code'         => request()->locale_code,
-            '_method'             => request()->_method
+            '_method'             => request()->_method,
         ];
 
         try {
@@ -166,7 +165,7 @@ class BulkProductImporterController extends Controller
         $family = $this->attributeFamilyRepository->find($profiles['attribute_family_id']);
         
         return new JsonResponse([
-            'family' => $family
+            'family' => $family,
         ]);
     }
 }

@@ -8,10 +8,8 @@ return [
         'key'  => 'bulkupload',
         'name' => 'bulkupload::app.admin.system.bulkupload.index.title',
         'info' => 'bulkupload::app.admin.system.bulkupload.index.info',
-        'sort' => 5
-    ], 
-    
-    [
+        'sort' => 5,
+    ], [
         'key'  => 'bulkupload.settings',
         'name' => 'bulkupload::app.admin.system.bulkupload.setting.title',
         'info' => 'bulkupload::app.admin.system.bulkupload.setting.info',
@@ -27,8 +25,8 @@ return [
                 'title'         => 'bulkupload::app.admin.system.status',
                 'type'          => 'boolean',
                 'channel_based' => true,
-                'locale_based'  => false
-            ]
-        ]
-    ]
+                'locale_based'  => false,
+            ],
+        ],
+    ],
 ];

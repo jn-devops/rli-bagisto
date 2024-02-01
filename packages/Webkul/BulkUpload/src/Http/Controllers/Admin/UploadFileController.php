@@ -30,8 +30,7 @@ class UploadFileController extends Controller
         protected AttributeFamilyRepository $attributeFamilyRepository,
         protected ImportProductRepository $importProductRepository,
         protected BulkProductImporterRepository $bulkProductImporterRepository
-    )
-    {
+    ) {
     }
 
     /**
@@ -113,9 +112,8 @@ class UploadFileController extends Controller
             'is_samples_available'     => $request->is_sample ? 1 : 0,
             'image_path'               => '',
             'file_path'                => '',
-            'file_name'                => $request->file('file_path')->getClientOriginalName()
+            'file_name'                => $request->file('file_path')->getClientOriginalName(),
         ];
-
         
         $fileStorePath = 'imported-products/admin';
 
@@ -133,7 +131,8 @@ class UploadFileController extends Controller
         }
       
         // Handle link sample files
-        if ($request->is_link_have_sample && $request->hasFile('link_sample_files')) {
+        if ($request->is_link_have_sample 
+                    && $request->hasFile('link_sample_files')) {
             $linkSampleFiles = $request->file('link_sample_files');
 
             if (in_array($linkSampleFiles->getClientOriginalExtension(), $validImageExtensions)) {
@@ -146,7 +145,8 @@ class UploadFileController extends Controller
         }
 
         // Handle sample files
-        if ($request->is_sample && $request->hasFile('sample_file')) {
+        if ($request->is_sample 
+                    && $request->hasFile('sample_file')) {
             $sampleFile = $request->file('sample_file');
 
             if (in_array($sampleFile->getClientOriginalExtension(), $validImageExtensions)) {
@@ -251,14 +251,14 @@ class UploadFileController extends Controller
     public function readCSVData()
     {
         $productFileRecord = $this->importProductRepository->where([
-            'bulk_product_importer_id'  => request()->bulk_product_importer_id,
-            'id'                        => request()->product_file_id,
+            'bulk_product_importer_id' => request()->bulk_product_importer_id,
+            'id'                       => request()->product_file_id,
         ])->first();
 
         if (! $productFileRecord) {
             return response()->json([
                 'error'   => true,
-                'message' => 'Selected File not found.'
+                'message' => 'Selected File not found.',
             ]);
         }
         
@@ -288,11 +288,12 @@ class UploadFileController extends Controller
             // Handle the case when $countCSV is false (or any condition you need).
             return response()->json([
                 "success" => false,
-                "message" => "No CSV Data to Import"
+                "message" => "No CSV Data to Import",
             ]);
         }
 
-        if (isset($csvImageData) && ! empty($csvImageData)) {
+        if (isset($csvImageData) 
+                && ! empty($csvImageData)) {
             $this->storeImageZip($csvImageData);
         }
 
@@ -300,55 +301,17 @@ class UploadFileController extends Controller
 
         $batch = Bus::batch([])->dispatch();
 
-        // // flush session when the new CSV file executing 
-        // session()->forget('notUploadedProduct');
-        // session()->forget('uploadedProduct');
-        // session()->forget('completionMessage');
-
-        // $errorArray = $records = $uploadedProduct = [];
-        // $isError = false;
-        // $count = 0;
-
-        // $simpleProductRepository = app(SimpleProductRepository::class);
-        
-        // foreach($chunks as $data) {
-        //     foreach($data as $key => $arr) {
-        //         $count++;
-
-        //         $uploadedProduct = $simpleProductRepository->createProduct($productFileRecord, $arr, $key);
-                
-        //         if (! empty($uploadedProduct)) {
-        //             $isError = true;
-
-        //             $errorArray['error'] = json_encode($uploadedProduct['error']);
-
-        //             $records[$key] = (object) array_merge($errorArray, $arr);
-
-        //             // store validation for products which is not uploads.
-        //             session()->push('notUploadedProduct', $errorArray);
-        //         }
-        //     }
-        // }
-
-        //  // After Uploded Product store success message in session
-        // if ($countCSV == $count) {            
-        //     session()->put('completionMessage', "CSV Product Successfully Imported");
-        // }
-
-        // if ($isError) {
-        //     Excel::store(new DataGridExport(collect($records)), 'error-csv-file/'.$productFileRecord->profiler->id.'/'.Str::random(10).'.csv');
-        // }
-
         $batch->add(new ProductUploadJob($productFileRecord, $chunks, $countCSV));
         
         return response()->json([
             "success" => true,
-            "message" => "CSV Product Successfully Imported"
+            "message" => "CSV Product Successfully Imported",
         ]);
     }
 
     /**
-     * Store and extract images from a zip file, removing any single quotes or double quotes in image filenames.
+     * Store and extract images from a zip file, removing any single quotes 
+     * or double quotes in image filenames.
      *
      * @param $dataFlowProfileRecord - The data flow profile record containing image information.
      * @return array - An array containing information about the extracted images.
@@ -363,9 +326,7 @@ class UploadFileController extends Controller
                 continue;
             }
             
-
-            foreach (json_decode($images['url_links']) as $image_key => $image) 
-            {
+            foreach (json_decode($images['url_links']) as $image_key => $image) {
                 $path = $image;
 
                 $info = pathinfo($path);
@@ -375,6 +336,7 @@ class UploadFileController extends Controller
                 $fileName = $images['sku'] .'_'. $image_key . '.' . $extension[0];
 
                 $imageZipName[] = $fileName;
+
                 Storage::put('imported-products/admin/images/'. $images['sku'] .'/'. $fileName, file_get_contents($path));
             }
         }
@@ -404,8 +366,8 @@ class UploadFileController extends Controller
                 ->map(function ($file) {
                     return [
                         $file->getRelativePath() => [
-                            'link' => asset('storage/error-csv-file/' . $file->getRelativePathname()),
-                            'time' => date('Y-m-d H:i:s', filectime($file)),
+                            'link'     => asset('storage/error-csv-file/' . $file->getRelativePathname()),
+                            'time'     => date('Y-m-d H:i:s', filectime($file)),
                             'fileName' => $file->getFilename(),
                         ],
                     ];
@@ -423,10 +385,10 @@ class UploadFileController extends Controller
             $ids = array_keys($resultArray);
 
             $profilerName = $this->bulkProductImporterRepository
-                ->get()
-                ->whereIn('id', $ids)
-                ->pluck('name')
-                ->all();
+                                ->get()
+                                ->whereIn('id', $ids)
+                                ->pluck('name')
+                                ->all();
             
             return response()->json([
                 'resultArray'   => $resultArray,
@@ -472,6 +434,7 @@ class UploadFileController extends Controller
             while (($data = fgetcsv($handle)) !== false) {
                 $csvData[] = $data;
             }
+
             fclose($handle);
         }
 

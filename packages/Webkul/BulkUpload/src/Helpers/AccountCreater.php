@@ -3,7 +3,6 @@
 namespace Webkul\BulkUpload\Helpers;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
@@ -19,9 +18,9 @@ class AccountCreater
         protected CustomerRepository $customerRepository
     ) {
     }
+
     /**
      * Add image details in ProductMediaRepository repo.
-     *
      */
     public function create($payload) 
     {

@@ -2,8 +2,8 @@
 
 namespace Webkul\BulkUpload\Repositories\Products;
 
-use Webkul\Core\Eloquent\Repository;
 use Illuminate\Support\Facades\Validator;
+use Webkul\Core\Eloquent\Repository;
 use Webkul\Core\Rules\Decimal;
 use Webkul\Core\Rules\Slug;
 use Webkul\Product\Models\ProductAttributeValue;
@@ -24,8 +24,7 @@ class HelperRepository extends Repository
         protected ProductRepository $productRepository,
         protected ProductFlatRepository $productFlatRepository,
         protected ProductAttributeValueRepository $productAttributeValueRepository,
-    )
-    {
+    ) {
     }
 
     /**
@@ -58,7 +57,8 @@ class HelperRepository extends Repository
         ]);
 
         foreach ($product->getEditableAttributes() as $attribute) {
-            if ($attribute->code == 'sku' || $attribute->type == 'boolean') {
+            if ($attribute->code == 'sku' 
+                    || $attribute->type == 'boolean') {
                 continue;
             }
 
@@ -79,6 +79,7 @@ class HelperRepository extends Repository
                 // Add unique validation for unique attributes
                 $validations[] = function ($field, $value, $fail) use ($attribute, $product) {
                     $column = ProductAttributeValue::$attributeTypeFields[$attribute->type];
+                    
                     if (! $this->productAttributeValueRepository->isValueUnique($product, $attribute->id, $column, request($attribute->code))) {
                         $fail('The :attribute has already been taken.');
                     }
@@ -115,12 +116,14 @@ class HelperRepository extends Repository
         try {
             $validateProduct = Validator::make($record, [
                 'type' => 'required',
-                'sku'  => 'required'
+                'sku'  => 'required',
             ]);
 
             if ($validateProduct->fails()) {
                 $errors = $validateProduct->errors()->all();
+                
                 $recordCount = (int)$loopCount + 1;
+
                 $errorToBeReturn = array_map(function ($error) use ($recordCount) {
                     return str_replace(".", "", $error) . " for record " . $recordCount;
                 }, $errors);
