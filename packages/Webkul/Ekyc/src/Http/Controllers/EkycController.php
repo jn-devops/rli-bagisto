@@ -2,8 +2,8 @@
 
 namespace Webkul\Ekyc\Http\Controllers;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Ekyc\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
 
@@ -54,7 +54,7 @@ class EkycController extends Controller
         /**
          * In test Mode.
          */
-        return "https://book-dev.enclaves.ph/edit-order/JN-TPL2XX/59";
+        return "https://book-dev.enclaves.ph/auto-reserve/ABC-123/REF004";
 
         /**
          * In Production.
@@ -71,18 +71,40 @@ class EkycController extends Controller
 
         $product = $this->productRepository->findBySlug($data['slug']);
        
+        // Getting transation id for API
+        $transaction_id = encrypt($data['cartId']);
+        
         $this->ekycVerificationRepository->updateOrCreate([
             'cart_id' => $data['cartId'],
             'sku'     => $product->sku,
         ], [
-            'cart_id' => $data['cartId'],
-            'sku'     => $product->sku,
-            'status'  => 0,
-            'payload' => json_encode($data),
+            'cart_id'        => $data['cartId'],
+            'sku'            => $product->sku,
+            'status'         => 0,
+            'transaction_id' => $transaction_id,
+            'payload'        => json_encode($data),
         ]);
     
         return new JsonResource([
-            'redirect' => $this->getSiteVerifyEndpoint($product->sku, $data['cartId']),
+            'redirect' => $this->getSiteVerifyEndpoint($product->sku, $transaction_id),
+        ]);
+    }
+
+    /**
+     * get verification
+     */
+    public function getVerification()
+    {
+        $data = request()->all();
+
+        $product = $this->productRepository->findBySlug($data['slug']);
+
+        return new JsonResource([
+            'data' => $this->ekycVerificationRepository->findOneByField([
+                'sku'     => $product->sku,
+                'cart_id' => $data['cart_id'],
+            ]),
+            'redirect'    => route('shop.checkout.onepage.index'),
         ]);
     }
 }

@@ -12,6 +12,7 @@ class EkycVerification extends Model implements EkycVerificationContract
      */
     protected $fillable = [
         'cart_id',
+        'transaction_id',
         'sku',
         'status',
         'payload',

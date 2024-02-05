@@ -6,7 +6,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Checkout\Facades\Cart;
 use Webkul\Payment\Facades\Payment;
-use Webkul\BulkUpload\Listeners\PaymentsListener;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Controllers\API\APIController;
 use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
@@ -79,48 +78,6 @@ class OnepageCheckoutController extends APIController
         return new JsonResource([
             'redirect' => false,
             'data'     => Payment::getSupportedPaymentMethods(),
-        ]);
-    }
-
-    /**
-     * Checking property valid via client api
-     */
-    public function verifingProperty()
-    {
-        $formData = request()->only([
-            'code',
-        ]);
-
-        return new JsonResource([
-            'request_data' => $formData,
-            'data'         => $this->getSiteVerifyEndpoint(),
-        ]);
-    }
-
-    /**
-     * EndPoint URL
-     */
-    private function getSiteVerifyEndpoint() : string
-    {
-        $sku = "ABC-123";
-
-        $transaction_id = "REF004";
-
-        return "https://book-dev.enclaves.ph/auto-reserve/{$sku}/{$transaction_id}";
-    }
-
-    /**
-     * kyc Response waiting.
-     * 
-     * @return Illuminate\Http\Resources\Json\JsonResource
-     */
-    public function kycResponse()
-    {
-        $paymentsListener = app(PaymentsListener::class)->response();
-        
-        return new JsonResource([
-            'status' => false,
-            'data'   => $paymentsListener,
         ]);
     }
 }

@@ -69,13 +69,18 @@ return [
 
         'syslog' => [
             'driver' => 'syslog',
-            'level' => 'debug',
+            'level'  => 'debug',
         ],
 
         'errorlog' => [
             'driver' => 'errorlog',
-            'level' => 'debug',
+            'level'  => 'debug',
+        ],
+
+        'responseLog' => [
+            'driver' => 'single',
+            'path'   => storage_path('logs/responseLog.log'),
+            'level'  => 'info',
         ],
     ],
-
 ];

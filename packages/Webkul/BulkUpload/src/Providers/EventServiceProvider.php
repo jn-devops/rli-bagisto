@@ -24,10 +24,13 @@ class EventServiceProvider extends ServiceProvider
         });
 
         //bagisto.admin.catalog.product.edit.form.images.after | bagisto.admin.catalog.product.edit.actions.before 
-        Event::listen('bagisto.admin.catalog.product.edit.form.images.after', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('bulkupload::admin.bulk-upload.images.spot');
-        });
+        // Event::listen('bagisto.admin.catalog.product.edit.form.images.after', function($viewRenderEventManager) {
+        //     $viewRenderEventManager->addTemplate('bulkupload::admin.bulk-upload.images.spot');
+        // });
 
+        /**
+         * enable payment option
+         */
         Event::listen('bagisto.shop.checkout.addresses.after', function($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('bulkupload::shop.bulk-upload.checkout.properties');
         });

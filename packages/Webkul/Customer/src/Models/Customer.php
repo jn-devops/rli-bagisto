@@ -44,9 +44,11 @@ class Customer extends Authenticatable implements CustomerContract
      * @var array
      */
     protected $fillable = [
+        'name',
         'first_name',
         'last_name',
         'gender',
+        'address',
         'date_of_birth',
         'email',
         'phone',
@@ -57,6 +59,7 @@ class Customer extends Authenticatable implements CustomerContract
         'subscribed_to_news_letter',
         'status',
         'is_verified',
+        'is_kyc_verified',
         'is_suspended',
     ];
 

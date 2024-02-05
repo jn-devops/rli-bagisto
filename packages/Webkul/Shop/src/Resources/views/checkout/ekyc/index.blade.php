@@ -99,6 +99,8 @@
                     this.opacity = 'opacity-20';
                     this.loadingText = "Kyc Request already Sent";
                 }
+
+                this.resetKycVerification();
             },
 
             methods: {
@@ -112,10 +114,36 @@
 
                         this.sended = true;
 
+                        this.resetKycVerification();
+
                         window.open(response.data.data.redirect, '_blank');
                     })
                     .catch(error => console.log(error));
-                }
+                },
+
+                resetKycVerification() {
+                    const verification = setInterval(() => {
+                        this.$axios.get("{{ route('ekyc.verification.get') }}", {
+                            params: {
+                                cart_id: this.request.cartId,
+                                slug: this.request.slug,
+                            }
+                        })
+                        .then(response => {
+                            if(response.data.data.status) {
+                                this.opacity = '';
+                                this.sended = false;
+
+                                clearInterval(verification);
+                                window.open(response.data.redirect, '_blank');
+                            } else {
+                                console.log('waiting') 
+                            }
+                        })
+                        .catch(error => console.log(error));
+
+                    }, 2000);
+                },
             },
         });
     </script>

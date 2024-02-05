@@ -78,7 +78,6 @@ class TaxRateController extends Controller
             'zip_to',
         ]);
 
-
         if ($data['is_zip'] ?? false) {
             $data['is_zip'] = 1;
         }

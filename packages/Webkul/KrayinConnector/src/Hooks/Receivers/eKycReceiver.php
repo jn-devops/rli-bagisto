@@ -3,7 +3,6 @@
 namespace Webkul\KrayinConnector\Hooks\Receivers;
 
 use Webkul\Ekyc\Listeners\EkycListener;
-use Webkul\BulkUpload\Listeners\AccountListener;
 
 class eKycReceiver
 {
@@ -15,11 +14,6 @@ class eKycReceiver
      */
     public static function create(array $payload)
     {
-        /**
-         * Processing Account Creation
-         */
-        app(AccountListener::class)->afterCreate($payload);
-
         /**
          * storing Kyc Details
          */

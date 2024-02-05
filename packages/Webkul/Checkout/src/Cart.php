@@ -499,14 +499,19 @@ class Cart
             $cart->base_sub_total = (float) $cart->base_sub_total + $item->base_total;
 
             $attribute = app(AttributeRepository::class)->findOneByField('code', 'processing_fee');
-
-            $attributeValue = app(ProductAttributeValueRepository::class)
+            
+            if(! empty($item->additional['selected_configurable_option'])) {
+                $attributeValue = app(ProductAttributeValueRepository::class)
                                     ->findOneWhere([
                                         'product_id'   => $item->additional['selected_configurable_option'],
                                         'attribute_id' => $attribute->id
                                     ]);
 
-            $cart->processing_fee += $cart->processing_fee + (float)$attributeValue->float_value;
+                $cart->processing_fee += $cart->processing_fee + (float)$attributeValue->float_value;
+            } else {
+                $cart->processing_fee += $cart->processing_fee;
+            }
+
             
             $quantities += $item->quantity;
         }

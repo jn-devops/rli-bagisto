@@ -59,6 +59,13 @@ class OnepageController extends Controller
         }
 
         /**
+         * if customer is not kyc verified.
+         */
+        if(! auth()->guard('customer')->user()->is_kyc_verified) {
+            return redirect()->back();
+        }
+
+        /**
          * If cart minimum order amount is not satisfied then redirect back to the cart page
          */
         $minimumOrderAmount = (float) core()->getConfigData('sales.order_settings.minimum_order.minimum_order_amount') ?: 0;
