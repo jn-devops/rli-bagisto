@@ -90,7 +90,6 @@ class SimpleProductRepository extends BaseRepository
         
         $csvData['inventories'] = $this->inventorySourceRepository->findWhereIn('code', $inventory_sources->toArray())->pluck('id')->toArray();
         $csvData['weight'] = 1;
-        $csvData['visible_individually'] = 1;
 
         $createProduct = [
             'sku'                 => $csvData['sku'],
@@ -125,8 +124,6 @@ class SimpleProductRepository extends BaseRepository
             }
 
             $csvData['super_attributes'] = $productSuperAttributes;
-
-            $csvData['visible_individually'] = 0;
         }
         
         // Check for Duplicate SKU

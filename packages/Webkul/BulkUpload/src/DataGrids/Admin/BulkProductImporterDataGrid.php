@@ -2,8 +2,8 @@
 
 namespace Webkul\BulkUpload\DataGrids\Admin;
 
-use DB;
 use Webkul\DataGrid\DataGrid;
+use Illuminate\Support\Facades\DB;
 
 class BulkProductImporterDataGrid extends DataGrid
 {
@@ -91,6 +91,7 @@ class BulkProductImporterDataGrid extends DataGrid
             'sortable'   => true,
             'searchable' => true,
             'filterable' => true,
+        ]);
     }
 
     /**

@@ -75,6 +75,64 @@
                     <span class="block w-[30px] h-[30px] bg-[#5C5C5C] rounded-full cursor-pointer"></span>
                 </div>
             </div>
+
+            <!-- Product Confirm -->
+            <x-shop::form
+                v-slot="{ meta, errors, handleSubmit }"
+                as="div"
+            >
+                <form 
+                    @submit="handleSubmit($event, productConfirmModal)"
+                    ref="confirmProduct"
+                >
+                    <x-shop::modal ref="confirmProductModal">
+                        <!-- Modal Header -->
+                        <x-slot:header>
+                            <p class="text-[18px] text-gray-800 dark:text-white font-bold">
+                                @lang('Confirm Product Before Order')
+                            </p>
+                        </x-slot:header>
+
+                        <x-slot:content>
+                            <div class="p-[20px]">
+                                <div class="flex">
+                                    <p>@lang('Name:')&nbsp;</p>
+                                    <p v-text="product.name"></p>
+                                </div>
+
+                                <div class="flex">
+                                    <p>@lang('SKU:')&nbsp;</p>
+                                    <p v-text="' ' + product.sku"></p>
+                                </div>
+
+                                <div class="flex">
+                                    <p>@lang('Price:')&nbsp;</p>
+                                    <p v-text="product.min_price"></p>
+                                </div>
+                            </div>
+
+                            <x-admin::form.control-group.control
+                                type="hidden"
+                                name="product"
+                                ::value="product"
+                            >
+                            </x-admin::form.control-group.control>
+                        </x-slot:content>
+
+                        <x-slot:footer>
+                            <!-- Modal Submission -->
+                            <div class="flex gap-x-[10px] items-center">
+                                <button 
+                                    type="submit"
+                                    class="primary-button"
+                                >
+                                    @lang('Confirm This Product')
+                                </button>
+                            </div>
+                        </x-slot:footer>
+                    </x-shop::modal>
+                </form>
+            </x-shop::form>
         </div>
 
         <!-- List Card -->
@@ -124,8 +182,8 @@
                             </span>
                         @endif
                     </div> 
-                </div> 
-            </div> 
+                </div>
+            </div>
 
             <div class="grid gap-[15px] content-start"> 
                 <p 
@@ -161,65 +219,65 @@
                     </x-shop::products.star-rating>
                 </p>
             </div> 
-        </div>
 
-        <!-- Product Confirm -->
-        <x-shop::form
-            v-slot="{ meta, errors, handleSubmit }"
-            as="div"
-        >
-            <form 
-                @submit="handleSubmit($event, productConfirmModal)"
-                ref="confirmProduct"
+            <!-- Product Confirm -->
+            <x-shop::form
+                v-slot="{ meta, errors, handleSubmit }"
+                as="div"
             >
-                <x-shop::modal ref="confirmProductModal">
-                    <!-- Modal Header -->
-                    <x-slot:header>
-                        <p class="text-[18px] text-gray-800 dark:text-white font-bold">
-                            @lang('Confirm Product Before Order')
-                        </p>
-                    </x-slot:header>
+                <form 
+                    @submit="handleSubmit($event, productConfirmModal)"
+                    ref="confirmProduct"
+                >
+                    <x-shop::modal ref="confirmProductModal">
+                        <!-- Modal Header -->
+                        <x-slot:header>
+                            <p class="text-[18px] text-gray-800 dark:text-white font-bold">
+                                @lang('Confirm Product Before Order')
+                            </p>
+                        </x-slot:header>
 
-                    <x-slot:content>
-                        <div class="p-[20px]">
-                            <div class="flex">
-                                <p>@lang('Name:')&nbsp;</p>
-                                <p v-text="product.name"></p>
+                        <x-slot:content>
+                            <div class="p-[20px]">
+                                <div class="flex">
+                                    <p>@lang('Name:')&nbsp;</p>
+                                    <p v-text="product.name"></p>
+                                </div>
+
+                                <div class="flex">
+                                    <p>@lang('SKU:')&nbsp;</p>
+                                    <p v-text="' ' + product.sku"></p>
+                                </div>
+
+                                <div class="flex">
+                                    <p>@lang('Price:')&nbsp;</p>
+                                    <p v-text="product.min_price"></p>
+                                </div>
                             </div>
 
-                            <div class="flex">
-                                <p>@lang('SKU:')&nbsp;</p>
-                                <p v-text="' ' + product.sku"></p>
-                            </div>
-
-                            <div class="flex">
-                                <p>@lang('Price:')&nbsp;</p>
-                                <p v-text="product.min_price"></p>
-                            </div>
-                        </div>
-
-                        <x-admin::form.control-group.control
-                            type="hidden"
-                            name="product"
-                            ::value="product"
-                        >
-                        </x-admin::form.control-group.control>
-                    </x-slot:content>
-
-                    <x-slot:footer>
-                        <!-- Modal Submission -->
-                        <div class="flex gap-x-[10px] items-center">
-                            <button 
-                                type="submit"
-                                class="primary-button"
+                            <x-admin::form.control-group.control
+                                type="hidden"
+                                name="product"
+                                ::value="product"
                             >
-                                @lang('Confirm This Product')
-                            </button>
-                        </div>
-                    </x-slot:footer>
-                </x-shop::modal>
-            </form>
-        </x-shop::form>
+                            </x-admin::form.control-group.control>
+                        </x-slot:content>
+
+                        <x-slot:footer>
+                            <!-- Modal Submission -->
+                            <div class="flex gap-x-[10px] items-center">
+                                <button 
+                                    type="submit"
+                                    class="primary-button"
+                                >
+                                    @lang('Confirm This Product')
+                                </button>
+                            </div>
+                        </x-slot:footer>
+                    </x-shop::modal>
+                </form>
+            </x-shop::form>
+        </div>
     </script>
 
     <script type="module">
