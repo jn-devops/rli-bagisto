@@ -97,7 +97,7 @@
                 if(this.verification) {
                     this.sended = true;
                     this.opacity = 'opacity-20';
-                    this.loadingText = "Kyc Request already Sent";
+                    this.loadingText = "Please complete Kyc process";
                 }
 
                 this.resetKycVerification();
@@ -131,19 +131,26 @@
                         })
                         .then(response => {
                             if(response.data.data.status) {
-                                this.opacity = '';
-                                this.sended = false;
-
                                 clearInterval(verification);
-                                window.open(response.data.redirect, '_blank');
+                          
+                                this.customerLogin(response.data.data.transaction_id);
                             } else {
-                                console.log('waiting') 
+                                console.log('waiting');
                             }
                         })
                         .catch(error => console.log(error));
-
-                    }, 2000);
+                    }, 5000);
                 },
+                
+                customerLogin(transaction_id) {
+                    this.$axios.post("{{ route('ekyc.verification.customer.login') }}", {
+                            transaction_id: transaction_id
+                        })
+                        .then(response => {
+                            window.open(response.data.data.redirect);
+                        })
+                        .catch(error => console.log(error));
+                }
             },
         });
     </script>

@@ -3,7 +3,6 @@
 namespace Webkul\Ekyc\Helpers;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Event;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
@@ -24,10 +23,14 @@ class EkycVerificationCreateOrUpdate
     }
     
     /**
-     * Add image details in ProductMediaRepository repo.
+     * add customer and ekyc detail
      */
     public function create($payload) 
     {
+        //$password = Str::random(10);
+
+        $password = 'admin123';
+
         /**
          * eKyc Proccessing
          */
@@ -38,15 +41,16 @@ class EkycVerificationCreateOrUpdate
         ]);
 
         if($verification) {
-          // return;
+           return;
         }
         
         $this->ekycVerificationRepository->updateOrCreate([
             'transaction_id' => $payload['payload']['order']['transaction_id'],
-            'sku'     => $payload['payload']['order']['product']['sku']
+            'sku'            => $payload['payload']['order']['product']['sku']
         ], [
             'cart_id'        => decrypt($payload['payload']['order']['transaction_id']),
             'transaction_id' => $payload['payload']['order']['transaction_id'],
+            'password'       => encrypt($password),
             'sku'            => $payload['payload']['order']['product']['sku'],
             'status'         => 1,
             'payload'        => json_encode($payload),
@@ -65,8 +69,6 @@ class EkycVerificationCreateOrUpdate
         $firstName = current($name);
         next($name);
         $lastName = current($name);
-
-        $password = Str::random(10);
 
         $data =  [
             'name'                      => $payload['name'],
@@ -92,60 +94,8 @@ class EkycVerificationCreateOrUpdate
             'email' => $data['email']
         ], $data);
        
-        /**
-         * Login processing
-         */
-        $this->customerLogin([
-            'email'    => $payload['email'],
-            'password' => $password
-        ]);
-
-        
-        auth()->guard('customer')->login($customer, true);
-
         $customer['original_password'] = $password;
         
         Event::dispatch('customer.registration.after', $customer);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    private function customerLogin(array $loginRequest)
-    {
-        if (! auth()->guard('customer')->attempt($loginRequest)) {
-            session()->flash('error', trans('shop::app.customers.login-form.invalid-credentials'));
-
-            return redirect()->back();
-        }
-        
-        if (! auth()->guard('customer')->user()->status) {
-            auth()->guard('customer')->logout();
-
-            session()->flash('warning', trans('shop::app.customers.login-form.not-activated'));
-
-            return redirect()->back();
-        }
-        
-        if (! auth()->guard('customer')->user()->is_verified) {
-            session()->flash('info', trans('shop::app.customers.login-form.verify-first'));
-
-            Cookie::queue(Cookie::make('enable-resend', 'true', 1));
-
-            Cookie::queue(Cookie::make('email-for-resend', $loginRequest['email'], 1));
-
-            auth()->guard('customer')->logout();
-
-            return redirect()->back();
-        }
-
-        /**
-         * Event passed to prepare cart after login.
-         */
-        Event::dispatch('customer.after.login', $loginRequest['email']);
-
-        return redirect()->route('shop.home.index');
     }
 }

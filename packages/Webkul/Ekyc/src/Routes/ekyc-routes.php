@@ -12,5 +12,7 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         Route::get('/verification', 'getVerification')->name('ekyc.verification.get');
 
         Route::get('/verifying', 'verifying')->name('ekyc.verification.verifying');
+
+        Route::post('/customer-login', 'customerLogin')->name('ekyc.verification.customer.login');
     });
 });
