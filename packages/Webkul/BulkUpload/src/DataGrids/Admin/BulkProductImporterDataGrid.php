@@ -2,8 +2,8 @@
 
 namespace Webkul\BulkUpload\DataGrids\Admin;
 
-use DB;
 use Webkul\DataGrid\DataGrid;
+use Illuminate\Support\Facades\DB;
 
 class BulkProductImporterDataGrid extends DataGrid
 {
@@ -63,7 +63,7 @@ class BulkProductImporterDataGrid extends DataGrid
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
-            'filterable' => true
+            'filterable' => true,
         ]);
 
         $this->addColumn([
@@ -72,7 +72,7 @@ class BulkProductImporterDataGrid extends DataGrid
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
-            'filterable' => true
+            'filterable' => true,
         ]);
 
         $this->addColumn([
@@ -81,7 +81,7 @@ class BulkProductImporterDataGrid extends DataGrid
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
-            'filterable' => true
+            'filterable' => true,
         ]);
 
         $this->addColumn([
@@ -90,7 +90,7 @@ class BulkProductImporterDataGrid extends DataGrid
             'type'       => 'datetime',
             'sortable'   => true,
             'searchable' => true,
-            'filterable' => true
+            'filterable' => true,
         ]);
     }
 
@@ -133,7 +133,7 @@ class BulkProductImporterDataGrid extends DataGrid
             'label'  => 'Delete',
             'url'    => route('admin.bulk-upload.bulk-product-importer.massDelete'),
             'method' => 'POST',
-            'title'  => 'Delete'
+            'title'  => 'Delete',
         ]);
     }
 }

@@ -9,7 +9,6 @@ use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\DataGrids\CMS\CMSPageDataGrid;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
 
-
 class PageController extends Controller
 {
     /**

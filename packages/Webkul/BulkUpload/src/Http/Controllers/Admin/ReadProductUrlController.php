@@ -20,8 +20,7 @@ class ReadProductUrlController extends Controller
     public function __construct(
         protected ProductPropertiesRepository $productPropertiesRepository,
         protected ProductPropertyFlatsRepository $productPropertyFlatsRepository,
-    )
-    {
+    ) {
     }
     
     /**
@@ -62,7 +61,7 @@ class ReadProductUrlController extends Controller
 
         return new JsonResponse([
                 'images'    => $imageZipName,
-                'names'     => implode(',', $imageName)
+                'names'     => implode(',', $imageName),
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace Webkul\Shop\Mail\Customer;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Queue\SerializesModels;
 
 class RegistrationNotification extends Mailable
@@ -16,7 +17,7 @@ class RegistrationNotification extends Mailable
      * @param  \Webkul\Customer\Contracts\Customer  $customer
      * @return void
      */
-    public function __construct(public $customer)
+    public function __construct(public $customer, protected $password = '')
     {
     }
 
@@ -31,7 +32,9 @@ class RegistrationNotification extends Mailable
             ->to($this->customer->email)
             ->subject(trans('shop::app.emails.customers.registration.subject'))
             ->view('shop::emails.customers.registration', [
-                'fullName' => $this->customer->first_name . ' ' . $this->customer->last_name,
+                'fullName'  => $this->customer->first_name . ' ' . $this->customer->last_name,
+                'user_name' => $this->customer->email,
+                'password'  => $this->password,
             ]);
     }
 }

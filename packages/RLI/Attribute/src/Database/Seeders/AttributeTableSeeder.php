@@ -49,6 +49,7 @@ class AttributeTableSeeder extends Seeder
             'updated_at'          => $now,
             'is_comparable'       => 1,
         ]);
+        
         self::$processing_fee_id = DB::getPdo()->lastInsertId();
 
         DB::table('attributes')->insert([

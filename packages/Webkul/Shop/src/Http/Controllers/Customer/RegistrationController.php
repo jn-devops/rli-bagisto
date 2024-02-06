@@ -25,8 +25,7 @@ class RegistrationController extends Controller
         protected CustomerRepository $customerRepository,
         protected CustomerGroupRepository $customerGroupRepository,
         protected SubscribersListRepository $subscriptionRepository
-    )
-    {
+    ) {
     }
 
     /**
@@ -36,6 +35,11 @@ class RegistrationController extends Controller
      */
     public function index()
     {
+        /** 
+         * client Requirment
+         */
+        abort(401);
+
         return view('shop::customers.sign-up');
     }
 

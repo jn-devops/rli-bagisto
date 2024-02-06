@@ -12,8 +12,6 @@ class KrayinProfile implements WebhookProfile
      */
     public function shouldProcess(Request $request): bool
     {
-        // @add-translation
-
         return true;
     }
 }

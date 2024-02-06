@@ -95,19 +95,12 @@
 
                         <p class="w-full mt-[12px] py-2px border border-[#E9E9E9]"></p>
 
-                        <div class="flex gap-[16px] mt-[25px]">
+                        <div class="flex justify-items-end gap-[16px] mt-[25px]">
                             <a
                                 href="{{ route('shop.customer.session.create') }}"
-                                class="primary-button block w-max px-[29px] mx-auto m-0 ml-[0px] rounded-[18px] text-base text-center"
+                                class="primary-button block w-max m-0 ml-[0px] mx-auto px-[29px] border-2 rounded-[18px] text-base text-center"
                             >
                                 @lang('shop::app.components.layouts.header.sign-in')
-                            </a>
-
-                            <a
-                                href="{{ route('shop.customers.register.index') }}"
-                                class="secondary-button block w-max m-0 ml-[0px] mx-auto px-[29px] border-2 rounded-[18px] text-base text-center"
-                            >
-                                @lang('shop::app.components.layouts.header.sign-up')
                             </a>
                         </div>
                     </x-slot:content>

@@ -5,7 +5,6 @@ namespace Webkul\BulkUpload\Repositories\Products;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Webkul\BulkUpload\Type\Configurable;
 use Illuminate\Support\Facades\{Event, Validator};
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Attribute\Repositories\AttributeRepository;
@@ -18,8 +17,14 @@ use Webkul\Product\Repositories\{ProductCustomerGroupPriceRepository, ProductRep
 
 class SimpleProductRepository extends BaseRepository
 {
+    /**
+     * Pre-defind Array for Array
+     */
     protected $errors = [];
 
+    /**
+     * Array for error
+     */
     protected $dataNotInserted = [];
 
     /**
@@ -47,8 +52,7 @@ class SimpleProductRepository extends BaseRepository
         protected ImportProductRepository $importProductRepository,
         protected ProductImageRepository $productImageRepository,
         protected HelperRepository $helperRepository,
-    )
-    {
+    ) {
     }
 
     /*
@@ -86,7 +90,6 @@ class SimpleProductRepository extends BaseRepository
         
         $csvData['inventories'] = $this->inventorySourceRepository->findWhereIn('code', $inventory_sources->toArray())->pluck('id')->toArray();
         $csvData['weight'] = 1;
-        $csvData['visible_individually'] = 1;
 
         $createProduct = [
             'sku'                 => $csvData['sku'],
@@ -99,7 +102,8 @@ class SimpleProductRepository extends BaseRepository
 
             $superAttributes['super_attributes'] = $csvData['super_attributes'];
             
-            if (! isset($superAttributes['super_attributes']) || empty($superAttributes['super_attributes'])) {
+            if (! isset($superAttributes['super_attributes']) 
+                    || empty($superAttributes['super_attributes'])) {
                 return [
                     'error' => [trans('admin::app.catalog.products.configurable-error')],
                 ];
@@ -120,7 +124,6 @@ class SimpleProductRepository extends BaseRepository
             }
 
             $csvData['super_attributes'] = $productSuperAttributes;
-            $csvData['visible_individually'] = 0;
         }
         
         // Check for Duplicate SKU
@@ -159,7 +162,7 @@ class SimpleProductRepository extends BaseRepository
             $uploadedProduct = [
                 'id'    => $product->id,
                 'sku'   => $product->sku,
-                'type'  => $product->type
+                'type'  => $product->type,
             ];
 
             session()->push('uploadedProduct', $uploadedProduct);
@@ -271,7 +274,6 @@ class SimpleProductRepository extends BaseRepository
      * @param array $csvData
      * @param mixed $product
      * @return array $data
-     * 
      */
     private function processProductAttributes($csvData, $product)
     {

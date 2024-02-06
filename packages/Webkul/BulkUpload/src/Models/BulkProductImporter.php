@@ -10,6 +10,9 @@ use Webkul\BulkUpload\Contracts\BulkProductImporter as BulkProductImporterContra
 
 class BulkProductImporter extends Model implements BulkProductImporterContract
 {
+    /**
+     * The attributes that aren't mass assignable.
+     */
     protected $guarded = [];
 
     /**

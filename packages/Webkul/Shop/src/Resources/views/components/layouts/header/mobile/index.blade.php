@@ -175,13 +175,6 @@
                                 >
                                     @lang('shop::app.components.layouts.header.sign-in')
                                 </a>
-
-                                <a
-                                    href="{{ route('shop.customers.register.index') }}"
-                                    class="block w-max mx-auto m-0 ml-[0px] py-[14px] px-[29px] bg-white border-2 border-navyBlue rounded-[18px] text-navyBlue text-base font-medium  text-center cursor-pointer"
-                                >
-                                    @lang('shop::app.components.layouts.header.sign-up')
-                                </a>
                             </div>
                         </x-slot:content>
                     @endguest

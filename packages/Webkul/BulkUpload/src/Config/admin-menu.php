@@ -28,5 +28,5 @@ return [
         'route'      => 'admin.bulk-upload.import-file.run-profile.index',
         'sort'       => 3,
         'icon-class' => '',
-    ]
+    ],
 ];

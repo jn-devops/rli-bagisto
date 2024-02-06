@@ -383,7 +383,18 @@
                                 <!-- Buy Now Button -->
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
 
-                                @if (core()->getConfigData('catalog.products.storefront.buy_now_button_display') 
+
+                                <button
+                                        type="submit"
+                                        class="primary-button w-full max-w-[470px] mt-[20px]"
+                                        @click="is_buy_now=1; is_kyc_process=1;"
+                                        {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
+                                    >
+                                        @lang('shop::app.products.view.buy-now')
+                                    </button>
+
+                                    
+                                <!-- @if (core()->getConfigData('catalog.products.storefront.buy_now_button_display') 
                                         && auth()->guard('customer')->check())
                                     <button
                                         type="submit"
@@ -394,15 +405,7 @@
                                         @lang('shop::app.products.view.buy-now')
                                     </button>
                                 @else
-                                    <button
-                                        type="submit"
-                                        class="primary-button w-full max-w-[470px] mt-[20px]"
-                                        @click="is_buy_now=1; is_kyc_process=1;"
-                                        {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
-                                    >
-                                        @lang('shop::app.products.view.buy-now')
-                                    </button>
-                                @endif
+                                 @endif -->
 
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
 

@@ -2,10 +2,9 @@
 
 namespace Webkul\KrayinConnector\Hooks\Receivers;
 
-use Webkul\BulkUpload\Listeners\PaymentsListener;
+use Webkul\Ekyc\Listeners\EkycListener;
 
-
-class CheckoutKycAuthenticateReceiver
+class eKycReceiver
 {
     /**
      * Create account.
@@ -15,6 +14,9 @@ class CheckoutKycAuthenticateReceiver
      */
     public static function create(array $payload)
     {
-        app(PaymentsListener::class)->payments($payload);
+        /**
+         * storing Kyc Details
+         */
+        app(EkycListener::class)->afterCreate($payload);
     }
 }

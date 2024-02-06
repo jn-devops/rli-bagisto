@@ -60,9 +60,9 @@
                 
                 <div class="w-full flex justify-center pt-[30px]">
                     <button
-                        v-if="! sended"
+                        v-if="sended"
                         class="primary-button"
-                        @click="handleKycVerification"
+                        disabled
                     >
                         @lang('ekyc Verification')
                     </button>
@@ -70,7 +70,7 @@
                     <button
                         v-else
                         class="primary-button"
-                        disabled
+                        @click="handleKycVerification"
                     >
                         @lang('ekyc Verification')
                     </button>
@@ -94,11 +94,13 @@
             },
             
             mounted() {
-                if(this.verification && this.verification.status) {
+                if(this.verification) {
                     this.sended = true;
                     this.opacity = 'opacity-20';
-                    this.loadingText = "Kyc Request already Sent";
+                    this.loadingText = "Please complete Kyc process";
                 }
+
+                this.resetKycVerification();
             },
 
             methods: {
@@ -108,12 +110,46 @@
                     })
                     .then(response => {
                         this.opacity = 'opacity-20';
+                        this.loadingText = "Kyc Request Sent";
 
                         this.sended = true;
+
+                        this.resetKycVerification();
 
                         window.open(response.data.data.redirect, '_blank');
                     })
                     .catch(error => console.log(error));
+                },
+
+                resetKycVerification() {
+                    const verification = setInterval(() => {
+                        this.$axios.get("{{ route('ekyc.verification.get') }}", {
+                            params: {
+                                cart_id: this.request.cartId,
+                                slug: this.request.slug,
+                            }
+                        })
+                        .then(response => {
+                            if(response.data.data.status) {
+                                clearInterval(verification);
+                          
+                                this.customerLogin(response.data.data.transaction_id);
+                            } else {
+                                console.log('waiting');
+                            }
+                        })
+                        .catch(error => console.log(error));
+                    }, 5000);
+                },
+                
+                customerLogin(transaction_id) {
+                    this.$axios.post("{{ route('ekyc.verification.customer.login') }}", {
+                            transaction_id: transaction_id
+                        })
+                        .then(response => {
+                            window.open(response.data.data.redirect);
+                        })
+                        .catch(error => console.log(error));
                 }
             },
         });

@@ -3,7 +3,6 @@
 namespace Webkul\Customer\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\Sales\Models\Order;

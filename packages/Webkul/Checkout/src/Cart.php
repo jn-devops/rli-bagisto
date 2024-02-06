@@ -499,14 +499,19 @@ class Cart
             $cart->base_sub_total = (float) $cart->base_sub_total + $item->base_total;
 
             $attribute = app(AttributeRepository::class)->findOneByField('code', 'processing_fee');
-
-            $attributeValue = app(ProductAttributeValueRepository::class)
+            
+            if(! empty($item->additional['selected_configurable_option'])) {
+                $attributeValue = app(ProductAttributeValueRepository::class)
                                     ->findOneWhere([
                                         'product_id'   => $item->additional['selected_configurable_option'],
                                         'attribute_id' => $attribute->id
                                     ]);
 
-            $cart->processing_fee += $cart->processing_fee + (float)$attributeValue->float_value;
+                $cart->processing_fee += $cart->processing_fee + (float)$attributeValue->float_value;
+            } else {
+                $cart->processing_fee += $cart->processing_fee;
+            }
+
             
             $quantities += $item->quantity;
         }
@@ -820,6 +825,7 @@ class Cart
             'order_currency_code'   => $data['cart_currency_code'],
             'grand_total'           => $data['grand_total'],
             'processing_fee'        => ($this->getCart()->processing_fee * $data['items_qty']),
+            'property_code'         => $this->getCart()->property_code,
             'base_grand_total'      => $data['base_grand_total'],
             'sub_total'             => $data['sub_total'],
             'base_sub_total'        => $data['base_sub_total'],
@@ -882,6 +888,7 @@ class Cart
             'total'                => $data['total'],
             'base_total'           => $data['base_total'],
             'processing_fee'       => $this->getCart()->processing_fee,
+            'property_code'        => $this->getCart()->property_code,
             'tax_percent'          => $data['tax_percent'],
             'tax_amount'           => $data['tax_amount'],
             'base_tax_amount'      => $data['base_tax_amount'],
