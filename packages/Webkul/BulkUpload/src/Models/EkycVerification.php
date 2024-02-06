@@ -13,7 +13,7 @@ class EkycVerification extends Model implements EkycVerificationContract
      * @var array
      */
     protected $casts = [
-        'payload' => 'json',
+        'payload' => 'array',
     ];
 
     /**

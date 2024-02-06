@@ -83,6 +83,13 @@
                                     scope="col"
                                     class="px-6 py-[16px] font-medium"
                                 >
+                                    @lang('shop::app.customers.account.orders.view.information.product-property-code')
+                                </th>
+
+                                <th
+                                    scope="col"
+                                    class="px-6 py-[16px] font-medium"
+                                >
                                     @lang('shop::app.customers.account.orders.view.information.price')
                                 </th>
 
@@ -146,6 +153,13 @@
                                                 @endforeach
                                             </div>
                                         @endif
+                                    </td>
+
+                                    <td
+                                        class="px-6 py-[16px] text-black font-medium"
+                                        data-value="@lang('shop::app.customers.account.orders.view.information.product-property-code')"
+                                    >
+                                        {{ $order->property_code }}
                                     </td>
 
                                     <td

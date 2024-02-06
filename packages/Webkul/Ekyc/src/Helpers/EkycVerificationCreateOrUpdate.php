@@ -4,6 +4,7 @@ namespace Webkul\Ekyc\Helpers;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Event;
+use Webkul\Checkout\Repositories\CartRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
@@ -14,11 +15,13 @@ class EkycVerificationCreateOrUpdate
      * \Webkul\Customer\Repositories\EkycVerificationRepository $ekycVerificationRepository
      * \Webkul\Customer\Repositories\CustomerGroupRepository $customerGroupRepository
      * \Webkul\Customer\Repositories\CustomerRepository $customerRepository
+     * \Webkul\Customer\Repositories\CartRepository $cartRepository
      */
     public function __construct(
         protected EkycVerificationRepository $ekycVerificationRepository,
         protected CustomerGroupRepository $customerGroupRepository,
         protected CustomerRepository $customerRepository,
+        protected CartRepository $cartRepository,
     ) {
     }
     
@@ -53,8 +56,15 @@ class EkycVerificationCreateOrUpdate
             'password'       => encrypt($password),
             'sku'            => $payload['payload']['order']['product']['sku'],
             'status'         => 1,
-            'payload'        => json_encode($payload),
+            'payload'        => $payload,
         ]);
+
+        /**
+         * update property code into cart
+         */
+        $this->cartRepository->update([
+            'property_code' => $payload['payload']['order']['property_code'],
+        ], decrypt($payload['payload']['order']['transaction_id']));
 
         /**
          * Account Proccessing

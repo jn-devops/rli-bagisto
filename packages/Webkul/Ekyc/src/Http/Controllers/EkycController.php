@@ -91,7 +91,7 @@ class EkycController extends Controller
             'sku'            => $product->sku,
             'status'         => 0,
             'transaction_id' => $transaction_id,
-            'payload'        => json_encode($data),
+            'payload'        => $data,
         ]);
     
         return new JsonResource([
@@ -128,10 +128,10 @@ class EkycController extends Controller
     {
         $ekyc = $this->ekycVerificationRepository->findOneByField('transaction_id', request('transaction_id'));
         
-        $payload = json_decode($ekyc->payload)->payload;
+        $payload = $ekyc->payload['payload'];
         
         $loginRequest = [
-            'email'    => $payload->order->buyer->email,
+            'email'    => $payload['order']['buyer']['email'],
             'password' => decrypt($ekyc->password),
         ];
 

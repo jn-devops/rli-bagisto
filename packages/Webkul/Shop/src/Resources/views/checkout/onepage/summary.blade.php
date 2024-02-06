@@ -45,8 +45,17 @@
                             <p class="mt-[10px] text-[18px] font-medium max-sm:text-[14px] max-sm:font-normal">
                                 @{{ item.formatted_price }}
                             </p>
+                            
+                            <p 
+                                class="text-[15px]"
+                            >
+                                <span class="font-medium max-sm:text-[14px] max-sm:font-normal" v-text="'Property code: '">
+                                </span> <span v-text="cart.property_code"></span>
+                            </p> 
                         </div>
                     </div>
+                    
+
                 </div>
 
                 <div class="grid gap-[15px] mt-[25px] mb-[30px]">
