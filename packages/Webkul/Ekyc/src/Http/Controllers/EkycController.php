@@ -63,7 +63,7 @@ class EkycController extends Controller
         /**
          * In test Mode.
          */
-        return "https://book-dev.enclaves.ph/auto-reserve/ABC-123/REF004";
+        //return "https://book-dev.enclaves.ph/auto-reserve/ABC-123/REF004";
 
         /**
          * In Production.
