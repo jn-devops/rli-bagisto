@@ -593,6 +593,12 @@ class Configurable extends AbstractType
                                     'attribute_id' => $attribute->id
                                 ]);
 
+        $attributeInValue = 0;
+
+        if($attributeValue) {
+            $attributeInValue = ((float)$attributeValue->float_value);
+        }
+            
         return [
             [
                 'product_id'        => $this->product->id,
@@ -602,7 +608,7 @@ class Configurable extends AbstractType
                 'quantity'          => $data['quantity'],
                 'price'             => $convertedPrice = core()->convertPrice($price),
                 'base_price'        => $price,
-                'total'             => $convertedPrice + ((float)$attributeValue->float_value ?? 0) * $data['quantity'],
+                'total'             => $convertedPrice + $attributeInValue * $data['quantity'],
                 'base_total'        => $price * $data['quantity'],
                 'weight'            => $childProduct->weight,
                 'total_weight'      => $childProduct->weight * $data['quantity'],
