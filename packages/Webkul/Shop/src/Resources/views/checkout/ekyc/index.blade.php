@@ -90,6 +90,7 @@
                     sended: false,
                     opacity: '',
                     loadingText: 'Loading...',
+                    alreadyRedirect: 0,
                 }
             },
             
@@ -132,7 +133,9 @@
                         .then(response => {
                             if(response.data.data.status) {
                                 clearInterval(verification);
-                          
+
+                                ++this.alreadyRedirect;
+
                                 this.customerLogin(response.data.data.transaction_id);
                             } else {
                                 console.log('waiting');
@@ -143,6 +146,10 @@
                 },
                 
                 customerLogin(transaction_id) {
+                    if(this.alreadyRedirect > 1) {
+                        return;
+                    }
+
                     this.$axios.post("{{ route('ekyc.verification.customer.login') }}", {
                             transaction_id: transaction_id
                         })
