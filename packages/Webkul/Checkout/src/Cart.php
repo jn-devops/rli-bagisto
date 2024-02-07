@@ -507,7 +507,13 @@ class Cart
                                         'attribute_id' => $attribute->id
                                     ]);
 
-                $cart->processing_fee += $cart->processing_fee + (float)$attributeValue->float_value;
+                $attributeInValue = 0;
+
+                if($attributeValue) {
+                    $attributeInValue = ((float)$attributeValue->float_value);
+                }
+                
+                $cart->processing_fee += $cart->processing_fee + $attributeInValue;
             } else {
                 $cart->processing_fee += $cart->processing_fee;
             }

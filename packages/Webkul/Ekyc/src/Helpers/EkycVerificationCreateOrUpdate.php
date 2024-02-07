@@ -30,9 +30,7 @@ class EkycVerificationCreateOrUpdate
      */
     public function create($payload) 
     {
-        //$password = Str::random(10);
-
-        $password = 'admin123';
+        $password = Str::random(10);
 
         /**
          * eKyc Proccessing
