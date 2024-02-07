@@ -18,7 +18,6 @@ class EkycController extends Controller
      * \Webkul\BulkUpload\Repositories\EkycVerificationRepository $ekycVerificationRepository
      * \Webkul\Checkout\Repositories\CartRepository $cartRepository
      * \Webkul\Customer\Repositories\CustomerRepository $customerRepository
-     * 
      */
     public function __construct(
         protected ProductRepository $productRepository,
@@ -35,7 +34,7 @@ class EkycController extends Controller
      */
     public function index()
     {
-        if(empty(request('slug')) 
+        if (empty(request('slug')) 
             || empty(request('cartId'))) {
             abort(404);
         }

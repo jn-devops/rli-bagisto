@@ -510,7 +510,7 @@
                 </p>
 
                 {{-- Products List --}}
-                @if(! $statistics['stock_threshold']->isEmpty())
+                @if (! $statistics['stock_threshold']->isEmpty())
                     <div class="rounded-[4px] box-shadow">
                         @foreach ($statistics['stock_threshold'] as $item)
                             <!-- Single Product -->

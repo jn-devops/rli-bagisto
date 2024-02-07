@@ -500,7 +500,7 @@ class Cart
 
             $attribute = app(AttributeRepository::class)->findOneByField('code', 'processing_fee');
             
-            if(! empty($item->additional['selected_configurable_option'])) {
+            if (! empty($item->additional['selected_configurable_option'])) {
                 $attributeValue = app(ProductAttributeValueRepository::class)
                                     ->findOneWhere([
                                         'product_id'   => $item->additional['selected_configurable_option'],
@@ -509,7 +509,7 @@ class Cart
 
                 $attributeInValue = 0;
 
-                if($attributeValue) {
+                if ($attributeValue) {
                     $attributeInValue = ((float)$attributeValue->float_value);
                 }
                 

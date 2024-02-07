@@ -41,7 +41,7 @@ class EkycVerificationCreateOrUpdate
             'status'         => 1,
         ]);
 
-        if($verification) {
+        if ($verification) {
            return;
         }
         
@@ -99,7 +99,7 @@ class EkycVerificationCreateOrUpdate
         Event::dispatch('customer.registration.before');
         
         $customer = $this->customerRepository->updateOrCreate([
-            'email' => $data['email']
+            'email' => $data['email'],
         ], $data);
        
         $customer['original_password'] = $password;

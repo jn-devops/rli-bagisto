@@ -155,7 +155,7 @@ class Variant extends AbstractType
         $product = parent::update($data, $id, $attribute);
    
         // processing without super_attribute
-        if(empty($data['super_attributes'])) {
+        if (empty($data['super_attributes'])) {
             return $product;
         }
 
@@ -175,7 +175,7 @@ class Variant extends AbstractType
                 'attribute_id' => $attribute->id
             ];
 
-            if(! DB::table('product_super_attributes')->where($superAttributesValue)->first()) {
+            if (! DB::table('product_super_attributes')->where($superAttributesValue)->first()) {
                 DB::table('product_super_attributes')->insert($superAttributesValue);
             }
         }
@@ -324,8 +324,7 @@ class Variant extends AbstractType
         
         $variant->update(['sku' => $data['sku']]);
 
-        if(! empty($data['categories']))
-        {
+        if (! empty($data['categories'])) {
             $variant->categories()->sync($data['categories']);
         }
 

@@ -61,8 +61,7 @@ class OnepageController extends Controller
         /**
          * if customer is not kyc verified.
          */
-
-        if(! auth()->guard('customer')->user()->is_kyc_verified) {
+        if (! auth()->guard('customer')->user()->is_kyc_verified) {
             return redirect()->back();
         }
 

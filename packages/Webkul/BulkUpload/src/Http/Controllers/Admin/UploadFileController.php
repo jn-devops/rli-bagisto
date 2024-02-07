@@ -322,7 +322,7 @@ class UploadFileController extends Controller
 
         foreach ($dataFlowProfileRecord as $images) 
         {
-            if(! $images['url_links']) {
+            if (! $images['url_links']) {
                 continue;
             }
             

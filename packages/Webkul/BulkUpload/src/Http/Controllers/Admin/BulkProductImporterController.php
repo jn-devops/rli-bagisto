@@ -66,7 +66,6 @@ class BulkProductImporterController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * 
      * Depricate function
      * 
      * @param  int  $id
@@ -106,13 +105,12 @@ class BulkProductImporterController extends Controller
 
         try {
             $this->bulkProductImporterRepository->update($data, $id);
-
         } catch (\Exception $e) {
         }
 
         return new JsonResponse([
             'message' => trans('bulkupload::app.admin.bulk-upload.messages.update-profile'),
-            'status'  => true
+            'status'  => true,
         ]);
     }
 
@@ -126,12 +124,11 @@ class BulkProductImporterController extends Controller
     {
         try {
             $this->bulkProductImporterRepository->findOrFail($id)->delete();
-
         } catch (\Exception $e) {
         }
 
         return new JsonResponse([
-            'message' => trans('bulkupload::app.admin.bulk-upload.messages.profile-deleted')
+            'message' => trans('bulkupload::app.admin.bulk-upload.messages.profile-deleted'),
         ]);
     }
 
@@ -144,7 +141,6 @@ class BulkProductImporterController extends Controller
     {   
         try {
             $this->bulkProductImporterRepository->whereIn('id', request()->input('indices'))->delete();
-
         } catch (\Exception $e) {
         }
 

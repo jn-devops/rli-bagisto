@@ -360,7 +360,7 @@
                                         <p class="text-[14px]">-</p>
 
                                         <p class="text-[14px]">
-                                            @if($order->status !== 'canceled')
+                                            @if ($order->status !== 'canceled')
                                                 {{ core()->formatPrice($order->total_due, $order->order_currency_code) }}
                                             @else
                                                 {{ core()->formatPrice(0.00, $order->order_currency_code) }}
