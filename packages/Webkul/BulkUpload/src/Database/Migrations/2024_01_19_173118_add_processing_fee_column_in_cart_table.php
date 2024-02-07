@@ -40,6 +40,20 @@ return new class extends Migration
         Schema::table('shipment_items', function (Blueprint $table) {
             $table->decimal('processing_fee',12, 4)->default(0)->nullable()->after('base_total');
         });
+
+        Schema::table('customers', function (Blueprint $table) {
+            $table->string('name')->after('id')->nullable();
+            $table->string('address')->after('email')->nullable();
+            $table->integer('is_kyc_verified')->after('is_verified')->default(0);
+        });
+
+        Schema::table('cart', function (Blueprint $table) {
+            $table->string('property_code')->nullable()->after('processing_fee');
+        });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('property_code')->nullable()->after('processing_fee');
+        });
     }
 
     /**
@@ -75,6 +89,20 @@ return new class extends Migration
         // In shipment_items Table.
         Schema::table('shipment_items', function (Blueprint $table) {
             $table->dropIfExists('base_total');
+        });
+
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropIfExists('name');
+            $table->dropIfExists('address');
+            $table->dropIfExists('is_kyc_verified');
+        });
+        
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropIfExists('property_code');
+        });
+
+        Schema::table('cart', function (Blueprint $table) {
+            $table->dropIfExists('property_code');
         });
     }
 };

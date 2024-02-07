@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ekyc_verifications', function (Blueprint $table) {
             $table->id();
             $table->string('cart_id');
+            $table->text('transaction_id')->nullable();
             $table->string('sku');
             $table->integer('status');
             $table->json('payload');
