@@ -14,6 +14,7 @@ class AttributeOptionTableSeeder extends Seeder
     protected array $finishes = ['Bare', 'Fitted'];
     protected array $present_absent = ['Present', 'Absent'];
     protected array $yes_no = ['Yes', 'No'];
+    protected array $style_option = ['Slant', 'Flat'];
 
     public function run(): void
     {
@@ -80,5 +81,38 @@ class AttributeOptionTableSeeder extends Seeder
                 'attribute_option_id' => $attribute_option_id,
             ]);
         }
+
+        $balcony = AttributeTableSeeder::$balcony;
+        $sort_order = 1;
+        foreach ($this->yes_no as $yes_no) {
+            DB::table('attribute_options')->insert([
+                'admin_name'   => $yes_no,
+                'sort_order'   => $sort_order++,
+                'attribute_id' => $balcony,
+            ]);
+            $attribute_option_id = DB::getPdo()->lastInsertId();
+            DB::table('attribute_option_translations')->insert([
+                'locale'              => 'en',
+                'label'               => $balcony,
+                'attribute_option_id' => $attribute_option_id,
+            ]);
+        }
+
+        $style = AttributeTableSeeder::$style;
+        $sort_order = 1;
+        foreach ($this->style_option as $style_option) {
+            DB::table('attribute_options')->insert([
+                'admin_name'   => $style_option,
+                'sort_order'   => $sort_order++,
+                'attribute_id' => $style,
+            ]);
+            $attribute_option_id = DB::getPdo()->lastInsertId();
+            DB::table('attribute_option_translations')->insert([
+                'locale'              => 'en',
+                'label'               => $style,
+                'attribute_option_id' => $attribute_option_id,
+            ]);
+        }
+
     }
 }

@@ -25,6 +25,8 @@ class AttributeTableSeeder extends Seeder
     public static int $carports;
     public static int $parking;
     public static int $inventory_sources;
+    public static int $style;
+    public static int $balcony;
 
     public function run(): void
     {
@@ -312,6 +314,48 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$inventory_sources = DB::getPdo()->lastInsertId();
 
+        DB::table('attributes')->insert([
+            'code'                => 'style',
+            'admin_name'          => 'Style',
+            'type'                => 'text',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$style = DB::getPdo()->lastInsertId();
+
+        DB::table('attributes')->insert([
+            'code'                => 'balcony',
+            'admin_name'          => 'Balcony',
+            'type'                => 'text',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$balcony = DB::getPdo()->lastInsertId();
+
 
         DB::table('attribute_translations')->insert([
             [
@@ -352,33 +396,45 @@ class AttributeTableSeeder extends Seeder
             ], [
                 'id'           => self::$ground_floor,
                 'locale'       => 'en',
-                'name'         => 'End Unit',
+                'name'         => 'Ground Floor',
                 'attribute_id' => self::$ground_floor,
             ], [
                 'id'           => self::$bedrooms,
                 'locale'       => 'en',
-                'name'         => 'End Unit',
+                'name'         => 'Bedrooms',
                 'attribute_id' => self::$bedrooms,
             ], [
                 'id'           => self::$t_and_b,
                 'locale'       => 'en',
-                'name'         => 'End Unit',
+                'name'         => 'T and B',
                 'attribute_id' => self::$t_and_b,
             ], [
                 'id'           => self::$carports,
                 'locale'       => 'en',
-                'name'         => 'End Unit',
+                'name'         => 'Carports',
                 'attribute_id' => self::$carports,
             ], [
                 'id'           => self::$parking,
                 'locale'       => 'en',
-                'name'         => 'End Unit',
+                'name'         => 'Parking',
                 'attribute_id' => self::$parking,
             ], [
                 'id'           => self::$inventory_sources,
                 'locale'       => 'en',
-                'name'         => 'End Unit',
+                'name'         => 'Inventory Sources',
                 'attribute_id' => self::$inventory_sources,
+            ],
+             [
+                'id'           => self::$balcony,
+                'locale'       => 'en',
+                'name'         => 'Balcony',
+                'attribute_id' => self::$balcony,
+            ],
+             [
+                'id'           => self::$style,
+                'locale'       => 'en',
+                'name'         => 'Style',
+                'attribute_id' => self::$style,
             ],
         ]);
 
@@ -435,7 +491,16 @@ class AttributeTableSeeder extends Seeder
                                 'attribute_id'        => self::$inventory_sources,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 111,
-                            ],
+                            ], [
+                                'attribute_id'        => self::$style,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 113,
+                            ], [
+                                'attribute_id'        => self::$balcony,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 112,
+                            ]
+
                         ]);
                         break;
                     case AttributeGroupTableSeeder::PRICE_GROUP:
