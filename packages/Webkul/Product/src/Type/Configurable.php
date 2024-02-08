@@ -207,15 +207,15 @@ class Configurable extends AbstractType
 
                     $variantData['tax_category_id'] = $data['tax_category_id'] ?? null;
 
-                    if(! empty($data['inventories'])) {
+                    if (! empty($data['inventories'])) {
                         $variantData['inventories'] = $data['inventories'] ?? [];
                     }
 
-                    if(! empty($data['price'])) {
+                    if (! empty($data['price'])) {
                         $variantData['price'] = $data['price'];
                     }
 
-                    if(! empty($data['categories'])) {
+                    if (! empty($data['categories'])) {
                         $variantData['categories'] = $data['categories'];
                     }
 
@@ -385,8 +385,7 @@ class Configurable extends AbstractType
         
         $variant->update(['sku' => $data['sku']]);
 
-        if(! empty($data['categories']))
-        {
+        if (! empty($data['categories'])) {
             $variant->categories()->sync($data['categories']);
         }
 
@@ -595,7 +594,7 @@ class Configurable extends AbstractType
 
         $attributeInValue = 0;
 
-        if($attributeValue) {
+        if ($attributeValue) {
             $attributeInValue = ((float)$attributeValue->float_value);
         }
             

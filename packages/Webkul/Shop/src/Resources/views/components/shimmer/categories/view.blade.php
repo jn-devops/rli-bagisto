@@ -12,7 +12,7 @@
             </div>
 
             {{-- Product Card Container --}}
-            @if(request()->query('mode') =='list')
+            @if (request()->query('mode') =='list')
                 <div class="grid grid-cols-1 gap-[25px] mt-[30px]">
                     <x-shop::shimmer.products.cards.list count="12"></x-shop::shimmer.products.cards.list>
                 </div>

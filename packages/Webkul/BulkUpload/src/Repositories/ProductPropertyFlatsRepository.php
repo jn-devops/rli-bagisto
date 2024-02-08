@@ -12,7 +12,7 @@ class ProductPropertyFlatsRepository extends Repository
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
         return 'Webkul\BulkUpload\Contracts\ProductPropertyFlats';
     }
@@ -21,7 +21,6 @@ class ProductPropertyFlatsRepository extends Repository
      * find flats Numbers
      * 
      * @param $slots
-     * 
      * @return mixed
      */
     public function getFlatNumbers($slots)

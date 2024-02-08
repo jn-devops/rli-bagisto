@@ -95,7 +95,7 @@
             },
             
             mounted() {
-                if(this.verification) {
+                if (this.verification) {
                     this.sended = true;
                     this.opacity = 'opacity-20';
                     this.loadingText = "Please complete Kyc process";
@@ -131,7 +131,7 @@
                             }
                         })
                         .then(response => {
-                            if(response.data.data.status) {
+                            if (response.data.data.status) {
                                 clearInterval(verification);
 
                                 ++this.alreadyRedirect;
@@ -146,7 +146,7 @@
                 },
                 
                 customerLogin(transaction_id) {
-                    if(this.alreadyRedirect > 1) {
+                    if (this.alreadyRedirect > 1) {
                         return;
                     }
 
@@ -154,7 +154,7 @@
                             transaction_id: transaction_id
                         })
                         .then(response => {
-                            window.open(response.data.data.redirect);
+                            window.open(response.data.data.redirect, "_self");
                         })
                         .catch(error => console.log(error));
                 }

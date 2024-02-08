@@ -62,7 +62,7 @@
         {{-- Right Navigation Links --}}
         <div class="flex gap-x-[35px] mt-[5px] max-lg:gap-x-[30px] max-[1100px]:gap-x-[25px]">
             {{-- Compare --}}
-            @if(core()->getConfigData('general.content.shop.compare_option'))
+            @if (core()->getConfigData('general.content.shop.compare_option'))
                 <a
                     href="{{ route('shop.compare.index') }}"
                     aria-label="Compare"

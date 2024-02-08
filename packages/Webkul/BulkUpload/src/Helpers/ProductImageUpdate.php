@@ -16,7 +16,7 @@ class ProductImageUpdate
 
         $position = 0;
 
-        if(empty($request['images_url'])) {
+        if (empty($request['images_url'])) {
             return false;
         }
 

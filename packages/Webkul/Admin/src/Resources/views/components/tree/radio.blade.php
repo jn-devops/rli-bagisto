@@ -38,7 +38,7 @@
 
             computed: {
                 isActive() {
-                    if(this.value.length) {
+                    if (this.value.length) {
                         return this.value[0] == this.modelValue ? true : false;
                     }
 

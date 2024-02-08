@@ -32,7 +32,7 @@ class HelperRepository extends Repository
      *
      * @return string
      */
-    function model()
+    public function model()
     {
         return 'Webkul\Product\Contracts\Product';
     }
@@ -65,7 +65,8 @@ class HelperRepository extends Repository
             // Initialize validations with required or nullable based on attribute settings
             $validations = [$attribute->is_required ? 'required' : 'nullable'];
 
-            if ($attribute->type == 'text' && $attribute->validation) {
+            if ($attribute->type == 'text' 
+                    && $attribute->validation) {
                 // Add custom validation rules if applicable
                 $validations[] = $attribute->validation == 'decimal' ? new Decimal : $attribute->validation;
             }

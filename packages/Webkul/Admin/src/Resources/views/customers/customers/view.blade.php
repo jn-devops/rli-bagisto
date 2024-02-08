@@ -184,15 +184,15 @@
                                         </p>
 
                                         <p class="text-gray-600 dark:text-gray-300">
-                                            @if($order->billingAddress->address1)
+                                            @if ($order->billingAddress->address1)
                                                 {{ $order->billingAddress->address1 }},
                                             @endif
 
-                                            @if($order->billingAddress->city)
+                                            @if ($order->billingAddress->city)
                                                 {{ $order->billingAddress->city }},
                                             @endif
 
-                                            @if($order->billingAddress->state)
+                                            @if ($order->billingAddress->state)
                                                 {{ $order->billingAddress->state  }}
                                             @endif
                                         </p>
@@ -317,7 +317,7 @@
 
             {{-- Reviews --}}
             <div class="bg-white dark:bg-gray-900 rounded box-shadow">
-                @if($totalReviewsCount = count($customer->reviews) )
+                @if ($totalReviewsCount = count($customer->reviews) )
                     {{-- Reviews Count --}}
                     <p class=" p-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
                         @lang('admin::app.customers.customers.view.reviews', ['review_count' => $totalReviewsCount])
@@ -611,7 +611,7 @@
                                     {{ $address->state }},
                                     {{ core()->country_name($address->country) }}
 
-                                    @if($address->postcode)
+                                    @if ($address->postcode)
                                         ({{ $address->postcode }})
                                     @endif
                                 </p>

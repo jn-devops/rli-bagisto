@@ -60,7 +60,7 @@ class SimpleProductRepository extends BaseRepository
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
         return 'Webkul\Product\Contracts\Product';
     }
@@ -89,6 +89,7 @@ class SimpleProductRepository extends BaseRepository
         });
         
         $csvData['inventories'] = $this->inventorySourceRepository->findWhereIn('code', $inventory_sources->toArray())->pluck('id')->toArray();
+        
         $csvData['weight'] = 1;
 
         $createProduct = [
@@ -139,7 +140,6 @@ class SimpleProductRepository extends BaseRepository
             
             // Product Update Procesing
             $this->updateProduct($csvData, $product, $dataFlowProfileRecord);
-
         }else {
             // Product Update Procesing
             $this->updateProduct($csvData, $product, $dataFlowProfileRecord);
@@ -152,7 +152,6 @@ class SimpleProductRepository extends BaseRepository
      * @param array $csvData
      * @param mixed $product
      * @param array $dataFlowProfileRecord
-     * 
      * @return array $data
      */
     private function updateProduct($csvData, $product, $dataFlowProfileRecord)
@@ -160,9 +159,9 @@ class SimpleProductRepository extends BaseRepository
         // store uploaded product in session
         if (! empty($product)) {
             $uploadedProduct = [
-                'id'    => $product->id,
-                'sku'   => $product->sku,
-                'type'  => $product->type,
+                'id'   => $product->id,
+                'sku'  => $product->sku,
+                'type' => $product->type,
             ];
 
             session()->push('uploadedProduct', $uploadedProduct);
@@ -172,7 +171,7 @@ class SimpleProductRepository extends BaseRepository
         $data = $this->processProductAttributes($csvData, $product);
 
         // Process inventory for configurable product
-        if(in_array($product->type, ["variant", "configurable"])) {
+        if (in_array($product->type, ["variant", "configurable"])) {
             $this->processProductInventoryForConfiguration($csvData, $data);
         } else {
             $this->processProductInventory($csvData, $data);
@@ -219,11 +218,11 @@ class SimpleProductRepository extends BaseRepository
 
             $data['downloadable_links'] = $downloadableLinks;
         }
-
-        
+  
         if ($product->type == 'downloadable' 
                     && isset($csvData['samples_title'])) {
             $downloadableSamples = $this->addSamples($csvData, $dataFlowProfileRecord, $product);
+            
             if (isset($downloadableSamples['error'])) {
                 $this->helperRepository->deleteProductIfNotValidated($product->id);
 
@@ -263,7 +262,7 @@ class SimpleProductRepository extends BaseRepository
         Event::dispatch('catalog.product.update.after', $productFlat);
         
         // Upload images
-        if($productFlat) {
+        if ($productFlat) {
             $this->productImageRepository->bulkuploadImages($data, $productFlat);
         }
     }
@@ -283,7 +282,6 @@ class SimpleProductRepository extends BaseRepository
         $attributes = $product->getTypeInstance()->getEditableAttributes();
        
         foreach ($attributes as $attribute) {
-
             $searchIndex = strtolower($attribute['code']);
             
             $csvValue = $csvData[$searchIndex] ?? null;
@@ -301,21 +299,18 @@ class SimpleProductRepository extends BaseRepository
                     $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
 
                     break;
-
                 case "checkbox":
                     $attributeOption = $this->attributeOptionRepository->findOneByField(['attribute_id' => $attribute['id'], 'admin_name' => $csvValue]);
 
                     $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
 
                     break;
-
                 case in_array($searchIndex, ["color", "size", "brand"]):
                     $attributeOption = $this->attributeOptionRepository->findOneByField(['admin_name' => ucwords($csvValue)]);
 
                     $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
 
                     break;
-
                 default:
                     if ($searchIndex == 'url_key') {
                         $csvValue = strtolower($csvValue);
@@ -331,16 +326,15 @@ class SimpleProductRepository extends BaseRepository
         return $data;
     }
 
-     /**
+    /**
      * Process product inventory for Configuration data and update $data array
      *
      * @param array $csvData
      * @param array $data
      * @return int $data
-     * 
      */
     private function processProductInventoryForConfiguration($csvData, &$data)
-    {  
+    {
         $inventoryCode = preg_split('/,\s*|,/', $csvData['inventory_sources']);
     
         $inventoryId = $this->inventorySourceRepository->whereIn('code', $inventoryCode)->pluck('id')->toArray();
@@ -362,7 +356,6 @@ class SimpleProductRepository extends BaseRepository
      * @param array $csvData
      * @param array $data
      * @return int $data
-     * 
      */
     private function processProductInventory($csvData, &$data)
     {
@@ -384,19 +377,20 @@ class SimpleProductRepository extends BaseRepository
      *
      * @param array $csvData
      * @return int $categoryID
-     * 
      */
     private function processProductCategories($csvData)
     {
-        if (is_null($csvData['category']) || empty($csvData['category'])) {
+        if (is_null($csvData['category']) 
+                || empty($csvData['category'])) {
+
             $categoryID = $this->categoryRepository->findBySlugOrFail('root')->id;
+
         } else {
             $categoryData = preg_split('/,\s*|,/', $csvData['category']);
 
             $categoryID = array_map(function ($value) {
                 try {
                     return $this->categoryRepository->findBySlugOrFail(Str::slug(strtolower($value)))->id;
-
                 } catch(\Exception $e) {
                     return [
                         'error' => ['category not found', $e->getMessage()],
@@ -413,23 +407,24 @@ class SimpleProductRepository extends BaseRepository
      *
      * @param array $csvData
      * @param array $product
-     * 
+     * @return mixed
      */
     private function processCustomerGroupPricing($csvData, &$data, $product)
     {
-        if (isset($csvData['customer_group_prices']) && ! empty($csvData['customer_group_prices'])) {
+        if (isset($csvData['customer_group_prices']) 
+                && ! empty($csvData['customer_group_prices'])) {
+
             $data['customer_group_prices'] = json_decode($csvData['customer_group_prices'], true);
+            
             app(ProductCustomerGroupPriceRepository::class)->saveCustomerGroupPrices($data, $product);
         }
     }
 
-     /**
+    /**
      * Process product images and update $csvData array
      *
      * @param string|array $csvData
-     * 
      * @return mixed
-     * 
      */
     private function processProductImages($csvData)
     {
@@ -458,6 +453,7 @@ class SimpleProductRepository extends BaseRepository
         return false;
 
         $returnRules = $this->helperRepository->validateCSV($product);
+
         $csvValidator = Validator::make($data, $returnRules);
 
         if ($csvValidator->fails()) {
@@ -495,6 +491,7 @@ class SimpleProductRepository extends BaseRepository
 
         // Initialize arrays to store downloadable links
         $linkNameKey = [];
+
         $d_links = [];
 
         $linkDataKeys = [
@@ -558,28 +555,37 @@ class SimpleProductRepository extends BaseRepository
                 core()->getCurrentLocale()->code => [
                     "title" => $linkTitle,
                 ],
-                "price" => isset($linkData['link_prices'][$index]) ? $linkData['link_prices'][$index] : "",
-                "type" => trim($linkData['link_types'][$index]),
-                "sample_type" => trim($linkData['link_sample_types'][$index]),
-                "downloads" => isset($linkData['link_downloads'][$index]) ? $linkData['link_downloads'][$index] : 0,
-                "sort_order" => isset($linkData['link_sort_orders'][$index]) ? $linkData['link_sort_orders'][$index] : 0,
+                "price"                          => isset($linkData['link_prices'][$index]) ? $linkData['link_prices'][$index] : "",
+                "type"                           => trim($linkData['link_types'][$index]),
+                "sample_type"                    => trim($linkData['link_sample_types'][$index]),
+                "downloads"                      => isset($linkData['link_downloads'][$index]) ? $linkData['link_downloads'][$index] : 0,
+                "sort_order"                     => isset($linkData['link_sort_orders'][$index]) ? $linkData['link_sort_orders'][$index] : 0,
             ];
 
             if (trim($linkData['link_types'][$index]) == "url") {
+
                 $link['link_' . $index]['url'] = trim($fileLink);
-            } elseif (trim($linkData['link_types'][$index]) == "file" && isset($fileLink)) {
+
+            } elseif (trim($linkData['link_types'][$index]) == "file" 
+                    && isset($fileLink)) {
                 $link['link_' . $index]['file'] = trim($fileLink);
+
                 $link['link_' . $index]['file_name'] = trim($linkData['link_file_names'][$index]);
             }
 
             if (trim($linkData['link_sample_types'][$index]) == "url") {
+
                 $link['link_' . $index]['sample_url'] = trim($linkData['link_sample_url'][$index]);
-            } elseif (trim($linkData['link_sample_types'][$index]) == "file" && isset($sampleFileLink)) {
+
+            } elseif (trim($linkData['link_sample_types'][$index]) == "file" 
+                    && isset($sampleFileLink)) {
                 $link['link_' . $index]['sample_file'] = trim($sampleFileLink);
+
                 $link['link_' . $index]['sample_file_name'] = trim($linkData['link_sample_file_names'][$index]);
             }
 
             array_push($linkNameKey, 'link_' . $index);
+
             array_push($d_links, $link['link_' . $index]);
         }
 
@@ -601,6 +607,7 @@ class SimpleProductRepository extends BaseRepository
         $downloadableLinks = $this->extractDownloadableFiles($dataFlowProfileRecord);
 
         $d_samples = [];
+
         $sampleNameKey = [];
 
         $sampleDataKeys = [
@@ -619,6 +626,7 @@ class SimpleProductRepository extends BaseRepository
 
         // Ensure that all link data arrays have the same length
         $dataLengths = array_map('count', $sampleData);
+
         $uniqueLengths = array_unique($dataLengths);
 
         if (! (count($uniqueLengths) === 1)) {
@@ -632,9 +640,13 @@ class SimpleProductRepository extends BaseRepository
         // Loop through the downloadable sample data
         for ($index = 0; $index < $dataLength; $index++) {
             $sampleTitle = $sampleData['samples_title'][$index];
+
             $sampleFileType = trim(strtolower($sampleData['sample_type'][$index]));
+
             $sampleFileName = $sampleData['sample_files'][$index];
+
             $sampleUrl = $sampleData['sample_url'][$index];
+
             $sampleSortOrder = $sampleData['sample_sort_order'][$index];
 
             // Determine the sample file or URL for the link
@@ -646,23 +658,29 @@ class SimpleProductRepository extends BaseRepository
                 $downloadableLinks,
                 false
             );
+            
             // Create the downloadable sample array
             $sample['sample_' . $index] = [
                 core()->getCurrentLocale()->code => [
                     "title" => $sampleTitle,
                 ],
-                "type" => trim($sampleFileType),
-                "sort_order" => $sampleSortOrder[$index] ?? 0,
+                "type"                           => trim($sampleFileType),
+                "sort_order"                     => $sampleSortOrder[$index] ?? 0,
             ];
 
             if (trim($sampleFileType) == "url") {
+
                 $sample['sample_' . $index]['url'] = trim($sampleUrl);
-            } elseif (trim($sampleFileType) == "file" && isset($sampleFileLink)) {
+
+            } elseif (trim($sampleFileType) == "file" 
+                    && isset($sampleFileLink)) {
                 $sample['sample_' . $index]['file'] = trim($sampleFileLink);
+
                 $sample['sample_' . $index]['file_name'] = trim($sampleFileName);
             }
 
             array_push($sampleNameKey, 'sample_' . $index);
+
             array_push($d_samples, $sample['sample_' . $index]);
         }
 
@@ -732,7 +750,6 @@ class SimpleProductRepository extends BaseRepository
      * @param string|array $file
      * @param integer $id
      * @param array $downloadableLinks
-     *
      * @return mixed
      */
     public function linkFileOrUrlUpload($dataFlowProfileRecord, $type, $file, $id, $downloadableLinks)
@@ -740,7 +757,6 @@ class SimpleProductRepository extends BaseRepository
         try {
             if (trim($type) == "file") {
                 // Determine the file path
-
                 $sourcePath = "imported-products/extracted-images/admin/link-files/".$dataFlowProfileRecord->id.'/'.$downloadableLinks['upload_link_filesZipName']['dirname'].'/'.trim(basename($file));
 
                 $destination = "product_downloadable_links/".$id.'/'.basename($file);
@@ -778,7 +794,6 @@ class SimpleProductRepository extends BaseRepository
      * unzip zip files and store in storage folder
      *
      * @param \Webkul\BulkUpload\Contracts\ImportProduct $record
-     *
      * @return mixed
      */
     public function extractDownloadableFiles($record)
@@ -790,7 +805,6 @@ class SimpleProductRepository extends BaseRepository
         foreach ($fileTypes as $fileType) {
 
             if (isset($record->$fileType) && $record->$fileType !== "") {
-
                 $zipArchive = new \ZipArchive();
 
                 $extractedPath = storage_path("app/public/imported-products/extracted-images/admin/{$fileType}/{$record->id}/");
@@ -798,10 +812,12 @@ class SimpleProductRepository extends BaseRepository
                 if ($zipArchive->open(storage_path("app/public/{$record->$fileType}"))) {
                     for ($i = 0; $i < $zipArchive->numFiles; $i++) {
                         $filename = $zipArchive->getNameIndex($i);
+
                         $result["{$fileType}ZipName"] = pathinfo($filename);
                     }
 
                     $zipArchive->extractTo($extractedPath);
+                    
                     $zipArchive->close();
                 }
             }

@@ -53,7 +53,7 @@
                                         </span>
                                     </div>
 
-                                    @if($transaction->invoice_id)
+                                    @if ($transaction->invoice_id)
                                     <div class="row">
                                         <span class="title">
                                             {{ __('admin::app.sales.transactions.invoice-id') }}

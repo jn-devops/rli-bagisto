@@ -86,11 +86,13 @@
 
             computed: {
                 savedValues () {
-                    if(! this.value)
+                    if (! this.value) {
                         return [];
+                    }
 
-                    if(this.inputType == 'radio')
+                    if (this.inputType == 'radio') {
                         return [this.value];
+                    }
 
                     return (typeof this.value == 'string') ? JSON.parse(this.value) : this.value;
                 }

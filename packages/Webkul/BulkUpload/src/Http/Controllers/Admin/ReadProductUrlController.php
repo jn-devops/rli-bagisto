@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
 use Webkul\BulkUpload\Repositories\ProductPropertyFlatsRepository;
 
@@ -37,7 +36,7 @@ class ReadProductUrlController extends Controller
 
         $urls = explode(',', request('urls'));
 
-        if(! empty($urls)) {
+        if (! empty($urls)) {
             $imageZipName = $imageName = [];
 
             foreach ($urls as $url) {
@@ -60,8 +59,8 @@ class ReadProductUrlController extends Controller
         }
 
         return new JsonResponse([
-                'images'    => $imageZipName,
-                'names'     => implode(',', $imageName),
+                'images' => $imageZipName,
+                'names'  => implode(',', $imageName),
         ]);
     }
 
@@ -119,8 +118,7 @@ class ReadProductUrlController extends Controller
      */
     public function productUrlGet()
     {
-        if(! request()->has('product_id'))
-        {
+        if (! request()->has('product_id')) {
             return new JsonResponse([]);
         }
 
@@ -140,14 +138,13 @@ class ReadProductUrlController extends Controller
      */
     public function getSlot()
     {
-        if(request()->has('slot_id') && request()->has('product_id'))
-        {
+        if (request()->has('slot_id') 
+                && request()->has('product_id')) {
             return new JsonResponse([
                 'flat'  => $this->productPropertiesRepository->with('slot')->where([
                                 'product_id' => request('product_id'),
                                 'image_url'  => request('image_url'),
-                            ])
-                            ->first(),
+                            ])->first(),
             ]);
         }
 

@@ -296,12 +296,12 @@
                 .then(response => {
                     let slot = this.flats.slot;
 
-                    if(response.data.flat) {
+                    if (response.data.flat) {
                         this.flats = response.data.flat;
                     }
 
                     // If flat slot is null
-                    if(! this.flats.slot) {
+                    if (! this.flats.slot) {
                         this.flats.slot = slot;
                     }
 
@@ -360,7 +360,7 @@
 
                 function dragMouseDown(e) {
                     // Box drag with out ctrl Key.
-                    if(! e.ctrlKey) {
+                    if (! e.ctrlKey) {
                         e = e || window.event;
                         
                         e.preventDefault();
@@ -447,7 +447,7 @@
 
                 dots.addEventListener('mousedown', function(e) {
                     // Zoom move with ctrl Key
-                    if(e.ctrlKey) {
+                    if (e.ctrlKey) {
                         e.preventDefault();
 
                         original_width = parseFloat(getComputedStyle(dots, null).getPropertyValue('width').replace('px', ''));

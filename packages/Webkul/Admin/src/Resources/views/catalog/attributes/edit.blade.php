@@ -473,7 +473,7 @@
                                 </x-admin::form.control-group>
 
                                 <!-- Textarea Switcher -->
-                                @if($attribute->type == 'textarea')
+                                @if ($attribute->type == 'textarea')
                                     <x-admin::form.control-group>
                                         <x-admin::form.control-group.label>
                                             @lang('admin::app.catalog.attributes.edit.enable-wysiwyg')
@@ -534,7 +534,7 @@
                         
                             <x-slot:content>
                                 <!-- Input Validation -->
-                                @if($attribute->type == 'text')
+                                @if ($attribute->type == 'text')
                                     <x-admin::form.control-group class="mb-[10px]">
                                         <x-admin::form.control-group.label>
                                             @lang('admin::app.catalog.attributes.edit.input-validation')

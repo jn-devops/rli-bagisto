@@ -134,7 +134,7 @@
                         @foreach ($order->items as $item)
                             <div class="flex gap-[10px] justify-between px-[16px] py-[24px] border-b-[1px] border-slate-300 dark:border-gray-800">
                                 <div class="flex gap-[10px]">
-                                    @if($item->product?->base_image_url)
+                                    @if ($item->product?->base_image_url)
                                         <img
                                             class="w-full h-[60px] max-w-[60px] max-h-[60px] relative rounded-[4px]"
                                             src="{{ $item->product?->base_image_url }}"
@@ -276,7 +276,7 @@
                                 {{ core()->formatBasePrice($order->base_grand_total_refunded) }}
                             </p>
 
-                            @if($order->status !== 'canceled')
+                            @if ($order->status !== 'canceled')
                                 <p class="text-gray-600 dark:text-gray-300">
                                     {{ core()->formatBasePrice($order->base_total_due) }}
                                 </p>

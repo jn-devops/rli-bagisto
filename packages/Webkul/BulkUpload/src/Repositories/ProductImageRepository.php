@@ -12,7 +12,7 @@ class ProductImageRepository extends Repository
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
         return 'Webkul\Product\Contracts\ProductImage';
     }
@@ -29,13 +29,14 @@ class ProductImageRepository extends Repository
         if (isset($data['images'])) {
             foreach ($data['images'] as $imageId => $image) {
                 $file = 'images.' . $imageId;
+
                 $dir = 'product/' . $product->id;
 
                 if (str_contains($imageId, 'image_')) {
                     if (request()->hasFile($file)) {
                         $this->create([
-                                'path' => request()->file($file)->store($dir),
-                                'product_id' => $product->id
+                                'path'       => request()->file($file)->store($dir),
+                                'product_id' => $product->id,
                             ]);
                     }
                 } else {
@@ -49,7 +50,7 @@ class ProductImageRepository extends Repository
                         }
 
                         $this->update([
-                            'path' => request()->file($file)->store($dir)
+                            'path' => request()->file($file)->store($dir),
                         ], $imageId);
                     }
                 }
@@ -66,30 +67,28 @@ class ProductImageRepository extends Repository
     }
 
     /**
+     * Image Upload in bulk
+     * 
      * @param array $data
      * @param mixed $product
      * @param array $imageZipName
-     *
      * @return mixed
      */
     public function bulkuploadImages($data, $product)
     {
-        if (isset($data['images'])) {
-            foreach($data['images'] as $value) {
+        foreach($data['images'] ?? [] as $value) {
+            $importPath = "imported-products/admin/images/{$data['sku']}/";
+            
+            $files = $importPath . basename($value);
+            
+            $destination = "product/{$product->id}/" . basename($value);
 
-                $importPath = "imported-products/admin/images/{$data['sku']}/";
-              
-                $files = $importPath . basename($value);
-             
-                $destination = "product/{$product->id}/" . basename($value);
+            Storage::copy($files, $destination);
 
-                Storage::copy($files, $destination);
-
-                $this->create([
-                    'path'          => $destination,
-                    'product_id'    => $product->id
-                ]);
-            }
+            $this->create([
+                'path'       => $destination,
+                'product_id' => $product->id,
+            ]);
         }
     }
 }

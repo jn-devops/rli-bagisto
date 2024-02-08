@@ -137,7 +137,7 @@
         {{-- Right Navigation --}}
         <div>
             <div class="flex  items-center gap-x-[20px]">
-                @if($showCompare)
+                @if ($showCompare)
                     <a
                         href="{{ route('shop.compare.index') }}"
                         aria-label="Compare "

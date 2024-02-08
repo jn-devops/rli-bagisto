@@ -11,7 +11,7 @@ class ImportProductRepository extends Repository
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
         return 'Webkul\BulkUpload\Contracts\ImportProduct';
     }

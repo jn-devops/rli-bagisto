@@ -44,7 +44,7 @@
             </div>
             
             {{-- News Letter subscription --}}
-            @if(core()->getConfigData('customer.settings.newsletter.subscription'))
+            @if (core()->getConfigData('customer.settings.newsletter.subscription'))
                 <div class="grid gap-[10px]">
                     <p class="max-w-[288px] leading-[45px] text-[30px] italic text-navyBlue">
                         @lang('shop::app.components.layouts.footer.newsletter-text')
