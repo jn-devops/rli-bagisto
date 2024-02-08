@@ -154,7 +154,7 @@
                             transaction_id: transaction_id
                         })
                         .then(response => {
-                            window.open(response.data.data.redirect);
+                            window.open(response.data.data.redirect, "_self");
                         })
                         .catch(error => console.log(error));
                 }
