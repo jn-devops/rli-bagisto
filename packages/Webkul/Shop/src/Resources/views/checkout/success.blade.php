@@ -17,17 +17,6 @@
 				title=""
 			>
 
-			<p class="text-[20px]">
-
-				@if (auth()->guard('customer')->user())
-					@lang('shop::app.checkout.success.order-id-info', [
-							'order_id' => '<a class="text-[#0A49A7]" href="' . route('shop.customers.account.orders.view', $order->id) . '">' . $order->increment_id . '</a>'
-					])
-				@else
-					@lang('shop::app.checkout.success.order-id-info', ['order_id' => $order->increment_id]) 
-				@endif
-			</p>
-
 			<p class="text-[26px] font-medium">
 				@lang('shop::app.checkout.success.thanks')
 			</p>
@@ -38,9 +27,9 @@
 
 			{{ view_render_event('bagisto.shop.checkout.continue-shopping.before', ['order' => $order]) }}
 
-			<a href="{{ route('shop.home.index') }}">
+			<a href="{{ route('shop.customers.account.orders.view', $order->id) }}">
 				<div class="block w-max mx-auto m-auto py-[11px] px-[43px] bg-navyBlue rounded-[18px] text-white text-basefont-medium text-center cursor-pointer">
-             		@lang('shop::app.checkout.cart.index.continue-shopping')
+             		@lang('shop::app.checkout.cart.index.view-order')
 				</div> 
 			</a>
 			

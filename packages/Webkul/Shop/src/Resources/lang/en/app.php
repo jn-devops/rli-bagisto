@@ -595,6 +595,7 @@ return [
             'index' => [
                 'cart'                     => 'Cart',
                 'continue-shopping'        => 'Continue Shopping',
+                'view-order'               => 'View Order',
                 'empty-product'            => 'You don’t have a product in your cart.',
                 'home'                     => 'Home',
                 'items-selected'           => ':count Items Selected',
