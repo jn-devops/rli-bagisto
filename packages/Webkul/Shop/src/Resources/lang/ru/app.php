@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'Аккаунт',
                 'compare'       => 'Сравнить',
                 'cart'          => 'Корзина',
@@ -581,6 +582,7 @@ return [
 
             'index' => [
                 'cart'                     => 'Корзина',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'Продолжить покупки',
                 'empty-product'            => 'В вашей корзине нет товаров.',
                 'home'                     => 'Главная',
@@ -764,6 +766,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'Адрес',
         'downloadable-products' => 'Загружаемые товары',
         'my-account'            => 'Мой аккаунт',

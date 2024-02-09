@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'Hesap',
                 'compare'       => 'Karşılaştır',
                 'cart'          => 'Sepet',
@@ -581,6 +582,7 @@ return [
 
             'index' => [
                 'cart'                     => 'Sepet',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'Alışverişe Devam Et',
                 'empty-product'            => 'Sepetinizde ürün bulunmuyor.',
                 'home'                     => 'Anasayfa',
@@ -764,6 +766,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'Adres',
         'downloadable-products' => 'İndirilebilir Ürünler',
         'my-account'            => 'Hesabım',

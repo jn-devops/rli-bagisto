@@ -334,6 +334,7 @@ return [
             ],
 
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'অ্যাকাউন্ট',
                 'cart'          => 'কার্ট',
                 'compare'       => 'তুলনা করুন',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'কার্ট',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'কেনাকাটা চালিয়ে যান',
                 'empty-product'            => 'আপনার কার্টে কোনও পণ্য নেই।',
                 'home'                     => 'হোম',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'ঠিকানা',
         'my-account'            => 'আমার অ্যাকাউন্ট',
         'downloadable-products' => 'ডাউনলোড যোগ্য পণ্য',

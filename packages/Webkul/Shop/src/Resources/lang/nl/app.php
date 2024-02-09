@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'Account',
                 'compare'       => 'Vergelijken',
                 'cart'          => 'Winkelwagen',
@@ -581,6 +582,7 @@ return [
 
             'index' => [
                 'cart'                     => 'Winkelwagen',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'Doorgaan met winkelen',
                 'empty-product'            => 'U heeft geen product in uw winkelwagen.',
                 'home'                     => 'Home',
@@ -764,6 +766,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'Adres',
         'downloadable-products' => 'Downloadbare Producten',
         'my-account'            => 'Mijn Account',

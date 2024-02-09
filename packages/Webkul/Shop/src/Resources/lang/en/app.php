@@ -67,6 +67,10 @@ return [
         'account' => [
             'home'      => 'Home',
 
+            'dashboard' => [
+                'title' => 'Dashboard',
+            ],
+
             'profile'   => [
                 'current-password'        => 'Current Password',
                 'confirm-password'        => 'Confirm Password',
@@ -317,6 +321,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'Account',
                 'compare'       => 'Compare',
                 'cart'          => 'Cart',
@@ -594,8 +599,8 @@ return [
 
             'index' => [
                 'cart'                     => 'Cart',
-                'continue-shopping'        => 'Continue Shopping',
                 'view-order'               => 'View Order',
+                'continue-shopping'        => 'Continue Shopping',
                 'empty-product'            => 'You don’t have a product in your cart.',
                 'home'                     => 'Home',
                 'items-selected'           => ':count Items Selected',
@@ -778,6 +783,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'Address',
         'downloadable-products' => 'Downloadable Products',
         'my-account'            => 'My Account',

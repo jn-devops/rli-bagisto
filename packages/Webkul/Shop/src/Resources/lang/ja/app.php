@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'アカウント',
                 'compare'       => '比較',
                 'cart'          => 'カート',
@@ -581,6 +582,7 @@ return [
 
             'index' => [
                 'cart'                     => 'カート',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'ショッピングを続ける',
                 'empty-product'            => 'カートに製品がありません。',
                 'home'                     => 'ホーム',
@@ -764,6 +766,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => '住所',
         'downloadable-products' => 'ダウンロード可能な製品',
         'my-account'            => 'マイアカウント',

@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'Обліковий запис',
                 'compare'       => 'Порівняння',
                 'cart'          => 'Кошик',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'Кошик',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'Продовжити покупки',
                 'empty-product'            => 'У вас немає товарів у кошику.',
                 'home'                     => 'Головна',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'Адреса',
         'downloadable-products' => 'Завантажувані товари',
         'my-account'            => 'Мій обліковий запис',

@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => '账户',
                 'compare'       => '比较',
                 'cart'          => '购物车',
@@ -593,6 +594,7 @@ return [
 
             'index'                     => [
                 'cart'                     => '购物车',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => '继续购物',
                 'empty-product'            => '您的购物车中没有产品。',
                 'home'                     => '首页',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => '地址',
         'downloadable-products' => '可下载产品',
         'my-account'            => '我的帐户',

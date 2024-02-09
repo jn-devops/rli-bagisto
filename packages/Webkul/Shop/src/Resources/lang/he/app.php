@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'חשבון',
                 'cart'          => 'עגלה',
                 'compare'       => 'השוואה',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'עגלת קניות',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'המשך לקנות',
                 'empty-product'            => 'אין לך מוצר בעגלה שלך.',
                 'home'                     => 'דף הבית',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'כתובת',
         'downloadable-products' => 'מוצרים להורדה',
         'my-account'            => 'החשבון שלי',

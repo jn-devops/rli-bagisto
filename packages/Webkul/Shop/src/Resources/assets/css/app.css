@@ -308,6 +308,9 @@
         content: "\e942";
     }
       
+    .icon-dashboard:before {
+        content: "\e92c";
+    }
 
     .journal-scroll::-webkit-scrollbar {
         width: 14px;

@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'खाता',
                 'compare'       => 'तुलन करें',
                 'cart'          => 'कार्ट',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'कार्ट',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'खरीदारी जारी रखें',
                 'empty-product'            => 'आपके पास आपके कार्ट में कोई उत्पाद नहीं है।',
                 'home'                     => 'होम',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'पता',
         'downloadable-products' => 'डाउनलोड करने योग्य उत्पाद',
         'my-account'            => 'मेरा खाता',

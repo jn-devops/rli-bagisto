@@ -10,6 +10,7 @@
         "vite": "^4.5.1"
     },
     "dependencies": {
+        "chart.js": "^4.4.1",
         "lodash": "^4.17.21",
         "lodash.debounce": "^4.0.8",
         "vue-drag-drop": "^1.1.4",

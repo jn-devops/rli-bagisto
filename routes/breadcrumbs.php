@@ -20,6 +20,12 @@ Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
     $trail->push(trans('shop::app.layouts.profile'), route('shop.customers.account.profile.index'));
 });
 
+// Home > My Account > Dashboard
+Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
+    $trail->parent('account');
+    $trail->push(trans('shop::app.layouts.dashboard'), route('customers.account.dashboard.index'));
+});
+
 // Home > My Account > Profile > Edit
 Breadcrumbs::for('profile.edit', function (BreadcrumbTrail $trail) {
     $trail->parent('profile');
