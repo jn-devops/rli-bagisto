@@ -200,13 +200,13 @@ class Cart
         }
 
         if (! $cart) {
-            return ['warning' => __('shop::app.checkout.cart.item.error-add')];
+            return ['warning' => trans('shop::app.checkout.cart.item.error-add')];
         }
 
         $product = $this->productRepository->find($productId);
 
         if (! $product->status) {
-            return ['info' => __('shop::app.checkout.cart.item.inactive-add')];
+            return ['info' => trans('shop::app.checkout.cart.item.inactive-add')];
         }
 
         $cartProducts = $product->getTypeInstance()->prepareForCart($data);
@@ -294,7 +294,7 @@ class Cart
         $cart = $this->cartRepository->create($cartData);
 
         if (! $cart) {
-            session()->flash('error', __('shop::app.checkout.cart.create-error'));
+            session()->flash('error', trans('shop::app.checkout.cart.create-error'));
 
             return;
         }
@@ -314,7 +314,6 @@ class Cart
      */
     public function updateItems($data)
     {
-        Log::info($data);
         foreach ($data['qty'] as $itemId => $quantity) {
             $item = $this->cartItemRepository->find($itemId);
 
@@ -323,19 +322,19 @@ class Cart
             }
 
             if (! $item->product->status) {
-                throw new \Exception(__('shop::app.checkout.cart.item.inactive'));
+                throw new \Exception(trans('shop::app.checkout.cart.item.inactive'));
             }
 
             if ($quantity <= 0) {
                 $this->removeItem($itemId);
 
-                throw new \Exception(__('shop::app.checkout.cart.illegal'));
+                throw new \Exception(trans('shop::app.checkout.cart.illegal'));
             }
 
             $item->quantity = $quantity;
 
             if (! $this->isItemHaveQuantity($item)) {
-                throw new \Exception(__('shop::app.checkout.cart.inventory-warning'));
+                throw new \Exception(trans('shop::app.checkout.cart.inventory-warning'));
             }
 
             Event::dispatch('checkout.cart.update.before', $item);
@@ -451,8 +450,11 @@ class Cart
         $cartPayment = new CartPayment;
 
         $cartPayment->method = $payment['method'];
+
         $cartPayment->method_title = core()->getConfigData('sales.payment_methods.' . $payment['method'] . '.title');
+
         $cartPayment->cart_id = $cart->id;
+
         $cartPayment->save();
 
         return $cartPayment;
@@ -487,8 +489,6 @@ class Cart
         $cart->tax_total = $cart->base_tax_total = 0;
         $cart->discount_amount = $cart->base_discount_amount = 0;
 
-        $cart->processing_fee = 0;
-
         $quantities = 0;
         
         foreach ($cart->items as $item) {
@@ -499,11 +499,11 @@ class Cart
             $cart->base_sub_total = (float) $cart->base_sub_total + $item->base_total;
 
             $attribute = app(AttributeRepository::class)->findOneByField('code', 'processing_fee');
-            
+
             if (! empty($item->additional['selected_configurable_option'])) {
                 $attributeValue = app(ProductAttributeValueRepository::class)
                                     ->findOneWhere([
-                                        'product_id'   => $item->additional['selected_configurable_option'],
+                                        'product_id'   => $item->product_id,
                                         'attribute_id' => $attribute->id
                                     ]);
 
@@ -512,13 +512,12 @@ class Cart
                 if ($attributeValue) {
                     $attributeInValue = ((float)$attributeValue->float_value);
                 }
-                
-                $cart->processing_fee += $cart->processing_fee + $attributeInValue;
+
+                $cart->processing_fee = $attributeInValue;
             } else {
-                $cart->processing_fee += $cart->processing_fee;
+                $cart->processing_fee = $cart->processing_fee;
             }
 
-            
             $quantities += $item->quantity;
         }
 
@@ -585,7 +584,7 @@ class Cart
 
                 $isInvalid = true;
 
-                session()->flash('info', __('shop::app.checkout.cart.inactive'));
+                session()->flash('info', trans('shop::app.checkout.cart.inactive'));
             } else {
                 $price = ! is_null($item->custom_price) ? $item->custom_price : $item->base_price;
 
@@ -845,7 +844,7 @@ class Cart
             'payment'               => Arr::except($data['payment'], ['id', 'cart_id']),
             'channel'               => core()->getCurrentChannel(),
         ];
-
+        
         /**
          * Avoid for customization requiment.
          */

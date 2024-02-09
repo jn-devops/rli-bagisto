@@ -4,11 +4,10 @@ namespace Webkul\Shop\Http\Controllers\API;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Webkul\Checkout\Facades\Cart;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Event;
-use Webkul\Shop\Http\Resources\CartResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\Checkout\Facades\Cart;
+use Webkul\Shop\Http\Resources\CartResource;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Customer\Repositories\WishlistRepository;
 use Webkul\CartRule\Repositories\CartRuleCouponRepository;
@@ -87,7 +86,10 @@ class CartController extends APIController
 
                     return new JsonResource([
                         'data'          => $cartResource,
-                        'ekyc_redirect' => route('ekyc.verification.index', ['slug' => Str::slug(strtolower($product->getAttribute('name'))), 'cartId' => $cartResource->id]),
+                        'ekyc_redirect' => route('ekyc.verification.index', [
+                                                'slug'   => Str::slug(strtolower($product->getAttribute('name'))),
+                                                'cartId' => $cartResource->id,
+                                            ]),
                         'redirect'      => route('shop.checkout.onepage.index'),
                         'message'       => trans('shop::app.checkout.cart.item-add-to-cart'),
                     ]);
@@ -187,17 +189,21 @@ class CartController extends APIController
 
                 if (! $coupon) {
                     return (new JsonResource([
-                        'data'     => new CartResource(Cart::getCart()),
-                        'message'  => trans('Coupon not found.'),
-                    ]))->response()->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+                            'data'     => new CartResource(Cart::getCart()),
+                            'message'  => trans('Coupon not found.'),
+                        ]))
+                        ->response()
+                        ->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                 }
 
                 if ($coupon->cart_rule->status) {
                     if (Cart::getCart()->coupon_code == $couponCode) {
                         return (new JsonResource([
-                            'data'     => new CartResource(Cart::getCart()),
-                            'message'  => trans('shop::app.checkout.cart.coupon-already-applied'),
-                        ]))->response()->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+                                'data'     => new CartResource(Cart::getCart()),
+                                'message'  => trans('shop::app.checkout.cart.coupon-already-applied'),
+                            ]))
+                            ->response()
+                            ->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                     }
 
                     Cart::setCouponCode($couponCode)->collectTotals();
@@ -214,7 +220,9 @@ class CartController extends APIController
             return (new JsonResource([
                 'data'    => new CartResource(Cart::getCart()),
                 'message' => trans('shop::app.checkout.cart.coupon.error'),
-            ]))->response()->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            ]))
+            ->response()
+            ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

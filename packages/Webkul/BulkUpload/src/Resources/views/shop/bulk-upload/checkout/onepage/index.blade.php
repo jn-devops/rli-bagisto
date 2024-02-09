@@ -9,7 +9,7 @@
         <p class="text-[18px]">
             @lang('bulkupload::app.shop.bulk-upload.checkout.onepage.processing_fee')
         </p>
-
+    
         <p 
             class="text-[18px]"
             v-text="processingFee"
