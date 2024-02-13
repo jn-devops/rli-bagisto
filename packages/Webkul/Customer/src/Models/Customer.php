@@ -61,6 +61,13 @@ class Customer extends Authenticatable implements CustomerContract
         'is_verified',
         'is_kyc_verified',
         'is_suspended',
+        'middle_name',
+        'marital_status',
+        'country_code',
+        'citizenship',
+        'suffix',
+        'email_type',
+        'phone_type',
     ];
 
     /**

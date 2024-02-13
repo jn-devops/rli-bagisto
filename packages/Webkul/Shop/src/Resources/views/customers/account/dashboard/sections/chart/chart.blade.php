@@ -1,11 +1,4 @@
-<!-- const config = {
-  type: 'pie',
-  data: data,
-}; -->
-
-
 <v-product-reviews></v-product-reviews>
-
 
 @pushOnce('scripts')
 
@@ -30,17 +23,15 @@
                 data: {
                     labels: ['TCP', 'MA', 'Balence'],
                     datasets: [{
-                            label: 'My First Dataset',
-
                             data: [270000, 70000, 50000],
 
                             backgroundColor: [
-                                'rgb(255, 99, 132)',
-                                'rgb(54, 162, 235)',
-                                'rgb(255, 205, 86)'
+                                '#990ca8',
+                                '#ed9609',
+                                '#de2c18'
                             ],
 
-                            hoverOffset: 4
+                            hoverOffset: 25
                         }]
                     },
 
@@ -52,7 +43,7 @@
                             },
                         },
                         layout: {
-                            padding: 10,
+                            padding: 20,
                         },
                     },
                 };
