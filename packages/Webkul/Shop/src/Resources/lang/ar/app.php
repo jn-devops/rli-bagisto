@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'الحساب',
                 'compare'       => 'قارن',
                 'cart'          => 'العربة',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'عربة التسوق',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'متابعة التسوق',
                 'empty-product'            => 'ليس لديك منتج في سلة التسوق الخاصة بك.',
                 'home'                     => 'الصفحة الرئيسية',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'العنوان',
         'downloadable-products' => 'المنتجات القابلة للتنزيل',
         'my-account'            => 'حسابي',

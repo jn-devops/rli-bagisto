@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="relative overflow-x-auto mt-[30px] border rounded-[12px]">
-                    <table class="w-full text-sm text-left ">
+                    <table class="w-full text-sm text-left">
                         <thead class="bg-[#F5F5F5] border-b-[1px] border-[#E9E9E9] text-[14px] text-black">
                             <tr>
                                 <th

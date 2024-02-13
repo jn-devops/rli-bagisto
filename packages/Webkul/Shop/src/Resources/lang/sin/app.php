@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'ගිණුම',
                 'compare'       => 'සංස්ථාගත කරන්න',
                 'cart'          => 'කර්තෘ',
@@ -581,6 +582,7 @@ return [
 
             'index' => [
                 'cart'                     => 'කර්තෘ',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'කාර්තෘ පෙරවරු',
                 'empty-product'            => 'ඔබේ කර්තෘක්කයේ නිෂ්පාදනයක් නැත.',
                 'home'                     => 'මුල් පිටවර',
@@ -764,6 +766,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'ලිපිනය',
         'downloadable-products' => 'බාගත කළ හොදමු',
         'my-account'            => 'මම්පොටටු',

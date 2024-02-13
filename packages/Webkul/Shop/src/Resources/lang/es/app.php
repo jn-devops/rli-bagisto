@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'Konto',
                 'cart'          => 'Warenkorb',
                 'compare'       => 'Vergleichen',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'Carrito',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'Continuar Comprando',
                 'empty-product'            => 'No tienes productos en tu carrito.',
                 'home'                     => 'Inicio',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'Adresse',
         'downloadable-products' => 'Downloadbare Produkte',
         'my-account'            => 'Mein Konto',

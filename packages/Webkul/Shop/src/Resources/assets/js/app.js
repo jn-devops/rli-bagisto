@@ -16,7 +16,9 @@ import { configure, defineRule, Field, Form, ErrorMessage } from "vee-validate";
 import { localize } from "@vee-validate/i18n";
 import en from "@vee-validate/i18n/dist/locale/en.json";
 import * as AllRules from '@vee-validate/rules';
+import Chart from "chart.js/auto";
 
+window.Chart = Chart;
 /**
  * Registration of all global validators.
  */

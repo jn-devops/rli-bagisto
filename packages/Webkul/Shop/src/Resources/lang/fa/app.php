@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'حساب کاربری',
                 'compare'       => 'مقایسه',
                 'cart'          => 'سبد خرید',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'سبد خرید',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'ادامه خرید',
                 'home'                     => 'خانه',
                 'empty-product'            => 'شما هیچ محصولی در سبد خرید خود ندارید.',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'آدرس',
         'downloadable-products' => 'محصولات قابل دانلود',
         'my-account'            => 'حساب کاربری من',

@@ -316,6 +316,7 @@ return [
 
         'layouts' => [
             'header' => [
+                'dashboard'     => 'Dashboard',
                 'account'       => 'Compte',
                 'compare'       => 'Comparer',
                 'cart'          => 'Panier',
@@ -593,6 +594,7 @@ return [
 
             'index' => [
                 'cart'                     => 'Panier',
+                'view-order'               => 'View Order',
                 'continue-shopping'        => 'Continuer vos achats',
                 'move-to-wishlist-success' => 'Les articles sélectionnés ont été déplacés avec succès dans la liste de souhaits.',
                 'empty-product'            => 'Vous n\'avez pas de produit dans votre panier.',
@@ -776,6 +778,7 @@ return [
     ],
 
     'layouts' => [
+        'dashboard'             => 'Dashboard',
         'address'               => 'Adresse',
         'downloadable-products' => 'Produits téléchargeables',
         'my-account'            => 'Mon compte',
