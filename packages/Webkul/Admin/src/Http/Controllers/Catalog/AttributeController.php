@@ -121,7 +121,6 @@ class AttributeController extends Controller
             'default_value' => 'integer',
         ]);
 
-
         $requestData =  request()->all();
 
         if (! $requestData['default_value']) {
