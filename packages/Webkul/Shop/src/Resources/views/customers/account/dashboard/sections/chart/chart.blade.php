@@ -29,20 +29,31 @@
                 type: 'pie',
                 data: {
                     labels: ['TCP', 'MA', 'Balence'],
-                    legend: {
-                        position: 'bottom',
-                        align: 'center',
-                    },
                     datasets: [{
                             label: 'My First Dataset',
+
                             data: [270000, 70000, 50000],
+
                             backgroundColor: [
                                 'rgb(255, 99, 132)',
                                 'rgb(54, 162, 235)',
                                 'rgb(255, 205, 86)'
                             ],
+
                             hoverOffset: 4
                         }]
+                    },
+
+                    options: {
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                align: 'center',
+                            },
+                        },
+                        layout: {
+                            padding: 10,
+                        },
                     },
                 };
 
