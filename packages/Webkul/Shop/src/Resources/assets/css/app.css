@@ -454,4 +454,9 @@
     .required:after {
         content: "*";
     }
+
+    .required-before:before {
+        content: "*";
+        color: #f10be7;
+    }
 }

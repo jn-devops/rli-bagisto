@@ -106,6 +106,16 @@ return [
                 'country-code'            => 'Country Residences',
                 'citizenship'             => 'Citizenship',
                 'type'                    => 'Type',
+                'contact-details'         => 'Contact Details',
+                'employment-details'      => 'Employment Details',
+                'employment-status'       => 'Employment Status',
+                'enable'                  => 'Enable',
+                'disable'                 => 'Disable',
+                'id-number'               => 'ID Number',
+                'attach-id'               => 'Attach Id',
+                'relationship'            => 'Relationship',
+                'authorization-letter'    => 'Authorization Letter',
+                'id-with-signature'       => 'Id With Signature',
             ],
 
             'addresses' => [
