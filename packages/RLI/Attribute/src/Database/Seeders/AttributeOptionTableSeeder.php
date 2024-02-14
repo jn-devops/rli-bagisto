@@ -15,6 +15,7 @@ class AttributeOptionTableSeeder extends Seeder
     protected array $present_absent = ['Present', 'Absent'];
     protected array $yes_no = ['Yes', 'No'];
     protected array $style_option = ['Slant', 'Flat'];
+    protected array $unit_type_option = ['House & Lot', 'Condominium'];
 
     public function run(): void
     {
@@ -103,6 +104,22 @@ class AttributeOptionTableSeeder extends Seeder
         foreach ($this->style_option as $style_option) {
             DB::table('attribute_options')->insert([
                 'admin_name'   => $style_option,
+                'sort_order'   => $sort_order++,
+                'attribute_id' => $style,
+            ]);
+            $attribute_option_id = DB::getPdo()->lastInsertId();
+            DB::table('attribute_option_translations')->insert([
+                'locale'              => 'en',
+                'label'               => $style,
+                'attribute_option_id' => $attribute_option_id,
+            ]);
+        }
+
+        $unit_type = AttributeTableSeeder::$unit_type;
+        $sort_order = 1;
+        foreach ($this->unit_type_option as $unit_type_opt) {
+            DB::table('attribute_options')->insert([
+                'admin_name'   => $unit_type_opt,
                 'sort_order'   => $sort_order++,
                 'attribute_id' => $style,
             ]);

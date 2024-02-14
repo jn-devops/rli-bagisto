@@ -28,6 +28,8 @@ class AttributeTableSeeder extends Seeder
     public static int $style;
     public static int $balcony;
 
+    public static int $unit_type;
+
     public function run(): void
     {
         $now = Carbon::now();
@@ -317,7 +319,7 @@ class AttributeTableSeeder extends Seeder
         DB::table('attributes')->insert([
             'code'                => 'style',
             'admin_name'          => 'Style',
-            'type'                => 'text',
+            'type'                => 'select',
             'validation'          => NULL,
             'position'            => NULL,
             'is_required'         => 0,
@@ -338,7 +340,7 @@ class AttributeTableSeeder extends Seeder
         DB::table('attributes')->insert([
             'code'                => 'balcony',
             'admin_name'          => 'Balcony',
-            'type'                => 'text',
+            'type'                => 'select',
             'validation'          => NULL,
             'position'            => NULL,
             'is_required'         => 0,
@@ -355,6 +357,27 @@ class AttributeTableSeeder extends Seeder
             'is_comparable'       => 1,
         ]);
         self::$balcony = DB::getPdo()->lastInsertId();
+
+        DB::table('attributes')->insert([
+            'code'                => 'unit_type',
+            'admin_name'          => 'Unit Type',
+            'type'                => 'select',
+            'validation'          => NULL,
+            'position'            => NULL,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => NULL,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$unit_type = DB::getPdo()->lastInsertId();
 
 
         DB::table('attribute_translations')->insert([
@@ -424,17 +447,23 @@ class AttributeTableSeeder extends Seeder
                 'name'         => 'Inventory Sources',
                 'attribute_id' => self::$inventory_sources,
             ],
-             [
+            [
                 'id'           => self::$balcony,
                 'locale'       => 'en',
                 'name'         => 'Balcony',
                 'attribute_id' => self::$balcony,
             ],
-             [
+            [
                 'id'           => self::$style,
                 'locale'       => 'en',
                 'name'         => 'Style',
                 'attribute_id' => self::$style,
+            ],
+            [
+                'id'           => self::$unit_type,
+                'locale'       => 'en',
+                'name'         => 'Unit Type',
+                'attribute_id' => self::$unit_type,
             ],
         ]);
 
@@ -498,7 +527,11 @@ class AttributeTableSeeder extends Seeder
                             ], [
                                 'attribute_id'        => self::$balcony,
                                 'attribute_group_id'  => $group_id,
-                                'position'            => 112,
+                                'position'            => 114,
+                            ], [
+                                'attribute_id'        => self::$unit_type,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 115,
                             ]
 
                         ]);

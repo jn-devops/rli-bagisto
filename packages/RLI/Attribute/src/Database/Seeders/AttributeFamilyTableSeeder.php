@@ -9,6 +9,7 @@ class AttributeFamilyTableSeeder extends Seeder
 {
     const HOUSE_LOT_ATTRIBUTE_FAMILY_ID = 2;
     const CONDOMINIUM_ATTRIBUTE_FAMILY_ID = 3;
+    const MARKET_SEGMENT_ATTRIBUTE_FAMILY_ID = 4;
 
     public function run(): void
     {
@@ -23,6 +24,12 @@ class AttributeFamilyTableSeeder extends Seeder
                 'id'              => self::CONDOMINIUM_ATTRIBUTE_FAMILY_ID,
                 'code'            => 'condominium',
                 'name'            => 'Condominium',
+                'status'          => 0,
+                'is_user_defined' => 1,
+            ], [
+                'id'              => self::MARKET_SEGMENT_ATTRIBUTE_FAMILY_ID,
+                'code'            => 'market_segment',
+                'name'            => 'Market Segment',
                 'status'          => 0,
                 'is_user_defined' => 1,
             ]
