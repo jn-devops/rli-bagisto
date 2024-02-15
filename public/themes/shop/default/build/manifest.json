@@ -1,12 +1,20 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-12f191ee.css",
+    "file": "assets/app-106b0e13.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
   "src/Resources/assets/fonts/velicon.woff": {
     "file": "assets/velicon-2b79b97c.woff",
     "src": "src/Resources/assets/fonts/velicon.woff"
+  },
+  "src/Resources/assets/images/address.svg": {
+    "file": "assets/address-610a80fd.svg",
+    "src": "src/Resources/assets/images/address.svg"
+  },
+  "src/Resources/assets/images/call.svg": {
+    "file": "assets/call-eddc9d6f.svg",
+    "src": "src/Resources/assets/images/call.svg"
   },
   "src/Resources/assets/images/cash-on-delivery.png": {
     "file": "assets/cash-on-delivery-73061c49.png",
@@ -16,9 +24,17 @@
     "file": "assets/default-language-6ef0ef70.svg",
     "src": "src/Resources/assets/images/default-language.svg"
   },
+  "src/Resources/assets/images/email.svg": {
+    "file": "assets/email-03f961a4.svg",
+    "src": "src/Resources/assets/images/email.svg"
+  },
   "src/Resources/assets/images/empty-dwn-product.png": {
     "file": "assets/empty-dwn-product-3c9202e1.png",
     "src": "src/Resources/assets/images/empty-dwn-product.png"
+  },
+  "src/Resources/assets/images/facebook.svg": {
+    "file": "assets/facebook-097624b2.svg",
+    "src": "src/Resources/assets/images/facebook.svg"
   },
   "src/Resources/assets/images/favicon.ico": {
     "file": "assets/favicon-1b7c1fb6.ico",
@@ -31,6 +47,10 @@
   "src/Resources/assets/images/hero-image.webp": {
     "file": "assets/hero-image-3170dce6.webp",
     "src": "src/Resources/assets/images/hero-image.webp"
+  },
+  "src/Resources/assets/images/instagram.png": {
+    "file": "assets/instagram-df823447.png",
+    "src": "src/Resources/assets/images/instagram.png"
   },
   "src/Resources/assets/images/large-product-placeholder.webp": {
     "file": "assets/large-product-placeholder-13b8a96b.webp",
@@ -68,6 +88,10 @@
     "file": "assets/thank-you-aa4a2b62.png",
     "src": "src/Resources/assets/images/thank-you.png"
   },
+  "src/Resources/assets/images/tiktok.png": {
+    "file": "assets/tiktok-05f71180.png",
+    "src": "src/Resources/assets/images/tiktok.png"
+  },
   "src/Resources/assets/images/user-placeholder.png": {
     "file": "assets/user-placeholder-4670a452.png",
     "src": "src/Resources/assets/images/user-placeholder.png"
@@ -75,6 +99,10 @@
   "src/Resources/assets/images/wishlist.png": {
     "file": "assets/wishlist-8c226c7a.png",
     "src": "src/Resources/assets/images/wishlist.png"
+  },
+  "src/Resources/assets/images/youtube.png": {
+    "file": "assets/youtube-248e7a06.png",
+    "src": "src/Resources/assets/images/youtube.png"
   },
   "src/Resources/assets/js/app.css": {
     "file": "assets/app-05f8acf7.css",

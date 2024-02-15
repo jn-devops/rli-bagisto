@@ -1,6 +1,6 @@
 @props([
     'hasHeader'  => true,
-    'hasFeature' => true,
+    'hasFeature' => false,
     'hasFooter'  => true,
 ])
 
