@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-106b0e13.css",
+    "file": "assets/app-00de49c1.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -39,6 +39,10 @@
   "src/Resources/assets/images/favicon.ico": {
     "file": "assets/favicon-1b7c1fb6.ico",
     "src": "src/Resources/assets/images/favicon.ico"
+  },
+  "src/Resources/assets/images/footer-bg.svg": {
+    "file": "assets/footer-bg-3805271c.svg",
+    "src": "src/Resources/assets/images/footer-bg.svg"
   },
   "src/Resources/assets/images/hero-image.jpg": {
     "file": "assets/hero-image-feee3420.jpg",
