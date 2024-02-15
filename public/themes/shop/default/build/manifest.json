@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-00de49c1.css",
+    "file": "assets/app-21aff583.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -19,6 +19,10 @@
   "src/Resources/assets/images/cash-on-delivery.png": {
     "file": "assets/cash-on-delivery-73061c49.png",
     "src": "src/Resources/assets/images/cash-on-delivery.png"
+  },
+  "src/Resources/assets/images/copy.svg": {
+    "file": "assets/copy-1b219507.svg",
+    "src": "src/Resources/assets/images/copy.svg"
   },
   "src/Resources/assets/images/default-language.svg": {
     "file": "assets/default-language-6ef0ef70.svg",

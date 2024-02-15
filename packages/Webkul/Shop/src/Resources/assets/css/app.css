@@ -471,4 +471,53 @@
         content: "*";
         color: #f10be7;
     }
+
+    .warning {
+        display: flex;
+        color: white;
+        border-radius: 10px 10px 10px 10px;
+        background-color: rgb(218, 178, 47);
+        font-size: 12px;
+        height: 25px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .success {
+        display: flex;
+        color: white;
+        border-radius: 10px 10px 10px 10px;
+        background-color: rgb(1, 134, 8);
+        font-size: 12px;
+        height: 25px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .danger {
+        display: flex;
+        color: white;
+        border-radius: 10px 10px 10px 10px;
+        background-color: rgb(255, 50, 35);
+        font-size: 12px;
+        height: 25px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .info {
+        display: flex;
+        color: white;
+        border-radius: 10px 10px 10px 10px;
+        background-color: rgb(11, 31, 68);
+        font-size: 12px;
+        height: 25px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .link {
+        color: #5388e9;
+        text-decoration-line: underline;
+    }
 }

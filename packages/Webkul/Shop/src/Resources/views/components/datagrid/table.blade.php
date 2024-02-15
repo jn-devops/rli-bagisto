@@ -16,7 +16,7 @@
 
                     <template v-else>
                         <div
-                            class="row grid gap-[10px] px-6 py-[16px] font-medium border-b-[1px] border-[#E9E9E9] text-[14px] bg-[#F5F5F5] text-black items-center"
+                            class="row grid gap-[5px] px-[20px] py-[10px] font-medium border-b-[1px] border-[#E9E9E9] text-[14px] bg-[#F5F5F5] text-black items-center"
                             :style="`grid-template-columns: repeat(${gridsCount}, 1fr)`"
                         >
                             <!-- Mass Actions -->

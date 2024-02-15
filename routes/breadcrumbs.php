@@ -26,6 +26,12 @@ Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
     $trail->push(trans('shop::app.layouts.dashboard'), route('customers.account.dashboard.index'));
 });
 
+// Home > My Account > documents
+Breadcrumbs::for('documents', function (BreadcrumbTrail $trail) {
+    $trail->parent('account');
+    $trail->push(trans('shop::app.layouts.documents'), route('customers.account.documents.index'));
+});
+
 // Home > My Account > Profile > Edit
 Breadcrumbs::for('profile.edit', function (BreadcrumbTrail $trail) {
     $trail->parent('profile');
@@ -51,14 +57,14 @@ Breadcrumbs::for('addresses.edit', function (BreadcrumbTrail $trail, $entity) {
 });
 
 // Home > My Account > Orders
-Breadcrumbs::for('orders', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('transactions', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
-    $trail->push(trans('shop::app.layouts.orders'), route('shop.customers.account.orders.index'));
+    $trail->push(trans('shop::app.layouts.transactions'), route('shop.customers.account.transactions.index'));
 });
 
-Breadcrumbs::for('orders.view', function (BreadcrumbTrail $trail, $entity) {
-    $trail->parent('orders');
-    $trail->push(trans('shop::app.customers.account.orders.view.title'), route('shop.customers.account.orders.view', $entity->id));
+Breadcrumbs::for('transactions.view', function (BreadcrumbTrail $trail, $entity) {
+    $trail->parent('transactions');
+    $trail->push(trans('shop::app.customers.account.transactions.view.title'), route('shop.customers.account.transactions.view', $entity->id));
 });
 
 // Home > My Account > Downloadable Products

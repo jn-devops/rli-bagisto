@@ -126,14 +126,15 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
                 /**
                  * Orders.
                  */
-                Route::controller(OrderController::class)->prefix('orders')->group(function () {
-                    Route::get('', 'index')->name('shop.customers.account.orders.index');
+                // Order is Transactions
+                Route::controller(OrderController::class)->prefix('transactions')->group(function () {
+                    Route::get('', 'index')->name('shop.customers.account.transactions.index');
 
-                    Route::get('view/{id}', 'view')->name('shop.customers.account.orders.view');
+                    Route::get('view/{id}', 'view')->name('shop.customers.account.transactions.view');
 
-                    Route::post('cancel/{id}', 'cancel')->name('shop.customers.account.orders.cancel');
+                    Route::post('cancel/{id}', 'cancel')->name('shop.customers.account.transactions.cancel');
 
-                    Route::get('print/Invoice/{id}', 'printInvoice')->name('shop.customers.account.orders.print-invoice');
+                    Route::get('print/Invoice/{id}', 'printInvoice')->name('shop.customers.account.transactions.print-invoice');
                 });
 
                 /**

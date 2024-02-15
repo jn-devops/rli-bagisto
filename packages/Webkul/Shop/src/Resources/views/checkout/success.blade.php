@@ -27,7 +27,7 @@
 
 			{{ view_render_event('bagisto.shop.checkout.continue-shopping.before', ['order' => $order]) }}
 
-			<a href="{{ route('shop.customers.account.orders.view', $order->id) }}">
+			<a href="{{ route('shop.customers.account.transactions.view', $order->id) }}">
 				<div class="block w-max mx-auto m-auto py-[11px] px-[43px] bg-navyBlue rounded-[18px] text-white text-basefont-medium text-center cursor-pointer">
              		@lang('shop::app.checkout.cart.index.view-order')
 				</div> 
