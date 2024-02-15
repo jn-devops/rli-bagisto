@@ -6,7 +6,7 @@
     
     {{-- Breadcrumbs --}}
     @section('breadcrumbs')
-        <x-shop::breadcrumbs name="orders.view" :entity="$order"></x-shop::breadcrumbs>
+        <x-shop::breadcrumbs name="transactions.view" :entity="$order"></x-shop::breadcrumbs>
     @endSection
 
     <div class="flex justify-between items-center">
@@ -20,7 +20,7 @@
             <form
                 method="POST"
                 ref="cancelOrderForm"
-                action="{{ route('shop.customers.account.orders.cancel', $order->id) }}"
+                action="{{ route('shop.customers.account.transactions.cancel', $order->id) }}"
             >
                 @csrf
             </form>
@@ -385,7 +385,7 @@
                                 </p>
                             </div>
                             <div class="secondary-button flex gap-x-[10px] items-center py-[12px] px-[20px] border-[#E9E9E9] font-normal">
-                                <a href="{{ route('shop.customers.account.orders.print-invoice', $invoice->id) }}">
+                                <a href="{{ route('shop.customers.account.transactions.print-invoice', $invoice->id) }}">
                                         @lang('shop::app.customers.account.orders.view.invoices.print')
                                 </a>
                             </div>

@@ -132,9 +132,9 @@
 
                             <a
                                 class="px-5 py-2 text-[16px] hover:bg-gray-100 cursor-pointer"
-                                href="{{ route('shop.customers.account.orders.index') }}"
+                                href="{{ route('shop.customers.account.transactions.index') }}"
                             >
-                                @lang('shop::app.components.layouts.header.orders')
+                                @lang('shop::app.components.layouts.header.transactions')
                             </a>
 
                             @if (core()->getConfigData('general.content.shop.wishlist_option'))

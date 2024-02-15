@@ -71,6 +71,21 @@ return [
                 'title' => 'Dashboard',
             ],
 
+            'documents' => [
+                'title'             => 'Documents',
+                'btn-documents'     => 'Go to my Documents',
+                'text-document'     => 'Press the button above and enter your',
+                'reference-code'    => 'Reference Code: ',
+                'confirm-documents' => 'to confirm and manage your documents.',
+            ],
+
+            'transactions' => [
+                'title' => 'Transactions',
+                'view'  => [
+                    'title' => 'Transactions View',
+                ],
+            ],
+
             'profile'   => [
                 'current-password'        => 'Current Password',
                 'confirm-password'        => 'Confirm Password',
@@ -155,6 +170,11 @@ return [
             ],
 
             'orders' => [
+                'transaction-no' => 'Transaction No',
+                'property'       => 'Property',
+                'contract'       => 'Total Contract',
+                'reservation'    => 'Reservation Fee',
+
                 'order-id'   => 'Order ID',
                 'order'      => 'Order',
                 'order-date' => 'Order Date',
@@ -361,6 +381,7 @@ return [
                 'welcome'       => 'Welcome',
                 'welcome-guest' => 'Welcome Guest',
                 'wishlist'      => 'Wishlist',
+                'transactions'  => 'Transactions',
             ],
 
             'footer' => [
@@ -816,6 +837,8 @@ return [
         'profile'               => 'Profile',
         'reviews'               => 'Reviews',
         'wishlist'              => 'Wishlist',
+        'documents'             => 'Documents',
+        'transactions'          => 'Transactions',
     ],
 
     'subscription' => [

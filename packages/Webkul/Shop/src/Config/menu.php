@@ -21,8 +21,8 @@ return [
         'sort'  => 2,
     ], [
         'key'   => 'account.orders',
-        'name'  => 'shop::app.layouts.orders',
-        'route' => 'shop.customers.account.orders.index',
+        'name'  => 'shop::app.layouts.transactions',
+        'route' => 'shop.customers.account.transactions.index',
         'icon'  => 'icon-orders',
         'sort'  => 3,
     ], [
