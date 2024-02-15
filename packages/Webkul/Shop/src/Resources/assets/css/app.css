@@ -38,6 +38,18 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+    
+    .icon-phone:before {
+        content: url('../images/call.svg');
+    }
+
+    .icon-email-footer:before {
+        content: url('../images/email.svg');
+    }
+
+    .icon-address:before {
+        content: url('../images/address.svg');
+    }
 
     .icon-add-new:before {
         content: "\e900";
@@ -261,7 +273,7 @@
 
     .icon-sort:before {
         content: "\e937";
-    color: #7d7d7d;
+        color: #7d7d7d;
     }
 
     .icon-star-fill:before {
