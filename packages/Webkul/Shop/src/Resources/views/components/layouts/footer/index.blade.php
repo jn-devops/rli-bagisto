@@ -17,7 +17,7 @@
     ]);
 @endphp
 
-<footer class="mt-[36px] bg-white max-sm:mt-[30px] border-t-4 border-[#d5cfcf]">
+<footer class="mt-[36px] max-sm:mt-[30px] border-t-4 border-[#d5cfcf]">
     @if ($customization)
         <div class="flex gap-20 p-10">
             <div class="w-[370px]">
@@ -55,18 +55,20 @@
             </div>
 
             <div class="pl-20 py-0 border-l-2 border-[#c9e1ed]">
+
+                <p class="text-[30px] flex font-bold">
+                    @lang('Quicklinks')
+                </p>
+
                 @if ($customization->options)
                     @foreach ($customization->options as $footerLinkSection)
-                        <ul class="grid gap-[15px] text-[14px]">
+                        <ul class="grid gap-[15px] text-[14px] mt-3">
                             @php
                                 usort($footerLinkSection, function ($a, $b) {
                                     return $a['sort_order'] - $b['sort_order'];
                                 });
                             @endphp
 
-                            <li class="text-[30px] flex font-bold">
-                                @lang('Quicklinks')
-                            </li>
 
                             @foreach ($footerLinkSection as $link)
                                 <li>
