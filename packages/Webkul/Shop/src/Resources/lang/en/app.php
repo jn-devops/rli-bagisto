@@ -214,7 +214,7 @@ return [
                     'information' => [
                         'discount'              => 'Discount',
                         'grand-total'           => 'Grand Total',
-                        'info'                  => 'Information',
+                        'info'                  => 'Reservation Information',
                         'item-status'           => 'Item Status',
                         'item-ordered'          => 'Ordered (:qty_ordered)',
                         'item-invoice'          => 'Invoiced (:qty_invoiced)',
@@ -280,6 +280,8 @@ return [
                         'tax-amount'        => 'Tax Amount',
                         'tax'               => 'Tax',
                     ],
+
+                    'billing-btn-title'     => 'Billing Statement',
                 ],
 
                 'invoice-pdf' => [

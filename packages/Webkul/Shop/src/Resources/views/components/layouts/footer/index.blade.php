@@ -89,28 +89,28 @@
                     </h1>
                     
                     <!-- Facebook -->
-                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full">
+                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
                         <a href="#" alt="facebook">
                             <img src="{{ bagisto_asset('images/facebook.svg') }}" alt="facebook">   
                         </a>
                     </div>
 
                     <!-- Instagram -->
-                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full">
+                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
                         <a href="#" alt="instagram">
                             <img src="{{ bagisto_asset('images/instagram.png') }}" alt="instagram">   
                         </a>
                     </div>
 
                     <!-- Youtube -->
-                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full">
+                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
                         <a href="#" alt="youtube">
                             <img src="{{ bagisto_asset('images/youtube.png') }}" alt="youtube" class="my-[4px]">   
                         </a>
                     </div>
 
                     <!-- tiktok -->
-                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full">
+                    <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
                         <a href="#" alt="tiktok">
                             <img src="{{ bagisto_asset('images/tiktok.png') }}" alt="tiktok">   
                         </a>

@@ -20,10 +20,17 @@
         {!! view_render_event('bagisto.shop.customers.account.dashboard.before') !!}
             <div class="justify-between px-[25px] py-[20px] border-[#E9E9E9] rounded-xl cursor-pointer bg-gray-100">
                 <!-- Property section -->
-                @include('shop::customers.account.dashboard.sections.property.index')
+                @include('shop::customers.account.dashboard.header.index')
 
-                <!-- payment scheduler, chart, Amortization Details, Reservation fee -->
-                @include('shop::customers.account.dashboard.sections.index')
+                <!-- payment scheduler, Amortization Details, Reservation fee -->
+             
+                <div class="flex justify-between my-[20px] gap-3">
+                    <!-- left side -->
+                    @include('shop::customers.account.dashboard.body.schedule')  
+
+                    <!-- right side -->
+                    @include('shop::customers.account.dashboard.body.details')
+                </div>
             </div>
         {!! view_render_event('bagisto.shop.customers.account.dashboard.after') !!}
     </div>

@@ -12,33 +12,11 @@
     <div class="flex justify-between items-center">
         <div class="">
             <h2 class="text-[26px] font-medium">
-                @lang('shop::app.customers.account.orders.view.page-title', ['order_id' => $order->increment_id])
+                Transaction Details
             </h2>
         </div>
 
-        @if ($order->canCancel())
-            <form
-                method="POST"
-                ref="cancelOrderForm"
-                action="{{ route('shop.customers.account.transactions.cancel', $order->id) }}"
-            >
-                @csrf
-            </form>
-
-            <a
-                class="secondary-button flex items-center gap-x-[10px] py-[12px] px-[20px] border-[#E9E9E9] font-normal"
-                href="javascript:void(0);"
-                @click="$emitter.emit('open-confirm-modal', {
-                    message: '@lang('shop::app.customers.account.orders.view.cancel-confirm-msg')',
-
-                    agree: () => {
-                        this.$refs['cancelOrderForm'].submit()
-                    }
-                })"
-            >
-                @lang('shop::app.customers.account.orders.view.cancel-btn-title')
-            </a>
-        @endif
+        
     </div>
 
     {!! view_render_event('bagisto.shop.customers.account.orders.view.before', ['order' => $order]) !!}
@@ -61,7 +39,31 @@
                     </span>
                 </div>
 
-                <div class="relative overflow-x-auto mt-[30px] border rounded-[12px]">
+                <div class="relative overflow-x-auto mt-[30px]">
+                    
+                <div class="flex justify-between items-center mb-10">
+                    <div class="flex items-center">
+                        <img src="{{ bagisto_asset('images/document-files.svg') }}" alt="" width="100" height="100"/>
+
+                        <h3 class="text-[22px] font-bold w-[500px]">Zaya Studio Condominium Standard Inner Unit</h3>
+                    </div>
+                    <form
+                        method="POST"
+                        ref="cancelOrderForm"
+                        action="{{ route('shop.customers.account.transactions.cancel', $order->id) }}"
+                    >
+                        @csrf
+                    </form>
+
+                    <a
+                        class="secondary-button flex items-center border-[#E9E9E9] font-normal text-white h-10 !bg-gradient-to-r from-[#e0165d] to-yellow-500"
+                        href="javascript:void(0);"
+                        @click=""
+                    >
+                        @lang('shop::app.customers.account.orders.view.billing-btn-title')
+                    </a>
+                </div>
+                
                     <table class="w-full text-sm text-left">
                         <thead class="bg-[#F5F5F5] border-b-[1px] border-[#E9E9E9] text-[14px] text-black">
                             <tr>

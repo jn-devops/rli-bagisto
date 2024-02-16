@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-21aff583.css",
+    "file": "assets/app-168e3707.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -27,6 +27,10 @@
   "src/Resources/assets/images/default-language.svg": {
     "file": "assets/default-language-6ef0ef70.svg",
     "src": "src/Resources/assets/images/default-language.svg"
+  },
+  "src/Resources/assets/images/document-files.svg": {
+    "file": "assets/document-files-90cea0f6.svg",
+    "src": "src/Resources/assets/images/document-files.svg"
   },
   "src/Resources/assets/images/email.svg": {
     "file": "assets/email-03f961a4.svg",
