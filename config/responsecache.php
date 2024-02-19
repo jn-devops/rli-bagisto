@@ -4,7 +4,7 @@ return [
     /*
      * Determine if the response cache middleware should be enabled.
      */
-    'enabled' => env('RESPONSE_CACHE_ENABLED', false),
+    'enabled' => env('RESPONSE_CACHE_ENABLED', true),
 
     /*
      *  The given class will determinate if a request should be cached. The
@@ -20,7 +20,7 @@ return [
      *  This can be useful to monitor the performance of your application.
      */
     'cache_bypass_header' => [
-        'name'  => env('CACHE_BYPASS_HEADER_NAME', null),
+        'name' => env('CACHE_BYPASS_HEADER_NAME', null),
         'value' => env('CACHE_BYPASS_HEADER_VALUE', null),
     ],
 
@@ -35,7 +35,7 @@ return [
      * should be added to a cached response. This can be handy when
      * debugging.
      */
-    'add_cache_time_header' => env('APP_DEBUG', true),
+    'add_cache_time_header' => env('APP_DEBUG', false),
 
     /*
      * This setting determines the name of the http header that contains
@@ -85,7 +85,7 @@ return [
      * This class is responsible for generating a hash for a request. This hash
      * is used to look up a cached response.
      */
-    'hasher' => \Webkul\FPC\Hasher\DefaultHasher::class,
+    'hasher' => \Spatie\ResponseCache\Hasher\DefaultHasher::class,
 
     /*
      * This class is responsible for serializing responses.

@@ -24,7 +24,20 @@ return [
                 'package_assets_directory' => 'src/Resources/assets',
             ],
         ],
+
+        'store' => [
+            'name'        => 'store',
+            'assets_path' => 'public/themes/store/default',
+            'views_path'  => 'resources/themes/store/views',
+
+            'vite'        => [
+                'hot_file'                 => 'shop-store-vite.hot',
+                'build_directory'          => 'themes/shop/store/build',
+                'package_assets_directory' => 'src/Resources/assets',
+            ],
+        ],
     ],
+    
 
     /*
     |--------------------------------------------------------------------------
