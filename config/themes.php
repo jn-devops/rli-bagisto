@@ -25,14 +25,14 @@ return [
             ],
         ],
 
-        'store' => [
-            'name'        => 'store',
-            'assets_path' => 'public/themes/store/default',
-            'views_path'  => 'resources/themes/store/views',
+        'enclaves' => [
+            'name'        => 'enclaves',
+            'assets_path' => 'public/themes/enclaves/default',
+            'views_path'  => 'resources/themes/enclaves/views',
 
             'vite'        => [
-                'hot_file'                 => 'shop-store-vite.hot',
-                'build_directory'          => 'themes/shop/store/build',
+                'hot_file'                 => 'shop-enclaves-vite.hot',
+                'build_directory'          => 'themes/shop/enclaves/build',
                 'package_assets_directory' => 'src/Resources/assets',
             ],
         ],

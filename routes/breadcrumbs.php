@@ -21,7 +21,7 @@ Breadcrumbs::for('account', function (BreadcrumbTrail $trail) {
 // Home > My Account > Profile
 Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
-    $trail->push(trans('enclaves::app.layouts.profile'), route('shop.customers.account.profile.index'));
+    $trail->push(trans('shop::app.layouts.profile'), route('shop.customers.account.profile.index'));
 });
 
 // Home > My Account > Dashboard
@@ -42,6 +42,8 @@ Breadcrumbs::for('inquiries', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
     $trail->push(trans('shop::app.layouts.inquiries'), route('enclaves.customers.account.inquiries.index'));
 });
+
+
 
 
 // Home > My Account > Profile > Edit

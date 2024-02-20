@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name'    => 'Webkul Ekyc',
+    'name'    => 'Webkul Bagisto Enclaves Theme',
     'version' => core()->version(),
 ];

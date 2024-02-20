@@ -226,7 +226,6 @@ return [
         Webkul\KrayinConnector\Providers\KrayinConnectorServiceProvider::class,
         Webkul\BulkUpload\Providers\BulkUploadServiceProvider::class,
         Webkul\Ekyc\Providers\EkycServiceProvider::class,
-        Webkul\Store\Providers\StoreServiceProvider::class,
         Webkul\Enclaves\Providers\EnclavesServiceProvider::class,
     ])->toArray(),
 

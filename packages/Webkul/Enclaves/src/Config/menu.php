@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     [
         'key'   => 'account.dashboard',
@@ -26,5 +25,5 @@ return [
         'route' => 'enclaves.customers.account.inquiries.index',
         'icon'  => 'icon-dashboard',
         'sort'  => 2,
-    ]
+    ],
 ];
