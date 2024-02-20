@@ -1,4 +1,3 @@
-
 <?php
 
 return [
@@ -17,13 +16,6 @@ return [
      * The default http verb to use.
      */
     'http_verb' => 'post',
-
-    /*
-     * Proxies to use for request.
-     *
-     * See https://docs.guzzlephp.org/en/stable/request-options.html#proxy
-     */
-    'proxy' => null,
 
     /*
      * This class is responsible for calculating the signature that will be added to
@@ -61,24 +53,20 @@ return [
     'backoff_strategy' => \Spatie\WebhookServer\BackoffStrategy\ExponentialBackoffStrategy::class,
 
     /*
-     * This class is used to dispatch webhooks on to the queue.
-     */
-    'webhook_job' => \Spatie\WebhookServer\CallWebhookJob::class,
-
-    /*
      * By default we will verify that the ssl certificate of the destination
      * of the webhook is valid.
      */
-    'verify_ssl' => true,
+    'verify_ssl' => false,
 
     /*
      * When set to true, an exception will be thrown when the last attempt fails
      */
-    'throw_exception_on_failure' => false,
+    'throw_exception_on_failure' => true,
 
     /*
      * When using Laravel Horizon you can specify tags that should be used on the
      * underlying job that performs the webhook request.
      */
     'tags' => [],
+
 ];
