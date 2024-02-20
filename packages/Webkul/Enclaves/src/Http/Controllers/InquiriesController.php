@@ -21,4 +21,25 @@ class InquiriesController extends Controller
     {
         return view('shop::customers.account.inquire.index');
     }
+
+    /**
+     * Display all tickets in view
+     * 
+     * @return \Illuminate\View\View
+     */
+    public function tickets()
+    {
+        return view('shop::customers.account.inquire.tickets');
+    }
+
+    /**
+     * Store Ticket
+     * 
+     * @return boolean
+     */
+
+    public function store()
+    {
+        dd(request()->all());
+    }
 }
