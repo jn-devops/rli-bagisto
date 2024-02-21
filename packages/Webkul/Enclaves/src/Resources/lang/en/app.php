@@ -17,7 +17,8 @@ return [
             'submit'        => 'Submit',
 
             'list' => [
-                'title' => "Your Tickets",
+                'title'          => "Your Tickets",
+                'create-success' => "Ticket successfully created",
             ]
         ]
     ],
