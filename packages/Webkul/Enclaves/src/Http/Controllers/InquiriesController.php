@@ -2,6 +2,7 @@
 
 namespace Webkul\Enclaves\Http\Controllers;
 
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\JsonResponse;
 use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Enclaves\Repositories\TicketsRepository;
@@ -42,7 +43,7 @@ class InquiriesController extends Controller
         $tickets = $this->ticketsRepository
                         ->with(['files', 'reasons', 'status'])
                         ->get();
-
+        
         return view('shop::customers.account.inquire.tickets', compact('tickets'));
     }
 
