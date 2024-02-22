@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-ba991dfa.css",
+    "file": "assets/app-cc552bc8.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -56,6 +56,10 @@
     "file": "assets/favicon-1b7c1fb6.ico",
     "src": "src/Resources/assets/images/favicon.ico"
   },
+  "src/Resources/assets/images/footer-bg.png": {
+    "file": "assets/footer-bg-b678acbd.png",
+    "src": "src/Resources/assets/images/footer-bg.png"
+  },
   "src/Resources/assets/images/footer-bg.svg": {
     "file": "assets/footer-bg-3805271c.svg",
     "src": "src/Resources/assets/images/footer-bg.svg"
@@ -77,7 +81,7 @@
     "src": "src/Resources/assets/images/large-product-placeholder.webp"
   },
   "src/Resources/assets/images/logo.svg": {
-    "file": "assets/logo-942157c2.svg",
+    "file": "assets/logo-cd16139f.svg",
     "src": "src/Resources/assets/images/logo.svg"
   },
   "src/Resources/assets/images/medium-product-placeholder.webp": {

@@ -7,7 +7,7 @@
 
     @push('scripts')
         <script type="text/x-template" id="v-product-configurable-options-template">
-            <div class="w-[455px] max-w-full">
+            <div class="max-w-full">
                 <input
                     type="hidden"
                     name="selected_configurable_option"

@@ -1,27 +1,21 @@
 @unless ($breadcrumbs->isEmpty())
-    <nav aria-label="">
-        <ol class="flex">
-            @foreach ($breadcrumbs as $breadcrumb)
-                @if (
-                    $breadcrumb->url 
-                    && ! $loop->last
-                )
-                    <li class="flex gap-x-[10px] items-center text-[16px] font-medium">
-                        <a href="{{ $breadcrumb->url }}">
-                            {{ $breadcrumb->title }}
-                        </a>
-
-                        <span class="icon-arrow-right text-[24px]"></span>
-                    </li>
-                @else
-                    <li 
-                        class="flex gap-x-[10px] items-center ml-[10px] text-[#6E6E6E] text-[16px] after:content-['/'] after:last:hidden" 
-                        aria-current="page"
-                    >
-                        {{ $breadcrumb->title }}
-                    </li>
-                @endif
-            @endforeach
-        </ol>
-    </nav>
+<div class="flex justify-start mt-[30px] max-lg:hidden">
+    <div class="flex gap-x-[14px] items-center">
+        @foreach ($breadcrumbs as $breadcrumb)
+            @if (
+                $breadcrumb->url 
+                && ! $loop->last
+            )
+                <p class="flex items-center gap-x-[14px] text-[16px] font-medium">
+                    {{ $breadcrumb->title }} 
+                    <span class="icon-arrow-right text-[24px]"></span>
+                </p>
+            @else
+                <p class="text-[#7D7D7D] text-[16px] flex items-center gap-x-[16px] font-medium  after:content[' '] after:bg-[position:-7px_-41px] after:bs-main-sprite after:w-[9px] after:h-[20px] after:last:hidden">
+                    {{ $breadcrumb->title }}
+                </p>
+            @endif
+        @endforeach
+    </div>
+</div>
 @endunless

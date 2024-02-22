@@ -2,7 +2,6 @@
 
 return [
     'customers' => [
-        
         'inquiries' => [
             'title'         => 'Inquiries',
             'help_test'     => 'How can we help you?',
@@ -20,6 +19,10 @@ return [
                 'title'          => "Your Tickets",
                 'create-success' => "Ticket successfully created",
             ]
+        ],
+        'login-form' => [
+            'page-title' => 'Log in your Account',
         ]
+
     ],
 ];

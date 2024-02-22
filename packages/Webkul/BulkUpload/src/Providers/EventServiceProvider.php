@@ -16,7 +16,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Event::listen('bagisto.shop.products.price.after', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('bulkupload::admin.bulk-upload.price.processing_fee');
+            $viewRenderEventManager->addTemplate('bulkupload::shop.bulk-upload.price.processing_fee');
         });
         
         Event::listen('bagisto.admin.catalog.product.edit.form.images.before', function($viewRenderEventManager) {

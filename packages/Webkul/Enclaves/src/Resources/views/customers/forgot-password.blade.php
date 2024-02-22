@@ -1,4 +1,4 @@
-{{-- SEO Meta Content --}}
+<!-- SEO Meta Content -->
 @push('meta')
     <meta name="description" content="@lang('shop::app.customers.forgot-password.title')"/>
 
@@ -10,44 +10,37 @@
     :has-feature="false"
     :has-footer="false"
 >
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
         @lang('shop::app.customers.forgot-password.title')
     </x-slot>
 
     <div class="container mt-20 max-1180:px-[20px]">
-        {{-- Company Logo --}}
-        <div class="flex gap-x-[54px] items-center max-[1180px]:gap-x-[35px]">
-            <a
-                href="{{ route('shop.home.index') }}"
-                class="m-[0_auto_20px_auto]"
-                aria-label="Bagisto "
-            >
-                <img
-                    src="{{ bagisto_asset('images/logo.svg') }}"
-                    alt="Bagisto "
-                    width="131"
-                    height="29"
-                >
-            </a>
-        </div>
-
-        {{-- Form Container --}}
-        <div
-            class="w-full max-w-[870px] m-auto px-[90px] py-[60px] border border-[#E9E9E9] rounded-[12px] max-md:px-[30px] max-md:py-[30px]"
+        <!-- Company Logo -->
+        <a
+            href="{{ route('shop.home.index') }}"
+            class="m-[0_auto_20px_auto]"
+            aria-label="Bagisto "
         >
-            <h1 class="text-[40px] font-dmserif max-sm:text-[25px]">
+            <img
+                src="{{ bagisto_asset('images/logo.svg') }}"
+                alt="Bagisto"
+                class="w-[322px] h-[145px] mx-auto mb-[58px]"
+            >
+        </a>
+
+        <!-- Form Container -->
+        <div
+            class="w-full max-w-[870px] m-auto [box-shadow:0px_4px_40px_0px_rgba(0,_0,_0,_0.1)] px-[90px] py-[60px] rounded-[12px] max-md:px-[30px] max-md:py-[30px]"
+        >
+            <h1 class="text-[40px] font-bold text-center max-sm:text-[25px]">
                 @lang('shop::app.customers.forgot-password.title')
             </h1>
-
-            <p class="mt-[15px] text-[#6E6E6E] text-[20px] max-sm:text-[16px]">
-                @lang('shop::app.customers.forgot-password.forgot-password-text')
-            </p>
 
             {!! view_render_event('bagisto.shop.customers.forget_password.before') !!}
 
             <div class="mt-[60px] rounded max-sm:mt-[30px]">
-                <x-shop::form :action="route('shop.customers.forgot_password.store')">
+                <x-shop::form :action="route('shop.customers.forgot_password.store')" class="rounded mt-[60px] max-sm:mt-[30px]">
                     {!! view_render_event('bagisto.shop.customers.forget_password_form_controls.before') !!}
 
                     <x-shop::form.control-group class="mb-4">
@@ -58,7 +51,7 @@
                         <x-shop::form.control-group.control
                             type="email"
                             name="email"
-                            class="!p-[20px_25px] rounded-lg"
+                            class="text-[20px] shadow appearance-none border rounded-[16px] w-full py-2 px-3 focus:outline-none focus:shadow-outline"
                             value=""
                             rules="required|email"
                             :label="trans('shop::app.customers.login-form.email')"
@@ -80,14 +73,12 @@
 
                     </div>
 
-                    <div class="flex gap-[36px] flex-wrap mt-[30px] items-center">
-                        <button
-                            class="primary-button block w-full max-w-[374px] m-0 ml-[0px] mx-auto px-[43px] py-[16px] rounded-[18px] text-[16px] text-center"
-                            type="submit"
-                        >
-                            @lang('shop::app.customers.forgot-password.submit')
-                        </button>
-                    </div>
+                    <button
+                    class="mt-[60px] ml-[0px] block mx-auto w-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)]  text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
+                        type="submit"
+                    >
+                        @lang('shop::app.customers.forgot-password.submit')
+                    </button>
 
                     <p class="mt-[20px] text-[#6E6E6E] font-medium">
                         @lang('shop::app.customers.forgot-password.back')
