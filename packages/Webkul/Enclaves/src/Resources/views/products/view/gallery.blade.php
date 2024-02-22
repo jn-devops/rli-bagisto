@@ -4,81 +4,44 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-product-gallery-template">
-        <div class="flex gap-[30px] h-max sticky top-[30px] max-1180:hidden">
-            <!-- Product Image Slider -->
-            <div class="flex-24 place-content-start h-509 overflow-x-hidden overflow-y-auto flex gap-[30px] max-w-[100px] flex-wrap">
-                <img 
-                    :class="`min-w-[100px] max-h-[100px] rounded-[12px] ${ hover ? 'cursor-pointer' : '' }`" 
-                    v-for="image in media.images"
-                    :src="image.small_image_url"
-                    alt="@lang('shop::app.products.view.gallery.thumbnail-image')"
-                    width="100"
-                    height="100"
-                    @mouseover="change(image)"
-                />
+        <div class="flex">
+            <div class="flex gap-[20px] max-1280:flex-wrap">
+                <div class="">
+                    <!-- Media shimmer Effect -->
+                    <div class="max-w-[560px] max-h-[609px]" v-show="isMediaLoading">
+                        <div class="min-w-[560px] min-h-[607px] bg-[#E9E9E9] rounded-[12px] shimmer"></div>
+                    </div>
 
-                <!-- Need to Set Play Button  -->
-                <video 
-                    class="min-w-[100px] rounded-[12px]"
-                    v-for="video in media.videos"
-                    @mouseover="change(video)"
-                >
-                    <source 
-                        :src="video.video_url" 
-                        type="video/mp4"
-                    />
-                </video>
-            </div>
-            
-            <!-- Media shimmer Effect -->
-            <div
-                class="max-w-[560px] max-h-[609px]"
-                v-show="isMediaLoading"
-            >
-                <div class="min-w-[560px] min-h-[607px] bg-[#E9E9E9] rounded-[12px] shimmer"></div>
-            </div>
-
-            <div
-                class="max-w-[560px] max-h-[609px]"
-                v-show="! isMediaLoading"
-            >
-                <img 
-                    class="min-w-[450px] rounded-[12px]" 
-                    :src="baseFile.path" 
-                    v-if="baseFile.type == 'image'"
-                    alt="@lang('shop::app.products.view.gallery.product-image')"
-                    width="560"
-                    height="609"
-                    @load="onMediaLoad()"
-                />
-
-                <div
-                    class="min-w-[450px] rounded-[12px]"
-                    v-if="baseFile.type == 'video'"
-                >
-                    <video  
-                        controls                             
-                        width='475'
-                        @load="onMediaLoad()"
-                    >
-                        <source 
+                    <div v-show="! isMediaLoading">
+                        <img
                             :src="baseFile.path" 
-                            type="video/mp4"
+                            v-if="baseFile.type == 'image'"
+                            class="rounded-[5px] w-[560px] h-[287px]"
+                            alt="@lang('shop::app.products.view.gallery.product-image')"
+                            @load="onMediaLoad()"
                         />
-                    </video>    
+                    </div>
                 </div>
                 
+                <div class="flex flex-col gap-[16px] max-1280:flex-row max-1024:flex-row max-1024:flex-nowrap">
+                    <img 
+                        v-for="image in media.images"
+                        class="rounded-[5px] w-[148px] max-h-[88px]" 
+                        :src="image.small_image_url" 
+                        alt="@lang('shop::app.products.view.gallery.thumbnail-image')" 
+                    />
+                </div>
             </div>
         </div>
 
         <!-- Product slider Image with shimmer -->
         <div class="flex gap-[30px] 1180:hidden overflow-auto scrollbar-hide">
-            <x-shop::media.images.lazy
+            <!-- <x-shop::media.images.lazy
                 ::src="image.large_image_url"
                 class="min-w-[450px] max-sm:min-w-full w-[490px]" 
                 v-for="image in media.images"
             >
-            </x-shop::media.images.lazy>
+            </x-shop::media.images.lazy> -->
         </div>
     </script>
 

@@ -12,5 +12,9 @@ class ModuleServiceProvider extends CoreModuleServiceProvider
      * @var array
      */
     protected $models = [
+        \Webkul\Enclaves\Models\Tickets::class,
+        \Webkul\Enclaves\Models\TicketReasons::class,
+        \Webkul\Enclaves\Models\TicketStatus::class,
+        \Webkul\Enclaves\Models\TicketFiles::class,
     ];
 }

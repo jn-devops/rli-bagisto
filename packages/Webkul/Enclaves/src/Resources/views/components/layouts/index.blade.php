@@ -30,8 +30,8 @@
         <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" as="style">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
 
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" as="style">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap">
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" as="style">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap">
 
         @stack('styles')
 
@@ -46,30 +46,32 @@
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
         <div id="app">
-            {{-- Flash Message Blade Component --}}
+            <!-- Flash Message Blade Component -->
             <x-shop::flash-group />
 
-            {{-- Confirm Modal Blade Component --}}
+            <!-- Confirm Modal Blade Component -->
             <x-shop::modal.confirm />
 
-            {{-- Page Header Blade Component --}}
-            @if ($hasHeader)
-                <x-shop::layouts.header />
-            @endif
+                <!-- Page Header Blade Component -->
+                @if ($hasHeader)
+                    <x-shop::layouts.header />
+                @endif
 
-            {!! view_render_event('bagisto.shop.layout.content.before') !!}
+            <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
 
-            {{-- Page Content Blade Component --}}
-            {{ $slot }}
+                {!! view_render_event('bagisto.shop.layout.content.before') !!}
 
-            {!! view_render_event('bagisto.shop.layout.content.after') !!}
+                <!-- Page Content Blade Component -->
+                {{ $slot }}
 
-            {{-- Page Features Blade Component --}}
-            @if ($hasFeature)
-                <x-shop::layouts.features />
-            @endif
+                {!! view_render_event('bagisto.shop.layout.content.after') !!}
 
-            {{-- Page Footer Blade Component --}}
+                <!-- Page Features Blade Component -->
+                @if ($hasFeature)
+                    <x-shop::layouts.features />
+                @endif
+            </div>
+            <!-- Page Footer Blade Component -->
             @if ($hasFooter)
                 <x-shop::layouts.footer />
             @endif
