@@ -17,10 +17,10 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
     Route::controller(InquiriesController::class)->prefix('customer/account/inquiries')->group(function () {
         Route::get('', 'index')->name('enclaves.customers.account.inquiries.index');
-        
+
         Route::get('/tickets', 'tickets')->name('enclaves.customers.account.inquiries.tickets');
 
-        Route::post('/tickets', 'store')->name('enclaves.customers.account.inquiries.tickets');
+        Route::post('/tickets', 'store')->name('enclaves.customers.account.inquiries.store');
 
     });
 });
