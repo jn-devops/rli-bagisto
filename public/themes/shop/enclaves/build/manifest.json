@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-cc552bc8.css",
+    "file": "assets/app-23f97049.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -71,6 +71,14 @@
   "src/Resources/assets/images/hero-image.webp": {
     "file": "assets/hero-image-3170dce6.webp",
     "src": "src/Resources/assets/images/hero-image.webp"
+  },
+  "src/Resources/assets/images/img-offer-big.png": {
+    "file": "assets/img-offer-big-56a30cd5.png",
+    "src": "src/Resources/assets/images/img-offer-big.png"
+  },
+  "src/Resources/assets/images/img-offer-samll.png": {
+    "file": "assets/img-offer-samll-3287e2f7.png",
+    "src": "src/Resources/assets/images/img-offer-samll.png"
   },
   "src/Resources/assets/images/instagram.png": {
     "file": "assets/instagram-df823447.png",

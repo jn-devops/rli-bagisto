@@ -2,6 +2,7 @@
 namespace Webkul\Enclaves\Routes;
 
 use Illuminate\Support\Facades\Route;
+use Webkul\Enclaves\Http\Controllers\Product\ProductController;
 use Webkul\Enclaves\Http\Controllers\DashboardController;
 use Webkul\Enclaves\Http\Controllers\DocumentsController;
 use Webkul\Enclaves\Http\Controllers\InquiriesController;
@@ -21,6 +22,9 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         Route::get('/tickets', 'tickets')->name('enclaves.customers.account.inquiries.tickets');
 
         Route::post('/tickets', 'store')->name('enclaves.customers.account.inquiries.store');
+    });
 
+    Route::controller(ProductController::class)->prefix('products')->group(function () {
+        Route::get('most-view', 'mostViewProducts')->name('enclaves.product.most-view.index');
     });
 });

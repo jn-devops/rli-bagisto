@@ -45,12 +45,8 @@
 
             @case ($customization::CATEGORY_CAROUSEL)
                 {{-- Categories carousel --}}
-                <x-shop::categories.carousel
-                    :title="$data['title'] ?? ''"
-                    :src="route('shop.api.categories.index', $data['filters'] ?? [])"
-                    :navigation-link="route('shop.home.index')"
-                >
-                </x-shop::categories.carousel>
+                <x-shop::products.most-view>
+                </x-shop::products.most-view>
 
                 @break
 

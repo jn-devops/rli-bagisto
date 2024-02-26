@@ -22,7 +22,10 @@ return [
         ],
         'login-form' => [
             'page-title' => 'Log in your Account',
-        ]
+        ],
+
+        'choose-area'          => 'Choose Area',
+        'total-contract-price' => 'Total Contract Price',
 
     ],
 ];
