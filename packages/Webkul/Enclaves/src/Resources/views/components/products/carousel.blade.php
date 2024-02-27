@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div 
+            <div
                 ref="swiperContainer"
                 class="flex gap-14 mt-[60px] overflow-auto scrollbar-hide max-sm:mt-[20px]"
             >

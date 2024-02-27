@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-23f97049.css",
+    "file": "assets/app-2e0b7e68.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -63,6 +63,10 @@
   "src/Resources/assets/images/footer-bg.svg": {
     "file": "assets/footer-bg-3805271c.svg",
     "src": "src/Resources/assets/images/footer-bg.svg"
+  },
+  "src/Resources/assets/images/hero-bg.png": {
+    "file": "assets/hero-bg-5ef03aff.png",
+    "src": "src/Resources/assets/images/hero-bg.png"
   },
   "src/Resources/assets/images/hero-image.jpg": {
     "file": "assets/hero-image-feee3420.jpg",
