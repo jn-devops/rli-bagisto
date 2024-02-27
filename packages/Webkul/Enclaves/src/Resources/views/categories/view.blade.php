@@ -17,25 +17,24 @@
         {{ trim($category->meta_title) != "" ? $category->meta_title : $category->name }}
     </x-slot>
 
-    {{-- Hero Image --}}
-    @if ($category->banner_path)
-        <div class="container mt-[30px] px-[60px] max-lg:px-[30px]">
-            <div>
-                <img
-                    class="rounded-[12px]"
-                    src="{{ $category->banner_url }}"
-                    alt="{{ $category->name }}"
-                    width="1320"
-                    height="300"
-                >
-            </div>
-        </div>
-    @endif
-
     @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
         @if ($category->description)
-            <div class="container mt-[30px] px-[60px] max-lg:px-[30px]">
-                {!! $category->description !!}
+
+            <div class="flex gap-[16px] mt-[45px] max-1180:flex-wrap">
+                
+                {{-- Hero Image --}}
+                @if ($category->banner_path)
+                    <img
+                        class="max-w-[452px] w-full max-h-[172px]"
+                        src="{{ $category->banner_url }}"
+                        alt="{{ $category->name }}"
+                        width="1320"
+                        height="300"
+                    >
+                @endif
+
+                    {!! $category->description !!}
+                </p>
             </div>
         @endif
     @endif
@@ -65,9 +64,11 @@
                             @include('shop::categories.toolbar')
                         </div>
 
+
+
                         <!-- Product List Card Container -->
                         <div
-                            class="grid grid-cols-1 gap-[25px] mt-[30px]"
+                            class="grid grid-cols-3 gap-8 mt-[30px] max-sm:mt-[20px] max-1060:grid-cols-2 max-sm:justify-items-center max-sm:grid-cols-1"
                             v-if="filters.toolbar.mode === 'list'"
                             >
                             <!-- Product Card Shimmer Effect -->
@@ -79,6 +80,7 @@
                             <template v-else>
                                 <template v-if="products.length">
                                     <x-shop::products.card
+                                        :class="'grid gap-2.5 relative max-w-[350px] max-sm:grid-cols-1'"
                                         ::mode="'list'"
                                         v-for="product in products"
                                     >
@@ -92,7 +94,7 @@
                                             src="{{ bagisto_asset('images/thank-you.png') }}"
                                             alt="placeholder"
                                         />
-                                  
+                                
                                         <p class="text-[20px]">
                                             @lang('shop::app.categories.view.empty')
                                         </p>
@@ -101,80 +103,25 @@
                             </template>
                         </div>
 
+
                         <!-- Product Grid Card Container -->
-                        <div v-else class="mt-[30px] gap-[20px] grid grid-cols-3">
+                        <div v-else class="mt-[30px] grid grid-cols-3 gap-8 mt-[30px] max-sm:mt-[20px] max-1060:grid-cols-2 max-sm:justify-items-center max-sm:grid-cols-1">
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
-                                <x-shop::shimmer.products.cards.grid count="12"></x-shop::shimmer.products.cards.grid>
+                                <div class="!min-w-[0px] max-sm:grid-cols-1">
+                                    <x-shop::shimmer.products.cards.grid count="12"></x-shop::shimmer.products.cards.grid>
+                                </div>
                             </template>
 
                             <!-- Product Card Listing -->
                             <template v-else>
                                 <template v-if="products.length">
-                                    <x-shop::products.card
-                                        ::mode="'grid'"
-                                        v-for="product in products"
-                                    >
-                                    </x-shop::products.card>
-                                </template>
-
-                                <!-- Empty Products Container -->
-                                <template v-else>
-                                    <div class="grid items-center justify-items-center place-content-center w-[100%] m-auto h-[476px] text-center">
-                                        <img 
-                                            src="{{ bagisto_asset('images/thank-you.png') }}"
-                                            alt="placeholder"
-                                        />
-                                        
-                                        <p class="text-[20px]">
-                                            @lang('shop::app.categories.view.empty')
-                                        </p>
-                                    </div>
-                                </template>
-                            </template>
-                            <!-- Product Card Shimmer Effect -->
-                            <template v-if="isLoading">
-                                <x-shop::shimmer.products.cards.grid count="12"></x-shop::shimmer.products.cards.grid>
-                            </template>
-
-                            <!-- Product Card Listing -->
-                            <template v-else>
-                                <template v-if="products.length">
-                                    <x-shop::products.card
-                                        ::mode="'grid'"
-                                        v-for="product in products"
-                                    >
-                                    </x-shop::products.card>
-                                </template>
-
-                                <!-- Empty Products Container -->
-                                <template v-else>
-                                    <div class="grid items-center justify-items-center place-content-center w-[100%] m-auto h-[476px] text-center">
-                                        <img 
-                                            src="{{ bagisto_asset('images/thank-you.png') }}"
-                                            alt="placeholder"
-                                        />
-                                        
-                                        <p class="text-[20px]">
-                                            @lang('shop::app.categories.view.empty')
-                                        </p>
-                                    </div>
-                                </template>
-                            </template>
-
-                            <!-- Product Card Shimmer Effect -->
-                            <template v-if="isLoading">
-                                <x-shop::shimmer.products.cards.grid count="12"></x-shop::shimmer.products.cards.grid>
-                            </template>
-
-                            <!-- Product Card Listing -->
-                            <template v-else>
-                                <template v-if="products.length">
-                                    <x-shop::products.card
-                                        ::mode="'grid'"
-                                        v-for="product in products"
-                                    >
-                                    </x-shop::products.card>
+                                        <x-shop::products.card
+                                            ::mode="'grid'"
+                                            v-for="product in products"
+                                            class="!min-w-[0px] max-sm:grid-cols-1"
+                                        >
+                                        </x-shop::products.card>
                                 </template>
 
                                 <!-- Empty Products Container -->
