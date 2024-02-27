@@ -32,69 +32,84 @@
 					dotContaier.appendChild(span);
 				}
 			}
+
 			sliderdots()
+
 			let changeContent = () => {
 				clearInterval(typing)
+                console.log(dummyButton);
+
 				dummyButton.setAttribute('src', heroContent[active][1])
 				let title = heroContent[active][0]
+
 				title = title.split('')
+
 				let titlecounts = ''
+
 				let pos = 0;
+
 				typing = setInterval(() => {
 					titlecounts += title[pos]
+
 					dummyheading.innerHTML = titlecounts
+
 					pos++;
+
 					if (pos == title.length) {
 						clearInterval(typing)
 					}
 				}, 30);
-
 			}
-			changeContent()
 
+			changeContent()
 
 			let changeimage = () => {
 				dots = document.querySelectorAll('.dot-container .dot')
 				sliderImg.forEach((ele, i) => {
+
 					if (i === prev) {
 						ele.className = 'prev'
-					}
-					else if (i === active) {
+					} else if (i === active) {
 						ele.className = 'active'
 					} else if (i === next) {
 						ele.className = 'next'
 					} else {
 						ele.className = 'd-none'
 					}
+
 					dots[i].classList.remove('active');
 				})
+
 				dots[active].classList.add('active');
-
-
 			}
-			changeimage();
 
+			changeimage();
 
 			function setsliderinterval() {
 				prev = active;
+
 				active = next;
+
 				if (active + 1 == sliderImg.length) {
 					next = 0;
 				} else {
 					next = active + 1;
 				}
+
 				changeimage()
+
 				changeContent()
 			}
+
 			let sliderinterval = setInterval(() => {
 				setsliderinterval()
 			}, 5000);
-
 
 			let dotevents = () => {
 				dots.forEach((ele, i) => {
 					ele.addEventListener('click', () => {
 						active = i;
+
 						if (i == sliderImg.length - 1) {
 							next = 0;
 							prev = active - 1
@@ -105,8 +120,7 @@
 							next = i + 1;
 							prev = active - 1;
 						}
-						console.log(sliderImg.length + '    ' + i);
-						console.log(active + '   ' + prev + "   " + next);
+                        
 						changeimage()
 						changeContent()
 						clearInterval(sliderinterval)
@@ -135,19 +149,35 @@
                 <p class="text-2xl font-bold text-[#CC035C]">Raemulan Lands Inc.</p>
                 <h1 class="hero-heading text-[60px] font-bold leading-[74px] mt-[18px] min-h-[148px] max-1180:text-[46px] max-sm:text-[40px] max-sm:leading-[55px] max-sm:min-h-[110px]">Family moments
                     for a lifetime</h1>
-                <a href=""
-                    class=" hero-btn block max-w-max mt-[94px] text-white px-[60px] py-[38px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px] max-sm:mt-[40px] max-sm:px-[40px]
-                    max-sm:py-[20px]">Elanvital</a>
+                <a 
+                    href="javascript:void(0)"
+                    class="hero-btn block max-w-max mt-[94px] text-white px-[60px] py-[38px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px] max-sm:mt-[40px] max-sm:px-[40px]
+                    max-sm:py-[20px]"
+                >
+                    Elanvital
+                </a>
                 <div class="dot-container hidden"></div>
             </div>
 
             <div class="et-slider-section mt-[72px]">
-                <div class="et-slider ">
-                    <img src="../images/hero-1.png" alt="" class="next">
-                    <img src="../images/hero-2.png" alt="" class="d-none">
-                    <img src="../images/hero-3.png" alt="" class="d-none">
-                    <img src="../images/hero-1.png" alt="" class="prev">
-                    <img src="../images/hero-2.png" alt="" class="active">
+                <div class="et-slider" >
+
+                        <a
+                            v-for="(image, index) in images"
+                            class="fade"
+                            :href="image.link || '#'"
+                            ref="slides"
+                            :key="index"
+                            aria-label="Image Slide "
+                        >
+                        <x-shop::media.images.lazy
+                            ::class="image.className"
+                            class="w-full aspect-[2.743/1]"
+                            ::src="image.image"
+                            ::srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
+                            alt=""
+                        ></x-shop::media.images.lazy>
+                    </a>
                 </div>
             </div>
         </div>
@@ -162,44 +192,30 @@
                     currentIndex: 1,
 
                     images: @json($options['images'] ?? []),
+
+                    imagesPattern: ['next', 'd-none', 'prev', 'active'],
+
+                    imageX: [],
                 };
             },
 
             mounted() {
-                this.navigate(this.currentIndex);
-
                 this.play();
             },
 
             methods: {
-                navigate(index) {
-                    if (index > this.images.length) {
-                        this.currentIndex = 1;
-                    }
-
-                    if (index < 1) {
-                        this.currentIndex = this.images.length;
-                    }
-
-                    let slides = this.$refs.slides;
-
-                    for (let i = 0; i < slides.length; i++) {
-                        if (i == this.currentIndex - 1) {
-                            continue;
-                        }
-                        
-                        slides[i].style.display = 'none';
-                    }
-
-                    slides[this.currentIndex - 1].style.display = 'block';
-                },
-
                 play() {
-                    let self = this;
-
-                    setInterval(() => {
-                        this.navigate(this.currentIndex += 1);
-                    }, 5000);
+                    this.images.forEach((value, index) => {
+                        if(index == 0) {
+                            this.images[index]['className'] = 'next';
+                        } else if((this.images.length - 2) == index) {
+                            this.images[index]['className'] = 'prev';
+                        } else if((this.images.length - 1) == index) {
+                            this.images[index]['className'] = 'active';
+                        } else {
+                            this.images[index]['className'] = 'd-none';
+                        }
+                    })
                 }
             }
         });
