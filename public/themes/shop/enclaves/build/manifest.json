@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-cc552bc8.css",
+    "file": "assets/app-0e5439d5.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -64,6 +64,10 @@
     "file": "assets/footer-bg-3805271c.svg",
     "src": "src/Resources/assets/images/footer-bg.svg"
   },
+  "src/Resources/assets/images/hero-bg.png": {
+    "file": "assets/hero-bg-5ef03aff.png",
+    "src": "src/Resources/assets/images/hero-bg.png"
+  },
   "src/Resources/assets/images/hero-image.jpg": {
     "file": "assets/hero-image-feee3420.jpg",
     "src": "src/Resources/assets/images/hero-image.jpg"
@@ -71,6 +75,14 @@
   "src/Resources/assets/images/hero-image.webp": {
     "file": "assets/hero-image-3170dce6.webp",
     "src": "src/Resources/assets/images/hero-image.webp"
+  },
+  "src/Resources/assets/images/img-offer-big.png": {
+    "file": "assets/img-offer-big-56a30cd5.png",
+    "src": "src/Resources/assets/images/img-offer-big.png"
+  },
+  "src/Resources/assets/images/img-offer-samll.png": {
+    "file": "assets/img-offer-samll-3287e2f7.png",
+    "src": "src/Resources/assets/images/img-offer-samll.png"
   },
   "src/Resources/assets/images/instagram.png": {
     "file": "assets/instagram-df823447.png",

@@ -7,7 +7,7 @@
     <div class="flex items-center gap-x-[40px] pt-[28px] max-[1180px]:gap-x-[20px]">
         <a
             href="{{ route('shop.home.index') }}"
-            class="place-self-start -mt-[4px]"
+            class="rli-logo bg-[position:-5px_-3px] rli-main-sprite max-w-[276px] max-h-[62px] inline-block place-self-start -mt-[21px] max-1366:-mt-[14px]"
             aria-label="Bagisto "
         >
             <img
@@ -48,7 +48,7 @@
                     type="text"
                     name="query"
                     value="{{ request('query') }}"
-                    class="block w-full px-[44px] py-[13px] bg-[#F5F5F5] rounded-lg text-gray-900 text-xs font-medium transition-all border border-transparent hover:border-gray-400 focus:border-gray-400"
+                    class="bg-[#EDEFF5]  rounded-[100px] block w-full px-11 py-3.5 text-gray-900 text-xs font-medium"
                     placeholder="@lang('shop::app.components.layouts.header.search-text')"
                     required
                 >
@@ -72,7 +72,7 @@
             @endif
 
             {{-- Mini cart --}}
-            <!-- @include('shop::checkout.cart.mini-cart') -->
+            @include('shop::checkout.cart.mini-cart')
 
             {{-- user profile --}}
             <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">

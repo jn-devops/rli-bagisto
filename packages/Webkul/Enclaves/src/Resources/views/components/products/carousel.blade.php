@@ -8,43 +8,30 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-products-carousel-template">
-        <div class="container mt-20 max-lg:px-[30px] max-sm:mt-[30px]" v-if="! isLoading && products.length">
-            <div class="flex justify-between">
-                <h3 class="text-[30px] font-dmserif max-sm:text-[25px]" v-text="title"></h3>
-
-                <div class="flex gap-8 justify-between items-center">
-                    <span
-                        class="icon-arrow-left-stylish rtl:icon-arrow-right-stylish inline-block text-[24px] cursor-pointer"
+        <!-- Section new place made just for you -->
+        <div class="container max-lg:px-[30px] max-sm:mt-[30px] mt-24">
+            <div class="flex justify-end items-center gap-8 mt-[16px]">
+                <div class="inline-flex gap-7">
+                    <span 
+                        class="icon-arrow-left-stylish text-[24px] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
                         @click="swipeLeft"
                     >
                     </span>
 
-                    <span
-                        class="icon-arrow-right-stylish rtl:icon-arrow-left-stylish inline-block text-[24px] cursor-pointer"
+                    <span 
+                        class="icon-arrow-right-stylish text-[24px] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
                         @click="swipeRight"
-                    >
+                        >
                     </span>
                 </div>
             </div>
 
             <div
                 ref="swiperContainer"
-                class="flex gap-8 [&>*]:flex-[0] mt-[40px] overflow-auto scroll-smooth scrollbar-hide max-sm:mt-[20px]"
+                class="flex gap-14 mt-[60px] overflow-auto scrollbar-hide max-sm:mt-[20px]"
             >
-                <x-shop::products.card
-                    class="min-w-[291px]"
-                    v-for="product in products"
-                >
-                </x-shop::products.card>
+                <x-shop::products.card v-for="product in products"/>
             </div>
-
-            <a
-                :href="navigationLink"
-                class="secondary-button block w-max mt-[60px] mx-auto py-[11px] px-[43px] rounded-[18px] text-base text-center"
-                v-if="navigationLink"
-            >
-                @lang('shop::app.components.products.carousel.view-all')
-            </a>
         </div>
 
         <!-- Product Card Listing -->

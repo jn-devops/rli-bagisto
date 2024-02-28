@@ -22,7 +22,23 @@ return [
         ],
         'login-form' => [
             'page-title' => 'Log in your Account',
-        ]
+        ],
+
+        'choose-area'          => 'Choose Area',
+        'total-contract-price' => 'Total Contract Price',
 
     ],
+
+    'homepage' => [
+        'slider' => [
+            'title' => 'Raemulan Lands Inc.',
+            'button-text' => 'Elanvital',
+        ],
+
+        'most-view' => [
+            'title'          => 'Most Viewed Properties',
+            'contract-price' => 'Total Contract Price',
+            'choose-area'    => 'Choose Area',
+        ]
+    ]
 ];
