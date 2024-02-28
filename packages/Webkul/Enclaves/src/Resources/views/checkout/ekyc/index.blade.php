@@ -1,12 +1,12 @@
 <x-shop::layouts
     :has-header="true"
-    :has-feature="true"
+    :has-feature="false"
     :has-footer="true"
 >
 
 <!-- Page Title -->
 <x-slot:title>
-    @lang('eKyc Verification')
+    @lang('enclaves::app.authentication.title')
 </x-slot>
 
 <v-user-kyc-summary></v-user-kyc-summary>
@@ -18,18 +18,18 @@
             <div class="p-[20px] m-[20px]">
                 <div class="w-full flex justify-center gap-x-[40px] max-[1180px]:gap-x-[20px]">
                     <h1 
-                        class="mb-2 text-[40px] text-[#060C3B] font-bold tracking-tight text-gray-900 dark:text-white"
+                        class="text-[40px] font-bold mt-[26px] leading-[48px] max-sm:text-[26px] max-sm:leading-[36px]"
                         :class="opacity"
                     >
-                        @lang('Verify your profile')
+                        @lang('enclaves::app.authentication.title')
                     </h1>
                 </div>
            
                 <p 
-                    class="pt-[30px] font-normal text-gray-700 dark:text-gray-400" 
+                    class="text-[20px] mt-[50px] max-sm:text-[16px] max-sm:mt-[25px]" 
                     :class="opacity"
                 >
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    @lang('enclaves::app.authentication.body_text')
                 </p>
 
                 <!-- Loader Spinner -->
@@ -37,7 +37,7 @@
                     v-if="sended"
                     role="status" 
                     class="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"
-                >
+                    >
                     <svg 
                         aria-hidden="true" 
                         class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300" 
@@ -58,23 +58,21 @@
                     <span class="absolute text-nowrap -left-[80px]" v-text="loadingText"></span>
                 </div>
                 
-                <div class="w-full flex justify-center pt-[30px]">
-                    <button
-                        v-if="sended"
-                        class="primary-button"
-                        disabled
-                    >
-                        @lang('ekyc Verification')
-                    </button>
+                <button
+                    v-if="sended"
+                    class="flex mt-[30px] block mx-auto bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
+                    :class="opacity"
+                >
+                    @lang('enclaves::app.authentication.authenticate')
+                </button>
 
-                    <button
-                        v-else
-                        class="primary-button"
-                        @click="handleKycVerification"
-                    >
-                        @lang('ekyc Verification')
-                    </button>
-                </div>
+                <button
+                    v-else
+                    class="flex mt-[30px] block mx-auto bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
+                    @click="handleKycVerification"
+                >
+                    @lang('enclaves::app.authentication.authenticate')
+                </button>
             </div>
         </div>
     </script>

@@ -9,28 +9,25 @@
         <x-shop::breadcrumbs name="dashboard"></x-shop::breadcrumbs>
     @endSection
 
-    <div class="flex justify-between items-center">
-        <h2 class="text-[26px] font-medium">
-            @lang('shop::app.customers.account.dashboard.title')
-        </h2>
-    </div>
+    <h2 class="text-[29px] font-semibold max-md:text-[20px]">
+        @lang('shop::app.customers.account.dashboard.title')
+    </h2>
 
     <!-- Dashboard Information -->
-    <div class="grid grid-cols-1 gap-y-[25px] mt-[30px]">
+    <div class="p-[36px] bg-[#F7F8FA] rounded-[20px] mt-[18px]">
         {!! view_render_event('bagisto.shop.customers.account.dashboard.before') !!}
-            <div class="justify-between px-[25px] py-[20px] border-[#E9E9E9] rounded-xl cursor-pointer bg-gray-100">
-                <!-- Property section -->
-                @include('shop::customers.account.dashboard.header.index')
+           
+            <!-- Property section -->
+            @include('shop::customers.account.dashboard.header.index')
 
-                <!-- payment scheduler, Amortization Details, Reservation fee -->
-             
-                <div class="flex justify-between my-[20px] gap-3">
-                    <!-- left side -->
-                    @include('shop::customers.account.dashboard.body.schedule')  
+            <!-- payment scheduler, Amortization Details, Reservation fee -->
+            
+            <div class="flex gap-[25px] flex-wrap">
+                <!-- left side -->
+                @include('shop::customers.account.dashboard.body.schedule')  
 
-                    <!-- right side -->
-                    @include('shop::customers.account.dashboard.body.details')
-                </div>
+                <!-- right side -->
+                @include('shop::customers.account.dashboard.body.details')
             </div>
         {!! view_render_event('bagisto.shop.customers.account.dashboard.after') !!}
     </div>

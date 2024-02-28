@@ -1,48 +1,19 @@
-<div class="p-4 bg-white rounded-lg">
-    <h1 class="font-bold text-[20px]">Payment Schedule</h1>
+<div class="px-[15px] py-[32px] bg-white rounded-[10px] flex-auto">
+    <p class="text-[20px] font-bold">Payment Schedule</p>
+    <div class="grid gap-[8px]">
 
-    <!-- Row 1 -->
-    <div class="mt-10 p-4 shadow-[0_5px_7px_-5px_rgba(0,0,0,0.3)]">
-        <div class="flex justify-between gap-[60px]">
-            <!-- left -->
-            <div class="flex gap-5">
-                <div class="px-[17px] py-[10px] h-[40px] w-[40px] bg-violet-400 rounded-full text-[15px] text-white">
-                    1
-                </div>
-
-                <div class="">
-                    <p class="text-[#2e2d2d] font-bold">Month</p>
-                    <p class="text-[#b8b8b8]">Due Date 07/12/24</p>
+        <div class="flex justify-between gap-[80px] flex-wrap shadow-[0px_4px_4px_0px_#0000000A] px-[28px] py-[18px] mt-[15px] rounded-[5px] w-full">
+            <div class="flex gap-[12px]">
+                <span class="bg-[#8C9EFF] rounded-full text-[14px] text-white px-[11px] py-[3px] max-h-[2] place-self-start flex items-center justify-center ">1</span>
+                <div class="grid gap-[6px]">
+                    <p class="text-[20px] font-bold">Payment</p>
+                    <p class="text-[14px] text-[#B9B9B9]">Due Date: 01/06/23</p>
                 </div>
             </div>
 
-            <!-- right -->
-            <div>
-                <p class="text-[#2e2d2d] font-bold">₱22,500.00</p>
-                <p class="text-[#b8b8b8]">Total Monthly Amortization</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Row 2 -->
-    <div class="mt-10 p-4 shadow-[0_5px_7px_-5px_rgba(0,0,0,0.3)]">
-        <div class="flex justify-between gap-[60px]">
-            <!-- left -->
-            <div class="flex gap-5">
-                <div class="px-[17px] py-[10px] h-[40px] w-[40px] bg-violet-400 rounded-full text-[15px] text-white">
-                    2
-                </div>
-
-                <div class="">
-                    <p class="text-[#2e2d2d] font-bold">Month</p>
-                    <p class="text-[#b8b8b8]">Due Date 07/12/24</p>
-                </div>
-            </div>
-
-            <!-- right -->
-            <div>
-                <p class="text-[#2e2d2d] font-bold">₱22,500.00</p>
-                <p class="text-[#b8b8b8]">Total Monthly Amortization</p>
+            <div class="grid gap-[6px]">
+                <p class="text-[20px] font-bold">P27,000.00</p>
+                <p class="text-[14px] text-[#B9B9B9]">Reservation Fee</p>
             </div>
         </div>
     </div>

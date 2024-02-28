@@ -57,8 +57,6 @@
                     <x-shop::layouts.header />
                 @endif
 
-            <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
-
                 {!! view_render_event('bagisto.shop.layout.content.before') !!}
 
                 <!-- Page Content Blade Component -->
@@ -70,7 +68,6 @@
                 @if ($hasFeature)
                     <x-shop::layouts.features />
                 @endif
-            </div>
             <!-- Page Footer Blade Component -->
             @if ($hasFooter)
                 <x-shop::layouts.footer />

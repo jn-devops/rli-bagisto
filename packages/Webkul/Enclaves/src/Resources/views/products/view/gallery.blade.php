@@ -12,36 +12,42 @@
                         <div class="min-w-[560px] min-h-[607px] bg-[#E9E9E9] rounded-[12px] shimmer"></div>
                     </div>
 
-                    <div v-show="! isMediaLoading">
+                    <div v-if="! isMediaLoading">
                         <img
                             :src="baseFile.path" 
                             v-if="baseFile.type == 'image'"
-                            class="rounded-[5px] w-[560px] h-[287px]"
+                            class="rounded-[5px] w-[560px] h-[610px]"
                             alt="@lang('shop::app.products.view.gallery.product-image')"
                             @load="onMediaLoad()"
                         />
                     </div>
+                    <div v-else>
+                        <x-shop::media.images.lazy
+                            ::src="baseFile.path"
+                            v-if="baseFile.type == 'image'"
+                            class="rounded-[5px] w-[560px] h-[610px]"
+                            alt="@lang('shop::app.products.view.gallery.product-image')"
+                            @load="onMediaLoad()"
+                        >
+                        </x-shop::media.images.lazy>
+                    </div>
                 </div>
                 
                 <div class="flex flex-col gap-[16px] max-1280:flex-row max-1024:flex-row max-1024:flex-nowrap">
-                    <img 
+                    <x-shop::media.images.lazy
+                        class="rounded-[5px] w-[100px] max-h-[100px]" 
                         v-for="image in media.images"
-                        class="rounded-[5px] w-[148px] max-h-[88px]" 
-                        :src="image.small_image_url" 
                         alt="@lang('shop::app.products.view.gallery.thumbnail-image')" 
-                    />
+                        ::src="image.small_image_url"
+                    >
+                    </x-shop::media.images.lazy>
                 </div>
             </div>
         </div>
 
         <!-- Product slider Image with shimmer -->
         <div class="flex gap-[30px] 1180:hidden overflow-auto scrollbar-hide">
-            <!-- <x-shop::media.images.lazy
-                ::src="image.large_image_url"
-                class="min-w-[450px] max-sm:min-w-full w-[490px]" 
-                v-for="image in media.images"
-            >
-            </x-shop::media.images.lazy> -->
+            <!--  -->
         </div>
     </script>
 

@@ -1,32 +1,31 @@
-<div class="flex items-center">
-    <div class="grid justify-items-start">
+<div class="flex gap-[18px] flex-wrap justify-between">
+    <div class="flex gap-[25px] flex-wrap">
         <!-- Product Image -->
         <img
             src="{{ bagisto_asset('images/large-product-placeholder.webp') }}"
-            class="w-[200px] h-[150px] rounded-lg border-slate-950"
+            class="max-w-[156px] max-h-[179px] rounded-[20px]"
             alt="Product Image"
         >
     </div>
 
-    <div class="grid justify-items-start">
+    <div class="grid gap-[12px]">
         <!-- Product Details -->
-        <h3 class="text-[25px] font-semibold my-[10px]">@lang('Zoya Studio Condominium Standard Inner Unit')</h3>
+        <p class="text-[26px] font-bold">@lang('Zoya Studio Condominium Standard Inner Unit')</p>
 
-        <p class="text-[20px] font-mediums">@lang('Monthly Amortization:')</p>
+        <div class="grid mt-[12px]">
+            <p class="text-[24px] font-medium">Monthly Amortization:</p>
+            <p class="text-[24px] font-medium text-[#CC035C]">₱22,500.00</p>
+        </div>
 
-        <p class="font-mediums text-[20px] text-[#ED3EAE]">@lang('₱22,5000.00')</p>
-
-        <p class="flex justify-between px-[30px] py-[5px] my-[20px] bg-[#ddf5c4] rounded-3xl">
-            <span class="text-[#2aa81d]">@lang('Reserved')</span>
-        </p>
+        <p class="label-processing">@lang('Reserved')</p>
     </div>
 
     <!-- Price -->
-    <div class="grid justify-items-end rounded-lg p-[30px] bg-[#6593f7]">
-        <p class="text-[25px] text-white font-semibold">@lang('₱22,5000.00')</p>
-        <p class="text-white">@lang('Total Contract Price')</p>
+    <div class="grid gap-[15px] bg-[#5890FE] rounded-[20px] p-[30px]">
+        <p class="text-[30px] text-white font-bold break-all">@lang('₱22,5000.00')</p>
+        <p class="text-base text-white">@lang('Total Contract Price')</p>
     </div>
 </div>
 
-<!-- Bordered -->
-<div class="border border-gray-300"></div>
+<!-- Divider Line -->
+<div class="border-[0.5px] border-[#B9B9B9] my-[46px] h-[1px] w-full"></div>
