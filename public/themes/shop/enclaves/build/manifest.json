@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-2cea5bff.css",
+    "file": "assets/app-d5d26d93.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -19,6 +19,10 @@
   "src/Resources/assets/images/call.svg": {
     "file": "assets/call-eddc9d6f.svg",
     "src": "src/Resources/assets/images/call.svg"
+  },
+  "src/Resources/assets/images/camera-icon.png": {
+    "file": "assets/camera-icon-f402674f.png",
+    "src": "src/Resources/assets/images/camera-icon.png"
   },
   "src/Resources/assets/images/cash-on-delivery.png": {
     "file": "assets/cash-on-delivery-73061c49.png",
