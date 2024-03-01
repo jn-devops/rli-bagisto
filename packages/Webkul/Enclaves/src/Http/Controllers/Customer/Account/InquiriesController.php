@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers;
+namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\JsonResponse;

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: 'velicon';
   src: url('../fonts/velicon.woff?hhi7p1') format('woff');
@@ -418,6 +417,51 @@
   /* bottom-right border-radius */
   table tr:last-child td:last-child {
     border-bottom-right-radius: 6px;
+  }
+
+  .warning {
+      display: flex;
+      color: white;
+      border-radius: 20px 20px 20px 20px;
+      background-color: #F39C12;
+      padding: 10px;
+  }
+
+  .success {
+      display: flex;
+      color: white;
+      border-radius: 20px 20px 20px 20px;
+      background-color: #5BA34B;
+      padding: 10px;
+  }
+
+  .danger {
+      display: flex;
+      color: white;
+      border-radius: 20px 20px 20px 20px;
+      background-color: rgb(255, 50, 35);
+      padding: 10px;
+
+  }
+  
+  .cancel {
+      display: flex;
+      color: #a0a0a0;
+      border-radius: 20px 20px 20px 20px;
+      background-color: #F5F5F5;
+      padding: 10px;
+  }
+
+  .info {
+      display: flex;
+      color: white;
+      border-radius: 20px 20px 20px 20px;
+      background-color: rgb(11, 31, 68);
+  }
+
+  .link {
+      color: #5388e9;
+      text-decoration-line: underline;
   }
 
   /* Icons style */

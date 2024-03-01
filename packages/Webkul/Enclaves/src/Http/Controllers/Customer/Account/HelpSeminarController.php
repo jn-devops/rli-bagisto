@@ -1,10 +1,10 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers;
+namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 use Webkul\Enclaves\Http\Controllers\Controller;
 
-class DocumentsController extends Controller
+class HelpSeminarController extends Controller
 {
     /**
      */
@@ -19,6 +19,6 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        return view('shop::customers.account.documents.index');
+        return view('shop::customers.account.help-seminar.index');
     }
 }
