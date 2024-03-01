@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers;
+namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 use Webkul\Enclaves\Http\Controllers\Controller;
 

@@ -1,4 +1,4 @@
-<section class="inset-1 grid gap-7 lg:gap-11 p-6 rounded-[1.25rem] border border-[rgba(237,_239,_245)] lg:px-[3.185rem] lg:py-[3.75rem] lg:grid-cols-2">
+<section class="flex flex-col justify-between gap-y-8 gap-x-4 rounded-[1.25rem] bg-[rgba(237,_239,_245)] px-8 py-5 md:items-center lg:flex-row xl:gap-x-8 xl:px-12 xl:pt-[2.313rem] xl:pb-[1.875rem]">
     <figure class="flex justify-start w-full gap-x-8">
         <div class="size-24 xl:size-[7.565rem] relative rounded-full">
             <img 

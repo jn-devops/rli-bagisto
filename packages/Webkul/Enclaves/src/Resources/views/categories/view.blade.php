@@ -34,6 +34,12 @@
                 @endif
 
                     {!! $category->description !!}
+
+                    <!-- <x-shop::layouts.read-more-smooth
+                        text="`{!! $category->description !!}`"
+                        limit="400"
+                    >
+                    </x-shop::layouts.read-more-smooth> -->
                 </p>
             </div>
         @endif

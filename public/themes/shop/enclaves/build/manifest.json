@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-d5d26d93.css",
+    "file": "assets/app-c5106ed0.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -60,6 +60,10 @@
     "file": "assets/favicon-1b7c1fb6.ico",
     "src": "src/Resources/assets/images/favicon.ico"
   },
+  "src/Resources/assets/images/fb.png": {
+    "file": "assets/fb-8a578956.png",
+    "src": "src/Resources/assets/images/fb.png"
+  },
   "src/Resources/assets/images/footer-bg.png": {
     "file": "assets/footer-bg-b678acbd.png",
     "src": "src/Resources/assets/images/footer-bg.png"
@@ -67,6 +71,34 @@
   "src/Resources/assets/images/footer-bg.svg": {
     "file": "assets/footer-bg-3805271c.svg",
     "src": "src/Resources/assets/images/footer-bg.svg"
+  },
+  "src/Resources/assets/images/hero-1.png": {
+    "file": "assets/hero-1-0efb104f.png",
+    "src": "src/Resources/assets/images/hero-1.png"
+  },
+  "src/Resources/assets/images/hero-2.png": {
+    "file": "assets/hero-2-201749d9.png",
+    "src": "src/Resources/assets/images/hero-2.png"
+  },
+  "src/Resources/assets/images/hero-3.png": {
+    "file": "assets/hero-3-4d23f3e5.png",
+    "src": "src/Resources/assets/images/hero-3.png"
+  },
+  "src/Resources/assets/images/hero-5.png": {
+    "file": "assets/hero-5-20a770cf.png",
+    "src": "src/Resources/assets/images/hero-5.png"
+  },
+  "src/Resources/assets/images/hero-6.png": {
+    "file": "assets/hero-6-50580975.png",
+    "src": "src/Resources/assets/images/hero-6.png"
+  },
+  "src/Resources/assets/images/hero-7.png": {
+    "file": "assets/hero-7-8d205e51.png",
+    "src": "src/Resources/assets/images/hero-7.png"
+  },
+  "src/Resources/assets/images/hero-8.png": {
+    "file": "assets/hero-8-e59f2a48.png",
+    "src": "src/Resources/assets/images/hero-8.png"
   },
   "src/Resources/assets/images/hero-bg.png": {
     "file": "assets/hero-bg-5ef03aff.png",
@@ -164,7 +196,7 @@
     "css": [
       "assets/app-05f8acf7.css"
     ],
-    "file": "assets/app-618388cc.js",
+    "file": "assets/app-63ffc5c8.js",
     "isEntry": true,
     "src": "src/Resources/assets/js/app.js"
   }

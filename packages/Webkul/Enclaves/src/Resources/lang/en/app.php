@@ -20,13 +20,26 @@ return [
                 'create-success' => "Ticket successfully created",
             ]
         ],
+
         'login-form' => [
             'page-title' => 'Log in your Account',
+        ],
+        
+        'account' => [
+            'help-seminar' => [
+                'title' => 'Help Seminar',
+            ],
         ],
 
         'choose-area'          => 'Choose Area',
         'total-contract-price' => 'Total Contract Price',
 
+    ],
+
+    'layouts' => [
+        'transactions' => 'Transactions',
+        'inquiries'    => 'Inquiries',
+        'help-seminar' => 'Help Seminar',
     ],
 
     'homepage' => [
