@@ -1,6 +1,3 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-
 <x-shop::layouts.account>
     <!-- Page Title -->
     <x-slot:title>
@@ -18,35 +15,49 @@
         </h2>
     </div>
 
-    <!-- Profile Information -->
-    <div class="grid grid-cols-1">
+    <section class="grid w-full gap-y-[0.813rem] max-md:mt-[30px]">
         <!-- Header -->
         @include('shop::customers.account.custom-profile.header.index')
 
-        <div class="relative text-right top-[90px]">
-            <a
-                href="{{ route('shop.customers.account.profile.edit') }}"
-                class="secondary-button py-[12px] px-[20px] border-[#E9E9E9] font-normal relative text-right -top-[53px]"
-            >
-                @lang('shop::app.customers.account.profile.edit')
-            </a>
-        </div>
+        <v-customer-profile></v-customer-profile>
+    </section>
 
-        <x-shop::tabs.tab>
-            <x-shop::tabs.item
-                title="Details"
-                isSelected="true"
-            >
-                <!-- Profile Detail -->
-                @include('shop::customers.account.custom-profile.details.index')
-            </x-shop::tabs.item>
+    @pushOnce('scripts')
+        <script type="text/x-template" id="v-customer-profile-template">
 
-            <x-shop::tabs.item
-                title="Co-borrower Details"
+            <button 
+                class="my-1.5 ml-auto flex max-w-fit rounded-[1.25rem] bg-gradient-to-r from-[rgba(252,_177,_21)] to-[rgba(204,_3,_92)] px-16 py-5 text-sm font-medium leading-[0.875rem] text-white"
+                @click="enableEditForm"
             >
-                <!-- co-borrower -->
-                @include('shop::customers.account.custom-profile.co-borrower.index')
-            </x-shop::tabs.item>
-        </x-shop::tabs.tab>
-    </div>
+                Fill out the Form 
+            </button>
+
+            <div v-if="editEnable">
+                @include('shop::customers.account.custom-profile.personal-details.index')
+
+                @include('shop::customers.account.custom-profile.form.index')
+            </div>
+
+            <div v-else>
+                @include('shop::customers.account.custom-profile.view.index')
+            </div>
+        </script>
+
+        <script type="module">
+            app.component("v-customer-profile", {
+                template: '#v-customer-profile-template',
+
+                data() {
+                    return {
+                        editEnable: false,
+                    };
+                },
+                methods: {
+                    enableEditForm() {
+                        this.editEnable = true;
+                    },
+                },
+            });
+        </script>
+    @endpushOnce
 </x-shop::layouts.account>

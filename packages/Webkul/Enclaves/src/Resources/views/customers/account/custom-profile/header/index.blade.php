@@ -1,29 +1,54 @@
-<!-- Profile Header -->
-<div class="flex justify-between mt-[30px] px-[20px] py-[20px] border-[#E9E9E9] rounded-xl cursor-pointer bg-gray-100">
-    <div class="flex gap-5">
-        <!-- customer Image -->
-        <div class="grid w-[150px] justify-items-start">
-            <img
-                src="{{ $customer->image_url ??  bagisto_asset('images/user-placeholder.png') }}"
-                class="w-[150px] h-[150px] rounded-full"
-                alt="Profile Image"
+<section class="inset-1 grid gap-7 lg:gap-11 p-6 rounded-[1.25rem] border border-[rgba(237,_239,_245)] lg:px-[3.185rem] lg:py-[3.75rem] lg:grid-cols-2">
+    <figure class="flex justify-start w-full gap-x-8">
+        <div class="size-24 xl:size-[7.565rem] relative rounded-full">
+            <img 
+                src="{{ $customer->image_url ??  bagisto_asset('images/user-placeholder.png') }}" 
+                alt="profile image"
+                class="size-24 xl:size-[7.565rem] rounded-full object-cover" 
+            />
+
+            <label 
+                for="profile-upload" 
+                class="absolute top-14 right-3 xl:top-20 xl:right-4"
             >
+                <input 
+                    type="file"
+                    name="profile-upload"
+                    class="absolute hidden"
+                    id="profile-upload" 
+                />
+
+                <img
+                    src="{{ bagisto_asset('images/camera-icon.png') }}"
+                    alt="profile image"
+                    class="rounded-full size-9" 
+                />
+            </label>
         </div>
 
-        <!-- customer Details -->
-        <div class="justify-items-start">
-            <h3 class="text-[20px] font-semibold">{{ $customer->first_name }}</h3>
+        <figcaption class="flex flex-col gap-y-1.5 pt-2 lg:gap-y-2.5">
+            <h3 class="text-lg font-semibold text-black xl:text-[1.565rem] xl:leading-7">
+                {{ $customer->first_name }}
+            </h3>
 
-            <p class="font-mediums text-[15px]"><span class="font-bold">Email: </span>{{ $customer->email }}</p>
+            <h4 class="text-base font-bold text-black xl:text-[1.313rem] xl:leading-6"> 
+                Email: <span class="font-normal">{{ $customer->email }}</span>
+            </h4>
 
-            <p class="font-mediums text-[15px]"><span class="font-bold">Age: </span>{{ $customer->date_of_birth }}</p>
-        </div>
-    </div>
+            <h4 class="text-base font-bold text-black xl:text-[1.313rem] xl:leading-6"> 
+                Age: <span class="font-normal">{{ $customer->date_of_birth }}</span>
+            </h4>
+        </figcaption>
+    </figure>
+    
+    <article
+        class="lg:max-w-64 flex w-full max-w-full flex-col gap-y-6 rounded-[1.25rem] bg-[rgba(161,_184,_214)] py-5 px-6">
+        <h3 class="text-xl font-semibold text-white xl:text-[1.565rem] xl:leading-7">
+            @lang('Steps to get your dream house')
+        </h3>
 
-    <!-- Action -->
-    <div class="grid justify-items-end rounded-lg p-[10px] w-[240px] bg-[#9db2d1]">
-        <p class="text-[20px] text-white font-semibold">@lang('Steps to get your dream house')</p>
-
-        <button type="button" class="w-[100px] bg-white rounded-full text-[#5f6e85]">@lang('Read Now')</button>
-    </div>
-</div>
+        <button class="text-balance font-regular ml-auto max-w-fit rounded-full bg-white py-3.5 px-6 text-base leading-4 text-black">
+            @lang('Read now')
+        </button>
+    </article>
+</section>

@@ -11,7 +11,7 @@
     <script type="text/x-template" id="v-tabs-template">
         <div>
             <div
-                class="flex gap-[30px] justify-center pt-[18px] max-1180:hidden"
+                class="flex gap-[30px] justify-center pt-[18px]"
                 :style="positionStyles"
             >
                 <div

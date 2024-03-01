@@ -5,10 +5,10 @@
     </x-slot>
 
     {{-- Page Content --}}
-    <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
+    <div class="container md:px-[60px] max-lg:px-[30px]">
         <x-shop::layouts.account.breadcrumb />
 
-        <div class="flex gap-[30px] items-start mt-[30px] max-lg:gap-[20px] max-md:grid">
+        <div class="flex gap-[4.375rem] mx-auto mt-[30px] items-start max-lg:gap-y-[20px] max-md:grid">
             <x-shop::layouts.account.navigation />
 
             <div class="flex-auto">

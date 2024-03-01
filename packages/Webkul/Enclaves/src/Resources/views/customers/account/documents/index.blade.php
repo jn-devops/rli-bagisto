@@ -9,60 +9,56 @@
         <x-shop::breadcrumbs name="documents"></x-shop::breadcrumbs>
     @endSection
 
-    <div class="flex justify-between items-center">
-        <h2 class="text-[26px] font-medium">
+    <div class="flex justify-between">
+        <h2 class="text-[29px] font-semibold max-md:text-[20px]">
             @lang('shop::app.customers.account.documents.title')
         </h2>
     </div>
 
     <!-- documents Information -->
-    <div class="grid grid-cols-1 gap-y-[25px] mt-[30px]">
+    <div class="grid grid-cols-[1fr_414px] gap-[32px] flex-wrap mt-[125px] max-1280:grid-cols-1 max-sm:mt-[60px]">
         {!! view_render_event('bagisto.shop.customers.account.document.before') !!}
-            <div class="flex">
-                <div class="justify-between px-[30px] py-[20px] border-[#E9E9E9] rounded-xl cursor-pointer bg-gray-100 w-[400px] h-fit">
-                    <h2 class="text-[20px] font-medium">@lang('There are the lists of documents you need to accomplish:')</h2>
-
-                    <ul class="mt-7">
-                        <li>@lang('1. Document Name X')</li>
-                        <li>@lang('2. Document Name X')</li>
-                        <li>@lang('3. Document Name X')</li>
-                        <li>@lang('4. Document Name X')</li>
-                        <li>@lang('5. Document Name X')</li>
-                        <li>@lang('6. Document Name X')</li>
-                        <li>@lang('7. Document Name X')</li>
-                        <li>@lang('8. Document Name X')</li>
-                        <li>@lang('9. Document Name X')</li>
-                        <li>@lang('10. Document Name X')</li>
-                    </ul>
+                <div class="px-[54px] py-[36px] bg-[#F7F8FA] rounded-[20px] flex-1 max-sm:px-[28px] max-sm:py-[20px]">
+                    <p class="text-[25px] font-semibold max-sm:text-[20px]">These are the lists of documents you need to accomplish:</p>
+                    <ol class="list-decimal pl-[25px] mt-[50px] max-sm:mt-[25px]">
+                        <li class="text-[22px] max-sm:text-[16px]">Reservation Agreement (RA)</li>
+                        <li class="text-[22px] max-sm:text-[16px]" >Government ID 1</li>
+                        <li class="text-[22px] max-sm:text-[16px]">Meralco Application Form</li>
+                        <li class="text-[22px] max-sm:text-[16px]">Certificate of Employment with Compensation</li>
+                        <li class="text-[22px] max-sm:text-[16px]">Government ID 1</li>
+                        <li class="text-[22px] max-sm:text-[16px]">Certificate of Employment </li>
+                        <li class="text-[22px] max-sm:text-[16px]">CENOMAR</li>
+                        <li class="text-[22px] max-sm:text-[16px]">Government ID 1</li>
+                        <li class="text-[22px] max-sm:text-[16px]">TIN</li>
+                        <li class="text-[22px] max-sm:text-[16px]">Government ID 1</li>
+                    </ol>
                 </div>
 
-                <div class="row text-center p-10 map">
-                    <img 
-                        src="{{ bagisto_asset('images/document-files.svg') }}" 
-                        alt="attach image"
-                     />
-                    
-                    <div class="mb-7">
-                        <button
-                            type="submit"
-                            class="primary-button min-w-[185px] !bg-gradient-to-r from-yellow-500 to-[#e0165d] border-0"
-                        >
-                            @lang('shop::app.customers.account.documents.btn-documents')
-                        </button>
-                    </div>
+                <div class="grid items-center text-center gap-[16px] flex-wrap max-w-[410px] place-self-start">
+                    <img class="w-[307px]" src="{{ bagisto_asset('images/document-files.svg') }}" />
 
-                    <p class="text-[20px] font-bold mb-7">@lang('shop::app.customers.account.documents.text-document')</p>
+                    <a class="ml-[0px] block mx-auto w-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center max-sm:w-max max-sm:mx-auto" href=""> 
+                        Go to my Documents 
+                    </a>
                     
-                    <div class="flex justify-around items-center mb-7">
-                        <p class="flex justify-around items-center rounded-xl cursor-pointer bg-gray-100 w-[300px] h-[35px]">
-                            <span class="text-[#1965dd] text-[14px] font-bold"> @lang('shop::app.customers.account.documents.reference-code') JN-0921-001 </span>
+                    <p class="text-[20px] font-bold max-sm:text-[16px]">Press the button above and enter your</p>
+                    
+                    <div class="flex gap-[8px] rounded-[10px] bg-[#F3F4F6] p-[8px] w-max mx-auto">
+                        <p class="flex flex-wrap gap-[5px] ">
+                            <span class="text-[20px] text-[#0066EE] font-bold max-sm:text-[16px]">
+                                Reference Code:
+                            </span>
 
-                            <span class="text-[#999999c4] text-[14px]">@lang('copy')</span>
+                            <span class="text-[20px] text-[#0066EE] font-bold max-sm:text-[16px]">
+                                JN-0921-001
+                            </span>
                         </p>
+
+                        <span class=""></span>
                     </div>
-                    
-                    <p class="text-[14px]">
-                        @lang('shop::app.customers.account.documents.confirm-documents')
+
+                    <p class="text-[20px] font-medium max-sm:text-[16px]">
+                        to confirm and manage your documents.
                     </p>
                 </div>
             </div>
