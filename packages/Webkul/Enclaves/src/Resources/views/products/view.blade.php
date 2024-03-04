@@ -151,24 +151,30 @@
                                 <div class="flex gap-[60px] flex-wrap mt-[40px] max-sm:gap-[30px]">
                                     <div class="flex gap-[10px]">
                                         <span class="icon w-[24px] h-[24px] bg-red-700"></span>
+
                                         <div class="grid gap-[12px]">
                                             <p class="text-[15px] text-[#989898] leading-4">@lang('1st Floor')</p>
+                                            
                                             <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
                                         </div>
                                     </div>
 
                                     <div class="flex gap-[10px]">
                                         <span class="icon w-[24px] h-[24px] bg-red-700"></span>
+
                                         <div class="grid gap-[12px]">
                                             <p class="text-[15px] text-[#989898] leading-4">@lang('Unit')</p>
+
                                             <p class="text-[18px] leading-4">{{ $product->end_unit }}</p>
                                         </div>
                                     </div>
 
                                     <div class="flex gap-[10px]">
                                         <span class="icon w-[24px] h-[24px] bg-red-700"></span>
+
                                         <div class="grid gap-[12px]">
                                             <p class="text-[15px] text-[#989898] leading-4">@lang('Floor Area')</p>
+
                                             <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
                                         </div>
                                     </div>
@@ -181,9 +187,12 @@
                                 </h1>
 
                                 {!! view_render_event('bagisto.shop.products.description.before', ['product' => $product]) !!}
-                                    <p class="text-[20px] mt-[50px] max-sm:text-[16px] max-sm:mt-[25px]">
-                                        {!! $product->description !!}
-                                    </p>
+                                    <x-shop::layouts.read-more-smooth
+                                        text="{!! $product->description !!}"
+                                        limit="300"
+                                        class="text-[20px] mt-[50px] max-sm:text-[16px] max-sm:mt-[25px]"
+                                    >
+                                    </x-shop::layouts.read-more-smooth>
                                 {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                             </div>
 
@@ -422,6 +431,5 @@
                 });
             </script>
         @endPushOnce
-
     </div>
 </x-shop::layouts>

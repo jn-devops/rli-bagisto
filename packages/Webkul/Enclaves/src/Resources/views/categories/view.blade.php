@@ -1,4 +1,4 @@
-{{-- SEO Meta Content --}}
+<!-- SEO Meta Content -->
 @push('meta')
     <meta name="description" content="{{ trim($category->meta_description) != "" ? $category->meta_description : \Illuminate\Support\Str::limit(strip_tags($category->description), 120, '') }}"/>
 
@@ -12,7 +12,7 @@
 @endPush
 
 <x-shop::layouts>
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
         {{ trim($category->meta_title) != "" ? $category->meta_title : $category->name }}
     </x-slot>
@@ -20,9 +20,9 @@
     @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
         @if ($category->description)
 
-            <div class="flex gap-[16px] mt-[45px] max-1180:flex-wrap">
+            <div class="container flex gap-[16px] mt-[45px] max-1180:flex-wrap">
                 
-                {{-- Hero Image --}}
+                <!-- Hero Image -->
                 @if ($category->banner_path)
                     <img
                         class="max-w-[452px] w-full max-h-[172px]"
@@ -32,23 +32,20 @@
                         height="300"
                     >
                 @endif
-
-                    {!! $category->description !!}
-
-                    <!-- <x-shop::layouts.read-more-smooth
-                        text="`{!! $category->description !!}`"
-                        limit="400"
+                    <x-shop::layouts.read-more-smooth
+                        text="{!! $category->description !!}"
+                        limit="700"
                     >
-                    </x-shop::layouts.read-more-smooth> -->
+                    </x-shop::layouts.read-more-smooth>
                 </p>
             </div>
         @endif
     @endif
 
     @if (in_array($category->display_mode, [null, 'products_only', 'products_and_description']))
-        {{-- Category Vue Component --}}
+        <!-- Category Vue Component -->
         <v-category>
-            {{-- Category Shimmer Effect --}}
+            <!-- Category Shimmer Effect -->
             <x-shop::shimmer.categories.view/>
         </v-category>
     @endif
@@ -57,7 +54,7 @@
         <script 
             type="text/x-template" 
             id="v-category-template"
-        >
+            >
             <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
                 <div class="flex gap-[40px] items-start md:mt-[40px] max-lg:gap-[20px]">
                     <!-- Product Listing Filters -->
@@ -184,6 +181,7 @@
                         products: [],
 
                         links: {},
+
                     }
                 },
 

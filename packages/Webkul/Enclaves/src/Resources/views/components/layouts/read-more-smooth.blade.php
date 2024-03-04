@@ -9,14 +9,13 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-read-more-smooth-template">
         <div>
-            <span v-text="usetext" class="{{ $class }}"></span>&nbsp;
+            <span class="{{ $class }}" ref="mainParagraph">{{ $text }}</span>&nbsp;
             
             <span
                 @click="formattedBody"
                 v-if="fullText.length > limit"
                 class="{{ $class }} font-bold underline cursor-pointer" style="font-weight: 600"
             >
-                
                 <span v-if="showingFullText"> Read Less</span>
                 <span v-else> Read More</span>
             </span>
@@ -29,21 +28,21 @@
 
             data() {
                 return  {
-                    fullText: '{{ $text }}',
+                    fullText: '',
                     limit: '{{ $limit }}',
                     showingFullText: false,
-                    usetext: '',
                     refreshComponent: 1,
+                    regex: /(<([^>]+)>)/ig,
                 }
             },
 
             mounted() {
-                this.usetext = this.fullText;
+                this.fullText = this.$refs.mainParagraph.innerText.replace(this.regex, "");
 
                 if(this.fullText.length > this.limit) {
                     this.showingFullText = this.fullText.length < this.limit;
 
-                    this.usetext = this.manupulateText();
+                    this.$refs.mainParagraph.innerText = this.manupulateText();
                 }
             },
 
@@ -51,10 +50,10 @@
                 formattedBody() {
                     this.showingFullText = !this.showingFullText;
 
-                    this.usetext = this.fullText;
+                    this.$refs.mainParagraph.innerText = this.fullText;
 
                     if (! this.showingFullText) {
-                        this.usetext = this.manupulateText();
+                        this.$refs.mainParagraph.innerText = this.manupulateText();
                     }
 
                     ++this.refreshComponent;

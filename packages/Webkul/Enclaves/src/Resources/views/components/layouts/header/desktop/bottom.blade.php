@@ -1,9 +1,9 @@
 <div class="w-full flex justify-between min-h-[78px] px-[60px] border border-t-0 border-b-[1px] border-l-0 border-r-0 max-1180:px-[30px]">
-    {{--
+    <!--
         This section will provide categories for the first, second, and third levels. If
         additional levels are required, users can customize them according to their needs.
-    --}}
-    {{-- Left Nagivation Section --}}
+    -->
+    <!-- Left Nagivation Section -->
     <div class="flex items-center gap-x-[40px] pt-[28px] max-[1180px]:gap-x-[20px]">
         <a
             href="{{ route('shop.home.index') }}"
@@ -27,9 +27,9 @@
         </v-desktop-category>
     </div>
 
-    {{-- Right Nagivation Section --}}
+    <!-- Right Nagivation Section -->
     <div class="flex gap-x-[35px] items-center max-lg:gap-x-[30px] max-[1100px]:gap-x-[25px]">
-        {{-- Search Bar Container --}}
+        <!-- Search Bar Container -->
         <form
             action="{{ route('shop.search.index') }}"
             class="flex items-center max-w-[445px]"
@@ -59,9 +59,9 @@
             </div>
         </form>
 
-        {{-- Right Navigation Links --}}
+        <!-- Right Navigation Links -->
         <div class="flex gap-x-[35px] mt-[5px] max-lg:gap-x-[30px] max-[1100px]:gap-x-[25px]">
-            {{-- Compare --}}
+            <!-- Compare -->
             @if (core()->getConfigData('general.content.shop.compare_option'))
                 <a
                     href="{{ route('shop.compare.index') }}"
@@ -71,42 +71,42 @@
                 </a>
             @endif
 
-            {{-- Mini cart --}}
+            <!-- Mini cart -->
             @include('shop::checkout.cart.mini-cart')
 
-            {{-- user profile --}}
+            <!-- user profile -->
             <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                 <x-slot:toggle>
                     <span class="icon-users inline-block text-[24px] cursor-pointer"></span>
                 </x-slot:toggle>
 
-                {{-- Guest Dropdown --}}
+                <!-- Guest Dropdown -->
                 @guest('customer')
                     <x-slot:content>
                         <div class="grid gap-[10px]">
-                            <p class="text-[20px] font-dmserif">
+                            <p class="text-[24px] font-bold">
                                 @lang('shop::app.components.layouts.header.welcome-guest')
                             </p>
 
-                            <p class="text-[14px]">
-                                @lang('shop::app.components.layouts.header.dropdown-text')
+                            <p class="text-[16px]">
+                                @lang('enclaves::app.components.layouts.header.manage-property')
                             </p>
                         </div>
 
                         <p class="w-full mt-[12px] py-2px border border-[#E9E9E9]"></p>
 
-                        <div class="flex justify-items-end gap-[16px] mt-[25px]">
+                        <div class="flex justify-items-end gap-[16px]">
                             <a
                                 href="{{ route('shop.customer.session.create') }}"
-                                class="primary-button block w-max m-0 ml-[0px] mx-auto px-[29px] border-2 rounded-[18px] text-base text-center"
+                                class="mt-[30px] ml-[0px] block mx-auto w-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
                             >
-                                @lang('shop::app.components.layouts.header.sign-in')
+                                @lang('enclaves::app.components.layouts.header.login')
                             </a>
                         </div>
                     </x-slot:content>
                 @endguest
 
-                {{-- Customers Dropdown --}}
+                <!-- Customers Dropdown -->
                 @auth('customer')
                     <x-slot:content class="!p-[0px]">
                         <div class="grid gap-[10px] p-[20px] pb-0">
@@ -146,7 +146,7 @@
                                 </a>
                             @endif
 
-                            {{--Customers logout--}}
+                            <!--Customers logout-->
                             @auth('customer')
                                 <x-shop::form
                                     method="DELETE"
