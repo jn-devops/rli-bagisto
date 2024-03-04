@@ -28,6 +28,8 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
     Route::controller(ProductController::class)->prefix('products')->group(function () {
         Route::get('most-view', 'mostViewProducts')->name('enclaves.product.most-view.index');
+    
+        Route::post('customer-profile-update', 'profileUpdate')->name('enclaves.customers.account.profile.update');
     });
 
     Route::controller(TransactionController::class)->prefix('/customer/account/transactions')->group(function () {

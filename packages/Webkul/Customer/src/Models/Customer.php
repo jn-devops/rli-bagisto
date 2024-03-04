@@ -68,6 +68,7 @@ class Customer extends Authenticatable implements CustomerContract
         'suffix',
         'email_type',
         'phone_type',
+        'image',
     ];
 
     /**
