@@ -1,4 +1,4 @@
-{{-- SEO Meta Content --}}
+<!-- SEO Meta Content -->
 @push('meta')
     <meta name="description" content="{{ trim($category->meta_description) != "" ? $category->meta_description : \Illuminate\Support\Str::limit(strip_tags($category->description), 120, '') }}"/>
 
@@ -12,38 +12,40 @@
 @endPush
 
 <x-shop::layouts>
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
         {{ trim($category->meta_title) != "" ? $category->meta_title : $category->name }}
     </x-slot>
 
-    {{-- Hero Image --}}
-    @if ($category->banner_path)
-        <div class="container mt-[30px] px-[60px] max-lg:px-[30px]">
-            <div>
-                <img
-                    class="rounded-[12px]"
-                    src="{{ $category->banner_url }}"
-                    alt="{{ $category->name }}"
-                    width="1320"
-                    height="300"
-                >
-            </div>
-        </div>
-    @endif
-
     @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
         @if ($category->description)
-            <div class="container mt-[30px] px-[60px] max-lg:px-[30px]">
-                {!! $category->description !!}
+
+            <div class="container flex gap-[16px] mt-[45px] max-1180:flex-wrap">
+                
+                <!-- Hero Image -->
+                @if ($category->banner_path)
+                    <img
+                        class="max-w-[452px] w-full max-h-[172px]"
+                        src="{{ $category->banner_url }}"
+                        alt="{{ $category->name }}"
+                        width="1320"
+                        height="300"
+                    >
+                @endif
+                    <x-shop::layouts.read-more-smooth
+                        text="{!! $category->description !!}"
+                        limit="700"
+                    >
+                    </x-shop::layouts.read-more-smooth>
+                </p>
             </div>
         @endif
     @endif
 
     @if (in_array($category->display_mode, [null, 'products_only', 'products_and_description']))
-        {{-- Category Vue Component --}}
+        <!-- Category Vue Component -->
         <v-category>
-            {{-- Category Shimmer Effect --}}
+            <!-- Category Shimmer Effect -->
             <x-shop::shimmer.categories.view/>
         </v-category>
     @endif
@@ -52,9 +54,9 @@
         <script 
             type="text/x-template" 
             id="v-category-template"
-        >
-            <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
-                <div class="flex gap-[40px] items-start md:mt-[40px] max-lg:gap-[20px]">
+            >
+            <div class="container px-[60px] max-lg:px-[30px]">
+                <div class="flex gap-[40px] mt-[40px] items-start max-lg:gap-[20px]">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')
 
@@ -65,11 +67,13 @@
                             @include('shop::categories.toolbar')
                         </div>
 
+
+
                         <!-- Product List Card Container -->
                         <div
-                            class="grid grid-cols-1 gap-[25px] mt-[30px]"
+                            class="grid grid-cols-3 gap-8 mt-[30px] max-sm:mt-[20px] max-1060:grid-cols-2 max-sm:justify-items-center max-sm:grid-cols-1"
                             v-if="filters.toolbar.mode === 'list'"
-                        >
+                            >
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
                                 <x-shop::shimmer.products.cards.list count="12"></x-shop::shimmer.products.cards.list>
@@ -79,6 +83,7 @@
                             <template v-else>
                                 <template v-if="products.length">
                                     <x-shop::products.card
+                                        :class="'grid gap-2.5 relative max-w-[350px] max-sm:grid-cols-1'"
                                         ::mode="'list'"
                                         v-for="product in products"
                                     >
@@ -92,7 +97,7 @@
                                             src="{{ bagisto_asset('images/thank-you.png') }}"
                                             alt="placeholder"
                                         />
-                                  
+                                
                                         <p class="text-[20px]">
                                             @lang('shop::app.categories.view.empty')
                                         </p>
@@ -101,11 +106,12 @@
                             </template>
                         </div>
 
+
                         <!-- Product Grid Card Container -->
-                        <div v-else class="mt-[30px]">
+                        <div v-else class="mt-[30px] grid grid-cols-3 gap-8 mt-[30px] max-sm:mt-[20px] max-1060:grid-cols-2 max-sm:justify-items-center max-sm:grid-cols-1">
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
-                                <div class="grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-sm:justify-items-center max-sm:gap-[16px]">
+                                <div class="!min-w-[0px] max-sm:grid-cols-1">
                                     <x-shop::shimmer.products.cards.grid count="12"></x-shop::shimmer.products.cards.grid>
                                 </div>
                             </template>
@@ -113,13 +119,12 @@
                             <!-- Product Card Listing -->
                             <template v-else>
                                 <template v-if="products.length">
-                                    <div class="grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-sm:justify-items-center max-sm:gap-[16px]">
                                         <x-shop::products.card
                                             ::mode="'grid'"
                                             v-for="product in products"
+                                            class="!min-w-[0px] max-sm:grid-cols-1"
                                         >
                                         </x-shop::products.card>
-                                    </div>
                                 </template>
 
                                 <!-- Empty Products Container -->
@@ -176,6 +181,7 @@
                         products: [],
 
                         links: {},
+
                     }
                 },
 

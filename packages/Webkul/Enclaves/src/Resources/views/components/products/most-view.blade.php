@@ -8,8 +8,8 @@
             
             <div class="flex mt-[96px] gap-[30px] justify-between max-1280:flex-wrap">
                 <div class="relative max-h-[971px]">
-
                     <img 
+                        v-if="firstMostViewProduct.all_images"
                         class="rounded-[20px] 1280:h-[971px]" 
                         :src="firstMostViewProduct.all_images.large_image_url" 
                         alt="Most Viewed Properties"
@@ -44,6 +44,7 @@
                     <div class="grid gap-2.5 relative max-w-[350px] max-h-[434px] max-sm:max-h-max">
                         <div class="relative overflow-hidden  group max-w-[350px] max-h-[289px] rounded-[20px]">
                             <img 
+                                v-if="firstMostViewProduct.all_images"
                                 class="rounded-sm bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
                                 :src="secoundMostViewProduct.all_images.medium_image_url"
                             >
@@ -70,7 +71,8 @@
 
                     <div class="grid gap-2.5 relative max-w-[350px] max-h-[434px] max-sm:max-h-max">
                         <div class="relative overflow-hidden  group max-w-[350px] max-h-[289px] rounded-[20px]">
-                            <img 
+                            <img
+                                v-if="firstMostViewProduct.all_images"
                                 class="rounded-sm bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
                                 :src="thirdMostViewProduct.all_images.medium_image_url"
                             >
