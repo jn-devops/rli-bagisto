@@ -1,11 +1,5 @@
 @props(['options'])
 
-@push('scripts')
-    <script>
-		
-	</script>
-@endpush
-
 <v-carousel>
     <div class="shimmer w-full aspect-[2.743/1]">
     </div>
@@ -13,21 +7,22 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-carousel-template">
-        <div
-            class="grid grid-cols-2 bg-[url('../images/hero-bg.png')] bg-no-repeat [background-size:51%] overflow-hidden max-1180:px-[34px] max-1100:bg-none max-1100:grid-cols-1">
+        <div class="grid grid-cols-2 bg-[url('../images/hero-bg.png')] bg-no-repeat [background-size:51%] overflow-hidden max-1180:px-[34px] max-1100:bg-none max-1100:grid-cols-1">
             
-            <div class="m-auto w-full max-w-[532px] mt-[70px] h-[700px] max-1180:max-w-[472px] max-1100:h-auto max-1100:mx-0 max-sm:mt-8">
+            <div class="m-auto w-full max-w-[532px] mt-[70px] h-[550px] max-1180:max-w-[472px] max-1100:h-auto max-1100:mx-0 max-sm:mt-8">
                 
 				<p class="text-2xl font-bold text-[#CC035C]">@lang('enclaves::app.homepage.slider.title')</p>
 
                 <h1 class="hero-heading text-[60px] font-bold leading-[74px] mt-[18px] min-h-[148px] max-1180:text-[46px] max-sm:text-[40px] max-sm:leading-[55px] max-sm:min-h-[110px]"></h1>
-                <a 
+                
+				<a 
                     href="javascript:void(0)"
                     class="hero-btn block max-w-max mt-[94px] text-white px-[60px] py-[38px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px] max-sm:mt-[40px] max-sm:px-[40px]
                     max-sm:py-[20px]"
                 >
 					@lang('enclaves::app.homepage.slider.button-text')
                 </a>
+
                 <div class="dot-container hidden"></div>
             </div>
 
