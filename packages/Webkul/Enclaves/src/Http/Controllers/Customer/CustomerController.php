@@ -1,15 +1,17 @@
 <?php
 
-namespace Webkul\Shop\Http\Controllers\Customer;
+namespace Webkul\Enclaves\Http\Controllers\Customer;
 
-use Illuminate\Support\Facades\Event;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Shop\Http\Controllers\Controller;
 use Webkul\Customer\Repositories\CustomerRepository;
-use Webkul\Product\Repositories\ProductReviewRepository;
-use Webkul\Core\Repositories\SubscribersListRepository;
 use Webkul\Shop\Http\Requests\Customer\ProfileRequest;
+use Webkul\Core\Repositories\SubscribersListRepository;
+use Webkul\Product\Repositories\ProductReviewRepository;
+use Webkul\Enclaves\Repositories\CustomerAttributeRepository;
 
 class CustomerController extends Controller
 {
@@ -21,7 +23,8 @@ class CustomerController extends Controller
     public function __construct(
         protected CustomerRepository $customerRepository,
         protected ProductReviewRepository $productReviewRepository,
-        protected SubscribersListRepository $subscriptionRepository
+        protected SubscribersListRepository $subscriptionRepository,
+        protected CustomerAttributeRepository $customerAttributeRepository
     )
     {
     }
@@ -34,8 +37,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
-        
-        return view('shop::customers.account.profile.index', compact('customer'));
+
+        return view('shop::customers.account.custom-profile.index', compact('customer'));
     }
 
     /**
@@ -207,5 +210,17 @@ class CustomerController extends Controller
         $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
 
         return view('shop::customers.account.custom-profile.co-borrower.index', compact('customer'));
+    }
+
+    /**
+     * get profile form attribute.
+     */
+    public function getAttributes(): JsonResponse
+    {
+        $attributes = $this->customerAttributeRepository->with('options')->get()->groupBy('form_type');
+
+        return new JsonResponse([
+            'attributes' => $attributes,
+        ]);
     }
 }

@@ -3,8 +3,6 @@
 namespace Webkul\Enclaves\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Webkul\Enclaves\Database\Seeders\TicketsReasonsSeeder;
-use Webkul\Enclaves\Database\Seeders\TicketsStatusSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(TicketsReasonsSeeder::class);
         $this->call(TicketsStatusSeeder::class);
+        $this->call(CustomerAttributeAndOptions::class);
     }
 }

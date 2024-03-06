@@ -29,7 +29,7 @@
                 class="my-1.5 ml-auto flex max-w-fit rounded-[1.25rem] bg-gradient-to-r from-[rgba(252,_177,_21)] to-[rgba(204,_3,_92)] px-16 py-5 text-sm font-medium leading-[0.875rem] text-white"
                 @click="enableEditForm"
             >
-                Fill out the Form 
+                @lang('Fill out the Form')
             </button>
 
             <div v-if="editEnable">
@@ -50,11 +50,18 @@
                 data() {
                     return {
                         editEnable: false,
+                        attributes: [],
                     };
                 },
                 methods: {
                     enableEditForm() {
                         this.editEnable = true;
+
+                        this.$axios.get("{{ route('shop.customers.account.profile.attributes') }}")
+                            .then(response => {
+                                this.attributes = response.data.attributes;
+                            })
+                            .catch(error => {});
                     },
                 },
             });

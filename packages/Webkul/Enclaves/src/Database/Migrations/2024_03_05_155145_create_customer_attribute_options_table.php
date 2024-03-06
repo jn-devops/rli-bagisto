@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('customer_attribute_options', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('attribute_id');
-            $table->string('value');
+            $table->unsignedBigInteger('customer_attribute_id')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }
