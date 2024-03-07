@@ -53,10 +53,6 @@
                         values: [],
                     };
                 },
-                
-                mounted() {
-                    this.enableEditForm();
-                },
 
                 methods: {
                     enableEditForm() {
