@@ -21,6 +21,7 @@ class CustomerAttributeAndOptions extends Seeder
              */
             [
                 'id'          => 1,
+                'code'        => 'civil_status',
                 'name'        => 'Civil Status',
                 'type'        => 'select',
                 'form_type'   => 'personal_details',
@@ -30,6 +31,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 2,
+                'code'        => 'gender',
                 'name'        => 'Gender',
                 'type'        => 'checkbox',
                 'form_type'   => 'personal_details',
@@ -39,6 +41,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 3,
+                'code'        => 'address_1',
                 'name'        => 'Address 1',
                 'type'        => 'text',
                 'form_type'   => 'personal_details',
@@ -53,6 +56,7 @@ class CustomerAttributeAndOptions extends Seeder
              */
             [
                 'id'          => 4,
+                'code'        => 'employment_type',
                 'name'        => 'Employment Type',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
@@ -62,6 +66,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 5,
+                'code'        => 'gross_income',
                 'name'        => 'Gross Income',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
@@ -71,6 +76,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 6,
+                'code'        => 'nationality',
                 'name'        => 'Nationality',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
@@ -80,6 +86,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 7,
+                'code'        => 'work_industry',
                 'name'        => 'Work Industry',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
@@ -89,6 +96,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 8,
+                'code'        => 'employment_status',
                 'name'        => 'Employment Status',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
@@ -98,6 +106,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 9,
+                'code'        => 'current_position',
                 'name'        => 'Current Position',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
@@ -107,6 +116,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 10,
+                'code'        => 'employer_name',
                 'name'        => 'Employer Name',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
@@ -116,6 +126,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 11,
+                'code'        => 'employer_contact_number',
                 'name'        => 'Employer Contact Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
@@ -125,6 +136,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 12,
+                'code'        => 'employer_address',
                 'name'        => 'Employer Address',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
@@ -134,6 +146,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 13,
+                'code'        => 'tax_identification_number',
                 'name'        => 'Tax Identification Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
@@ -143,7 +156,8 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 14,
-                'name'        => 'PAG-IBIG Number',
+                'code'        => 'PAG_IBIG_number',
+                'name'        => 'PAG IBIG Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
                 'postion'     => 1,
@@ -152,7 +166,8 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 15,
-                'name'        => 'SSS/GSIS Number',
+                'code'        => 'SSS_GSIS_number',
+                'name'        => 'SSS-GSIS Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
                 'postion'     => 1,
@@ -166,6 +181,7 @@ class CustomerAttributeAndOptions extends Seeder
              */
             [
                 'id'          => 16,
+                'code'        => 'secondary_home_address',
                 'name'        => 'Secondary Home Address',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -175,6 +191,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 17,
+                'code'        => 'civil_status',
                 'name'        => 'Civil Status',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
@@ -184,6 +201,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 18,
+                'code'        => 'gender',
                 'name'        => 'Gender',
                 'type'        => 'checkbox',
                 'form_type'   => 'borrower_data',
@@ -193,6 +211,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 19,
+                'code'        => 'date_of_birth',
                 'name'        => 'Date of Birth',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
@@ -202,6 +221,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 20,
+                'code'        => 'primary_email_address',
                 'name'        => 'Primary Email Address',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -211,6 +231,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 21,
+                'code'        => 'primary_mobile_number',
                 'name'        => 'Primary Mobile Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -220,6 +241,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 22,
+                'code'        => 'work_industry',
                 'name'        => 'Work Industry',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
@@ -229,6 +251,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 23,
+                'code'        => 'gross_income',
                 'name'        => 'Gross Income',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -238,6 +261,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 24,
+                'code'        => 'nationality',
                 'name'        => 'Nationality',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
@@ -247,6 +271,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 25,
+                'code'        => 'employment_type',
                 'name'        => 'Employment Type',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
@@ -256,6 +281,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 26,
+                'code'        => 'employment_status',
                 'name'        => 'Employment Status',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
@@ -265,6 +291,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 27,
+                'code'        => 'current_position',
                 'name'        => 'Current Position',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -274,6 +301,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 28,
+                'code'        => 'employer_name',
                 'name'        => 'Employer Name',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -283,6 +311,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 29,
+                'code'        => 'employer_contact_number',
                 'name'        => 'Employer Contact Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -292,6 +321,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 30,
+                'code'        => 'employer_address',
                 'name'        => 'Employer Address',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -301,6 +331,7 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 31,
+                'code'        => 'tax_identification_number',
                 'name'        => 'Tax Identification Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
@@ -310,7 +341,8 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 32,
-                'name'        => 'PAG-IBIG Number',
+                'code'        => 'PAG_IBIG_number',
+                'name'        => 'PAG IBIG Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
                 'postion'     => 1,
@@ -319,7 +351,8 @@ class CustomerAttributeAndOptions extends Seeder
                 'updated_at'  => $currectDateTime,
             ], [
                 'id'          => 33,
-                'name'        => 'SSS/GSIS Number',
+                'code'        => 'SSS_GSIS_number',
+                'name'        => 'SSS GSIS Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
                 'postion'     => 1,

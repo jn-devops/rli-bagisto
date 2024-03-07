@@ -2,21 +2,22 @@
 
 namespace Webkul\Customer\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Webkul\Sales\Models\OrderProxy;
 use Shetabit\Visitor\Traits\Visitor;
 use Webkul\Checkout\Models\CartProxy;
-use Webkul\Core\Models\SubscribersListProxy;
-use Webkul\Customer\Contracts\Customer as CustomerContract;
-use Webkul\Customer\Database\Factories\CustomerFactory;
-use Webkul\Shop\Mail\Customer\ResetPasswordNotification;
-use Webkul\Product\Models\ProductReviewProxy;
-use Webkul\Sales\Models\OrderProxy;
-use Webkul\Customer\Models\CustomerNoteProxy;
 use Webkul\Sales\Models\InvoiceProxy;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
+use Webkul\Core\Models\SubscribersListProxy;
+use Webkul\Customer\Models\CustomerNoteProxy;
+use Webkul\Product\Models\ProductReviewProxy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Webkul\Customer\Database\Factories\CustomerFactory;
+use Webkul\Enclaves\Models\CustomerAttributeValueProxy;
+use Webkul\Shop\Mail\Customer\ResetPasswordNotification;
+use Webkul\Customer\Contracts\Customer as CustomerContract;
 
 class Customer extends Authenticatable implements CustomerContract
 {

@@ -1,13 +1,15 @@
 @props(['position' => 'left'])
 
-<v-tabs position="{{ $position }}"
+<v-profile-forms 
+    position="{{ $position }}"
     :attributes=attributes
+    :values=values
+    @select-option="updateFieldsValue($event)"
 >
-    <x-shop::shimmer.tabs/>
-</v-tabs>
+</v-profile-forms>
 
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-tabs-template">
+    <script type="text/x-template" id="v-profile-forms-template">
         <div>
             <!-- Tabs -->
             <div
@@ -33,101 +35,109 @@
                         :id="tabs[index].title"
                         v-if="['employment_type', 'borrower_data'].includes(index) && tabs[index].isActive"
                     >
-                    <section class="inset-1 grid gap-7 lg:gap-11 p-6 rounded-[1.25rem] border border-[rgba(237,_239,_245)] lg:px-[3.185rem] lg:py-[3.75rem] lg:grid-cols-2">
-                        
-                        <div class="inset-1 gap-7 lg:gap-11 p-6 lg:px-[3.185rem] lg:py-[3.75rem] lg:grid-cols-2"
-                            v-if="['borrower_data'].includes(index)"
-                        >
-                            <div>
-                                <span class="font-semibold text-[21px]">
-                                    Full Name:
-                                </span>
-                                <span>
-                                    Maria Teresa Asprec
-                                </span>
-                            </div>
-
-                            <div>
-                                <span class="font-semibold text-[21px]">
-                                    Primary Home Address:
-                                </span>
-                                <span>
-                                    Floodway Street, Cambridge Village, Cluster One Duke
-                                </span>
-                            </div>
-
-                            <div>
-                                <span class="font-semibold text-[21px]">
-                                    Lot / Unit umber:
-                                </span>
-                                <span>
-                                    Lot A
-                                </span>
-                            </div>
-                        </div>
-
-                        <template v-for="employment_type in attribute">
-                                <div class="flex flex-col min-w-full gap-2 lg:gap-4">
-                                    <label
-                                        :for="employment_type.name"
-                                        class="block text-lg lg:text-xl font-medium leading-[1.565rem] text-black xl:text-[1.565rem]"
-                                        v-text="employment_type.name"
-                                    >
-                                    </label>
-
-                                    <!-- select -->
-                                    <select
-                                        id="civil-status"
-                                        :name="civil-status"
-                                        autocomplete="civil-status"
-                                        class="form-select styled-select flex min-w-full appearance-none rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] bg-no-repeat py-3 lg:py-6 px-6 lg:px-8 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)]"
-                                        v-if="employment_type.type === 'select'"
-                                    >
-                                        <option class="text-[rgba(184,_184,_184)]" selected>@lang('Select')</option>
-
-                                        <option v-for="option in employment_type.options">
-                                            <span v-text="option.value"></span>
-                                        </option>
-                                    </select>
-
-                                    <!-- checkbox -->
-                                    <div
-                                        class="flex flex-wrap items-center pt-1 gap-x-5 gap-y-5 lg:pt-1" 
-                                        v-if="employment_type.type === 'checkbox'"
-                                    >
-                                        <div
-                                            class="flex items-center gap-x-5 gap-y-5" 
-                                            v-for="option in employment_type.options"
-                                        >
-                                            <input
-                                                type="radio"
-                                                id="male"
-                                                name="gender"
-                                                class="size-7 appearance-none rounded-full border-2 border-white shadow-[0px_4px_4px] shadow-neutral-300 outline-none ring-0 checked:bg-blue-400 [&:not(checked)]:bg-[rgba(245,_245,_245)]" 
-                                            />
-
-                                            <label
-                                                :for="option.value"
-                                                class="block text-[1.313rem] font-medium leading-[1.313rem] text-black"
-                                                v-text="option.value"
-                                            >
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- input type text -->
-                                    <input
-                                        type="text"
-                                        id="address"
-                                        name="address"
-                                        value="{{ $customer->default_address->address1 ?? '-'}}"
-                                        placeholder="Enter Address"
-                                        autocomplete="address"
-                                        class="flex min-w-full rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] py-3 lg:py-6 px-6 lg:px-8 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)]" 
-                                        v-if="employment_type.type === 'text'"
-                                    />
+                        <section class="inset-1 border border-[rgba(237,_239,_245)] rounded-[1.25rem] lg:px-[3.185rem] lg:py-[3.75rem]">
+                            <div 
+                                class="mb-10"
+                                v-if="['borrower_data'].includes(index)"
+                                >
+                                <div>
+                                    <span class="font-semibold text-[21px]">
+                                        Full Name:
+                                    </span>
+                                    <span v-text="values[index]?.employer_name">
+                                    </span>
                                 </div>
-                            </template>
+
+                                <div>
+                                    <span class="font-semibold text-[21px]">
+                                        Primary Home Address:
+                                    </span>
+                                    <span v-text="values[index]?.employer_address">
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span class="font-semibold text-[21px]">
+                                        Lot / Unit umber:
+                                    </span>
+                                    <span>
+                                        Lot A
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="grid gap-7 lg:gap-11 lg:grid-cols-2">
+                                <template v-for="attribute_type in attribute">
+                                    <div class="flex flex-col min-w-full gap-2 lg:gap-4">
+                                        <label
+                                            :for="attribute_type.name"
+                                            class="block text-lg lg:text-xl font-medium leading-[1.565rem] text-black xl:text-[1.565rem]"
+                                            v-text="attribute_type.name"
+                                        >
+                                        </label>
+
+                                        <!-- select -->
+                                        <select
+                                            id="civil-status"
+                                            class="form-select styled-select flex min-w-full appearance-none rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] bg-no-repeat py-3 lg:py-6 px-6 lg:px-8 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)]"
+                                            autocomplete="civil-status"
+                                            v-if="attribute_type.type === 'select'"
+                                            @change="selectOption($event)"
+                                            :formType="index"
+                                            :name="attribute_type.code"
+                                        >
+                                            <option class="text-[rgba(184,_184,_184)]" selected>@lang('Select')</option>
+                                            
+                                            <template v-for="option in attribute_type.options">
+                                                <option v-text="option.value" :selected="values[index][attribute_type.code] == option.value"></option>
+                                            </template>
+                                        </select>
+
+                                        <!-- checkbox -->
+                                        <div
+                                            class="flex flex-wrap items-center pt-1 gap-x-5 gap-y-5 lg:pt-1" 
+                                            v-if="attribute_type.type === 'checkbox'"
+                                        >
+                                            <div
+                                                class="flex items-center gap-x-5 gap-y-5" 
+                                                v-for="option in attribute_type.options"
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    class="size-7 appearance-none rounded-full border-2 border-white shadow-[0px_4px_4px] shadow-neutral-300 outline-none ring-0 checked:bg-blue-400 [&:not(checked)]:bg-[rgba(245,_245,_245)]" 
+                                                    :id="attribute_type.code"
+                                                    :name="attribute_type.code"
+                                                    :value="option.value.toLowerCase()"
+                                                    :checked="values[index][attribute_type.code] == option.value.toLowerCase()"
+                                                    :formType="index"
+                                                    @change="selectOption($event)"
+                                                />
+
+                                                <label
+                                                    :for="option.value"
+                                                    class="block text-[1.313rem] font-medium leading-[1.313rem] text-black"
+                                                    v-text="option.value"
+                                                >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- input type text -->
+                                        <input
+                                            type="text"
+                                            class="flex min-w-full rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] py-3 lg:py-6 px-6 lg:px-8 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)]" 
+                                            autocomplete="off"
+                                            v-if="attribute_type.type === 'text'"
+                                            :value="values[index][attribute_type.code]"
+                                            :id="attribute_type.code"
+                                            :name="attribute_type.code"
+                                            :placeholder="attribute_type.name"
+                                            :formType="index"
+                                            @change="selectOption($event)"
+                                        />
+                                    </div>
+                                </template>
+                            </div>
                         </section>
                     </div>
                 </template>
@@ -136,10 +146,10 @@
     </script>
 
     <script type="module">
-        app.component('v-tabs', {
-            template: '#v-tabs-template',
+        app.component('v-profile-forms', {
+            template: '#v-profile-forms-template',
 
-            props: ['position', 'attributes'],
+            props: ['position', 'attributes', 'values'],
 
             data() {
                 return {
@@ -158,10 +168,6 @@
                 }
             },
 
-            updated() {
-              //  console.log(this.attributes, this.tabs);
-            },
-
             computed: {
                 positionStyles() {
                     return [
@@ -175,9 +181,11 @@
                     Object.entries(this.tabs).forEach(([key, tab]) => {
                         tab.isActive = (key == selectedTabIndex);
                     });
-
-                    console.log(this.tabs)
                 },
+
+                selectOption($event) {
+                    this.$emit("select-option", $event);
+                }
             },
         });
     </script>

@@ -100,8 +100,6 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
                     Route::post('destroy', 'destroy')->name('shop.customers.account.profile.destroy');
 
                     Route::get('reviews', 'reviews')->name('shop.customers.account.reviews.index');
-
-                    Route::get('co-borrower', 'coBorrower')->name('shop.customers.account.co-borrower.index');
                 });
 
                 /**

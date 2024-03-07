@@ -57,15 +57,13 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
                     Route::get('attributes', 'getAttributes')->name('shop.customers.account.profile.attributes');
 
-                    Route::get('edit', 'edit')->name('shop.customers.account.profile.edit');
-
                     Route::post('edit', 'update')->name('shop.customers.account.profile.store');
 
+                    Route::get('edit', 'edit')->name('shop.customers.account.profile.edit');
+                    
                     Route::post('destroy', 'destroy')->name('shop.customers.account.profile.destroy');
 
                     Route::get('reviews', 'reviews')->name('shop.customers.account.reviews.index');
-
-                    Route::get('co-borrower', 'coBorrower')->name('shop.customers.account.co-borrower.index');
                 });
             });
         });

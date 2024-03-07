@@ -196,16 +196,4 @@ class CustomerController extends Controller
 
         return view('shop::customers.account.reviews.index', compact('reviews'));
     }
-
-    /**
-     * Load the view for the customer account panel, showing approved reviews.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function coBorrower()
-    {
-        $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
-
-        return view('shop::customers.account.custom-profile.co-borrower.index', compact('customer'));
-    }
 }

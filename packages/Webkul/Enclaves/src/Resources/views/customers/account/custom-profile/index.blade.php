@@ -24,7 +24,6 @@
 
     @pushOnce('scripts')
         <script type="text/x-template" id="v-customer-profile-template">
-
             <button 
                 class="my-1.5 ml-auto flex max-w-fit rounded-[1.25rem] bg-gradient-to-r from-[rgba(252,_177,_21)] to-[rgba(204,_3,_92)] px-16 py-5 text-sm font-medium leading-[0.875rem] text-white"
                 @click="enableEditForm"
@@ -51,8 +50,14 @@
                     return {
                         editEnable: false,
                         attributes: [],
+                        values: [],
                     };
                 },
+                
+                mounted() {
+                    this.enableEditForm();
+                },
+
                 methods: {
                     enableEditForm() {
                         this.editEnable = true;
@@ -60,9 +65,26 @@
                         this.$axios.get("{{ route('shop.customers.account.profile.attributes') }}")
                             .then(response => {
                                 this.attributes = response.data.attributes;
+                                this.values = response.data.values;
                             })
                             .catch(error => {});
                     },
+
+                    updateFieldsValue($event) {
+                        this.$axios.post("{{ route('shop.customers.account.profile.store') }}", {
+                                name: $event.target.name,
+                                value: $event.target.value,
+                                formType: $event.currentTarget.getAttribute('formType'),
+                            })
+                            .then(response => {
+                                if(response.data.message.success) {
+                                    this.$emitter.emit('add-flash', { type: 'success', message: response.data.message.success });
+                                } else {
+                                    this.$emitter.emit('add-flash', { type: 'error', message: response.data.message.fail });
+                                }
+                            })
+                            .catch(error => {});
+                    }
                 },
             });
         </script>

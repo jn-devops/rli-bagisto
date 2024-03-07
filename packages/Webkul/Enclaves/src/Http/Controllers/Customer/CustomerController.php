@@ -4,14 +4,13 @@ namespace Webkul\Enclaves\Http\Controllers\Customer;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Storage;
 use Webkul\Shop\Http\Controllers\Controller;
 use Webkul\Customer\Repositories\CustomerRepository;
-use Webkul\Shop\Http\Requests\Customer\ProfileRequest;
 use Webkul\Core\Repositories\SubscribersListRepository;
 use Webkul\Product\Repositories\ProductReviewRepository;
+use Webkul\Enclaves\Http\Requests\Customer\ProfileRequest;
 use Webkul\Enclaves\Repositories\CustomerAttributeRepository;
+use Webkul\Enclaves\Repositories\CustomerAttributeValueRepository;
 
 class CustomerController extends Controller
 {
@@ -24,7 +23,8 @@ class CustomerController extends Controller
         protected CustomerRepository $customerRepository,
         protected ProductReviewRepository $productReviewRepository,
         protected SubscribersListRepository $subscriptionRepository,
-        protected CustomerAttributeRepository $customerAttributeRepository
+        protected CustomerAttributeRepository $customerAttributeRepository,
+        protected CustomerAttributeValueRepository $customerAttributeValueRepository,
     )
     {
     }
@@ -58,98 +58,32 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(ProfileRequest $profileRequest)
+    public function update(ProfileRequest $profileRequest): JsonResponse
     {
-        $isPasswordChanged = false;
-
         $data = $profileRequest->validated();
 
-        if (empty($data['date_of_birth'])) {
-            unset($data['date_of_birth']);
+        $data['customer_id'] = auth()->guard('customer')->user()->id;
+
+        $data['attribute_id'] = $this->customerAttributeRepository->findOneByField(['code' => $data['name'], 'form_type' => $data['formType']])?->id;
+
+        $customer = $this->customerAttributeValueRepository->updateOrCreate([
+            'customer_id'  => $data['customer_id'],
+            'attribute_id' => $data['attribute_id'],
+        ], $data);
+
+        if($customer) {
+            return new JsonResponse([
+                'message' => [
+                    'success' => trans('shop::app.customers.account.profile.edit-success'),
+                ],
+            ]);
         }
 
-        if (
-            core()->getCurrentChannel()->theme === 'default'
-            && ! isset($data['image'])
-        ) {
-            $data['image']['image_0'] = '';
-        }
-
-        $data['subscribed_to_news_letter'] = isset($data['subscribed_to_news_letter']);
-
-        if (! empty($data['current_password'])) {
-            if (Hash::check($data['current_password'], auth()->guard('customer')->user()->password)) {
-                $isPasswordChanged = true;
-
-                $data['password'] = bcrypt($data['new_password']);
-            } else {
-                session()->flash('warning', trans('shop::app.customers.account.profile.unmatch'));
-
-                return redirect()->back();
-            }
-        } else {
-            unset($data['new_password']);
-        }
-
-        Event::dispatch('customer.update.before');
-
-        if ($customer = $this->customerRepository->update($data, auth()->guard('customer')->user()->id)) {
-            if ($isPasswordChanged) {
-                Event::dispatch('customer.password.update.after', $customer);
-            }
-
-            Event::dispatch('customer.update.after', $customer);
-
-            if ($data['subscribed_to_news_letter']) {
-                $subscription = $this->subscriptionRepository->findOneWhere(['email' => $data['email']]);
-
-                if ($subscription) {
-                    $this->subscriptionRepository->update([
-                        'customer_id'   => $customer->id,
-                        'is_subscribed' => 1,
-                    ], $subscription->id);
-                } else {
-                    $this->subscriptionRepository->create([
-                        'email'         => $data['email'],
-                        'customer_id'   => $customer->id,
-                        'channel_id'    => core()->getCurrentChannel()->id,
-                        'is_subscribed' => 1,
-                        'token'         => $token = uniqid(),
-                    ]);
-                }
-            } else {
-                $subscription = $this->subscriptionRepository->findOneWhere(['email' => $data['email']]);
-
-                if ($subscription) {
-                    $this->subscriptionRepository->update([
-                        'customer_id'   => $customer->id,
-                        'is_subscribed' => 0,
-                    ], $subscription->id);
-                }
-            }
-
-            if (request()->hasFile('image')) {
-                $this->customerRepository->uploadImages($data, $customer);
-            } else {
-                if (isset($data['image'])) {
-                    if (! empty($data['image'])) {
-                        Storage::delete((string)$customer->image);
-                    }
-                
-                    $customer->image = null;
-
-                    $customer->save();
-                }
-            }
-
-            session()->flash('success', trans('shop::app.customers.account.profile.edit-success'));
-
-            return redirect()->route('shop.customers.account.profile.index');
-        }
-
-        session()->flash('success', trans('shop::app.customer.account.profile.edit-fail'));
-
-        return redirect()->back('shop.customers.account.profile.edit');
+        return new JsonResponse([
+            'message' => [
+                'fail' =>  trans('shop::app.customer.account.profile.edit-fail'),
+            ],
+        ]);
     }
 
     /**
@@ -201,26 +135,42 @@ class CustomerController extends Controller
     }
 
     /**
-     * Load the view for the customer account panel, showing approved reviews.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function coBorrower()
-    {
-        $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
-
-        return view('shop::customers.account.custom-profile.co-borrower.index', compact('customer'));
-    }
-
-    /**
      * get profile form attribute.
      */
     public function getAttributes(): JsonResponse
     {
-        $attributes = $this->customerAttributeRepository->with('options')->get()->groupBy('form_type');
+        $attributesAndOptions = $this->customerAttributeRepository->with('options')->get()->groupBy('form_type');
+
+        $values = $this->attributeValues($attributesAndOptions);
 
         return new JsonResponse([
-            'attributes' => $attributes,
+            'attributes' => $attributesAndOptions,
+            'values'     => $values,
         ]);
+    }
+
+    /**
+     * find all attributes values
+     * 
+     * @param mixed $attributesAndOptions
+     */
+    public function attributeValues($attributesAndOptions): mixed
+    {
+        $values = [];
+
+        $customer_id = auth()->guard('customer')->user()->id;
+        
+        foreach ($attributesAndOptions as $type => $attributes) {
+            foreach($attributes as $attribute) {
+                $values[$type][$attribute->code] = $this->customerAttributeValueRepository
+                                                    ->findOneByField([
+                                                        'attribute_id' => $attribute->id,
+                                                        'name'         => $attribute->code,
+                                                        'customer_id'  => $customer_id
+                                                    ])?->value;
+            }
+        }
+
+        return $values;
     }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('customer_attributes', function (Blueprint $table) {
             $table->id();
             $table->text('name')->nullable();
+            $table->text('code')->nullable();
             $table->text('type')->nullable();
             $table->string('form_type')->nullable();
             $table->unsignedInteger('postion')->nullable();

@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('customer_attribute_values', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
             $table->unsignedInteger('customer_id')->nullable();
             $table->unsignedBigInteger('attribute_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');            
         });
     }
 

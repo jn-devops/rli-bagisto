@@ -16,4 +16,14 @@ class CustomerAttributeValue extends TranslatableModel implements CustomerAttrib
      * @var array
      */
     protected $translatedAttributes = [];
+
+    /**
+     * The attributes that are mass assignable
+     */
+    protected $fillable = [
+        'name',
+        'value',
+        'customer_id',
+        'attribute_id',
+    ];
 }

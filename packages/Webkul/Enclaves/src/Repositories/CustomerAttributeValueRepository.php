@@ -5,7 +5,7 @@ namespace Webkul\Enclaves\Repositories;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\Enclaves\Contracts\CustomerAttributeValue;
 
-class CustomerAttributeRepository extends Repository
+class CustomerAttributeValueRepository extends Repository
 {
     /**
      * Specify Model class name
