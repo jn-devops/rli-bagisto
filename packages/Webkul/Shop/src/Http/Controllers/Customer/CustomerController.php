@@ -34,13 +34,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
-
-        //return view('shop::customers.account.profile.index', compact('customer'));
-
-        /**
-         * Customer profile update by client requirement.
-         */
-        return view('shop::customers.account.custom-profile.index', compact('customer'));
+        
+        return view('shop::customers.account.profile.index', compact('customer'));
     }
 
     /**
@@ -200,17 +195,5 @@ class CustomerController extends Controller
         $reviews = $this->productReviewRepository->getCustomerReview();
 
         return view('shop::customers.account.reviews.index', compact('reviews'));
-    }
-
-    /**
-     * Load the view for the customer account panel, showing approved reviews.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function coBorrower()
-    {
-        $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
-
-        return view('shop::customers.account.custom-profile.co-borrower.index', compact('customer'));
     }
 }

@@ -16,5 +16,8 @@ class ModuleServiceProvider extends CoreModuleServiceProvider
         \Webkul\Enclaves\Models\TicketReasons::class,
         \Webkul\Enclaves\Models\TicketStatus::class,
         \Webkul\Enclaves\Models\TicketFiles::class,
+        \Webkul\Enclaves\Models\CustomerAttribute::class,
+        \Webkul\Enclaves\Models\CustomerAttributeOption::class,
+        \Webkul\Enclaves\Models\CustomerAttributeValue::class,
     ];
 }

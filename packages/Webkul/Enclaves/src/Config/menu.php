@@ -4,7 +4,7 @@ return [
     [
         'key'   => 'account',
         'name'  => 'shop::app.layouts.my-account',
-        'route' => 'shop.customers.account.profile.index',
+        'route' => 'enclaves.customers.account.dashboard.index',
         'icon'  => '',
         'sort'  => 1,
     ], [
