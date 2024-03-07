@@ -11,13 +11,13 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Webkul\\Shop\\": "src/"
+            "Webkul\\Enclaves\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Webkul\\Shop\\Providers\\ShopServiceProvider"
+                "Webkul\\Enclaves\\Providers\\EnclavesServiceProvider"
             ],
             "aliases": {}
         }
