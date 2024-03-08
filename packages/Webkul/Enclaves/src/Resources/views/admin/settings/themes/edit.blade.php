@@ -398,6 +398,10 @@
                                         </x-admin::form.control-group.error>
                                     </x-admin::form.control-group>
 
+                                    <p class="text-[12px] text-gray-600 dark:text-gray-300">
+                                        @lang('admin::app.settings.themes.edit.image-size')
+                                    </p>
+
                                     <!-- This is customization code -->     
                                     <x-admin::form.control-group class="mb-[10px]">
                                         <x-admin::form.control-group.label class="required">
@@ -435,10 +439,6 @@
                                         </x-admin::form.control-group.error>
                                     </x-admin::form.control-group>
                                     <!-- This is customization code -->
-
-                                    <p class="text-[12px] text-gray-600 dark:text-gray-300">
-                                        @lang('admin::app.settings.themes.edit.image-size')
-                                    </p>
                                 </div>
                             </x-slot:content>
         
