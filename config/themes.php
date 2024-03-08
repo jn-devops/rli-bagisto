@@ -28,7 +28,7 @@ return [
         'enclaves' => [
             'name'        => 'enclaves',
             'assets_path' => 'public/themes/enclaves/default',
-            'views_path'  => 'resources/themes/enclaves/views',
+            'views_path'  => 'resources/themes/enclaves/views/shop',
 
             'vite'        => [
                 'hot_file'                 => 'shop-enclaves-vite.hot',

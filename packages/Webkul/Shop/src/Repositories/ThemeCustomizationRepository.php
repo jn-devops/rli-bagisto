@@ -52,8 +52,13 @@ class ThemeCustomizationRepository extends Repository
                     }
 
                     $options['images'][] = [
-                        'image' => 'storage/' . $path,
-                        'link'  => $image['link'],
+                        'image'       => 'storage/' . $path,
+                        'link'        => $image['link'],
+
+                        // This is customizatio code
+                        'button_text'   => $image['button_text'],
+                        'slider_syntax' => $image['slider_syntax'],
+                        // This is customizatio code
                     ];
                 } else {
                     $options['images'][] = $image;

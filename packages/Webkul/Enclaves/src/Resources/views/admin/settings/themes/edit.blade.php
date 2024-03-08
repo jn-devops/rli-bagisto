@@ -131,7 +131,9 @@
                                 <input type="file" class="hidden" :name="'options['+ index +'][image]'" :ref="'imageInput_' + index" />
                                 <input type="hidden" :name="'options['+ index +'][link]'" :value="image.link" />
                                 <input type="hidden" :name="'options['+ index +'][image]'" :value="image.image" />
-                            
+                                <input type="hidden" :name="'options['+ index +'][button_text]'" :value="image.button_text" />
+                                <input type="hidden" :name="'options['+ index +'][slider_syntax]'" :value="image.slider_syntax" />
+                         
                                 <!-- Details -->
                                 <div 
                                     class="flex gap-[10px] justify-between py-5 cursor-pointer"
@@ -147,6 +149,26 @@
 
                                                     <span class="text-gray-600 dark:text-gray-300 transition-all">
                                                         @{{ image.link }}
+                                                    </span>
+                                                </div>
+                                            </p>
+
+                                            <p class="text-gray-600 dark:text-gray-300">
+                                                <div> 
+                                                    @lang('enclaves::app.admin.settings.themes.edit.button_text'): 
+
+                                                    <span class="text-gray-600 dark:text-gray-300 transition-all">
+                                                        @{{ image.button_text }}
+                                                    </span>
+                                                </div>
+                                            </p>
+
+                                            <p class="text-gray-600 dark:text-gray-300">
+                                                <div> 
+                                                    @lang('enclaves::app.admin.settings.themes.edit.slider_syntax'): 
+
+                                                    <span class="text-gray-600 dark:text-gray-300 transition-all">
+                                                        @{{ image.slider_syntax }}
                                                     </span>
                                                 </div>
                                             </p>
@@ -341,17 +363,14 @@
                                     @lang('admin::app.settings.themes.edit.update-slider')
                                 </p>
                             </x-slot:header>
-                            
+        
                             <x-slot:content>
                                 <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800">
-
-                                    
-
                                     <x-admin::form.control-group class="mb-[10px]">
                                         <x-admin::form.control-group.label>
                                             @lang('admin::app.settings.themes.edit.link')
                                         </x-admin::form.control-group.label>
-
+                                    
                                         <x-admin::form.control-group.control
                                             type="text"
                                             name="{{ $currentLocale->code }}[link]"
@@ -378,6 +397,44 @@
                                         >
                                         </x-admin::form.control-group.error>
                                     </x-admin::form.control-group>
+
+                                    <!-- This is customization code -->     
+                                    <x-admin::form.control-group class="mb-[10px]">
+                                        <x-admin::form.control-group.label class="required">
+                                            @lang('enclaves::app.admin.settings.themes.edit.button_text')
+                                        </x-admin::form.control-group.label>
+
+                                        <x-admin::form.control-group.control
+                                            type="text"
+                                            name="{{ core()->getCurrentLocale()->code }}[button_text]"
+                                            :placeholder="trans('enclaves::app.admin.settings.themes.edit.button_text')"
+                                        >
+                                        </x-admin::form.control-group.control>
+
+                                        <x-admin::form.control-group.error
+                                            control-name="button_text"
+                                        >
+                                        </x-admin::form.control-group.error>
+                                    </x-admin::form.control-group>
+
+                                    <x-admin::form.control-group class="mb-[10px]">
+                                        <x-admin::form.control-group.label class="required">
+                                            @lang('enclaves::app.admin.settings.themes.edit.slider_syntax')
+                                        </x-admin::form.control-group.label>
+
+                                        <x-admin::form.control-group.control
+                                            type="text"
+                                            name="{{ core()->getCurrentLocale()->code }}[slider_syntax]"
+                                            :placeholder="trans('enclaves::app.admin.settings.themes.edit.slider_syntax')"
+                                        >
+                                        </x-admin::form.control-group.control>
+
+                                        <x-admin::form.control-group.error
+                                            control-name="slider_syntax"
+                                        >
+                                        </x-admin::form.control-group.error>
+                                    </x-admin::form.control-group>
+                                    <!-- This is customization code -->
 
                                     <p class="text-[12px] text-gray-600 dark:text-gray-300">
                                         @lang('admin::app.settings.themes.edit.image-size')
@@ -1810,6 +1867,22 @@
                         let formData = new FormData(this.$refs.createSliderForm);
 
                         try {
+                            if (! formData.get("{{ $currentLocale->code }}[button_text]")) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'button_text': [error.message]});
+                        }
+
+                        try {
+                            if (! formData.get("{{ $currentLocale->code }}[slider_syntax]")) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'slider_syntax': [error.message]});
+                        }
+
+                        try {
                             const sliderImage = formData.get("slider_image[]");
 
                             if (! sliderImage) {
@@ -1818,6 +1891,8 @@
 
                             this.sliders.images.push({
                                 slider_image: sliderImage,
+                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
                                 link: formData.get("{{ $currentLocale->code }}[link]"),
                             });
 
@@ -2084,21 +2159,21 @@
                         formData.append('id', "{{ $theme->id }}");
                         formData.append('type', "static_content");
 
-                        this.$axios.post('{{ route('admin.settings.themes.store') }}', formData)
-                            .then((response) => {
-                                let editor = this._html.getDoc();
+                        // this.$axios.post('{{ route('admin.settings.themes.store') }}', formData)
+                        //     .then((response) => {
+                        //         let editor = this._html.getDoc();
 
-                                let cursorPointer = editor.getCursor();
+                        //         let cursorPointer = editor.getCursor();
 
-                                editor.replaceRange(`<img class="lazy" data-src="${response.data}">`, {
-                                    line: cursorPointer.line, ch: cursorPointer.ch
-                                });
+                        //         editor.replaceRange(`<img class="lazy" data-src="${response.data}">`, {
+                        //             line: cursorPointer.line, ch: cursorPointer.ch
+                        //         });
 
-                                editor.setCursor({
-                                    line: cursorPointer.line, ch: cursorPointer.ch + response.data.length
-                                });
-                            })
-                            .catch((error) => {});
+                        //         editor.setCursor({
+                        //             line: cursorPointer.line, ch: cursorPointer.ch + response.data.length
+                        //         });
+                        //     })
+                        //     .catch((error) => {});
                     },
                 },
             });

@@ -44,7 +44,6 @@ return [
     'homepage' => [
         'slider' => [
             'title' => 'Raemulan Lands Inc.',
-            'button-text' => 'Elanvital',
         ],
 
         'most-view' => [
@@ -70,6 +69,18 @@ return [
             'header' => [
                 'login'           => 'Log in',
                 'manage-property' => 'Manage your property.',
+            ],
+        ],
+    ],
+
+    'admin' => [
+        'settings' => [
+            'themes' => [
+                'edit' => [
+                    'button_text'   => 'Button Text',
+                    'slider_syntax' => 'Slider Syntax',
+                    'required'      => 'Field is Required.',
+                ],
             ],
         ],
     ],

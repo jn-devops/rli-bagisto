@@ -26,6 +26,8 @@ class EnclavesServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../Resources/views' => resource_path('themes/enclaves/views'),
         ]);
+
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**
