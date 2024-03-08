@@ -15,12 +15,13 @@
 
                 <h1 class="hero-heading text-[60px] font-bold leading-[74px] mt-[18px] min-h-[148px] max-1180:text-[46px] max-sm:text-[40px] max-sm:leading-[55px] max-sm:min-h-[110px]"></h1>
                 
-				<a 
+				<!-- Click event handle into vue code -->
+				<a
                     href="javascript:void(0)"
                     class="hero-btn block max-w-max mt-[94px] text-white px-[60px] py-[38px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px] max-sm:mt-[40px] max-sm:px-[40px]
                     max-sm:py-[20px]"
+					v-text="activeButtonText"
                 >
-					@lang('enclaves::app.homepage.slider.button-text')
                 </a>
 
                 <div class="dot-container hidden"></div>
@@ -28,20 +29,20 @@
 
             <div class="et-slider-section mt-[72px]">
                 <div class="et-slider">
-                        <a
-                            v-for="(image, index) in images"
-                            class="fade"
-                            :href="image.link || '#'"
-                            ref="slides"
-                            :key="index"
-                            aria-label="Image Slide "
-                        >
+					<a
+						v-for="(image, index) in images"
+						class="fade"
+						:href="image.link || '#'"
+						ref="slides"
+						:key="index"
+						aria-label="Image Slide "
+					>
                         <x-shop::media.images.lazy
                             ::class="image.className"
                             class="w-full aspect-[2.743/1]"
                             ::src="image.image"
                             ::srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
-                            alt=""
+                            ::alt="image.className"
                         ></x-shop::media.images.lazy>
                     </a>
                 </div>
@@ -64,6 +65,8 @@
                     imageX: [],
 
 					refreshCompoment: 1,
+
+					activeButtonText: '',
                 };
             },
 
@@ -78,14 +81,6 @@
 				let dummyheading = document.querySelector('.hero-heading')
 				let dummyButton = document.querySelector('.hero-btn');
 				let typing;
-
-				let heroContent = [
-					['Family moments for a lifetime', 'link1'],
-				    ['Galak na umaasenso', 'link2'],
-					['Tagumpay na nagniningning', 'link3'],
-					['Tagumpay na nagniningning', 'link4'],
-					['Tagumpay na test', 'link5'],
-				];
 
 				let sliderdots = () => {
 					dotContaier = document.querySelector('.dot-container');
@@ -105,25 +100,26 @@
 				sliderdots()
 
 				let changeContent = () => {
-					clearInterval(typing)
+					dummyButton.setAttribute('href', this.images[active]['link']);
 
-					dummyButton.setAttribute('href', heroContent[active][1])
-					let title = heroContent[active][0]
+					let slider_syntax = this.images[active]['slider_syntax'];
 
-					title = title.split('')
+					this.activeButtonText = this.images[active]['button_text'];
+
+					slider_syntax = slider_syntax.split('')
 
 					let titlecounts = ''
 
 					let pos = 0;
 
 					typing = setInterval(() => {
-						titlecounts += title[pos]
+						titlecounts += slider_syntax[pos]
 
 						dummyheading.innerHTML = titlecounts
 
 						pos++;
 
-						if (pos == title.length) {
+						if (pos == slider_syntax.length) {
 							clearInterval(typing)
 						}
 					}, 30);
