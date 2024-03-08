@@ -5,3 +5,7 @@
  * cart, coupons, etc will be placed here.
  */
 require 'enclaves-routes.php';
+
+
+
+require 'admin-routes.php';
