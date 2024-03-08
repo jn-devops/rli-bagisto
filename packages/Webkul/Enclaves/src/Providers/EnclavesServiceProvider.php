@@ -24,7 +24,7 @@ class EnclavesServiceProvider extends ServiceProvider
         Blade::anonymousComponentPath(__DIR__ . '/../Resources/views/components', 'enclaves');
 
         $this->publishes([
-            __DIR__ . '/../Resources/views' => resource_path('themes/enclaves/views'),
+            __DIR__ . '/../Resources/views/shop' => resource_path('themes/enclaves/views/shop'),
         ]);
 
         $this->app->register(EventServiceProvider::class);

@@ -10,9 +10,10 @@
                 <div class="relative max-h-[971px]">
                     <img 
                         v-if="firstMostViewProduct.all_images"
-                        class="rounded-[20px] 1280:h-[971px]" 
+                        class="rounded-[20px] 1280:h-[971px] cursor-pointer" 
                         :src="firstMostViewProduct.all_images.large_image_url" 
                         alt="Most Viewed Properties"
+                        @click="redirectToProduct(firstMostViewProduct.url_key)"
                     />
 
                     <div
@@ -29,14 +30,12 @@
                             </div>
                         </div>
 
-                        <a 
-                            href="javascript:void(0)"
-                            alt="choose area"
+                        <button
                             class="h-max self-end text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                             @click="redirectToProduct(firstMostViewProduct.url_key)"
                         >
                             @lang('enclaves::app.homepage.most-view.choose-area')
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -44,14 +43,16 @@
                     <div class="grid gap-2.5 relative max-w-[350px] max-h-[434px] max-sm:max-h-max">
                         <div class="relative overflow-hidden  group max-w-[350px] max-h-[289px] rounded-[20px]">
                             <img 
-                                v-if="firstMostViewProduct.all_images"
-                                class="rounded-sm bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
+                                v-if="secoundMostViewProduct.all_images"
+                                class="rounded-sm bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300 cursor-pointer"
                                 :src="secoundMostViewProduct.all_images.medium_image_url"
+                                @click="redirectToProduct(secoundMostViewProduct.url_key)"
                             >
                         </div>
 
                         <div class="grid gap-2.5 content-start">
                             <p class="text-[20px] font-bold font-popins" v-text="secoundMostViewProduct.name"></p>
+                            
                             <div class="flex items-center gap-5 justify-between max-425:flex-wrap">
 
                                 <div class="grid gap-[12px]">
@@ -72,9 +73,10 @@
                     <div class="grid gap-2.5 relative max-w-[350px] max-h-[434px] max-sm:max-h-max">
                         <div class="relative overflow-hidden  group max-w-[350px] max-h-[289px] rounded-[20px]">
                             <img
-                                v-if="firstMostViewProduct.all_images"
-                                class="rounded-sm bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"
+                                v-if="thirdMostViewProduct.all_images"
+                                class="rounded-sm bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300 cursor-pointer"
                                 :src="thirdMostViewProduct.all_images.medium_image_url"
+                                @click="redirectToProduct(thirdMostViewProduct.url_key)"
                             >
                         </div>
 
