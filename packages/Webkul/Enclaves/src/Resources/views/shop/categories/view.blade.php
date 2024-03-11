@@ -20,23 +20,26 @@
     @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
         @if ($category->description)
 
-            <div class="container flex gap-[16px] mt-[45px] max-1180:flex-wrap">
-                
-                <!-- Hero Image -->
-                @if ($category->banner_path)
-                    <img
-                        class="max-w-[452px] w-full max-h-[172px]"
-                        src="{{ $category->banner_url }}"
-                        alt="{{ $category->name }}"
-                        width="1320"
-                        height="300"
-                    >
-                @endif
-                    <x-shop::layouts.read-more-smooth
-                        text="{!! $category->description !!}"
-                        limit="700"
-                    >
-                    </x-shop::layouts.read-more-smooth>
+            <div class="container px-[60px] max-lg:px-[30px]">
+                <div class="flex flex-wrap gap-[40px] mt-[40px] items-start max-lg:gap-[20px]">
+                    @if ($category->banner_path)
+                        <img
+                            class="max-w-[344px] w-full max-h-[172px]"
+                            src="{{ $category->banner_url }}"
+                            alt="{{ $category->name }}"
+                            width="344"
+                            height="172"
+                        >
+                    @endif
+                    <div class="flex-1">
+                        <x-shop::layouts.read-more-smooth
+                            text="{!! $category->description !!}"
+                            limit="700"
+                        >
+                        </x-shop::layouts.read-more-smooth>
+                    </div>
+                </div>
+
                 </p>
             </div>
         @endif
@@ -129,13 +132,12 @@
                                                     </p>
                                                 </div>
 
-                                                <a 
-                                                    href="javascript:void(0)"
+                                                <button
                                                     @click="redirectToProduct(product)"
                                                     class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
-                                                    >
+                                                >
                                                     @lang('enclaves::app.customers.choose-area')
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -158,13 +160,18 @@
                         </div>
 
                         <!-- Load More Button -->
-                        <button
-                            class="secondary-button block mx-auto w-max py-[11px] mt-[60px] px-[43px] rounded-[18px] text-base text-center"
-                            @click="loadMoreProducts"
+                        <div 
+                            class="row text-center mt-12" 
                             v-if="links.next"
                         >
+                            <button
+                                class="text-white px-[25px] py-[10px] bg-[#CC035C] rounded-[20px]"
+                                @click="loadMoreProducts"
+                               
+                            >
                             @lang('shop::app.categories.view.load-more')
-                        </button>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
