@@ -66,7 +66,6 @@
 
             <!-- Modal Contentd -->
             <x-slot:content>
-                <!-- Apply Coupon Form -->
                 <x-shop::form
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
