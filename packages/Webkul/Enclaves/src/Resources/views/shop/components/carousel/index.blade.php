@@ -35,15 +35,23 @@
 						:href="image.link || '#'"
 						ref="slides"
 						:key="index"
-						aria-label="Image Slide "
+						aria-label="Image Slide"
 					>
-                        <x-shop::media.images.lazy
-                            ::class="image.className"
+						<div 
+							class="shimmer w-[640px] h-[120px]" 
+							v-show="isLoading"
+							>
+						</div>
+
+						<img
+							:class="image.className"
                             class="w-full aspect-[2.743/1]"
-                            ::src="image.image"
-                            ::srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
-                            ::alt="image.className"
-                        ></x-shop::media.images.lazy>
+                            :src="image.image"
+                            :srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
+                            :alt="image.className"
+							@load="onLoad"
+							v-show="! isLoading"
+						/>
                     </a>
                 </div>
             </div>
@@ -56,37 +64,37 @@
 
             data() {
                 return {
-                    currentIndex: 1,
-
                     images: @json($options['images'] ?? []),
 
-                    imagesPattern: ['next', 'd-none', 'prev', 'active'],
-
-                    imageX: [],
-
-					refreshCompoment: 1,
-
 					activeButtonText: '',
+
+					isLoading: true,
                 };
             },
 
             mounted() {
                 this.play();
 
-				let sliderImg = document.querySelectorAll('.et-slider img')
+				let sliderImg = document.querySelectorAll('.et-slider img');
+				
 				let active = 0;
+
 				let prev = sliderImg.length - 1;
+
 				let next = 1;
+
 				let dotContaier, dots = [];
-				let dummyheading = document.querySelector('.hero-heading')
+
+				let dummyheading = document.querySelector('.hero-heading');
+
 				let dummyButton = document.querySelector('.hero-btn');
+
 				let typing;
 
 				let sliderdots = () => {
 					dotContaier = document.querySelector('.dot-container');
 
 					for (let i = 0; i < sliderImg.length; i++) {
-
 						let span = document.createElement('span')
 
 						if (i == 0) span.classList.add('active')
@@ -112,6 +120,8 @@
 
 					let pos = 0;
 
+					clearInterval(typing);
+
 					typing = setInterval(() => {
 						titlecounts += slider_syntax[pos]
 
@@ -131,7 +141,6 @@
 					dots = document.querySelectorAll('.dot-container .dot');
 
 					sliderImg.forEach((ele, i) => {
-
 						if (i === prev) {
 							ele.className = 'prev'
 						} else if (i === active) {
@@ -194,7 +203,6 @@
 				}
 
 				dotevents();
-
             },
 
             methods: {
@@ -210,7 +218,11 @@
                             this.images[index]['className'] = 'd-none';
                         }
                     })
-                }
+                },
+
+				onLoad() {
+                    this.isLoading = false;
+                },
             }
         });
     </script>

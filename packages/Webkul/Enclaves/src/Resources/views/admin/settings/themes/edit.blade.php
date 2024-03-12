@@ -1875,6 +1875,22 @@
                         }
 
                         try {
+                            if (formData.get("{{ $currentLocale->code }}[button_text]").length > 20) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_button_text') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'button_text': [error.message]});
+                        }
+
+                        try {
+                            if (formData.get("{{ $currentLocale->code }}[slider_syntax]").length > 30) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_slider_text') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'slider_syntax': [error.message]});
+                        }
+
+                        try {
                             if (! formData.get("{{ $currentLocale->code }}[slider_syntax]")) {
                                 throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
                             }

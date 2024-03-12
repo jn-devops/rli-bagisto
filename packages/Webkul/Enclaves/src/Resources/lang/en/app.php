@@ -80,6 +80,9 @@ return [
                     'button_text'   => 'Button Text',
                     'slider_syntax' => 'Slider Syntax',
                     'required'      => 'Field is Required.',
+
+                    'limit_slider_text' => '30 Letters allow only',
+                    'limit_button_text' => '20 Letters allow only',
                 ],
             ],
         ],
