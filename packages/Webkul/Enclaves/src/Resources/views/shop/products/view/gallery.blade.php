@@ -37,7 +37,7 @@
                         <p
                             v-if="index == 2"
                             class="p-1 absolute bg-black bottom-[10px] right-2 text-white cursor-pointer" 
-                            v-text="'+' + media.images.length"
+                            v-text="'+' + (media.images.length - 3)"
                             @click="productSliderModel()"
                         ></p>
                     </div>
@@ -59,7 +59,7 @@
                         <p
                             v-if="index == 4"
                             class="p-1 absolute bottom-[30px] right-2 bg-black text-white cursor-pointer" 
-                            v-text="'+' + media.images.length"
+                            v-text="'+' + (media.images.length - 5)"
                             @click="productSliderModel()"
                         ></p>
                     </div>
