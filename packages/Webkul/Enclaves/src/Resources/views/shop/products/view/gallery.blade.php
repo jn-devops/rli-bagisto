@@ -4,7 +4,7 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-product-gallery-template">
-        <div class="relative flex gap-[20px] max-1280:flex-wrap">
+        <div class="flex gap-[20px] max-1280:flex-wrap">
             <div class="">
                 <!-- Media shimmer Effect -->
                 <div class="max-w-[657px] max-h-[610px]" v-show="isMediaLoading">
@@ -21,25 +21,53 @@
                 />
             </div>
             
-            <div class="flex flex-col gap-[16px] overflow-auto max-w-[290px] max-1280:flex-row max-1024:flex-row max-1024:flex-nowrap">
+            <div class="flex flex-wrap gap-[16px] relative" v-if="isMobile">
                 <template v-for="(image, index) in media.images">
-                    <x-shop::media.images.lazy
-                        alt="@lang('shop::app.products.view.gallery.thumbnail-image')" 
-                        v-if="index < 5"
-                        ::class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
-                        ::src="image.small_image_url"
-                        @click="change(image, `image_${index}`)"
-                    >
-                    </x-shop::media.images.lazy>
+                    <div v-if="index < 3" 
+                        :class="`${index == `2` ? 'relative' : ''}`">
+                        <x-shop::media.images.lazy
+                            alt="@lang('shop::app.products.view.gallery.thumbnail-image')" 
+                            v-if="index < 3"
+                            ::class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
+                            ::src="image.small_image_url"
+                            @click="change(image, `image_${index}`)"
+                        >
+                        </x-shop::media.images.lazy>
+
+                        <p
+                            v-if="index == 2"
+                            class="p-1 absolute bg-black bottom-[10px] right-2 text-white cursor-pointer" 
+                            v-text="'+' + (media.images.length - 3)"
+                            @click="productSliderModel()"
+                        ></p>
+                    </div>
                 </template>
             </div>
 
-            <p 
-                class="p-1 absolute bottom-16 right-2 bg-black text-white cursor-pointer" 
-                v-text="'+' + media.images.length"
-                @click="productSliderModel()"
-            
-            ></p>
+            <div class="flex flex-wrap w-[100px]" v-else>
+                <template v-for="(image, index) in media.images">
+                    <div v-if="index < 5" 
+                        :class="`${index == `4` ? 'relative' : ''}`">
+                        <x-shop::media.images.lazy
+                            alt="@lang('shop::app.products.view.gallery.thumbnail-image')"
+                            ::class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
+                            ::src="image.small_image_url"
+                            @click="change(image, `image_${index}`)"
+                        >
+                        </x-shop::media.images.lazy>
+
+                        <p
+                            v-if="index == 4"
+                            class="p-1 absolute bottom-[30px] right-2 bg-black text-white cursor-pointer" 
+                            v-text="'+' + (media.images.length - 5)"
+                            @click="productSliderModel()"
+                        ></p>
+                    </div>
+                </template>
+                   
+            </div>
+
+           
         </div>
 
         <!-- Product slider Image with shimmer -->
@@ -54,15 +82,7 @@
             </x-shop::media.images.lazy>
         </div>
 
-
-
-        <x-shop::modal ref="imageSliderModel">
-            <!-- Modal Header -->
-            <x-slot:header>
-                <h2 class="text-[25px] font-medium max-sm:text-[22px]">
-                    Image Slider comming soon.
-                </h2>
-            </x-slot:header>
+        <x-shop::modal.image-slider ref="imageSliderModel">
 
             <!-- Modal Contentd -->
             <x-slot:content>
@@ -70,10 +90,38 @@
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
                 >
-                    
+                    <div class="w-full relative m-auto">
+                        <div
+                            v-for="(image, index) in media.images"
+                            class="fade p-10"
+                            ref="slides"
+                            :key="index"
+                            aria-label="Image Slide"
+                        >
+                            <img
+                                :src="image.large_image_url"
+                                class="rounded-[5px] cursor-pointer w-full h-[480px]"
+                                alt="@lang('shop::app.products.view.gallery.product-image')"
+                            />
+                        </div>
+
+                        <span
+                            class="icon-arrow-left text-[24px] font-bold text-white w-auto -mt-[22px] p-[12px] absolute top-1/2 left-[10px] bg-[rgba(0,0,0,0.8)] transition-all opacity-30 rounded-full hover:opacity-100 cursor-pointer"
+                            v-if="media.images?.length >= 2"
+                            @click="navigate(currentIndex -= 1)"
+                        >
+                        </span>
+
+                        <span
+                            class="icon-arrow-right text-[24px] font-bold text-white w-auto -mt-[22px] p-[12px] absolute top-1/2 right-[10px] bg-[rgba(0,0,0,0.8)] transition-all opacity-30 rounded-full hover:opacity-100 cursor-pointer"
+                            v-if="media.images?.length >= 2"
+                            @click="navigate(currentIndex += 1)"
+                        >
+                        </span>
+                    </div>
                 </x-shop::form>
             </x-slot:content>
-        </x-shop::modal>
+        </x-shop::modal.image-slider>
     </script>
 
     <script type="module">
@@ -82,7 +130,11 @@
 
             data() {
                 return {
+                    isMobile: window.innerWidth <= 768,
+
                     isMediaLoading: true,
+
+                    currentIndex: 1,
 
                     media: {
                         images: @json(product_image()->getGalleryImages($product)),
@@ -115,8 +167,10 @@
                     },
                 },
             },
-
+            
             mounted() {
+                this.navigate(this.currentIndex);
+
                 if (this.media.images.length) {
                     this.activeIndex = 'image_0';
 
@@ -166,7 +220,29 @@
 
                     this.activeIndex = index;
                 },
-            }
+
+                navigate(index) {
+                    if (index > this.media.images.length) {
+                        this.currentIndex = 1;
+                    }
+
+                    if (index < 1) {
+                        this.currentIndex = this.media.images.length;
+                    }
+
+                    let slides = this.$refs.slides;
+
+                    for (let i = 0; i < slides.length; i++) {
+                        if (i == this.currentIndex - 1) {
+                            continue;
+                        }
+                        
+                        slides[i].style.display = 'none';
+                    }
+
+                    slides[this.currentIndex - 1].style.display = 'block';
+                },
+            },
         })
     </script>
 @endpushOnce

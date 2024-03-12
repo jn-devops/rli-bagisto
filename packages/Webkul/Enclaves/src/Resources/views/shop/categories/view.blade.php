@@ -218,10 +218,6 @@
                     },
                 },
 
-                updated() {
-                    console.log(window.innerWidth);
-                },
-
                 watch: {
                     queryParams() {
                         this.getProducts();
