@@ -64,10 +64,7 @@
                         ></p>
                     </div>
                 </template>
-                   
             </div>
-
-           
         </div>
 
         <!-- Product slider Image with shimmer -->

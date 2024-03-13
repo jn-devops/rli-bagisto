@@ -83,6 +83,8 @@ return [
 
                     'limit_slider_text' => '30 Letters allow only',
                     'limit_button_text' => '20 Letters allow only',
+
+                    'edit-slider' => 'Edit theme slider',
                 ],
             ],
         ],

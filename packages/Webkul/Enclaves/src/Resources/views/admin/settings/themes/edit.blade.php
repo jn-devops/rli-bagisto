@@ -40,12 +40,12 @@
             </div>
         </div>
 
-        {{-- Channel and Locale Switcher --}}
+        <!-- Channel and Locale Switcher -->
         <div class="flex  gap-[16px] justify-between items-center mt-[28px] max-md:flex-wrap">
             <div class="flex gap-x-[4px] items-center">
-                {{-- Locale Switcher --}}
+                <!-- Locale Switcher -->
                 <x-admin::dropdown>
-                    {{-- Dropdown Toggler --}}
+                    <!-- Dropdown Toggler -->
                     <x-slot:toggle>
                         <button
                             type="button"
@@ -61,7 +61,7 @@
                         </button>
                     </x-slot:toggle>
 
-                    {{-- Dropdown Content --}}
+                    <!-- Dropdown Content -->
                     <x-slot:content class="!p-[0px]">
                         @foreach ($currentChannel->locales as $locale)
                             <a
@@ -80,7 +80,7 @@
     </x-admin::form>
 
     @pushOnce('scripts')
-        {{-- Customizer Parent Template--}}
+        <!-- Customizer Parent Template-->
         <script type="text/x-template" id="v-theme-customizer-template">
             <div>
                 <component
@@ -92,7 +92,7 @@
             </div>
         </script>
 
-        {{-- Slider Template --}}
+        <!-- Slider Template -->
         <script type="text/x-template" id="v-slider-theme-template">
             <div>
                 <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
@@ -126,7 +126,7 @@
                                 class="grid pt-[16px]"
                                 v-if="sliders.images.length"
                                 v-for="(image, index) in sliders.images"
-                            >
+                                >
                                 <!-- Hidden Input -->
                                 <input type="file" class="hidden" :name="'options['+ index +'][image]'" :ref="'imageInput_' + index" />
                                 <input type="hidden" :name="'options['+ index +'][link]'" :value="image.link" />
@@ -199,6 +199,13 @@
                                     <div class="grid gap-[4px] place-content-start text-right">
                                         <div class="flex gap-x-[20px] items-center">
                                             <p 
+                                                class="text-blue-600 cursor-pointer transition-all hover:underline"
+                                                @click="editSliderRow(index)"
+                                            > 
+                                                @lang('admin::app.settings.themes.edit.edit')
+                                            </p>
+
+                                            <p 
                                                 class="text-red-600 cursor-pointer transition-all hover:underline"
                                                 @click="remove(image)"
                                             > 
@@ -209,7 +216,7 @@
                                 </div>
                             </div>
 
-                            <div    
+                            <div
                                 class="grid gap-[14px] justify-center justify-items-center py-[40px] px-[10px]"
                                 v-else
                             >
@@ -351,7 +358,7 @@
                 <x-admin::form
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
-                >
+                    >
                     <form 
                         @submit="handleSubmit($event, saveSliderImage)"
                         enctype="multipart/form-data"
@@ -365,6 +372,9 @@
                             </x-slot:header>
         
                             <x-slot:content>
+
+                                {!! view_render_event('bagisto.admin.setting.theme.edit.form.images.before') !!}
+
                                 <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800">
                                     <x-admin::form.control-group class="mb-[10px]">
                                         <x-admin::form.control-group.label>
@@ -456,10 +466,133 @@
                           </x-admin::modal>
                       </form>
                 </x-admin::form>
+
+                <!-- Edit Form -->
+                <x-admin::form
+                    v-slot="{ meta, errors, handleSubmit }"
+                    as="div"
+                    >
+
+                    <form 
+                        @submit="handleSubmit($event, editSliderImage)"
+                        enctype="multipart/form-data"
+                        ref="editSliderForm"
+                    >
+                        <x-admin::modal ref="editSliderModal">
+                            <x-slot:header>
+                                <p class="text-[18px] text-gray-800 dark:text-white font-bold">
+                                    @lang('enclaves::app.admin.settings.themes.edit.edit-slider')
+                                </p>
+                            </x-slot:header>
+        
+                            <x-slot:content>
+                                <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800">
+                                    <input 
+                                        type="hidden" 
+                                        name="editRowIndex" 
+                                        :value="editRowIndex"
+                                    />
+
+                                    <x-admin::form.control-group class="mb-[10px]">
+                                        <x-admin::form.control-group.label>
+                                            @lang('admin::app.settings.themes.edit.link')
+                                        </x-admin::form.control-group.label>
+                                    
+                                        <x-admin::form.control-group.control
+                                            type="text"
+                                            name="{{ $currentLocale->code }}[link]"
+                                            ::value="editSlider.link"
+                                            :placeholder="trans('admin::app.settings.themes.edit.link')"
+                                        >
+                                        </x-admin::form.control-group.control>
+                                    </x-admin::form.control-group>
+
+                                    <x-admin::form.control-group>
+                                        <x-admin::form.control-group.label class="required">
+                                            @lang('admin::app.settings.themes.edit.slider-image')
+                                        </x-admin::form.control-group.label>
+
+                                        <x-admin::form.control-group.control
+                                            type="image"
+                                            name="slider_image"
+                                            rules="required"
+                                            :is-multiple="false"
+                                        >
+                                        </x-admin::form.control-group.control>
+        
+                                        <x-admin::form.control-group.error
+                                            control-name="slider_image"
+                                        >
+                                        </x-admin::form.control-group.error>
+                                    </x-admin::form.control-group>
+
+                                    <p class="text-[12px] text-gray-600 dark:text-gray-300">
+                                        @lang('admin::app.settings.themes.edit.image-size')
+                                    </p>
+
+                                    <!-- This is customization code -->     
+                                    <x-admin::form.control-group class="mb-[10px]">
+                                        <x-admin::form.control-group.label class="required">
+                                            @lang('enclaves::app.admin.settings.themes.edit.button_text')
+                                        </x-admin::form.control-group.label>
+
+                                        <x-admin::form.control-group.control
+                                            type="text"
+                                            name="{{ core()->getCurrentLocale()->code }}[button_text]"
+                                            ::value="editSlider.button_text"
+                                            :placeholder="trans('enclaves::app.admin.settings.themes.edit.button_text')"
+                                        >
+                                        </x-admin::form.control-group.control>
+
+                                        <x-admin::form.control-group.error
+                                            control-name="button_text"
+                                        >
+                                        </x-admin::form.control-group.error>
+                                    </x-admin::form.control-group>
+
+                                    <x-admin::form.control-group class="mb-[10px]">
+                                        <x-admin::form.control-group.label class="required">
+                                            @lang('enclaves::app.admin.settings.themes.edit.slider_syntax')
+                                        </x-admin::form.control-group.label>
+
+                                        <x-admin::form.control-group.control
+                                            type="text"
+                                            name="{{ core()->getCurrentLocale()->code }}[slider_syntax]"
+                                            ::value="editSlider.slider_syntax"
+                                            :placeholder="trans('enclaves::app.admin.settings.themes.edit.slider_syntax')"
+                                        >
+                                        </x-admin::form.control-group.control>
+
+                                        <x-admin::form.control-group.error
+                                            control-name="slider_syntax"
+                                        >
+                                        </x-admin::form.control-group.error>
+                                    </x-admin::form.control-group>
+                                    <!-- This is customization code -->
+                                </div>
+                            </x-slot:content>
+        
+                            <x-slot:footer>
+                                <div class="flex gap-x-[10px] items-center">
+                                    <!-- Save Button -->
+                                    <button 
+                                        type="submit"
+                                        class="px-[12px] py-[6px] bg-blue-600 border border-blue-700 rounded-[6px] text-gray-50 font-semibold cursor-pointer"
+                                    >
+                                        @lang('admin::app.settings.themes.edit.save-btn')
+                                    </button>
+                                </div>
+                            </x-slot:footer>
+                          </x-admin::modal>
+                      </form>
+                </x-admin::form>
+
+
+
             </div>
         </script>
 
-        {{-- Product Template --}}
+        <!-- Product Template -->
         <script type="text/x-template" id="v-product-theme-template">
             <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
                 <div class=" flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
@@ -845,7 +978,7 @@
             </div>
         </script>
 
-        {{-- Category Template --}}
+        <!-- Category Template -->
         <script type="text/x-template" id="v-category-theme-template">
             <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
                 <div class=" flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
@@ -1202,7 +1335,7 @@
             </div>
         </script>
 
-        {{-- Static Template --}}
+        <!-- Static Template -->
         <script type="text/x-template" id="v-static-theme-template">
             <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
                 <div class="flex flex-col gap-[8px] flex-1 min-w-[931px] max-xl:flex-auto">
@@ -1407,28 +1540,28 @@
             </div>
         </script>
 
-        {{-- Html Editor Template --}}
+        <!-- Html Editor Template -->
         <script type="text/x-template" id="v-html-editor-theme-template">
             <div>
                 <div ref="html"></div>
             </div>
         </script>
 
-        {{-- Css Editor Template --}}
+        <!-- Css Editor Template -->
         <script type="text/x-template" id="v-css-editor-theme-template">
             <div>
                 <div ref="css"></div>
             </div>
         </script>
 
-        {{-- Static Content Previewer --}}
+        <!-- Static Content Previewer -->
         <script type="text/x-template" id="v-static-content-previewer-template">
             <div>   
                 <div v-html="getPreviewContent()"></div>
             </div>
         </script>
 
-        {{-- Footer Template --}}
+        <!-- Footer Template -->
         <script type="text/x-template" id="v-footer-link-theme-template">
             <div>
                 <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
@@ -1811,7 +1944,7 @@
             </div>
         </script>
 
-        {{-- Parent Theme Customizer Component --}}
+        <!-- Parent Theme Customizer Component -->
         <script type="module">
             app.component('v-theme-customizer', {
                 template: '#v-theme-customizer-template',
@@ -1838,7 +1971,7 @@
             });
         </script>
 
-        {{-- Slider Theme Component --}}
+        <!-- Slider Theme Component -->
         <script type="module">
             app.component('v-slider-theme', {
                 template: '#v-slider-theme-template',
@@ -1850,6 +1983,10 @@
                         sliders: @json($theme->options),
 
                         deletedSliders: [],
+
+                        editSlider: null,
+
+                        editRowIndex: null,
                     };
                 },
                 
@@ -1863,6 +2000,80 @@
                 },
 
                 methods: {
+                    editSliderRow(index) {
+                        this.$refs.editSliderModal.toggle();
+                        
+                        this.editSlider = this.sliders.images[index];
+                        
+                        this.editRowIndex = index;
+                    },
+
+                    editSliderImage(params, { resetForm ,setErrors }) {
+                        let formData = new FormData(this.$refs.editSliderForm);
+
+                        let index = formData.get("editRowIndex");
+
+                        try {
+                            if (! formData.get("{{ $currentLocale->code }}[button_text]")) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'button_text': [error.message]});
+                        }
+
+                        try {
+                            if (formData.get("{{ $currentLocale->code }}[button_text]").length > 20) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_button_text') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'button_text': [error.message]});
+                        }
+
+                        try {
+                            if (formData.get("{{ $currentLocale->code }}[slider_syntax]").length > 30) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_slider_text') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'slider_syntax': [error.message]});
+                        }
+
+                        try {
+                            if (! formData.get("{{ $currentLocale->code }}[slider_syntax]")) {
+                                throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
+                            }
+                        } catch (error) {
+                            setErrors({'slider_syntax': [error.message]});
+                        }
+                        try {
+                            if (! formData.get("slider_image[]")) {
+                                throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                            }
+
+                            const sliderImage = formData.get("slider_image[]");
+
+                            delete this.sliders.images[index];
+
+                            this.sliders.images = this.sliders.images.filter( (slider) => {
+                                return slider;
+                            });
+
+                            this.sliders.images.push({
+                                slider_image: sliderImage,
+                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
+                                link: formData.get("{{ $currentLocale->code }}[link]"),
+                            });
+
+                            if (sliderImage instanceof File) {
+                                this.setFile(sliderImage, this.sliders.images.length - 1);
+                            }
+
+                            this.$refs.editSliderModal.toggle();
+                        } catch (error) {
+                            setErrors({'slider_image': [error.message]});
+                        }
+                    },
+
                     saveSliderImage(params, { resetForm ,setErrors }) {
                         let formData = new FormData(this.$refs.createSliderForm);
 
@@ -1899,11 +2110,11 @@
                         }
 
                         try {
-                            const sliderImage = formData.get("slider_image[]");
-
-                            if (! sliderImage) {
+                            if (! formData.get("slider_image[]")) {
                                 throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
                             }
+
+                            const sliderImage = formData.get("slider_image[]");
 
                             this.sliders.images.push({
                                 slider_image: sliderImage,
@@ -1916,9 +2127,10 @@
                                 this.setFile(sliderImage, this.sliders.images.length - 1);
                             }
 
+                            this.$refs.addSliderModal.toggle();
+
                             resetForm();
 
-                            this.$refs.addSliderModal.toggle();
                         } catch (error) {
                             setErrors({'slider_image': [error.message]});
                         }
@@ -1952,7 +2164,7 @@
             });
         </script>
 
-        {{-- Product Theme Component --}}
+        <!-- Product Theme Component -->
         <script type="module">
             app.component('v-product-theme', {
                 template: '#v-product-theme-template',
@@ -1998,7 +2210,7 @@
             });
         </script>
 
-        {{-- Category Theme Component --}}
+        <!-- Category Theme Component -->
         <script type="module">
             app.component('v-category-theme', {
                 template: '#v-category-theme-template',
@@ -2044,7 +2256,7 @@
             });
         </script>
 
-        {{-- Static Theme component --}}
+        <!-- Static Theme component -->
         <script type="module">
             app.component('v-static-theme', {
                 template: '#v-static-theme-template',
@@ -2114,7 +2326,7 @@
             });
         </script>
 
-        {{-- Html Editor Component --}}
+        <!-- Html Editor Component -->
         <script type="module">
             app.component('v-html-editor-theme', {
                 template: '#v-html-editor-theme-template',
@@ -2195,7 +2407,7 @@
             });
         </script>
 
-        {{-- Css Editor Component --}}
+        <!-- Css Editor Component -->
         <script type="module">
             app.component('v-css-editor-theme', {
                 template: '#v-css-editor-theme-template',
@@ -2236,7 +2448,7 @@
             });
         </script>
 
-        {{-- Static Content Previewer --}}
+        <!-- Static Content Previewer -->
         <script type="module">
             app.component('v-static-content-previewer', {
                 template: '#v-static-content-previewer-template',
@@ -2255,7 +2467,7 @@
             });
         </script>
 
-        {{-- Footer component --}}
+        <!-- Footer component -->
         <script type="module">
             app.component('v-footer-link-theme', {
                 template: '#v-footer-link-theme-template',
@@ -2343,29 +2555,29 @@
             });
         </script>
 
-        {{-- Code mirror script CDN --}}
+        <!-- Code mirror script CDN -->
         <script
             type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.js"
         >
         </script>
 
-        {{-- 
+        <!-- 
             Html mixed and xml cnd both are dependent 
             Used for html and css theme
-        --}}
+        -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/xml/xml.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/htmlmixed/htmlmixed.js"></script>
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/css/css.js"></script>
 
-        {{-- Beatutify html and css --}}
+        <!-- Beatutify html and css -->
         <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest/dist/index.min.js"></script>
     @endPushOnce
 
     @pushOnce('styles')
-        {{-- Code mirror style cdn --}}
+        <!-- Code mirror style cdn -->
         <link 
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.css"
