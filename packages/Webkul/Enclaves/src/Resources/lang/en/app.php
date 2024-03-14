@@ -85,6 +85,9 @@ return [
                     'limit_button_text' => '20 Letters allow only',
 
                     'edit-slider' => 'Edit theme slider',
+                    
+                    'image_cdn_link'    => 'CDN Link',
+                    'cdn_status'         => 'CDN Link Status'
                 ],
             ],
         ],

@@ -133,7 +133,9 @@
                                 <input type="hidden" :name="'options['+ index +'][image]'" :value="image.image" />
                                 <input type="hidden" :name="'options['+ index +'][button_text]'" :value="image.button_text" />
                                 <input type="hidden" :name="'options['+ index +'][slider_syntax]'" :value="image.slider_syntax" />
-                         
+                                <input type="hidden" :name="'options['+ index +'][image_cdn_link]'" :value="image.image_cdn_link" />
+                                <input type="hidden" :name="'options['+ index +'][isUsingCDN]'" :value="image.isUsingCDN" />
+
                                 <!-- Details -->
                                 <div 
                                     class="flex gap-[10px] justify-between py-5 cursor-pointer"
@@ -169,6 +171,16 @@
 
                                                     <span class="text-gray-600 dark:text-gray-300 transition-all">
                                                         @{{ image.slider_syntax }}
+                                                    </span>
+                                                </div>
+                                            </p>
+
+                                            <p class="text-gray-600 dark:text-gray-300" v-if="image.image_cdn_link">
+                                                <div> 
+                                                    @lang('enclaves::app.admin.settings.themes.edit.image_cdn_link'): 
+
+                                                    <span class="text-gray-600 dark:text-gray-300 transition-all">
+                                                        @{{ image.image_cdn_link }}
                                                     </span>
                                                 </div>
                                             </p>
@@ -354,7 +366,8 @@
                         </x-admin::accordion>
                     </div>
                 </div>
-
+                
+                <!-- Create Form -->
                 <x-admin::form
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
@@ -372,9 +385,6 @@
                             </x-slot:header>
         
                             <x-slot:content>
-
-                                {!! view_render_event('bagisto.admin.setting.theme.edit.form.images.before') !!}
-
                                 <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800">
                                     <x-admin::form.control-group class="mb-[10px]">
                                         <x-admin::form.control-group.label>
@@ -389,30 +399,88 @@
                                         </x-admin::form.control-group.control>
                                     </x-admin::form.control-group>
 
-                                    <x-admin::form.control-group>
-                                        <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.settings.themes.edit.slider-image')
-                                        </x-admin::form.control-group.label>
+                                    <template v-if="! isUsingCDN">  
+                                        <x-admin::form.control-group>
+                                            <x-admin::form.control-group.label>
+                                                @lang('enclaves::app.admin.settings.themes.edit.cdn_status')
+                                            </x-admin::form.control-group.label>
 
-                                        <x-admin::form.control-group.control
-                                            type="image"
-                                            name="slider_image"
-                                            rules="required"
-                                            :is-multiple="false"
-                                        >
-                                        </x-admin::form.control-group.control>
-        
-                                        <x-admin::form.control-group.error
-                                            control-name="slider_image"
-                                        >
-                                        </x-admin::form.control-group.error>
-                                    </x-admin::form.control-group>
+                                            <x-admin::form.control-group.control
+                                                type="switch"
+                                                name="isUsingCDN"
+                                                ::value="false"
+                                                ::checked="false"
+                                                :label="trans('enclaves::app.admin.settings.themes.edit.cdn_status')"
+                                                v-model="isUsingCDN"
+                                                @change="toggleCdnField(true)"
+                                            >
+                                            </x-admin::form.control-group.control>
+                                        </x-admin::form.control-group>
 
-                                    <p class="text-[12px] text-gray-600 dark:text-gray-300">
-                                        @lang('admin::app.settings.themes.edit.image-size')
-                                    </p>
+                                        <x-admin::form.control-group>
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('admin::app.settings.themes.edit.slider-image')
+                                            </x-admin::form.control-group.label>
 
-                                    <!-- This is customization code -->     
+                                            <x-admin::form.control-group.control
+                                                type="image"
+                                                name="slider_image"
+                                                rules="required"
+                                                :is-multiple="false"
+                                            >
+                                            </x-admin::form.control-group.control>
+            
+                                            <x-admin::form.control-group.error
+                                                control-name="slider_image"
+                                            >
+                                            </x-admin::form.control-group.error>
+                                        </x-admin::form.control-group>
+
+                                        <p class="text-[12px] text-gray-600 dark:text-gray-300">
+                                            @lang('admin::app.settings.themes.edit.image-size')
+                                        </p>
+                                    </template>
+
+                                    <!-- This is customization code --> 
+                                    <template v-else>
+                                        <div class="gap-[10px] w-full mt-[10px]">    
+                                            <x-admin::form.control-group>
+                                                <x-admin::form.control-group.label>
+                                                    @lang('enclaves::app.admin.settings.themes.edit.cdn_status')
+                                                </x-admin::form.control-group.label>
+
+                                                <x-admin::form.control-group.control
+                                                    type="switch"
+                                                    name="isUsingCDN"
+                                                    ::value="true"
+                                                    ::checked="true"
+                                                    :label="trans('enclaves::app.admin.settings.themes.edit.cdn_status')"
+                                                    v-model="isUsingCDN"
+                                                    @change="toggleCdnField(false)"
+                                                >
+                                                </x-admin::form.control-group.control>
+                                            </x-admin::form.control-group>
+                                        </div>
+
+                                        <x-admin::form.control-group class="mb-[10px]">
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('enclaves::app.admin.settings.themes.edit.image_cdn_link')
+                                            </x-admin::form.control-group.label>
+
+                                            <x-admin::form.control-group.control
+                                                type="text"
+                                                name="{{ $currentLocale->code }}[image_cdn_link]"
+                                                :placeholder="trans('enclaves::app.admin.settings.themes.edit.image_cdn_link')"
+                                            >
+                                            </x-admin::form.control-group.control>
+
+                                            <x-admin::form.control-group.error
+                                                control-name="image_cdn_link"
+                                            >
+                                            </x-admin::form.control-group.error>
+                                        </x-admin::form.control-group>
+                                    </template>
+
                                     <x-admin::form.control-group class="mb-[10px]">
                                         <x-admin::form.control-group.label class="required">
                                             @lang('enclaves::app.admin.settings.themes.edit.button_text')
@@ -472,7 +540,6 @@
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
                     >
-
                     <form 
                         @submit="handleSubmit($event, editSliderImage)"
                         enctype="multipart/form-data"
@@ -484,7 +551,7 @@
                                     @lang('enclaves::app.admin.settings.themes.edit.edit-slider')
                                 </p>
                             </x-slot:header>
-        
+
                             <x-slot:content>
                                 <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800">
                                     <input 
@@ -507,30 +574,91 @@
                                         </x-admin::form.control-group.control>
                                     </x-admin::form.control-group>
 
-                                    <x-admin::form.control-group>
-                                        <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.settings.themes.edit.slider-image')
-                                        </x-admin::form.control-group.label>
+                                    <!-- This is customization code -->
+                                    <template v-if="! isUsingCDN">
+                                        <div class="gap-[10px] w-full mt-[10px]">    
+                                            <x-admin::form.control-group>
+                                                <x-admin::form.control-group.label>
+                                                    @lang('enclaves::app.admin.settings.themes.edit.cdn_status')
+                                                </x-admin::form.control-group.label>
 
-                                        <x-admin::form.control-group.control
-                                            type="image"
-                                            name="slider_image"
-                                            rules="required"
-                                            :is-multiple="false"
-                                        >
-                                        </x-admin::form.control-group.control>
-        
-                                        <x-admin::form.control-group.error
-                                            control-name="slider_image"
-                                        >
-                                        </x-admin::form.control-group.error>
-                                    </x-admin::form.control-group>
+                                                <x-admin::form.control-group.control
+                                                    type="switch"
+                                                    name="isUsingCDN"
+                                                    ::value="false"
+                                                    ::checked="false"
+                                                    :label="trans('enclaves::app.admin.settings.themes.edit.cdn_status')"
+                                                    v-model="isUsingCDN"
+                                                    @change="toggleCdnField(true)"
+                                                >
+                                                </x-admin::form.control-group.control>
+                                            </x-admin::form.control-group>
+                                        </div>
 
-                                    <p class="text-[12px] text-gray-600 dark:text-gray-300">
-                                        @lang('admin::app.settings.themes.edit.image-size')
-                                    </p>
+                                        <x-admin::form.control-group>
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('admin::app.settings.themes.edit.slider-image')
+                                            </x-admin::form.control-group.label>
 
-                                    <!-- This is customization code -->     
+                                            <x-admin::form.control-group.control
+                                                type="image"
+                                                name="slider_image"
+                                                rules="required"
+                                                :is-multiple="false"
+                                            >
+                                            </x-admin::form.control-group.control>
+
+                                            <x-admin::form.control-group.error
+                                                control-name="slider_image"
+                                            >
+                                            </x-admin::form.control-group.error>
+                                        </x-admin::form.control-group>
+
+                                        <p class="text-[12px] text-gray-600 dark:text-gray-300">
+                                            @lang('admin::app.settings.themes.edit.image-size')
+                                        </p>
+                                    </template>
+
+                                    <template v-else>
+                                        <div class="gap-[10px] w-full mt-[10px]">    
+                                            <x-admin::form.control-group>
+                                                <x-admin::form.control-group.label>
+                                                    @lang('enclaves::app.admin.settings.themes.edit.cdn_status')
+                                                </x-admin::form.control-group.label>
+
+                                                <x-admin::form.control-group.control
+                                                    type="switch"
+                                                    name="isUsingCDN"
+                                                    ::value="true"
+                                                    ::checked="true"
+                                                    :label="trans('enclaves::app.admin.settings.themes.edit.cdn_status')"
+                                                    v-model="isUsingCDN"
+                                                    @change="toggleCdnField(false)"
+                                                >
+                                                </x-admin::form.control-group.control>
+                                            </x-admin::form.control-group>
+                                        </div>
+
+                                        <x-admin::form.control-group class="mb-[10px]">
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('enclaves::app.admin.settings.themes.edit.image_cdn_link')
+                                            </x-admin::form.control-group.label>
+
+                                            <x-admin::form.control-group.control
+                                                type="text"
+                                                name="{{ $currentLocale->code }}[image_cdn_link]"
+                                                ::value="editSlider.image_cdn_link"
+                                                :placeholder="trans('enclaves::app.admin.settings.themes.edit.image_cdn_link')"
+                                            >
+                                            </x-admin::form.control-group.control>
+
+                                            <x-admin::form.control-group.error
+                                                control-name="image_cdn_link"
+                                            >
+                                            </x-admin::form.control-group.error>
+                                        </x-admin::form.control-group>
+                                    </template>
+
                                     <x-admin::form.control-group class="mb-[10px]">
                                         <x-admin::form.control-group.label class="required">
                                             @lang('enclaves::app.admin.settings.themes.edit.button_text')
@@ -571,7 +699,7 @@
                                     <!-- This is customization code -->
                                 </div>
                             </x-slot:content>
-        
+
                             <x-slot:footer>
                                 <div class="flex gap-x-[10px] items-center">
                                     <!-- Save Button -->
@@ -583,12 +711,9 @@
                                     </button>
                                 </div>
                             </x-slot:footer>
-                          </x-admin::modal>
-                      </form>
+                        </x-admin::modal>
+                    </form>
                 </x-admin::form>
-
-
-
             </div>
         </script>
 
@@ -1987,6 +2112,8 @@
                         editSlider: null,
 
                         editRowIndex: null,
+
+                        isUsingCDN: true,
                     };
                 },
                 
@@ -2004,8 +2131,18 @@
                         this.$refs.editSliderModal.toggle();
                         
                         this.editSlider = this.sliders.images[index];
-                        
+
+                        this.isUsingCDN = this.sliders.images[index].isUsingCDN;
+                        console.log(this.isUsingCDN);
+
                         this.editRowIndex = index;
+                    },
+
+                    toggleCdnField(val) {
+                        this.isUsingCDN = val;
+
+
+                        console.log(this.isUsingCDN, val);
                     },
 
                     editSliderImage(params, { resetForm ,setErrors }) {
@@ -2044,36 +2181,71 @@
                         } catch (error) {
                             setErrors({'slider_syntax': [error.message]});
                         }
-                        try {
-                            if (! formData.get("slider_image[]")) {
-                                throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+
+                        if(this.isUsingCDN) {
+                            try {
+                                if (! formData.get('{{ $currentLocale->code }}[image_cdn_link]')) {
+                                    throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                                }
+
+                                delete this.sliders.images[index];
+
+                                this.sliders.images = this.sliders.images.filter( (slider) => {
+                                    return slider;
+                                });
+
+                                this.sliders.images.push({
+                                    isUsingCDN: this.isUsingCDN,
+                                    button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                    slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
+                                    link: formData.get("{{ $currentLocale->code }}[link]"),
+                                    image_cdn_link:formData.get('{{ $currentLocale->code }}[image_cdn_link]'),
+                                });
+
+                                this.$refs.editSliderModal.toggle();
+
+                                resetForm();
+
+                            } catch (error) {
+                                setErrors({'image_cdn_link': [error.message]});
                             }
+                        } else {
+                            try {
+                                if (! formData.get("slider_image[]")) {
+                                    throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                                }
 
-                            const sliderImage = formData.get("slider_image[]");
+                                const sliderImage = formData.get("slider_image[]");
 
-                            delete this.sliders.images[index];
+                                delete this.sliders.images[index];
 
-                            this.sliders.images = this.sliders.images.filter( (slider) => {
-                                return slider;
-                            });
+                                this.sliders.images = this.sliders.images.filter( (slider) => {
+                                    return slider;
+                                });
 
-                            this.sliders.images.push({
-                                slider_image: sliderImage,
-                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
-                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
-                                link: formData.get("{{ $currentLocale->code }}[link]"),
-                            });
+                                this.sliders.images.push({
+                                    slider_image: sliderImage,
+                                    isUsingCDN: this.isUsingCDN,
+                                    button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                    slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
+                                    link: formData.get("{{ $currentLocale->code }}[link]"),
+                                    image_cdn_link:[],
+                                });
 
-                            if (sliderImage instanceof File) {
-                                this.setFile(sliderImage, this.sliders.images.length - 1);
+                                if (sliderImage instanceof File) {
+                                    this.setFile(sliderImage, this.sliders.images.length - 1);
+                                }
+
+                                this.$refs.editSliderModal.toggle();
+
+                                resetForm();
+                            } catch (error) {
+                                setErrors({'slider_image': [error.message]});
                             }
-
-                            this.$refs.editSliderModal.toggle();
-                        } catch (error) {
-                            setErrors({'slider_image': [error.message]});
                         }
                     },
-
+                    
+                    // TODO: Function will optimize.
                     saveSliderImage(params, { resetForm ,setErrors }) {
                         let formData = new FormData(this.$refs.createSliderForm);
 
@@ -2109,30 +2281,56 @@
                             setErrors({'slider_syntax': [error.message]});
                         }
 
-                        try {
-                            if (! formData.get("slider_image[]")) {
-                                throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                        if(this.isUsingCDN) {
+                            try {
+                                if (! formData.get('{{ $currentLocale->code }}[image_cdn_link]')) {
+                                    throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                                }
+                                
+                                this.sliders.images.push({
+                                    isUsingCDN: this.isUsingCDN,
+                                    button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                    slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
+                                    link: formData.get("{{ $currentLocale->code }}[link]"),
+                                    image_cdn_link:formData.get('{{ $currentLocale->code }}[image_cdn_link]'),
+                                });
+
+                                console.log(this.sliders.images);
+
+                                this.$refs.addSliderModal.toggle();
+
+                                resetForm();
+
+                            } catch (error) {
+                                setErrors({'image_cdn_link': [error.message]});
                             }
+                        } else {
+                            try {
+                                if (! formData.get("slider_image[]")) {
+                                    throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                                }
 
-                            const sliderImage = formData.get("slider_image[]");
+                                const sliderImage = formData.get("slider_image[]");
 
-                            this.sliders.images.push({
-                                slider_image: sliderImage,
-                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
-                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
-                                link: formData.get("{{ $currentLocale->code }}[link]"),
-                            });
+                                this.sliders.images.push({
+                                    slider_image: sliderImage,
+                                    isUsingCDN: this.isUsingCDN,
+                                    button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                    slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
+                                    link: formData.get("{{ $currentLocale->code }}[link]"),
+                                    image_cdn_link:[],
+                                });
 
-                            if (sliderImage instanceof File) {
-                                this.setFile(sliderImage, this.sliders.images.length - 1);
+                                if (sliderImage instanceof File) {
+                                    this.setFile(sliderImage, this.sliders.images.length - 1);
+                                }
+
+                                this.$refs.addSliderModal.toggle();
+
+                                resetForm();
+                            } catch (error) {
+                                setErrors({'slider_image': [error.message]});
                             }
-
-                            this.$refs.addSliderModal.toggle();
-
-                            resetForm();
-
-                        } catch (error) {
-                            setErrors({'slider_image': [error.message]});
                         }
                     },
 
