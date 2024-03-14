@@ -15,5 +15,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Event::listen('bagisto.admin.setting.theme.edit.form.images.before', function($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::admin.components.image.index');
+        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Webkul\Enclaves\Http\Controllers\Admin\ThemeController;
 
 /**
- * Settings routes.
+ * Settings routes. 
  */
 Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], function () {  
 
