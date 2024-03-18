@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\Ekyc\Http\Controllers\EkycController;
+use Webkul\Ekyc\Http\Controllers\MinCartController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
     Route::controller(EkycController::class)->prefix('checkout/ekyc')->group(function () {
@@ -14,5 +15,9 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         Route::get('/verifying', 'verifying')->name('ekyc.verification.verifying');
 
         Route::post('/customer-login', 'customerLogin')->name('ekyc.verification.customer.login');
+    });
+
+    Route::controller(MinCartController::class)->prefix('checkout/property-verification')->group(function () {
+        Route::get('url', 'verifyUrl')->name('ekyc.property.verfiy-url');
     });
 });

@@ -4,12 +4,12 @@ namespace Webkul\Ekyc\Http\Controllers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Ekyc\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Checkout\Repositories\CartRepository;
 use Webkul\Product\Repositories\ProductRepository;
-use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
+use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
 
 class EkycController extends Controller
 {

@@ -10,7 +10,7 @@
         <div class="grid gap-2.5 relative min-w-[350px] max-w-[350px]"
             v-if="mode != 'list'"
             @click="productConfirmModal(product)"
-        >
+            >
             <div class="relative overflow-hidden  group max-w-[350px] max-h-[289px] rounded-[20px]">
                 <x-shop::media.images.lazy
                     class="rounded bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300"

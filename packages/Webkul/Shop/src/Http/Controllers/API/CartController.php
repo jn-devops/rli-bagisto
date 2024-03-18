@@ -79,6 +79,7 @@ class CartController extends APIController
                     ]);
                 }
 
+                // TODO : this is customization.
                 if (request()->get('is_buy_now')) {
                     Event::dispatch('shop.item.buy-now', request()->input('product_id'));
 
@@ -94,6 +95,7 @@ class CartController extends APIController
                         'message'       => trans('shop::app.checkout.cart.item-add-to-cart'),
                     ]);
                 }
+                // TODO : this is customization.
 
                 return new JsonResource([
                     'data'     => new CartResource(Cart::getCart()),

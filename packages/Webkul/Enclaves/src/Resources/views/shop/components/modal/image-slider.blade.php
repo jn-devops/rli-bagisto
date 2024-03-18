@@ -74,7 +74,7 @@
                     >
                     </span>
 
-                    <div class="w-full max-w-[1179px] z-[999] inline-table absolute left-[50%] top-[50%] bg-[#F5F5F5] max-md:w-[80%] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white dark:bg-gray-900 box-shadow">
+                    <div class="w-full max-w-[700px] z-[999] inline-table absolute left-[50%] top-[50%] bg-[#F5F5F5] max-md:w-[80%] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white dark:bg-gray-900 box-shadow">
                         <slot name="content"></slot>
                     </div>
                 </div>
