@@ -87,7 +87,7 @@
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
                 >
-                    <div class="w-full relative m-auto">
+                    <div class="relative m-auto">
                         <div
                             v-for="(image, index) in media.images"
                             class="fade p-10"
@@ -97,7 +97,7 @@
                         >
                             <img
                                 :src="image.large_image_url"
-                                class="rounded-[5px] cursor-pointer w-full h-[480px]"
+                                class="w-full rounded-[5px] cursor-pointer h-[480px]"
                                 alt="@lang('shop::app.products.view.gallery.product-image')"
                             />
                         </div>

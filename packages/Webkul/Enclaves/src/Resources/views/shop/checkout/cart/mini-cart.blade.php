@@ -1,4 +1,4 @@
-{{-- Mini Cart Vue Component --}}
+<!-- Mini Cart Vue Component -->
 <v-mini-cart>
     <span class="icon-cart text-[24px] cursor-pointer"></span>
 </v-mini-cart>
@@ -6,20 +6,20 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-mini-cart-template">
         <x-shop::drawer>
-            <!-- Drawer Toggler -->
+        <!-- ekyc.verification.index -->
             <x-slot:toggle>
+                <!-- Drawer Toggler -->
                 <span class="relative">
                     <span class="icon-cart text-[24px] cursor-pointer"></span>
 
                     <span
-                        class="absolute  px-[7px] top-[-15px] left-[18px] py-[5px] bg-[#060C3B] rounded-[44px] text-white text-[10px] font-semibold leading-[9px]"
+                        class="absolute px-[7px] top-[-15px] left-[18px] py-[5px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[44px] text-white text-[10px] font-semibold leading-[9px]"
                         v-if="cart?.items_qty"
                     >
                         @{{ cart.items_qty }}
                     </span>
                 </span>
             </x-slot:toggle>
-
             <!-- Drawer Header -->
             <x-slot:header>
                 <div class="flex justify-between items-center">
@@ -27,10 +27,6 @@
                         @lang('shop::app.checkout.cart.mini-cart.shopping-cart')
                     </p>
                 </div>
-
-                <p class="text-[16px]">
-                    @lang('shop::app.checkout.cart.mini-cart.offer-on-orders')
-                </p>
             </x-slot:header>
 
             <!-- Drawer Content -->
@@ -115,6 +111,9 @@
                                 >
                                     @lang('shop::app.checkout.cart.mini-cart.remove')
                                 </button>
+
+                                <!-- ::loading="isStoring"
+                                ::disabled="isStoring" -->
                             </div>
                         </div>
                     </div>
@@ -152,12 +151,13 @@
 
                     <!-- Cart Action Container -->
                     <div class="px-[25px]">
-                        <a
-                            href="{{ route('shop.checkout.onepage.index') }}"
-                            class="block w-full mx-auto m-0 ml-[0px] py-[15px] px-[43px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-sm:px-[20px]"
-                        >
-                            @lang('shop::app.checkout.cart.mini-cart.continue-to-checkout')
-                        </a>
+                        <button
+                            @click="handleKycVerificationRedirect"
+                            class="block w-full mx-auto m-0 ml-[0px] py-[15px] px-[43px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-sm:px-[20px]"
+                            >
+                            @lang('enclaves::app.authentication.authenticate')
+                        </button>
+
                     </div>
                 </div>
             </x-slot:footer>
@@ -171,6 +171,8 @@
             data() {
                 return  {
                     cart: null,
+
+                    verificationUrl: null,
                 }
             },
 
@@ -189,31 +191,17 @@
 
            methods: {
                 getCart() {
-                    this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
+                    this.$axios.get('{{ route("shop.api.checkout.cart.index") }}')
                         .then(response => {
                             this.cart = response.data.data;
-                        })
-                        .catch(error => {});
-                },
 
-                updateItem(quantity, item) {
-                    let qty = {};
-
-                    qty[item.id] = quantity;
-
-                    this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty })
-                        .then(response => {
-                            if (response.data.message) {
-                                this.cart = response.data.data;
-                            } else {
-                                this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
-                            }
+                            this.getReqirectURL();
                         })
                         .catch(error => {});
                 },
 
                 removeItem(itemId) {
-                    this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {
+                    this.$axios.post('{{ route("shop.api.checkout.cart.destroy") }}', {
                             '_method': 'DELETE',
                             'cart_item_id': itemId,
                         })
@@ -224,6 +212,18 @@
                         })
                         .catch(error => {});
                 },
+
+                getReqirectURL() {
+                    this.$axios.get("{{ route('ekyc.property.verfiy-url') }}")
+                        .then(response => {
+                            this.verificationUrl = response.data.data.ekyc_redirect;
+                        })
+                        .catch(error => {});
+                },
+
+                handleKycVerificationRedirect() {
+                   window.open(this.verificationUrl, "_self");
+                }
             }
         });
     </script>

@@ -43,12 +43,13 @@
     <script type="text/x-template" id="v-drawer-template">
         <div>
             <!-- Toggler -->
-            <div @click="open">
-                <slot name="toggle">
-                    @lang('admin::app.components.drawer.default-toggle')
-                </slot>
-            </div>
-
+            @if (! Request::routeIs('ekyc.verification.index'))
+                <div @click="open">
+                    <slot name="toggle">
+                        @lang('admin::app.components.drawer.default-toggle')
+                    </slot>
+                </div>
+            @endif
             <!-- Overlay -->
             <transition
                 tag="div"

@@ -29,7 +29,7 @@
   }
 
   .rli-title {
-    @apply font-bold text-[80px] leading-[96px];
+    @apply font-bold text-[70px] leading-[86px];
   }
 
   @media (max-width: 1024px) {
