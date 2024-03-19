@@ -4,7 +4,6 @@ namespace Webkul\Shop\Http\Resources;
 
 use Webkul\Tax\Helpers\Tax;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
 
 class CartResource extends JsonResource
 {
@@ -19,13 +18,12 @@ class CartResource extends JsonResource
         $taxes = collect(Tax::getTaxRatesWithAmount($this, true))->map(function ($rate) {
             return core()->currency($rate ?? 0);
         });
-        
+
         return [
             'id'                             => $this->id,
             'items_count'                    => $this->items_count,
             'items_qty'                      => $this->items_qty,
             'grand_total'                    => $this->grand_total,
-            'processing_fee'                 => core()->currency($this->processing_fee * $this->items_qty),
             'base_sub_total'                 => core()->currency($this->base_sub_total),
             'base_tax_total'                 => $this->base_tax_total,
             'base_tax_amounts'               => $taxes,
@@ -47,7 +45,11 @@ class CartResource extends JsonResource
             'shipping_address'               => $this->shipping_address,
             'haveStockableItems'             => $this->haveStockableItems(),
             'payment_method'                 => $this->payment ? core()->getConfigData('sales.payment_methods.' . $this->payment->method . '.title') : '',
+            
+            // Customization code
             'property_code'                  => $this->property_code ?? 0,
+            'processing_fee'                 => core()->currency($this->processing_fee * $this->items_qty),
+            // Customization code
         ];
     }
 }

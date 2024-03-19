@@ -91,13 +91,15 @@ class ShipmentRepository extends Repository
                     'qty'            => $qty,
                     'weight'         => $orderItem->weight * $qty,
                     'price'          => $orderItem->price,
-                    'processing_fee' => $orderItem->processing_fee,
                     'base_price'     => $orderItem->base_price,
-                    'total'          => ($orderItem->price + $orderItem->processing_fee) * $qty,
                     'base_total'     => $orderItem->base_price * $qty,
                     'product_id'     => $orderItem->product_id,
                     'product_type'   => $orderItem->product_type,
                     'additional'     => $orderItem->additional,
+                    
+                    // Customization code
+                    'total'          => ($orderItem->price + $orderItem->processing_fee) * $qty,
+                    'processing_fee' => $orderItem->processing_fee,
                 ]);
 
                 if ($orderItem->getTypeInstance()->isComposite()) {

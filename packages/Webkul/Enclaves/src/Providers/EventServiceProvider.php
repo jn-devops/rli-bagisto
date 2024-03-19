@@ -7,6 +7,16 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 class EventServiceProvider extends ServiceProvider
 {
+/**
+     * The event handler mappings for the application.
+     *
+     * @var array
+     */
+    protected $listen = [
+        'checkout.cart.collect.totals.after'  => [
+            'Webkul\Enclaves\Listeners\Cart@afterCreate',
+        ],
+    ];
 
     /**
      * Bootstrap services.

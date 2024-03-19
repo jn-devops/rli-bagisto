@@ -9,17 +9,17 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-products-carousel-template">
         <!-- Section new place made just for you -->
-        <div class="container max-lg:px-[30px] max-sm:mt-[30px] mt-10">
+        <div class="container max-lg:px-[30px] max-sm:mt-[30px]">
             <div class="flex justify-end items-center gap-8 mt-[16px]" v-if="products.length">
                 <div class="inline-flex gap-7">
                     <span 
-                        class="icon-arrow-left-stylish text-[24px] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
+                        class="icon-arrow-left-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
                         @click="swipeLeft"
                     >
                     </span>
 
                     <span 
-                        class="icon-arrow-right-stylish text-[24px] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
+                        class="icon-arrow-right-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
                         @click="swipeRight"
                         >
                     </span>
@@ -28,7 +28,7 @@
 
             <div
                 ref="swiperContainer"
-                class="flex gap-14 mt-[60px] overflow-auto scrollbar-hide max-sm:mt-[20px]"
+                class="flex gap-14 mt-[22px] overflow-auto scrollbar-hide max-sm:mt-[20px]"
             >
                 <x-shop::products.card v-for="product in products"/>
             </div>

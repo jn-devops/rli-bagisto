@@ -20,7 +20,9 @@
                 </h2>
 
                 <div class="mb-14">
-                    <h1 class="font-bold text-[25px]">@lang('enclaves::app.customers.inquiries.help_test')</h1>
+                    <h1 class="font-bold text-[25px]">
+                        @lang('enclaves::app.customers.inquiries.help_test')
+                    </h1>
                 </div>
 
                 <div class="flex flex-col md:px-6 xl:flex-row gap-11">
@@ -121,14 +123,13 @@
                     <x-slot:header>
                         <div>@lang('Is it safe to buy or rent property online?')</div>
                     </x-slot:header>
-                    <x-slot:content>
 
+                    <x-slot:content>
                         <x-shop::layouts.read-more-smooth 
                                 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."                                    
                                 limit="400"
                             >
                         </x-shop::layouts.read-more-smooth>
-
                     </x-slot:content>
                 </x-shop::accordion.custom-accordion>
 
@@ -136,14 +137,13 @@
                     <x-slot:header>
                         <div>@lang('Is it safe to buy or rent property online?')</div>
                     </x-slot:header>
-                    <x-slot:content>
 
+                    <x-slot:content>
                         <x-shop::layouts.read-more-smooth 
                                 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."                                    
                                 limit="400"
                             >
                         </x-shop::layouts.read-more-smooth>
-
                     </x-slot:content>
                 </x-shop::accordion.custom-accordion>
 
@@ -199,7 +199,7 @@
                                     </x-shop::form.control-group>
 
                                     <!-- Image Input -->
-                                    <div class="mx-[28px]">
+                                    <div class="mx-[28px] max-w-[155px]">
                                         <img
                                             v-if="imagePreviewURL"
                                             :src="imagePreviewURL"
@@ -216,11 +216,11 @@
                                         >
 
                                         <label
+                                            role="button"
                                             for="upload-file"
                                             refs="upload-file"
-                                            class="primary-button flex gap-2 py-[8px] px-[20px] rounded-[18px] max-sm:text-[14px] max-sm:px-[8px] !bg-[#F8EBEB] text-[#CC035C] border-[#F8EBEB] my-[15px]"
+                                            class="primary-button flex gap-2 py-[8px] px-[20px] rounded-[18px] !bg-[#F8EBEB] text-[#CC035C] border-[#F8EBEB] my-[15px]"
                                         >
-
                                             <img 
                                                 src="{{ bagisto_asset('images/upload-file.png') }}" 
                                                 alt="upload-file" 
@@ -228,6 +228,7 @@
                                             />
 
                                             {{ 'Upload Files' }}
+                                            
                                         </label>
                                     </div>
                                 </div>
@@ -240,7 +241,7 @@
                                 <div class="flex mb-5">
                                     <button
                                         type="submit"
-                                        class="primary-button flex py-[11px] px-[30px] rounded-[15px] max-sm:text-[14px] max-sm:px-[25px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 border-[#F8EBEB]"
+                                        class="primary-button flex py-[11px] px-[30px] rounded-[15px] max-sm:text-[14px] max-sm:px-[25px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 border-[#F8EBEB] text-white"
                                     >
                                         @lang('enclaves::app.customers.inquiries.submit')
                                     </button>

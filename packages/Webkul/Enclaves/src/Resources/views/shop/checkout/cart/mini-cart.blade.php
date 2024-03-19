@@ -1,4 +1,3 @@
-<!-- Mini Cart Vue Component -->
 <v-mini-cart>
     <span class="icon-cart text-[24px] cursor-pointer"></span>
 </v-mini-cart>
@@ -6,9 +5,7 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-mini-cart-template">
         <x-shop::drawer>
-        <!-- ekyc.verification.index -->
             <x-slot:toggle>
-                <!-- Drawer Toggler -->
                 <span class="relative">
                     <span class="icon-cart text-[24px] cursor-pointer"></span>
 
@@ -20,7 +17,7 @@
                     </span>
                 </span>
             </x-slot:toggle>
-            <!-- Drawer Header -->
+
             <x-slot:header>
                 <div class="flex justify-between items-center">
                     <p class="text-[26px] font-medium">
@@ -29,9 +26,7 @@
                 </div>
             </x-slot:header>
 
-            <!-- Drawer Content -->
             <x-slot:content>
-                <!-- Cart Item Listing -->
                 <div 
                     class="grid gap-[50px] mt-[35px]" 
                     v-if="cart?.items?.length"
@@ -40,7 +35,7 @@
                         class="flex gap-x-[20px]" 
                         v-for="item in cart?.items"
                     >
-                        <!-- Cart Item Image -->
+
                         <div class="">
                             <img
                                 :src="item.base_image.small_image_url"
@@ -48,7 +43,6 @@
                             />
                         </div>
 
-                        <!-- Cart Item Information -->
                         <div class="grid flex-1 gap-y-[10px] place-content-start justify-stretch">
                             <div class="flex flex-wrap justify-between">
                                 
@@ -63,14 +57,18 @@
                                     v-text="item.formatted_price"
                                 >
                                 </p>
+
+                                <p class="text-[18px]">
+                                    <span class="font-bold">@lang('enclaves::app.product.reservation-fee')</span>
+                                    <span v-text="cart?.processing_fee"></span>
+                                </p>
+
                             </div>
 
-                            <!-- Cart Item Options Container -->
                             <div
                                 class="grid gap-x-[10px] gap-y-[6px] select-none"
                                 v-if="item.options.length"
                             >
-                                <!-- Details Toggler -->
                                 <div class="">
                                     <p
                                         class="flex gap-x-[15px] items-center text-[16px] cursor-pointer"
@@ -85,7 +83,6 @@
                                     </p>
                                 </div>
 
-                                <!-- Option Details -->
                                 <div class="grid gap-[8px]" v-show="item.option_show">
                                     <div class="" v-for="option in item.options">
                                         <p class="text-[14px]">
@@ -97,13 +94,10 @@
                                             </span>
                                         </p>
                                     </div>
-
                                 </div>
                             </div>
 
                             <div class="flex gap-[20px] items-center flex-wrap">
-
-                                <!-- Cart Item Remove Button -->
                                 <button
                                     type="button"
                                     class="text-[#0A49A7]"
@@ -111,15 +105,11 @@
                                 >
                                     @lang('shop::app.checkout.cart.mini-cart.remove')
                                 </button>
-
-                                <!-- ::loading="isStoring"
-                                ::disabled="isStoring" -->
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Empty Cart Section -->
                 <div
                     class="pb-[30px]"
                     v-else
@@ -134,7 +124,6 @@
                 </div>
             </x-slot:content>
 
-            <!-- Drawer Footer -->
             <x-slot:footer>
                 <div v-if="cart?.items?.length">
                     <div class="flex justify-between items-center mt-[60px] mb-[30px] px-[25px] pb-[8px] border-b-[1px] border-[#E9E9E9]">
@@ -149,15 +138,13 @@
                         </p>
                     </div>
 
-                    <!-- Cart Action Container -->
                     <div class="px-[25px]">
                         <button
                             @click="handleKycVerificationRedirect"
                             class="block w-full mx-auto m-0 ml-[0px] py-[15px] px-[43px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-sm:px-[20px]"
                             >
-                            @lang('enclaves::app.authentication.authenticate')
+                            @lang('enclaves::app.product.reserve_now')
                         </button>
-
                     </div>
                 </div>
             </x-slot:footer>
@@ -212,6 +199,7 @@
                         })
                         .catch(error => {});
                 },
+
 
                 getReqirectURL() {
                     this.$axios.get("{{ route('ekyc.property.verfiy-url') }}")
