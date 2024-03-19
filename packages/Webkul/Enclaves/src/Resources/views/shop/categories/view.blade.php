@@ -118,7 +118,15 @@
                                                 >
                                                 </p>
 
-                                                <span class="cursor-pointer text-2xl icon-heart absolute right-[10px]"></span>
+                                                <span 
+                                                    class="cursor-pointer text-2xl absolute right-[10px]"
+                                                    :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
+                                                    role="button"
+                                                    tabindex="0"
+                                                    aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
+                                                    @click="addToWishlist(product.id)"
+                                                >
+                                                </span>
                                             </div>
 
                                             <div class="grid items-center gap-5 flex-wrap justify-between max-425:grid">
@@ -147,7 +155,7 @@
                                                     @click="redirectToProduct(product)"
                                                     class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                                                 >
-                                                    @lang('enclaves::app.customers.choose-area')
+                                                    @lang('enclaves::app.customers.choose-unit')
                                                 </button>
                                             </div>
                                         </div>
@@ -217,24 +225,32 @@
                                                         @click="redirectToProduct(product)"
                                                     ></p>
                                                 
-                                                    <span class="cursor-pointer text-2xl icon-heart absolute right-[10px]"></span>
+                                                    <span 
+                                                        class="cursor-pointer text-2xl absolute right-[10px]"
+                                                        :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
+                                                        role="button"
+                                                        tabindex="0"
+                                                        aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
+                                                        @click="addToWishlist(product.id)"
+                                                    >
+                                                    </span>
+                                                </div>
+
+                                                
+                                                <div class="grid gap-[12px]">
+                                                    <p class="text-[16px] font-medium font-popins text-[#A0A0A0]">
+                                                        @lang('enclaves::app.customers.total-contract-price')
+                                                    </p>
                                                 </div>
 
                                                 <div class="grid grid-cols-2 items-center justify-between max-425:grid">
-                                                    <div class="grid gap-[12px]">
-
-                                                        <p class="text-[20px] font-medium font-popins" v-html="product.price_html"></p>
-
-                                                        <p class="text-[16px] font-medium font-popins text-[#A0A0A0]">
-                                                            @lang('enclaves::app.customers.total-contract-price')
-                                                        </p>
-                                                    </div>
+                                                    <div class="text-[20px] font-medium font-popins text-wrap" v-html="product.price_html"></div>
 
                                                     <button
                                                         @click="redirectToProduct(product)"
                                                         class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                                                     >
-                                                        @lang('enclaves::app.customers.choose-area')
+                                                        @lang('enclaves::app.customers.choose-unit')
                                                     </button>
                                                 </div>
                                             </div>
@@ -301,6 +317,7 @@
 
                         links: {},
 
+                        isCustomer: '{{ auth()->guard("customer")->check() }}',
                     }
                 },
 
@@ -394,7 +411,21 @@
 
                     redirectToProduct(product) {
                         window.location.href = `{{ route('shop.product_or_category.index', '') }}/` + product.url_key;
-                    }
+                    },
+
+                    addToWishlist(product_id) {
+                        if (this.isCustomer) {
+                            this.$axios.post(`{{ route('shop.api.customers.account.wishlist.store') }}`, {
+                                    product_id: product_id
+                                })
+                                .then(response => {
+                                    location.reload();
+                                })
+                                .catch(error => {});
+                            } else {
+                                window.location.href = "{{ route('shop.customer.session.index')}}";
+                            }
+                    },
                 },
             });
         </script>

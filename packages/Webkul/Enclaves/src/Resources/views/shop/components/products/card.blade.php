@@ -39,23 +39,22 @@
                     class="text-[20px] font-bold font-popins" 
                     v-text="product.name"
                 ></p>
-                <div class="flex items-center gap-5 justify-between max-425:grid">
-                    
-                    <div class="grid gap-[12px]">
-                        <p 
-                            class="text-[20px] font-medium font-popins"
-                            v-html="product.price_html"
-                        >
-                        </p>
-                        <p class="text-[16px] font-medium font-popins text-[#A0A0A0]">@lang('enclaves::app.customers.total-contract-price')</p>
-                    </div>
-                    <a 
-                        href="javascript:void(0)"
+                
+                <div class="grid gap-[12px]">
+                    <p class="text-[16px] font-medium font-popins text-[#A0A0A0]">
+                        @lang('enclaves::app.customers.total-contract-price')
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 items-center justify-between max-425:grid">
+                    <div class="text-[20px] font-medium font-popins text-wrap" v-html="product.price_html"></div>
+
+                    <button
                         @click="productConfirmModal(product)"
                         class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                     >
-                        @lang('enclaves::app.customers.choose-area')
-                    </a>
+                        @lang('enclaves::app.customers.choose-unit')
+                    </button>
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@ namespace Webkul\Checkout;
 
 use Illuminate\Support\Arr;
 use Webkul\Tax\Helpers\Tax;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
 use Webkul\Checkout\Traits\CartTools;
 use Webkul\Shipping\Facades\Shipping;
@@ -17,10 +16,8 @@ use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Tax\Repositories\TaxCategoryRepository;
 use Webkul\Checkout\Repositories\CartItemRepository;
 use Webkul\Customer\Repositories\WishlistRepository;
-use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Checkout\Repositories\CartAddressRepository;
 use Webkul\Customer\Repositories\CustomerAddressRepository;
-use Webkul\Product\Repositories\ProductAttributeValueRepository;
 
 class Cart
 {
@@ -498,26 +495,6 @@ class Cart
             $cart->sub_total = (float) $cart->sub_total + $item->total;
             $cart->base_sub_total = (float) $cart->base_sub_total + $item->base_total;
 
-            $attribute = app(AttributeRepository::class)->findOneByField('code', 'processing_fee');
-
-            if (! empty($item->additional['selected_configurable_option'])) {
-                $attributeValue = app(ProductAttributeValueRepository::class)
-                                    ->findOneWhere([
-                                        'product_id'   => $item->product_id,
-                                        'attribute_id' => $attribute->id
-                                    ]);
-
-                $attributeInValue = 0;
-
-                if ($attributeValue) {
-                    $attributeInValue = ((float)$attributeValue->float_value);
-                }
-
-                $cart->processing_fee = $attributeInValue;
-            } else {
-                $cart->processing_fee = $cart->processing_fee;
-            }
-
             $quantities += $item->quantity;
         }
 
@@ -527,9 +504,9 @@ class Cart
 
         $cart->tax_total = Tax::getTaxTotal($cart, false);
         $cart->base_tax_total = Tax::getTaxTotal($cart, true);
-       
-        $cart->grand_total = $cart->sub_total + $cart->tax_total + ($cart->processing_fee ?? 0) - $cart->discount_amount;
-        $cart->base_grand_total = $cart->base_sub_total + $cart->base_tax_total + ($cart->processing_fee ?? 0) - $cart->base_discount_amount;
+
+        $cart->grand_total = $cart->sub_total + $cart->tax_total - $cart->discount_amount;
+        $cart->base_grand_total = $cart->base_sub_total + $cart->base_tax_total - $cart->base_discount_amount;
 
         if ($shipping = $cart->selected_shipping_rate) {
             $cart->grand_total = (float) $cart->grand_total + $shipping->price - $shipping->discount_amount;
@@ -549,7 +526,7 @@ class Cart
         $cart->base_grand_total = round($cart->base_grand_total, 2);
 
         $cart->cart_currency_code = core()->getCurrentCurrencyCode();
-     
+
         $cart->save();
 
         Event::dispatch('checkout.cart.collect.totals.after', $cart);
@@ -829,8 +806,6 @@ class Cart
             'channel_currency_code' => $data['channel_currency_code'],
             'order_currency_code'   => $data['cart_currency_code'],
             'grand_total'           => $data['grand_total'],
-            'processing_fee'        => ($this->getCart()->processing_fee * $data['items_qty']),
-            'property_code'         => $this->getCart()->property_code,
             'base_grand_total'      => $data['base_grand_total'],
             'sub_total'             => $data['sub_total'],
             'base_sub_total'        => $data['base_sub_total'],
@@ -843,6 +818,12 @@ class Cart
             'billing_address'       => Arr::except($data['billing_address'], ['id', 'cart_id']),
             'payment'               => Arr::except($data['payment'], ['id', 'cart_id']),
             'channel'               => core()->getCurrentChannel(),
+
+            // customization code
+            'processing_fee'        => ($this->getCart()->processing_fee * $data['items_qty']),
+            'property_code'         => $this->getCart()->property_code,
+            // customization code
+
         ];
         
         /**
@@ -892,8 +873,6 @@ class Cart
             'base_price'           => $data['base_price'],
             'total'                => $data['total'],
             'base_total'           => $data['base_total'],
-            'processing_fee'       => $this->getCart()->processing_fee,
-            'property_code'        => $this->getCart()->property_code,
             'tax_percent'          => $data['tax_percent'],
             'tax_amount'           => $data['tax_amount'],
             'base_tax_amount'      => $data['base_tax_amount'],
@@ -901,6 +880,11 @@ class Cart
             'discount_amount'      => $data['discount_amount'],
             'base_discount_amount' => $data['base_discount_amount'],
             'additional'           => array_merge($data['additional'] ?? [], ['locale' => core()->getCurrentLocale()->code]),
+
+            // customization code
+            'processing_fee'       => $this->getCart()->processing_fee,
+            'property_code'        => $this->getCart()->property_code,
+            // customization code
         ];
 
         if (! empty($data['children'])) {

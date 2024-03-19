@@ -40,7 +40,7 @@ class MinCartController extends Controller
 
         $productSlug = '';
 
-        if($cart->items->first()) {
+        if($cart) {
             $productSlug = Str::slug(strtolower($cart->items->first()->name));
 
             return new JsonResource([

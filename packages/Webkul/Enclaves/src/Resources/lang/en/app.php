@@ -31,7 +31,7 @@ return [
             ],
         ],
 
-        'choose-area'          => 'Choose Area',
+        'choose-unit'          => 'Choose Unit',
         'total-contract-price' => 'Total Contract Price',
     ],
 
@@ -49,13 +49,17 @@ return [
         'most-view' => [
             'title'          => 'Most Viewed Properties',
             'contract-price' => 'Total Contract Price',
-            'choose-area'    => 'Choose Area',
+            'choose-unit'    => 'Choose Unit',
         ]
     ],
 
     'product' =>  [
-        'reserve_now'    => 'Reserve Now',
-        'contract-price' => 'Total Contract Price:',
+        'reserve_now'     => 'Reserve Now',
+        'reservation-fee' => 'Reservation Fee: ',
+        'contract-price'  => 'Total Contract Price:',
+        'cart'  => [
+            'add-to-cart' => 'Choose Unit',
+        ],
     ],
 
     'authentication' => [
