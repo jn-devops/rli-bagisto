@@ -31,7 +31,7 @@ class Tickets extends TranslatableModel implements TicketsContract
     protected $fillable = [
         'customer_id',
         'ticket_reason_id',
-        'status',
+        'ticket_status_id',
         'comment',
     ];
 

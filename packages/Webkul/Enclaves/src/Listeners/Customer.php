@@ -10,7 +10,7 @@ use Webkul\Enclaves\Mail\Customer\UpdateCustomerNotification;
 class Customer
 {
     /**
-     * After order is created
+     * After Customer is created
      *
      * @return void
      */
@@ -31,6 +31,11 @@ class Customer
         }
     }
 
+    /**
+     * After Customer is updated
+     *
+     * @return void
+     */
     public function afterUpdate()
     {
         if(! $password = request('password_confirmation')) {

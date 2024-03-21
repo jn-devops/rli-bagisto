@@ -60,7 +60,7 @@
 
                                 <p class="text-[18px]">
                                     <span class="font-bold">@lang('enclaves::app.shop.product.reservation-fee')</span>
-                                    <span v-text="cart?.processing_fee"></span>
+                                    <span class="text-red-600 font-bold" v-text="cart?.processing_fee"></span>
                                 </p>
 
                             </div>

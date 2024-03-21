@@ -63,10 +63,10 @@ class InquiriesController extends Controller
         $data = [
             'customer_id'      => auth()->guard('admin')->user()->id,
             'ticket_reason_id' => 1,
-            'status'           => 1,
+            'ticket_status_id' => 1,
             'comment'          => $request['comment'],
         ];
-
+        
         $ticket = $this->ticketsRepository->create($data);
 
         $this->ticketsRepository->uploadImages($ticket);

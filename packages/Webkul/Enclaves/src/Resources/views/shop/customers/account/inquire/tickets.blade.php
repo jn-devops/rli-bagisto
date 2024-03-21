@@ -30,13 +30,13 @@
                         </div>
                     </div>
                 </x-slot:header>
+
                 <x-slot:content>
                     {{ $ticket->comment }}
 
                     <div>
                         @foreach ($ticket->files as $file)
-                        <img src="{{ env('STORAGE_URL') }}/app/public/{{ $file->path. '/'. $file->name }}" alt="{{ $file->name }}" class="h-[100px] w-[100px]">
-                        
+                            <img src="{{ env('STORAGE_URL') }}/app/public/{{ $file->path. '/'. $file->name }}" alt="{{ $file->name }}" class="h-[100px] w-[100px]">
                         @endforeach
                     </div>
                 </x-slot:content>
