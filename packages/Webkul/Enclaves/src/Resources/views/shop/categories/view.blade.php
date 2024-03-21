@@ -71,7 +71,7 @@
                         </div>
 
                         <!-- Product List Card Container -->
-                        <div v-if="filters.toolbar.mode === 'list'">
+                        <div v-if="filters.toolbar.mode === 'list'" class="grid grid-cols-1 gap-6 mt-8">
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
                                 <x-shop::shimmer.products.cards.list count="12"></x-shop::shimmer.products.cards.list>
@@ -82,10 +82,10 @@
                                 <template v-if="products.length">
                                     <div
                                         v-for="product in products"
-                                        class="grid gap-2.5 grid-cols-2 relative max-sm:grid-cols-1 mt-[20px]"
+                                        class="flex gap-4 grid-cols-2 max-w-max relative max-sm:flex-wrap rounded overflow-hidden"
                                         >
 
-                                        <div class="relative overflow-hidden group max-w-[350px] max-h-[289px] rounded-[20px]">
+                                        <div class="relative overflow-hidden group max-w-[350px] min-w-[280px] max-h-[289px] rounded-[20px]">
                                             <x-shop::media.images.lazy
                                                 @click="redirectToProduct(product)"
                                                 class="rounded-sm bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -109,24 +109,24 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid gap-2.5 content-start relative">
+                                        <div class="grid gap-2.5 w-full content-start relative">
                                             <div class="flex gap-[16px]">
-                                                <p 
+                                                <div 
                                                     class="text-[16px] font-bold font-popins pr-[30px] cursor-pointer" 
                                                     v-text="product.name"
                                                     @click="redirectToProduct(product)"
                                                 >
-                                                </p>
+                                                </div>
 
-                                                <span 
-                                                    class="cursor-pointer text-2xl absolute right-[10px]"
+                                                <div 
+                                                    class="cursor-pointer text-2xl absolute right-[0px]"
                                                     :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
                                                     role="button"
                                                     tabindex="0"
                                                     aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
                                                     @click="addToWishlist(product.id)"
                                                 >
-                                                </span>
+                                                </div>
                                             </div>
 
                                             <div class="grid items-center gap-5 flex-wrap justify-between max-425:grid">
