@@ -59,7 +59,7 @@
                                 </p>
 
                                 <p class="text-[18px]">
-                                    <span class="font-bold">@lang('enclaves::app.product.reservation-fee')</span>
+                                    <span class="font-bold">@lang('enclaves::app.shop.product.reservation-fee')</span>
                                     <span v-text="cart?.processing_fee"></span>
                                 </p>
 
@@ -133,7 +133,7 @@
 
                         <p
                             class="text-[30px] font-semibold"
-                            v-text="cart.formatted_grand_total"
+                            v-text="cart?.processing_fee"
                         >
                         </p>
                     </div>
@@ -143,7 +143,7 @@
                             @click="handleKycVerificationRedirect"
                             class="block w-full mx-auto m-0 ml-[0px] py-[15px] px-[43px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-sm:px-[20px]"
                             >
-                            @lang('enclaves::app.product.reserve_now')
+                            @lang('enclaves::app.shop.product.reserve-now')
                         </button>
                     </div>
                 </div>

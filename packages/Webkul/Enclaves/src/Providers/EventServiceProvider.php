@@ -16,6 +16,12 @@ class EventServiceProvider extends ServiceProvider
         'checkout.cart.collect.totals.after'  => [
             'Webkul\Enclaves\Listeners\Cart@afterCreate',
         ],
+        'customer.registration.after' => [
+            'Webkul\Enclaves\Listeners\Customer@afterCreate',
+        ],
+        'customer.update.after' => [
+            'Webkul\Enclaves\Listeners\Customer@afterUpdate',
+        ],
     ];
 
     /**
@@ -27,6 +33,14 @@ class EventServiceProvider extends ServiceProvider
     {
         Event::listen('bagisto.admin.setting.theme.edit.form.images.before', function($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('enclaves::admin.components.image.index');
+        });
+
+        Event::listen('bagisto.admin.customers.create.after', function($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::admin.customers.form.create.index');
+        });
+
+        Event::listen('bagisto.admin.customers.customers.edit.after', function($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::admin.customers.form.edit.index');
         });
     }
 }

@@ -21,7 +21,7 @@
                         class="text-[40px] font-bold mt-[26px] leading-[48px] max-sm:text-[26px] max-sm:leading-[36px]"
                         :class="opacity"
                     >
-                        @lang('enclaves::app.authentication.title')
+                        @lang('enclaves::app.shop.authentication.title')
                     </h1>
                 </div>
            
@@ -29,7 +29,7 @@
                     class="text-[20px] mt-[50px] max-sm:text-[16px] max-sm:mt-[25px]" 
                     :class="opacity"
                 >
-                    @lang('enclaves::app.authentication.body_text')
+                    @lang('enclaves::app.shop.authentication.body_text')
                 </p>
 
                 <!-- Loader Spinner -->
@@ -63,7 +63,7 @@
                     class="flex mt-[30px] block mx-auto bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
                     :class="opacity"
                 >
-                    @lang('enclaves::app.authentication.authenticate')
+                    @lang('enclaves::app.shop.authentication.authenticate')
                 </button>
 
                 <button
@@ -71,7 +71,7 @@
                     class="flex mt-[30px] block mx-auto bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
                     @click="handleKycVerification"
                 >
-                    @lang('enclaves::app.authentication.authenticate')
+                    @lang('enclaves::app.shop.authentication.authenticate')
                 </button>
             </div>
         </div>

@@ -33,13 +33,13 @@ return [
         'sort'  => 2,
     ], [
         'key'   => 'account.transactions',
-        'name'  => 'enclaves::app.layouts.transactions',
+        'name'  => 'enclaves::app.shop.layouts.transactions',
         'route' => 'shop.customers.account.transactions.index',
         'icon'  => 'icon-orders',
         'sort'  => 2,
     ], [
         'key'   => 'account.home-seminar',
-        'name'  => 'enclaves::app.layouts.help-seminar',
+        'name'  => 'enclaves::app.shop.layouts.help-seminar',
         'route' => 'enclaves.customers.account.help-seminar.index',
         'icon'  => 'icon-orders',
         'sort'  => 2,

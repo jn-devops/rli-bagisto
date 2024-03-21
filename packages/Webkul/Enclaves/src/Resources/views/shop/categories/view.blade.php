@@ -135,7 +135,7 @@
                                                     <p class="text-[20px] font-medium font-popins" v-html="product.price_html"></p>
 
                                                     <p class="text-[16px] font-medium font-popins text-[#A0A0A0]">
-                                                        @lang('enclaves::app.customers.total-contract-price')
+                                                        @lang('enclaves::app.shop.customers.total-contract-price')
                                                     </p>
                                                 </div>
 
@@ -155,7 +155,7 @@
                                                     @click="redirectToProduct(product)"
                                                     class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                                                 >
-                                                    @lang('enclaves::app.customers.choose-unit')
+                                                    @lang('enclaves::app.shop.customers.choose-unit')
                                                 </button>
                                             </div>
                                         </div>
@@ -239,7 +239,7 @@
                                                 
                                                 <div class="grid gap-[12px]">
                                                     <p class="text-[16px] font-medium font-popins text-[#A0A0A0]">
-                                                        @lang('enclaves::app.customers.total-contract-price')
+                                                        @lang('enclaves::app.shop.customers.total-contract-price')
                                                     </p>
                                                 </div>
 
@@ -250,7 +250,7 @@
                                                         @click="redirectToProduct(product)"
                                                         class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                                                     >
-                                                        @lang('enclaves::app.customers.choose-unit')
+                                                        @lang('enclaves::app.shop.customers.choose-unit')
                                                     </button>
                                                 </div>
                                             </div>

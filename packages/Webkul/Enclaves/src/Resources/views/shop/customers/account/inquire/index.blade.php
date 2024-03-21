@@ -16,12 +16,12 @@
         <script type="text/x-template" id="v-account-inquiries-template">
             <div class="grid w-full font-montserrat gap-y-[0.813rem] max-md:mt-[30px]">
                 <h2 class="text-[1.813rem] font-semibold leading-[1.975rem] text-black">
-                    @lang('enclaves::app.customers.inquiries.title')
+                    @lang('enclaves::app.shop.customers.inquiries.title')
                 </h2>
 
                 <div class="mb-14">
                     <h1 class="font-bold text-[25px]">
-                        @lang('enclaves::app.customers.inquiries.help_test')
+                        @lang('enclaves::app.shop.customers.inquiries.help_test')
                     </h1>
                 </div>
 
@@ -47,11 +47,11 @@
 
                         <hgroup class="flex flex-col max-w-80 gap-4 pr-1.5 mr-4">
                             <h4 class="text-xl font-bold leading-5 text-black">
-                                @lang('enclaves::app.customers.inquiries.submit-header')
+                                @lang('enclaves::app.shop.customers.inquiries.submit-header')
                             </h4>
 
                             <p class="text-[1.065rem] leading-[1.375rem] font-normal"> 
-                                @lang('enclaves::app.customers.inquiries.submit-text')
+                                @lang('enclaves::app.shop.customers.inquiries.submit-text')
                             </p>
                         </hgroup>
 
@@ -92,11 +92,11 @@
 
                         <hgroup class="flex flex-col max-w-80 gap-4 pr-1.5 mr-4">
                             <h4 class="text-xl font-bold leading-5 text-black">
-                                @lang('enclaves::app.customers.inquiries.tickets')
+                                @lang('enclaves::app.shop.customers.inquiries.tickets')
                             </h4>
 
                             <p class="text-[1.065rem] leading-[1.375rem] font-normal"> 
-                                @lang('enclaves::app.customers.inquiries.tickets_text')
+                                @lang('enclaves::app.shop.customers.inquiries.tickets_text')
                             </p>
                         </hgroup>
 
@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="mb-10 mt-10">
-                    <h1 class="font-bold text-[25px]">@lang('enclaves::app.customers.inquiries.frequently')</h1>
+                    <h1 class="font-bold text-[25px]">@lang('enclaves::app.shop.customers.inquiries.frequently')</h1>
                 </div>
 
                 <x-shop::accordion.custom-accordion :is-active=false>
@@ -157,7 +157,7 @@
                         <x-shop::modal ref="addInquireModal">
                             <x-slot:header>
                                 <h2 class="text-[20px] font-medium max-sm:text-[22px]">
-                                    @lang('enclaves::app.customers.inquiries.submit')
+                                    @lang('enclaves::app.shop.customers.inquiries.submit')
                                 </h2>
                             </x-slot:header>
 
@@ -243,7 +243,7 @@
                                         type="submit"
                                         class="primary-button flex py-[11px] px-[30px] rounded-[15px] max-sm:text-[14px] max-sm:px-[25px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 border-[#F8EBEB] text-white"
                                     >
-                                        @lang('enclaves::app.customers.inquiries.submit')
+                                        @lang('enclaves::app.shop.customers.inquiries.submit')
                                     </button>
                                 </div>
                             </x-slot:footer>

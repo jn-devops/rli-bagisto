@@ -1,7 +1,7 @@
 <x-shop::layouts.account>
     <!-- Page Title -->
     <x-slot:title>
-        @lang('enclaves::app.customers.account.help-seminar.title')
+        @lang('enclaves::app.shop.customers.account.help-seminar.title')
     </x-slot>
 
     <!-- Breadcrumbs -->
@@ -11,7 +11,7 @@
 
     <div class="flex justify-between">
         <h2 class="font-poppins text-[1.813rem] font-semibold leading-[1.975rem] text-black">
-            @lang('enclaves::app.customers.account.help-seminar.title')
+            @lang('enclaves::app.shop.customers.account.help-seminar.title')
         </h2>
     </div>
 

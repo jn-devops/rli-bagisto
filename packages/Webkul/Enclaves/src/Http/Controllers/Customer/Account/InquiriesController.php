@@ -71,7 +71,7 @@ class InquiriesController extends Controller
 
         $this->ticketsRepository->uploadImages($ticket);
         
-        session()->flash('success', trans('enclaves::app.customers.inquiries.list.create-success'));
+        session()->flash('success', trans('enclaves::app.shop.customers.inquiries.list.create-success'));
 
         return new JsonResponse([
             'redirect' => route('enclaves.customers.account.inquiries.index'),

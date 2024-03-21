@@ -11,7 +11,7 @@
             
             <div class="m-auto w-full max-w-[532px] mt-[70px] h-[550px] max-1180:max-w-[472px] max-1100:h-auto max-1100:mx-0 max-sm:mt-8">
                 
-				<p class="text-2xl font-bold text-[#CC035C]">@lang('enclaves::app.homepage.slider.title')</p>
+				<p class="text-2xl font-bold text-[#CC035C]">@lang('enclaves::app.shop.homepage.slider.title')</p>
 
                 <h1 class="hero-heading text-[60px] font-bold leading-[74px] mt-[18px] min-h-[148px] max-1180:text-[46px] max-sm:text-[40px] max-sm:leading-[55px] max-sm:min-h-[110px]"></h1>
                 

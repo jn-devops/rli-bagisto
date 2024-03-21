@@ -57,7 +57,7 @@ class CustomerController extends Controller
             'date_of_birth' => 'date|before:today',
             'phone'         => 'unique:customers,phone',
         ]);
-
+        
         $password = rand(100000, 10000000);
 
         Event::dispatch('customer.registration.before');
@@ -76,6 +76,10 @@ class CustomerController extends Controller
         ]);
 
         $this->customerRepository->create($data);
+
+        // Custommization start
+        Event::dispatch('customer.registration.after', $data);
+        // Custommization end
 
         return new JsonResponse([
             'message' => trans('admin::app.customers.customers.index.create.create-success'),
