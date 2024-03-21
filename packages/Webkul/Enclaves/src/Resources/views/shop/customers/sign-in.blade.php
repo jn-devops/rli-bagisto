@@ -34,7 +34,7 @@
             class="w-full max-w-[870px] m-auto [box-shadow:0px_4px_40px_0px_rgba(0,_0,_0,_0.1)] px-[90px] py-[60px] rounded-[12px] max-md:px-[30px] max-md:py-[30px]"
         >
             <h1 class="text-[40px] font-bold text-center max-sm:text-[25px]">
-                @lang('enclaves::app.customers.login-form.page-title')
+                @lang('enclaves::app.shop.customers.login-form.page-title')
             </h1>
 
             {!! view_render_event('bagisto.shop.customers.login.before') !!}

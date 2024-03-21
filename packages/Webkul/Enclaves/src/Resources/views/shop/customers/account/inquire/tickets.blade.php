@@ -12,7 +12,7 @@
     <div class="flex justify-between items-center">
         <div class="">
             <h2 class="text-[29px] font-medium">
-                @lang('enclaves::app.customers.inquiries.list.title')
+                @lang('enclaves::app.shop.customers.inquiries.list.title')
             </h2>
         </div>
     </div>

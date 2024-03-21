@@ -47,7 +47,7 @@
                         class="primary-button flex gap-2 py-[11px] px-[30px] rounded-[18px] max-sm:text-[14px] max-sm:px-[25px] !bg-[#F8EBEB] text-[#CC035C] border-[#F8EBEB]"
                     >
                         <img src="{{ bagisto_asset('images/upload-file.png') }}" alt="upload-file" class="h-[20px] my-[4px]"/>
-                        @lang('enclaves::app.customers.inquiries.btn-upload')
+                        @lang('enclaves::app.shop.customers.inquiries.btn-upload')
                     </label>
 
                     <input type="hidden" :name="name" v-if="! uploadedFiles.isPicked"/>

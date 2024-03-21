@@ -89,7 +89,7 @@
                             </p>
 
                             <p class="text-[16px]">
-                                @lang('enclaves::app.components.layouts.header.manage-property')
+                                @lang('enclaves::app.shop.components.layouts.header.manage-property')
                             </p>
                         </div>
 
@@ -100,7 +100,7 @@
                                 href="{{ route('shop.customer.session.create') }}"
                                 class="mt-[30px] ml-[0px] block mx-auto w-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
                             >
-                                @lang('enclaves::app.components.layouts.header.login')
+                                @lang('enclaves::app.shop.components.layouts.header.login')
                             </a>
                         </div>
                     </x-slot:content>

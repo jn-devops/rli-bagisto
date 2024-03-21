@@ -24,3 +24,13 @@
 'processing_fee'        => ($this->getCart()->processing_fee * $data['items_qty']),
 'property_code'         => $this->getCart()->property_code,
 `
+
+
+# packages/Webkul/Admin/src/Http/Controllers/Customers/CustomerController.php  
+Added After event into store method.
+
+`
+// Custommization start
+Event::dispatch('customer.registration.after', $data);
+// Custommization end
+`

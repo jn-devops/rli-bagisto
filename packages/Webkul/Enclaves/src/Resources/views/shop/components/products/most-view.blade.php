@@ -9,7 +9,7 @@
                 <div class="w-[100%] h-[90px] shimmer"></div>
             </div>
 
-            <h3 class="rli-title max-sm:text-[25px] text-center" v-show="! isMediaLoading">@lang('enclaves::app.homepage.most-view.title')</h3>
+            <h3 class="rli-title max-sm:text-[25px] text-center" v-show="! isMediaLoading">@lang('enclaves::app.shop.homepage.most-view.title')</h3>
             
             <div class="flex mt-[30px] gap-[30px] justify-between max-1280:flex-wrap">
                  <!-- Media shimmer Effect -->
@@ -39,7 +39,7 @@
                                     v-text="firstMostViewProduct.format_price"
                                 >
                                 </p>
-                                <p class="text-[12px] text-[#A0A0A0] mt-[10px]">@lang('enclaves::app.homepage.most-view.contract-price')</p>
+                                <p class="text-[12px] text-[#A0A0A0] mt-[10px]">@lang('enclaves::app.shop.homepage.most-view.contract-price')</p>
                             </div>
                         </div>
 
@@ -47,7 +47,7 @@
                             class="h-max self-end text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                             @click="redirectToProduct(firstMostViewProduct.url_key)"
                         >
-                            @lang('enclaves::app.homepage.most-view.choose-unit')
+                            @lang('enclaves::app.shop.homepage.most-view.choose-unit')
                         </button>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                             <div class="flex items-center gap-5 justify-between max-425:flex-wrap">
 
                                 <div class="grid gap-[12px]">
-                                    <p class="text-[16px] font-medium font-popins text-[#A0A0A0] text-nowrap">@lang('enclaves::app.homepage.most-view.contract-price')</p>
+                                    <p class="text-[16px] font-medium font-popins text-[#A0A0A0] text-nowrap">@lang('enclaves::app.shop.homepage.most-view.contract-price')</p>
                                     <p class="text-[20px] font-medium font-popins" v-text="secoundMostViewProduct.format_price"></p>
                                 </div>
 
@@ -99,7 +99,7 @@
                                     class="text-white text-nowrap px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                                     @click="redirectToProduct(secoundMostViewProduct.url_key)"
                                 >
-                                    @lang('enclaves::app.homepage.most-view.choose-unit')
+                                    @lang('enclaves::app.shop.homepage.most-view.choose-unit')
                                 </button>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                             <div class="flex items-center gap-5 justify-between max-425:flex-wrap">
                                 <div class="grid gap-[12px]">
                                     <p class="text-[16px] font-medium font-popins text-[#A0A0A0] text-nowrap">
-                                        @lang('enclaves::app.homepage.most-view.contract-price')
+                                        @lang('enclaves::app.shop.homepage.most-view.contract-price')
                                     </p>
 
                                     <p 
@@ -155,7 +155,7 @@
                                     class="text-white text-nowrap px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
                                     @click="redirectToProduct(thirdMostViewProduct.url_key)"
                                 >
-                                    @lang('enclaves::app.homepage.most-view.choose-unit')
+                                    @lang('enclaves::app.shop.homepage.most-view.choose-unit')
                                 </button>
                             </div>
                         </div>
