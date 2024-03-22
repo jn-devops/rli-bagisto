@@ -48,8 +48,13 @@ class EnclavesServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__) . '/Config/menu.php',
+            dirname(__DIR__) . '/Config/store-menu.php',
             'menu.customer'
+        );
+
+        $this->mergeConfigFrom(
+            dirname(__DIR__) . '/Config/admin-menu.php',
+            'menu.admin'
         );
     }
 }

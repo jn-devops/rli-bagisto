@@ -15,7 +15,7 @@
         :action="route('admin.settings.themes.update', $theme->id)"
         enctype="multipart/form-data"
         v-slot="{ errors }"
-    >
+        >
         <div class="flex justify-between items-center">
             <p class="text-[20px] text-gray-800 dark:text-white font-bold">
                 @lang('admin::app.settings.themes.edit.title')

@@ -199,7 +199,7 @@
                             <div class="p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-w-[676px] rounded-[20px] max-sm:p-[25px] mix-w-[438px] md:min-w-[400px]">
                                 <!-- Price -->
                                 <div class="grid gap-[10px]">
-                                    <p class="text-[20px] font-semibold max-sm:text-[18px]">@lang('enclaves::app.product.contract-price')</p>
+                                    <p class="text-[20px] font-semibold max-sm:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>
                                     
                                     <P class="text-[22px] max-sm:text-[20px]">
                                         {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
@@ -293,7 +293,7 @@
                                         @click="is_buy_now=1; is_kyc_process=1;"
                                         {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                     >
-                                        @lang('enclaves::app.product.reserve_now')
+                                        @lang('enclaves::app.shop.product.reserve-now')
                                     </button>
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
 
