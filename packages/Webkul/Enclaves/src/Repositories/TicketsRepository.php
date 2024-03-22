@@ -19,9 +19,6 @@ class TicketsRepository extends Repository
     }
 
     /**
-     * Upload category's images.
-     * TODO:: THIS FUNCTION WILL MOVE IN REPOS IN FUTURE.
-     * 
      * @param  array  $data
      * @param  \Webkul\Category\Contracts\Category  $category
      * @param  string  $type
@@ -38,7 +35,7 @@ class TicketsRepository extends Repository
         $name = Str::random(5) . '.webp';
 
         $path = $dir . '/' . $name;
-
+        
         $ticket->files()->insert([
             'name'      => $name,
             'path'      => $dir,
@@ -51,6 +48,41 @@ class TicketsRepository extends Repository
             }
 
             Storage::put($path, $image);
+        }
+    }
+
+    /**
+     * @param  array  $data
+     * @param  \Webkul\Category\Contracts\Category  $category
+     * @param  string  $type
+     * @return void
+     */
+    public function uploadMultipleImages($ticket)
+    {
+        $manager = new ImageManager();
+
+        $dir = 'tickets/' . $ticket->id;
+
+        foreach (request()->file('file') as $key => $file) {
+            $image = $manager->make($file)->encode('webp');
+        
+            $name = Str::random(5). '_' .$key . '.webp';
+
+            $path = $dir . '/' . $name;
+            
+            $ticket->files()->insert([
+                'name'      => $name,
+                'path'      => $dir,
+                'ticket_id' => $ticket->id,
+            ]);
+
+            if(request()->hasFile('file')) {
+                if ($dir) {
+                    Storage::delete($dir);
+                }
+
+                Storage::put($path, $image);
+            }
         }
     }
 }

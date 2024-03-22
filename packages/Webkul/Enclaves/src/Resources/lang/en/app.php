@@ -204,5 +204,58 @@ return [
                 ],
             ],
         ],
+
+        'menu' => [
+            'inquiries' => 'Inquiries',
+        ],
+
+        'inquiries' => [
+            'title' => 'Inquiries',
+
+            'datagrid' => [
+                'header' => [
+                    'id'            => 'id',
+                    'customer-name' => 'Customer Name',
+                    'reason'        => 'Reason',
+                    'comment'       => 'Comments',
+                    'status'        => 'Status',
+                    'created-at'    => 'Created At',
+                ],
+            ],
+
+            'form' => [
+                'create' => [
+                    'customer'       => 'Customer',
+                    'create-btn'     => 'Create',
+                    'reason'         => 'Reason',
+                    'status'         => 'Status',
+                    'comment'        => 'Comment',
+                    'save-btn'       => 'Save',
+                    'create-success' => 'Inquiry created successfully'
+                ],
+    
+                'view' => [
+                    'comment'         => 'Comment:',
+                    'attachment'      => 'Attachment:',
+                    'comment-name'    => 'Comment Name:',
+                    'no-image'        => 'No image Available',
+                    'attachment-info' => 'Click on Image for Download',
+                    'delete-btn'      => 'Delete',
+                ],
+    
+                'edit' => [
+                    'edit-btn'       => 'Edit',
+                    'customer'       => 'Customer',
+                    'reason'         => 'Reason',
+                    'status'         => 'Status',
+                    'comment'        => 'Comment',
+                    'update-btn'     => 'Update',
+                    'delete'         => 'Delete',
+                    'error'          => 'Somethink is wrong',
+                    'delete-success' => 'Inquiry Deleted Successfully',
+                    'update-success' => 'Inquiry updated successfully'
+                ]
+            ],
+        ],
     ],
 ];
