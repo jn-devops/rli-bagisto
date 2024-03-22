@@ -2,9 +2,9 @@
 
 return [
     [
-        'key'   => 'account',
-        'name'  => 'shop::app.layouts.my-account',
-        'route' => 'enclaves.admin.inquiries.edit',
+        'key'   => 'inquiries',
+        'name'  => 'enclaves::app.admin.menu.inquiries',
+        'route' => 'enclaves.admin.inquiries.index',
         'icon'  => 'icon-sales',
         'sort'  => 10,
     ],

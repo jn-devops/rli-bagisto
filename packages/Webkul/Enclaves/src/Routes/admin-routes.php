@@ -15,11 +15,16 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
     });
 
     Route::controller(InquiriesController::class)->prefix('inquiries')->group(function () {
-        Route::get('', 'index')->name('enclaves.admin.inquiries.edit');
+        Route::get('', 'index')->name('enclaves.admin.inquiries.index');
+
+        Route::get('view/{id}', 'view')->name('enclaves.admin.inquiries.view');
 
         Route::post('', 'store')->name('enclaves.admin.inquiries.store');
 
-        Route::put('', 'distory')->name('enclaves.admin.inquiries.distory');
+        Route::post('update/{id}', 'update')->name('enclaves.admin.inquiries.update');
 
+        Route::get('delete/{id}', 'destroy')->name('enclaves.admin.inquiries.destroy');
+
+        Route::post('mass-delete', 'massDestroy')->name('enclaves.admin.inquiries.mass-destroy');
     });
 });
