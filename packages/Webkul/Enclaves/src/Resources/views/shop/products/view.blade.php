@@ -143,7 +143,7 @@
                         >
 
                         <div class="flex gap-[54px] mt-12 max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-6">
-                            <div class="max-w-[878px]">
+                            <div class="w-full">
                                 <!-- Gallery Blade Inclusion -->
                                 @include('shop::products.view.gallery')
 
@@ -217,11 +217,7 @@
                                     </P>
                                 </div>
                                 
-                                <div class="flex flex-col gap-[20px] border-b-[1px] border-[]#D9D9D9 pb-[42px] mt-[52px]">
-                                    <!-- Property code -->
-                                    <div class="flex">
-                                        <p class="text-[20px] font-semibold max-sm:text-[18px]">Property Code: {{ $product->product_number }}</p>
-                                    </div>
+                                <div class="flex flex-col gap-[20px] border-b-[1px] border-[]#D9D9D9 pb-[42px] mt-[10px]">
                                     <!-- location-->
                                     <div class="flex gap-[6px] flex-wrap">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Location:</p>

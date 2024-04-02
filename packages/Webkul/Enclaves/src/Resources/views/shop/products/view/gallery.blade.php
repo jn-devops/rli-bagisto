@@ -4,18 +4,18 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-product-gallery-template">
-        <div class="flex gap-[20px] max-1280:flex-wrap">
-            <div class="">
+        <div class="gap-[20px] max-1280:flex-wrap">
+            <div class="w-full">
                 <!-- Media shimmer Effect -->
-                <div class="max-w-[657px] max-h-[610px]" v-show="isMediaLoading">
-                    <div class="min-w-[657px] min-h-[610px] bg-[#E9E9E9] rounded-[12px] shimmer"></div>
+                <div class="max-w-[657px] max-h-[700px]" v-show="isMediaLoading">
+                    <div class="min-w-[657px] min-h-[700px] bg-[#E9E9E9] rounded-[12px] shimmer"></div>
                 </div>
 
                 <img
                     v-show="! isMediaLoading"
                     :src="baseFile.path" 
                     v-if="baseFile.type == 'image'"
-                    class="rounded-[5px] w-[657px] h-[610px] cursor-pointer"
+                    class="w-full rounded-[10px] w-[657px] h-[700px] cursor-pointer"
                     alt="@lang('shop::app.products.view.gallery.product-image')"
                     @load="onMediaLoad()"
                 />
@@ -44,7 +44,7 @@
                 </template>
             </div>
 
-            <div class="flex flex-wrap w-[100px]" v-else>
+            <div class="flex flex-wrap w-[100px] mt-[10px]" v-else>
                 <template v-for="(image, index) in media.images">
                     <div v-if="index < 5" 
                         :class="`${index == `4` ? 'relative' : ''}`">
@@ -72,7 +72,7 @@
             <x-shop::media.images.lazy
                 ::src="baseFile.path"
                 v-if="baseFile.type == 'image'"
-                class="rounded-[5px] w-[657px] h-[610px]"
+                class="rounded-[5px] w-[657px] h-[700px]"
                 alt="@lang('shop::app.products.view.gallery.product-image')"
                 @load="onMediaLoad()"
             >

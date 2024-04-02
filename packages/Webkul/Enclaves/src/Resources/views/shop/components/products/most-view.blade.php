@@ -3,7 +3,7 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-products-most-view-template">
         <!-- Most Viewed Properties -->
-        <div class="container mt-[60px] max-lg:px-[30px] max-sm:mt-[30px]">
+        <div class="container mt-[80px] max-lg:px-[30px] max-sm:mt-[30px]">
 
             <div class="rli-title max-sm:text-[25px] text-center" v-show="isMediaLoading">
                 <div class="w-[100%] h-[90px] shimmer"></div>
@@ -11,19 +11,19 @@
 
             <h3 class="rli-title max-sm:text-[25px] text-center" v-show="! isMediaLoading">@lang('enclaves::app.shop.homepage.most-view.title')</h3>
             
-            <div class="flex mt-[30px] gap-[30px] justify-between max-1280:flex-wrap">
+            <div class="flex mt-[60px] gap-[30px] justify-between max-1280:flex-wrap">
                  <!-- Media shimmer Effect -->
-                 <div class="max-w-[819px] max-h-[860px]" v-show="isMediaLoading">
-                    <div class="rounded-[20px] w-[819px] h-[860px] shimmer"></div>
+                 <div class="w-full max-h-[860px]" v-show="isMediaLoading">
+                    <div class="w-full rounded-[20px] h-[860px] shimmer"></div>
                 </div>
 
                 <div 
-                    class="relative max-h-[860px]" 
+                    class="relative w-full max-h-[860px]" 
                     v-show="! isMediaLoading"
                 >
                     <img
                         v-if="firstMostViewProduct.all_images"
-                        class="rounded-[20px] 1280:h-[860px] cursor-pointer" 
+                        class="rounded-[20px] w-full 1280:h-[860px] cursor-pointer" 
                         :src="firstMostViewProduct.all_images.large_image_url" 
                         alt="Most Viewed Properties"
                         @click="redirectToProduct(firstMostViewProduct.url_key)"
