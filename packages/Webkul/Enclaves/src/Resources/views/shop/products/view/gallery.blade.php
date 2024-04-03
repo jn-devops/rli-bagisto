@@ -44,7 +44,7 @@
                 </template>
             </div>
 
-            <div class="flex flex-wrap w-[100px] mt-[10px]" v-else>
+            <div class="flex gap-[10px] w-[100px] mt-[10px]" v-else>
                 <template v-for="(image, index) in media.images">
                     <div v-if="index < 5" 
                         :class="`${index == `4` ? 'relative' : ''}`">

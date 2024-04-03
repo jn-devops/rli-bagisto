@@ -12,12 +12,14 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
         Route::get('/verification', 'getVerification')->name('ekyc.verification.get');
 
+        Route::get('/finding-redirect-url', 'getUrl')->name('ekyc.verification.url.get');
+
         Route::get('/verifying', 'verifying')->name('ekyc.verification.verifying');
 
         Route::post('/customer-login', 'customerLogin')->name('ekyc.verification.customer.login');
     });
 
     Route::controller(MinCartController::class)->prefix('checkout/property-verification')->group(function () {
-        Route::get('url', 'verifyUrl')->name('ekyc.property.verfiy-url');
+        Route::get('checkout-url', 'verifyUrl')->name('ekyc.property.verfiy-url');
     });
 });
