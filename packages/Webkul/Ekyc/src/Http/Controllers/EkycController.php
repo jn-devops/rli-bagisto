@@ -60,11 +60,6 @@ class EkycController extends Controller
     private function getSiteVerifyEndpoint(string $sku, string $transaction_id) : string
     {
         /**
-         * In test Mode.
-         */
-        //return "https://book-dev.enclaves.ph/auto-reserve/ABC-123/REF004";
-
-        /**
          * In Production.
          */
         return "https://book-dev.enclaves.ph/auto-reserve/{$sku}/{$transaction_id}";
@@ -167,6 +162,28 @@ class EkycController extends Controller
 
         return new JsonResource([
             'redirect' => route('shop.checkout.onepage.index'),
+        ]);
+    }
+
+    /**
+     * Getting URL
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function getUrl()
+    {
+        $data = request()->all();
+
+        $product = $this->productRepository->findBySlug($data['slug']);
+
+        $ekycVerification = $this->ekycVerificationRepository->findOneByField([
+            'sku'     => $product->sku,
+            'cart_id' => $data['cart_id'],
+        ]);
+        
+        return new JsonResource([
+            'redirect' => $this->getSiteVerifyEndpoint($product->sku, $ekycVerification->transaction_id),
+            'status'   => $ekycVerification->status,
         ]);
     }
 }
