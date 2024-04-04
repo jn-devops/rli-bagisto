@@ -46,7 +46,7 @@
             @case ($customization::CATEGORY_CAROUSEL)
                 <!-- category Theme used for properties carousel -->
                 <x-shop::properties.carousel
-                    :title="$data['title'] ?? ''"
+                    :title="$customization['name'] ?? ''"
                     :src="route('enclaves.api.categories.index', $data['filters'] ?? [])"
                     :navigation-link="route('shop.home.index')"
                 >
