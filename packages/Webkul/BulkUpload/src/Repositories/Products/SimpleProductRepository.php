@@ -78,18 +78,18 @@ class SimpleProductRepository extends BaseRepository
     {
         //Validation
         $createValidation = $this->helperRepository->createProductValidation($csvData, $key);
-       
+
         if (isset($createValidation)) {
             return $createValidation;
         }
 
         //processing inventory sources
-        $inventory_sources = collect(explode(',', $csvData['inventory_sources']))->map( function($inventory_sources) {
+        $inventory_sources = collect(explode(',', $csvData['inventory_sources']))->map(function ($inventory_sources) {
             return trim($inventory_sources);
         });
-        
+
         $csvData['inventories'] = $this->inventorySourceRepository->findWhereIn('code', $inventory_sources->toArray())->pluck('id')->toArray();
-        
+
         $csvData['weight'] = 1;
 
         $createProduct = [
@@ -97,13 +97,13 @@ class SimpleProductRepository extends BaseRepository
             'type'                => $csvData['type'],
             'attribute_family_id' => $dataFlowProfileRecord->profiler->attribute_family_id,
         ];
-       
+
         if (trim($csvData['type']) == 'variant') {
             $csvData['parent_id'] = $this->productRepository->findOneByField('sku', $csvData['parent'])->id;
 
             $superAttributes['super_attributes'] = $csvData['super_attributes'];
-            
-            if (! isset($superAttributes['super_attributes']) 
+
+            if (! isset($superAttributes['super_attributes'])
                     || empty($superAttributes['super_attributes'])) {
                 return [
                     'error' => [trans('admin::app.catalog.products.configurable-error')],
@@ -111,9 +111,9 @@ class SimpleProductRepository extends BaseRepository
             }
 
             $productSuperAttributes = [];
-           
+
             foreach (explode(',', $superAttributes['super_attributes']) as $super_attributes) {
-        
+
                 $super_attributes = trim($super_attributes);
 
                 $attributeOption = $this->attributeOptionRepository->findOneByField([
@@ -126,7 +126,7 @@ class SimpleProductRepository extends BaseRepository
 
             $csvData['super_attributes'] = $productSuperAttributes;
         }
-        
+
         // Check for Duplicate SKU
         $product = $this->productRepository->firstWhere('sku', $csvData['sku']);
 
@@ -137,10 +137,10 @@ class SimpleProductRepository extends BaseRepository
             $product = $this->productRepository->create($createProduct);
 
             Event::dispatch('catalog.product.create.after', $product);
-            
+
             // Product Update Procesing
             $this->updateProduct($csvData, $product, $dataFlowProfileRecord);
-        }else {
+        } else {
             // Product Update Procesing
             $this->updateProduct($csvData, $product, $dataFlowProfileRecord);
         }
@@ -166,7 +166,7 @@ class SimpleProductRepository extends BaseRepository
 
             session()->push('uploadedProduct', $uploadedProduct);
         }
-        
+
         // Process product attributes
         $data = $this->processProductAttributes($csvData, $product);
 
@@ -179,13 +179,13 @@ class SimpleProductRepository extends BaseRepository
 
         // Process categories
         $categories = $this->processProductCategories($csvData);
-       
+
         if (isset($categories[0]['error'])) {
             $this->helperRepository->deleteProductIfNotValidated($product->id);
 
             return $categories[0];
         }
-        
+
         $data['categories'] = $categories;
 
         $data['locale'] = $dataFlowProfileRecord->profiler->locale_code;
@@ -205,8 +205,8 @@ class SimpleProductRepository extends BaseRepository
 
         // Process product images
         $data['images'] = $this->processProductImages($csvData);
-        
-        if ($product->type == 'downloadable' 
+
+        if ($product->type == 'downloadable'
                 && isset($csvData['link_titles'])) {
             $downloadableLinks = $this->addLinksAndSamples($csvData, $dataFlowProfileRecord, $product);
 
@@ -218,11 +218,11 @@ class SimpleProductRepository extends BaseRepository
 
             $data['downloadable_links'] = $downloadableLinks;
         }
-  
-        if ($product->type == 'downloadable' 
+
+        if ($product->type == 'downloadable'
                     && isset($csvData['samples_title'])) {
             $downloadableSamples = $this->addSamples($csvData, $dataFlowProfileRecord, $product);
-            
+
             if (isset($downloadableSamples['error'])) {
                 $this->helperRepository->deleteProductIfNotValidated($product->id);
 
@@ -245,22 +245,22 @@ class SimpleProductRepository extends BaseRepository
 
             $data['links'] = $groupedOptions;
         }
-        
+
         // Validate product data and handle errors
         $validationErrors = $this->validateProductData($data, $product);
-        
+
         if ($validationErrors) {
             $this->helperRepository->deleteProductIfNotValidated($product->id);
 
             return $validationErrors;
         }
 
-        Event::dispatch('catalog.product.update.before',  $product->id);
+        Event::dispatch('catalog.product.update.before', $product->id);
 
         $productFlat = $this->productRepository->update($data, $product->id);
-       
+
         Event::dispatch('catalog.product.update.after', $productFlat);
-        
+
         // Upload images
         if ($productFlat) {
             $this->productImageRepository->bulkuploadImages($data, $productFlat);
@@ -280,18 +280,18 @@ class SimpleProductRepository extends BaseRepository
         $attributeCode = [];
         $attributeValue = [];
         $attributes = $product->getTypeInstance()->getEditableAttributes();
-       
+
         foreach ($attributes as $attribute) {
             $searchIndex = strtolower($attribute['code']);
-            
+
             $csvValue = $csvData[$searchIndex] ?? null;
 
             if (is_null($csvData)) {
                 continue;
             }
-            
+
             $attributeCode[] = $searchIndex;
-           
+
             switch ($attribute['type']) {
                 case "select":
                     $attributeOption = $this->attributeOptionRepository->findOneByField(['attribute_id' => $attribute['id'],'admin_name' => $csvValue]);
@@ -336,17 +336,17 @@ class SimpleProductRepository extends BaseRepository
     private function processProductInventoryForConfiguration($csvData, &$data)
     {
         $inventoryCode = preg_split('/,\s*|,/', $csvData['inventory_sources']);
-    
+
         $inventoryId = $this->inventorySourceRepository->whereIn('code', $inventoryCode)->pluck('id')->toArray();
-        
+
         $inventoryData = preg_split('/,\s*|,/', $csvData['manage_stock']);
 
         if (count($inventoryId) != count($inventoryData)) {
             $inventoryData = array_fill(0, count($inventoryId), 0);
         }
-        
+
         $data['inventories'] = array_combine($inventoryId, $inventoryData);
-      
+
         $data['price'] = $csvData['price'];
     }
 
@@ -360,9 +360,9 @@ class SimpleProductRepository extends BaseRepository
     private function processProductInventory($csvData, &$data)
     {
         $inventoryCode = preg_split('/,\s*|,/', $csvData['inventory_sources']);
-        
+
         $inventoryId = $this->inventorySourceRepository->whereIn('code', $inventoryCode)->pluck('id')->toArray();
-      
+
         $inventoryData = preg_split('/,\s*|,/', $csvData['manage_stock']);
 
         if (count($inventoryId) != count($inventoryData)) {
@@ -380,7 +380,7 @@ class SimpleProductRepository extends BaseRepository
      */
     private function processProductCategories($csvData)
     {
-        if (is_null($csvData['category']) 
+        if (is_null($csvData['category'])
                 || empty($csvData['category'])) {
 
             $categoryID = $this->categoryRepository->findBySlugOrFail('root')->id;
@@ -411,11 +411,11 @@ class SimpleProductRepository extends BaseRepository
      */
     private function processCustomerGroupPricing($csvData, &$data, $product)
     {
-        if (isset($csvData['customer_group_prices']) 
+        if (isset($csvData['customer_group_prices'])
                 && ! empty($csvData['customer_group_prices'])) {
 
             $data['customer_group_prices'] = json_decode($csvData['customer_group_prices'], true);
-            
+
             app(ProductCustomerGroupPriceRepository::class)->saveCustomerGroupPrices($data, $product);
         }
     }
@@ -442,7 +442,7 @@ class SimpleProductRepository extends BaseRepository
     }
 
     /**
-     * Validate product data and handle errors 
+     * Validate product data and handle errors
      *
      * @param string|array $data
      * @param string|array $product
@@ -478,7 +478,7 @@ class SimpleProductRepository extends BaseRepository
     }
 
     /**
-     * add link and sample file and return error 
+     * add link and sample file and return error
      *
      * @param string|array $csvData
      * @param array $dataFlowProfileRecord
@@ -566,7 +566,7 @@ class SimpleProductRepository extends BaseRepository
 
                 $link['link_' . $index]['url'] = trim($fileLink);
 
-            } elseif (trim($linkData['link_types'][$index]) == "file" 
+            } elseif (trim($linkData['link_types'][$index]) == "file"
                     && isset($fileLink)) {
                 $link['link_' . $index]['file'] = trim($fileLink);
 
@@ -577,7 +577,7 @@ class SimpleProductRepository extends BaseRepository
 
                 $link['link_' . $index]['sample_url'] = trim($linkData['link_sample_url'][$index]);
 
-            } elseif (trim($linkData['link_sample_types'][$index]) == "file" 
+            } elseif (trim($linkData['link_sample_types'][$index]) == "file"
                     && isset($sampleFileLink)) {
                 $link['link_' . $index]['sample_file'] = trim($sampleFileLink);
 
@@ -595,7 +595,7 @@ class SimpleProductRepository extends BaseRepository
     }
 
     /**
-     * add sample file and return error 
+     * add sample file and return error
      *
      * @param string|array $csvData
      * @param array $dataFlowProfileRecord
@@ -658,7 +658,7 @@ class SimpleProductRepository extends BaseRepository
                 $downloadableLinks,
                 false
             );
-            
+
             // Create the downloadable sample array
             $sample['sample_' . $index] = [
                 core()->getCurrentLocale()->code => [
@@ -672,7 +672,7 @@ class SimpleProductRepository extends BaseRepository
 
                 $sample['sample_' . $index]['url'] = trim($sampleUrl);
 
-            } elseif (trim($sampleFileType) == "file" 
+            } elseif (trim($sampleFileType) == "file"
                     && isset($sampleFileLink)) {
                 $sample['sample_' . $index]['file'] = trim($sampleFileLink);
 
@@ -817,7 +817,7 @@ class SimpleProductRepository extends BaseRepository
                     }
 
                     $zipArchive->extractTo($extractedPath);
-                    
+
                     $zipArchive->close();
                 }
             }
