@@ -3,8 +3,8 @@
 namespace Webkul\Enclaves\Helpers\Customer;
 
 use Illuminate\Support\Str;
-use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
 use Webkul\Customer\Repositories\CustomerRepository;
 
 class CustomerHelper
@@ -36,7 +36,7 @@ class CustomerHelper
         $path = $dir . '/' . $name;
 
         $updateData = [
-            'image' => $path
+            'image' => $path,
         ];
       
         $customer = $this->customerRepository->update($updateData, $data['customer_id']);
@@ -51,5 +51,4 @@ class CustomerHelper
 
         return $customer;
     }
-
 }

@@ -3,7 +3,7 @@
 @endphp
 
 
-{{-- SEO Meta Content --}}
+<!-- SEO Meta Content -->
 @push ('meta')
     <meta name="title" content="{{ $channel->home_seo['meta_title'] ?? '' }}" />
 
@@ -13,16 +13,16 @@
 @endPush
 
 <x-shop::layouts>
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
         {{  $channel->home_seo['meta_title'] ?? '' }}
     </x-slot>
     
-    {{-- Loop over the theme customization --}}
+    <!-- Loop over the theme customization -->
     @foreach ($customizations as $customization)
         @php ($data = $customization->options)
 
-        {{-- Static content --}}
+        <!-- Static content -->
         @switch ($customization->type)
             {{-- Image Carousel --}}
             @case ($customization::IMAGE_CAROUSEL)
@@ -31,27 +31,31 @@
                 @break
 
             @case ($customization::STATIC_CONTENT)
-                {{-- push style --}}
+                <!-- push style -->
                 @push ('styles')
                     <style>
                         {{ $data['css'] }}
                     </style>
                 @endpush
 
-                {{-- render html --}}
+                <!-- render html -->
                 {!! $data['html'] !!}
 
                 @break
 
             @case ($customization::CATEGORY_CAROUSEL)
-                {{-- Categories carousel --}}
-                <x-shop::products.most-view>
-                </x-shop::products.most-view>
+                <!-- category Theme used for properties carousel -->
+                <x-shop::properties.carousel
+                    :title="$data['title'] ?? ''"
+                    :src="route('enclaves.api.categories.index', $data['filters'] ?? [])"
+                    :navigation-link="route('shop.home.index')"
+                >
+                </x-shop::properties.carousel>
 
                 @break
 
             @case ($customization::PRODUCT_CAROUSEL)
-                {{-- Product Carousel --}}
+                <!-- Product Carousel -->
                 <x-shop::products.carousel
                     {{-- title="Men's Collections" --}}
                     :title="$data['title'] ?? ''"

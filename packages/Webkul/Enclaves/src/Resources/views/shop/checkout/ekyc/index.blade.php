@@ -6,7 +6,7 @@
 
 <!-- Page Title -->
 <x-slot:title>
-    @lang('enclaves::app.authentication.title')
+    @lang('enclaves::app.shop.authentication.title')
 </x-slot>
 
 <v-user-kyc-summary></v-user-kyc-summary>
@@ -73,6 +73,26 @@
                 >
                     @lang('enclaves::app.shop.authentication.authenticate')
                 </button>
+                
+                <x-admin::modal ref="addFreamModal">
+                    <x-slot:header>
+                        <p class="text-[18px] text-gray-800 dark:text-white font-bold">
+                            @lang('enclaves::app.shop.authentication.title')
+                        </p>
+                    </x-slot:header>
+
+                    <x-slot:content>
+                        <div class="p-5">
+                            <iframe 
+                                :src="embedURL"
+                                width="560" 
+                                height="330" 
+                                title="W3Schools Free Online Web Tutorials"
+                                >
+                            </iframe>
+                        </div>
+                    </x-slot:content>
+                </x-admin::modal>
             </div>
         </div>
     </script>
@@ -89,6 +109,7 @@
                     opacity: '',
                     loadingText: 'Loading...',
                     alreadyRedirect: 0,
+                    embedURL: null,
                 }
             },
             
@@ -100,6 +121,7 @@
                 }
 
                 this.resetKycVerification();
+                this.getEmbedUrl();
             },
 
             methods: {
@@ -115,7 +137,7 @@
 
                         this.resetKycVerification();
 
-                        window.open(response.data.data.redirect, '_blank');
+                        this.getEmbedUrl();
                     })
                     .catch(error => console.log(error));
                 },
@@ -155,7 +177,23 @@
                             window.open(response.data.data.redirect, "_self");
                         })
                         .catch(error => console.log(error));
-                }
+                },
+
+                getEmbedUrl() {
+                    this.$axios.get("{{ route('ekyc.verification.url.get') }}", {
+                        params: {
+                            cart_id: this.request.cartId,
+                            slug: this.request.slug,
+                        }
+                    })
+                    .then(response => {
+                        if (! response.data.data.status) {
+                            this.$refs.addFreamModal.open();
+                            this.embedURL = response.data.data.url;
+                        }
+                    })
+                    .catch(error => console.log(error));
+                },
             },
         });
     </script>

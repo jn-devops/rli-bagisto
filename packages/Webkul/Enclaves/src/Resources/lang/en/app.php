@@ -111,7 +111,6 @@ return [
     ],
     
     'shop' => [
-
         'layouts' => [
             'transactions' => 'Transactions',
             'inquiries'    => 'Inquiries',
@@ -149,6 +148,7 @@ return [
             ],
     
             'choose-unit'          => 'Choose Unit',
+            'browse-properties'    => 'Browse Properties',
             'total-contract-price' => 'Total Contract Price',
         ],
 
@@ -173,7 +173,7 @@ return [
             ],
     
             'most-view' => [
-                'title'          => 'Most Viewed Properties',
+                'title'          => 'Our Newest Communities',
                 'contract-price' => 'Total Contract Price',
                 'choose-unit'    => 'Choose Unit',
             ]
@@ -200,7 +200,7 @@ return [
                     'limit_button_text' => '20 Letters allow only',
                     'edit-slider'       => 'Edit theme slider',
                     'image_cdn_link'    => 'CDN Link',
-                    'cdn_status'        => 'CDN Link Status'
+                    'cdn_status'        => 'CDN Link Status',
                 ],
             ],
         ],
@@ -231,7 +231,7 @@ return [
                     'status'         => 'Status',
                     'comment'        => 'Comment',
                     'save-btn'       => 'Save',
-                    'create-success' => 'Inquiry created successfully'
+                    'create-success' => 'Inquiry created successfully',
                 ],
     
                 'view' => [
@@ -253,7 +253,7 @@ return [
                     'delete'         => 'Delete',
                     'error'          => 'Somethink is wrong',
                     'delete-success' => 'Inquiry Deleted Successfully',
-                    'update-success' => 'Inquiry updated successfully'
+                    'update-success' => 'Inquiry updated successfully',
                 ]
             ],
         ],

@@ -182,8 +182,8 @@ class EkycController extends Controller
         ]);
         
         return new JsonResource([
-            'redirect' => $this->getSiteVerifyEndpoint($product->sku, $ekycVerification->transaction_id),
-            'status'   => $ekycVerification->status,
+            'url'    => $this->getSiteVerifyEndpoint($product->sku, $ekycVerification->transaction_id),
+            'status' => $ekycVerification->status,
         ]);
     }
 }

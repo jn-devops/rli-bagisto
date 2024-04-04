@@ -10,20 +10,19 @@
     <script type="text/x-template" id="v-products-carousel-template">
         <!-- Section new place made just for you -->
         <div class="container mt-[80px] max-lg:px-[30px] max-sm:mt-[30px]">
-            <div class="flex justify-end items-center gap-8 mt-[16px]" v-if="products.length">
-                <div class="inline-flex gap-7">
-                    <span 
-                        class="icon-arrow-left-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
-                        @click="swipeLeft"
-                    >
-                    </span>
+           
+            <div class="flex justify-between relative top-[215px] z-10" v-if="products.length">
+                <span 
+                    class="icon-arrow-left-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px] bg-white"
+                    @click="swipeLeft"
+                >
+                </span>
 
-                    <span 
-                        class="icon-arrow-right-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px]"
-                        @click="swipeRight"
-                        >
-                    </span>
-                </div>
+                <span 
+                    class="icon-arrow-right-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px] bg-white"
+                    @click="swipeRight"
+                    >
+                </span>
             </div>
 
             <div
