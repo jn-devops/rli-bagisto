@@ -153,7 +153,7 @@
 
                                                 <button
                                                     @click="redirectToProduct(product)"
-                                                    class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
+                                                    class="px-[25px] py-[10px] rounded-[20px] text-[#CC035C] font-semibold border-[#CC035C] border-2"
                                                 >
                                                     @lang('enclaves::app.shop.customers.choose-unit')
                                                 </button>
@@ -248,7 +248,7 @@
 
                                                     <button
                                                         @click="redirectToProduct(product)"
-                                                        class="text-white px-[25px] py-[10px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px]"
+                                                        class="px-[25px] py-[10px] rounded-[20px] text-[#CC035C] font-semibold border-[#CC035C] border-[3px]"
                                                     >
                                                         @lang('enclaves::app.shop.customers.choose-unit')
                                                     </button>

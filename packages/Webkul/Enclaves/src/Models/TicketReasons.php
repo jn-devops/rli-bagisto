@@ -2,8 +2,8 @@
 
 namespace Webkul\Enclaves\Models;
 
-use Webkul\Core\Eloquent\TranslatableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Webkul\Core\Eloquent\TranslatableModel;
 use Webkul\Enclaves\Contracts\TicketReasons as TicketReasonsContract;
 
 class TicketReasons extends TranslatableModel implements TicketReasonsContract

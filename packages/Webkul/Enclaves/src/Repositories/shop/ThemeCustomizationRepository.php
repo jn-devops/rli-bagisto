@@ -56,13 +56,10 @@ class ThemeCustomizationRepository extends Repository
                     $options['images'][] = [
                         'image'       => 'storage/' . $path,
                         'link'        => $image['link'],
-
-                        // This is customizatio code
                         'button_text'    => $image['button_text'],
                         'slider_syntax'  => $image['slider_syntax'],
                         'image_cdn_link' => $image['image_cdn_link'],
                         'isUsingCDN'     => true,
-                        // This is customizatio code
                     ];
 
                 } else {
@@ -81,14 +78,10 @@ class ThemeCustomizationRepository extends Repository
                         $options['images'][] = [
                             'image'       => 'storage/' . $path,
                             'link'        => $image['link'],
-    
-                            // This is customizatio code
                             'button_text'    => $image['button_text'],
                             'slider_syntax'  => $image['slider_syntax'],
                             'image_cdn_link' => $image['image_cdn_link'],
                             'isUsingCDN'     => false,
-                            // This is customizatio code
-                        
                         ];
                     } else {
                         $options['images'][] = $image;

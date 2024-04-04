@@ -2,7 +2,9 @@
 namespace Webkul\Enclaves\Routes;
 
 use Illuminate\Support\Facades\Route;
+use Webkul\Category\Contracts\Category;
 use Webkul\Enclaves\Http\Controllers\Product\ProductController;
+use Webkul\Enclaves\Http\Controllers\Category\CategoryController;
 use Webkul\Enclaves\Http\Controllers\Customer\CustomerController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DashboardController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DocumentsController;
@@ -13,8 +15,6 @@ use Webkul\Enclaves\Http\Controllers\Customer\Account\TransactionController;
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
     Route::controller(ProductController::class)->prefix('products')->group(function () {
-        Route::get('most-view', 'mostViewProducts')->name('enclaves.product.most-view.index');
-    
         Route::post('customer-profile-update', 'profileUpdate')->name('enclaves.customers.account.profile.update');
     });
 
@@ -66,6 +66,13 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
                     Route::get('reviews', 'reviews')->name('shop.customers.account.reviews.index');
                 });
             });
+        });
+    });
+
+    Route::group(['prefix' => 'api'], function () {
+
+        Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+            Route::get('', 'index')->name('enclaves.api.categories.index');
         });
     });
 });

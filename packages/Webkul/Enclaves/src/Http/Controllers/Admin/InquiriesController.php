@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use Webkul\Enclaves\DataGrids\InquiriesDataGrid;
 use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
+use Webkul\Enclaves\Repositories\TicketStatusRepository;
 use Webkul\Enclaves\Repositories\TicketsRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
-use Webkul\Enclaves\Repositories\TicketStatusRepository;
 
 class InquiriesController extends Controller
 {
@@ -22,8 +22,7 @@ class InquiriesController extends Controller
        protected TicketStatusRepository $ticketStatusRepository,
        protected TicketsRepository $ticketsRepository,
        protected CustomerRepository $customerRepository,
-    )
-    {
+    ) {
     }
 
     /**
@@ -163,11 +162,11 @@ class InquiriesController extends Controller
             }
 
             return new JsonResponse([
-                'message' => trans('enclaves::app.admin.inquiries.form.edit.delete-success')
+                'message' => trans('enclaves::app.admin.inquiries.form.edit.delete-success'),
             ]);
         } catch (\Exception $e) {
             return new JsonResponse([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 500);
         }
     }

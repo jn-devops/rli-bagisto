@@ -128,13 +128,48 @@
                                 v-for="(image, index) in sliders.images"
                                 >
                                 <!-- Hidden Input -->
-                                <input type="file" class="hidden" :name="'options['+ index +'][image]'" :ref="'imageInput_' + index" />
-                                <input type="hidden" :name="'options['+ index +'][link]'" :value="image.link" />
-                                <input type="hidden" :name="'options['+ index +'][image]'" :value="image.image" />
-                                <input type="hidden" :name="'options['+ index +'][button_text]'" :value="image.button_text" />
-                                <input type="hidden" :name="'options['+ index +'][slider_syntax]'" :value="image.slider_syntax" />
-                                <input type="hidden" :name="'options['+ index +'][image_cdn_link]'" :value="image.image_cdn_link" />
-                                <input type="hidden" :name="'options['+ index +'][isUsingCDN]'" :value="image.isUsingCDN" />
+                                <input 
+                                    type="file"
+                                    class="hidden"
+                                    :name="'options['+ index +'][image]'"
+                                    :ref="'imageInput_' + index" 
+                                />
+
+                                <input 
+                                    type="hidden" 
+                                    :name="'options['+ index +'][link]'" 
+                                    :value="image.link" 
+                                />
+
+                                <input 
+                                    type="hidden" 
+                                    :name="'options['+ index +'][image]'" 
+                                    :value="image.image" 
+                                />
+
+                                <input 
+                                    type="hidden" 
+                                    :name="'options['+ index +'][button_text]'" 
+                                    :value="image.button_text" 
+                                />
+
+                                <input 
+                                    type="hidden" 
+                                    :name="'options['+ index +'][slider_syntax]'" 
+                                    :value="image.slider_syntax" 
+                                />
+
+                                <input 
+                                    type="hidden" 
+                                    :name="'options['+ index +'][image_cdn_link]'" 
+                                    :value="image.image_cdn_link" 
+                                />
+
+                                <input 
+                                    type="hidden" 
+                                    :name="'options['+ index +'][isUsingCDN]'" 
+                                    :value="image.isUsingCDN" 
+                                />
 
                                 <!-- Details -->
                                 <div 
@@ -261,7 +296,11 @@
                             </x-slot:header>
                         
                             <x-slot:content>
-                                <input type="hidden" name="type" value="image_carousel">
+                                <input 
+                                    type="hidden" 
+                                    name="type" 
+                                    value="image_carousel"
+                                >
     
                                 <x-admin::form.control-group class="mb-[10px]">
                                     <x-admin::form.control-group.label class="required">
@@ -852,7 +891,11 @@
                             v-for="(filter, index) in options.filters"
                         >
                             <!-- Hidden Input -->
-                            <input type="hidden" :name="'options[filters][' + filter.key +']'" :value="filter.value"> 
+                            <input 
+                                type="hidden"
+                                :name="'options[filters][' + filter.key +']'" 
+                                :value="filter.value"
+                            /> 
                         
                             <!-- Details -->
                             <div 
@@ -1200,7 +1243,11 @@
                             v-for="(filter, index) in options.filters"
                         >
                             <!-- Hidden Input -->
-                            <input type="hidden" :name="'options[filters][' + filter.key +']'" :value="filter.value"> 
+                            <input 
+                                type="hidden" 
+                                :name="'options[filters][' + filter.key +']'" 
+                                :value="filter.value"
+                            /> 
                         
                             <!-- Details -->
                             <div 
@@ -1279,7 +1326,11 @@
                         </x-slot:header>
                     
                         <x-slot:content>
-                            <input type="hidden" name="type" value="category_carousel">
+                            <input 
+                                type="hidden" 
+                                name="type" 
+                                value="category_carousel"
+                            />
 
                             <x-admin::form.control-group class="mb-[10px]">
                                 <x-admin::form.control-group.label class="required">
@@ -1533,8 +1584,17 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="{{ $currentLocale->code }}[options][html]" v-model="options.html">
-                        <input type="hidden" name="{{ $currentLocale->code }}[options][css]" v-model="options.css">
+                        <input 
+                            type="hidden" 
+                            name="{{ $currentLocale->code }}[options][html]" 
+                            v-model="options.html"
+                        />
+
+                        <input 
+                            type="hidden" 
+                            name="{{ $currentLocale->code }}[options][css]" 
+                            v-model="options.css"
+                        />
 
                         <KeepAlive>
                             <component 
@@ -1558,7 +1618,11 @@
                         </x-slot:header>
                     
                         <x-slot:content>
-                            <input type="hidden" name="type" value="static_content">
+                            <input 
+                                type="hidden" 
+                                name="type" 
+                                value="static_content"
+                            />
 
                             <x-admin::form.control-group class="mb-[10px]">
                                 <x-admin::form.control-group.label class="required">
@@ -1725,10 +1789,29 @@
                                     v-for="(link, key) in footerLink"
                                 >
                                     <!-- Hidden Input -->
-                                    <input type="hidden" :name="'options['+ link.column +'][' + key +']'" :value="link.column"> 
-                                    <input type="hidden" :name="'options['+ link.column +'][' + key +'][url]'" :value="link.url"> 
-                                    <input type="hidden" :name="'options['+ link.column +'][' + key +'][title]'" :value="link.title"> 
-                                    <input type="hidden" :name="'options['+ link.column +'][' + key +'][sort_order]'" :value="link.sort_order"> 
+                                    <input 
+                                        type="hidden" 
+                                        :name="'options['+ link.column +'][' + key +']'" 
+                                        :value="link.column"
+                                    /> 
+
+                                    <input 
+                                        type="hidden" 
+                                        :name="'options['+ link.column +'][' + key +'][url]'" 
+                                        :value="link.url"
+                                    />
+
+                                    <input 
+                                        type="hidden" 
+                                        :name="'options['+ link.column +'][' + key +'][title]'" 
+                                        :value="link.title"
+                                    />
+
+                                    <input 
+                                        type="hidden" 
+                                        :name="'options['+ link.column +'][' + key +'][sort_order]'" 
+                                        :value="link.sort_order"
+                                    /> 
                                     
                                     <div class="flex gap-[10px] justify-between py-5 cursor-pointer">
                                         <div class="flex gap-[10px] ">
@@ -1843,7 +1926,11 @@
                             </x-slot:header>
                         
                             <x-slot:content>
-                                <input type="hidden" name="type" value="footer_links">
+                                <input 
+                                    type="hidden" 
+                                    name="type" 
+                                    value="footer_links"
+                                />
 
                                 <x-admin::form.control-group class="mb-[10px]">
                                     <x-admin::form.control-group.label class="required">

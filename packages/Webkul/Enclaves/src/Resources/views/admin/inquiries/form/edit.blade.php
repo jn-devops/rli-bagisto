@@ -52,7 +52,7 @@
                                     rules="required"
                                     class="custom-select flex w-full min-h-[39px] py-[6px] px-[12px] bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-[6px] text-[14px] text-gray-600 dark:text-gray-300 font-normal transition-all hover:border-gray-400 dark:hover:border-gray-400"
                                     label="trans('enclaves::app.admin.inquiries.form.edit.customer')"
-                                    >
+                                >
                                     <option value="0" disabled>@lang('Select Customer')</option>
 
                                     @foreach(app(Webkul\Customer\Repositories\CustomerRepository::class)->get() as $customer)

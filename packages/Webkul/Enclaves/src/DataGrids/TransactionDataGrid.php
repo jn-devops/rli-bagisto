@@ -100,7 +100,6 @@ class TransactionDataGrid extends DataGrid
             'type'       => 'dropdown',
             'options'    => [
                 'type' => 'basic',
-
                 'params' => [
                     'options' => [
                         [
@@ -134,7 +133,6 @@ class TransactionDataGrid extends DataGrid
                     ],
                 ],
             ],
-
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,

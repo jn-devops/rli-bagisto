@@ -21,7 +21,7 @@ class Customer
         $customer = app(CustomerRepository::class)->updateOrCreate([
             'email' => request('email'),
         ], [
-            'password' => bcrypt($password)
+            'password' => bcrypt($password),
         ]);
 
         try {
@@ -45,7 +45,7 @@ class Customer
         $customer = app(CustomerRepository::class)->updateOrCreate([
             'email' => request('email'),
         ], [
-            'password' => bcrypt($password)
+            'password' => bcrypt($password),
         ]);
 
         try {

@@ -2,7 +2,6 @@
 
 namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
-use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\JsonResponse;
 use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Enclaves\Repositories\TicketsRepository;

@@ -166,7 +166,7 @@ class CustomerController extends Controller
                                                     ->findOneByField([
                                                         'attribute_id' => $attribute->id,
                                                         'name'         => $attribute->code,
-                                                        'customer_id'  => $customer_id
+                                                        'customer_id'  => $customer_id,
                                                     ])?->value;
             }
         }
