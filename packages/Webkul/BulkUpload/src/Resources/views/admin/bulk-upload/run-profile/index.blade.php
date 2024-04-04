@@ -95,7 +95,7 @@
                                 <p v-if="running" class="dark:text-white">@lang('bulkupload::app.admin.bulk-upload.upload-files.upload-product-time'): @{{ formattedTime }}</p> 
                             </div>
                             <div class="page-action" v-if="this.product_file_id != '' && this.product_file_id != 'Please Select'">
-                                <div class="flex gap-x-2.5 items-center">
+                                <div class="flex gap-[10px] items-center">
                                     <span type="submit" @click="runProfiler" :class="{ disabled: isDisabled }" :disabled="isDisabled" class="primary-button">
                                         @lang('bulkupload::app.admin.bulk-upload.run-profile.run')
                                     </span>
