@@ -175,7 +175,7 @@
 				}
 
 				let sliderinterval = setInterval(() => {
-					//setsliderinterval()
+					setsliderinterval()
 				}, 5000);
 
 				let dotevents = () => {
