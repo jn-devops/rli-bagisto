@@ -107,9 +107,16 @@ class EkycController extends Controller
             'cart_id' => $data['cart_id'],
         ]);
 
+        if($ekycVerification) {
+            return new JsonResource([
+                'transaction_id' => $ekycVerification->transaction_id,
+                'status'         => $ekycVerification->status,
+            ]);
+        }
+
         return new JsonResource([
-            'transaction_id' => $ekycVerification->transaction_id,
-            'status'         => $ekycVerification->status,
+            'transaction_id' => null,
+            'status'         => false,
         ]);
     }
 
@@ -181,9 +188,16 @@ class EkycController extends Controller
             'cart_id' => $data['cart_id'],
         ]);
         
+        if($ekycVerification) {
+            return new JsonResource([
+                'url'    => $this->getSiteVerifyEndpoint($product->sku, $ekycVerification->transaction_id),
+                'status' => $ekycVerification->status,
+            ]);
+        }
+
         return new JsonResource([
-            'url'    => $this->getSiteVerifyEndpoint($product->sku, $ekycVerification->transaction_id),
-            'status' => $ekycVerification->status,
+            'url'    => null,
+            'status' => false,
         ]);
     }
 }

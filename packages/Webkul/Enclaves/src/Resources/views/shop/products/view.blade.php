@@ -284,12 +284,12 @@
 
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
                                     <button 
-                                        class="mt-[30px] ml-[0px] block mx-auto w-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)]  text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
+                                        class="mt-[30px] ml-[0px] block mx-auto w-full text-[#CC035C] border-[#CC035C] border-[3px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
                                         href="#"
                                         @click="is_buy_now=1; is_kyc_process=1;"
                                         {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                     >
-                                        @lang('enclaves::app.shop.product.reserve-now')
+                                        @lang('enclaves::app.shop.product.select-area')
                                     </button>
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
 
