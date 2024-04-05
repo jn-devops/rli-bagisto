@@ -87,7 +87,7 @@
                                 :src="embedURL"
                                 width="560" 
                                 height="330" 
-                                title="W3Schools Free Online Web Tutorials"
+                                title=""
                                 >
                             </iframe>
                         </div>
@@ -187,8 +187,9 @@
                         }
                     })
                     .then(response => {
-                        if (! response.data.data.status) {
+                        if (! response.data.data.status && response.data.data.url) {
                             this.$refs.addFreamModal.open();
+
                             this.embedURL = response.data.data.url;
                         }
                     })

@@ -154,6 +154,7 @@ return [
 
         'product' =>  [
             'reserve-now'     => 'Reserve Now',
+            'select-area'     => 'Check & Select Area',
             'reservation-fee' => 'Reservation Fee: ',
             'contract-price'  => 'Total Contract Price:',
             'cart'  => [
