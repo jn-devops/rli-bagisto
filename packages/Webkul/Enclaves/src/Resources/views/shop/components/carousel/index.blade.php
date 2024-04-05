@@ -74,8 +74,6 @@
             },
 
             mounted() {
-                this.play();
-
 				let sliderImg = document.querySelectorAll('.et-slider img');
 				
 				let active = 0;
@@ -145,7 +143,7 @@
 						if (i === prev) {
 							ele.className = 'prev'
 						} else if (i === active) {
-							ele.className = 'active'
+							ele.className = 'active';
 						} else if (i === next) {
 							ele.className = 'next'
 						} else {
@@ -177,7 +175,7 @@
 				}
 
 				let sliderinterval = setInterval(() => {
-					setsliderinterval()
+					//setsliderinterval()
 				}, 5000);
 
 				let dotevents = () => {
@@ -207,53 +205,10 @@
             },
 
             methods: {
-                play() {
-                    this.images.forEach((value, index) => {
-                        if(index == 0) {
-                            this.images[index]['className'] = 'next';
-                        } else if((this.images.length - 2) == index) {
-                            this.images[index]['className'] = 'prev';
-                        } else if((this.images.length - 1) == index) {
-                            this.images[index]['className'] = 'active';
-                        } else {
-                            this.images[index]['className'] = 'd-none';
-                        }
-                    })
-                },
-
 				onLoad() {
                     this.isLoading = false;
                 },
             }
         });
     </script>
-
-    <style>
-        .fade {
-            -webkit-animation-name: fade;
-            -webkit-animation-duration: 1.5s;
-            animation-name: fade;
-            animation-duration: 1.5s;
-        }
-
-        @-webkit-keyframes fade {
-            from {
-                opacity: .4
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        @keyframes fade {
-            from {
-                opacity: .4
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-    </style>
 @endpushOnce
