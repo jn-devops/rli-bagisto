@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shop\Repositories;
+namespace Webkul\Enclaves\Repositories;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;

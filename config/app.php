@@ -227,6 +227,7 @@ return [
         Webkul\BulkUpload\Providers\BulkUploadServiceProvider::class,
         Webkul\Ekyc\Providers\EkycServiceProvider::class,
         Webkul\Enclaves\Providers\EnclavesServiceProvider::class,
+        Webkul\Blog\Providers\BlogServiceProvider::class,
     ])->toArray(),
 
     /*
