@@ -9,22 +9,22 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Core\Eloquent\Repository;
+
 class BlogRepository extends Repository
 {
-   /**
-     * Specify model class name.
+    /**
+     * Specify Model class name
      *
-     * @return string
+     * @return mixed
      */
-    public function model(): string
+    public function model()
     {
-        return 'Webkul\Blog\Contracts\Blog';
+        return 'Webkul\Blog\Models\Blog';
     }
 
     /**
      * Save blog.
      *
-     * @param  array  $data
      * @return bool|\Webkul\Blog\Contracts\Blog
      */
     public function save(array $data)
@@ -33,7 +33,7 @@ class BlogRepository extends Repository
 
         $create_data = $data;
 
-        if (array_key_exists('src', $create_data) ) {
+        if (array_key_exists('src', $create_data)) {
             unset($create_data['src']);
         }
 
@@ -49,7 +49,6 @@ class BlogRepository extends Repository
     /**
      * Update item.
      *
-     * @param  array  $data
      * @param  int  $id
      * @return bool
      */
@@ -59,7 +58,7 @@ class BlogRepository extends Repository
 
         $update_data = $data;
 
-        if (array_key_exists('src', $update_data) ) {
+        if (array_key_exists('src', $update_data)) {
             unset($update_data['src']);
         }
 
@@ -84,9 +83,9 @@ class BlogRepository extends Repository
     {
         if (isset($data[$type])) {
             foreach ($data[$type] as $imageId => $image) {
-                $file = $type . '.' . $imageId;
+                $file = $type.'.'.$imageId;
 
-                $dir = 'blog-images/' . $blog->id;
+                $dir = 'blog-images/'.$blog->id;
 
                 if (request()->hasFile($file)) {
                     if ($blog->{$type}) {
@@ -97,7 +96,7 @@ class BlogRepository extends Repository
 
                     $image = $manager->make(request()->file($file))->encode('webp');
 
-                    $blog->{$type} = 'blog-images/' . $blog->id . '/' . Str::random(40) . '.webp';
+                    $blog->{$type} = 'blog-images/'.$blog->id.'/'.Str::random(40).'.webp';
 
                     Storage::put($blog->{$type}, $image);
 
@@ -142,11 +141,11 @@ class BlogRepository extends Repository
         $locale = config('app.locale');
 
         $blogs = DB::table('blogs')
-                    ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-                    ->where('status', 1)
-                    ->where('locale', $locale)
-                    ->orderBy('id', 'DESC')
-                    ->paginate(12);
+            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('status', 1)
+            ->where('locale', $locale)
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
 
         return $blogs;
     }
@@ -159,10 +158,10 @@ class BlogRepository extends Repository
     public function getSingleBlogs($id)
     {
         $blog = DB::table('blogs')
-                ->whereSlug($id)
-                ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-                ->where('status', 1)
-                ->first();
+            ->whereSlug($id)
+            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('status', 1)
+            ->first();
 
         return $blog;
     }
@@ -177,15 +176,15 @@ class BlogRepository extends Repository
         $locale = config('app.locale');
 
         $categoryId = DB::table('blog_categories')
-                        ->where('slug', $id)->first();
+            ->where('slug', $id)->first();
 
         $blogs = DB::table('blogs')
-                    ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-                    ->where('default_category', $categoryId['id'])
-                    ->where('status', 1)
-                    ->where('locale', $locale)
-                    ->orderBy('id', 'DESC')
-                    ->paginate(12);
+            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('default_category', $categoryId['id'])
+            ->where('status', 1)
+            ->where('locale', $locale)
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
 
         return $blogs;
     }

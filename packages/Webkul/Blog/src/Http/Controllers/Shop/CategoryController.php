@@ -2,56 +2,37 @@
 
 namespace Webkul\Blog\Http\Controllers\Shop;
 
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Webkul\Blog\Repositories\BlogRepository;
-use Webkul\Blog\Repositories\BlogCategoryRepository;
-use Webkul\Blog\Http\Controllers\Shop\Controller;
-use Webkul\Enclaves\Repositories\ThemeCustomizationRepository;
+use Webkul\Blog\Http\Controllers\Controller;
 
-class BlogCategoryController extends Controller
+class CategoryController extends Controller
 {
-    use DispatchesJobs, ValidatesRequests;
-
     /**
      * Using const variable for status
      */
     const STATUS = 1;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(
-        protected ThemeCustomizationRepository $themeCustomizationRepository,
-        protected BlogCategoryRepository $blogCategoryRepository,
-        protected BlogRepository $blogRepository,
-    ) {
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function categories($category_slug)
+    public function index($category_slug)
     {
-        $category = $this->blogCategoryRepository->findOneByField('slug', $category_slug);
+        $category = $this->blogCategoryRepository->where('slug', $category_slug)->firstOrFail();
 
-        $category_id = ($category && isset($category->id) ) ? $category->id : 0;
+        $category_id = isset($category) ? $category->id : 0;
 
         $paginate = $this->getConfigByKey('blog_post_per_page');
-        
-        $paginate = (! empty($paginate)) ? (int)$paginate : 9;
+
+        $paginate = ! empty($paginate) ? (int) $paginate : 9;
 
         $blogs = $this->blogRepository->orderBy('id', 'desc')->where('status', 1)
             ->where(
                 function ($query) use ($category_id) {
-                        $query->where('default_category', $category_id)
-                            ->orWhereRaw('FIND_IN_SET(?, categorys)', [$category_id]);
+                    $query->where('default_category', $category_id)
+                        ->orWhereRaw('FIND_IN_SET(?, categorys)', [$category_id]);
                 })
-        ->paginate($paginate);
+            ->paginate($paginate);
 
         $categories = $this->blogCategoryRepository->where('status', 1)->get();
 
@@ -63,7 +44,7 @@ class BlogCategoryController extends Controller
         ]);
 
         $show_categories_count = $this->getConfigByKey('blog_post_show_categories_with_count');
-        
+
         $show_tags_count = $this->getConfigByKey('blog_post_show_tags_with_count');
 
         $show_author_page = $this->getConfigByKey('blog_post_show_author_page');

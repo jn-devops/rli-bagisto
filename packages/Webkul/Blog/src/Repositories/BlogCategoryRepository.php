@@ -2,29 +2,27 @@
 
 namespace Webkul\Blog\Repositories;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Core\Eloquent\Repository;
 
 class BlogCategoryRepository extends Repository
 {
-
     /**
-     * Specify model class name.
+     * Specify Model class name
      *
-     * @return string
+     * @return mixed
      */
-    public function model(): string
+    public function model()
     {
-        return 'Webkul\Blog\Contracts\BlogCategory';
+        return 'Webkul\Blog\Models\Category';
     }
 
     /**
      * Save blog category.
      *
-     * @param  array  $data
      * @return bool|\Webkul\Blog\Contracts\Category
      */
     public function save(array $data)
@@ -33,7 +31,7 @@ class BlogCategoryRepository extends Repository
 
         $create_data = $data;
 
-        if ( array_key_exists('image', $create_data) ) {
+        if (array_key_exists('image', $create_data)) {
             unset($create_data['image']);
         }
 
@@ -49,7 +47,6 @@ class BlogCategoryRepository extends Repository
     /**
      * Update item.
      *
-     * @param  array  $data
      * @param  int  $id
      * @return bool
      */
@@ -59,7 +56,7 @@ class BlogCategoryRepository extends Repository
 
         $update_data = $data;
 
-        if (array_key_exists('image', $update_data) ) {
+        if (array_key_exists('image', $update_data)) {
             unset($update_data['image']);
         }
 
@@ -84,9 +81,9 @@ class BlogCategoryRepository extends Repository
     {
         if (isset($data[$type])) {
             foreach ($data[$type] as $imageId => $image) {
-                $file = $type . '.' . $imageId;
+                $file = $type.'.'.$imageId;
 
-                $dir = 'blog-category/' . $category->id;
+                $dir = 'blog-category/'.$category->id;
 
                 if (request()->hasFile($file)) {
                     if ($category->{$type}) {
@@ -97,7 +94,7 @@ class BlogCategoryRepository extends Repository
 
                     $image = $manager->make(request()->file($file))->encode('webp');
 
-                    $category->{$type} = 'blog-category/' . $category->id . '/' . Str::random(40) . '.webp';
+                    $category->{$type} = 'blog-category/'.$category->id.'/'.Str::random(40).'.webp';
 
                     Storage::put($category->{$type}, $image);
 
@@ -141,7 +138,7 @@ class BlogCategoryRepository extends Repository
     {
         $currentLocale = core()->getCurrentLocale();
 
-        return $this->whereRaw("find_in_set(?, locale)", [$currentLocale->code])
+        return $this->whereRaw('find_in_set(?, locale)', [$currentLocale->code])
             ->orderBy('sort_order', 'ASC')
             ->get()
             ->toArray();

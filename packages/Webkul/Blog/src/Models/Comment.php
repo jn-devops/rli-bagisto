@@ -3,15 +3,15 @@
 namespace Webkul\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Webkul\Core\Eloquent\TranslatableModel;
-use Webkul\Blog\Contracts\Comment as CommentContract;
+use Illuminate\Database\Eloquent\Model;
+use Webkul\Blog\Contracts\Comment as BlogCommentContract;
 
-class Comment extends TranslatableModel implements CommentContract
+class Comment extends Model implements BlogCommentContract
 {
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * The table associated with the model.
      */
     protected $table = 'blog_comments';
 
@@ -33,6 +33,6 @@ class Comment extends TranslatableModel implements CommentContract
      */
     public function blog()
     {
-        return $this->hasOne(Blog::class, 'id', 'post');
+        return $this->hasOne('Webkul\Blog\Models\Blog', 'id', 'post');
     }
 }

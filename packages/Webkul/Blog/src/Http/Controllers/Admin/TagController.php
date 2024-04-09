@@ -2,28 +2,12 @@
 
 namespace Webkul\Blog\Http\Controllers\Admin;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Blog\Datagrids\BlogTagDataGrid;
+use Webkul\Blog\Http\Controllers\Controller;
+use Webkul\Blog\Datagrids\TagDataGrid;
 use Webkul\Blog\Http\Requests\BlogTagRequest;
-use Webkul\Blog\Repositories\BlogTagRepository;
 
-class BlogTagController extends Controller
+class TagController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(
-        protected BlogTagRepository $blogTagRepository
-    ) {
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +16,7 @@ class BlogTagController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return app(BlogTagDataGrid::class)->toJson();
+            return app(TagDataGrid::class)->toJson();
         }
 
         return view('blog::admin.tags.index');
@@ -66,9 +50,9 @@ class BlogTagController extends Controller
         $result = $this->blogTagRepository->save($data);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Tag']));
+            session()->flash('success', trans('blog::app.tag.create.created-success'));
         } else {
-            session()->flash('success', trans('blog::app.tag.created-fault'));
+            session()->flash('success', trans('blog::app.tag.create.created-failure'));
         }
 
         return redirect()->route('admin.blog.tag.index');
@@ -84,7 +68,7 @@ class BlogTagController extends Controller
     {
         $tag = $this->blogTagRepository->findOrFail($id);
 
-        return view('admin.blog.tag.edit', compact('tag'));
+        return view('blog::admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -104,9 +88,9 @@ class BlogTagController extends Controller
         $result = $this->blogTagRepository->updateItem($data, $id);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.response.update-success', ['name' => 'Tag']));
+            session()->flash('success', trans('blog::app.tag.edit.update-success'));
         } else {
-            session()->flash('error', trans('blog::app.tag.updated-fault'));
+            session()->flash('error', trans('blog::app.tag.edit.updated-failure'));
         }
 
         return redirect()->route('admin.blog.tag.index');
@@ -125,12 +109,12 @@ class BlogTagController extends Controller
         try {
             $this->blogTagRepository->delete($id);
 
-            return response()->json(['message' => trans('admin::app.response.delete-success', ['name' => 'Tag'])]);
+            return response()->json(['message' => trans('blog::app.tag.index.delete-success')]);
         } catch (\Exception $e) {
             report($e);
         }
 
-        return response()->json(['message' => trans('admin::app.response.delete-failed', ['name' => 'Tag'])], 500);
+        return response()->json(['message' => trans('blog::app.tag.index.delete-failed')], 500);
     }
 
     /**
@@ -143,10 +127,9 @@ class BlogTagController extends Controller
         $suppressFlash = false;
 
         if (request()->isMethod('post')) {
-            // $indexes = explode(',', request()->input('indexes'));
-            $indexes = (array)request()->input('indices');
+            $indexes = (array) request()->input('indices');
 
-            foreach ($indexes as $key => $value) {
+            foreach ($indexes as $value) {
                 try {
                     $this->blogTagRepository->delete($value);
                 } catch (\Exception $e) {
@@ -157,14 +140,14 @@ class BlogTagController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('admin::app.datagrid.mass-ops.delete-success', ['resource' => 'Tag']));
+                session()->flash('success', trans('blog::app.tag.index.delete-success'));
             } else {
-                session()->flash('info', trans('admin::app.datagrid.mass-ops.partial-action', ['resource' => 'Tag']));
+                session()->flash('info', trans('blog::app.tag.index.partial-action'));
             }
 
             return redirect()->back();
         } else {
-            session()->flash('error', trans('admin::app.datagrid.mass-ops.method-error'));
+            session()->flash('error', trans('blog::app.tag.index.method-error'));
 
             return redirect()->back();
         }

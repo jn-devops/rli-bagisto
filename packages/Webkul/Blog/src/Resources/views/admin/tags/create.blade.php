@@ -1,6 +1,6 @@
 <x-admin::layouts>
     <x-slot:title>
-        @lang('blog::app.tag.add-title')
+        @lang('blog::app.tag.create.title')
     </x-slot:title>
 
     @php
@@ -13,12 +13,11 @@
         method="POST"
         enctype="multipart/form-data"
     >
-
         {!! view_render_event('admin.blog.tags.create.before') !!}
 
         <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
             <p class="text-[20px] text-gray-800 dark:text-white font-bold">
-                @lang('blog::app.tag.add-title')
+                @lang('blog::app.tag.create.title')
             </p>
 
             <div class="flex gap-x-[10px] items-center">
@@ -27,7 +26,7 @@
                     href="{{ route('admin.blog.tag.index') }}"
                     class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white"
                 >
-                    @lang('admin::app.catalog.categories.edit.back-btn')
+                    @lang('blog::app.tag.create.back-btn')
                 </a>
 
                 <!-- Save Button -->
@@ -35,12 +34,12 @@
                     type="submit"
                     class="primary-button"
                 >
-                    @lang('blog::app.tag.create-btn-title')
+                    @lang('blog::app.tag.create.save-btn')
                 </button>
             </div>
         </div>
 
-        <!-- Full Pannel -->
+        <!-- Full Panel -->
         <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
 
             <!-- Left Section -->
@@ -49,7 +48,7 @@
                 <!-- General -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('admin::app.catalog.categories.create.general')
+                        @lang('blog::app.tag.create.general')
                     </p>
 
                     <!-- Locales -->
@@ -63,14 +62,14 @@
                     <!-- Name -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.tag.name')
+                            @lang('blog::app.tag.create.name')
                         </x-admin::form.control-group.label>
 
                         <v-field
                             type="text"
                             name="name"
                             value="{{ old('name') }}"
-                            label="{{ trans('blog::app.tag.name') }}"
+                            label="{{ trans('blog::app.tag.create.name') }}"
                             rules="required"
                             v-slot="{ field }"
                         >
@@ -81,7 +80,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.tag.name') }}"
+                                placeholder="{{ trans('blog::app.tag.create.name') }}"
                                 v-slugify-target:slug="setValues"
                             >
                         </v-field>
@@ -95,14 +94,14 @@
                     <!-- Slug -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.tag.slug')
+                            @lang('blog::app.tag.create.slug')
                         </x-admin::form.control-group.label>
 
                         <v-field
                             type="text"
                             name="slug"
                             value="{{ old('slug') }}"
-                            label="{{ trans('blog::app.tag.slug') }}"
+                            label="{{ trans('blog::app.tag.create.slug') }}"
                             rules="required"
                             v-slot="{ field }"
                         >
@@ -113,7 +112,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.tag.slug') }}"
+                                placeholder="{{ trans('blog::app.tag.create.slug') }}"
                                 v-slugify-target:slug
                             >
                         </v-field>
@@ -128,7 +127,7 @@
                     <v-description>
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.tag.description')
+                                @lang('blog::app.tag.create.description')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -138,7 +137,7 @@
                                 class="description"
                                 rules="required"
                                 :value="old('description')"
-                                :label="trans('blog::app.tag.description')"
+                                :label="trans('blog::app.tag.create.description')"
                                 :tinymce="true"
                                 :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')"
                             >
@@ -150,24 +149,22 @@
                             </x-admin::form.control-group.error>
                         </x-admin::form.control-group>
                     </v-description>
-
                 </div>
 
-                <!-- SEO Deatils -->
+                <!-- SEO Details -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('blog::app.tag.search_engine_optimization')
+                        @lang('blog::app.tag.create.search-engine-optimization')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
-                    {{-- <x-admin::seo/> --}}
+                    <!-- SEO Title & Description Blade Component -->
                     <v-seo-helper-custom></v-seo-helper-custom>
 
                     <div class="mt-8">
                         <!-- Meta Title -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_title')
+                                @lang('blog::app.tag.create.meta-title')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -176,8 +173,8 @@
                                 id="meta_title"
                                 rules="required"
                                 :value="old('meta_title')"
-                                :label="trans('blog::app.blog.meta_title')"
-                                :placeholder="trans('blog::app.blog.meta_title')"
+                                :label="trans('blog::app.tag.create.meta-title')"
+                                :placeholder="trans('blog::app.tag.create.meta-title')"
                             >
                             </x-admin::form.control-group.control>
 
@@ -188,7 +185,7 @@
                         <!-- Meta Keywords -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_keywords')
+                                @lang('blog::app.tag.create.meta-keywords')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -196,8 +193,8 @@
                                 name="meta_keywords"
                                 rules="required"
                                 :value="old('meta_keywords')"
-                                :label="trans('blog::app.blog.meta_keywords')"
-                                :placeholder="trans('blog::app.blog.meta_keywords')"
+                                :label="trans('blog::app.tag.create.meta-keywords')"
+                                :placeholder="trans('blog::app.tag.create.meta-keywords')"
                             >
                             </x-admin::form.control-group.control>
 
@@ -208,7 +205,7 @@
                         <!-- Meta Description -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_description')
+                                @lang('blog::app.tag.create.meta-description')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -217,8 +214,8 @@
                                 id="meta_description"
                                 rules="required"
                                 :value="old('meta_description')"
-                                :label="trans('blog::app.blog.meta_description')"
-                                :placeholder="trans('blog::app.blog.meta_description')"
+                                :label="trans('blog::app.tag.create.meta-description')"
+                                :placeholder="trans('blog::app.tag.create.meta-description')"
                             >
                             </x-admin::form.control-group.control>
 
@@ -246,7 +243,7 @@
                         <!-- Status -->
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.tag.status')
+                                @lang('blog::app.tag.create.status')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -254,7 +251,7 @@
                                 name="status"
                                 class="cursor-pointer"
                                 value="1"
-                                :label="trans('blog::app.tag.status')"
+                                :label="trans('blog::app.tag.create.status')"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
@@ -344,11 +341,9 @@
                     var slug = e.target.value;
                     self.metaSlug = ( slug != '' && slug != null && slug != undefined ) ? slug : '';
                 });
-
             },
         });
     </script>
-
 @endPushOnce
 
 </x-admin::layouts>

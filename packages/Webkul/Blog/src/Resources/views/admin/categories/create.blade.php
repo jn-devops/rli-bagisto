@@ -1,18 +1,14 @@
 <x-admin::layouts>
     <x-slot:title>
-        @lang('blog::app.category.add-title')
+        @lang('blog::app.category.create.title')
     </x-slot:title>
 
     @pushOnce('styles')
-
         <style type="text/css">
-            
             .v-tree-container>.v-tree-item:not(.has-children) {
                 padding-left: 18px !important;
             }
-            
         </style>
-
     @endPushOnce
 
     @php
@@ -25,12 +21,11 @@
         method="POST"
         enctype="multipart/form-data"
     >
-
         {!! view_render_event('admin.blog.categories.create.before') !!}
 
         <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
             <p class="text-[20px] text-gray-800 dark:text-white font-bold">
-                @lang('blog::app.category.add-title')
+                @lang('blog::app.category.create.title')
             </p>
 
             <div class="flex gap-x-[10px] items-center">
@@ -39,7 +34,7 @@
                     href="{{ route('admin.blog.category.index') }}"
                     class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white"
                 >
-                    @lang('admin::app.catalog.categories.create.back-btn')
+                    @lang('blog::app.category.create.back-btn')
                 </a>
 
                 <!-- Save Button -->
@@ -47,21 +42,19 @@
                     type="submit"
                     class="primary-button"
                 >
-                    @lang('blog::app.category.create-btn-title')
+                    @lang('blog::app.category.create.save-btn')
                 </button>
             </div>
         </div>
 
-        <!-- Full Pannel -->
+        <!-- Full Panel -->
         <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
-
             <!-- Left Section -->
             <div class="flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
-
                 <!-- General -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('admin::app.catalog.categories.create.general')
+                        @lang('blog::app.category.create.general')
                     </p>
 
                     <!-- Locales -->
@@ -75,14 +68,14 @@
                     <!-- Name -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.category.name')
+                            @lang('blog::app.category.create.name')
                         </x-admin::form.control-group.label>
 
                         <v-field
                             type="text"
                             name="name"
                             value="{{ old('name') }}"
-                            label="{{ trans('blog::app.category.name') }}"
+                            label="{{ trans('blog::app.category.create.name') }}"
                             rules="required"
                             v-slot="{ field }"
                         >
@@ -93,7 +86,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.category.name') }}"
+                                placeholder="{{ trans('blog::app.category.create.name') }}"
                                 v-slugify-target:slug="setValues"
                             >
                         </v-field>
@@ -107,14 +100,14 @@
                     <!-- Slug -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.category.slug')
+                            @lang('blog::app.category.create.slug')
                         </x-admin::form.control-group.label>
 
                         <v-field
                             type="text"
                             name="slug"
                             value="{{ old('slug') }}"
-                            label="{{ trans('blog::app.category.slug') }}"
+                            label="{{ trans('blog::app.category.create.slug') }}"
                             rules="required"
                             v-slot="{ field }"
                         >
@@ -125,7 +118,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.category.slug') }}"
+                                placeholder="{{ trans('blog::app.category.create.slug') }}"
                                 v-slugify-target:slug
                             >
                         </v-field>
@@ -141,14 +134,14 @@
                 <!-- Description and images -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('blog::app.blog.description-and-images')
+                        @lang('blog::app.category.create.description-and-images')
                     </p>
 
                     <!-- Description -->
                     <v-description>
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.category.description')
+                                @lang('blog::app.category.create.description-and-images')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -158,7 +151,7 @@
                                 class="description"
                                 rules="required"
                                 :value="old('description')"
-                                :label="trans('blog::app.category.description')"
+                                :label="trans('blog::app.category.create.description-and-images')"
                                 :tinymce="true"
                                 :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')"
                             >
@@ -175,33 +168,30 @@
                         <!-- Add Logo -->
                         <div class="flex flex-col gap-2 w-2/5 mt-5">
                             <p class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.category.image')
+                                @lang('blog::app.category.create.image')
                             </p>
 
                             <x-admin::media.images name="image" rules="required"></x-admin::media.images>
 
                             <x-admin::form.control-group.error control-name="image"></x-admin::form.control-group.error>
-
                         </div>
-
                     </div>
                 </div>
 
-                <!-- SEO Deatils -->
+                <!-- SEO Details -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('blog::app.blog.search_engine_optimization')
+                        @lang('blog::app.category.create.search-engine-optimization')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
-                    {{-- <x-admin::seo/> --}}
+                    <!-- SEO Title & Description Blade Component -->
                     <v-seo-helper-custom></v-seo-helper-custom>
 
                     <div class="mt-8">
                         <!-- Meta Title -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_title')
+                                @lang('blog::app.category.create.meta-title')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -210,19 +200,18 @@
                                 id="meta_title"
                                 rules="required"
                                 :value="old('meta_title')"
-                                :label="trans('blog::app.blog.meta_title')"
-                                :placeholder="trans('blog::app.blog.meta_title')"
+                                :label="trans('blog::app.category.create.meta-title')"
+                                :placeholder="trans('blog::app.category.create.meta-title')"
                             >
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="meta_title"></x-admin::form.control-group.error>
-
                         </x-admin::form.control-group>
 
                         <!-- Meta Keywords -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_keywords')
+                                @lang('blog::app.category.create.meta-keywords')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -230,19 +219,18 @@
                                 name="meta_keywords"
                                 rules="required"
                                 :value="old('meta_keywords')"
-                                :label="trans('blog::app.blog.meta_keywords')"
-                                :placeholder="trans('blog::app.blog.meta_keywords')"
+                                :label="trans('blog::app.category.create.meta-keywords')"
+                                :placeholder="trans('blog::app.category.create.meta-keywords')"
                             >
                             </x-admin::form.control-group.control>
-
+                            
                             <x-admin::form.control-group.error control-name="meta_keywords"></x-admin::form.control-group.error>
-
                         </x-admin::form.control-group>
 
                         <!-- Meta Description -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_description')
+                                @lang('blog::app.category.create.meta-description')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -251,17 +239,15 @@
                                 id="meta_description"
                                 rules="required"
                                 :value="old('meta_description')"
-                                :label="trans('blog::app.blog.meta_description')"
-                                :placeholder="trans('blog::app.blog.meta_description')"
+                                :label="trans('blog::app.category.create.meta-description')"
+                                :placeholder="trans('blog::app.category.create.meta-description')"
                             >
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="meta_description"></x-admin::form.control-group.error>
-
                         </x-admin::form.control-group>
                     </div>
                 </div>
-
             </div>
 
             <!-- Right Section -->
@@ -271,16 +257,15 @@
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="p-[10px] text-gray-600 dark:text-gray-300 text-[16px] font-semibold">
-                            @lang('admin::app.catalog.categories.create.settings')
+                            @lang('blog::app.category.create.settings')
                         </p>
                     </x-slot:header>
 
                     <x-slot:content>
-
                         <!-- Status -->
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.blog.status')
+                                @lang('blog::app.category.create.status')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -288,11 +273,10 @@
                                 name="status"
                                 class="cursor-pointer"
                                 value="1"
-                                :label="trans('blog::app.blog.status')"
+                                :label="trans('blog::app.category.create.status')"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
-
                     </x-slot:content>
                 </x-admin::accordion>
 
@@ -300,13 +284,11 @@
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="p-[10px] text-gray-600 dark:text-gray-300 text-[16px] font-semibold">
-                            {{-- @lang('admin::app.catalog.categories.create.settings') --}}
-                            Parent Category
+                            @lang('blog::app.category.create.parent-category')
                         </p>
                     </x-slot:header>
 
                     <x-slot:content>
-
                         <!-- Status -->
                         <div class="flex flex-col gap-[12px]">
                             <x-admin::tree.view
@@ -320,19 +302,16 @@
                             >
                             </x-admin::tree.view>
                         </div>
-
                     </x-slot:content>
                 </x-admin::accordion>
 
                 {!! view_render_event('admin.blog.categories.create.after') !!}
-
             </div>
         </div>
-
     </x-admin::form>
 
 @pushOnce('scripts')
-    {{-- SEO Vue Component Template --}}
+    <!-- SEO Vue Component Template -->
     <script type="text/x-template" id="v-seo-helper-custom-template">
         <div class="flex flex-col gap-[3px] mb-[30px]">
             <p 
@@ -406,11 +385,8 @@
                     var slug = e.target.value;
                     self.metaSlug = ( slug != '' && slug != null && slug != undefined ) ? slug : '';
                 });
-
             },
         });
     </script>
-
 @endPushOnce
-
 </x-admin::layouts>

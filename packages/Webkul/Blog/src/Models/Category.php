@@ -2,13 +2,14 @@
 
 namespace Webkul\Blog\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
-use Webkul\Core\Eloquent\TranslatableModel;
-use Webkul\Blog\Contracts\Category as CategoryContract;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Webkul\Blog\Contracts\Category as BlogCategoryContract;
+use Webkul\Blog\Repositories\BlogRepository;
 
-class Category extends TranslatableModel implements CategoryContract
+class Category extends Model implements BlogCategoryContract
 {
     use HasFactory;
 
@@ -77,11 +78,7 @@ class Category extends TranslatableModel implements CategoryContract
             return;
         }
 
-        $category = Category::find($this->parent_id);
-
-        $parent_category_name = $category ? $category->name : null;
-
-        return $parent_category_name;
+        return $this->find($this->parent_id)?->name ?? null;
     }
 
     /**
@@ -95,7 +92,7 @@ class Category extends TranslatableModel implements CategoryContract
             return;
         }
 
-        return Category::find($this->parent_id);
+        return $this->find($this->parent_id);
     }
 
     /**
@@ -109,11 +106,11 @@ class Category extends TranslatableModel implements CategoryContract
             return;
         }
 
-        if ( Session::has('bCatEditId') && Session::get('bCatEditId') > 0 ) {
-            return Category::where('id', '!=', Session::get('bCatEditId'))->where('parent_id', $this->id)->get();
+        if (Session::has('bCatEditId')) {
+            return $this->where('id', '!=', Session::get('bCatEditId'))->where('parent_id', $this->id)->get();
         }
 
-        return Category::where('parent_id', $this->id)->get();
+        return $this->where('parent_id', $this->id)->get();
     }
 
     /**
@@ -131,18 +128,18 @@ class Category extends TranslatableModel implements CategoryContract
 
         $this_id = $this->id;
 
-        $blogs = Blog::where('status', 1)
-                    ->where(
-                        function ($query) use ($this_id) {
-                            $query->where('default_category', $this_id)
-                            ->orWhereRaw('FIND_IN_SET(?, categorys)', [$this_id]);
-                        })
-                    ->get();
+        $blogs = app(BlogRepository::class)->where('status', 1)
+                ->where(
+                    function ($query) use ($this_id) {
+                        $query->where('default_category', $this_id)
+                        ->orWhereRaw('FIND_IN_SET(?, categorys)', [$this_id]);
+                    })
+                ->get();
 
-        if ( !empty($blogs) && count($blogs) > 0 ) {
-            $assign_blogs = count($blogs);
+        if (! empty($blogs)) {
+            $assignBlogs = count($blogs);
         }
 
-        return $assign_blogs;
+        return $assignBlogs;
     }
 }

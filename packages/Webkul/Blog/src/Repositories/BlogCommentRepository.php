@@ -2,9 +2,8 @@
 
 namespace Webkul\Blog\Repositories;
 
-use Webkul\Core\Eloquent\Repository;
 use Illuminate\Support\Facades\Event;
-use Webkul\Blog\Models\CommentProxy as BlogCommentProxy;
+use Webkul\Core\Eloquent\Repository;
 
 class BlogCommentRepository extends Repository
 {
@@ -13,15 +12,14 @@ class BlogCommentRepository extends Repository
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
-        return BlogCommentProxy::class;
+        return 'Webkul\Blog\Models\Comment';
     }
 
     /**
      * Save blog tag.
      *
-     * @param  array  $data
      * @return bool|\Webkul\Blog\Contracts\Comment
      */
     public function save(array $data)
@@ -38,7 +36,6 @@ class BlogCommentRepository extends Repository
     /**
      * Update item.
      *
-     * @param  array  $data
      * @param  int  $id
      * @return bool
      */
@@ -77,7 +74,7 @@ class BlogCommentRepository extends Repository
     {
         $currentLocale = core()->getCurrentLocale();
 
-        return $this->whereRaw("find_in_set(?, locale)", [$currentLocale->code])
+        return $this->whereRaw('find_in_set(?, locale)', [$currentLocale->code])
             ->orderBy('sort_order', 'ASC')
             ->get()
             ->toArray();

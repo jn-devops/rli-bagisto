@@ -1,6 +1,6 @@
 <x-admin::layouts>
     <x-slot:title>
-        @lang('blog::app.comment.edit-title')
+        @lang('blog::app.comment.edit.title')
     </x-slot:title>
 
     @php
@@ -13,12 +13,11 @@
         method="POST"
         enctype="multipart/form-data"
     >
-
         {!! view_render_event('admin.blog.comments.edit.before') !!}
 
         <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
             <p class="text-[20px] text-gray-800 dark:text-white font-bold">
-                @lang('blog::app.comment.edit-title')
+                @lang('blog::app.comment.edit.title')
             </p>
 
             <div class="flex gap-x-[10px] items-center">
@@ -27,7 +26,7 @@
                     href="{{ route('admin.blog.tag.index') }}"
                     class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white"
                 >
-                    @lang('admin::app.catalog.categories.edit.back-btn')
+                    @lang('blog::app.comment.edit.back-btn')
                 </a>
 
                 <!-- Save Button -->
@@ -35,12 +34,12 @@
                     type="submit"
                     class="primary-button"
                 >
-                    @lang('blog::app.comment.edit-btn-title')
+                    @lang('blog::app.comment.edit.btn-title')
                 </button>
             </div>
         </div>
 
-        <!-- Full Pannel -->
+        <!-- Full Panel -->
         <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
 
             <!-- Left Section -->
@@ -49,7 +48,7 @@
                 <!-- General -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('admin::app.catalog.categories.create.general')
+                        @lang('blog::app.comment.edit.general')
                     </p>
 
                     <!-- Locales -->
@@ -71,14 +70,14 @@
                     <!-- Name -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.comment.post')
+                            @lang('blog::app.comment.edit.post')
                         </x-admin::form.control-group.label>
 
                         <v-field
                             type="text"
                             name="post"
                             value="{{ old('post') ?? $comment->blog->name }}"
-                            label="{{ trans('blog::app.comment.post') }}"
+                            label="{{ trans('blog::app.comment.edit.post') }}"
                             rules="required"
                             v-slot="{ field }"
                             disabled="disabled"
@@ -90,7 +89,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'post' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.comment.post') }}"
+                                placeholder="{{ trans('blog::app.comment.edit.post') }}"
                                 v-slugify-target:slug="setValues"
                                 disabled="disabled"
                             >
@@ -105,7 +104,7 @@
                     <!-- Slug -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.comment.name')
+                            @lang('blog::app.comment.edit.name')
                         </x-admin::form.control-group.label>
 
                         <v-field
@@ -113,7 +112,7 @@
                             name="author_name"
                             {{-- value="{{ old('author_name') ?? $author_name }}" --}}
                             value="{{ old('author_name') ?? $comment->name }}"
-                            label="{{ trans('blog::app.comment.name') }}"
+                            label="{{ trans('blog::app.comment.edit.name') }}"
                             rules="required"
                             v-slot="{ field }"
                             disabled="disabled"
@@ -125,7 +124,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'author_name' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.comment.name') }}"
+                                placeholder="{{ trans('blog::app.comment.edit.name') }}"
                                 v-slugify-target:slug
                                 disabled="disabled"
                             >
@@ -140,7 +139,7 @@
                     <!-- Published At -->
                     <x-admin::form.control-group class="w-full mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.comment.comment_date')
+                            @lang('blog::app.comment.edit.comment-date')
                         </x-admin::form.control-group.label>
 
                         <x-admin::form.control-group.control
@@ -150,8 +149,8 @@
                             rules="required"
                             disabled="disabled"
                             :value="old('created_at') ?? date_format(date_create($comment->created_at),'Y-m-d')"
-                            :label="trans('blog::app.comment.comment_date')"
-                            :placeholder="trans('blog::app.comment.comment_date')"
+                            :label="trans('blog::app.comment.edit.comment-date')"
+                            :placeholder="trans('blog::app.comment.edit.comment-date')"
                         >
                         </x-admin::form.control-group.control>
 
@@ -165,7 +164,7 @@
                     <v-description>
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.comment.comment')
+                                @lang('blog::app.comment.edit.comment')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -175,7 +174,7 @@
                                 class="comment"
                                 rules="required"
                                 :value="old('comment') ?? $comment->comment"
-                                :label="trans('blog::app.comment.comment')"
+                                :label="trans('blog::app.comment.edit.comment')"
                                 :tinymce="true"
                                 :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')"
                             >
@@ -187,9 +186,7 @@
                             </x-admin::form.control-group.error>
                         </x-admin::form.control-group>
                     </v-description>
-
                 </div>
-
             </div>
 
             <!-- Right Section -->
@@ -199,42 +196,34 @@
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="p-[10px] text-gray-600 dark:text-gray-300 text-[16px] font-semibold">
-                            @lang('admin::app.catalog.categories.create.settings')
+                            @lang('blog::app.comment.edit.settings')
                         </p>
                     </x-slot:header>
 
                     <x-slot:content>
-
                         <!-- Status -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.comment.status')
+                                @lang('blog::app.comment.edit.status')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
                                 type="select"
                                 name="status"
                                 id="status"
-                                {{-- class="cursor-pointer" --}}
                                 :value="old('status') ?? $comment->status"
-                                :label="trans('blog::app.comment.status')"
+                                :label="trans('blog::app.comment.edit.status')"
                             >
                                 <!-- Options -->
                                 @foreach($status_details as $status_data)
-                                    <option value="{{$status_data['id']}}" {{ $comment->status == $status_data['id'] ? 'selected' : '' }} >@lang($status_data['name'])</option>
+                                    <option value="{{ $status_data['id'] }}" {{ $comment->status == $status_data['id'] ? 'selected' : '' }} >@lang($status_data['name'])</option>
                                 @endforeach
                             </x-admin::form.control-group.control>
-
                         </x-admin::form.control-group>
-
                     </x-slot:content>
                 </x-admin::accordion>
-
                 {!! view_render_event('admin.blog.comments.edit.after', ['comment' => $comment]) !!}
-
             </div>
         </div>
-
     </x-admin::form>
-
 </x-admin::layouts>

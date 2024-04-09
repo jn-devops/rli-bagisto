@@ -1,6 +1,6 @@
 <x-admin::layouts>
     <x-slot:title>
-        @lang('blog::app.tag.edit-title')
+        @lang('blog::app.tag.edit.title')
     </x-slot:title>
 
     @php
@@ -13,12 +13,11 @@
         method="POST"
         enctype="multipart/form-data"
     >
-
         {!! view_render_event('admin.blog.tags.edit.before') !!}
 
         <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
             <p class="text-[20px] text-gray-800 dark:text-white font-bold">
-                @lang('blog::app.tag.edit-title')
+                @lang('blog::app.tag.edit.title')
             </p>
 
             <div class="flex gap-x-[10px] items-center">
@@ -27,7 +26,7 @@
                     href="{{ route('admin.blog.tag.index') }}"
                     class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white"
                 >
-                    @lang('admin::app.catalog.categories.edit.back-btn')
+                    @lang('blog::app.tag.edit.back-btn')
                 </a>
 
                 <!-- Save Button -->
@@ -35,12 +34,12 @@
                     type="submit"
                     class="primary-button"
                 >
-                    @lang('blog::app.tag.edit-btn-title')
+                    @lang('blog::app.tag.edit.save-btn')
                 </button>
             </div>
         </div>
 
-        <!-- Full Pannel -->
+        <!-- Full Panel -->
         <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
 
             <!-- Left Section -->
@@ -49,7 +48,7 @@
                 <!-- General -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('admin::app.catalog.categories.create.general')
+                        @lang('blog::app.tag.edit.general')
                     </p>
 
                     <!-- Locales -->
@@ -63,14 +62,14 @@
                     <!-- Name -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.tag.name')
+                            @lang('blog::app.tag.edit.name')
                         </x-admin::form.control-group.label>
 
                         <v-field
                             type="text"
                             name="name"
                             value="{{ old('name') ?? $tag->name }}"
-                            label="{{ trans('blog::app.tag.name') }}"
+                            label="{{ trans('blog::app.tag.edit.name') }}"
                             rules="required"
                             v-slot="{ field }"
                         >
@@ -81,7 +80,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.tag.name') }}"
+                                placeholder="{{ trans('blog::app.tag.edit.name') }}"
                                 v-slugify-target:slug="setValues"
                             >
                         </v-field>
@@ -95,14 +94,14 @@
                     <!-- Slug -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.tag.slug')
+                            @lang('blog::app.tag.edit.slug')
                         </x-admin::form.control-group.label>
 
                         <v-field
                             type="text"
                             name="slug"
                             value="{{ old('slug') ?? $tag->slug }}"
-                            label="{{ trans('blog::app.tag.slug') }}"
+                            label="{{ trans('blog::app.tag.edit.slug') }}"
                             rules="required"
                             v-slot="{ field }"
                         >
@@ -113,7 +112,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ trans('blog::app.tag.slug') }}"
+                                placeholder="{{ trans('blog::app.tag.edit.slug') }}"
                                 v-slugify-target:slug
                             >
                         </v-field>
@@ -128,7 +127,7 @@
                     <v-description>
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.tag.description')
+                                @lang('blog::app.tag.edit.description')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -138,7 +137,7 @@
                                 class="description"
                                 rules="required"
                                 :value="old('description') ?? $tag->description"
-                                :label="trans('blog::app.tag.description')"
+                                :label="trans('blog::app.tag.edit.description')"
                                 :tinymce="true"
                                 :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')"
                             >
@@ -153,21 +152,20 @@
 
                 </div>
 
-                <!-- SEO Deatils -->
+                <!-- SEO Details -->
                 <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
                     <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
-                        @lang('blog::app.tag.search_engine_optimization')
+                        @lang('blog::app.tag.edit.search-engine-optimization')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
-                    {{-- <x-admin::seo/> --}}
+                    <!-- SEO Title & Description Blade Component -->
                     <v-seo-helper-custom></v-seo-helper-custom>
 
                     <div class="mt-8">
                         <!-- Meta Title -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_title')
+                                @lang('blog::app.tag.edit.meta-title')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -176,19 +174,18 @@
                                 id="meta_title"
                                 rules="required"
                                 :value="old('meta_title') ?? $tag->meta_title"
-                                :label="trans('blog::app.blog.meta_title')"
-                                :placeholder="trans('blog::app.blog.meta_title')"
+                                :label="trans('blog::app.tag.edit.meta-title')"
+                                :placeholder="trans('blog::app.tag.edit.meta-title')"
                             >
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="meta_title"></x-admin::form.control-group.error>
-
                         </x-admin::form.control-group>
 
                         <!-- Meta Keywords -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_keywords')
+                                @lang('blog::app.tag.edit.meta-keywords')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -196,19 +193,18 @@
                                 name="meta_keywords"
                                 rules="required"
                                 :value="old('meta_keywords') ?? $tag->meta_keywords"
-                                :label="trans('blog::app.blog.meta_keywords')"
-                                :placeholder="trans('blog::app.blog.meta_keywords')"
+                                :label="trans('blog::app.tag.edit.meta-keywords')"
+                                :placeholder="trans('blog::app.tag.edit.meta-keywords')"
                             >
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="meta_keywords"></x-admin::form.control-group.error>
-
                         </x-admin::form.control-group>
 
                         <!-- Meta Description -->
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.meta_description')
+                                @lang('blog::app.tag.edit.meta-description')
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -217,17 +213,15 @@
                                 id="meta_description"
                                 rules="required"
                                 :value="old('meta_description') ?? $tag->meta_description"
-                                :label="trans('blog::app.blog.meta_description')"
-                                :placeholder="trans('blog::app.blog.meta_description')"
+                                :label="trans('blog::app.tag.edit.meta-description')"
+                                :placeholder="trans('blog::app.tag.edit.meta-description')"
                             >
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="meta_description"></x-admin::form.control-group.error>
-
                         </x-admin::form.control-group>
                     </div>
                 </div>
-
             </div>
 
             <!-- Right Section -->
@@ -237,20 +231,22 @@
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="p-[10px] text-gray-600 dark:text-gray-300 text-[16px] font-semibold">
-                            @lang('admin::app.catalog.categories.create.settings')
+                            @lang('blog::app.tag.edit.status')
                         </p>
                     </x-slot:header>
 
                     <x-slot:content>
-
                         <!-- Status -->
                         <v-setting-custom></v-setting-custom>
+
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.tag.status')
+                                @lang('blog::app.tag.edit.status')
                             </x-admin::form.control-group.label>
 
-                            @php $selectedValue_status = old('status') ?: $tag->status @endphp
+                            @php 
+                                $selectedValueStatus = old('status') ?: $tag->status 
+                            @endphp
 
                             <x-admin::form.control-group.control
                                 type="switch"
@@ -258,26 +254,27 @@
                                 name="status_switch"
                                 class="cursor-pointer"
                                 value="1"
-                                :label="trans('blog::app.tag.status')"
-                                :checked="(boolean) $selectedValue_status"
+                                :label="trans('blog::app.tag.edit.status')"
+                                :checked="(boolean) $selectedValueStatus"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
-
                     </x-slot:content>
                 </x-admin::accordion>
-
                 {!! view_render_event('admin.blog.tags.edit.before', ['tag' => $tag]) !!}
-
             </div>
         </div>
-
     </x-admin::form>
 
 @pushOnce('scripts')
-    {{-- SEO Vue Component Template --}}
+    <!-- SEO Vue Component Template -->
     <script type="text/x-template" id="v-setting-custom-template">
-        <input type="hidden" name="status" id="status" value="@php echo $tag->status @endphp">
+        <input 
+            type="hidden" 
+            name="status"
+            id="status"
+            value="@php echo $tag->status @endphp"
+        >
     </script>
 
     <script type="module">
@@ -286,7 +283,6 @@
 
             data() {
                 return {
-                    
                 }
             },
 
@@ -296,15 +292,13 @@
                 document.getElementById('status_switch').addEventListener('change', function(e) {
                     document.getElementById('status').value = ( e.target.checked == true || e.target.checked == 'true' ) ? 1 : 0;
                 });
-
             },
         });
     </script>
-
 @endPushOnce
 
 @pushOnce('scripts')
-    {{-- SEO Vue Component Template --}}
+    <!-- SEO Vue Component Template -->
     <script type="text/x-template" id="v-seo-helper-custom-template">
         <div class="flex flex-col gap-[3px] mb-[30px]">
             <p 
@@ -378,11 +372,8 @@
                     var slug = e.target.value;
                     self.metaSlug = ( slug != '' && slug != null && slug != undefined ) ? slug : '';
                 });
-
             },
         });
     </script>
-
 @endPushOnce
-
 </x-admin::layouts>

@@ -3,10 +3,10 @@
 namespace Webkul\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Webkul\Core\Eloquent\TranslatableModel;
-use Webkul\Blog\Contracts\Tag as TagContract;
+use Illuminate\Database\Eloquent\Model;
+use Webkul\Blog\Contracts\Tag as BlogTagContract;
 
-class Tag extends TranslatableModel implements TagContract
+class Tag extends Model implements BlogTagContract
 {
     use HasFactory;
 

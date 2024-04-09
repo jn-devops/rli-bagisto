@@ -2,14 +2,13 @@
 
 namespace Webkul\Blog\Models;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Webkul\Blog\Models\Category;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Webkul\Blog\Contracts\Blog as BlogContract;
 use Webkul\Core\Models\ChannelProxy;
-use Webkul\Core\Eloquent\TranslatableModel;
-use  Webkul\Blog\Contracts\Blog as BlogContract;
 
-class Blog extends TranslatableModel implements BlogContract
+class Blog extends Model implements BlogContract
 {
     use HasFactory;
 
@@ -20,8 +19,6 @@ class Blog extends TranslatableModel implements BlogContract
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
      */
     protected $fillable = [
         'name',
@@ -84,15 +81,21 @@ class Blog extends TranslatableModel implements BlogContract
         return Storage::url($this->src);
     }
 
+    /**
+     * get Assign Categorys Attribute.
+     *
+     * @return string
+     */
     public function getAssignCategorysAttribute()
     {
         $categorys = [];
 
-        $categories_ids = array_values(array_unique(array_merge(explode(',', $this->default_category ), explode( ',', $this->categorys ))));
+        $categories_ids = array_values(array_unique(array_merge( explode( ',', $this->default_category ), explode( ',', $this->categorys))));
         
-        if ( is_array($categories_ids) && !empty($categories_ids) && count($categories_ids) > 0 ) {
+        if (! empty($categories_ids)) {
             $categories = Category::whereIn('id', $categories_ids)->get();
-            $categorys = ( !empty($categories) && count($categories) > 0 ) ? $categories : array();
+            
+            $categorys = ! empty($categories) ? $categories : [];
         }
 
         return $categorys;

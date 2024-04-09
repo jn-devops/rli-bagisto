@@ -2,34 +2,11 @@
 
 namespace Webkul\Blog\Http\Controllers\Admin;
 
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
+use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Datagrids\BlogDataGrid;
-use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Blog\Http\Requests\BlogRequest;
-use Webkul\Blog\Repositories\BlogRepository;
-use Webkul\Blog\Repositories\BlogTagRepository;
-use Webkul\Blog\Repositories\BlogCategoryRepository;
-use Webkul\User\Repositories\AdminRepository;
-
 class BlogController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(
-        protected BlogRepository $blogRepository,
-        protected BlogCategoryRepository $blogCategoryRepository,
-        protected BlogTagRepository $blogTagRepository,
-        protected AdminRepository $adminRepository,
-    ) {
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -60,10 +37,7 @@ class BlogController extends Controller
 
         $categories = $this->blogCategoryRepository->all();
 
-        $additional_categories = $this->blogCategoryRepository
-                                        ->whereNull('parent_id')
-                                        ->where('status', 1)
-                                        ->get();
+        $additional_categories = $this->blogCategoryRepository->whereNull('parent_id')->where('status', 1)->get();
 
         $tags = $this->blogTagRepository->all();
 
@@ -87,7 +61,7 @@ class BlogController extends Controller
         }
 
         if (array_key_exists('tags', $data) 
-                &&  is_array($data['tags'])) {
+                && is_array($data['tags'])) {
             $data['tags'] = implode(',', $data['tags']);
         }
 
@@ -97,14 +71,14 @@ class BlogController extends Controller
         }
 
         $data['author'] = '';
-        
-        if (is_array($data) 
-                && array_key_exists('author_id', $data) 
-                && isset($data['author_id']) 
-                && (int)$data['author_id'] > 0) {
-            $author = $this->adminRepository->findOrFail($data['author_id']);
 
-            $data['author'] = (! empty($author) ) ? $author->name : '';
+        if (is_array($data) 
+                && array_key_exists('author_id', $data)
+                && isset($data['author_id']) 
+                && (int) $data['author_id'] > 0) {
+            $author_data = $this->adminRepository->where('id', $data['author_id'])->first();
+
+            $data['author'] = ($author_data && ! empty($author_data)) ? $author_data->name : '';
         }
 
         $result = $this->blogRepository->save($data);
@@ -128,16 +102,13 @@ class BlogController extends Controller
     {
         $loggedIn_user = auth()->guard('admin')->user()->toarray();
 
-        $user_id = (array_key_exists('id', $loggedIn_user) ) ? $loggedIn_user['id'] : 0;
+        $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
 
-        $role = (array_key_exists('role', $loggedIn_user) ) ? ( array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
+        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
 
         $blog = $this->blogRepository->findOrFail($id);
 
-        if ($blog 
-            && $user_id != $blog->author_id 
-            && $role != 'Administrator'
-        ) {
+        if ($blog && $user_id != $blog->author_id && $role != 'Administrator') {
             return redirect()->route('admin.blog.index');
         }
 
@@ -166,12 +137,12 @@ class BlogController extends Controller
                 && is_array($data['locale'])) {
             $data['locale'] = implode(',', $data['locale']);
         }
-        
+
         if (array_key_exists('tags', $data) 
                 && is_array($data['tags'])) {
             $data['tags'] = implode(',', $data['tags']);
         }
-        
+
         if (array_key_exists('categorys', $data) 
                 && is_array($data['categorys'])) {
             $data['categorys'] = implode(',', $data['categorys']);
@@ -182,10 +153,10 @@ class BlogController extends Controller
         if (is_array($data) 
                 && array_key_exists('author_id', $data) 
                 && isset($data['author_id']) 
-                && (int)$data['author_id'] > 0) {
+                && (int) $data['author_id'] > 0) {
             $author_data = $this->adminRepository->where('id', $data['author_id'])->first();
 
-            $data['author'] = (! empty($author_data) ) ? $author_data->name : '';
+            $data['author'] = ($author_data && ! empty($author_data)) ? $author_data->name : '';
         }
 
         $result = $this->blogRepository->updateItem($data, $id);
@@ -230,9 +201,9 @@ class BlogController extends Controller
         $suppressFlash = false;
 
         if (request()->isMethod('post')) {
-            $indexes = (array)request()->input('indices');
+            $indexes = (array) request()->input('indices');
 
-            foreach ($indexes as $value) {
+            foreach ($indexes as $key => $value) {
                 try {
                     $this->blogRepository->delete($value);
                 } catch (\Exception $e) {

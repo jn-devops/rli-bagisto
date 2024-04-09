@@ -2,31 +2,11 @@
 
 namespace Webkul\Blog\Http\Controllers\Admin;
 
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\User\Repositories\AdminRepository;
-use Webkul\Blog\Repositories\BlogRepository;
-use Webkul\Blog\Datagrids\BlogCommentDataGrid;
-use Webkul\Blog\Repositories\BlogCommentRepository;
+use Webkul\Blog\Http\Controllers\Controller;
+use Webkul\Blog\Datagrids\CommentDataGrid;
 
-class BlogCommentController extends Controller
+class CommentController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(
-        protected BlogCommentRepository $blogCommentRepository,
-        protected BlogRepository $blogRepository,
-        protected AdminRepository $adminRepository,
-    ) {
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +15,7 @@ class BlogCommentController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return app(BlogCommentDataGrid::class)->toJson();
+            return app(CommentDataGrid::class)->toJson();
         }
 
         return view('blog::admin.comments.index');
@@ -48,7 +28,7 @@ class BlogCommentController extends Controller
      */
     public function create()
     {
-        return view('blog::admin.comments.index');
+        return view('blog::admin.blogs.create');
     }
 
     /**
@@ -65,19 +45,16 @@ class BlogCommentController extends Controller
         
         $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
         
-        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
+        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
         
-        if ( $role != 'Administrator' ) {
-            $blogs = $this->blogRepository->findByField('author_id', $user_id);
-
-            $postIds = ! empty($blogs) ? $blogs->pluck('id')->toarray() : [];
-
-            $checkComment = $this->blogCommentRepository
-                                ->where('id', $id)
-                                ->whereIn('post', $postIds)
-                                ->first();
-
-            if (! $checkComment) {
+        if ($role != 'Administrator') {
+            $blogs = $this->blogRepository->where('author_id', $user_id)->get();
+           
+            $post_ids = (! empty($blogs) && count($blogs) > 0) ? $blogs->pluck('id')->toarray() : [];
+            
+            $check_comment = $this->blogCommentRepository->where('id', $id)->whereIn('post', $post_ids)->first();
+            
+            if (! $check_comment) {
                 return redirect()->route('admin.blog.comment.index');
             }
         }
@@ -86,22 +63,22 @@ class BlogCommentController extends Controller
 
         $author_id = $comment && isset($comment->author) ? $comment->author : 0;
 
-        if ( (int)$author_id > 0 ) {
-            $author_data = $this->adminRepository->findOrFail($author_id);
+        if ((int) $author_id > 0) {
+            $author_data = $this->adminRepository->find($author_id);
 
             $author_name = $author_data && isset($author_data->name) ? $author_data->name : '';
         }
 
         $status_details = [
             [
-                'id'   => 1, 
-                'name' => 'blog::app.comment.status-pending',
+                'id'   => 1,
+                'name' => 'blog::app.comment.edit.status-pending',
             ], [
-                'id'   => 2,
-                'name' => 'blog::app.comment.status-approved',
+                'id'   => 2, 
+                'name' => 'blog::app.comment.edit.status-approved',
             ], [
                 'id'   => 0,
-                'name' => 'blog::app.comment.status-rejected',
+                'name' => 'blog::app.comment.edit.status-rejected',
             ],
         ];
 
@@ -121,9 +98,9 @@ class BlogCommentController extends Controller
         $result = $this->blogCommentRepository->updateItem($data, $id);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.response.update-success', ['name' => 'Comment']));
+            session()->flash('success', trans('blog::app.comment.edit.update-success'));
         } else {
-            session()->flash('error', trans('blog::app.comment.updated-fault'));
+            session()->flash('error', trans('blog::app.comment.edit.updated-failure'));
         }
 
         return redirect()->route('admin.blog.comment.index');
@@ -142,12 +119,12 @@ class BlogCommentController extends Controller
         try {
             $this->blogCommentRepository->delete($id);
 
-            return response()->json(['message' => trans('admin::app.response.delete-success', ['name' => 'Comment'])]);
+            return response()->json(['message' => trans('blog::app.comment.edit.delete-success')]);
         } catch (\Exception $e) {
             report($e);
         }
 
-        return response()->json(['message' => trans('admin::app.response.delete-failed', ['name' => 'Comment'])], 500);
+        return response()->json(['message' => trans('blog::app.comment.edit.delete-failure')], 500);
     }
 
     /**
@@ -160,9 +137,9 @@ class BlogCommentController extends Controller
         $suppressFlash = false;
 
         if (request()->isMethod('post')) {
-            $indexes = (array)request()->input('indices');
+            $indexes = (array) request()->input('indices');
 
-            foreach ($indexes as $value) {
+            foreach ($indexes as $key => $value) {
                 try {
                     $this->blogCommentRepository->delete($value);
                 } catch (\Exception $e) {
@@ -173,14 +150,14 @@ class BlogCommentController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('admin::app.datagrid.mass-ops.delete-success', ['resource' => 'Comment']));
+                session()->flash('success', trans('blog::app.comment.edit.delete-success'));
             } else {
-                session()->flash('info', trans('admin::app.datagrid.mass-ops.partial-action', ['resource' => 'Comment']));
+                session()->flash('info', trans('blog::app.comment.edit.partial-action', ['resource' => 'Comment']));
             }
 
             return redirect()->back();
         } else {
-            session()->flash('error', trans('admin::app.datagrid.mass-ops.method-error'));
+            session()->flash('error', trans('blog::app.comment.edit.method-error'));
 
             return redirect()->back();
         }

@@ -2,9 +2,8 @@
 
 namespace Webkul\Blog\Repositories;
 
-use Webkul\Core\Eloquent\Repository;
 use Illuminate\Support\Facades\Event;
-use Webkul\Blog\Models\TagProxy as BlogTagProxy;
+use Webkul\Core\Eloquent\Repository;
 
 class BlogTagRepository extends Repository
 {
@@ -13,15 +12,14 @@ class BlogTagRepository extends Repository
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
-        return BlogTagProxy::class;
+        return 'Webkul\Blog\Models\Tag';
     }
 
     /**
      * Save blog tag.
      *
-     * @param  array  $data
      * @return bool|\Webkul\Blog\Contracts\Tag
      */
     public function save(array $data)
@@ -38,7 +36,6 @@ class BlogTagRepository extends Repository
     /**
      * Update item.
      *
-     * @param  array  $data
      * @param  int  $id
      * @return bool
      */
@@ -77,9 +74,9 @@ class BlogTagRepository extends Repository
     {
         $currentLocale = core()->getCurrentLocale();
 
-        return $this->whereRaw("find_in_set(?, locale)", [$currentLocale->code])
-                    ->orderBy('sort_order', 'ASC')
-                    ->get()
-                    ->toArray();
+        return $this->whereRaw('find_in_set(?, locale)', [$currentLocale->code])
+            ->orderBy('sort_order', 'ASC')
+            ->get()
+            ->toArray();
     }
 }

@@ -3,18 +3,13 @@
 namespace Webkul\Blog\Datagrids;
 
 use Illuminate\Support\Facades\DB;
-use Webkul\DataGrid\DataGrid;
+use Webkul\Blog\Models\Tag;
 use Webkul\Blog\Repositories\BlogCategoryRepository;
 use Webkul\Blog\Repositories\BlogTagRepository;
+use Webkul\DataGrid\DataGrid;
 
 class BlogDataGrid extends DataGrid
 {
-    public function __construct(
-        protected BlogCategoryRepository $blogCategoryRepository,
-        protected BlogTagRepository $blogTagRepository,
-    ) {
-    }
-
     /**
      * Prepare query builder.
      */
@@ -23,15 +18,15 @@ class BlogDataGrid extends DataGrid
         $loggedIn_user = auth()->guard('admin')->user()->toarray();
 
         $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
-        
-        $role = (array_key_exists('role', $loggedIn_user)) ? ( array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
+
+        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
 
         $queryBuilder = DB::table('blogs');
 
-        if ( $role != 'Administrator' ) {
+        if ($role != 'Administrator') {
             $queryBuilder->where('blogs.author_id', $user_id);
         }
-        
+
         $queryBuilder->select(
             'blogs.id',
             'blogs.name',
@@ -56,9 +51,6 @@ class BlogDataGrid extends DataGrid
         return $queryBuilder;
     }
 
-    /**
-     * Prepare actions.
-     */
     public function prepareColumns()
     {
         $this->addColumn([
@@ -86,23 +78,27 @@ class BlogDataGrid extends DataGrid
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
-            'closure'    => function ($value) {
+            'closure'    => function ($row) {
                 $categorys = '-';
 
-                $categories_ids = array_values(array_unique(array_merge(explode( ',', $value->default_category ), explode( ',', $value->categorys ))));
-                
-                if ( is_array($categories_ids) 
-                        && !empty($categories_ids) 
-                        && count($categories_ids) > 0 ) {
-                    $categories = $this->blogCategoryRepository->whereIn('id', $categories_ids)->get();
+                $defaultCategory = explode(',', $row->default_category);
 
-                    $categories_names = (!empty($categories) 
-                                        && count($categories) > 0 ) ? $categories->pluck('name')->toarray() : [];
-                    
-                    $categorys = (!empty($categories_names) 
-                                    && count($categories_names)) ? implode(', ', $categories_names) : '-';
+                $categoies = explode(',', $row->categorys);
+
+                $allCategoies = array_merge($defaultCategory, $categoies);
+
+                $categories_ids = array_values(array_unique($allCategoies));
+
+                if (is_array($categories_ids)
+                        && ! empty($categories_ids)
+                        && count($categories_ids) > 0) {
+                    $categories = app(BlogCategoryRepository::class)->whereIn('id', $categories_ids)->get();
+
+                    $categories_names = ! empty($categories) ? $categories->pluck('name')->toarray() : [];
+
+                    $categorys = (! empty($categories_names) && count($categories_names)) ? implode(', ', $categories_names) : '-';
                 }
-                
+
                 return $categorys;
             },
         ]);
@@ -117,19 +113,15 @@ class BlogDataGrid extends DataGrid
             'closure'    => function ($value) {
                 $tags = '-';
 
-                $tags_ids = array_values(array_unique(explode( ',', $value->tags)));
+                $tags_ids = array_values(array_unique(explode(',', $value->tags)));
 
-                if ( is_array($tags_ids) 
-                    && !empty($tags_ids) 
-                    && count($tags_ids) > 0) {
+                if (is_array($tags_ids) 
+                    && ! empty($tags_ids)) {
+                    $tag_deatils = app(BlogTagRepository::class)->whereIn('id', $tags_ids)->get();
 
-                    $tag_deatils = $this->blogTagRepository->whereIn('id', $tags_ids)->get();
-                    
-                    $tags_names = (! empty($tag_deatils) 
-                            && count($tag_deatils) > 0) ? $tag_deatils->pluck('name')->toarray() : [];
-                    
-                    $tags = (! empty($tags_names) 
-                                && count($tags_names)) ? implode(', ', $tags_names) : '-';
+                    $tags_names = (! empty($tag_deatils)) ? $tag_deatils->pluck('name')->toarray() : [];
+
+                    $tags = (! empty($tags_names)) ? implode(', ', $tags_names) : '-';
                 }
 
                 return $tags;
@@ -145,10 +137,10 @@ class BlogDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
-                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.blog.status-true') . '</span>';
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.blog.status-true').'</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.blog.status-false') . '</span>';
+                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.blog.status-false').'</span>';
             },
         ]);
 
@@ -161,10 +153,10 @@ class BlogDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->allow_comments) {
-                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.blog.yes') . '</span>';
-                }
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.blog.yes').'</span>';
+                } 
 
-                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.blog.no') . '</span>';
+                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.blog.no').'</span>';
             },
         ]);
 
@@ -177,8 +169,8 @@ class BlogDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->published_at != '' 
-                        && $row->published_at != null) {
-                    return date_format(date_create($row->published_at), 'j F, Y' );
+                    && $row->published_at != null) {
+                    return date_format(date_create($row->published_at), 'j F, Y');
                 }
 
                 return '-';
@@ -195,9 +187,6 @@ class BlogDataGrid extends DataGrid
         ]);
     }
 
-    /**
-     * Prepare actions.
-     */
     public function prepareActions()
     {
         if (bouncer()->hasPermission('blog.blogs.edit')) {
@@ -225,9 +214,6 @@ class BlogDataGrid extends DataGrid
         }
     }
 
-    /**
-     * Prepare mass actions.
-     */
     public function prepareMassActions()
     {
         if (bouncer()->hasPermission('blog.blogs.delete')) {

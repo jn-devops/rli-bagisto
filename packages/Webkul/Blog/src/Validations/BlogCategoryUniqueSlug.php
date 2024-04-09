@@ -5,8 +5,8 @@ namespace Webkul\Blog\Validations;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Webkul\Attribute\Repositories\AttributeRepository;
-use Webkul\Product\Repositories\ProductAttributeValueRepository;
 use Webkul\Blog\Models\Category;
+use Webkul\Product\Repositories\ProductAttributeValueRepository;
 
 class BlogCategoryUniqueSlug implements Rule
 {
@@ -92,14 +92,14 @@ class BlogCategoryUniqueSlug implements Rule
             && $this->id
             && $this->tableName === 'blog_categories'
         ) {
-            return Category::/*modelClass()::*/where('id', '<>', $this->id)
+            return Category::/*modelClass()::*/ where('id', '<>', $this->id)
                 ->where('slug', $slug)
                 ->limit(1)
                 ->select(DB::raw(1))
                 ->exists();
         }
 
-        return Category::/*modelClass()::*/where('slug', $slug)
+        return Category::/*modelClass()::*/ where('slug', $slug)
             ->limit(1)
             ->select(DB::raw(1))
             ->exists();

@@ -5,8 +5,8 @@ namespace Webkul\Enclaves\Database\Seeders;
 use Illuminate\Database\Seeder;
 
 /*
-* Command: php artisan db:seed --class="Webkul\\Enclaves\\Database\\Seeders\\DatabaseSeeder"
-*/
+ * Command: php artisan db:seed --class="Webkul\\Enclaves\\Database\\Seeders\\DatabaseSeeder"
+ */
 class DatabaseSeeder extends Seeder
 {
     /**

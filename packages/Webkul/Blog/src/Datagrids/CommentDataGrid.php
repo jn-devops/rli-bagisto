@@ -3,15 +3,12 @@
 namespace Webkul\Blog\Datagrids;
 
 use Illuminate\Support\Facades\DB;
-use Webkul\DataGrid\DataGrid;
+use Webkul\Blog\Models\Blog;
 use Webkul\Blog\Repositories\BlogRepository;
+use Webkul\DataGrid\DataGrid;
 
-class BlogCommentDataGrid extends DataGrid
+class CommentDataGrid extends DataGrid
 {
-
-    public function __construct(protected BlogRepository $blogRepository) {
-    }
-
     /**
      * Prepare query builder.
      */
@@ -20,28 +17,20 @@ class BlogCommentDataGrid extends DataGrid
         $loggedIn_user = auth()->guard('admin')->user()->toarray();
 
         $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
-
-        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
+        
+        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
 
         $queryBuilder = DB::table('blog_comments');
 
-            if ($role != 'Administrator' ) {
-                $blogs = $this->blogRepository->where('author_id', $user_id)->get();
+        if ($role != 'Administrator') {
+            $blogs = Blog::where('author_id', $user_id)->get();
 
-                $post_ids = ( !empty($blogs) && count($blogs) > 0 ) ? $blogs->pluck('id')->toarray() : [];
+            $post_ids = (! empty($blogs) && count($blogs) > 0) ? $blogs->pluck('id')->toarray() : [];
+            
+            $queryBuilder->whereIn('blog_comments.post', $post_ids);
+        }
 
-                $queryBuilder->whereIn('blog_comments.post', $post_ids);
-            }
-
-            $queryBuilder->select(
-                    'blog_comments.id',
-                    'blog_comments.post',
-                    'blog_comments.author',
-                    'blog_comments.email',
-                    'blog_comments.comment',
-                    'blog_comments.status',
-                    'blog_comments.created_at',
-                );
+        $queryBuilder->select('blog_comments.id', 'blog_comments.post', 'blog_comments.author', 'blog_comments.email', 'blog_comments.comment', 'blog_comments.status', 'blog_comments.created_at');
 
         return $queryBuilder;
     }
@@ -68,12 +57,9 @@ class BlogCommentDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => false,
             'closure'    => function ($row) {
-                $post = $this->blogRepository->findOrFail($row->post);
-
-                $post_name = ($post 
-                        && isset($post->name)
-                        && ! empty($post->name
-                        && ! is_null($post->name))) ? $post->name : '-';
+                $post = app(BlogRepository::class)->where('id', $row->post)->first();
+                
+                $post_name = ($post && isset($post->name) && ! empty($post->name) && ! is_null($post->name)) ? $post->name : '-';
 
                 return $post_name;
             },
@@ -97,11 +83,11 @@ class BlogCommentDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status == 1) {
-                    return '<span class="badge badge-md badge-warning label-pending">' . trans('blog::app.datagrid.pending') . '</span>';
+                    return '<span class="badge badge-md badge-warning label-pending">'.trans('blog::app.datagrid.pending').'</span>';
                 } elseif ($row->status == 2) {
-                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.datagrid.approved') . '</span>';
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrid.approved').'</span>';
                 } elseif ($row->status == 0) {
-                    return '<span class="badge badge-md badge-danger label-canceled">' . trans('blog::app.datagrid.rejected') . '</span>';
+                    return '<span class="badge badge-md badge-danger label-canceled">'.trans('blog::app.datagrid.rejected').'</span>';
                 }
             },
         ]);
@@ -113,10 +99,10 @@ class BlogCommentDataGrid extends DataGrid
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
-            'closure' => function ($row) {
-                if ($row->created_at != ''
-                        && $row->created_at != null) {
-                    return date_format( date_create($row->created_at), 'j F, Y' );
+            'closure'    => function ($row) {
+                if ($row->created_at != '' 
+                    && $row->created_at != null) {
+                    return date_format(date_create($row->created_at), 'j F, Y');
                 }
 
                 return '-';
@@ -124,9 +110,6 @@ class BlogCommentDataGrid extends DataGrid
         ]);
     }
 
-    /**
-     * Prepare actions.
-     */
     public function prepareActions()
     {
         if (bouncer()->hasPermission('blog.comment.edit')) {
@@ -154,9 +137,6 @@ class BlogCommentDataGrid extends DataGrid
         }
     }
 
-    /**
-     * Prepare mass actions.
-     */
     public function prepareMassActions()
     {
         if (bouncer()->hasPermission('blog.comment.delete')) {

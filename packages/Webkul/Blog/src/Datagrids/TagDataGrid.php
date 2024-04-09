@@ -3,33 +3,22 @@
 namespace Webkul\Blog\Datagrids;
 
 use Illuminate\Support\Facades\DB;
+use Webkul\Core\Models\Channel;
 use Webkul\DataGrid\DataGrid;
 
-class BlogTagDataGrid extends DataGrid
+class TagDataGrid extends DataGrid
 {
     /**
-     * Prepare query builder.
+     * 
      */
     public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('blog_tags')->select('id')
-            ->addSelect(
-                'id',
-                'name',
-                'slug',
-                'description',
-                'status',
-                'meta_title',
-                'meta_description',
-                'meta_keywords',
-            );
+            ->addSelect('id', 'name', 'slug', 'description', 'status', 'meta_title', 'meta_description', 'meta_keywords');
 
         return $queryBuilder;
     }
 
-    /**
-     * Prepare columns.
-     */
     public function prepareColumns()
     {
         $this->addColumn([
@@ -59,17 +48,14 @@ class BlogTagDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
-                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.tag.status-true') . '</span>';
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.tag.index.status.active').'</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.tag.status-false') . '</span>';
+                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.tag.index.status.reactive').'</span>';
             },
         ]);
     }
 
-    /**
-     * Prepare actions.
-     */
     public function prepareActions()
     {
         if (bouncer()->hasPermission('blog.tag.edit')) {
@@ -97,9 +83,6 @@ class BlogTagDataGrid extends DataGrid
         }
     }
 
-    /**
-     * Prepare mass actions.
-     */
     public function prepareMassActions()
     {
         if (bouncer()->hasPermission('blog.tag.delete')) {

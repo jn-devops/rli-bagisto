@@ -2,21 +2,19 @@
 
 namespace Webkul\Blog\Datagrids;
 
-use Webkul\DataGrid\DataGrid;
 use Illuminate\Support\Facades\DB;
-use Webkul\Blog\Repositories\BlogCategoryRepository;
+use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\DataGrid\DataGrid;
 
-class BlogCategoryDataGrid extends DataGrid
+class CategoryDataGrid extends DataGrid
 {
-    public function __construct(protected BlogCategoryRepository $blogCategoryRepository) {
-    }
-
     /**
      * Prepare query builder.
      */
     public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('blog_categories')
+            ->select('id')
             ->addSelect(
                 'id',
                 'name',
@@ -26,14 +24,14 @@ class BlogCategoryDataGrid extends DataGrid
                 'meta_title',
                 'meta_description',
                 'meta_keywords',
-                'parent_id',
+                'parent_id'
             );
 
         return $queryBuilder;
     }
 
     /**
-     * Prepare columns
+     * Prepare columns.
      */
     public function prepareColumns()
     {
@@ -63,13 +61,10 @@ class BlogCategoryDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                $parent_data = $this->blogCategoryRepository->where('id', (int)$row->parent_id)->first();
+                $parent_data = app(CategoryRepository::class)->where('id', (int) $row->parent_id)->first();
+                
+                $parent_category_name = ($parent_data && isset($parent_data->name) && ! empty($parent_data->name) && ! is_null($parent_data->name)) ? $parent_data->name : '-';
 
-                $parent_category_name = ($parent_data 
-                        && isset($parent_data->name)
-                        && !empty($parent_data->name) 
-                        && !is_null($parent_data->name)) ? $parent_data->name : '-';
-                        
                 return $parent_category_name;
             },
         ]);
@@ -83,11 +78,10 @@ class BlogCategoryDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.category.status-true').'</span>';
+                }
 
-                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.category.status-true') . '</span>';
-                } 
-
-                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.category.status-false') . '</span>';
+                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.category.status-false').'</span>';
             },
         ]);
     }
@@ -123,7 +117,7 @@ class BlogCategoryDataGrid extends DataGrid
     }
 
     /**
-     * Prepare mass actions.
+     * Prepare mass actions
      */
     public function prepareMassActions()
     {

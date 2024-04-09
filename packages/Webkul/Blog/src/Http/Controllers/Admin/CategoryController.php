@@ -3,28 +3,12 @@
 namespace Webkul\Blog\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Session;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Blog\Datagrids\BlogCategoryDataGrid;
+use Webkul\Blog\Datagrids\CategoryDataGrid;
+use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Http\Requests\BlogCategoryRequest;
-use Webkul\Blog\Repositories\BlogCategoryRepository;
 
-class BlogCategoryController extends Controller
+class CategoryController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(
-        protected BlogCategoryRepository $blogCategoryRepository
-    ) {
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +17,7 @@ class BlogCategoryController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return app(BlogCategoryDataGrid::class)->toJson();
+            return app(CategoryDataGrid::class)->toJson();
         }
 
         return view('blog::admin.categories.index');
@@ -48,10 +32,7 @@ class BlogCategoryController extends Controller
     {
         $locale = core()->getRequestedLocaleCode();
 
-        $categories = $this->blogCategoryRepository
-                            ->whereNull('parent_id')
-                            ->where('status', 1)
-                            ->get();
+        $categories = $this->blogCategoryRepository->where(['status' => 1, 'parent_id' => 0])->get();
 
         return view('blog::admin.categories.create', compact('categories'))->with('locale', $locale);
     }
@@ -92,15 +73,14 @@ class BlogCategoryController extends Controller
 
         Session::put('bCatEditId', $id);
 
-        $categories_data = $this->blogCategoryRepository
-                                ->whereNull('parent_id')
-                                ->where('status', 1)
-                                ->where('id', '!=', $id)
+        $categoriesParent = $this->blogCategoryRepository
+                                ->where(['status' => 1, 'parent_id' => 0])
+                                ->whereNot('id', $id)
                                 ->get();
-        
+
         Session::remove('bCatEditId');
 
-        return view('blog::admin.categories.edit', compact('categories', 'categories_data'));
+        return view('blog::admin.categories.edit', compact('categories', 'categoriesParent'));
     }
 
     /**
@@ -117,9 +97,7 @@ class BlogCategoryController extends Controller
             $data['locale'] = implode(',', $data['locale']);
         }
 
-        if (is_array($data) 
-                && array_key_exists('image', $data)
-                && is_null(request()->image)) {
+        if (is_array($data) && array_key_exists('image', $data) && is_null(request()->image)) {
             session()->flash('error', trans('blog::app.category.updated-fault'));
 
             return redirect()->back();
@@ -167,7 +145,7 @@ class BlogCategoryController extends Controller
         $suppressFlash = false;
 
         if (request()->isMethod('post')) {
-            $indexes = (array)request()->input('indices');
+            $indexes = (array) request()->input('indices');
 
             foreach ($indexes as $value) {
                 try {
