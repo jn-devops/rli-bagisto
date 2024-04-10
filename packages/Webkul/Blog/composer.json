@@ -1,0 +1,24 @@
+{
+    "name": "bagisto/laravel-bagisto-blog",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bagisto",
+            "email": "support@bagisto.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Webkul\\Blog\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webkul\\Blog\\Providers\\BlogServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
