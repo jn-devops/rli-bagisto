@@ -5,7 +5,8 @@ namespace Webkul\Blog\Http\Controllers\Admin;
 use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Datagrids\BlogDataGrid;
 use Webkul\Blog\Http\Requests\BlogRequest;
-class BlogController extends Controller
+
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.

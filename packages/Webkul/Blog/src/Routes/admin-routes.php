@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Webkul\Blog\Http\Controllers\Admin\BlogController;
+use Webkul\Blog\Http\Controllers\Admin\PostController;
 use Webkul\Blog\Http\Controllers\Admin\CategoryController;
 use Webkul\Blog\Http\Controllers\Admin\CommentController;
 use Webkul\Blog\Http\Controllers\Admin\SettingController;
@@ -12,19 +12,21 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_ur
     /**
      * Admin blog routes
      */
-    Route::get('index', [BlogController::class, 'index'])->name('admin.blog.index');
+    Route::prefix('posts')->group(function () {
+        Route::get('', [PostController::class, 'index'])->name('admin.blog.index');
 
-    Route::get('create', [BlogController::class, 'create'])->name('admin.blog.create');
+        Route::get('create', [PostController::class, 'create'])->name('admin.blog.create');
 
-    Route::get('edit/{id}', [BlogController::class, 'edit'])->name('admin.blog.edit');
+        Route::get('edit/{id}', [PostController::class, 'edit'])->name('admin.blog.edit');
 
-    Route::post('store', [BlogController::class, 'store'])->name('admin.blog.store');
+        Route::post('store', [PostController::class, 'store'])->name('admin.blog.store');
 
-    Route::post('update/{id}', [BlogController::class, 'update'])->name('admin.blog.update');
+        Route::post('update/{id}', [PostController::class, 'update'])->name('admin.blog.update');
 
-    Route::post('delete/{id}', [BlogController::class, 'destroy'])->name('admin.blog.delete');
+        Route::post('delete/{id}', [PostController::class, 'destroy'])->name('admin.blog.delete');
 
-    Route::post('mass-delete', [BlogController::class, 'massDestroy'])->name('admin.blog.mass-delete');
+        Route::post('mass-delete', [PostController::class, 'massDestroy'])->name('admin.blog.mass-delete');
+    });
 
     /**
      * Admin blog category routes
