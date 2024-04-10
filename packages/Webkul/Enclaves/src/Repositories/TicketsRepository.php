@@ -2,8 +2,8 @@
 
 namespace Webkul\Enclaves\Repositories;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\Enclaves\Contracts\Tickets;
@@ -35,14 +35,14 @@ class TicketsRepository extends Repository
         $name = Str::random(5) . '.webp';
 
         $path = $dir . '/' . $name;
-        
+
         $ticket->files()->insert([
             'name'      => $name,
             'path'      => $dir,
             'ticket_id' => $ticket->id,
         ]);
 
-        if(request()->hasFile('file')) {
+        if (request()->hasFile('file')) {
             if ($dir) {
                 Storage::delete($dir);
             }
@@ -65,18 +65,18 @@ class TicketsRepository extends Repository
 
         foreach (request()->file('file') as $key => $file) {
             $image = $manager->make($file)->encode('webp');
-        
-            $name = Str::random(5). '_' .$key . '.webp';
+
+            $name = Str::random(5) . '_' . $key . '.webp';
 
             $path = $dir . '/' . $name;
-            
+
             $ticket->files()->insert([
                 'name'      => $name,
                 'path'      => $dir,
                 'ticket_id' => $ticket->id,
             ]);
 
-            if(request()->hasFile('file')) {
+            if (request()->hasFile('file')) {
                 if ($dir) {
                     Storage::delete($dir);
                 }

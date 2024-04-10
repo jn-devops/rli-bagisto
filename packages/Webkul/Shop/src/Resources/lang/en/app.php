@@ -143,7 +143,7 @@ return [
                 'region'            => 'Region',
                 'add-co-borrower'   => 'Add co-borrower details',
                 'input-co-borrower' => 'Input your co-borrower details',
-                
+
                 'add-address'       => 'Add Address',
                 'address-1'         => 'Address 1',
                 'address-2'         => 'Address 2',

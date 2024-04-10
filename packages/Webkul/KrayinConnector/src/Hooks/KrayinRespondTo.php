@@ -11,10 +11,6 @@ class KrayinRespondTo implements RespondsToWebhook
 {
     /**
      * Set your custom response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Spatie\WebhookClient\WebhookConfig  $config
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function respondToValidWebhook(Request $request, WebhookConfig $config): Response
     {

@@ -2,32 +2,36 @@
 
 namespace RLI\Attribute\Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AttributeGroupTableSeeder extends Seeder
 {
     const GENERAL_GROUP = 'General';
+
     const DESCRIPTION_GROUP = 'Description';
+
     const META_DESCRIPTION_GROUP = 'Meta Description';
+
     const PRICE_GROUP = 'Price';
+
     const SHIPPING_GROUP = 'Shipping';
+
     const SETTINGS_GROUP = 'Settings';
+
     const INVENTORIES_GROUP = 'Inventories';
 
     public static array $attribute_family_groups = [];
-//    public static int $general_group_id;
-//    public static int $description_group_id;
-//    public static int $meta_description_group_id;
-//    public static int $price_group_id;
-//    public static int $shipping_group_id;
-//    public static int $settings_group_id;
-//    public static int $inventories_group_id;
+    //    public static int $general_group_id;
+    //    public static int $description_group_id;
+    //    public static int $meta_description_group_id;
+    //    public static int $price_group_id;
+    //    public static int $shipping_group_id;
+    //    public static int $settings_group_id;
+    //    public static int $inventories_group_id;
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -86,7 +90,7 @@ class AttributeGroupTableSeeder extends Seeder
                     'attribute_id'        => 25,
                     'attribute_group_id'  => $general_group_id,
                     'position'            => 8,
-                ]
+                ],
             ]);
 
             DB::table('attribute_groups')->insert([
@@ -128,7 +132,7 @@ class AttributeGroupTableSeeder extends Seeder
                 /**
                  * Meta Description Group Attributes
                  */
-              [
+                [
                     'attribute_id'        => 13,
                     'attribute_group_id'  => $meta_description_group_id,
                     'position'            => 3,
@@ -273,7 +277,7 @@ class AttributeGroupTableSeeder extends Seeder
                     'attribute_id'        => 28,
                     'attribute_group_id'  => $inventories_group_id,
                     'position'            => 1,
-                ]
+                ],
             ]);
         }
     }

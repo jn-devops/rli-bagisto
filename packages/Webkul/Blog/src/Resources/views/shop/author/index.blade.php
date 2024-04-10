@@ -5,11 +5,11 @@
 
 {{-- SEO Meta Content --}}
 @push ('meta')
-    <meta name="title" content="{{ $blog_seo_meta_title ?? ( $channel->home_seo['meta_title'] ?? '' ) }}" />
+    <meta name="title" content="{{ $enableBlogSeoMetaTitle ?? ( $channel->home_seo['meta_title'] ?? '' ) }}" />
 
-    <meta name="description" content="{{ $blog_seo_meta_keywords ?? ( $channel->home_seo['meta_description'] ?? '' ) }}" />
+    <meta name="description" content="{{ $enableBlogSeoMetaKeywords ?? ( $channel->home_seo['meta_description'] ?? '' ) }}" />
 
-    <meta name="keywords" content="{{ $blog_seo_meta_description ?? ( $channel->home_seo['meta_keywords'] ?? '' ) }}" />
+    <meta name="keywords" content="{{ $enableBlogSeoMetaDescription ?? ( $channel->home_seo['meta_keywords'] ?? '' ) }}" />
 @endPush
 
 <x-shop::layouts>
@@ -32,7 +32,7 @@
                     <div class="container-right row no-margin col-12 no-padding">
                         <div id="blog" class="container mt-5">
                             <div class="full-content-wrapper">
-                                <div class="col-lg-12"><h1 class="mb-3 page-title">Posts by {{ $author_data->author }}</h1></div>
+                                <div class="col-lg-12"><h1 class="mb-3 page-title">Posts by {{ $author->author }}</h1></div>
                                 <div class="flex flex-wrap grid-wrap">
                                     
                                     <div class="column-9">
@@ -55,7 +55,7 @@
                                                                     <div class="post-meta">
                                                                         <p>
                                                                             {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $blog->created_at)->format('M j, Y') }} by
-                                                                            @if( (int)$show_author_page == 1 )
+                                                                            @if($showAuthorPage)
                                                                                 <a href="{{route('shop.blog.author.index',[$blog->author_id])}}">{{ $blog->author }}</a>
                                                                             @else
                                                                                 <a>{{ $blog->author }}</a>
@@ -103,23 +103,28 @@
                                         <div class="row">
                                             <div class="col-lg-12 mb-4 categories">
                                                 <h3>Categories</h3>
+
                                                 <ul class="list-group">
                                                     @foreach($categories as $category)
-                                                        <li><a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
+                                                        <li>
+                                                            <a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
                                                                 <span>{{ $category->name }}</span> 
-                                                                @if( (int)$show_categories_count == 1 )
+                                                                
+                                                                @if($showCategoriesCount)
                                                                     <span class="badge badge-pill badge-primary">{{ $category->assign_blogs }}</span>
                                                                 @endif
-                                                        </a></li>
+                                                            </a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
 
                                                 <div class="tags-part">
-                                                    <h3>Tags</h3> 
+                                                    <h3>Tags</h3>
+
                                                     <div class="tag-list">
                                                         @foreach($tags as $tag)
                                                             <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->name }} 
-                                                                @if( (int)$show_tags_count == 1 )
+                                                                @if($showTagsCount)
                                                                     <span class="badge badge-light">{{ $tag->count }}</span>
                                                                 @endif
                                                             </a> 

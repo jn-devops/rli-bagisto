@@ -22,11 +22,11 @@ class InquiriesDataGrid extends DataGrid
     public function prepareQueryBuilder()
     {
         $tablePrefix = DB::getTablePrefix();
-        
+
         $queryBuilder = DB::table('tickets')
             ->addSelect(
                 'tickets.id as ticket_id',
-                DB::raw("CONCAT(" . $tablePrefix . "customers.first_name, ' ', " . $tablePrefix . "customers.last_name) as full_name"),
+                DB::raw('CONCAT(' . $tablePrefix . "customers.first_name, ' ', " . $tablePrefix . 'customers.last_name) as full_name'),
                 'ticket_reasons.name as reasons_name',
                 'ticket_status.name as status',
                 'tickets.comment',
@@ -93,7 +93,7 @@ class InquiriesDataGrid extends DataGrid
             'closure'    => function ($row) {
                 $comment = trim(strip_tags(html_entity_decode($row->comment)));
 
-                return strlen($comment) > 14 ? substr($comment, 0, 14). '..' : $comment;
+                return strlen($comment) > 14 ? substr($comment, 0, 14) . '..' : $comment;
             },
         ]);
 

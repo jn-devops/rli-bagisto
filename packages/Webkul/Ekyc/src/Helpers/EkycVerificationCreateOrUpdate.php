@@ -2,12 +2,12 @@
 
 namespace Webkul\Ekyc\Helpers;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Event;
-use Webkul\Checkout\Repositories\CartRepository;
-use Webkul\Customer\Repositories\CustomerRepository;
-use Webkul\Customer\Repositories\CustomerGroupRepository;
+use Illuminate\Support\Str;
 use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
+use Webkul\Checkout\Repositories\CartRepository;
+use Webkul\Customer\Repositories\CustomerGroupRepository;
+use Webkul\Customer\Repositories\CustomerRepository;
 
 class EkycVerificationCreateOrUpdate
 {
@@ -24,11 +24,11 @@ class EkycVerificationCreateOrUpdate
         protected CartRepository $cartRepository,
     ) {
     }
-    
+
     /**
      * add customer and ekyc detail
      */
-    public function create($payload) 
+    public function create($payload)
     {
         $password = Str::random(10);
 
@@ -42,12 +42,12 @@ class EkycVerificationCreateOrUpdate
         ]);
 
         if ($verification) {
-           return;
+            return;
         }
-        
+
         $this->ekycVerificationRepository->updateOrCreate([
             'transaction_id' => $payload['payload']['order']['transaction_id'],
-            'sku'            => $payload['payload']['order']['product']['sku']
+            'sku'            => $payload['payload']['order']['product']['sku'],
         ], [
             'cart_id'        => decrypt($payload['payload']['order']['transaction_id']),
             'transaction_id' => $payload['payload']['order']['transaction_id'],
@@ -70,7 +70,7 @@ class EkycVerificationCreateOrUpdate
         $payload = $payload['payload']['order']['buyer'];
 
         $name = explode(' ', $payload['name']);
-        
+
         /**
          * Account Name Proccessing
          */
@@ -78,7 +78,7 @@ class EkycVerificationCreateOrUpdate
         next($name);
         $lastName = current($name);
 
-        $data =  [
+        $data = [
             'name'                      => $payload['name'],
             'first_name'                => $firstName,
             'last_name'                 => $lastName,
@@ -97,13 +97,13 @@ class EkycVerificationCreateOrUpdate
         ];
 
         Event::dispatch('customer.registration.before');
-        
+
         $customer = $this->customerRepository->updateOrCreate([
             'email' => $data['email'],
         ], $data);
-       
+
         $customer['original_password'] = $password;
-        
+
         Event::dispatch('customer.registration.after', $customer);
     }
 }

@@ -6,8 +6,6 @@ use Webkul\Enclaves\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    /**
-     */
     public function __construct(
     ) {
     }

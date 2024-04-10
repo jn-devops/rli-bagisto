@@ -2,18 +2,21 @@
 
 namespace Webkul\BulkUpload\Repositories\Products;
 
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\{Event, Validator};
-use Webkul\Category\Repositories\CategoryRepository;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Webkul\Attribute\Repositories\AttributeFamilyRepository;
+use Webkul\Attribute\Repositories\AttributeOptionRepository;
 use Webkul\Attribute\Repositories\AttributeRepository;
+use Webkul\BulkUpload\Repositories\ImportProductRepository;
+use Webkul\BulkUpload\Repositories\ProductImageRepository;
+use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Core\Eloquent\Repository as BaseRepository;
 use Webkul\Inventory\Repositories\InventorySourceRepository;
-use Webkul\BulkUpload\Repositories\Products\HelperRepository;
-use Webkul\BulkUpload\Repositories\{ImportProductRepository, ProductImageRepository};
-use Webkul\Attribute\Repositories\{AttributeFamilyRepository, AttributeOptionRepository};
-use Webkul\Product\Repositories\{ProductCustomerGroupPriceRepository, ProductRepository};
+use Webkul\Product\Repositories\ProductCustomerGroupPriceRepository;
+use Webkul\Product\Repositories\ProductRepository;
 
 class SimpleProductRepository extends BaseRepository
 {
@@ -30,16 +33,11 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Create a new repository instance.
      *
-     * @param  \Webkul\Attribute\Repositories\AttributeRepository  $attributeRepository
      * @param  \Webkul\Attribute\Repositories\AttributeFamilyRepository  $attributeFamilyRepository
      * @param  \Webkul\Attribute\Repositories\AttributeOptionRepository  $attributeOptionRepository
-     * @param  \Webkul\Category\Repositories\CategoryRepository  $categoryRepository
      * @param  \Webkul\Product\Repositories\ProductRepository  $productRepository
-     * @param  \Webkul\Inventory\Repositories\InventorySourceRepository  $inventorySourceRepository
      * @param  \Webkul\BulkUpload\Repositories\ImportProductRepository  $importProductRepository
      * @param  \Webkul\BulkUpload\Repositories\ProductImageRepository  $productImageRepository
-     * @param  \Webkul\BulkUpload\Repositories\Products\HelperRepository  $helperRepository
-     *
      * @return void
      */
     public function __construct(
@@ -68,10 +66,9 @@ class SimpleProductRepository extends BaseRepository
     /**
      * create & update simple-type product
      *
-     * @param array $dataFlowProfileRecord
-     * @param array $csvData
-     * @param int $key
-     *
+     * @param  array  $dataFlowProfileRecord
+     * @param  array  $csvData
+     * @param  int  $key
      * @return mixed
      */
     public function createProduct($dataFlowProfileRecord, $csvData, $key)
@@ -117,9 +114,9 @@ class SimpleProductRepository extends BaseRepository
                 $super_attributes = trim($super_attributes);
 
                 $attributeOption = $this->attributeOptionRepository->findOneByField([
-                                        'admin_name'   => $csvData[$super_attributes],
-                                        'attribute_id' => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
-                                    ]);
+                    'admin_name'   => $csvData[$super_attributes],
+                    'attribute_id' => $this->attributeRepository->findOneByField('code', $super_attributes)->id,
+                ]);
 
                 $productSuperAttributes[$super_attributes][] = $attributeOption->id ?? null;
             }
@@ -149,9 +146,9 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Process product update and return data array
      *
-     * @param array $csvData
-     * @param mixed $product
-     * @param array $dataFlowProfileRecord
+     * @param  array  $csvData
+     * @param  mixed  $product
+     * @param  array  $dataFlowProfileRecord
      * @return array $data
      */
     private function updateProduct($csvData, $product, $dataFlowProfileRecord)
@@ -171,7 +168,7 @@ class SimpleProductRepository extends BaseRepository
         $data = $this->processProductAttributes($csvData, $product);
 
         // Process inventory for configurable product
-        if (in_array($product->type, ["variant", "configurable"])) {
+        if (in_array($product->type, ['variant', 'configurable'])) {
             $this->processProductInventoryForConfiguration($csvData, $data);
         } else {
             $this->processProductInventory($csvData, $data);
@@ -270,8 +267,8 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Process product attributes and return data array
      *
-     * @param array $csvData
-     * @param mixed $product
+     * @param  array  $csvData
+     * @param  mixed  $product
      * @return array $data
      */
     private function processProductAttributes($csvData, $product)
@@ -293,19 +290,19 @@ class SimpleProductRepository extends BaseRepository
             $attributeCode[] = $searchIndex;
 
             switch ($attribute['type']) {
-                case "select":
-                    $attributeOption = $this->attributeOptionRepository->findOneByField(['attribute_id' => $attribute['id'],'admin_name' => $csvValue]);
-
-                    $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
-
-                    break;
-                case "checkbox":
+                case 'select':
                     $attributeOption = $this->attributeOptionRepository->findOneByField(['attribute_id' => $attribute['id'], 'admin_name' => $csvValue]);
 
                     $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
 
                     break;
-                case in_array($searchIndex, ["color", "size", "brand"]):
+                case 'checkbox':
+                    $attributeOption = $this->attributeOptionRepository->findOneByField(['attribute_id' => $attribute['id'], 'admin_name' => $csvValue]);
+
+                    $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
+
+                    break;
+                case in_array($searchIndex, ['color', 'size', 'brand']):
                     $attributeOption = $this->attributeOptionRepository->findOneByField(['admin_name' => ucwords($csvValue)]);
 
                     $attributeValue[] = ($attributeOption !== null) ? $attributeOption['id'] : null;
@@ -329,8 +326,8 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Process product inventory for Configuration data and update $data array
      *
-     * @param array $csvData
-     * @param array $data
+     * @param  array  $csvData
+     * @param  array  $data
      * @return int $data
      */
     private function processProductInventoryForConfiguration($csvData, &$data)
@@ -353,8 +350,8 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Process product inventory data and update $data array
      *
-     * @param array $csvData
-     * @param array $data
+     * @param  array  $csvData
+     * @param  array  $data
      * @return int $data
      */
     private function processProductInventory($csvData, &$data)
@@ -369,13 +366,13 @@ class SimpleProductRepository extends BaseRepository
             $inventoryData = array_fill(0, count($inventoryId), 0);
         }
 
-        $data['inventories'] =  array_combine($inventoryId, $inventoryData);
+        $data['inventories'] = array_combine($inventoryId, $inventoryData);
     }
 
     /**
      * Process product categories and update $data array
      *
-     * @param array $csvData
+     * @param  array  $csvData
      * @return int $categoryID
      */
     private function processProductCategories($csvData)
@@ -391,7 +388,7 @@ class SimpleProductRepository extends BaseRepository
             $categoryID = array_map(function ($value) {
                 try {
                     return $this->categoryRepository->findBySlugOrFail(Str::slug(strtolower($value)))->id;
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                     return [
                         'error' => ['category not found', $e->getMessage()],
                     ];
@@ -405,8 +402,8 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Process customer group pricing and update $data array
      *
-     * @param array $csvData
-     * @param array $product
+     * @param  array  $csvData
+     * @param  array  $product
      * @return mixed
      */
     private function processCustomerGroupPricing($csvData, &$data, $product)
@@ -423,7 +420,7 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Process product images and update $csvData array
      *
-     * @param string|array $csvData
+     * @param  string|array  $csvData
      * @return mixed
      */
     private function processProductImages($csvData)
@@ -444,8 +441,8 @@ class SimpleProductRepository extends BaseRepository
     /**
      * Validate product data and handle errors
      *
-     * @param string|array $data
-     * @param string|array $product
+     * @param  string|array  $data
+     * @param  string|array  $product
      * @return string
      */
     private function validateProductData($data, $product)
@@ -462,10 +459,10 @@ class SimpleProductRepository extends BaseRepository
             $errorToBeReturn = [];
 
             foreach ($errors as $error) {
-                if ($error[0] == "The url key has already been taken.") {
-                    $errorToBeReturn[] = "The url key " . $data['url_key'] . " has already been taken";
+                if ($error[0] == 'The url key has already been taken.') {
+                    $errorToBeReturn[] = 'The url key ' . $data['url_key'] . ' has already been taken';
                 } else {
-                    $errorToBeReturn[] = str_replace(".", "", $error[0]) . " for sku " . $data['sku'];
+                    $errorToBeReturn[] = str_replace('.', '', $error[0]) . ' for sku ' . $data['sku'];
                 }
             }
 
@@ -480,9 +477,9 @@ class SimpleProductRepository extends BaseRepository
     /**
      * add link and sample file and return error
      *
-     * @param string|array $csvData
-     * @param array $dataFlowProfileRecord
-     * @param string|array $product
+     * @param  string|array  $csvData
+     * @param  array  $dataFlowProfileRecord
+     * @param  string|array  $product
      * @return mixed
      */
     public function addLinksAndSamples($csvData, $dataFlowProfileRecord, $product)
@@ -535,7 +532,7 @@ class SimpleProductRepository extends BaseRepository
             $fileLink = $this->linkFileOrUrlUpload(
                 $dataFlowProfileRecord,
                 $linkType,
-                ($linkType == "url") ? $linkData['link_url'][$index] : $linkData['link_file_names'][$index],
+                ($linkType == 'url') ? $linkData['link_url'][$index] : $linkData['link_file_names'][$index],
                 $product->id,
                 $downloadableLinks
             );
@@ -544,7 +541,7 @@ class SimpleProductRepository extends BaseRepository
             $sampleFileLink = $this->fileOrUrlUpload(
                 $dataFlowProfileRecord,
                 $linkSampleType,
-                ($linkSampleType == "url") ? $linkData['link_sample_url'][$index] : $linkData['link_sample_file_names'][$index],
+                ($linkSampleType == 'url') ? $linkData['link_sample_url'][$index] : $linkData['link_sample_file_names'][$index],
                 $product->id,
                 $downloadableLinks,
                 false
@@ -553,31 +550,31 @@ class SimpleProductRepository extends BaseRepository
             // Create the downloadable link array
             $link['link_' . $index] = [
                 core()->getCurrentLocale()->code => [
-                    "title" => $linkTitle,
+                    'title' => $linkTitle,
                 ],
-                "price"                          => isset($linkData['link_prices'][$index]) ? $linkData['link_prices'][$index] : "",
-                "type"                           => trim($linkData['link_types'][$index]),
-                "sample_type"                    => trim($linkData['link_sample_types'][$index]),
-                "downloads"                      => isset($linkData['link_downloads'][$index]) ? $linkData['link_downloads'][$index] : 0,
-                "sort_order"                     => isset($linkData['link_sort_orders'][$index]) ? $linkData['link_sort_orders'][$index] : 0,
+                'price'                          => isset($linkData['link_prices'][$index]) ? $linkData['link_prices'][$index] : '',
+                'type'                           => trim($linkData['link_types'][$index]),
+                'sample_type'                    => trim($linkData['link_sample_types'][$index]),
+                'downloads'                      => isset($linkData['link_downloads'][$index]) ? $linkData['link_downloads'][$index] : 0,
+                'sort_order'                     => isset($linkData['link_sort_orders'][$index]) ? $linkData['link_sort_orders'][$index] : 0,
             ];
 
-            if (trim($linkData['link_types'][$index]) == "url") {
+            if (trim($linkData['link_types'][$index]) == 'url') {
 
                 $link['link_' . $index]['url'] = trim($fileLink);
 
-            } elseif (trim($linkData['link_types'][$index]) == "file"
+            } elseif (trim($linkData['link_types'][$index]) == 'file'
                     && isset($fileLink)) {
                 $link['link_' . $index]['file'] = trim($fileLink);
 
                 $link['link_' . $index]['file_name'] = trim($linkData['link_file_names'][$index]);
             }
 
-            if (trim($linkData['link_sample_types'][$index]) == "url") {
+            if (trim($linkData['link_sample_types'][$index]) == 'url') {
 
                 $link['link_' . $index]['sample_url'] = trim($linkData['link_sample_url'][$index]);
 
-            } elseif (trim($linkData['link_sample_types'][$index]) == "file"
+            } elseif (trim($linkData['link_sample_types'][$index]) == 'file'
                     && isset($sampleFileLink)) {
                 $link['link_' . $index]['sample_file'] = trim($sampleFileLink);
 
@@ -597,9 +594,9 @@ class SimpleProductRepository extends BaseRepository
     /**
      * add sample file and return error
      *
-     * @param string|array $csvData
-     * @param array $dataFlowProfileRecord
-     * @param string|array $product
+     * @param  string|array  $csvData
+     * @param  array  $dataFlowProfileRecord
+     * @param  string|array  $product
      * @return mixed
      */
     public function addSamples($csvData, $dataFlowProfileRecord, $product)
@@ -653,7 +650,7 @@ class SimpleProductRepository extends BaseRepository
             $sampleFileLink = $this->fileOrUrlUpload(
                 $dataFlowProfileRecord,
                 $sampleFileType,
-                ($sampleFileType == "url") ? $sampleUrl : $sampleFileName,
+                ($sampleFileType == 'url') ? $sampleUrl : $sampleFileName,
                 $product->id,
                 $downloadableLinks,
                 false
@@ -662,17 +659,17 @@ class SimpleProductRepository extends BaseRepository
             // Create the downloadable sample array
             $sample['sample_' . $index] = [
                 core()->getCurrentLocale()->code => [
-                    "title" => $sampleTitle,
+                    'title' => $sampleTitle,
                 ],
-                "type"                           => trim($sampleFileType),
-                "sort_order"                     => $sampleSortOrder[$index] ?? 0,
+                'type'                           => trim($sampleFileType),
+                'sort_order'                     => $sampleSortOrder[$index] ?? 0,
             ];
 
-            if (trim($sampleFileType) == "url") {
+            if (trim($sampleFileType) == 'url') {
 
                 $sample['sample_' . $index]['url'] = trim($sampleUrl);
 
-            } elseif (trim($sampleFileType) == "file"
+            } elseif (trim($sampleFileType) == 'file'
                     && isset($sampleFileLink)) {
                 $sample['sample_' . $index]['file'] = trim($sampleFileLink);
 
@@ -692,26 +689,25 @@ class SimpleProductRepository extends BaseRepository
     /**
      * upload sample file link or url
      *
-     * @param \Webkul\BulkUpload\Contracts\ImportProduct $dataFlowProfileRecord
-     * @param string $type
-     * @param string|array $file
-     * @param integer $id
-     * @param array $downloadableLinks
-     * @param string $flag
-     *
+     * @param  \Webkul\BulkUpload\Contracts\ImportProduct  $dataFlowProfileRecord
+     * @param  string  $type
+     * @param  string|array  $file
+     * @param  int  $id
+     * @param  array  $downloadableLinks
+     * @param  string  $flag
      * @return mixed
      */
     public function fileOrUrlUpload($dataFlowProfileRecord, $type, $file, $id, $downloadableLinks, $flag)
     {
         try {
-            if (trim($type) == "file") {
+            if (trim($type) == 'file') {
                 // Determine the file path
-                $sourcePath = $flag ? "imported-products/extracted-images/admin/sample-files/" : "imported-products/extracted-images/admin/link-sample-files/";
+                $sourcePath = $flag ? 'imported-products/extracted-images/admin/sample-files/' : 'imported-products/extracted-images/admin/link-sample-files/';
 
                 // 'upload_link_files', 'upload_sample_files', 'upload_link_sample_files'
-                $sourcePath .= $dataFlowProfileRecord->id.'/'.$downloadableLinks['upload_'.($flag ? 'sample' : 'link_sample').'_filesZipName']['dirname'].'/'.trim(basename($file));
+                $sourcePath .= $dataFlowProfileRecord->id . '/' . $downloadableLinks['upload_' . ($flag ? 'sample' : 'link_sample') . '_filesZipName']['dirname'] . '/' . trim(basename($file));
 
-                $destination = "product/".$id.'/'.trim(basename($file));
+                $destination = 'product/' . $id . '/' . trim(basename($file));
 
                 // Copy the file to the destination
                 Storage::copy($sourcePath, $destination);
@@ -719,47 +715,47 @@ class SimpleProductRepository extends BaseRepository
                 return $destination;
             } else {
                 // Handle URL upload
-                $imagePath = storage_path('app/public/imported-products/extracted-images/admin/'.($flag ? 'sample-files' : 'link-sample-files').'/'.$dataFlowProfileRecord->id);
+                $imagePath = storage_path('app/public/imported-products/extracted-images/admin/' . ($flag ? 'sample-files' : 'link-sample-files') . '/' . $dataFlowProfileRecord->id);
 
-                if (!file_exists($imagePath)) {
+                if (! file_exists($imagePath)) {
                     mkdir($imagePath, 0777, true);
                 }
 
-                $imageFile = $imagePath.'/'.basename($file);
+                $imageFile = $imagePath . '/' . basename($file);
 
                 file_put_contents($imageFile, file_get_contents(trim($file)));
 
-                $sourcePath = "imported-products/extracted-images/admin/".($flag ? 'sample-files' : 'link-sample-files').'/'.$dataFlowProfileRecord->id.'/'.basename($file);
+                $sourcePath = 'imported-products/extracted-images/admin/' . ($flag ? 'sample-files' : 'link-sample-files') . '/' . $dataFlowProfileRecord->id . '/' . basename($file);
 
-                $destination = "product/".$id.'/'.basename($file);
+                $destination = 'product/' . $id . '/' . basename($file);
 
                 Storage::copy($sourcePath, $destination);
 
                 return $destination;
             }
-        } catch(\Exception $e) {
-            Log::error('downloadable fileOrUrlUpload log: '. $e->getMessage());
+        } catch (\Exception $e) {
+            Log::error('downloadable fileOrUrlUpload log: ' . $e->getMessage());
         }
     }
 
     /**
      * upload link file or url
      *
-     * @param \Webkul\BulkUpload\Contracts\ImportProduct $dataFlowProfileRecord
-     * @param string $type
-     * @param string|array $file
-     * @param integer $id
-     * @param array $downloadableLinks
+     * @param  \Webkul\BulkUpload\Contracts\ImportProduct  $dataFlowProfileRecord
+     * @param  string  $type
+     * @param  string|array  $file
+     * @param  int  $id
+     * @param  array  $downloadableLinks
      * @return mixed
      */
     public function linkFileOrUrlUpload($dataFlowProfileRecord, $type, $file, $id, $downloadableLinks)
     {
         try {
-            if (trim($type) == "file") {
+            if (trim($type) == 'file') {
                 // Determine the file path
-                $sourcePath = "imported-products/extracted-images/admin/link-files/".$dataFlowProfileRecord->id.'/'.$downloadableLinks['upload_link_filesZipName']['dirname'].'/'.trim(basename($file));
+                $sourcePath = 'imported-products/extracted-images/admin/link-files/' . $dataFlowProfileRecord->id . '/' . $downloadableLinks['upload_link_filesZipName']['dirname'] . '/' . trim(basename($file));
 
-                $destination = "product_downloadable_links/".$id.'/'.basename($file);
+                $destination = 'product_downloadable_links/' . $id . '/' . basename($file);
 
                 // Copy the file to the destination
                 Storage::copy($sourcePath, $destination);
@@ -767,33 +763,33 @@ class SimpleProductRepository extends BaseRepository
                 return $destination;
             } else {
                 // Handle URL upload
-                $filePath = storage_path('app/public/imported-products/extracted-images/admin/link-files/'.$dataFlowProfileRecord->id);
+                $filePath = storage_path('app/public/imported-products/extracted-images/admin/link-files/' . $dataFlowProfileRecord->id);
 
-                if (!file_exists($filePath)) {
+                if (! file_exists($filePath)) {
                     mkdir($filePath, 0777, true);
                 }
 
-                $imageFile = $filePath.'/'.basename($file);
+                $imageFile = $filePath . '/' . basename($file);
 
                 file_put_contents($imageFile, file_get_contents(trim($file)));
 
-                $sourcePath = "imported-products/extracted-images/admin/link-files/".$dataFlowProfileRecord->id.'/'.basename($file);
+                $sourcePath = 'imported-products/extracted-images/admin/link-files/' . $dataFlowProfileRecord->id . '/' . basename($file);
 
-                $destination = "product_downloadable_links/".$id.'/'.basename($file);
+                $destination = 'product_downloadable_links/' . $id . '/' . basename($file);
 
                 Storage::copy($sourcePath, $destination);
 
                 return $destination;
             }
-        } catch(\Exception $e) {
-            Log::error('downloadable linkFileOrUrlUpload log: '. $e->getMessage());
+        } catch (\Exception $e) {
+            Log::error('downloadable linkFileOrUrlUpload log: ' . $e->getMessage());
         }
     }
 
     /**
      * unzip zip files and store in storage folder
      *
-     * @param \Webkul\BulkUpload\Contracts\ImportProduct $record
+     * @param  \Webkul\BulkUpload\Contracts\ImportProduct  $record
      * @return mixed
      */
     public function extractDownloadableFiles($record)
@@ -804,7 +800,7 @@ class SimpleProductRepository extends BaseRepository
 
         foreach ($fileTypes as $fileType) {
 
-            if (isset($record->$fileType) && $record->$fileType !== "") {
+            if (isset($record->$fileType) && $record->$fileType !== '') {
                 $zipArchive = new \ZipArchive();
 
                 $extractedPath = storage_path("app/public/imported-products/extracted-images/admin/{$fileType}/{$record->id}/");

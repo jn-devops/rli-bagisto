@@ -3,12 +3,11 @@
 namespace Webkul\Shop\Listeners;
 
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Crypt;
+use Webkul\Shop\Mail\Customer\EmailVerificationNotification;
 use Webkul\Shop\Mail\Customer\NoteNotification;
 use Webkul\Shop\Mail\Customer\RegistrationNotification;
 use Webkul\Shop\Mail\Customer\SubscriptionNotification;
 use Webkul\Shop\Mail\Customer\UpdatePasswordNotification;
-use Webkul\Shop\Mail\Customer\EmailVerificationNotification;
 
 class Customer extends Base
 {
@@ -29,7 +28,7 @@ class Customer extends Base
                 Mail::queue(new EmailVerificationNotification($customer));
             } catch (\Exception $e) {
                 \Log::info('EmailVerificationNotification Error');
-                
+
                 report($e);
             }
 

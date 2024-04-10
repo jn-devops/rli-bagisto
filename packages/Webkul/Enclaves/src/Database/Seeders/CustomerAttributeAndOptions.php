@@ -50,8 +50,8 @@ class CustomerAttributeAndOptions extends Seeder
                 'created_at'  => $currectDateTime,
                 'updated_at'  => $currectDateTime,
             ],
-            
-            /**                     
+
+            /**
              *  ------------- Employment Type -------------
              */
             [
@@ -175,8 +175,8 @@ class CustomerAttributeAndOptions extends Seeder
                 'created_at'  => $currectDateTime,
                 'updated_at'  => $currectDateTime,
             ],
-            
-            /**                     
+
+            /**
              *  ------------- Borrower's Data -------------
              */
             [

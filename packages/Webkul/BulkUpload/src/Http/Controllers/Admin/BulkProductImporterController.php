@@ -4,16 +4,14 @@ namespace Webkul\BulkUpload\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
-use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
 use Webkul\BulkUpload\DataGrids\Admin\BulkProductImporterDataGrid;
+use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
 
 class BulkProductImporterController extends Controller
 {
     /**
      * Create a new controller instance.
      *
-     * @param  \Webkul\Attribute\Repositories\AttributeFamilyRepository  $attributeFamilyRepository
-     * @param  \Webkul\BulkUpload\Repositories\BulkProductImporterRepository  $bulkProductImporterRepository
      *
      * @return void
      */
@@ -67,7 +65,7 @@ class BulkProductImporterController extends Controller
     /**
      * Show the form for editing the specified resource.
      * Depricate function
-     * 
+     *
      * @param  int  $id
      * @return \Illuminate\View\View
      */
@@ -89,7 +87,7 @@ class BulkProductImporterController extends Controller
     public function update()
     {
         $id = request()->input('id');
-        
+
         $this->validate(request(), [
             'name'                => ['required', 'unique:bulk_product_importers,name,' . $id],
             'attribute_family_id' => 'required',
@@ -138,7 +136,7 @@ class BulkProductImporterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function massDestroy()
-    {   
+    {
         try {
             $this->bulkProductImporterRepository->whereIn('id', request()->input('indices'))->delete();
         } catch (\Exception $e) {
@@ -157,9 +155,9 @@ class BulkProductImporterController extends Controller
     public function getAttributeFamilyByImporterId()
     {
         $profiles = $this->bulkProductImporterRepository->findOrFail(request()->id);
-        
+
         $family = $this->attributeFamilyRepository->find($profiles['attribute_family_id']);
-        
+
         return new JsonResponse([
             'family' => $family,
         ]);

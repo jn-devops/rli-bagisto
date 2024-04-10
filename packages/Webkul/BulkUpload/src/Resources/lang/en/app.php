@@ -5,26 +5,24 @@ return [
         /**
          * System Configuration.
          */
-
         'system'      => [
             'bulkupload' => [
                 'general'   => 'General',
                 'index'     => [
-                            'title' => 'Bulk-Upload Product',
-                            'info'  => 'Configure',
-                        ],
-                        'setting' => [
-                            'title' => 'Settings',
-                            'info'  => 'Update status',
-                        ],
+                    'title' => 'Bulk-Upload Product',
+                    'info'  => 'Configure',
+                ],
+                'setting' => [
+                    'title' => 'Settings',
+                    'info'  => 'Update status',
+                ],
             ],
             'status'     => 'Status',
         ],
 
         /**
-         * Bulk product configuration 
+         * Bulk product configuration
          */
-
         'bulk-upload' => [
             'index'              => 'Bulk-Upload',
             'manage-bulk-upload' => 'Manage Bulk Upload',
@@ -39,14 +37,14 @@ return [
                 'add-profile'    => 'Add Profile',
                 'edit-profile'   => 'Edit Profile',
                 'update-profile' => 'Update',
-                'data-grid' => [
+                'data-grid'      => [
                     'created-at'  => 'Created At',
                     'locale_code' => 'Locale code',
                 ],
             ],
 
             /**
-             * Run profiler configuration 
+             * Run profiler configuration
              */
             'run-profile' => [
                 'run'               => 'Import Products',
@@ -71,9 +69,8 @@ return [
             ],
 
             /**
-             * Upload product files configuration 
+             * Upload product files configuration
              */
-
             'upload-files' => [
                 'file'                     => 'CSV/XLS/XLSX file',
                 'save'                     => 'Save',
@@ -91,7 +88,7 @@ return [
                 'upload-link-files'        => 'Upload Link Files',
                 'upload-sample-files'      => 'Upload Sample Files',
                 'upload-link-sample-files' => 'Upload Link Sample Files',
-                'upload-product-time'      => 'Time Taken', 
+                'upload-product-time'      => 'Time Taken',
                 'uploaded-product'         => 'Uploaded Product',
                 'not-uploaded-product'     => 'Not Uploaded Product',
                 'profiler-name'            => 'Profiler Name',
@@ -120,11 +117,11 @@ return [
             ],
 
             'slot'  => [
-                'title'            => "Flat Details",
-                'flat'            => "Flat Number",
-                'button'           => "Submit",
-                'mouseX'           => "mouseX",
-                'mouseY'           => "mouseY",
+                'title'            => 'Flat Details',
+                'flat'             => 'Flat Number',
+                'button'           => 'Submit',
+                'mouseX'           => 'mouseX',
+                'mouseY'           => 'mouseY',
                 'id'               => 'id',
                 'url'              => 'Url',
                 'product'          => 'Product',
@@ -144,7 +141,7 @@ return [
                 'authentication' => 'Authentication',
                 'onepage'        => [
                     'processing_fee' => 'Processing Fee',
-                ]
+                ],
             ],
         ],
     ],

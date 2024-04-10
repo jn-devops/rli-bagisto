@@ -1,16 +1,16 @@
 <?php
+
 namespace Webkul\Enclaves\Routes;
 
 use Illuminate\Support\Facades\Route;
-use Webkul\Category\Contracts\Category;
-use Webkul\Enclaves\Http\Controllers\Product\ProductController;
 use Webkul\Enclaves\Http\Controllers\Category\CategoryController;
-use Webkul\Enclaves\Http\Controllers\Customer\CustomerController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DashboardController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DocumentsController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\InquiriesController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\HelpSeminarController;
+use Webkul\Enclaves\Http\Controllers\Customer\Account\InquiriesController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\TransactionController;
+use Webkul\Enclaves\Http\Controllers\Customer\CustomerController;
+use Webkul\Enclaves\Http\Controllers\Product\ProductController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
@@ -25,29 +25,29 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
                 Route::controller(DashboardController::class)->prefix('dashboard')->group(function () {
                     Route::get('', 'index')->name('enclaves.customers.account.dashboard.index');
                 });
-        
+
                 Route::controller(DocumentsController::class)->prefix('documents')->group(function () {
                     Route::get('', 'index')->name('enclaves.customers.account.documents.index');
                 });
-        
+
                 Route::controller(InquiriesController::class)->prefix('inquiries')->group(function () {
                     Route::get('', 'index')->name('enclaves.customers.account.inquiries.index');
-        
+
                     Route::get('/tickets', 'tickets')->name('enclaves.customers.account.inquiries.tickets');
-        
+
                     Route::post('/tickets', 'store')->name('enclaves.customers.account.inquiries.store');
                 });
 
                 Route::controller(TransactionController::class)->prefix('transactions')->group(function () {
                     Route::get('', 'index')->name('shop.customers.account.transactions.index');
-                
+
                     Route::get('view/{id}', 'view')->name('shop.customers.account.transactions.view');
-        
+
                     Route::post('cancel/{id}', 'cancel')->name('shop.customers.account.transactions.cancel');
-        
+
                     Route::get('print/Invoice/{id}', 'printInvoice')->name('shop.customers.account.transactions.print-invoice');
                 });
-        
+
                 Route::controller(HelpSeminarController::class)->prefix('help-seminar')->group(function () {
                     Route::get('', 'index')->name('enclaves.customers.account.help-seminar.index');
                 });
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
                     Route::post('edit', 'update')->name('shop.customers.account.profile.store');
 
                     Route::get('edit', 'edit')->name('shop.customers.account.profile.edit');
-                    
+
                     Route::post('destroy', 'destroy')->name('shop.customers.account.profile.destroy');
 
                     Route::get('reviews', 'reviews')->name('shop.customers.account.reviews.index');

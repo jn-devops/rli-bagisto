@@ -29,7 +29,6 @@ class CustomerFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array
      * @throws \Exception
      */
     public function definition(): array
@@ -51,8 +50,6 @@ class CustomerFactory extends Factory
 
     /**
      * Male.
-     *
-     * @return \Webkul\Customer\Database\Factories\CustomerFactory
      */
     public function male(): CustomerFactory
     {
@@ -65,8 +62,6 @@ class CustomerFactory extends Factory
 
     /**
      * Female.
-     *
-     * @return \Webkul\Customer\Database\Factories\CustomerFactory
      */
     public function female(): CustomerFactory
     {

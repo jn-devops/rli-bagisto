@@ -10,7 +10,7 @@ class ProductPropertyFlats extends Model implements ProductPropertyFlatsContract
     /**
      * The table associated with the model.
      */
-    protected $table = "product_property_flats";
+    protected $table = 'product_property_flats';
 
     /**
      * The attributes that are mass assignable.

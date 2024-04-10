@@ -38,7 +38,7 @@ class Customer
      */
     public function afterUpdate()
     {
-        if(! $password = request('password_confirmation')) {
+        if (! $password = request('password_confirmation')) {
             return;
         }
 

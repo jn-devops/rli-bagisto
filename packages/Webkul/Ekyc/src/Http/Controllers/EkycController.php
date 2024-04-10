@@ -2,14 +2,13 @@
 
 namespace Webkul\Ekyc\Http\Controllers;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Cookie;
-use Webkul\Ekyc\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webkul\Checkout\Repositories\CartRepository;
-use Webkul\Product\Repositories\ProductRepository;
-use Webkul\Customer\Repositories\CustomerRepository;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Event;
 use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
+use Webkul\Checkout\Repositories\CartRepository;
+use Webkul\Customer\Repositories\CustomerRepository;
+use Webkul\Product\Repositories\ProductRepository;
 
 class EkycController extends Controller
 {
@@ -34,7 +33,7 @@ class EkycController extends Controller
      */
     public function index()
     {
-        if (empty(request('slug')) 
+        if (empty(request('slug'))
             || empty(request('cartId'))) {
             abort(404);
         }
@@ -57,7 +56,7 @@ class EkycController extends Controller
     /**
      * EndPoint URL
      */
-    private function getSiteVerifyEndpoint(string $sku, string $transaction_id) : string
+    private function getSiteVerifyEndpoint(string $sku, string $transaction_id): string
     {
         /**
          * In Production.
@@ -73,10 +72,10 @@ class EkycController extends Controller
         $data = request('request');
 
         $product = $this->productRepository->findBySlug($data['slug']);
-       
+
         // Getting transation id for API
         $transaction_id = encrypt($data['cartId']);
-        
+
         $this->ekycVerificationRepository->updateOrCreate([
             'cart_id' => $data['cartId'],
             'sku'     => $product->sku,
@@ -87,7 +86,7 @@ class EkycController extends Controller
             'transaction_id' => $transaction_id,
             'payload'        => $data,
         ]);
-    
+
         return new JsonResource([
             'redirect' => $this->getSiteVerifyEndpoint($product->sku, $transaction_id),
         ]);
@@ -107,7 +106,7 @@ class EkycController extends Controller
             'cart_id' => $data['cart_id'],
         ]);
 
-        if($ekycVerification) {
+        if ($ekycVerification) {
             return new JsonResource([
                 'transaction_id' => $ekycVerification->transaction_id,
                 'status'         => $ekycVerification->status,
@@ -128,9 +127,9 @@ class EkycController extends Controller
     protected function customerLogin()
     {
         $ekyc = $this->ekycVerificationRepository->findOneByField('transaction_id', request('transaction_id'));
-        
+
         $payload = $ekyc->payload['payload'];
-        
+
         $loginRequest = [
             'email'    => $payload['order']['buyer']['email'],
             'password' => decrypt($ekyc->password),
@@ -141,7 +140,7 @@ class EkycController extends Controller
 
             return redirect()->back();
         }
-        
+
         if (! auth()->guard('customer')->user()->status) {
             auth()->guard('customer')->logout();
 
@@ -149,7 +148,7 @@ class EkycController extends Controller
 
             return redirect()->back();
         }
-        
+
         if (! auth()->guard('customer')->user()->is_verified) {
             session()->flash('info', trans('shop::app.customers.login-form.verify-first'));
 
@@ -174,7 +173,7 @@ class EkycController extends Controller
 
     /**
      * Getting URL
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function getUrl()
@@ -187,8 +186,8 @@ class EkycController extends Controller
             'sku'     => $product->sku,
             'cart_id' => $data['cart_id'],
         ]);
-        
-        if($ekycVerification) {
+
+        if ($ekycVerification) {
             return new JsonResource([
                 'url'    => $this->getSiteVerifyEndpoint($product->sku, $ekycVerification->transaction_id),
                 'status' => $ekycVerification->status,

@@ -3,9 +3,8 @@
 namespace Webkul\BulkUpload\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Webkul\BulkUpload\Contracts\ProductProperties as ProductPropertiesContract;
 
 class ProductProperties extends Model implements ProductPropertiesContract
@@ -13,7 +12,7 @@ class ProductProperties extends Model implements ProductPropertiesContract
     /**
      * The table associated with the model.
      */
-    protected $table = "product_properties";
+    protected $table = 'product_properties';
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +21,6 @@ class ProductProperties extends Model implements ProductPropertiesContract
 
     /**
      * Get the property flats.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function slots(): HasMany
     {

@@ -2,8 +2,8 @@
 
 namespace Webkul\Shop\Http\Resources;
 
-use Webkul\Tax\Helpers\Tax;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\Tax\Helpers\Tax;
 
 class CartResource extends JsonResource
 {
@@ -45,7 +45,7 @@ class CartResource extends JsonResource
             'shipping_address'               => $this->shipping_address,
             'haveStockableItems'             => $this->haveStockableItems(),
             'payment_method'                 => $this->payment ? core()->getConfigData('sales.payment_methods.' . $this->payment->method . '.title') : '',
-            
+
             // Customization code
             'property_code'                  => $this->property_code ?? 0,
             'processing_fee'                 => core()->currency($this->processing_fee * $this->items_qty),

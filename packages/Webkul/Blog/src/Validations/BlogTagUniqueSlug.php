@@ -91,15 +91,15 @@ class BlogTagUniqueSlug implements Rule
             && $this->tableName === 'blog_tags'
         ) {
             return app(BlogTagRepository::class)->where('id', '<>', $this->id)
-                    ->where('slug', $slug)
-                    ->limit(1)
-                    ->select(DB::raw(1))
-                    ->exists();
+                ->where('slug', $slug)
+                ->limit(1)
+                ->select(DB::raw(1))
+                ->exists();
         }
 
         return app(BlogTagRepository::class)->where('slug', $slug)
-                    ->limit(1)
-                    ->select(DB::raw(1))
-                    ->exists();
+            ->limit(1)
+            ->select(DB::raw(1))
+            ->exists();
     }
 }

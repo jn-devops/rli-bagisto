@@ -4,7 +4,6 @@ namespace Webkul\Shop\Mail\Customer;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Queue\SerializesModels;
 
 class RegistrationNotification extends Mailable

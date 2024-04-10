@@ -18,8 +18,8 @@ class ProductImageRepository extends Repository
     }
 
     /**
-     * @param array $data
-     * @param mixed $product
+     * @param  array  $data
+     * @param  mixed  $product
      * @return mixed
      */
     public function uploadImages($data, $product)
@@ -35,9 +35,9 @@ class ProductImageRepository extends Repository
                 if (str_contains($imageId, 'image_')) {
                     if (request()->hasFile($file)) {
                         $this->create([
-                                'path'       => request()->file($file)->store($dir),
-                                'product_id' => $product->id,
-                            ]);
+                            'path'       => request()->file($file)->store($dir),
+                            'product_id' => $product->id,
+                        ]);
                     }
                 } else {
                     if (is_numeric($index = $previousImageIds->search($imageId))) {
@@ -68,19 +68,19 @@ class ProductImageRepository extends Repository
 
     /**
      * Image Upload in bulk
-     * 
-     * @param array $data
-     * @param mixed $product
-     * @param array $imageZipName
+     *
+     * @param  array  $data
+     * @param  mixed  $product
+     * @param  array  $imageZipName
      * @return mixed
      */
     public function bulkuploadImages($data, $product)
     {
-        foreach($data['images'] ?? [] as $value) {
+        foreach ($data['images'] ?? [] as $value) {
             $importPath = "imported-products/admin/images/{$data['sku']}/";
-            
+
             $files = $importPath . basename($value);
-            
+
             $destination = "product/{$product->id}/" . basename($value);
 
             Storage::copy($files, $destination);

@@ -10,7 +10,7 @@ class ImportProduct extends Model implements ImportProductContract
     /**
      * The attributes that aren't mass assignable.
      */
-    protected $table = "import_products";
+    protected $table = 'import_products';
 
     /**
      * The attributes that aren't mass assignable.
@@ -19,7 +19,7 @@ class ImportProduct extends Model implements ImportProductContract
 
     /**
      * Get the profiler files.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function profiler()

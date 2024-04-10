@@ -3,15 +3,14 @@
 namespace Webkul\Installer\Listeners;
 
 use Illuminate\Support\Facades\Cache;
-use Webkul\User\Repositories\AdminRepository;
 use Webkul\Installer\Jobs\UpdateNotification as UpdateNotificationJob;
+use Webkul\User\Repositories\AdminRepository;
 
 class Installer
 {
     /**
      * Create a new listener instance.
      *
-     * @param  \Webkul\User\Repositories\AdminRepository  $adminRepository
      * @return void
      */
     public function __construct(protected AdminRepository $adminRepository)
@@ -37,7 +36,7 @@ class Installer
                 'firstname'        => $admin->name,
                 'lastname'         => ' ',
                 'countryCode'      => config('app.default_country') ?? 'in',
-                'marketingConsent' => FALSE,
+                'marketingConsent' => false,
                 'project'          => 'bagisto',
             ],
         ]);
@@ -55,7 +54,7 @@ class Installer
         if ($alreadyUpdated) {
             return;
         }
-        
+
         Cache::put('new-updates', true, 60 * 60 * 24);
 
         $admin = auth()->guard('admin')->user();
@@ -70,7 +69,7 @@ class Installer
                 'firstname'        => $admin->name,
                 'lastname'         => ' ',
                 'countryCode'      => config('app.default_country') ?? 'in',
-                'marketingConsent' => FALSE,
+                'marketingConsent' => false,
                 'project'          => 'bagisto',
             ],
         ]);

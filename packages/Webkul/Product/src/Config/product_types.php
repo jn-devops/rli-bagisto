@@ -35,7 +35,7 @@ return [
         'class' => 'Webkul\Product\Type\Downloadable',
         'sort'  => 5,
     ],
-    
+
     'bundle'       => [
         'key'   => 'bundle',
         'name'  => 'Bundle',

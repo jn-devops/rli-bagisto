@@ -2,8 +2,8 @@
 
 namespace Webkul\Blog\Http\Controllers\Admin;
 
-use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Datagrids\TagDataGrid;
+use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Http\Requests\BlogTagRequest;
 
 class TagController extends Controller

@@ -14,15 +14,15 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
-        $this->loadRoutesFrom(__DIR__.'/../Routes/admin-routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/admin-routes.php');
 
-        $this->loadRoutesFrom(__DIR__.'/../Routes/shop-routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/shop-routes.php');
 
-        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'blog');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'blog');
 
-        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'blog');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'blog');
     }
 
     /**
@@ -43,11 +43,11 @@ class BlogServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__).'/Config/admin-menu.php', 'menu.admin'
+            dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
         );
 
         $this->mergeConfigFrom(
-            dirname(__DIR__).'/Config/acl.php', 'acl'
+            dirname(__DIR__) . '/Config/acl.php', 'acl'
         );
     }
 }

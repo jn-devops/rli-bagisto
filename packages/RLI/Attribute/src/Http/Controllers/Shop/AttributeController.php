@@ -2,9 +2,9 @@
 
 namespace RLI\Attribute\Http\Controllers\Shop;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller;
 
 class AttributeController extends Controller
 {

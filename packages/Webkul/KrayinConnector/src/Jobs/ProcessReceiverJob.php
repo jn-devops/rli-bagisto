@@ -3,8 +3,8 @@
 namespace Webkul\KrayinConnector\Jobs;
 
 use Illuminate\Support\Facades\Log;
-use Webkul\KrayinConnector\Hooks\Receivers\eKycReceiver;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as BaseProcessWebhookJob;
+use Webkul\KrayinConnector\Hooks\Receivers\eKycReceiver;
 
 class ProcessReceiverJob extends BaseProcessWebhookJob
 {
@@ -16,7 +16,7 @@ class ProcessReceiverJob extends BaseProcessWebhookJob
     public function handle()
     {
         $payload = $this->webhookCall->payload;
-    
+
         Log::channel('responseLog')->info('---------- payload start ----------');
         Log::channel('responseLog')->info(json_encode($payload));
         Log::channel('responseLog')->info('---------- payload end ----------');
@@ -25,10 +25,10 @@ class ProcessReceiverJob extends BaseProcessWebhookJob
             case 'checkout.property.kyc.authenticate.after':
                 try {
                     eKycReceiver::create($payload);
-                } catch(\Exception $exception) {
+                } catch (\Exception $exception) {
                     $this->exceptionResponse($exception, $payload['entity_type']);
                 }
-                
+
                 break;
             default:
                 break;
@@ -38,7 +38,7 @@ class ProcessReceiverJob extends BaseProcessWebhookJob
     /**
      * Custom validation error message
      *
-     * @param object $validator
+     * @param  object  $validator
      * @return json
      */
     private function exceptionResponse($exception, $type)
@@ -50,7 +50,7 @@ class ProcessReceiverJob extends BaseProcessWebhookJob
             'trace'        => $this->webhookCall->id,
             'message'      => $exception->getMessage() ?? 'Something went wrong!',
         ], 400)
-        ->header('Content-Type', 'json')->send();
+            ->header('Content-Type', 'json')->send();
         $response->getContent();
         exit;
     }

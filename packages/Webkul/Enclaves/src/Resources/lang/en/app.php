@@ -109,7 +109,7 @@ return [
             'tracking-number'   => 'Tracking Number : :tracking_number',
         ],
     ],
-    
+
     'shop' => [
         'layouts' => [
             'transactions' => 'Transactions',
@@ -130,34 +130,34 @@ return [
                 'reservation'   => 'Reservation',
                 'btn-upload'    => 'Upload Files',
                 'submit'        => 'Submit',
-    
+
                 'list' => [
-                    'title'          => "Your Tickets",
-                    'create-success' => "Ticket successfully created",
-                ]
+                    'title'          => 'Your Tickets',
+                    'create-success' => 'Ticket successfully created',
+                ],
             ],
-    
+
             'login-form' => [
                 'page-title' => 'Log in your Account',
             ],
-            
+
             'account' => [
                 'help-seminar' => [
                     'title' => 'Help Seminar',
                 ],
             ],
-    
+
             'choose-unit'          => 'Choose Unit',
             'browse-properties'    => 'Browse Properties',
             'total-contract-price' => 'Total Contract Price',
         ],
 
-        'product' =>  [
+        'product' => [
             'reserve-now'     => 'Reserve Now',
             'select-area'     => 'Check & Select Area',
             'reservation-fee' => 'Reservation Fee: ',
             'contract-price'  => 'Total Contract Price:',
-            'cart'  => [
+            'cart'            => [
                 'add-to-cart' => 'Choose Unit',
             ],
         ],
@@ -172,14 +172,14 @@ return [
             'slider' => [
                 'title' => 'Raemulan Lands Inc.',
             ],
-    
+
             'most-view' => [
                 'title'          => 'Our Newest Communities',
                 'contract-price' => 'Total Contract Price',
                 'choose-unit'    => 'Choose Unit',
-            ]
+            ],
         ],
-        
+
         'components' => [
             'layouts' => [
                 'header' => [
@@ -234,7 +234,7 @@ return [
                     'save-btn'       => 'Save',
                     'create-success' => 'Inquiry created successfully',
                 ],
-    
+
                 'view' => [
                     'comment'         => 'Comment:',
                     'attachment'      => 'Attachment:',
@@ -243,7 +243,7 @@ return [
                     'attachment-info' => 'Click on Image for Download',
                     'delete-btn'      => 'Delete',
                 ],
-    
+
                 'edit' => [
                     'edit-btn'       => 'Edit',
                     'customer'       => 'Customer',
@@ -255,7 +255,7 @@ return [
                     'error'          => 'Somethink is wrong',
                     'delete-success' => 'Inquiry Deleted Successfully',
                     'update-success' => 'Inquiry updated successfully',
-                ]
+                ],
             ],
         ],
     ],

@@ -18,15 +18,15 @@ class Cart
             $attribute = app(AttributeRepository::class)->findOneByField('code', 'processing_fee');
 
             $attributeValue = app(ProductAttributeValueRepository::class)
-                                ->findOneWhere([
-                                    'product_id'   => $item->product_id,
-                                    'attribute_id' => $attribute->id,
-                                ]);
+                ->findOneWhere([
+                    'product_id'   => $item->product_id,
+                    'attribute_id' => $attribute->id,
+                ]);
 
             $attributeInValue = 0;
 
             if ($attributeValue) {
-                $attributeInValue = ((float)$attributeValue->float_value);
+                $attributeInValue = ((float) $attributeValue->float_value);
             }
 
             $cart->processing_fee = $attributeInValue;
@@ -34,7 +34,7 @@ class Cart
 
         $cart->grand_total = $cart->sub_total + $cart->tax_total + ($cart->processing_fee ?? 0) - $cart->discount_amount;
         $cart->base_grand_total = $cart->base_sub_total + $cart->base_tax_total + ($cart->processing_fee ?? 0) - $cart->base_discount_amount;
-      
+
         $cart->update();
     }
 }

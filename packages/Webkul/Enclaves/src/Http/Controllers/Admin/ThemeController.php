@@ -19,7 +19,7 @@ class ThemeController extends Controller
     /**
      * Edit the theme
      *
-     * @param integer $id
+     * @param  int  $id
      * @return \Illuminate\View\View
      */
     public function edit($id)

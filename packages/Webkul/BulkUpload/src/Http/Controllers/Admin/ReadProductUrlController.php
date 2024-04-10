@@ -2,10 +2,10 @@
 
 namespace Webkul\BulkUpload\Http\Controllers\Admin;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
-use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
 use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
 use Webkul\BulkUpload\Repositories\ProductPropertyFlatsRepository;
 
@@ -21,10 +21,10 @@ class ReadProductUrlController extends Controller
         protected ProductPropertyFlatsRepository $productPropertyFlatsRepository,
     ) {
     }
-    
+
     /**
      * Read All URL and return image
-     * 
+     *
      * @param int
      * @return \Illuminate\Http\JsonResponse
      */
@@ -46,30 +46,30 @@ class ReadProductUrlController extends Controller
 
                 $fileName = Str::random(40) . '.webp';
 
-                $path = 'product/'. $id. '/' . $fileName;
+                $path = 'product/' . $id . '/' . $fileName;
 
                 $imageZipName[] = [
-                    'url'       => config('app.url').'/storage/'. $path,
+                    'url'       => config('app.url') . '/storage/' . $path,
                 ];
 
                 $imageName[] = $fileName;
 
-                Storage::put($path , $image);
+                Storage::put($path, $image);
             }
         }
 
         return new JsonResponse([
-                'images' => $imageZipName,
-                'names'  => implode(',', $imageName),
+            'images' => $imageZipName,
+            'names'  => implode(',', $imageName),
         ]);
     }
 
     /**
      * Store Product URL
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function productUrlStore() 
+    public function productUrlStore()
     {
         $this->validate(request(), [
             'flat_numbers' => 'required',
@@ -93,17 +93,17 @@ class ReadProductUrlController extends Controller
         $slot_id = str_replace('resizable_', '', request()->input('slot_id'));
 
         $propertyFlats = $this->productPropertyFlatsRepository->updateOrCreate([
-                'x_coordinate' => request()->input('x_coordinate'),
-                'y_coordinate' => request()->input('y_coordinate'),
-                'property_id'  => $property->id,
-                'slot_id'      => $slot_id,
-            ], [
-                'property_id'  => $property->id,
-                'slot_id'      => $slot_id,
-                'flat_numbers' => request()->input('flat_numbers'),
-                'x_coordinate' => request()->input('x_coordinate'),
-                'y_coordinate' => request()->input('y_coordinate'),
-            ]);
+            'x_coordinate' => request()->input('x_coordinate'),
+            'y_coordinate' => request()->input('y_coordinate'),
+            'property_id'  => $property->id,
+            'slot_id'      => $slot_id,
+        ], [
+            'property_id'  => $property->id,
+            'slot_id'      => $slot_id,
+            'flat_numbers' => request()->input('flat_numbers'),
+            'x_coordinate' => request()->input('x_coordinate'),
+            'y_coordinate' => request()->input('y_coordinate'),
+        ]);
 
         return new JsonResponse([
             'slot'    => $propertyFlats,
@@ -113,7 +113,7 @@ class ReadProductUrlController extends Controller
 
     /**
      * get Product URL
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function productUrlGet()
@@ -124,27 +124,27 @@ class ReadProductUrlController extends Controller
 
         return new JsonResponse([
             'flats'  => $this->productPropertiesRepository->with('slots')
-                    ->where([
-                        'product_id' => request('product_id'),
-                        'image_url'  => request('image_url'),
-                    ])->get(),
+                ->where([
+                    'product_id' => request('product_id'),
+                    'image_url'  => request('image_url'),
+                ])->get(),
         ]);
     }
 
     /**
      * get slot
-     * 
+     *
      * @return mixed
      */
     public function getSlot()
     {
-        if (request()->has('slot_id') 
+        if (request()->has('slot_id')
                 && request()->has('product_id')) {
             return new JsonResponse([
                 'flat'  => $this->productPropertiesRepository->with('slot')->where([
-                                'product_id' => request('product_id'),
-                                'image_url'  => request('image_url'),
-                            ])->first(),
+                    'product_id' => request('product_id'),
+                    'image_url'  => request('image_url'),
+                ])->first(),
             ]);
         }
 
@@ -153,7 +153,7 @@ class ReadProductUrlController extends Controller
 
     /**
      * update slot Coordinate
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateSlotCoordinate()
@@ -166,7 +166,7 @@ class ReadProductUrlController extends Controller
             'slot.slot_id'      => 'required',
         ]);
 
-       $productProperties = $this->productPropertiesRepository->updateOrCreate([
+        $productProperties = $this->productPropertiesRepository->updateOrCreate([
             'product_id' => request()->input('product_id'),
             'image_url'  => request()->input('image_url'),
         ], [
@@ -177,10 +177,10 @@ class ReadProductUrlController extends Controller
         $slot_id = str_replace('resizable_', '', request()->input('slot.slot_id'));
 
         return $this->productPropertyFlatsRepository->updateOrCreate([
-            'slot_id'     => (int)$slot_id,
+            'slot_id'     => (int) $slot_id,
             'property_id' => $productProperties->id,
-        ],[
-            'slot_id'      => (int)$slot_id,
+        ], [
+            'slot_id'      => (int) $slot_id,
             'property_id'  => $productProperties->id,
             'x_coordinate' => request()->input('slot.x_coordinate'),
             'y_coordinate' => request()->input('slot.y_coordinate'),

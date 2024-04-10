@@ -19,17 +19,16 @@ class ProductPropertyFlatsRepository extends Repository
 
     /**
      * find flats Numbers
-     * 
-     * @param $slots
+     *
      * @return mixed
      */
     public function getFlatNumbers($slots)
     {
         return DB::table('product_property_flats')
-                ->join('product_properties', 'product_properties.id', 'product_property_flats.property_id')
-                ->where('product_properties.image_url', $slots['image_url'])
-                ->where('product_properties.product_id', $slots['product_id'])
-                ->where('product_property_flats.slot_id', $slots['slot_id'])
-                ->get();
+            ->join('product_properties', 'product_properties.id', 'product_property_flats.property_id')
+            ->where('product_properties.image_url', $slots['image_url'])
+            ->where('product_properties.product_id', $slots['product_id'])
+            ->where('product_property_flats.slot_id', $slots['slot_id'])
+            ->get();
     }
 }

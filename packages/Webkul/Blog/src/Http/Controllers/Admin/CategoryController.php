@@ -74,9 +74,9 @@ class CategoryController extends Controller
         Session::put('bCatEditId', $id);
 
         $categoriesParent = $this->blogCategoryRepository
-                                ->where(['status' => 1, 'parent_id' => 0])
-                                ->whereNot('id', $id)
-                                ->get();
+            ->where(['status' => 1, 'parent_id' => 0])
+            ->whereNot('id', $id)
+            ->get();
 
         Session::remove('bCatEditId');
 

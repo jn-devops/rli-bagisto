@@ -27,10 +27,10 @@ class TagController extends Controller
         $paginate = ! empty($paginate) ? (int) $paginate : 9;
 
         $blogs = $this->blogRepository
-                ->orderBy('id', 'desc')
-                ->where('status', 1)
-                ->whereRaw('FIND_IN_SET(?, tags)', [$tag_id])
-                ->paginate($paginate);
+            ->orderBy('id', 'desc')
+            ->where('status', 1)
+            ->whereRaw('FIND_IN_SET(?, tags)', [$tag_id])
+            ->paginate($paginate);
 
         $categories = $this->blogCategoryRepository->where('status', 1)->get();
 
@@ -41,14 +41,27 @@ class TagController extends Controller
             'channel_id' => core()->getCurrentChannel()->id,
         ]);
 
-        $show_categories_count = $this->getConfigByKey('blog_post_show_categories_with_count');
-        $show_tags_count = $this->getConfigByKey('blog_post_show_tags_with_count');
-        $show_author_page = $this->getConfigByKey('blog_post_show_author_page');
+        $showCategoriesCount = $this->getConfigByKey('blog_post_show_categories_with_count');
 
-        $blog_seo_meta_title = $this->getConfigByKey('blog_seo_meta_title');
-        $blog_seo_meta_keywords = $this->getConfigByKey('blog_seo_meta_keywords');
-        $blog_seo_meta_description = $this->getConfigByKey('blog_seo_meta_description');
+        $showTagsCount = $this->getConfigByKey('blog_post_show_tags_with_count');
+        $showAuthorPage = $this->getConfigByKey('blog_post_show_author_page');
 
-        return view('blog::shop.tag.index', compact('blogs', 'categories', 'customizations', 'tag', 'tags', 'show_categories_count', 'show_tags_count', 'show_author_page', 'blog_seo_meta_title', 'blog_seo_meta_keywords', 'blog_seo_meta_description'));
+        $blogSeoMetaTitle = $this->getConfigByKey('blog_seo_meta_title');
+        $blogSeoMetaKeywords = $this->getConfigByKey('blog_seo_meta_keywords');
+        $blogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
+
+        return view('blog::shop.tag.index', compact(
+            'blogs',
+            'categories',
+            'customizations',
+            'tag',
+            'tags',
+            'showCategoriesCount',
+            'showTagsCount',
+            'showAuthorPage',
+            'blogSeoMetaTitle',
+            'blogSeoMetaKeywords',
+            'blogSeoMetaDescription'
+        ));
     }
 }

@@ -4,10 +4,10 @@ namespace Webkul\Admin\Http\Controllers\CMS;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Event;
-use Webkul\CMS\Repositories\CmsRepository;
-use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\DataGrids\CMS\CMSPageDataGrid;
+use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
+use Webkul\CMS\Repositories\CmsRepository;
 
 class PageController extends Controller
 {
@@ -133,8 +133,7 @@ class PageController extends Controller
     /**
      * To delete the previously create CMS page.
      *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
      */
     public function delete($id): JsonResponse
     {
@@ -149,9 +148,6 @@ class PageController extends Controller
 
     /**
      * To mass delete the CMS resource from storage.
-     *
-     * @param MassDestroyRequest $massDestroyRequest
-     * @return \Illuminate\Http\JsonResponse
      */
     public function massDelete(MassDestroyRequest $massDestroyRequest): JsonResponse
     {
@@ -166,7 +162,7 @@ class PageController extends Controller
         }
 
         return new JsonResponse([
-            'message' => trans('admin::app.cms.index.datagrid.mass-delete-success')
+            'message' => trans('admin::app.cms.index.datagrid.mass-delete-success'),
         ], 200);
     }
 }

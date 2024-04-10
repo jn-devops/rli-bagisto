@@ -2,9 +2,9 @@
 
 namespace RLI\Category\Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 /*
  * Category table seeder for RLI.
@@ -19,16 +19,19 @@ use Carbon\Carbon;
 class CategoryTableSeeder extends Seeder
 {
     const ROOT_CATEGORY_ID = '1';
+
     const ELANVITAL_CATEGORY_ID = '2';
+
     const EVERYHOME_CATEGORY_ID = '3';
+
     const EXTRAORDINARY_CATEGORY_ID = '4';
+
     const EVERGLOW_CATEGORY_ID = '5';
+
     const PRICE_ATTRIBUTE_ID = '11';
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -39,52 +42,52 @@ class CategoryTableSeeder extends Seeder
             [
                 'id'          => self::ELANVITAL_CATEGORY_ID,
                 'position'    => '1',
-                'logo_path'   => NULL,
+                'logo_path'   => null,
                 'status'      => '1',
                 '_lft'        => '14',
                 '_rgt'        => '15',
                 'parent_id'   => self::ROOT_CATEGORY_ID,
-                'banner_path' => NULL,
+                'banner_path' => null,
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ], [
                 'id'          => self::EVERYHOME_CATEGORY_ID,
                 'position'    => '3',
-                'logo_path'   => NULL,
+                'logo_path'   => null,
                 'status'      => '1',
                 '_lft'        => '16',
                 '_rgt'        => '17',
                 'parent_id'   => self::ROOT_CATEGORY_ID,
-                'banner_path' => NULL,
+                'banner_path' => null,
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ], [
                 'id'          => self::EXTRAORDINARY_CATEGORY_ID,
                 'position'    => '4',
-                'logo_path'   => NULL,
+                'logo_path'   => null,
                 'status'      => '1',
                 '_lft'        => '18',
                 '_rgt'        => '19',
                 'parent_id'   => self::ROOT_CATEGORY_ID,
-                'banner_path' => NULL,
+                'banner_path' => null,
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ], [
                 'id'          => self::EVERGLOW_CATEGORY_ID,
                 'position'    => '5',
-                'logo_path'   => NULL,
+                'logo_path'   => null,
                 'status'      => '1',
                 '_lft'        => '20',
                 '_rgt'        => '21',
                 'parent_id'   => self::ROOT_CATEGORY_ID,
-                'banner_path' => NULL,
+                'banner_path' => null,
                 'created_at'  => $now,
                 'updated_at'  => $now,
-            ]
+            ],
         ]);
 
         // update Root category, change _rgt from 14 to 18, not sure why :-)
-        DB::table('categories')->where('id','=', '1')->update(
+        DB::table('categories')->where('id', '=', '1')->update(
             [
                 '_rgt'        => '18',
                 'created_at'  => $now,
@@ -105,7 +108,7 @@ class CategoryTableSeeder extends Seeder
                 'category_id'      => self::ELANVITAL_CATEGORY_ID,
                 'locale_id'        => '1',
                 'locale'           => 'en',
-            ]
+            ],
         ]);
 
         // add Condominium translation
@@ -136,7 +139,7 @@ class CategoryTableSeeder extends Seeder
                 'category_id'      => self::EXTRAORDINARY_CATEGORY_ID,
                 'locale_id'        => '1',
                 'locale'           => 'en',
-            ]
+            ],
         ]);
 
         DB::table('category_translations')->insert([
@@ -151,7 +154,7 @@ class CategoryTableSeeder extends Seeder
                 'category_id'      => self::EVERGLOW_CATEGORY_ID,
                 'locale_id'        => '1',
                 'locale'           => 'en',
-            ]
+            ],
         ]);
 
         // add price attribute to filterable attributes of House & Lot and Condominium
@@ -168,11 +171,7 @@ class CategoryTableSeeder extends Seeder
             ], [
                 'category_id'  => self::EVERGLOW_CATEGORY_ID,
                 'attribute_id' => self::PRICE_ATTRIBUTE_ID,
-            ]
+            ],
         ]);
     }
 }
-
-
-
-

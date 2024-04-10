@@ -6,19 +6,13 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Sales\Repositories\OrderItemRepository;
-use Webkul\Sales\Repositories\OrderRepository;
-use Webkul\Sales\Repositories\ShipmentItemRepository;
 
 class ShipmentRepository extends Repository
 {
     /**
      * Create a new repository instance.
      *
-     * @param  \Webkul\Sales\Repositories\OrderRepository  $orderRepository
-     * @param  \Webkul\Sales\Repositories\OrderItemRepository  $orderItemRepository
      * @param  \Webkul\Sales\Repositories\ShipmentItemRepository  $orderItemRepository
-     * @param  \Illuminate\Container\Container  $container
      * @return void
      */
     public function __construct(
@@ -26,15 +20,12 @@ class ShipmentRepository extends Repository
         protected OrderItemRepository $orderItemRepository,
         protected ShipmentItemRepository $shipmentItemRepository,
         Container $container
-    )
-    {
+    ) {
         parent::__construct($container);
     }
 
     /**
      * Specify model class name.
-     *
-     * @return string
      */
     public function model(): string
     {
@@ -44,8 +35,7 @@ class ShipmentRepository extends Repository
     /**
      * Create.
      *
-     * @param  array  $data
-     * @param  string $orderState
+     * @param  string  $orderState
      * @return \Webkul\Sales\Contracts\Shipment
      */
     public function create(array $data, $orderState = null)
@@ -56,7 +46,7 @@ class ShipmentRepository extends Repository
             Event::dispatch('sales.shipment.save.before', $data);
 
             $order = $this->orderRepository->find($data['order_id']);
-  
+
             $shipment = $this->model->create([
                 'order_id'            => $order->id,
                 'total_qty'           => 0,
@@ -96,7 +86,7 @@ class ShipmentRepository extends Repository
                     'product_id'     => $orderItem->product_id,
                     'product_type'   => $orderItem->product_type,
                     'additional'     => $orderItem->additional,
-                    
+
                     // Customization code
                     'total'          => ($orderItem->price + $orderItem->processing_fee) * $qty,
                     'processing_fee' => $orderItem->processing_fee,

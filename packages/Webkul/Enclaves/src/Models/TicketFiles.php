@@ -9,7 +9,7 @@ use Webkul\Enclaves\Contracts\TicketFiles as TicketFilesContract;
 class TicketFiles extends TranslatableModel implements TicketFilesContract
 {
     use HasFactory;
-    
+
     /**
      * The table associated with the model.
      */

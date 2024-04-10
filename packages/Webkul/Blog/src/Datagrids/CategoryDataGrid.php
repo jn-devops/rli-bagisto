@@ -61,11 +61,9 @@ class CategoryDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                $parent_data = app(CategoryRepository::class)->where('id', (int) $row->parent_id)->first();
-                
-                $parent_category_name = ! empty($parent_data->name) ? $parent_data->name : '-';
+                $parentCategory = app(CategoryRepository::class)->where('id', (int) $row->parent_id)->first();
 
-                return $parent_category_name;
+                return $parentCategory?->name ?? '-';
             },
         ]);
 
@@ -78,10 +76,10 @@ class CategoryDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.category.status.active').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.datagrids.category.status.active') . '</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.datagrids.category.status.in-active').'</span>';
+                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.datagrids.category.status.in-active') . '</span>';
             },
         ]);
     }

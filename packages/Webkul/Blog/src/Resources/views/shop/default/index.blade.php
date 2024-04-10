@@ -5,9 +5,7 @@
 @stop
 
 @section('content-wrapper')
-
     <div class="main">
         Package Article
     </div>
-
 @stop

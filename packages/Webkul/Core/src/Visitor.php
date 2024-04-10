@@ -11,10 +11,9 @@ class Visitor extends BaseVisitor
     /**
      * Create a visit log.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
-    public function visit(Model $model = null)
+    public function visit(?Model $model = null)
     {
         foreach ($this->except as $path) {
             if ($this->request->is($path)) {
@@ -27,10 +26,8 @@ class Visitor extends BaseVisitor
 
     /**
      * Retrieve request's url
-     *
-     * @return string
      */
-    public function url() : string
+    public function url(): string
     {
         return $this->request->url();
     }

@@ -6,7 +6,6 @@ use Webkul\KrayinConnector\Hooks\Senders\ProductSender;
 
 class ProductListener
 {
-    
     /**
      * Create product in Krayin.
      *
@@ -35,7 +34,7 @@ class ProductListener
      * @param  object  $id
      * @return void
      */
-    public function deleteProductInKrayin($id) 
+    public function deleteProductInKrayin($id)
     {
         ProductSender::daleteProductQty($id);
     }

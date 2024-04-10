@@ -1,13 +1,13 @@
 <?php
- 
+
 namespace Webkul\Installer\Jobs;
- 
+
+use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use GuzzleHttp\Client;
- 
+
 class UpdateNotification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable;
@@ -18,7 +18,7 @@ class UpdateNotification implements ShouldQueue
      * @var \GuzzleHttp\Client
      */
     protected $httpClient;
-    
+
     /**
      * Api endpoints
      *
@@ -28,7 +28,7 @@ class UpdateNotification implements ShouldQueue
         'install' => 'https://prestashop.webkul.com/hotel-reservation-clients/getNotification.php',
         'update'  => 'https://prestashop.webkul.com/hotel-reservation-clients/liveUserNotification.php',
     ];
- 
+
     /**
      * Create a new job instance.
      *
@@ -38,7 +38,7 @@ class UpdateNotification implements ShouldQueue
     public function __construct(protected $data)
     {
     }
- 
+
     /**
      * Execute the job.
      *

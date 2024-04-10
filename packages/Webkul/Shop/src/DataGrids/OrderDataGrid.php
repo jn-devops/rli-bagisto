@@ -57,8 +57,8 @@ class OrderDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                return '<a href="" class="link">'.$row->product_name.'</a>';
-            }
+                return '<a href="" class="link">' . $row->product_name . '</a>';
+            },
         ]);
 
         $this->addColumn([
@@ -141,31 +141,31 @@ class OrderDataGrid extends DataGrid
             'closure'    => function ($row) {
                 switch ($row->status) {
                     case 'processing':
-                        return '<span class="success">'.trans('shop::app.customers.account.orders.status.options.processing').'</span>';
+                        return '<span class="success">' . trans('shop::app.customers.account.orders.status.options.processing') . '</span>';
                         break;
 
                     case 'completed':
-                        return '<span class="success">'.trans('shop::app.customers.account.orders.status.options.completed').'</span>';
+                        return '<span class="success">' . trans('shop::app.customers.account.orders.status.options.completed') . '</span>';
                         break;
 
                     case 'canceled':
-                        return '<span class="danger">'.trans('shop::app.customers.account.orders.status.options.canceled').'</span>';
+                        return '<span class="danger">' . trans('shop::app.customers.account.orders.status.options.canceled') . '</span>';
                         break;
 
                     case 'closed':
-                        return '<span class="info">'.trans('shop::app.customers.account.orders.status.options.closed').'</span>';
+                        return '<span class="info">' . trans('shop::app.customers.account.orders.status.options.closed') . '</span>';
                         break;
 
                     case 'pending':
-                        return '<span class="warning">'.trans('shop::app.customers.account.orders.status.options.pending').'</span>';
+                        return '<span class="warning">' . trans('shop::app.customers.account.orders.status.options.pending') . '</span>';
                         break;
 
                     case 'pending_payment':
-                        return '<span class="warning">'.trans('shop::app.customers.account.orders.status.options.pending-payment').'</span>';
+                        return '<span class="warning">' . trans('shop::app.customers.account.orders.status.options.pending-payment') . '</span>';
                         break;
 
                     case 'fraud':
-                        return '<span class="danger">'.trans('shop::app.customers.account.orders.status.options.fraud').'</span>';
+                        return '<span class="danger">' . trans('shop::app.customers.account.orders.status.options.fraud') . '</span>';
                         break;
                 }
             },
