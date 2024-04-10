@@ -37,7 +37,7 @@ class CategoryDataGrid extends DataGrid
     {
         $this->addColumn([
             'index'      => 'id',
-            'label'      => trans('blog::app.datagrid.id'),
+            'label'      => trans('blog::app.datagrids.category.id'),
             'type'       => 'number',
             'searchable' => false,
             'sortable'   => true,
@@ -46,7 +46,7 @@ class CategoryDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'name',
-            'label'      => trans('blog::app.datagrid.name'),
+            'label'      => trans('blog::app.datagrids.category.name'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -63,7 +63,7 @@ class CategoryDataGrid extends DataGrid
             'closure'    => function ($row) {
                 $parent_data = app(CategoryRepository::class)->where('id', (int) $row->parent_id)->first();
                 
-                $parent_category_name = ($parent_data && isset($parent_data->name) && ! empty($parent_data->name) && ! is_null($parent_data->name)) ? $parent_data->name : '-';
+                $parent_category_name = ! empty($parent_data->name) ? $parent_data->name : '-';
 
                 return $parent_category_name;
             },
@@ -71,17 +71,17 @@ class CategoryDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'status',
-            'label'      => trans('blog::app.datagrid.status'),
+            'label'      => trans('blog::app.datagrids.category.status.title'),
             'type'       => 'boolean',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.category.status-true').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.category.status.active').'</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.category.status-false').'</span>';
+                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.datagrids.category.status.in-active').'</span>';
             },
         ]);
     }
@@ -93,7 +93,7 @@ class CategoryDataGrid extends DataGrid
     {
         if (bouncer()->hasPermission('blog.category.edit')) {
             $this->addAction([
-                'title'  => 'edit',
+                'title'  => trans('blog::app.datagrids.category.edit'),
                 'method' => 'GET',
                 'route'  => 'admin.blog.category.edit',
                 'icon'   => 'icon-edit',
@@ -105,7 +105,7 @@ class CategoryDataGrid extends DataGrid
 
         if (bouncer()->hasPermission('blog.category.delete')) {
             $this->addAction([
-                'title'  => 'delete',
+                'title'  => trans('blog::app.datagrids.category.delete'),
                 'method' => 'POST',
                 'route'  => 'admin.blog.category.delete',
                 'icon'   => 'icon-delete',
@@ -124,10 +124,10 @@ class CategoryDataGrid extends DataGrid
         if (bouncer()->hasPermission('blog.category.delete')) {
             $this->addMassAction([
                 'type'   => 'delete',
-                'label'  => trans('admin::app.datagrid.delete'),
-                'title'  => 'Delete',
-                'action' => route('admin.blog.category.massdelete'),
-                'url'    => route('admin.blog.category.massdelete'),
+                'label'  => trans('blog::app.datagrids.category.delete'),
+                'title'  => trans('blog::app.datagrids.category.delete'),
+                'action' => route('admin.blog.category.mass-delete'),
+                'url'    => route('admin.blog.category.mass-delete'),
                 'method' => 'POST',
             ]);
         }

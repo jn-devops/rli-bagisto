@@ -424,9 +424,9 @@
 
                         <!-- Category -->
                         <x-admin::form.control-group class="mb-2.5">
-                            {{-- <x-admin::form.control-group.label class="required text-gray-800 dark:text-white font-medium required">
+                            <!-- <x-admin::form.control-group.label class="required text-gray-800 dark:text-white font-medium required">
                                 @lang('blog::app.blog.create.default-category')
-                            </x-admin::form.control-group.label> --}}
+                            </x-admin::form.control-group.label> -->
 
                             <x-admin::form.control-group.control
                                 type="select"
@@ -438,7 +438,9 @@
                                 :label="trans('blog::app.blog.create.default-category')"
                             >
                                 <!-- Options -->
-                                <option value="">@lang('blog::app.blog.create.default-category')</option>
+                                <option value="">
+                                    @lang('blog::app.blog.create.default-category')
+                                </option>
 
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" data-slug="{{ $category->slug }}" id="{{ 'default_category'.$category->id }}" >{{ $category->name }}</option>
@@ -472,7 +474,7 @@
                                 name-field="categorys"
                                 id-field="id"
                                 value-field="id"
-                                :items="json_encode($additional_categories)"
+                                :items="json_encode($additionalCategories)"
                                 behavior="no"
                                 :fallback-locale="config('app.fallback_locale')"
                             >

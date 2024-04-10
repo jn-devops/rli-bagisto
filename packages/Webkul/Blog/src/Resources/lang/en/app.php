@@ -1,16 +1,40 @@
 <?php
 
 return [
+    'config' => [
+        'admin-menu' => [
+            'title'      => 'Blog',
+            'posts'      => 'posts',
+            'categories' => 'Categories',
+            'tags'       => 'Tags',
+            'comments'   => 'Comments',
+            'setting'    => 'Settings',
+        ],
+    ],
+
     'blog' => [
         'index' => [
-            'title' => 'Posts',
-            'create-btn' => 'Create Post',
+            'title'          => 'Posts',
+            'create-btn'     => 'Create Post',
+
+            'success' => [
+                'message' => 'Blog deleted successfully',
+            ],
+
+            'error' => [
+                'message' => 'An error occurred while deleting the blog.',
+            ],
+
+            'mass-ops' => [
+                'success' => 'Blogs deleted successfully',
+                'error'   => "Blogs can't Delete",
+            ],
         ],
 
         'create' => [
-            'title'    => 'Add Blog',
-            'back-btn' => 'Back',
-            'save-btn' => 'Save',
+            'title'                      => 'Add Blog',
+            'back-btn'                   => 'Back',
+            'save-btn'                   => 'Save',
             'general'                    => 'General',
             'name'                       => 'Name',
             'slug'                       => 'Slug',
@@ -33,12 +57,20 @@ return [
             'select-default-category'    => 'Select Default Category',
             'additional-categories'      => "Additional Categories",
             'tag-title'                  => 'Tags',
+
+            'success' => [
+                'message' => 'Blog created successfully.',
+            ],
+
+            'failure' => [
+                'message' => 'An error occurred while creating a blog.',
+            ], 
         ],
 
         'edit' => [
-            'title'    => 'Add Blog',
-            'back-btn' => 'Back',
-            'save-btn' => 'Save',
+            'title'                      => 'Add Blog',
+            'back-btn'                   => 'Back',
+            'save-btn'                   => 'Save',
             'general'                    => 'General',
             'name'                       => 'Name',
             'slug'                       => 'Slug',
@@ -54,7 +86,7 @@ return [
             'settings'                   => 'Settings',
             'published_at'               => 'Published At',
             'status'                     => 'Status',
-            'allow_comments'             => 'Allow Comments',
+            'allow-comments'             => 'Allow Comments',
             'author'                     => 'Author',
             'select-author'              => 'Select Author',
             'default-category'           => 'Default Category',
@@ -62,18 +94,25 @@ return [
             'additional-categories'      => "Additional Categories",
             'tag-title'                  => 'Tags',
 
-            
-            'created-fault'              => 'An error occurred while creating a blog.',
-            'updated-fault'              => 'An error occurred while updating the blog.',
-            'delete-success'             => 'Blog deleted successfully',
-            'delete-failure'             => 'Blog cannot be deleted',
+            'success' => [
+                'message' => 'Blog updated successfully.',
+            ],
+
+            'failure' => [
+                'message' => 'An error occurred while creating a blog.',
+            ],
         ],
     ],
 
     'category' => [
         'index' => [
-            'title'    => 'Blog Categories',
+            'title'    => 'Categories',
             'save-btn' => 'Create Category',
+
+            'delete' => [
+                'success' => 'Category deleted successfully',
+                'failure' => 'Category cannot be deleted',
+            ],
         ],
 
         'create' => [
@@ -91,8 +130,12 @@ return [
             'meta-description'           => 'Meta Description',
             'meta-keywords'              => 'Meta Keywords',
             'settings'                   => 'Settings',
-            'status'                     => 'Status',
             'parent-category'            => 'Parent Category',
+            
+            'created' => [
+                'success' => 'Category Update successfully',
+                'failure' => 'An error occurred while updating the category.',
+            ],
         ],
 
         'edit' => [
@@ -112,27 +155,27 @@ return [
             'settings'                   => 'Settings',
             'status'                     => 'Status',
             'parent-category'            => 'Parent Category',
-        ],
 
-        'status-true'                => 'Active',
-        'status-false'               => 'Inactive',
-        'add-image'                  => 'Add Image',
-        'created-fault'              => 'An error occurred while creating a category.',
-        'updated-fault'              => 'An error occurred while updating the category.',
-        'delete-success'             => 'Category deleted successfully',
-        'delete-failure'             => 'Category cannot be deleted',
+            'updated' => [
+                'success' => 'Category Update successfully',
+                'failure' => 'An error occurred while updating the category.',
+            ],
+        ],
     ],
 
     'tag' => [
         'index' => [
-            'title'      => 'Blog Tag',
+            'title'      => 'Tags',
             'create-tag' => 'Create Tag',
             'status' => [
                 'active'   => 'Active',
                 'reactive' => 'Reactive',
             ],
-            'delete-success' => 'Tag deleted successfully',
-            'delete-failure' => 'Tag cannot be deleted',
+            'deleted' => [
+                'success' => 'Tag deleted successfully',
+                'failure' => 'Tag deleted successfully',
+            ],
+
             'partial-action' => 'Some actions were not performed due restricted system constraints on Tag',
             'method-error'   => 'Error! Wrong method detected, please check mass action configuration',
         ],
@@ -151,8 +194,10 @@ return [
             'meta-keywords'              => 'Meta Keywords',
             'create-btn-title'           => 'Save Tag',
             'status'                     => 'Status',
-            'update-success'             => 'Tag updated successfully',
-            'update-failure'             => 'Tag cannot be updated',
+            'updated' => [
+                'success' => 'Tag updated successfully',
+                'failure' => 'Tag cannot be updated',
+            ],
         ],
 
         'create' => [
@@ -168,14 +213,22 @@ return [
             'meta-description'           => 'Meta Description',
             'meta-keywords'              => 'Meta Keywords',
             'status'                     => 'Status',
-            'created-success'            => 'Tag created successfully',
-            'created-failure'            => 'An error occurred while creating a tag.',
+            'created' => [
+                'success' => 'Tag created successfully',
+                'failure' => 'An error occurred while creating a tag.',
+            ],
         ],
     ],
 
     'comments' => [
         'index' => [
             'title' => 'Comments',
+            'deleted' => [
+                'success' => 'Comment deleted successfully',
+                'failure' => "Comment can't be deleted",
+            ],
+            'method-error'    => 'Error! Wrong method detected, please check mass action configuration',
+            'partial-action'  => 'Some actions were not performed due restricted system constraints on :resource',
         ],
 
         'edit' => [
@@ -187,42 +240,99 @@ return [
             'name'            => 'Name',
             'comment-date'    => 'Comment Date',
             'comment'         => 'Comment',
-            'status'          => 'Status',
             'general'         => 'General',
             'email'           => 'Email',
-            'status-pending'  => 'Pending',
-            'status-approved' => 'Approved',
-            'status-rejected' => 'Rejected',
-            'delete-success'  => 'Comment deleted successfully',
-            'delete-failure'  => "Comment can't be deleted",
-            'updated-failure' => "Comment can't be updated",
-            'updated-success' => 'Comment updated successfully',
-            'method-error'    => 'Error! Wrong method detected, please check mass action configuration',
-            'partial-action'  => 'Some actions were not performed due restricted system constraints on :resource',
+
+            'status' => [
+                'title'    => 'Status',
+                'pending'  => 'Pending',
+                'approved' => 'Approved',
+                'rejected' => 'Rejected',
+            ],
+
+            'updated' => [
+                'success' => 'Comment updated successfully',
+                'failure' => "Comment can't be updated",
+            ],
         ],
     ],
 
-    'datagrid' => [
-        'id'             => 'ID',
-        'name'           => 'Name',
-        'content'        => 'Content',
-        'author'         => 'Author',
-        'category'       => 'Categories',
-        'status'         => 'Status',
-        'allow_comments' => 'Allow Comments',
-        'published_at'   => 'Published At',
-        'actions'        => 'Actions',
-        'pending'        => 'Pending',
-        'approved'       => 'Approved',
-        'rejected'       => 'Rejected',
-        'edit'           => 'Edit',
-        'delete'         => 'Delete',
-        'view'           => 'View',
+    'datagrids' => [
+        'blog' => [
+            'id'             => 'ID',
+            'name'           => 'Name',
+            'content'        => 'Content',
+            'author'         => 'Author',
+            'category'       => 'Categories',
+            'status'         => 'Status',
+            'tags'           => 'Tags',
+            'allow-comments' => 'Allow Comments',
+            'published-at'   => 'Published At',
+            'author'         => 'Author',
+            'edit'           => 'Edit',
+            'delete'         => 'Delete',
+            'active'         => 'Active',
+            'reactive'       => 'Reactive',
+            'yes'            => 'Yes',
+            'no'             => 'No',
+        ],
+
+        'category' => [
+            'id'             => 'ID',
+            'name'           => 'Name',
+            'content'        => 'Content',
+            'author'         => 'Author',
+            'category'       => 'Categories',
+            'status'         => [
+                'title'     => 'Status',
+                'active'    => 'Active',
+                'in-active' => 'Inactive',
+            ],
+            'tags'           => 'Tags',
+            'allow-comments' => 'Allow Comments',
+            'published-at'   => 'Published At',
+            'author'         => 'Author',
+            'edit'           => 'Edit',
+            'delete'         => 'Delete',
+            'active'         => 'Active',
+            'reactive'       => 'Reactive',
+            'yes'            => 'Yes',
+            'no'             => 'No',
+        ],
+
+        'comment' => [
+            'id'             => 'ID',
+            'name'           => 'Name',
+            'content'        => 'Content',
+            'status'         => [
+                'title'    => 'Status',
+                'pending'  => 'Pending',
+                'approved' => 'Approved',
+                'rejected' => 'Rejected',
+            ],
+            'published-at'   => 'Published At',
+            'edit'           => 'Edit',
+            'delete'         => 'Delete',
+            'active'         => 'Active',
+            'reactive'       => 'Reactive',
+            'yes'            => 'Yes',
+            'no'             => 'No',
+        ],
+
+        'tag' => [
+            'id'   => 'ID',
+            'name' => 'Name',
+            'status' => [
+                'title'    => 'Status',
+                'active'   => 'Active',
+                'in-active' => 'Inactive',
+            ]
+        ],
     ],
 
     'setting' => [
         'index' => [
-            'title'    => 'General Settings',
+            'title'    => 'Settings',
             'save-btn' => 'Save',
             'success'  => 'Save Blog Setting Successfully',
 

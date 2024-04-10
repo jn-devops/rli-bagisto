@@ -2,16 +2,16 @@
 
 namespace Webkul\Blog\Http\Controllers;
 
-use Webkul\Blog\Repositories\BlogRepository;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Webkul\User\Repositories\AdminRepository;
-use Webkul\Blog\Repositories\BlogTagRepository;
-use Webkul\Core\Repositories\CoreConfigRepository;
-use Webkul\Blog\Repositories\BlogCommentRepository;
 use Illuminate\Routing\Controller as BaseController;
-use Webkul\Blog\Repositories\BlogCategoryRepository;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Webkul\Core\Repositories\CoreConfigRepository;
+use Webkul\Blog\Repositories\BlogRepository;
+use Webkul\Blog\Repositories\BlogTagRepository;
+use Webkul\Blog\Repositories\BlogCommentRepository;
+use Webkul\Blog\Repositories\BlogCategoryRepository;
+use Webkul\User\Repositories\AdminRepository;
 use Webkul\Shop\Repositories\ThemeCustomizationRepository;
 
 class Controller extends BaseController

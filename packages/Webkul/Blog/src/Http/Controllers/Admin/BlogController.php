@@ -21,11 +21,6 @@ class BlogController extends Controller
         return view('blog::admin.blogs.index');
     }
 
-    public function gteBlogs()
-    {
-        return 'This is blog API';
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -37,13 +32,13 @@ class BlogController extends Controller
 
         $categories = $this->blogCategoryRepository->all();
 
-        $additional_categories = $this->blogCategoryRepository->whereNull('parent_id')->where('status', 1)->get();
+        $additionalCategories = $this->blogCategoryRepository->whereNull('parent_id')->where('status', 1)->get();
 
         $tags = $this->blogTagRepository->all();
 
         $users = $this->adminRepository->all();
 
-        return view('blog::admin.blogs.create', compact('categories', 'tags', 'users', 'additional_categories'))->with('locale', $locale);
+        return view('blog::admin.blogs.create', compact('categories', 'tags', 'users', 'additionalCategories'))->with('locale', $locale);
     }
 
     /**
@@ -76,17 +71,17 @@ class BlogController extends Controller
                 && array_key_exists('author_id', $data)
                 && isset($data['author_id']) 
                 && (int) $data['author_id'] > 0) {
-            $author_data = $this->adminRepository->where('id', $data['author_id'])->first();
+            $author = $this->adminRepository->where('id', $data['author_id'])->first();
 
-            $data['author'] = ($author_data && ! empty($author_data)) ? $author_data->name : '';
+            $data['author'] = ($author && ! empty($author)) ? $author->name : '';
         }
 
         $result = $this->blogRepository->save($data);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Blog']));
+            session()->flash('success', trans('blog::app.blog.create.success.message'));
         } else {
-            session()->flash('success', trans('blog::app.blog.created-fault'));
+            session()->flash('success', trans('blog::app.blog.create.failure.message'));
         }
 
         return redirect()->route('admin.blog.index');
@@ -100,27 +95,30 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $loggedIn_user = auth()->guard('admin')->user()->toarray();
+        $loggedInUser = auth()->guard('admin')->user();
 
-        $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
+        $user_id = $loggedInUser->id ?? 0;
 
-        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
+        $role = $loggedInUser?->role?->name ?? 'Administrator';
 
         $blog = $this->blogRepository->findOrFail($id);
 
-        if ($blog && $user_id != $blog->author_id && $role != 'Administrator') {
+        if ($blog 
+                && $user_id != $blog->author_id 
+                && $role != 'Administrator'
+        ) {
             return redirect()->route('admin.blog.index');
         }
 
         $categories = $this->blogCategoryRepository->all();
 
-        $additional_categories = $this->blogCategoryRepository->whereNull('parent_id')->where('status', 1)->get();
+        $additionalCategories = $this->blogCategoryRepository->whereNull('parent_id')->where('status', 1)->get();
 
         $tags = $this->blogTagRepository->all();
 
         $users = $this->adminRepository->all();
 
-        return view('blog::admin.blogs.edit', compact('blog', 'categories', 'tags', 'users', 'additional_categories'));
+        return view('blog::admin.blogs.edit', compact('blog', 'categories', 'tags', 'users', 'additionalCategories'));
     }
 
     /**
@@ -156,15 +154,15 @@ class BlogController extends Controller
                 && (int) $data['author_id'] > 0) {
             $author_data = $this->adminRepository->where('id', $data['author_id'])->first();
 
-            $data['author'] = ($author_data && ! empty($author_data)) ? $author_data->name : '';
+            $data['author'] = ! empty($author_data) ? $author_data->name : '';
         }
 
         $result = $this->blogRepository->updateItem($data, $id);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.response.update-success', ['name' => 'Blog']));
+            session()->flash('success', trans('blog::app.blog.edit.success.message'));
         } else {
-            session()->flash('error', trans('blog::app.blog.updated-fault'));
+            session()->flash('error', trans('blog::app.blog.edit.failure.message'));
         }
 
         return redirect()->route('admin.blog.index');
@@ -183,12 +181,12 @@ class BlogController extends Controller
         try {
             $this->blogRepository->delete($id);
 
-            return response()->json(['message' => trans('admin::app.response.delete-success', ['name' => 'Blog'])]);
+            return response()->json(['message' => trans('blog::app.blog.index.success.message')]);
         } catch (\Exception $e) {
             report($e);
         }
 
-        return response()->json(['message' => trans('admin::app.response.delete-failed', ['name' => 'Blog'])], 500);
+        return response()->json(['message' => trans('blog::app.blog.index.error.message')], 500);
     }
 
     /**
@@ -203,7 +201,7 @@ class BlogController extends Controller
         if (request()->isMethod('post')) {
             $indexes = (array) request()->input('indices');
 
-            foreach ($indexes as $key => $value) {
+            foreach ($indexes as $value) {
                 try {
                     $this->blogRepository->delete($value);
                 } catch (\Exception $e) {
@@ -214,14 +212,14 @@ class BlogController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('admin::app.datagrid.mass-ops.delete-success', ['resource' => 'Blog']));
+                session()->flash('success', trans('blog::app.blog.index.mass-ops.success'));
             } else {
-                session()->flash('info', trans('admin::app.datagrid.mass-ops.partial-action', ['resource' => 'Blog']));
+                session()->flash('info', trans('blog::app.blog.index.mass-ops.error'));
             }
 
             return redirect()->back();
         } else {
-            session()->flash('error', trans('admin::app.datagrid.mass-ops.method-error'));
+            session()->flash('error', trans('blog::app.blog.index.mass-ops.error'));
 
             return redirect()->back();
         }

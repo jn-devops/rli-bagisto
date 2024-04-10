@@ -50,9 +50,9 @@ class TagController extends Controller
         $result = $this->blogTagRepository->save($data);
 
         if ($result) {
-            session()->flash('success', trans('blog::app.tag.create.created-success'));
+            session()->flash('success', trans('blog::app.tag.create.created.success'));
         } else {
-            session()->flash('success', trans('blog::app.tag.create.created-failure'));
+            session()->flash('success', trans('blog::app.tag.create.created.failure'));
         }
 
         return redirect()->route('admin.blog.tag.index');
@@ -88,9 +88,9 @@ class TagController extends Controller
         $result = $this->blogTagRepository->updateItem($data, $id);
 
         if ($result) {
-            session()->flash('success', trans('blog::app.tag.edit.update-success'));
+            session()->flash('success', trans('blog::app.tag.edit.updated.success'));
         } else {
-            session()->flash('error', trans('blog::app.tag.edit.updated-failure'));
+            session()->flash('error', trans('blog::app.tag.edit.updated.failure'));
         }
 
         return redirect()->route('admin.blog.tag.index');
@@ -109,12 +109,12 @@ class TagController extends Controller
         try {
             $this->blogTagRepository->delete($id);
 
-            return response()->json(['message' => trans('blog::app.tag.index.delete-success')]);
+            return response()->json(['message' => trans('blog::app.tag.index.deleted.success')]);
         } catch (\Exception $e) {
             report($e);
         }
 
-        return response()->json(['message' => trans('blog::app.tag.index.delete-failed')], 500);
+        return response()->json(['message' => trans('blog::app.tag.index.deleted.failed')], 500);
     }
 
     /**
@@ -140,7 +140,7 @@ class TagController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('blog::app.tag.index.delete-success'));
+                session()->flash('success', trans('blog::app.tag.index.delete.success'));
             } else {
                 session()->flash('info', trans('blog::app.tag.index.partial-action'));
             }

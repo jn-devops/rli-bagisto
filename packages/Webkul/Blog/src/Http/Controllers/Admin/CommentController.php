@@ -41,48 +41,48 @@ class CommentController extends Controller
     {
         $comment = $this->blogCommentRepository->findOrFail($id);
 
-        $loggedIn_user = auth()->guard('admin')->user()->toarray();
+        $loggedInUser = auth()->guard('admin')->user()->toarray();
         
-        $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
+        $userId = (array_key_exists('id', $loggedInUser)) ? $loggedInUser['id'] : 0;
         
-        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
+        $role = (array_key_exists('role', $loggedInUser)) ? (array_key_exists('name', $loggedInUser['role']) ? $loggedInUser['role']['name'] : 'Administrator') : 'Administrator';
         
         if ($role != 'Administrator') {
-            $blogs = $this->blogRepository->where('author_id', $user_id)->get();
+            $blogs = $this->blogRepository->where('author_id', $userId)->get();
            
-            $post_ids = (! empty($blogs) && count($blogs) > 0) ? $blogs->pluck('id')->toarray() : [];
+            $postIds = ! empty($blogs) ? $blogs->pluck('id')->toarray() : [];
             
-            $check_comment = $this->blogCommentRepository->where('id', $id)->whereIn('post', $post_ids)->first();
+            $checkComment = $this->blogCommentRepository->where('id', $id)->whereIn('post', $postIds)->first();
             
-            if (! $check_comment) {
+            if (! $checkComment) {
                 return redirect()->route('admin.blog.comment.index');
             }
         }
 
-        $author_name = '';
+        $authorName = '';
 
         $author_id = $comment && isset($comment->author) ? $comment->author : 0;
 
         if ((int) $author_id > 0) {
-            $author_data = $this->adminRepository->find($author_id);
+            $author = $this->adminRepository->find($author_id);
 
-            $author_name = $author_data && isset($author_data->name) ? $author_data->name : '';
+            $authorName = $author && isset($author->name) ? $author->name : '';
         }
 
-        $status_details = [
+        $statusDetails = [
             [
                 'id'   => 1,
-                'name' => 'blog::app.comment.edit.status-pending',
+                'name' => 'blog::app.comments.edit.status.pending',
             ], [
                 'id'   => 2, 
-                'name' => 'blog::app.comment.edit.status-approved',
+                'name' => 'blog::app.comments.edit.status.approved',
             ], [
                 'id'   => 0,
-                'name' => 'blog::app.comment.edit.status-rejected',
+                'name' => 'blog::app.comments.edit.status.rejected',
             ],
         ];
 
-        return view('blog::admin.comments.edit', compact('comment', 'author_name', 'status_details'));
+        return view('blog::admin.comments.edit', compact('comment', 'authorName', 'statusDetails'));
     }
 
     /**
@@ -98,9 +98,9 @@ class CommentController extends Controller
         $result = $this->blogCommentRepository->updateItem($data, $id);
 
         if ($result) {
-            session()->flash('success', trans('blog::app.comment.edit.update-success'));
+            session()->flash('success', trans('blog::app.comments.edit.updated.success'));
         } else {
-            session()->flash('error', trans('blog::app.comment.edit.updated-failure'));
+            session()->flash('error', trans('blog::app.comments.edit.updated.failure'));
         }
 
         return redirect()->route('admin.blog.comment.index');
@@ -119,12 +119,12 @@ class CommentController extends Controller
         try {
             $this->blogCommentRepository->delete($id);
 
-            return response()->json(['message' => trans('blog::app.comment.edit.delete-success')]);
+            return response()->json(['message' => trans('blog::app.comments.index.deleted.success')]);
         } catch (\Exception $e) {
             report($e);
         }
 
-        return response()->json(['message' => trans('blog::app.comment.edit.delete-failure')], 500);
+        return response()->json(['message' => trans('blog::app.comments.index.deleted.failure')], 500);
     }
 
     /**
@@ -150,14 +150,14 @@ class CommentController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('blog::app.comment.edit.delete-success'));
+                session()->flash('success', trans('blog::app.comments.index.deleted.success'));
             } else {
-                session()->flash('info', trans('blog::app.comment.edit.partial-action', ['resource' => 'Comment']));
+                session()->flash('info', trans('blog::app.comments.index.partial-action', ['resource' => 'Comment']));
             }
 
             return redirect()->back();
         } else {
-            session()->flash('error', trans('blog::app.comment.edit.method-error'));
+            session()->flash('error', trans('blog::app.comments.index.method-error'));
 
             return redirect()->back();
         }

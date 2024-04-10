@@ -90,10 +90,10 @@ class Blog extends Model implements BlogContract
     {
         $categorys = [];
 
-        $categories_ids = array_values(array_unique(array_merge( explode( ',', $this->default_category ), explode( ',', $this->categorys))));
+        $categoriesIds = array_values(array_unique(array_merge( explode( ',', $this->default_category ), explode( ',', $this->categorys))));
         
-        if (! empty($categories_ids)) {
-            $categories = Category::whereIn('id', $categories_ids)->get();
+        if (! empty($categoriesIds)) {
+            $categories = Category::whereIn('id', $categoriesIds)->get();
             
             $categorys = ! empty($categories) ? $categories : [];
         }

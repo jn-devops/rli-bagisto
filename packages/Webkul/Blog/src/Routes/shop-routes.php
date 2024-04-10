@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Webkul\Blog\Http\Controllers\Shop\BlogController;
 use Webkul\Blog\Http\Controllers\Shop\TagController;
 use Webkul\Blog\Http\Controllers\Shop\CategoryController;
-use Webkul\Blog\Http\Controllers\Shop\API\Blogs\BlogController as ApiBlogController;
-use Webkul\Blog\Http\Controllers\Shop\CommentController;
 
 Route::group([
     'prefix'     => 'blog',

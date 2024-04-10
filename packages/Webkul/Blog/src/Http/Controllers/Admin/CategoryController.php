@@ -53,9 +53,9 @@ class CategoryController extends Controller
         $result = $this->blogCategoryRepository->save($data);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.catalog.categories.create-success', ['name' => 'Category']));
+            session()->flash('success', trans('blog::app.category.edit.created.success'));
         } else {
-            session()->flash('success', trans('blog::app.category.created-fault'));
+            session()->flash('success', trans('blog::app.category.edit.created.failure'));
         }
 
         return redirect()->route('admin.blog.category.index');
@@ -98,7 +98,7 @@ class CategoryController extends Controller
         }
 
         if (is_array($data) && array_key_exists('image', $data) && is_null(request()->image)) {
-            session()->flash('error', trans('blog::app.category.updated-fault'));
+            session()->flash('error', trans('blog::app.category.edit.updated.failure'));
 
             return redirect()->back();
         }
@@ -106,9 +106,9 @@ class CategoryController extends Controller
         $result = $this->blogCategoryRepository->updateItem($data, $id);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.catalog.categories.update-success', ['name' => 'Category']));
+            session()->flash('success', trans('blog::app.category.edit.updated.success'));
         } else {
-            session()->flash('error', trans('blog::app.category.updated-fault'));
+            session()->flash('error', trans('blog::app.category.edit.updated.failure'));
         }
 
         return redirect()->route('admin.blog.category.index');
@@ -127,12 +127,12 @@ class CategoryController extends Controller
         try {
             $this->blogCategoryRepository->delete($id);
 
-            return response()->json(['message' => trans('admin::app.catalog.categories.delete-success', ['name' => 'Category'])]);
+            return response()->json(['message' => trans('blog::app.category.index.delete.success')]);
         } catch (\Exception $e) {
             report($e);
         }
 
-        return response()->json(['message' => trans('admin::app.catalog.categories.delete-failed', ['name' => 'Category'])], 500);
+        return response()->json(['message' => trans('blog::app.category.index.delete.failure')], 500);
     }
 
     /**
@@ -158,14 +158,14 @@ class CategoryController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('admin::app.catalog.categories.delete-success', ['resource' => 'Category']));
+                session()->flash('success', trans('blog::app.category.index.delete.success'));
             } else {
-                session()->flash('info', trans('admin::app.catalog.categories.delete-failed', ['resource' => 'Category']));
+                session()->flash('info', trans('blog::app.category.index.delete.failure'));
             }
 
             return redirect()->back();
         } else {
-            session()->flash('error', trans('admin::app.catalog.categories.delete-failed'));
+            session()->flash('error', trans('blog::app.category.index.delete.failure'));
 
             return redirect()->back();
         }

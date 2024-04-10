@@ -31,13 +31,13 @@ class BlogRepository extends Repository
     {
         Event::dispatch('admin.blogs.create.before', $data);
 
-        $create_data = $data;
+        $createData = $data;
 
-        if (array_key_exists('src', $create_data)) {
-            unset($create_data['src']);
+        if (array_key_exists('src', $createData)) {
+            unset($createData['src']);
         }
 
-        $blog = $this->create($create_data);
+        $blog = $this->create($createData);
 
         $this->uploadImages($data, $blog);
 
@@ -56,13 +56,13 @@ class BlogRepository extends Repository
     {
         Event::dispatch('admin.blogs.update.before', $id);
 
-        $update_data = $data;
+        $updateData = $data;
 
-        if (array_key_exists('src', $update_data)) {
-            unset($update_data['src']);
+        if (array_key_exists('src', $updateData)) {
+            unset($updateData['src']);
         }
 
-        $blog = $this->update($update_data, $id);
+        $blog = $this->update($updateData, $id);
 
         $this->uploadImages($data, $blog);
 
@@ -96,7 +96,7 @@ class BlogRepository extends Repository
 
                     $image = $manager->make(request()->file($file))->encode('webp');
 
-                    $blog->{$type} = 'blog-images/'.$blog->id.'/'.Str::random(40).'.webp';
+                    $blog->{$type} = $dir.'/'.Str::random(40).'.webp';
 
                     Storage::put($blog->{$type}, $image);
 
@@ -141,11 +141,11 @@ class BlogRepository extends Repository
         $locale = config('app.locale');
 
         $blogs = DB::table('blogs')
-            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('status', 1)
-            ->where('locale', $locale)
-            ->orderBy('id', 'DESC')
-            ->paginate(12);
+                    ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+                    ->where('status', 1)
+                    ->where('locale', $locale)
+                    ->orderBy('id', 'DESC')
+                    ->paginate(12);
 
         return $blogs;
     }
@@ -158,10 +158,10 @@ class BlogRepository extends Repository
     public function getSingleBlogs($id)
     {
         $blog = DB::table('blogs')
-            ->whereSlug($id)
-            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('status', 1)
-            ->first();
+                ->whereSlug($id)
+                ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+                ->where('status', 1)
+                ->first();
 
         return $blog;
     }
@@ -179,12 +179,12 @@ class BlogRepository extends Repository
             ->where('slug', $id)->first();
 
         $blogs = DB::table('blogs')
-            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('default_category', $categoryId['id'])
-            ->where('status', 1)
-            ->where('locale', $locale)
-            ->orderBy('id', 'DESC')
-            ->paginate(12);
+                    ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+                    ->where('default_category', $categoryId['id'])
+                    ->where('status', 1)
+                    ->where('locale', $locale)
+                    ->orderBy('id', 'DESC')
+                    ->paginate(12);
 
         return $blogs;
     }

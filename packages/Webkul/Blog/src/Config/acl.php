@@ -3,7 +3,7 @@
 return [
     [
         'key'   => 'blog',
-        'name'  => 'Blog',
+        'name'  => 'Blogs',
         'route' => 'admin.blog.index',
         'sort'  => 3,
     ], [
@@ -28,7 +28,7 @@ return [
         'sort'  => 3,
     ], [
         'key'   => 'blog.category',
-        'name'  => 'Category',
+        'name'  => 'Categories',
         'route' => 'admin.blog.category.index',
         'sort'  => 2,
     ], [
@@ -48,7 +48,7 @@ return [
         'sort'  => 3,
     ], [
         'key'   => 'blog.tag',
-        'name'  => 'Tag',
+        'name'  => 'Tags',
         'route' => 'admin.blog.tag.index',
         'sort'  => 3,
     ], [
@@ -68,7 +68,7 @@ return [
         'sort'  => 3,
     ], [
         'key'   => 'blog.comment',
-        'name'  => 'Comment',
+        'name'  => 'Comments',
         'route' => 'admin.blog.comment.index',
         'sort'  => 4,
     ], [
@@ -83,7 +83,7 @@ return [
         'sort'  => 2,
     ], [
         'key'   => 'blog.setting',
-        'name'  => 'Setting',
+        'name'  => 'Settings',
         'route' => 'admin.blog.setting.index',
         'sort'  => 5,
     ],

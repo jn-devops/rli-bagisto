@@ -3,6 +3,7 @@
 namespace Webkul\Blog\Http\Controllers\Shop;
 
 use Webkul\Blog\Http\Controllers\Controller;
+
 class BlogController extends Controller
 {
     /**

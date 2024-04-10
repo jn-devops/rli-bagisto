@@ -42,7 +42,7 @@ class CommentDataGrid extends DataGrid
     {
         $this->addColumn([
             'index'      => 'id',
-            'label'      => trans('blog::app.datagrid.id'),
+            'label'      => trans('blog::app.datagrids.comment.id'),
             'type'       => 'number',
             'searchable' => false,
             'sortable'   => true,
@@ -51,7 +51,7 @@ class CommentDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'post',
-            'label'      => trans('blog::app.datagrid.name'),
+            'label'      => trans('blog::app.datagrids.comment.name'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -59,7 +59,7 @@ class CommentDataGrid extends DataGrid
             'closure'    => function ($row) {
                 $post = app(BlogRepository::class)->where('id', $row->post)->first();
                 
-                $post_name = ($post && isset($post->name) && ! empty($post->name) && ! is_null($post->name)) ? $post->name : '-';
+                $post_name = (! empty($post->name)) ? $post->name : '-';
 
                 return $post_name;
             },
@@ -67,7 +67,7 @@ class CommentDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'comment',
-            'label'      => trans('blog::app.datagrid.content'),
+            'label'      => trans('blog::app.datagrids.comment.content'),
             'type'       => 'string',
             'searchable' => false,
             'sortable'   => true,
@@ -76,25 +76,25 @@ class CommentDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'status',
-            'label'      => trans('blog::app.datagrid.status'),
+            'label'      => trans('blog::app.datagrids.comment.status.title'),
             'type'       => 'boolean',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status == 1) {
-                    return '<span class="badge badge-md badge-warning label-pending">'.trans('blog::app.datagrid.pending').'</span>';
+                    return '<span class="badge badge-md badge-warning label-pending">'.trans('blog::app.datagrids.comment.status.pending').'</span>';
                 } elseif ($row->status == 2) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrid.approved').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.comment.status.approved').'</span>';
                 } elseif ($row->status == 0) {
-                    return '<span class="badge badge-md badge-danger label-canceled">'.trans('blog::app.datagrid.rejected').'</span>';
+                    return '<span class="badge badge-md badge-danger label-canceled">'.trans('blog::app.datagrids.comment.status.rejected').'</span>';
                 }
             },
         ]);
 
         $this->addColumn([
             'index'      => 'created_at',
-            'label'      => trans('blog::app.datagrid.published_at'),
+            'label'      => trans('blog::app.datagrids.comment.published-at'),
             'type'       => 'datetime',
             'searchable' => true,
             'sortable'   => true,
@@ -114,7 +114,7 @@ class CommentDataGrid extends DataGrid
     {
         if (bouncer()->hasPermission('blog.comment.edit')) {
             $this->addAction([
-                'title'  => 'edit',
+                'title'  => trans('blog::app.datagrids.comment.edit'),
                 'method' => 'GET',
                 'route'  => 'admin.blog.comment.edit',
                 'icon'   => 'icon-edit',
@@ -126,7 +126,7 @@ class CommentDataGrid extends DataGrid
 
         if (bouncer()->hasPermission('blog.comment.delete')) {
             $this->addAction([
-                'title'  => 'delete',
+                'title'  => trans('blog::app.datagrids.comment.delete'),
                 'method' => 'POST',
                 'route'  => 'admin.blog.comment.delete',
                 'icon'   => 'icon-delete',
@@ -143,9 +143,9 @@ class CommentDataGrid extends DataGrid
             $this->addMassAction([
                 'type'   => 'delete',
                 'label'  => trans('admin::app.datagrid.delete'),
-                'title'  => 'Delete',
-                'action' => route('admin.blog.comment.massdelete'),
-                'url'    => route('admin.blog.comment.massdelete'),
+                'title'  => trans('blog::app.datagrids.comment.delete'),
+                'action' => route('admin.blog.comment.mass-delete'),
+                'url'    => route('admin.blog.comment.mass-delete'),
                 'method' => 'POST',
             ]);
         }

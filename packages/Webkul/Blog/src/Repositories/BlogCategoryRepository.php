@@ -29,13 +29,13 @@ class BlogCategoryRepository extends Repository
     {
         Event::dispatch('admin.blog.categories.create.before', $data);
 
-        $create_data = $data;
+        $createData = $data;
 
-        if (array_key_exists('image', $create_data)) {
-            unset($create_data['image']);
+        if (array_key_exists('image', $createData)) {
+            unset($createData['image']);
         }
 
-        $categories = $this->create($create_data);
+        $categories = $this->create($createData);
 
         $this->uploadImages($data, $categories);
 
@@ -54,13 +54,13 @@ class BlogCategoryRepository extends Repository
     {
         Event::dispatch('admin.blog.categories.update.before', $id);
 
-        $update_data = $data;
+        $updateData = $data;
 
-        if (array_key_exists('image', $update_data)) {
-            unset($update_data['image']);
+        if (array_key_exists('image', $updateData)) {
+            unset($updateData['image']);
         }
 
-        $categories = $this->update($update_data, $id);
+        $categories = $this->update($updateData, $id);
 
         $this->uploadImages($data, $categories);
 
@@ -94,7 +94,7 @@ class BlogCategoryRepository extends Repository
 
                     $image = $manager->make(request()->file($file))->encode('webp');
 
-                    $category->{$type} = 'blog-category/'.$category->id.'/'.Str::random(40).'.webp';
+                    $category->{$type} = $dir.'/'.Str::random(40).'.webp';
 
                     Storage::put($category->{$type}, $image);
 

@@ -22,10 +22,6 @@ class BlogServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'blog');
 
-        $this->publishes([
-            __DIR__.'/../../publishable/assets' => public_path('themes/default/assets'),
-        ], 'public');
-
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'blog');
     }
 
@@ -47,7 +43,7 @@ class BlogServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__).'/Config/menu.php', 'menu.admin'
+            dirname(__DIR__).'/Config/admin-menu.php', 'menu.admin'
         );
 
         $this->mergeConfigFrom(

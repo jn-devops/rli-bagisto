@@ -48,6 +48,9 @@ class Category extends Model implements BlogCategoryContract
         'assign_blogs',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
     public function blog()
     {
         return $this->hasMany(Blog::class, 'default_category');
@@ -124,15 +127,13 @@ class Category extends Model implements BlogCategoryContract
             return 0;
         }
 
-        $assign_blogs = 0;
-
-        $this_id = $this->id;
+        $id = $this->id;
 
         $blogs = app(BlogRepository::class)->where('status', 1)
                 ->where(
-                    function ($query) use ($this_id) {
-                        $query->where('default_category', $this_id)
-                        ->orWhereRaw('FIND_IN_SET(?, categorys)', [$this_id]);
+                    function ($query) use ($id) {
+                        $query->where('default_category', $id)
+                        ->orWhereRaw('FIND_IN_SET(?, categorys)', [$id]);
                     })
                 ->get();
 

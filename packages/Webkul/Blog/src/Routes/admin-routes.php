@@ -24,7 +24,7 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_ur
 
     Route::post('delete/{id}', [BlogController::class, 'destroy'])->name('admin.blog.delete');
 
-    Route::post('massdelete', [BlogController::class, 'massDestroy'])->name('admin.blog.massdelete');
+    Route::post('mass-delete', [BlogController::class, 'massDestroy'])->name('admin.blog.mass-delete');
 
     /**
      * Admin blog category routes
@@ -42,7 +42,7 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_ur
 
         Route::post('delete/{id}', [CategoryController::class, 'destroy'])->name('admin.blog.category.delete');
 
-        Route::post('massdelete', [CategoryController::class, 'massDestroy'])->name('admin.blog.category.massdelete');
+        Route::post('mass-delete', [CategoryController::class, 'massDestroy'])->name('admin.blog.category.mass-delete');
     });
 
     /**
@@ -61,7 +61,7 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_ur
 
         Route::post('delete/{id}', [TagController::class, 'destroy'])->name('admin.blog.tag.delete');
 
-        Route::post('massdelete', [TagController::class, 'massDestroy'])->name('admin.blog.tag.massdelete');
+        Route::post('mass-delete', [TagController::class, 'massDestroy'])->name('admin.blog.tag.mass-delete');
     });
 
     /**
@@ -76,7 +76,7 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_ur
 
         Route::post('delete/{id}', [CommentController::class, 'destroy'])->name('admin.blog.comment.delete');
 
-        Route::post('massdelete', [CommentController::class, 'massDestroy'])->name('admin.blog.comment.massdelete');
+        Route::post('mass-delete', [CommentController::class, 'massDestroy'])->name('admin.blog.comment.mass-delete');
     });
 
     /**

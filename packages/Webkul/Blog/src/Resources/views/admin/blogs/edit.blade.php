@@ -4,15 +4,11 @@
     </x-slot:title>
 
     @pushOnce('styles')
-
         <style type="text/css">
-            
             .v-tree-container>.v-tree-item:not(.has-children) {
                 padding-left: 18px !important;
             }
-            
         </style>
-
     @endPushOnce
 
     @php
@@ -218,13 +214,13 @@
                     </div>
                 </div>
 
-                <!-- SEO Deatils -->
+                <!-- SEO Details -->
                 <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
                     <p class="text-base text-gray-800 dark:text-white font-semibold mb-4">
                         @lang('blog::app.blog.edit.search-engine-optimization')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
+                    <!-- SEO Title & Description Blade Component -->
                     {{-- <x-admin::seo/> --}}
                     <v-seo-helper-custom></v-seo-helper-custom>
 
@@ -343,7 +339,9 @@
                                 @lang('blog::app.blog.edit.status')
                             </x-admin::form.control-group.label>
 
-                            @php $selectedValueStatus = old('status') ?: $blog->status @endphp
+                            @php 
+                                $selectedValueStatus = old('status') ?: $blog->status
+                            @endphp
 
                             <x-admin::form.control-group.control
                                 type="switch"
@@ -351,7 +349,7 @@
                                 id="status_switch"
                                 class="cursor-pointer"
                                 value="1"
-                                :label="trans('blog::app.blog.status')"
+                                :label="trans('blog::app.blog.edit.status')"
                                 :checked="(boolean) $selectedValueStatus"
                             >
                             </x-admin::form.control-group.control>
@@ -361,18 +359,20 @@
                         <input type="hidden" name="allow_comments" id="allow_comments" value="@php echo $blog->allow_comments @endphp">
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.blog.edit.allow_comments')
+                                @lang('blog::app.blog.edit.allow-comments')
                             </x-admin::form.control-group.label>
 
-                            @php $selectedValue_allow_comments = old('allow_comments') ?: $blog->allow_comments @endphp
+                            @php 
+                                $selectedValueAllowComments = old('allow_comments') ?: $blog->allow_comments 
+                            @endphp
 
                             <x-admin::form.control-group.control
                                 type="switch"
                                 name="allow_comments_switch"
                                 class="cursor-pointer"
                                 value="1"
-                                :label="trans('blog::app.blog.edit.allow_comments')"
-                                :checked="(boolean) $selectedValue_allow_comments"
+                                :label="trans('blog::app.blog.edit.allow-comments')"
+                                :checked="(boolean) $selectedValueAllowComments"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
@@ -420,7 +420,7 @@
                                     <!-- Options -->
                                     <option value="">@lang('blog::app.blog.edit.select-author')</option>
                                     @foreach($users as $user)
-                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </x-admin::form.control-group.control>
 
@@ -457,9 +457,11 @@
                                 :label="trans('blog::app.blog.edit.default-category')"
                             >
                                 <!-- Options -->
-                                <option value="">@lang('blog::app.blog.edit.select-default-category')</option>
+                                <option value="">
+                                    @lang('blog::app.blog.edit.select-default-category')
+                                </option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}" data-slug="{{$category->slug}}" id="{{'default_category'.$category->id}}" {{ $blog->default_category == $category->id ? 'selected' : '' }} >{{$category->name}}</option>
+                                    <option value="{{ $category->id }}" data-slug="{{ $category->slug }}" id="{{ 'default_category'.$category->id }}" {{ $blog->default_category == $category->id ? 'selected' : '' }} >{{ $category->name }}</option>
                                 @endforeach
                             </x-admin::form.control-group.control>
 
@@ -489,7 +491,7 @@
                                 name-field="categorys"
                                 id-field="id"
                                 value-field="id"
-                                :items="json_encode($additional_categories)"
+                                :items="json_encode($additionalCategories)"
                                 :value="json_encode(explode(',', $blog->categorys))"
                                 behavior="no"
                                 :fallback-locale="config('app.fallback_locale')"
@@ -540,14 +542,12 @@
                 </x-admin::accordion>
 
                 {!! view_render_event('admin.blogs.edit.after', ['blogs' => $blog]) !!}
-
             </div>
         </div>
-
     </x-admin::form>
 
 @pushOnce('scripts')
-    {{-- SEO Vue Component Template --}}
+    <!-- SEO Vue Component Template -->
     <script type="text/x-template" id="v-seo-helper-custom-template">
         <div class="flex flex-col gap-[3px] mb-[30px]">
             <p 
@@ -649,11 +649,9 @@
                 document.getElementById('allow_comments_switch').addEventListener('change', function(e) {
                     document.getElementById('allow_comments').value = ( e.target.checked == true || e.target.checked == 'true' ) ? 1 : 0;
                 });
-
             },
         });
     </script>
-
 @endPushOnce
 
 </x-admin::layouts>

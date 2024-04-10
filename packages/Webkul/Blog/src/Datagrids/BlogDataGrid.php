@@ -3,7 +3,6 @@
 namespace Webkul\Blog\Datagrids;
 
 use Illuminate\Support\Facades\DB;
-use Webkul\Blog\Models\Tag;
 use Webkul\Blog\Repositories\BlogCategoryRepository;
 use Webkul\Blog\Repositories\BlogTagRepository;
 use Webkul\DataGrid\DataGrid;
@@ -55,7 +54,7 @@ class BlogDataGrid extends DataGrid
     {
         $this->addColumn([
             'index'      => 'id',
-            'label'      => trans('blog::app.datagrid.id'),
+            'label'      => trans('blog::app.datagrids.blog.id'),
             'type'       => 'integer',
             'searchable' => false,
             'sortable'   => true,
@@ -64,7 +63,7 @@ class BlogDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'name',
-            'label'      => trans('blog::app.datagrid.name'),
+            'label'      => trans('blog::app.datagrids.blog.name'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -73,39 +72,37 @@ class BlogDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'default_category',
-            'label'      => trans('blog::app.datagrid.category'),
+            'label'      => trans('blog::app.datagrids.blog.category'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                $categorys = '-';
+                $catagories = '-';
 
                 $defaultCategory = explode(',', $row->default_category);
 
-                $categoies = explode(',', $row->categorys);
+                $catagories = explode(',', $row->categorys);
 
-                $allCategoies = array_merge($defaultCategory, $categoies);
+                $allCatagories = array_merge($defaultCategory, $catagories);
 
-                $categories_ids = array_values(array_unique($allCategoies));
+                $categoriesIds = array_values(array_unique($allCatagories));
 
-                if (is_array($categories_ids)
-                        && ! empty($categories_ids)
-                        && count($categories_ids) > 0) {
-                    $categories = app(BlogCategoryRepository::class)->whereIn('id', $categories_ids)->get();
+                if (! empty($categoriesIds)) {
+                    $categories = app(BlogCategoryRepository::class)->whereIn('id', $categoriesIds)->get();
 
-                    $categories_names = ! empty($categories) ? $categories->pluck('name')->toarray() : [];
+                    $categoriesNames = ! empty($categories) ? $categories->pluck('name')->toarray() : [];
 
-                    $categorys = (! empty($categories_names) && count($categories_names)) ? implode(', ', $categories_names) : '-';
+                    $catagories = ! empty($categoriesNames) ? implode(', ', $categoriesNames) : '-';
                 }
 
-                return $categorys;
+                return $catagories;
             },
         ]);
 
         $this->addColumn([
             'index'      => 'tags',
-            'label'      => 'Tags',
+            'label'      => trans('blog::app.datagrids.blog.tags'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -113,15 +110,14 @@ class BlogDataGrid extends DataGrid
             'closure'    => function ($value) {
                 $tags = '-';
 
-                $tags_ids = array_values(array_unique(explode(',', $value->tags)));
+                $tagIds = array_values(array_unique(explode(',', $value->tags)));
 
-                if (is_array($tags_ids) 
-                    && ! empty($tags_ids)) {
-                    $tag_deatils = app(BlogTagRepository::class)->whereIn('id', $tags_ids)->get();
+                if (! empty($tagIds)) {
+                    $tagDetails = app(BlogTagRepository::class)->whereIn('id', $tagIds)->get();
 
-                    $tags_names = (! empty($tag_deatils)) ? $tag_deatils->pluck('name')->toarray() : [];
+                    $tagNames = ! empty($tagDetails) ? $tagDetails->pluck('name')->toarray() : [];
 
-                    $tags = (! empty($tags_names)) ? implode(', ', $tags_names) : '-';
+                    $tags = ! empty($tagNames) ? implode(', ', $tagNames) : '-';
                 }
 
                 return $tags;
@@ -130,39 +126,39 @@ class BlogDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'status',
-            'label'      => trans('blog::app.datagrid.status'),
+            'label'      => trans('blog::app.datagrids.blog.status'),
             'type'       => 'boolean',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.blog.status-true').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.blog.active').'</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.blog.status-false').'</span>';
+                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.datagrids.blog.reactive').'</span>';
             },
         ]);
 
         $this->addColumn([
             'index'      => 'allow_comments',
-            'label'      => trans('blog::app.datagrid.allow_comments'),
+            'label'      => trans('blog::app.datagrids.blog.allow-comments'),
             'type'       => 'boolean',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->allow_comments) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.blog.yes').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.blog.yes').'</span>';
                 } 
 
-                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.blog.no').'</span>';
+                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.datagrids.blog.no').'</span>';
             },
         ]);
 
         $this->addColumn([
             'index'      => 'published_at',
-            'label'      => 'Published At',
+            'label'      => trans('blog::app.datagrids.blog.published-at'),
             'type'       => 'datetime',
             'searchable' => true,
             'sortable'   => true,
@@ -179,7 +175,7 @@ class BlogDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'author',
-            'label'      => 'Author',
+            'label'      => trans('blog::app.datagrids.blog.author'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -191,7 +187,7 @@ class BlogDataGrid extends DataGrid
     {
         if (bouncer()->hasPermission('blog.blogs.edit')) {
             $this->addAction([
-                'title'  => 'edit',
+                'title'  => trans('blog::app.datagrids.blog.edit'),
                 'method' => 'GET',
                 'icon'   => 'icon-edit',
                 'route'  => 'admin.blog.edit',
@@ -203,7 +199,7 @@ class BlogDataGrid extends DataGrid
 
         if (bouncer()->hasPermission('blog.blogs.delete')) {
             $this->addAction([
-                'title'  => 'delete',
+                'title'  => trans('blog::app.datagrids.blog.delete'),
                 'method' => 'POST',
                 'icon'   => 'icon-delete',
                 'route'  => 'admin.blog.delete',
@@ -219,10 +215,10 @@ class BlogDataGrid extends DataGrid
         if (bouncer()->hasPermission('blog.blogs.delete')) {
             $this->addMassAction([
                 'type'   => 'delete',
-                'label'  => trans('admin::app.datagrid.delete'),
-                'title'  => 'Delete',
-                'action' => route('admin.blog.massdelete'),
-                'url'    => route('admin.blog.massdelete'),
+                'label'  => trans('blog::app.blog.index.mass-ops.success'),
+                'title'  => trans('blog::app.datagrids.blog.delete'),
+                'action' => route('admin.blog.mass-delete'),
+                'url'    => route('admin.blog.mass-delete'),
                 'method' => 'POST',
             ]);
         }

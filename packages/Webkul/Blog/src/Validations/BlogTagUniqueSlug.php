@@ -4,9 +4,7 @@ namespace Webkul\Blog\Validations;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-use Webkul\Attribute\Repositories\AttributeRepository;
-use Webkul\Blog\Models\Tag;
-use Webkul\Product\Repositories\ProductAttributeValueRepository;
+use Webkul\Blog\Repositories\BlogTagRepository;
 
 class BlogTagUniqueSlug implements Rule
 {
@@ -77,7 +75,6 @@ class BlogTagUniqueSlug implements Rule
     protected function isSlugUnique($slug)
     {
         return ! $this->isSlugExistsInCategories($slug);
-        // return ! $this->isSlugExistsInCategories($slug) && ! $this->isSlugExistsInProducts($slug);
     }
 
     /**
@@ -93,34 +90,16 @@ class BlogTagUniqueSlug implements Rule
             && $this->id
             && $this->tableName === 'blog_tags'
         ) {
-            return Tag::/*modelClass()::*/ where('id', '<>', $this->id)
-                ->where('slug', $slug)
-                ->limit(1)
-                ->select(DB::raw(1))
-                ->exists();
+            return app(BlogTagRepository::class)->where('id', '<>', $this->id)
+                    ->where('slug', $slug)
+                    ->limit(1)
+                    ->select(DB::raw(1))
+                    ->exists();
         }
 
-        return Tag::/*modelClass()::*/ where('slug', $slug)
-            ->limit(1)
-            ->select(DB::raw(1))
-            ->exists();
+        return app(BlogTagRepository::class)->where('slug', $slug)
+                    ->limit(1)
+                    ->select(DB::raw(1))
+                    ->exists();
     }
-
-    /**
-     * Is slug is exists in products.
-     *
-     * @param  string  $slug
-     * @return bool
-     */
-    /*protected function isSlugExistsInProducts($slug)
-    {
-        $attribute = app(AttributeRepository::class)->findOneByField('code', 'url_key');
-
-        return ! app(ProductAttributeValueRepository::class)->isValueUnique(
-            $this->id,
-            $attribute->id,
-            $attribute->column_name,
-            request($attribute->code)
-        );
-    }*/
 }
