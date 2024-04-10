@@ -158,14 +158,14 @@ class CategoryController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('blog::app.category.index.delete.success'));
+                session()->flash('success', trans('blog::app.category.index.deleted.success'));
             } else {
-                session()->flash('info', trans('blog::app.category.index.delete.failure'));
+                session()->flash('info', trans('blog::app.category.index.deleted.failure'));
             }
 
             return redirect()->back();
         } else {
-            session()->flash('error', trans('blog::app.category.index.delete.failure'));
+            session()->flash('error', trans('blog::app.category.index.deleted.failure'));
 
             return redirect()->back();
         }

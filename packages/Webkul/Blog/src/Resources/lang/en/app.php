@@ -326,7 +326,11 @@ return [
                 'title'    => 'Status',
                 'active'   => 'Active',
                 'in-active' => 'Inactive',
-            ]
+            ],
+            'edit'           => 'Edit',
+            'delete'         => 'Delete',
+            'active'         => 'Active',
+            'reactive'       => 'Reactive',
         ],
     ],
 

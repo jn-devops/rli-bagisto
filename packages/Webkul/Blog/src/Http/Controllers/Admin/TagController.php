@@ -140,7 +140,7 @@ class TagController extends Controller
             }
 
             if (! $suppressFlash) {
-                session()->flash('success', trans('blog::app.tag.index.delete.success'));
+                session()->flash('success', trans('blog::app.tag.index.deleted.success'));
             } else {
                 session()->flash('info', trans('blog::app.tag.index.partial-action'));
             }
