@@ -61,7 +61,7 @@ class EkycController extends Controller
         /**
          * In Production.
          */
-        return "https://book-dev.enclaves.ph/auto-reserve/{$sku}/{$transaction_id}";
+        return "https://book.homeful.ph/auto-reserve/{$sku}/{$transaction_id}";
     }
 
     /**

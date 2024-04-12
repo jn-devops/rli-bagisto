@@ -48,3 +48,8 @@ php artisan vendor:publish --force
 php artisan optimize
 php artisan migrate
 ~~~
+
+
+## Add `@bagistoVite(['src/Resources/assets/css/blog-app.css'], 'blog')` line under head section into below given path.
+
+path = packages/Webkul/Enclaves/src/Resources/views/shop/components/layouts/index.blade.php

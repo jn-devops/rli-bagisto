@@ -10,11 +10,13 @@ return [
      * as your default connection when building an client. Of course you may
      * use create several clients at once, each with different configurations.
      */
+
     'defaultConnection' => 'default',
 
     /**
      * These are the connection parameters used when building a client.
      */
+
     'connections' => [
 
         'default' => [
@@ -33,8 +35,10 @@ return [
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_extended_host_configuration
              *
              * There is also the shorter "inline" configuration method available
+             *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_inline_host_configuration
              */
+
             'hosts' => [
                 [
                     'host'              => env('ELASTICSEARCH_HOST', 'localhost'),
@@ -74,6 +78,7 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_security.html#_ssl_encryption_2
              */
+
             'sslVerification' => null,
 
             /**
@@ -93,6 +98,7 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#enabling_logger
              */
+
             'logging' => false,
 
             // If you have an existing instance of Monolog you can use it here.
@@ -111,6 +117,7 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_set_retries
              */
+
             'retries' => null,
 
             /**
@@ -125,6 +132,7 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html
              */
+
             'sniffOnStart' => false,
 
             /**
@@ -133,6 +141,7 @@ return [
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_configure_the_http_handler
              * @see http://ringphp.readthedocs.org/en/latest/client_handlers.html
              */
+
             'httpHandler' => null,
 
             /**
@@ -141,6 +150,7 @@ return [
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_the_connection_pool
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_connection_pool.html
              */
+
             'connectionPool' => null,
 
             /**
@@ -149,6 +159,7 @@ return [
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_the_connection_selector
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_selectors.html
              */
+
             'connectionSelector' => null,
 
             /**
@@ -157,6 +168,7 @@ return [
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_the_serializer
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_serializers.html
              */
+
             'serializer' => null,
 
             /**
@@ -164,6 +176,7 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_a_custom_connectionfactory
              */
+
             'connectionFactory' => null,
 
             /**
@@ -171,7 +184,9 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/6.0/_configuration.html#_set_the_endpoint_closure
              */
+
             'endpoint' => null,
+
 
             /**
              * Register additional namespaces
@@ -179,7 +194,6 @@ return [
              * An array of additional namespaces to register.
              *
              * @example 'namespaces' => [XPack::Security(), XPack::Watcher()]
-             *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/ElasticsearchPHP_Endpoints.html#Elasticsearch_ClientBuilderregisterNamespace_registerNamespace
              */
             'namespaces' => [],

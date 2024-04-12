@@ -1,0 +1,11 @@
+{
+  "src/Resources/assets/css/blog-app.css": {
+    "file": "assets/blog-app-8f8474d2.css",
+    "isEntry": true,
+    "src": "src/Resources/assets/css/blog-app.css"
+  },
+  "src/Resources/assets/images/blog-bg.svg": {
+    "file": "assets/blog-bg-2fdb3c3f.svg",
+    "src": "src/Resources/assets/images/blog-bg.svg"
+  }
+}

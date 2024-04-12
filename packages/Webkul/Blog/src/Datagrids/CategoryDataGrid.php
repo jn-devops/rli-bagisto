@@ -3,8 +3,8 @@
 namespace Webkul\Blog\Datagrids;
 
 use Illuminate\Support\Facades\DB;
-use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\DataGrid\DataGrid;
+use Webkul\Blog\Repositories\BlogCategoryRepository;
 
 class CategoryDataGrid extends DataGrid
 {
@@ -61,7 +61,9 @@ class CategoryDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                $parentCategory = app(CategoryRepository::class)->where('id', (int) $row->parent_id)->first();
+                $parentCategory = app(BlogCategoryRepository::class)
+                    ->where('id', (int) $row->parent_id)
+                    ->first();
 
                 return $parentCategory?->name ?? '-';
             },

@@ -35,9 +35,15 @@ return [
             'package_assets_directory' => 'src/Resources/assets',
         ],
 
-        'ekyc'       => [
+        'ekyc' => [
             'hot_file'                 => 'ekyc-vite.hot',
             'build_directory'          => 'themes/ekyc/build',
+            'package_assets_directory' => 'src/Resources/assets',
+        ],
+
+        'blog' => [
+            'hot_file'                 => 'blog-vite.hot',
+            'build_directory'          => 'themes/blog/default/build',
             'package_assets_directory' => 'src/Resources/assets',
         ],
     ],

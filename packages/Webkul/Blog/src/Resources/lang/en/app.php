@@ -364,4 +364,26 @@ return [
             ],
         ],
     ],
+
+    'shop' => [
+        'blog' => [
+            'title'            => 'Blog',
+            'news_and_updates' => "News & Updates",
+            'details_page'     => "Details Page",
+            'read-more'        => 'Read More',
+
+            'post' => [
+                'view' => [
+                    'author'         => 'Author:',
+                    'date-published' => 'Date published:',
+                    'check-out-news' => 'Check out our other news & updates',
+                ],
+    
+                'index' => [
+                    'title'     => 'News & Updates',
+                    'no-record' => 'No Records available!',
+                ],
+            ],
+        ],
+    ],
 ];

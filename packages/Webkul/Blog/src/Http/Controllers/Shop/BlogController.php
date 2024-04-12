@@ -3,6 +3,8 @@
 namespace Webkul\Blog\Http\Controllers\Shop;
 
 use Webkul\Blog\Http\Controllers\Controller;
+use Webkul\Blog\Http\Resources\BlogResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class BlogController extends Controller
 {
@@ -52,7 +54,7 @@ class BlogController extends Controller
 
         $enableBlogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
 
-        return view('blog::shop.velocity.index', compact(
+        return view('blog::shop.blog.post.index', compact(
             'blogs',
             'categories',
             'customizations',
@@ -112,7 +114,7 @@ class BlogController extends Controller
 
         $enableBlogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
 
-        return view('blog::shop.author.index', compact(
+        return view('blog::shop.blog.author.index', compact(
             'blogs',
             'categories',
             'customizations',
@@ -173,7 +175,7 @@ class BlogController extends Controller
 
         $comments = $this->getCommentsRecursive($blogId);
 
-        $totalComments = $this->blogCommentRepository::where('post', $blogId)->where('status', 2)->get();
+        $totalComments = $this->blogCommentRepository->where('post', $blogId)->where('status', 2)->get();
 
         $totalCommentsCnt = ! empty($totalComments) ? $totalComments->count() : 0;
 
@@ -201,7 +203,7 @@ class BlogController extends Controller
 
         $enableComment = $this->getConfigByKey('blog_post_enable_comment');
 
-        $allowGuestComment = $this->getConfigByKey('blog_post_allow_guest_comment');
+        $allowQuestComment = $this->getConfigByKey('blog_post_allow_guest_comment');
 
         $maximumNestedComment = $this->getConfigByKey('blog_post_maximum_nested_comment');
 
@@ -211,7 +213,7 @@ class BlogController extends Controller
 
         $blogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
 
-        return view('blog::shop.velocity.view', compact(
+        return view('blog::shop.blog.post.view', compact(
             'blog',
             'categories',
             'tags',
@@ -233,5 +235,30 @@ class BlogController extends Controller
             'blogSeoMetaKeywords',
             'blogSeoMetaDescription'
         ));
+    }
+
+    /**
+     * Product listings.
+     */
+    public function blogFrontEnd(): JsonResource
+    {
+        $blogs = $this->blogRepository
+                    ->where('status', 1)
+                    ->orderBy('id', 'desc')
+                    ->skip(0);
+
+        $limit = 10;
+
+        if(! empty(request('page'))) {
+            $limit = (int)request('page');
+        }
+
+        $blogs->take($limit);
+
+        if(! empty(request('id'))) {
+            $blogs = $blogs->whereNotIn('id', [(int)request('id')]);
+        }
+
+        return BlogResource::collection($blogs->get());
     }
 }

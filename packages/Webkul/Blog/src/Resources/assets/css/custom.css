@@ -18,10 +18,10 @@
     margin-bottom: 20px;
 }
 .blog-post-box{
-    border: 1px solid rgba(0,0,0,.125);  
-    padding: 15px;
-    border-radius: 10px;
-    height: 100%;
+  border: 1px solid rgba(0,0,0,.125);  
+  padding: 15px;
+  border-radius: 10px;
+  height: 100%;
 }
 .blog-post-box .card-text{
     overflow: hidden;
@@ -179,7 +179,7 @@
 
 @media all and (max-width: 1024px){
     .column-3,
-    .column-9 {
+   .column-9 {
     width: 100%;
     padding: 0 10px;
 }
@@ -191,14 +191,14 @@
 
 }
 @media all and (max-width: 767px){
-    .blog-hero-image .hero-main-title{
+   .blog-hero-image .hero-main-title{
     font-size: 1.5rem;
-    }
-    .blog-hero-image{
+   }
+   .blog-hero-image{
     height: 270px;
     margin-bottom: 30px;
-    }
-    .container {
+   }
+   .container {
         width: 100%;
         margin-right: auto;
         margin-left: auto;

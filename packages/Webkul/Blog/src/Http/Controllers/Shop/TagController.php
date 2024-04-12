@@ -50,7 +50,7 @@ class TagController extends Controller
         $blogSeoMetaKeywords = $this->getConfigByKey('blog_seo_meta_keywords');
         $blogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
 
-        return view('blog::shop.tag.index', compact(
+        return view('blog::shop.blog.tag.index', compact(
             'blogs',
             'categories',
             'customizations',

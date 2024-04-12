@@ -55,7 +55,7 @@ class CategoryController extends Controller
 
         $blogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
 
-        return view('blog::shop.category.index', compact(
+        return view('blog::shop.blog.category.index', compact(
             'blogs',
             'categories',
             'customizations',

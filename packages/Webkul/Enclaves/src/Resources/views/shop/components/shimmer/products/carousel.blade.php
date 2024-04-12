@@ -1,5 +1,5 @@
 <div class="container max-lg:px-[30px] max-sm:mt-[30px]">
-    <div class="flex justify-end items-center gap-8 mt-[16px]">
+    <div class="flex justify-between relative top-[215px] z-10">
         <div class="inline-flex gap-7">
             <span  class="shimmer inline-block w-[79px] h-[78px]"></span>
 

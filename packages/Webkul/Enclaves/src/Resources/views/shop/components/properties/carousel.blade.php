@@ -17,7 +17,7 @@
                 <div class="absolute inset-0 bg-right bg-[url('../images/community-right.svg')] bg-no-repeat h-[500px]"></div>
             </div>
 
-            <div class="container mb-[250px] max-lg:px-[30px] max-sm:mt-[30px]">
+            <div class="container mb-[50px] max-lg:px-[30px] max-sm:mt-[30px]">
                 <div class="flex justify-center gap-[20px] max-sm:items-center">
                     <h3 class="mt-[140px] rli-title max-sm:text-[25px] max-w-[1024px]" v-text="title"></h3>
                 </div>

@@ -4,7 +4,7 @@ namespace Webkul\Blog\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Blade;
 class BlogServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +23,12 @@ class BlogServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'blog');
 
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'blog');
+
+        Blade::anonymousComponentPath(__DIR__ . '/../Resources/views/shop/blog/components', 'blog');
+
+        require __DIR__ . '/../Routes/breadcrumbs.php';
+        
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**

@@ -29,28 +29,34 @@
 
             <div class="grid grid-cols-2 mt-5 gap-x-7 gap-y-4 max-2xl:grid-cols-1">
 
-                <div class="">
-                    <span class=""></span>
+                <div>
+                    <span></span>
 
-                    <p class="text-[18px] font-medium text-black">17 ADB Ave, Ortigas Center, Pasig, Metro Manila</p>
+                    <p class="text-[18px] font-medium text-black">
+                        @lang('17 ADB Ave, Ortigas Center, Pasig, Metro Manila')
+                    </p>
                 </div>
 
-                <div class="">
-                    <span class=""></span>
+                <div>
+                    <span></span>
 
-                    <a class="text-[18px] font-medium text-black" href="mailto:sample@email.com">sample@email.com</a>
+                    <a class="text-[18px] font-medium text-black" href="@lang('mailto:sample@email.com')">
+                        @lang('sample@email.com')
+                    </a>
                 </div>
 
-                <div class="">
-                    <span class=""></span>
+                <div>
+                    <span></span>
 
-                    <a class="text-[18px] font-medium text-black" href="phone:+63 9456677654">+63 9456677654</a>
+                    <a class="text-[18px] font-medium text-black" href="@lang('phone:+63 9456677654')">
+                        @lang('+63 9456677654')
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="flex gap-[80px] max-768:gap-[40px] max-668:flex-wrap">
-            <div class="pr-[79px] border-r-[1px] border-[#308BB6] flex flex-col justify-start max-668:border-r-0">
+            <div class="pr-[79px] border-r-[1px] border-[#308BB6] flex flex-col justify-start max-668:border-r-0 relative">
                 <p class="text-[35px] font-bold">@lang('Quicklinks')</p>
 
                 <div class="grid gap-[20px] mt-[21px]">

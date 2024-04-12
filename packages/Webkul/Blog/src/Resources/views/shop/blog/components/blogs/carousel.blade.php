@@ -1,16 +1,25 @@
-<v-products-carousel
+<v-blogs-carousel
     src="{{ $src }}"
     title="{{ $title }}"
     navigation-link="{{ $navigationLink ?? '' }}"
 >
     <x-shop::shimmer.products.carousel :navigation-link="$navigationLink ?? false"></x-shop::shimmer.products.carousel>
-</v-products-carousel>
+</v-blogs-carousel>
 
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-products-carousel-template">
+    <script type="text/x-template" id="v-blogs-carousel-template">
         <!-- Section new place made just for you -->
-        <div class="container mt-[80px] max-lg:px-[30px] max-sm:mt-[30px]">
-            <div class="flex justify-between relative top-[215px] z-10" v-if="products.length">
+        <div 
+            class="container mt-[150px] max-lg:px-[30px] max-sm:mt-[30px] bg-[url('../images/blog-bg.svg')] bg-no-repeat [background-size:51%] bg-right"
+            v-if="blogs.length > 0"
+            >
+        
+            <div class="rli-title p-[61px] max-w-[1024px] max-sm:text-[25px]">
+                <p class="text-[#CC035C]">@lang('Raemulan Lands Inc')</p>
+                <p class="mt-[40px]">@lang('News & Updates')</p>
+            </div>
+            
+            <div class="flex justify-between relative top-[215px] z-10" v-if="blogs.length">
                 <span 
                     class="icon-arrow-left-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px] bg-white"
                     @click="swipeLeft"
@@ -28,7 +37,7 @@
                 ref="swiperContainer"
                 class="flex gap-14 mt-[22px] overflow-auto scrollbar-hide max-sm:mt-[20px]"
             >
-                <x-shop::products.card v-for="product in products"/>
+                <x-blog::blogs.item v-for="blog in blogs" />
             </div>
         </div>
 
@@ -42,8 +51,8 @@
     </script>
 
     <script type="module">
-        app.component('v-products-carousel', {
-            template: '#v-products-carousel-template',
+        app.component('v-blogs-carousel', {
+            template: '#v-blogs-carousel-template',
 
             props: [
                 'src',
@@ -55,23 +64,23 @@
                 return {
                     isLoading: true,
 
-                    products: [],
+                    blogs: [],
 
                     offset: 323,
                 };
             },
 
             mounted() {
-                this.getProducts();
+                this.getblogs();
             },
 
             methods: {
-                getProducts() {
+                getblogs() {
                     this.$axios.get(this.src)
                         .then(response => {
                             this.isLoading = false;
 
-                            this.products = response.data.data;
+                            this.blogs = response.data.data;
                         }).catch(error => {
                             console.log(error);
                         });

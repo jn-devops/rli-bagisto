@@ -53,9 +53,9 @@ class CategoryController extends Controller
         $result = $this->blogCategoryRepository->save($data);
 
         if ($result) {
-            session()->flash('success', trans('blog::app.category.edit.created.success'));
+            session()->flash('success', trans('blog::app.category.create.created.success'));
         } else {
-            session()->flash('success', trans('blog::app.category.edit.created.failure'));
+            session()->flash('success', trans('blog::app.category.create.created.failure'));
         }
 
         return redirect()->route('admin.blog.category.index');
