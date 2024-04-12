@@ -25,7 +25,7 @@ class BlogCategoryRequest extends FormRequest
     public function rules()
     {
         $locale = core()->getRequestedLocaleCode();
-        
+
         $locale = ! empty($locale) ? $locale[0] : 'en';
 
         if ($id = request('id')) {

@@ -14,8 +14,7 @@ Breadcrumbs::for('account', function (BreadcrumbTrail $trail) {
     $trail->push(trans('shop::app.layouts.my-account'), route('shop.customers.account.profile.index'));
 });
 
-
-## This is customization code. it will remove from here.
+//# This is customization code. it will remove from here.
 
 // Customization
 // Home > My Account > Profile
@@ -36,15 +35,11 @@ Breadcrumbs::for('documents', function (BreadcrumbTrail $trail) {
     $trail->push(trans('shop::app.layouts.documents'), route('shop.customers.account.profile.index'));
 });
 
-
 //Home > My Account >> inquiries
 Breadcrumbs::for('inquiries', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
     $trail->push(trans('shop::app.layouts.inquiries'), route('enclaves.customers.account.inquiries.index'));
 });
-
-
-
 
 // Home > My Account > Profile > Edit
 Breadcrumbs::for('profile.edit', function (BreadcrumbTrail $trail) {

@@ -2,9 +2,9 @@
 
 namespace RLI\Attribute\Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 /*
 * Note: this seeder should be run in the same script as AttributeGroupTableSeeder
@@ -12,20 +12,33 @@ use Carbon\Carbon;
 class AttributeTableSeeder extends Seeder
 {
     public static int $processing_fee_id;
+
     public static int $location_id;
+
     public static int $floor_area_id;
+
     public static int $lot_area_id;
+
     public static int $finish_id;
+
     public static int $veranda_id;
+
     public static int $end_unit_id;
 
     public static int $ground_floor;
+
     public static int $bedrooms;
+
     public static int $t_and_b;
+
     public static int $carports;
+
     public static int $parking;
+
     public static int $inventory_sources;
+
     public static int $style;
+
     public static int $balcony;
 
     public static int $unit_type;
@@ -39,12 +52,12 @@ class AttributeTableSeeder extends Seeder
             'admin_name'          => 'Processing Fee',
             'type'                => 'price',
             'validation'          => 'decimal',
-            'position'            => NULL,
+            'position'            => null,
             'is_required'         => 1,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 1,
             'is_configurable'     => 0,
             'is_user_defined'     => 0,
@@ -53,20 +66,20 @@ class AttributeTableSeeder extends Seeder
             'updated_at'          => $now,
             'is_comparable'       => 1,
         ]);
-        
+
         self::$processing_fee_id = DB::getPdo()->lastInsertId();
 
         DB::table('attributes')->insert([
             'code'                => 'location',
             'admin_name'          => 'Location',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -81,14 +94,14 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'floor_area',
             'admin_name'          => 'Floor Area (sqm)',
             'type'                => 'text',
-            'validation'          => NULL, // 'number',
-            'regex'               => NULL, // '0',
-            'position'            => NULL,
+            'validation'          => null, // 'number',
+            'regex'               => null, // '0',
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 0,
             'is_user_defined'     => 1,
@@ -103,14 +116,14 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'lot_area',
             'admin_name'          => 'Lot Area (sqm)',
             'type'                => 'text',
-            'validation'          => NULL, // 'number',
-            'regex'               => NULL, // '0',
-            'position'            => NULL,
+            'validation'          => null, // 'number',
+            'regex'               => null, // '0',
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 0,
             'is_user_defined'     => 1,
@@ -125,13 +138,13 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'finished',
             'admin_name'          => 'Finish',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -146,13 +159,13 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'veranda',
             'admin_name'          => 'Veranda',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -167,13 +180,13 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'end_unit',
             'admin_name'          => 'End Unit',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -184,18 +197,17 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$end_unit_id = DB::getPdo()->lastInsertId();
 
-
         DB::table('attributes')->insert([
             'code'                => 'ground_floor',
             'admin_name'          => 'Ground Floor',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -206,18 +218,17 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$ground_floor = DB::getPdo()->lastInsertId();
 
-
         DB::table('attributes')->insert([
             'code'                => 'bedrooms',
             'admin_name'          => 'Bedrooms',
             'type'                => 'text',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -228,18 +239,17 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$bedrooms = DB::getPdo()->lastInsertId();
 
-
         DB::table('attributes')->insert([
             'code'                => 't_and_b',
             'admin_name'          => 'T and B',
             'type'                => 'text',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -250,18 +260,17 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$t_and_b = DB::getPdo()->lastInsertId();
 
-
         DB::table('attributes')->insert([
             'code'                => 'carports',
             'admin_name'          => 'Carports',
             'type'                => 'text',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -272,18 +281,17 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$carports = DB::getPdo()->lastInsertId();
 
-
         DB::table('attributes')->insert([
             'code'                => 'parking',
             'admin_name'          => 'Parking',
             'type'                => 'text',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -294,18 +302,17 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$parking = DB::getPdo()->lastInsertId();
 
-
         DB::table('attributes')->insert([
             'code'                => 'inventory_sources',
             'admin_name'          => 'Inventory Sources',
             'type'                => 'text',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -320,13 +327,13 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'style',
             'admin_name'          => 'Style',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -341,13 +348,13 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'balcony',
             'admin_name'          => 'Balcony',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -362,13 +369,13 @@ class AttributeTableSeeder extends Seeder
             'code'                => 'unit_type',
             'admin_name'          => 'Unit Type',
             'type'                => 'select',
-            'validation'          => NULL,
-            'position'            => NULL,
+            'validation'          => null,
+            'position'            => null,
             'is_required'         => 0,
             'is_unique'           => 0,
             'value_per_locale'    => 0,
             'value_per_channel'   => 0,
-            'default_value'       => NULL,
+            'default_value'       => null,
             'is_filterable'       => 0,
             'is_configurable'     => 1,
             'is_user_defined'     => 1,
@@ -378,7 +385,6 @@ class AttributeTableSeeder extends Seeder
             'is_comparable'       => 1,
         ]);
         self::$unit_type = DB::getPdo()->lastInsertId();
-
 
         DB::table('attribute_translations')->insert([
             [
@@ -469,7 +475,7 @@ class AttributeTableSeeder extends Seeder
 
         foreach (AttributeGroupTableSeeder::$attribute_family_groups as $attribute_family => $groups) {
             foreach ($groups as $group => $group_id) {
-                switch ($group)  {
+                switch ($group) {
                     case AttributeGroupTableSeeder::GENERAL_GROUP:
                         DB::table('attribute_group_mappings')->insert([
                             [
@@ -532,7 +538,7 @@ class AttributeTableSeeder extends Seeder
                                 'attribute_id'        => self::$unit_type,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 115,
-                            ]
+                            ],
 
                         ]);
                         break;
@@ -542,7 +548,7 @@ class AttributeTableSeeder extends Seeder
                                 'attribute_id'        => self::$processing_fee_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 100,
-                            ]
+                            ],
                         ]);
                         break;
                 }

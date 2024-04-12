@@ -4,20 +4,16 @@ namespace Webkul\Admin\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
-use Webkul\Admin\Helpers\Reporting\Sale;
-use Webkul\Admin\Helpers\Reporting\Product;
 use Webkul\Admin\Helpers\Reporting\Customer;
+use Webkul\Admin\Helpers\Reporting\Product;
+use Webkul\Admin\Helpers\Reporting\Sale;
 use Webkul\Admin\Helpers\Reporting\Visitor;
 
 class Dashboard
 {
     /**
      * Create a controller instance.
-     * 
-     * @param  \Webkul\Admin\Helpers\Reporting\Sale  $saleReporting
-     * @param  \Webkul\Admin\Helpers\Reporting\Product  $productReporting
-     * @param  \Webkul\Admin\Helpers\Reporting\Customer  $customerReporting
-     * @param  \Webkul\Admin\Helpers\Reporting\Visitor  $visitorReporting
+     *
      * @return void
      */
     public function __construct(
@@ -25,14 +21,11 @@ class Dashboard
         protected Product $productReporting,
         protected Customer $customerReporting,
         protected Visitor $visitorReporting
-    )
-    {
+    ) {
     }
 
     /**
      * Returns the overall statistics.
-     * 
-     * @return array
      */
     public function getOverAllStats(): array
     {
@@ -47,8 +40,6 @@ class Dashboard
 
     /**
      * Returns the today statistics.
-     * 
-     * @return array
      */
     public function getTodayStats(): array
     {
@@ -62,8 +53,6 @@ class Dashboard
 
     /**
      * Returns the today statistics.
-     * 
-     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getStockThresholdProducts(): Collection
     {
@@ -72,8 +61,6 @@ class Dashboard
 
     /**
      * Returns sales statistics.
-     * 
-     * @return array
      */
     public function getSalesStats(): array
     {
@@ -86,8 +73,6 @@ class Dashboard
 
     /**
      * Returns visitors statistics.
-     * 
-     * @return array
      */
     public function getVisitorStats(): array
     {
@@ -100,8 +85,6 @@ class Dashboard
 
     /**
      * Returns top products statistics.
-     * 
-     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getTopProducts(): Collection
     {
@@ -110,14 +93,12 @@ class Dashboard
 
     /**
      * Returns top customers statistics.
-     * 
-     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getTopCustomers(): Collection
     {
         $customers = $this->customerReporting->getCustomersWithMostSales();
 
-        $customers->map(function($customer) {
+        $customers->map(function ($customer) {
             $customer->formatted_total = core()->formatBasePrice($customer->total);
         });
 
@@ -126,7 +107,7 @@ class Dashboard
 
     /**
      * Get the start date.
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public function getStartDate(): Carbon
@@ -136,7 +117,7 @@ class Dashboard
 
     /**
      * Get the end date.
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public function getEndDate(): Carbon

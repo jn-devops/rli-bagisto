@@ -2,16 +2,16 @@
 
 namespace Webkul\Enclaves\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Webkul\Core\Eloquent\TranslatableModel;
 use Webkul\Enclaves\Contracts\Tickets as TicketsContract;
 
 class Tickets extends TranslatableModel implements TicketsContract
 {
     use HasFactory;
-    
+
     /**
      * The table associated with the model.
      */
@@ -22,7 +22,7 @@ class Tickets extends TranslatableModel implements TicketsContract
      *
      * @var array
      */
-    protected $translatedAttributes= [];
+    protected $translatedAttributes = [];
 
     /**
      * The attributes that are mass assignable

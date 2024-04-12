@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Admin\Imports\DataGridImport;
-use Webkul\BulkUpload\Jobs\ProductUploadJob;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
-use Webkul\BulkUpload\Repositories\{ImportProductRepository, BulkProductImporterRepository};
+use Webkul\BulkUpload\Jobs\ProductUploadJob;
+use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
+use Webkul\BulkUpload\Repositories\ImportProductRepository;
 
 class UploadFileController extends Controller
 {
@@ -20,10 +21,8 @@ class UploadFileController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  \Webkul\Attribute\Repositories\AttributeFamilyRepository  $attributeFamilyRepository
      * @param  \Webkul\BulkUpload\Repositories\ImportProductRepository  $importProductRepository
      * @param  \Webkul\BulkUpload\Repositories\BulkProductImporterRepository  $bulkProductImporterRepository
-     *
      * @return void
      */
     public function __construct(
@@ -53,7 +52,7 @@ class UploadFileController extends Controller
     public function downloadSampleFile()
     {
         if (! empty(request()->download_sample)) {
-            return response()->download(public_path("vendor/webkul/admin/assets/sample-files/".request()->download_sample));
+            return response()->download(public_path('vendor/webkul/admin/assets/sample-files/' . request()->download_sample));
         }
 
         session()->flash('error', 'Product type is not available, Please select valid product type');
@@ -81,11 +80,11 @@ class UploadFileController extends Controller
     public function storeProductsFile()
     {
         $request = request();
-       
+
         $importerId = $request->bulk_product_importer_id;
-     
+
         $validExtensions = ['csv', 'xls', 'xlsx'];
-        
+
         $validImageExtensions = ['zip', 'rar'];
 
         // Validate the request
@@ -114,7 +113,7 @@ class UploadFileController extends Controller
             'file_path'                => '',
             'file_name'                => $request->file('file_path')->getClientOriginalName(),
         ];
-        
+
         $fileStorePath = 'imported-products/admin';
 
         // Handle link files
@@ -129,9 +128,9 @@ class UploadFileController extends Controller
                 return back();
             }
         }
-      
+
         // Handle link sample files
-        if ($request->is_link_have_sample 
+        if ($request->is_link_have_sample
                     && $request->hasFile('link_sample_files')) {
             $linkSampleFiles = $request->file('link_sample_files');
 
@@ -145,7 +144,7 @@ class UploadFileController extends Controller
         }
 
         // Handle sample files
-        if ($request->is_sample 
+        if ($request->is_sample
                     && $request->hasFile('sample_file')) {
             $sampleFile = $request->file('sample_file');
 
@@ -161,7 +160,7 @@ class UploadFileController extends Controller
         // Handle image uploads
         if ($request->hasFile('image_path')) {
             $uploadedImage = request()->file('image_path');
-            
+
             if (in_array($uploadedImage->getClientOriginalExtension(), $validImageExtensions)) {
                 $product['image_path'] = $uploadedImage->storeAs($fileStorePath . '/images', uniqid() . '.' . $uploadedImage->getClientOriginalExtension());
             } else {
@@ -170,22 +169,22 @@ class UploadFileController extends Controller
                 return back();
             }
         }
-        
+
         // Handle file uploads
         if ($request->hasFile('file_path')) {
             $uploadedFile = request()->file('file_path');
-            
+
             if (in_array($uploadedFile->getClientOriginalExtension(), $validExtensions)) {
                 $product['file_path'] = $uploadedFile->storeAs($fileStorePath . '/files', uniqid() . '.' . $uploadedFile->getClientOriginalExtension());
             } else {
                 session()->flash('error', trans('bulkupload::app.admin.bulk-upload.messages.file-format-error'));
-                
+
                 return back();
             }
         }
-        
+
         $this->importProductRepository->create($product);
-    
+
         session()->flash('success', trans('bulkupload::app.admin.bulk-upload.messages.profile-saved'));
 
         return back();
@@ -199,8 +198,8 @@ class UploadFileController extends Controller
     public function getFamilyAttributesToUploadFile()
     {
         $uniqueAttributeFamilyIds = $this->importProductRepository
-                                            ->distinct()
-                                            ->pluck('attribute_family_id');
+            ->distinct()
+            ->pluck('attribute_family_id');
 
         $families = $this->attributeFamilyRepository->whereIn('id', $uniqueAttributeFamilyIds)->get();
 
@@ -244,7 +243,7 @@ class UploadFileController extends Controller
     }
 
     /**
-     * Read CSV file and upload bulk-product using Jobs 
+     * Read CSV file and upload bulk-product using Jobs
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -261,17 +260,17 @@ class UploadFileController extends Controller
                 'message' => 'Selected File not found.',
             ]);
         }
-        
+
         $csvData = (new DataGridImport)->toArray($productFileRecord->file_path)[0];
 
         $csvImageData = (new DataGridImport)->toArray($productFileRecord->file_path)[2] ?? [];
 
-        // Check booking type product is not supported 
+        // Check booking type product is not supported
         if (! empty($csvData)) {
             foreach ($csvData as $data) {
                 if ($data['type'] == 'booking') {
                     return response()->json([
-                        "success" => false,
+                        'success' => false,
                         'message' => trans('bulkupload::app.admin.bulk-upload.messages.product-not-supported'),
                     ]);
                 }
@@ -281,18 +280,18 @@ class UploadFileController extends Controller
         $countConfig = count(array_filter($csvData, function ($item) {
             return $item['type'] === 'configurable';
         }));
-        
+
         $countCSV = ($countConfig > 0) ? $countConfig : count($csvData);
-        
+
         if (! $countCSV) {
             // Handle the case when $countCSV is false (or any condition you need).
             return response()->json([
-                "success" => false,
-                "message" => "No CSV Data to Import",
+                'success' => false,
+                'message' => 'No CSV Data to Import',
             ]);
         }
 
-        if (isset($csvImageData) 
+        if (isset($csvImageData)
                 && ! empty($csvImageData)) {
             $this->storeImageZip($csvImageData);
         }
@@ -302,30 +301,29 @@ class UploadFileController extends Controller
         $batch = Bus::batch([])->dispatch();
 
         $batch->add(new ProductUploadJob($productFileRecord, $chunks, $countCSV));
-        
+
         return response()->json([
-            "success" => true,
-            "message" => "CSV Product Successfully Imported",
+            'success' => true,
+            'message' => 'CSV Product Successfully Imported',
         ]);
     }
 
     /**
-     * Store and extract images from a zip file, removing any single quotes 
+     * Store and extract images from a zip file, removing any single quotes
      * or double quotes in image filenames.
      *
-     * @param $dataFlowProfileRecord - The data flow profile record containing image information.
+     * @param  $dataFlowProfileRecord  - The data flow profile record containing image information.
      * @return array - An array containing information about the extracted images.
      */
     public function storeImageZip($dataFlowProfileRecord)
     {
         $imageZipName = [];
 
-        foreach ($dataFlowProfileRecord as $images) 
-        {
+        foreach ($dataFlowProfileRecord as $images) {
             if (! $images['url_links']) {
                 continue;
             }
-            
+
             foreach (json_decode($images['url_links']) as $image_key => $image) {
                 $path = $image;
 
@@ -333,11 +331,11 @@ class UploadFileController extends Controller
 
                 $extension = explode('?', $info['extension']);
 
-                $fileName = $images['sku'] .'_'. $image_key . '.' . $extension[0];
+                $fileName = $images['sku'] . '_' . $image_key . '.' . $extension[0];
 
                 $imageZipName[] = $fileName;
 
-                Storage::put('imported-products/admin/images/'. $images['sku'] .'/'. $fileName, file_get_contents($path));
+                Storage::put('imported-products/admin/images/' . $images['sku'] . '/' . $fileName, file_get_contents($path));
             }
         }
 
@@ -363,41 +361,41 @@ class UploadFileController extends Controller
         $uploadedFilesError = File::allFiles($folderPath);
 
         $resultArray = collect($uploadedFilesError)
-                ->map(function ($file) {
-                    return [
-                        $file->getRelativePath() => [
-                            'link'     => asset('storage/error-csv-file/' . $file->getRelativePathname()),
-                            'time'     => date('Y-m-d H:i:s', filectime($file)),
-                            'fileName' => $file->getFilename(),
-                        ],
-                    ];
-                })
-                ->groupBy(function ($item) {
-                    return key($item);
-                })
-                ->map(function ($group) {
-                    return $group->map(function ($item) {
-                        return $item[key($item)];
-                    });
-                })
-                ->toArray();
+            ->map(function ($file) {
+                return [
+                    $file->getRelativePath() => [
+                        'link'     => asset('storage/error-csv-file/' . $file->getRelativePathname()),
+                        'time'     => date('Y-m-d H:i:s', filectime($file)),
+                        'fileName' => $file->getFilename(),
+                    ],
+                ];
+            })
+            ->groupBy(function ($item) {
+                return key($item);
+            })
+            ->map(function ($group) {
+                return $group->map(function ($item) {
+                    return $item[key($item)];
+                });
+            })
+            ->toArray();
 
-            $ids = array_keys($resultArray);
+        $ids = array_keys($resultArray);
 
-            $profilerName = $this->bulkProductImporterRepository
-                                ->get()
-                                ->whereIn('id', $ids)
-                                ->pluck('name')
-                                ->all();
-            
-            return response()->json([
-                'resultArray'   => $resultArray,
-                'profilerNames' => array_combine($ids, $profilerName),
-            ]);
+        $profilerName = $this->bulkProductImporterRepository
+            ->get()
+            ->whereIn('id', $ids)
+            ->pluck('name')
+            ->all();
+
+        return response()->json([
+            'resultArray'   => $resultArray,
+            'profilerNames' => array_combine($ids, $profilerName),
+        ]);
     }
 
     /**
-     * Depricate function 
+     * Depricate function
      */
     public function getProfiler()
     {
@@ -406,13 +404,13 @@ class UploadFileController extends Controller
 
     /**
      * Delete CSV file from run profiler page
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function deleteCSV()
     {
         $fileToDelete = 'error-csv-file/' . request('id') . '/' . request('name');
-            
+
         if (Storage::delete($fileToDelete)) {
             return response()->json(['message' => 'File deleted successfully']);
         }
@@ -421,7 +419,7 @@ class UploadFileController extends Controller
     }
 
     /**
-     * Depricate function 
+     * Depricate function
      */
     public function readErrorFile()
     {
@@ -440,15 +438,14 @@ class UploadFileController extends Controller
 
         return $csvData;
     }
-    
-    
+
     /**
      * Get Uploaded and not uploaded product detail from session
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getUploadedProductOrNotUploadedProduct()
-    {   
+    {
         $data = [];
         $status = request()->status;
         $message = false;
@@ -456,17 +453,17 @@ class UploadFileController extends Controller
         if (session()->has('notUploadedProduct')) {
             $data['notUploadedProduct'] = session()->get('notUploadedProduct');
         }
-        
+
         if (session()->has('uploadedProduct')) {
             $data['uploadedProduct'] = session()->get('uploadedProduct');
-        }  
-        
+        }
+
         if (session()->has('completionMessage')) {
             $message = true;
             $data['completionMessage'] = session()->get('completionMessage');
             $status = false;
         }
-        
-        return response()->json(['response' => $data ,'status' => $status,'success'=>$message], 200);
+
+        return response()->json(['response' => $data, 'status' => $status, 'success'=>$message], 200);
     }
 }

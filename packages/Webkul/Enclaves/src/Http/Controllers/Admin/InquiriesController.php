@@ -4,12 +4,12 @@ namespace Webkul\Enclaves\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use Webkul\Admin\Http\Requests\MassDestroyRequest;
+use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Enclaves\DataGrids\InquiriesDataGrid;
 use Webkul\Enclaves\Http\Controllers\Controller;
-use Webkul\Admin\Http\Requests\MassDestroyRequest;
-use Webkul\Enclaves\Repositories\TicketStatusRepository;
 use Webkul\Enclaves\Repositories\TicketsRepository;
-use Webkul\Customer\Repositories\CustomerRepository;
+use Webkul\Enclaves\Repositories\TicketStatusRepository;
 
 class InquiriesController extends Controller
 {
@@ -19,9 +19,9 @@ class InquiriesController extends Controller
      * @return void
      */
     public function __construct(
-       protected TicketStatusRepository $ticketStatusRepository,
-       protected TicketsRepository $ticketsRepository,
-       protected CustomerRepository $customerRepository,
+        protected TicketStatusRepository $ticketStatusRepository,
+        protected TicketsRepository $ticketsRepository,
+        protected CustomerRepository $customerRepository,
     ) {
     }
 
@@ -41,13 +41,13 @@ class InquiriesController extends Controller
 
     /**
      * view Inquiries
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function view(int $id)
     {
         $ticket = $this->ticketsRepository->with(['files', 'reasons', 'status'])->findOrFail($id);
-        
+
         $customer = $this->customerRepository->findOrFail($ticket->customer_id);
 
         return view('enclaves::admin.inquiries.view', compact('ticket', 'customer'));
@@ -76,7 +76,7 @@ class InquiriesController extends Controller
         $ticket = $this->ticketsRepository->create($request);
 
         $this->ticketsRepository->uploadMultipleImages($ticket);
-        
+
         session()->flash('success', trans('enclaves::app.admin.inquiries.form.create.create-success'));
 
         return redirect()->back();
@@ -102,8 +102,8 @@ class InquiriesController extends Controller
         ]);
 
         $ticket = $this->ticketsRepository->update($request, $id);
-        
-        if(request()->hasFile('file')) {
+
+        if (request()->hasFile('file')) {
             $this->ticketsRepository->uploadMultipleImages($ticket);
         }
 
@@ -120,7 +120,7 @@ class InquiriesController extends Controller
         try {
             $dir = 'tickets/' . $id;
 
-            if(Storage::has($dir)) {
+            if (Storage::has($dir)) {
                 Storage::delete($dir);
             }
 
@@ -138,9 +138,6 @@ class InquiriesController extends Controller
 
     /**
      * mass Delere Inquiries
-     * 
-     * @param MassDestroyRequest $massDestroyRequest
-     * @return \Illuminate\Http\JsonResponse
      */
     public function massDestroy(MassDestroyRequest $massDestroyRequest): JsonResponse
     {
@@ -149,14 +146,14 @@ class InquiriesController extends Controller
         try {
             foreach ($ids as $id) {
                 $product = $this->ticketsRepository->find($id);
-    
+
                 if (isset($product)) {
                     $dir = 'tickets/' . $id;
 
-                    if(Storage::has($dir)) {
+                    if (Storage::has($dir)) {
                         Storage::delete($dir);
                     }
-                    
+
                     $this->ticketsRepository->delete($id);
                 }
             }

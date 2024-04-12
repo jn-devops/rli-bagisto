@@ -426,12 +426,12 @@ return [
             ],
 
             'carousel' => [
-                'view-all' => 'عرض الكل'
+                'view-all' => 'عرض الكل',
             ],
         ],
 
         'range-slider' => [
-            'range' => 'النطاق:'
+            'range' => 'النطاق:',
         ],
     ],
 
@@ -576,7 +576,7 @@ return [
         ],
 
         'cart' => [
-            'continue-to-checkout' => 'Continue to Checkout',
+            'continue-to-checkout'      => 'Continue to Checkout',
             'item-add-to-cart'          => 'تمت إضافة العنصر بنجاح',
             'inventory-warning'         => 'الكمية المطلوبة غير متوفرة، يرجى المحاولة مرة أخرى لاحقًا.',
             'illegal'                   => 'الكمية لا يمكن أن تكون أقل من واحدة.',
@@ -795,10 +795,10 @@ return [
     ],
 
     'emails' => [
-        'dear'   => 'عزيزي :customer_name',
+        'dear'      => 'عزيزي :customer_name',
         'user_name' => 'اسم المستخدم :user_name',
         'password'  => 'كلمة المرور :password',
-        'thanks' => 'إذا كنت بحاجة إلى أي نوع من المساعدة، يرجى الاتصال بنا على <a href=":link" style=":style">:email</a>.<br/>شكرًا لك!',
+        'thanks'    => 'إذا كنت بحاجة إلى أي نوع من المساعدة، يرجى الاتصال بنا على <a href=":link" style=":style">:email</a>.<br/>شكرًا لك!',
 
         'customers' => [
             'registration' => [

@@ -3,8 +3,8 @@
 namespace Webkul\Enclaves\Http\Controllers\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Shop\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
@@ -12,20 +12,18 @@ class CategoryController extends Controller
     /**
      * Default short
      */
-    protected const SHORT = "desc";
+    protected const SHORT = 'desc';
 
     /**
      * Default limt
      */
     protected const LIMIT = 10;
 
-    /**
-     */
     public function __construct(
         protected CategoryRepository $categoryRepository,
     ) {
     }
-    
+
     /**
      * Get all categories.
      */
@@ -45,7 +43,7 @@ class CategoryController extends Controller
             ->where($defaultParams)
             ->whereNotNull('parent_id')
             ->limit(request('limit') ?? self::LIMIT)
-            ->orderBy('categories.id',request('short') ?? self::SHORT)
+            ->orderBy('categories.id', request('short') ?? self::SHORT)
             ->get();
 
         return CategoryResource::collection($categories);

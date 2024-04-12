@@ -5,7 +5,7 @@ namespace Webkul\Blog\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Webkul\Blog\Contracts\Comment as BlogCommentContract;
-use Webkul\Blog\Models\Blog;
+
 class Comment extends Model implements BlogCommentContract
 {
     use HasFactory;

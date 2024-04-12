@@ -5,8 +5,8 @@ namespace Webkul\Enclaves\Mail\Customer;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Webkul\Enclaves\Mail\Mailable;
 use Webkul\Customer\Contracts\Customer;
+use Webkul\Enclaves\Mail\Mailable;
 
 class NewCustomerNotification extends Mailable
 {

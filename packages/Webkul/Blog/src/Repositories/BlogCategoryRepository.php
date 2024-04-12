@@ -81,9 +81,9 @@ class BlogCategoryRepository extends Repository
     {
         if (isset($data[$type])) {
             foreach ($data[$type] as $imageId => $image) {
-                $file = $type.'.'.$imageId;
+                $file = $type . '.' . $imageId;
 
-                $dir = 'blog-category/'.$category->id;
+                $dir = 'blog-category/' . $category->id;
 
                 if (request()->hasFile($file)) {
                     if ($category->{$type}) {
@@ -94,7 +94,7 @@ class BlogCategoryRepository extends Repository
 
                     $image = $manager->make(request()->file($file))->encode('webp');
 
-                    $category->{$type} = $dir.'/'.Str::random(40).'.webp';
+                    $category->{$type} = $dir . '/' . Str::random(40) . '.webp';
 
                     Storage::put($category->{$type}, $image);
 

@@ -6,11 +6,11 @@ class ProductImageUpdate
 {
     /**
      * Add image details in ProductMediaRepository repo.
-     * 
-     * @param mixed $product
+     *
+     * @param  mixed  $product
      * @return void
      */
-    public function insertImages($product) 
+    public function insertImages($product)
     {
         $request = request()->all();
 
@@ -20,9 +20,9 @@ class ProductImageUpdate
             return false;
         }
 
-        foreach (explode(',',$request['images_url']) as $file) {
+        foreach (explode(',', $request['images_url']) as $file) {
             $product->images()->create([
-                'path'       => 'product/' . $product->id. '/'. $file,
+                'path'       => 'product/' . $product->id . '/' . $file,
                 'product_id' => $product->id,
                 'position'   => ++$position,
             ]);

@@ -11,8 +11,6 @@ class CustomerRepository extends Repository
 {
     /**
      * Specify model class name.
-     *
-     * @return string
      */
     public function model(): string
     {
@@ -23,7 +21,7 @@ class CustomerRepository extends Repository
      * Check if customer has order pending or processing.
      *
      * @param  \Webkul\Customer\Models\Customer
-     * @return boolean
+     * @return bool
      */
     public function checkIfCustomerHasOrderPendingOrProcessing($customer)
     {
@@ -50,7 +48,7 @@ class CustomerRepository extends Repository
      * Check if bulk customers, if they have order pending or processing.
      *
      * @param  array
-     * @return boolean
+     * @return bool
      */
     public function checkBulkCustomerIfTheyHaveOrderPendingOrProcessing($customerIds)
     {
@@ -70,7 +68,7 @@ class CustomerRepository extends Repository
      *
      * @param  array  $data
      * @param  \Webkul\Customer\Models\Customer  $customer
-     * @param  string $type
+     * @param  string  $type
      * @return void
      */
     public function uploadImages($data, $customer, $type = 'image')
@@ -145,7 +143,7 @@ class CustomerRepository extends Repository
     /**
      * Get customers count by date.
      */
-    public function getCustomersCountByDate(?Carbon $from = null, Carbon $to = null): ?int
+    public function getCustomersCountByDate(?Carbon $from = null, ?Carbon $to = null): ?int
     {
         if ($from && $to) {
             return $this->count([['created_at', '>=', $from], ['created_at', '<=', $to]]);

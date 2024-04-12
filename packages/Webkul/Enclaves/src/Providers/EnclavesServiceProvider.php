@@ -16,7 +16,7 @@ class EnclavesServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::middleware('web')->group(__DIR__ . '/../Routes/web.php');
-        
+
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'enclaves');
 
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'enclaves');

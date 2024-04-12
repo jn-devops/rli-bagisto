@@ -2,8 +2,8 @@
 
 namespace RLI\Attribute\Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 /*
 * Note: this seeder should be run in the same script as AttributeTableSeeder
@@ -11,10 +11,15 @@ use Illuminate\Database\Seeder;
 class AttributeOptionTableSeeder extends Seeder
 {
     protected array $locations = ['Laguna', 'Cavite', 'Rizal', 'Bulacan'];
+
     protected array $finishes = ['Bare', 'Fitted'];
+
     protected array $present_absent = ['Present', 'Absent'];
+
     protected array $yes_no = ['Yes', 'No'];
+
     protected array $style_option = ['Slant', 'Flat'];
+
     protected array $unit_type_option = ['House & Lot', 'Condominium'];
 
     public function run(): void

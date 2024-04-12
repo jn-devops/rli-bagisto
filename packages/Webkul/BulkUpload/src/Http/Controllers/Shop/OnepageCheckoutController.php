@@ -4,17 +4,17 @@ namespace Webkul\BulkUpload\Http\Controllers\Shop;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
 use Webkul\Checkout\Facades\Cart;
 use Webkul\Payment\Facades\Payment;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Controllers\API\APIController;
-use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
 
 class OnepageCheckoutController extends APIController
 {
     /**
      * Create a new controller instance.
-     * 
+     *
      * @return void
      */
     public function __construct(
@@ -38,25 +38,25 @@ class OnepageCheckoutController extends APIController
         $products = $this->productRepository->with('variants')->findWhereIn('id', $item);
 
         return new JsonResponse([
-            'flats' => $products->map( function ($product) {
-                        return $this->productPropertiesRepository
-                            ->with('slots')
-                            ->findWhereIn('product_id', $product->pluck('id')->toArray());
-                }),
+            'flats' => $products->map(function ($product) {
+                return $this->productPropertiesRepository
+                    ->with('slots')
+                    ->findWhereIn('product_id', $product->pluck('id')->toArray());
+            }),
         ]);
     }
 
     /**
      * Fetch slot on image
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function property()
     {
         return new JsonResponse([
             'slots' => $this->productPropertiesRepository
-                            ->with('slots')
-                            ->where(['product_id' => request('product_id'), 'image_url' => request('imageUrl')])->get(),
+                ->with('slots')
+                ->where(['product_id' => request('product_id'), 'image_url' => request('imageUrl')])->get(),
         ]);
     }
 

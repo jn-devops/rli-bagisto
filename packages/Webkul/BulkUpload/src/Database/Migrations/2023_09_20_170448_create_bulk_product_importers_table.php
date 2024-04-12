@@ -28,4 +28,4 @@ class CreateBulkProductImportersTable extends Migration
     {
         Schema::dropIfExists('bulk_product_importers');
     }
-};
+}

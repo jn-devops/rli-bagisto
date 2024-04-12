@@ -2,8 +2,8 @@
 
 namespace Webkul\Enclaves\Helpers\Customer;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Customer\Repositories\CustomerRepository;
 
@@ -12,10 +12,9 @@ class CustomerHelper
     /**
      * Create a new helper instance.
      *
-     * @param  \Webkul\Customer\Repositories\CustomerRepository  $customerRepository
-     * @return  void
+     * @return void
      */
-    public function  __construct(
+    public function __construct(
         protected CustomerRepository $customerRepository,
     ) {
     }
@@ -23,12 +22,12 @@ class CustomerHelper
     /**
      * Update profile Imagfe
      */
-    public function updateProfile($data) 
+    public function updateProfile($data)
     {
         $manager = new ImageManager();
 
         $image = $manager->make(request()->file('image'))->encode('webp');
-       
+
         $dir = 'customer/' . $data['customer_id'];
 
         $name = Str::random(5) . '.webp';
@@ -38,10 +37,10 @@ class CustomerHelper
         $updateData = [
             'image' => $path,
         ];
-      
+
         $customer = $this->customerRepository->update($updateData, $data['customer_id']);
 
-        if(request()->hasFile('image')) {
+        if (request()->hasFile('image')) {
             if ($dir) {
                 Storage::delete($dir);
             }

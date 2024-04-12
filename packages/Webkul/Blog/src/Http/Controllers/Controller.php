@@ -2,17 +2,17 @@
 
 namespace Webkul\Blog\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Webkul\Core\Repositories\CoreConfigRepository;
+use Illuminate\Routing\Controller as BaseController;
+use Webkul\Blog\Repositories\BlogCategoryRepository;
+use Webkul\Blog\Repositories\BlogCommentRepository;
 use Webkul\Blog\Repositories\BlogRepository;
 use Webkul\Blog\Repositories\BlogTagRepository;
-use Webkul\Blog\Repositories\BlogCommentRepository;
-use Webkul\Blog\Repositories\BlogCategoryRepository;
-use Webkul\User\Repositories\AdminRepository;
+use Webkul\Core\Repositories\CoreConfigRepository;
 use Webkul\Shop\Repositories\ThemeCustomizationRepository;
+use Webkul\User\Repositories\AdminRepository;
 
 class Controller extends BaseController
 {
@@ -33,7 +33,7 @@ class Controller extends BaseController
         protected ThemeCustomizationRepository $themeCustomizationRepository,
     ) {
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -44,12 +44,22 @@ class Controller extends BaseController
         return redirect()->route('admin.session.create');
     }
 
+    /**
+     * Get the value of a configuration setting by its code.
+     *
+     * This function retrieves the value of a configuration setting from the
+     * database using its unique code. If the configuration setting is not found,
+     * the function returns null.
+     *
+     * @param string
+     * @return mixed
+     */
     public function getConfigByKey($code = '')
     {
         $config_val = null;
         if (! empty($code)) {
             $config = $this->coreConfigRepository->where('code', $code)->first();
-            
+
             if ($config) {
                 $config_val = $config->value;
             }
@@ -58,50 +68,60 @@ class Controller extends BaseController
         return $config_val;
     }
 
-
+    /**
+     * Get all blog tags with their corresponding post count.
+     *
+     * This function retrieves all blog tags from the database and calculates their
+     * post count by counting the number of occurrences of each tag in the blog posts.
+     * The function returns a collection of blog tags with their corresponding post
+     * count.
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function getTagsWithCount()
     {
         $blogTags = $this->blogRepository->get()->pluck('tags')->toarray();
-        
-        $allBlogTags_arr = explode(',', implode(',', $blogTags));
-        
-        $allBlogTags_arr = (! empty($allBlogTags_arr) && count($allBlogTags_arr) > 0) ? $allBlogTags_arr : [];
-        
-        $allBlogTags_arr_el_count = array_count_values($allBlogTags_arr);
-        
-        $tags = $this->blogTagRepository->where('status', 1)->get()->each(function ($item) use ($allBlogTags_arr_el_count) {
+
+        $allBlogTags = explode(',', implode(',', $blogTags));
+
+        $allBlogTags = (! empty($allBlogTags)) ? $allBlogTags : [];
+
+        $allBlogTagsArrCount = array_count_values($allBlogTags);
+
+        $tags = $this->blogTagRepository->where('status', 1)->get()->each(function ($item) use ($allBlogTagsArrCount) {
             $item->count = 0;
-            
-            $tag_id = ($item && isset($item->id) && ! empty($item->id) && ! is_null($item->id)) ? (int) $item->id : 0;
-            
-            if (count($allBlogTags_arr_el_count) > 0 && (int) $tag_id > 0) {
-                $item->count = (array_key_exists($tag_id, $allBlogTags_arr_el_count)) ? (int) $allBlogTags_arr_el_count[$tag_id] : 0;
+
+            $tagId = ($item && isset($item->id) && ! empty($item->id) && ! is_null($item->id)) ? (int) $item->id : 0;
+
+            if (count($allBlogTagsArrCount) > 0 && (int) $tagId > 0) {
+                $item->count = (array_key_exists($tagId, $allBlogTagsArrCount)) ? (int) $allBlogTagsArrCount[$tagId] : 0;
             }
         });
 
         return $tags;
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getCommentsRecursive($blog_id = 0, $parent_id = 0)
     {
-        $comments_datas = [];
+        $commentsResponse = [];
 
-        $comments_details = $this->blogCommentRepository
-                                ->where('post', $blog_id)
-                                ->where('parent_id', $parent_id)
-                                ->where('status', 2)
-                                ->get();
-        
-        if (! empty($comments_details)) {
-            $comments_datas = $comments_details->toarray();
-            
-            if (! empty($comments_datas)) {
-                foreach ($comments_datas as $key => $comments_data) {
-                    $comments_datas[$key]['replay'] = $this->getCommentsRecursive($blog_id, $comments_data['id']);
+        $comments = $this->blogCommentRepository
+            ->where('post', $blog_id)
+            ->where('parent_id', $parent_id)
+            ->where('status', 2)
+            ->get();
+
+        if (! empty($comments)) {
+            if (! empty($comments)) {
+                foreach ($comments as $key => $comment) {
+                    $commentsResponse[$key]['replay'] = $this->getCommentsRecursive($blog_id, $comment['id']);
                 }
             }
         }
 
-        return $comments_datas;
+        return $commentsResponse;
     }
 }

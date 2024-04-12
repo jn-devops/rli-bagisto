@@ -2,9 +2,9 @@
 
 namespace Webkul\Shop\Repositories;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\Shop\Contracts\ThemeCustomization;
@@ -24,7 +24,6 @@ class ThemeCustomizationRepository extends Repository
      *
      * @param  array  $imageOptions
      * @param  \Webkul\Shop\Contracts\ThemeCustomization  $theme
-     * 
      * @return void|string
      */
     public function uploadImage($imageOptions, $theme, $deletedSliderImages = [])
@@ -39,15 +38,15 @@ class ThemeCustomizationRepository extends Repository
             foreach ($imageOptions['options'] as $image) {
                 $manager = new ImageManager();
 
-                if($image['isUsingCDN'] === 'true') {
+                if ($image['isUsingCDN'] === 'true') {
                     $imageContent = $manager->make(file_get_contents(trim($image['image_cdn_link'])))->encode('webp');
 
                     $path = 'theme/' . $theme->id . '/' . Str::random(40) . '.webp';
-                  
+
                     Storage::put($path, $imageContent);
 
                     if (
-                        isset($imageOptions['type']) 
+                        isset($imageOptions['type'])
                         && $imageOptions['type'] == 'static_content'
                     ) {
                         return Storage::url($path);
@@ -68,27 +67,27 @@ class ThemeCustomizationRepository extends Repository
                 } else {
                     if ($image['image'] instanceof UploadedFile) {
                         $path = 'theme/' . $theme->id . '/' . Str::random(40) . '.webp';
-    
+
                         Storage::put($path, $manager->make($image['image'])->encode('webp'));
-    
+
                         if (
-                            isset($imageOptions['type']) 
+                            isset($imageOptions['type'])
                             && $imageOptions['type'] == 'static_content'
                         ) {
                             return Storage::url($path);
                         }
-    
+
                         $options['images'][] = [
                             'image'       => 'storage/' . $path,
                             'link'        => $image['link'],
-    
+
                             // This is customizatio code
                             'button_text'    => $image['button_text'],
                             'slider_syntax'  => $image['slider_syntax'],
                             'image_cdn_link' => $image['image_cdn_link'],
                             'isUsingCDN'     => false,
                             // This is customizatio code
-                        
+
                         ];
                     } else {
                         $options['images'][] = $image;
@@ -98,7 +97,7 @@ class ThemeCustomizationRepository extends Repository
         }
 
         $theme->options = $options ?? [];
-    
+
         $theme->save();
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Webkul\Blog\Http\Controllers\Admin\PostController;
 use Webkul\Blog\Http\Controllers\Admin\CategoryController;
 use Webkul\Blog\Http\Controllers\Admin\CommentController;
+use Webkul\Blog\Http\Controllers\Admin\PostController;
 use Webkul\Blog\Http\Controllers\Admin\SettingController;
 use Webkul\Blog\Http\Controllers\Admin\TagController;
 
-Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_url').'/blog'], function () {
+Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_url') . '/blog'], function () {
 
     /**
      * Admin blog routes
@@ -90,4 +90,3 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => config('app.admin_ur
         Route::post('store', [SettingController::class, 'store'])->name('admin.blog.setting.store');
     });
 });
-

@@ -9,7 +9,6 @@ class ProductReceiver
     /**
      * Create account.
      *
-     * @param  array  $payload
      * @return void
      */
     public static function create(array $payload)

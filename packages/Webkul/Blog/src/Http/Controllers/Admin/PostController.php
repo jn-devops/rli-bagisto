@@ -2,8 +2,8 @@
 
 namespace Webkul\Blog\Http\Controllers\Admin;
 
-use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Datagrids\BlogDataGrid;
+use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Http\Requests\BlogRequest;
 
 class PostController extends Controller
@@ -51,26 +51,26 @@ class PostController extends Controller
     {
         $data = request()->all();
 
-        if (array_key_exists('locale', $data) 
+        if (array_key_exists('locale', $data)
                 && is_array($data['locale'])) {
             $data['locale'] = implode(',', $data['locale']);
         }
 
-        if (array_key_exists('tags', $data) 
+        if (array_key_exists('tags', $data)
                 && is_array($data['tags'])) {
             $data['tags'] = implode(',', $data['tags']);
         }
 
-        if (array_key_exists('categorys', $data) 
+        if (array_key_exists('categorys', $data)
                 && is_array($data['categorys'])) {
             $data['categorys'] = implode(',', $data['categorys']);
         }
 
         $data['author'] = '';
 
-        if (is_array($data) 
+        if (is_array($data)
                 && array_key_exists('author_id', $data)
-                && isset($data['author_id']) 
+                && isset($data['author_id'])
                 && (int) $data['author_id'] > 0) {
             $author = $this->adminRepository->where('id', $data['author_id'])->first();
 
@@ -98,14 +98,14 @@ class PostController extends Controller
     {
         $loggedInUser = auth()->guard('admin')->user();
 
-        $user_id = $loggedInUser->id ?? 0;
+        $userId = $loggedInUser->id ?? 0;
 
         $role = $loggedInUser?->role?->name ?? 'Administrator';
 
         $blog = $this->blogRepository->findOrFail($id);
 
-        if ($blog 
-                && $user_id != $blog->author_id 
+        if ($blog
+                && $userId != $blog->author_id
                 && $role != 'Administrator'
         ) {
             return redirect()->route('admin.blog.index');
@@ -132,26 +132,26 @@ class PostController extends Controller
     {
         $data = request()->all();
 
-        if (array_key_exists('locale', $data) 
+        if (array_key_exists('locale', $data)
                 && is_array($data['locale'])) {
             $data['locale'] = implode(',', $data['locale']);
         }
 
-        if (array_key_exists('tags', $data) 
+        if (array_key_exists('tags', $data)
                 && is_array($data['tags'])) {
             $data['tags'] = implode(',', $data['tags']);
         }
 
-        if (array_key_exists('categorys', $data) 
+        if (array_key_exists('categorys', $data)
                 && is_array($data['categorys'])) {
             $data['categorys'] = implode(',', $data['categorys']);
         }
 
         $data['author'] = '';
 
-        if (is_array($data) 
-                && array_key_exists('author_id', $data) 
-                && isset($data['author_id']) 
+        if (is_array($data)
+                && array_key_exists('author_id', $data)
+                && isset($data['author_id'])
                 && (int) $data['author_id'] > 0) {
             $author_data = $this->adminRepository->where('id', $data['author_id'])->first();
 

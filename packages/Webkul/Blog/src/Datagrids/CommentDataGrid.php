@@ -14,19 +14,19 @@ class CommentDataGrid extends DataGrid
      */
     public function prepareQueryBuilder()
     {
-        $loggedIn_user = auth()->guard('admin')->user()->toarray();
+        $loggedInUser = auth()->guard('admin')->user();
 
-        $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
-        
-        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
+        $userId = $loggedInUser->id ?? 0;
+
+        $role = $loggedInUser->role->name ?? 'Administrator';
 
         $queryBuilder = DB::table('blog_comments');
 
         if ($role != 'Administrator') {
-            $blogs = Blog::where('author_id', $user_id)->get();
+            $blogs = Blog::where('author_id', $userId)->get();
 
-            $post_ids = (! empty($blogs) && count($blogs) > 0) ? $blogs->pluck('id')->toarray() : [];
-            
+            $post_ids = ! empty($blogs) ? $blogs->pluck('id')->toarray() : [];
+
             $queryBuilder->whereIn('blog_comments.post', $post_ids);
         }
 
@@ -58,10 +58,8 @@ class CommentDataGrid extends DataGrid
             'filterable' => false,
             'closure'    => function ($row) {
                 $post = app(BlogRepository::class)->where('id', $row->post)->first();
-                
-                $post_name = (! empty($post->name)) ? $post->name : '-';
 
-                return $post_name;
+                return $post?->name ?? '-';
             },
         ]);
 
@@ -83,11 +81,11 @@ class CommentDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status == 1) {
-                    return '<span class="badge badge-md badge-warning label-pending">'.trans('blog::app.datagrids.comment.status.pending').'</span>';
+                    return '<span class="badge badge-md badge-warning label-pending">' . trans('blog::app.datagrids.comment.status.pending') . '</span>';
                 } elseif ($row->status == 2) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.comment.status.approved').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.datagrids.comment.status.approved') . '</span>';
                 } elseif ($row->status == 0) {
-                    return '<span class="badge badge-md badge-danger label-canceled">'.trans('blog::app.datagrids.comment.status.rejected').'</span>';
+                    return '<span class="badge badge-md badge-danger label-canceled">' . trans('blog::app.datagrids.comment.status.rejected') . '</span>';
                 }
             },
         ]);
@@ -100,7 +98,7 @@ class CommentDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                if ($row->created_at != '' 
+                if ($row->created_at != ''
                     && $row->created_at != null) {
                     return date_format(date_create($row->created_at), 'j F, Y');
                 }

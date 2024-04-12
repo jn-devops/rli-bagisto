@@ -3,12 +3,14 @@
 namespace Webkul\BulkUpload\Repositories\Products;
 
 use Illuminate\Support\Facades\Validator;
+use Webkul\Admin\Validations\ProductCategoryUniqueSlug;
 use Webkul\Core\Eloquent\Repository;
 use Webkul\Core\Rules\Decimal;
 use Webkul\Core\Rules\Slug;
 use Webkul\Product\Models\ProductAttributeValue;
-use Webkul\Admin\Validations\ProductCategoryUniqueSlug;
-use Webkul\Product\Repositories\{ProductRepository, ProductFlatRepository, ProductAttributeValueRepository};
+use Webkul\Product\Repositories\ProductAttributeValueRepository;
+use Webkul\Product\Repositories\ProductFlatRepository;
+use Webkul\Product\Repositories\ProductRepository;
 
 class HelperRepository extends Repository
 {
@@ -40,8 +42,8 @@ class HelperRepository extends Repository
     /**
      * validation Rules for creating product
      *
-     * @param integer $dataFlowProfileId
-     * @param array $records
+     * @param  int  $dataFlowProfileId
+     * @param  array  $records
      * @param  \Webkul\Product\Contracts\Product  $product
      * @return array
      */
@@ -57,7 +59,7 @@ class HelperRepository extends Repository
         ]);
 
         foreach ($product->getEditableAttributes() as $attribute) {
-            if ($attribute->code == 'sku' 
+            if ($attribute->code == 'sku'
                     || $attribute->type == 'boolean') {
                 continue;
             }
@@ -65,7 +67,7 @@ class HelperRepository extends Repository
             // Initialize validations with required or nullable based on attribute settings
             $validations = [$attribute->is_required ? 'required' : 'nullable'];
 
-            if ($attribute->type == 'text' 
+            if ($attribute->type == 'text'
                     && $attribute->validation) {
                 // Add custom validation rules if applicable
                 $validations[] = $attribute->validation == 'decimal' ? new Decimal : $attribute->validation;
@@ -80,7 +82,7 @@ class HelperRepository extends Repository
                 // Add unique validation for unique attributes
                 $validations[] = function ($field, $value, $fail) use ($attribute, $product) {
                     $column = ProductAttributeValue::$attributeTypeFields[$attribute->type];
-                    
+
                     if (! $this->productAttributeValueRepository->isValueUnique($product, $attribute->id, $column, request($attribute->code))) {
                         $fail('The :attribute has already been taken.');
                     }
@@ -90,14 +92,14 @@ class HelperRepository extends Repository
             // Assign validations to the rules array
             $this->rules[$attribute->code] = $validations;
         }
-        
+
         return $this->rules;
     }
 
     /**
      * delete Product if validation fails
      *
-     * @param  integer  $id
+     * @param  int  $id
      * @return void
      */
     public function deleteProductIfNotValidated($id)
@@ -108,12 +110,12 @@ class HelperRepository extends Repository
     /**
      * Validation check for product creation
      *
-     * @param  array $record
-     * @param  integer $loopCount
+     * @param  array  $record
+     * @param  int  $loopCount
      * @return void
      */
     public function createProductValidation($record, $loopCount)
-    {   
+    {
         try {
             $validateProduct = Validator::make($record, [
                 'type' => 'required',
@@ -122,18 +124,18 @@ class HelperRepository extends Repository
 
             if ($validateProduct->fails()) {
                 $errors = $validateProduct->errors()->all();
-                
-                $recordCount = (int)$loopCount + 1;
+
+                $recordCount = (int) $loopCount + 1;
 
                 $errorToBeReturn = array_map(function ($error) use ($recordCount) {
-                    return str_replace(".", "", $error) . " for record " . $recordCount;
+                    return str_replace('.', '', $error) . ' for record ' . $recordCount;
                 }, $errors);
 
                 return ['error' => $errorToBeReturn];
             }
 
             return null;
-        } catch(\EXception $e) {
+        } catch (\EXception $e) {
         }
     }
 }

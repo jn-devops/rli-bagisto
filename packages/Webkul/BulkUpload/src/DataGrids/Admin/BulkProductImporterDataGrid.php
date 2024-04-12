@@ -2,13 +2,13 @@
 
 namespace Webkul\BulkUpload\DataGrids\Admin;
 
-use Webkul\DataGrid\DataGrid;
 use Illuminate\Support\Facades\DB;
+use Webkul\DataGrid\DataGrid;
 
 class BulkProductImporterDataGrid extends DataGrid
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $index = 'id';
 
@@ -46,7 +46,7 @@ class BulkProductImporterDataGrid extends DataGrid
         $this->addFilter('created_at', 'bulk_product_importers.created_at');
         $this->addFilter('profile_name', 'bulk_product_importers.name');
         $this->addFilter('name', 'attribute_families.name');
-            
+
         return $queryBuilder;
     }
 

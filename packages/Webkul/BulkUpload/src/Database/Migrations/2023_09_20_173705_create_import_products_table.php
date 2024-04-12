@@ -42,4 +42,4 @@ class CreateImportProductsTable extends Migration
     {
         Schema::dropIfExists('import_products');
     }
-};
+}

@@ -2,15 +2,15 @@
 
 namespace Webkul\Shop\Http\Controllers\API;
 
-use Illuminate\Support\Str;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Webkul\Checkout\Facades\Cart;
-use Webkul\Shop\Http\Resources\CartResource;
-use Webkul\Product\Repositories\ProductRepository;
-use Webkul\Customer\Repositories\WishlistRepository;
+use Illuminate\Support\Str;
 use Webkul\CartRule\Repositories\CartRuleCouponRepository;
+use Webkul\Checkout\Facades\Cart;
+use Webkul\Customer\Repositories\WishlistRepository;
+use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Shop\Http\Resources\CartResource;
 
 class CartController extends APIController
 {
@@ -23,8 +23,7 @@ class CartController extends APIController
         protected WishlistRepository $wishlistRepository,
         protected ProductRepository $productRepository,
         protected CartRuleCouponRepository $cartRuleCouponRepository
-    )
-    {
+    ) {
     }
 
     /**
@@ -35,7 +34,7 @@ class CartController extends APIController
         Cart::collectTotals();
 
         $response = [
-            'data' => ($cart = Cart::getCart()) ? new CartResource($cart) : null
+            'data' => ($cart = Cart::getCart()) ? new CartResource($cart) : null,
         ];
 
         if (session()->has('info')) {
@@ -88,9 +87,9 @@ class CartController extends APIController
                     return new JsonResource([
                         'data'          => $cartResource,
                         'ekyc_redirect' => route('ekyc.verification.index', [
-                                                'slug'   => Str::slug(strtolower($product->getAttribute('name'))),
-                                                'cartId' => $cartResource->id,
-                                            ]),
+                            'slug'   => Str::slug(strtolower($product->getAttribute('name'))),
+                            'cartId' => $cartResource->id,
+                        ]),
                         'redirect'      => route('shop.checkout.onepage.index'),
                         'message'       => trans('shop::app.checkout.cart.item-add-to-cart'),
                     ]);
@@ -127,8 +126,6 @@ class CartController extends APIController
 
     /**
      * Method for remove selected items from cart
-     * 
-     * @return \Illuminate\Http\Resources\Json\JsonResource
      */
     public function destroySelected(): JsonResource
     {
@@ -144,8 +141,6 @@ class CartController extends APIController
 
     /**
      * Method for move to wishlist selected items from cart
-     * 
-     * @return \Illuminate\Http\Resources\Json\JsonResource
      */
     public function moveToWishlist(): JsonResource
     {
@@ -191,9 +186,9 @@ class CartController extends APIController
 
                 if (! $coupon) {
                     return (new JsonResource([
-                            'data'     => new CartResource(Cart::getCart()),
-                            'message'  => trans('Coupon not found.'),
-                        ]))
+                        'data'     => new CartResource(Cart::getCart()),
+                        'message'  => trans('Coupon not found.'),
+                    ]))
                         ->response()
                         ->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                 }
@@ -201,9 +196,9 @@ class CartController extends APIController
                 if ($coupon->cart_rule->status) {
                     if (Cart::getCart()->coupon_code == $couponCode) {
                         return (new JsonResource([
-                                'data'     => new CartResource(Cart::getCart()),
-                                'message'  => trans('shop::app.checkout.cart.coupon-already-applied'),
-                            ]))
+                            'data'     => new CartResource(Cart::getCart()),
+                            'message'  => trans('shop::app.checkout.cart.coupon-already-applied'),
+                        ]))
                             ->response()
                             ->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                     }
@@ -223,8 +218,8 @@ class CartController extends APIController
                 'data'    => new CartResource(Cart::getCart()),
                 'message' => trans('shop::app.checkout.cart.coupon.error'),
             ]))
-            ->response()
-            ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+                ->response()
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

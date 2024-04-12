@@ -2,9 +2,9 @@
 
 return [
     [
-        'key' => 'category',
-        'name' => 'Category',
+        'key'   => 'category',
+        'name'  => 'Category',
         'route' => 'admin.category.index',
-        'sort' => 2
-    ]
+        'sort'  => 2,
+    ],
 ];

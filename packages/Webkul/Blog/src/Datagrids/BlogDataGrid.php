@@ -14,16 +14,16 @@ class BlogDataGrid extends DataGrid
      */
     public function prepareQueryBuilder()
     {
-        $loggedIn_user = auth()->guard('admin')->user()->toarray();
+        $loggedInUser = auth()->guard('admin')->user();
 
-        $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
+        $userId = $loggedInUser->id ?? 0;
 
-        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
+        $role = $loggedInUser->role->name ?? 'Administrator';
 
         $queryBuilder = DB::table('blogs');
 
         if ($role != 'Administrator') {
-            $queryBuilder->where('blogs.author_id', $user_id);
+            $queryBuilder->where('blogs.author_id', $userId);
         }
 
         $queryBuilder->select(
@@ -133,10 +133,10 @@ class BlogDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.blog.active').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.datagrids.blog.active') . '</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.datagrids.blog.reactive').'</span>';
+                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.datagrids.blog.reactive') . '</span>';
             },
         ]);
 
@@ -149,10 +149,10 @@ class BlogDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->allow_comments) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.blog.yes').'</span>';
-                } 
+                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.datagrids.blog.yes') . '</span>';
+                }
 
-                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.datagrids.blog.no').'</span>';
+                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.datagrids.blog.no') . '</span>';
             },
         ]);
 
@@ -164,7 +164,7 @@ class BlogDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                if ($row->published_at != '' 
+                if ($row->published_at != ''
                     && $row->published_at != null) {
                     return date_format(date_create($row->published_at), 'j F, Y');
                 }

@@ -2,9 +2,9 @@
 
 return [
     [
-        'key' => 'attribute',
-        'name' => 'Attribute',
+        'key'   => 'attribute',
+        'name'  => 'Attribute',
         'route' => 'admin.attribute.index',
-        'sort' => 2
-    ]
+        'sort'  => 2,
+    ],
 ];

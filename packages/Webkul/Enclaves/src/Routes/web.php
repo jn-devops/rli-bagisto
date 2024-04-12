@@ -6,6 +6,4 @@
  */
 require 'enclaves-routes.php';
 
-
-
 require 'admin-routes.php';

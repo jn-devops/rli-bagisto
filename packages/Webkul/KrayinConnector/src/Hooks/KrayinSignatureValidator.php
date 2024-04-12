@@ -11,10 +11,6 @@ class KrayinSignatureValidator implements SignatureValidator
 {
     /**
      * Is signature valid.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Spatie\WebhookClient\WebhookConfig  $config
-     * @return bool
      */
     public function isValid(Request $request, WebhookConfig $config): bool
     {

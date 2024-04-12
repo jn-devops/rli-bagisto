@@ -30,20 +30,18 @@ class SettingController extends Controller
             'blog_seo_meta_description',
         ];
 
-        $settingDeatils = $settings = [];
+        $settingDetails = $settings = [];
 
         $settings = $this->coreConfigRepository->whereIn('code', $configKeys)->get();
 
         if (! empty($settings)) {
-            $settings = $settings->toarray();
-
             foreach ($settings as $setting) {
-                $settingDeatils[$setting['code']] = $setting['value'];
+                $settingDetails[$setting->code] = $setting->value;
             }
         }
 
         foreach ($configKeys as $configKey) {
-            $settings[$configKey] = array_key_exists($configKey, $settingDeatils) ? $settingDeatils[$configKey] : '';
+            $settings[$configKey] = array_key_exists($configKey, $settingDetails) ? $settingDetails[$configKey] : '';
         }
 
         return view('blog::admin.setting.index', compact('settings'));
@@ -67,25 +65,22 @@ class SettingController extends Controller
             'switch_blog_post_enable_comment_moderation',
         ];
 
-        if (! empty($data)) {
-            foreach ($data as $key => $value) {
-                if (! in_array($key, $configExceptKeys)) {
+        foreach ($data ?? [] as $key => $value) {
+            if (! in_array($key, $configExceptKeys)) {
 
-                    $CoreConfig = $this->coreConfigRepository->where('code', $key)->first();
+                $CoreConfig = $this->coreConfigRepository->where('code', $key)->first();
 
-                    if ($CoreConfig) {
+                if ($CoreConfig) {
+                    $CoreConfig->value = $value;
+                } else {
+                    $CoreConfig = new CoreConfig();
 
-                        $CoreConfig->value = $value;
-                    } else {
-                        $CoreConfig = new CoreConfig();
+                    $CoreConfig->code = $key;
 
-                        $CoreConfig->code = $key;
-
-                        $CoreConfig->value = $value;
-                    }
-
-                    $CoreConfig->save();
+                    $CoreConfig->value = $value;
                 }
+
+                $CoreConfig->save();
             }
         }
 

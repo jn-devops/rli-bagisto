@@ -59,10 +59,10 @@ class TagDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 if ($row->status) {
-                    return '<span class="badge badge-md badge-success label-active">'.trans('blog::app.datagrids.tag.status.active').'</span>';
+                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.datagrids.tag.status.active') . '</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger label-info">'.trans('blog::app.datagrids.tag.status.in-active').'</span>';
+                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.datagrids.tag.status.in-active') . '</span>';
             },
         ]);
     }

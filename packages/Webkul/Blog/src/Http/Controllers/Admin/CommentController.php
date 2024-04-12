@@ -2,8 +2,8 @@
 
 namespace Webkul\Blog\Http\Controllers\Admin;
 
-use Webkul\Blog\Http\Controllers\Controller;
 use Webkul\Blog\Datagrids\CommentDataGrid;
+use Webkul\Blog\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
@@ -41,19 +41,19 @@ class CommentController extends Controller
     {
         $comment = $this->blogCommentRepository->findOrFail($id);
 
-        $loggedInUser = auth()->guard('admin')->user()->toarray();
-        
-        $userId = (array_key_exists('id', $loggedInUser)) ? $loggedInUser['id'] : 0;
-        
-        $role = (array_key_exists('role', $loggedInUser)) ? (array_key_exists('name', $loggedInUser['role']) ? $loggedInUser['role']['name'] : 'Administrator') : 'Administrator';
-        
+        $loggedInUser = auth()->guard('admin')->user();
+
+        $userId = $loggedInUser->id ?? 0;
+
+        $role = $loggedInUser->role->name ?? 'Administrator';
+
         if ($role != 'Administrator') {
             $blogs = $this->blogRepository->where('author_id', $userId)->get();
-           
+
             $postIds = ! empty($blogs) ? $blogs->pluck('id')->toarray() : [];
-            
+
             $checkComment = $this->blogCommentRepository->where('id', $id)->whereIn('post', $postIds)->first();
-            
+
             if (! $checkComment) {
                 return redirect()->route('admin.blog.comment.index');
             }
@@ -74,7 +74,7 @@ class CommentController extends Controller
                 'id'   => 1,
                 'name' => 'blog::app.comments.edit.status.pending',
             ], [
-                'id'   => 2, 
+                'id'   => 2,
                 'name' => 'blog::app.comments.edit.status.approved',
             ], [
                 'id'   => 0,
@@ -139,7 +139,7 @@ class CommentController extends Controller
         if (request()->isMethod('post')) {
             $indexes = (array) request()->input('indices');
 
-            foreach ($indexes as $key => $value) {
+            foreach ($indexes as $value) {
                 try {
                     $this->blogCommentRepository->delete($value);
                 } catch (\Exception $e) {

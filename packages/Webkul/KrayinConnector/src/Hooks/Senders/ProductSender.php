@@ -2,7 +2,6 @@
 
 namespace Webkul\KrayinConnector\Hooks\Senders;
 
-use Illuminate\Support\Facades\Log;
 use Spatie\WebhookServer\WebhookCall;
 use Webkul\Product\Repositories\ProductRepository;
 
@@ -42,13 +41,12 @@ class ProductSender
      *
      * @return void
      */
-    public static function updateProductQty($refund) 
+    public static function updateProductQty($refund)
     {
         try {
-            foreach($refund->items->pluck('additional')->toArray() as $item)
-            {
+            foreach ($refund->items->pluck('additional')->toArray() as $item) {
                 $product = app(ProductRepository::class)->findOrFail($item['product_id']);
-               
+
                 $payload = [
                     'api_entity_type'           => 'product.refund.quantity',
                     'api_entity_source_type_id' => 2,
@@ -60,14 +58,14 @@ class ProductSender
                     ->url(webhook_server_url())
                     ->useSecret(webhook_server_secret())
                     ->payload($payload)
-                    ->dispatch();   
+                    ->dispatch();
 
-            }   
+            }
         } catch (\Throwable $th) {
             //throw $th;
-        }     
+        }
     }
-    
+
     /**
      * delete product on krayin crm.
      *
@@ -88,6 +86,6 @@ class ProductSender
                 ->dispatch();
         } catch (\Throwable $th) {
             //throw $th;
-        } 
+        }
     }
 }

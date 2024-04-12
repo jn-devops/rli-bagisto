@@ -2,15 +2,15 @@
 
 namespace RLI\Attribute\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Routing\Controller;
 
 class AttributeController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
+
     /**
      * Contains route related configuration
      *
@@ -57,7 +57,7 @@ class AttributeController extends Controller
      */
     public function store()
     {
-        
+
     }
 
     /**
@@ -79,7 +79,7 @@ class AttributeController extends Controller
      */
     public function update($id)
     {
-        
+
     }
 
     /**
@@ -90,6 +90,6 @@ class AttributeController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 }

@@ -43,7 +43,7 @@ class OnepageController extends Controller
         }
 
         $cart = Cart::getCart();
-        
+
         /**
          * If cart is has downloadable items and customer is not logged in
          * then redirect back to the cart page
@@ -72,7 +72,7 @@ class OnepageController extends Controller
 
         if (! $cart->checkMinimumOrder()) {
             session()->flash('warning', trans('shop::app.checkout.cart.minimum-order-message', [
-                'amount' => core()->currency($minimumOrderAmount)
+                'amount' => core()->currency($minimumOrderAmount),
             ]));
 
             return redirect()->back();

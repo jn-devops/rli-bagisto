@@ -93,16 +93,16 @@ class BlogCategoryUniqueSlug implements Rule
             && $this->tableName === 'blog_categories'
         ) {
             return app(BlogCategoryRepository::class)->where('id', '<>', $this->id)
-                    ->where('slug', $slug)
-                    ->limit(1)
-                    ->select(DB::raw(1))
-                    ->exists();
+                ->where('slug', $slug)
+                ->limit(1)
+                ->select(DB::raw(1))
+                ->exists();
         }
 
         return app(BlogCategoryRepository::class)->where('slug', $slug)
-                    ->limit(1)
-                    ->select(DB::raw(1))
-                    ->exists();
+            ->limit(1)
+            ->select(DB::raw(1))
+            ->exists();
     }
 
     /**

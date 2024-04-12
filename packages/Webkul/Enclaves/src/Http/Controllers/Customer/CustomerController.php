@@ -4,13 +4,13 @@ namespace Webkul\Enclaves\Http\Controllers\Customer;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-use Webkul\Shop\Http\Controllers\Controller;
-use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Core\Repositories\SubscribersListRepository;
-use Webkul\Product\Repositories\ProductReviewRepository;
+use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Enclaves\Http\Requests\Customer\ProfileRequest;
 use Webkul\Enclaves\Repositories\CustomerAttributeRepository;
 use Webkul\Enclaves\Repositories\CustomerAttributeValueRepository;
+use Webkul\Product\Repositories\ProductReviewRepository;
+use Webkul\Shop\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
@@ -25,8 +25,7 @@ class CustomerController extends Controller
         protected SubscribersListRepository $subscriptionRepository,
         protected CustomerAttributeRepository $customerAttributeRepository,
         protected CustomerAttributeValueRepository $customerAttributeValueRepository,
-    )
-    {
+    ) {
     }
 
     /**
@@ -71,7 +70,7 @@ class CustomerController extends Controller
             'attribute_id' => $data['attribute_id'],
         ], $data);
 
-        if($customer) {
+        if ($customer) {
             return new JsonResponse([
                 'message' => [
                     'success' => trans('shop::app.customers.account.profile.edit-success'),
@@ -81,7 +80,7 @@ class CustomerController extends Controller
 
         return new JsonResponse([
             'message' => [
-                'fail' =>  trans('shop::app.customer.account.profile.edit-fail'),
+                'fail' => trans('shop::app.customer.account.profile.edit-fail'),
             ],
         ]);
     }
@@ -151,23 +150,23 @@ class CustomerController extends Controller
 
     /**
      * find all attributes values
-     * 
-     * @param mixed $attributesAndOptions
+     *
+     * @param  mixed  $attributesAndOptions
      */
     public function attributeValues($attributesAndOptions): mixed
     {
         $values = [];
 
         $customer_id = auth()->guard('customer')->user()->id;
-        
+
         foreach ($attributesAndOptions as $type => $attributes) {
-            foreach($attributes as $attribute) {
+            foreach ($attributes as $attribute) {
                 $values[$type][$attribute->code] = $this->customerAttributeValueRepository
-                                                    ->findOneByField([
-                                                        'attribute_id' => $attribute->id,
-                                                        'name'         => $attribute->code,
-                                                        'customer_id'  => $customer_id,
-                                                    ])?->value;
+                    ->findOneByField([
+                        'attribute_id' => $attribute->id,
+                        'name'         => $attribute->code,
+                        'customer_id'  => $customer_id,
+                    ])?->value;
             }
         }
 

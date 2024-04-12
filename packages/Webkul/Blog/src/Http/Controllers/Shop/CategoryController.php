@@ -20,17 +20,17 @@ class CategoryController extends Controller
     {
         $category = $this->blogCategoryRepository->where('slug', $category_slug)->firstOrFail();
 
-        $category_id = isset($category) ? $category->id : 0;
+        $categoryId = isset($category) ? $category->id : 0;
 
         $paginate = $this->getConfigByKey('blog_post_per_page');
 
-        $paginate = ! empty($paginate) ? (int) $paginate : 9;
+        $paginate = $paginate ?? 9;
 
         $blogs = $this->blogRepository->orderBy('id', 'desc')->where('status', 1)
             ->where(
-                function ($query) use ($category_id) {
-                    $query->where('default_category', $category_id)
-                        ->orWhereRaw('FIND_IN_SET(?, categorys)', [$category_id]);
+                function ($query) use ($categoryId) {
+                    $query->where('default_category', $categoryId)
+                        ->orWhereRaw('FIND_IN_SET(?, categorys)', [$categoryId]);
                 })
             ->paginate($paginate);
 
@@ -43,18 +43,30 @@ class CategoryController extends Controller
             'channel_id' => core()->getCurrentChannel()->id,
         ]);
 
-        $show_categories_count = $this->getConfigByKey('blog_post_show_categories_with_count');
+        $showCategoriesCount = $this->getConfigByKey('blog_post_show_categories_with_count');
 
-        $show_tags_count = $this->getConfigByKey('blog_post_show_tags_with_count');
+        $showTagsCount = $this->getConfigByKey('blog_post_show_tags_with_count');
 
-        $show_author_page = $this->getConfigByKey('blog_post_show_author_page');
+        $showAuthorPage = $this->getConfigByKey('blog_post_show_author_page');
 
-        $blog_seo_meta_title = $this->getConfigByKey('blog_seo_meta_title');
+        $blogSeoMetaTitle = $this->getConfigByKey('blog_seo_meta_title');
 
-        $blog_seo_meta_keywords = $this->getConfigByKey('blog_seo_meta_keywords');
+        $blogSeoMetaKeywords = $this->getConfigByKey('blog_seo_meta_keywords');
 
-        $blog_seo_meta_description = $this->getConfigByKey('blog_seo_meta_description');
+        $blogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
 
-        return view('blog::shop.category.index', compact('blogs', 'categories', 'customizations', 'category', 'tags', 'show_categories_count', 'show_tags_count', 'show_author_page', 'blog_seo_meta_title', 'blog_seo_meta_keywords', 'blog_seo_meta_description'));
+        return view('blog::shop.blog.category.index', compact(
+            'blogs',
+            'categories',
+            'customizations',
+            'category',
+            'tags',
+            'showCategoriesCount',
+            'showTagsCount',
+            'showAuthorPage',
+            'blogSeoMetaTitle',
+            'blogSeoMetaKeywords',
+            'blogSeoMetaDescription'
+        ));
     }
 }

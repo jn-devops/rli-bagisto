@@ -2,8 +2,8 @@
 
 namespace Webkul\User\Http\Middleware;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Route;
 
 class Bouncer
 {
@@ -11,7 +11,6 @@ class Bouncer
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @param  string|null  $guard
      * @return mixed
      */

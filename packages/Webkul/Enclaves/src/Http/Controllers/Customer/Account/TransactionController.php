@@ -3,17 +3,15 @@
 namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 use Webkul\Core\Traits\PDFHandler;
-use Webkul\Sales\Repositories\OrderRepository;
+use Webkul\Enclaves\DataGrids\TransactionDataGrid;
 use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Sales\Repositories\InvoiceRepository;
-use Webkul\Enclaves\DataGrids\TransactionDataGrid;
+use Webkul\Sales\Repositories\OrderRepository;
 
 class TransactionController extends Controller
 {
     use PDFHandler;
 
-    /**
-     */
     public function __construct(
         protected OrderRepository $orderRepository,
         protected InvoiceRepository $invoiceRepository

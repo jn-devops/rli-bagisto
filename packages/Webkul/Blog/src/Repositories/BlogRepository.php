@@ -83,9 +83,9 @@ class BlogRepository extends Repository
     {
         if (isset($data[$type])) {
             foreach ($data[$type] as $imageId => $image) {
-                $file = $type.'.'.$imageId;
+                $file = $type . '.' . $imageId;
 
-                $dir = 'blog-images/'.$blog->id;
+                $dir = 'blog-images/' . $blog->id;
 
                 if (request()->hasFile($file)) {
                     if ($blog->{$type}) {
@@ -96,7 +96,7 @@ class BlogRepository extends Repository
 
                     $image = $manager->make(request()->file($file))->encode('webp');
 
-                    $blog->{$type} = $dir.'/'.Str::random(40).'.webp';
+                    $blog->{$type} = $dir . '/' . Str::random(40) . '.webp';
 
                     Storage::put($blog->{$type}, $image);
 
@@ -141,11 +141,11 @@ class BlogRepository extends Repository
         $locale = config('app.locale');
 
         $blogs = DB::table('blogs')
-                    ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-                    ->where('status', 1)
-                    ->where('locale', $locale)
-                    ->orderBy('id', 'DESC')
-                    ->paginate(12);
+            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('status', 1)
+            ->where('locale', $locale)
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
 
         return $blogs;
     }
@@ -158,10 +158,10 @@ class BlogRepository extends Repository
     public function getSingleBlogs($id)
     {
         $blog = DB::table('blogs')
-                ->whereSlug($id)
-                ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-                ->where('status', 1)
-                ->first();
+            ->whereSlug($id)
+            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('status', 1)
+            ->first();
 
         return $blog;
     }
@@ -179,12 +179,12 @@ class BlogRepository extends Repository
             ->where('slug', $id)->first();
 
         $blogs = DB::table('blogs')
-                    ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-                    ->where('default_category', $categoryId['id'])
-                    ->where('status', 1)
-                    ->where('locale', $locale)
-                    ->orderBy('id', 'DESC')
-                    ->paginate(12);
+            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('default_category', $categoryId['id'])
+            ->where('status', 1)
+            ->where('locale', $locale)
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
 
         return $blogs;
     }

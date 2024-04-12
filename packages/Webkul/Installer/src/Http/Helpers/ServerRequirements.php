@@ -13,8 +13,6 @@ class ServerRequirements
 
     /**
      * Check for the server requirements.
-     *
-     * @return array
      */
     public function validate(): array
     {
@@ -63,7 +61,7 @@ class ServerRequirements
      *
      * @return array
      */
-    public function checkPHPversion(string $minPhpVersion = null)
+    public function checkPHPversion(?string $minPhpVersion = null)
     {
         $minVersionPhp = $minPhpVersion ?? $this->minPhpVersion;
 

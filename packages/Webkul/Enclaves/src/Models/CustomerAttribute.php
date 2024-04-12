@@ -2,9 +2,9 @@
 
 namespace Webkul\Enclaves\Models;
 
-use Webkul\Core\Eloquent\TranslatableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Webkul\Core\Eloquent\TranslatableModel;
 use Webkul\Enclaves\Contracts\CustomerAttribute as CustomerAttributeContract;
 
 class CustomerAttribute extends TranslatableModel implements CustomerAttributeContract

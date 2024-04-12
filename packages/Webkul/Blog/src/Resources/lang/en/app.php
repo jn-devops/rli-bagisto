@@ -55,7 +55,7 @@ return [
             'select-author'              => 'Select Author',
             'default-category'           => 'Default Category',
             'select-default-category'    => 'Select Default Category',
-            'additional-categories'      => "Additional Categories",
+            'additional-categories'      => 'Additional Categories',
             'tag-title'                  => 'Tags',
 
             'success' => [
@@ -64,7 +64,7 @@ return [
 
             'failure' => [
                 'message' => 'An error occurred while creating a blog.',
-            ], 
+            ],
         ],
 
         'edit' => [
@@ -91,7 +91,7 @@ return [
             'select-author'              => 'Select Author',
             'default-category'           => 'Default Category',
             'select-default-category'    => 'Select Default Category',
-            'additional-categories'      => "Additional Categories",
+            'additional-categories'      => 'Additional Categories',
             'tag-title'                  => 'Tags',
 
             'success' => [
@@ -131,7 +131,7 @@ return [
             'meta-keywords'              => 'Meta Keywords',
             'settings'                   => 'Settings',
             'parent-category'            => 'Parent Category',
-            
+
             'created' => [
                 'success' => 'Category Update successfully',
                 'failure' => 'An error occurred while updating the category.',
@@ -167,7 +167,7 @@ return [
         'index' => [
             'title'      => 'Tags',
             'create-tag' => 'Create Tag',
-            'status' => [
+            'status'     => [
                 'active'   => 'Active',
                 'reactive' => 'Reactive',
             ],
@@ -194,7 +194,7 @@ return [
             'meta-keywords'              => 'Meta Keywords',
             'create-btn-title'           => 'Save Tag',
             'status'                     => 'Status',
-            'updated' => [
+            'updated'                    => [
                 'success' => 'Tag updated successfully',
                 'failure' => 'Tag cannot be updated',
             ],
@@ -213,7 +213,7 @@ return [
             'meta-description'           => 'Meta Description',
             'meta-keywords'              => 'Meta Keywords',
             'status'                     => 'Status',
-            'created' => [
+            'created'                    => [
                 'success' => 'Tag created successfully',
                 'failure' => 'An error occurred while creating a tag.',
             ],
@@ -222,7 +222,7 @@ return [
 
     'comments' => [
         'index' => [
-            'title' => 'Comments',
+            'title'   => 'Comments',
             'deleted' => [
                 'success' => 'Comment deleted successfully',
                 'failure' => "Comment can't be deleted",
@@ -320,11 +320,11 @@ return [
         ],
 
         'tag' => [
-            'id'   => 'ID',
-            'name' => 'Name',
+            'id'     => 'ID',
+            'name'   => 'Name',
             'status' => [
-                'title'    => 'Status',
-                'active'   => 'Active',
+                'title'     => 'Status',
+                'active'    => 'Active',
                 'in-active' => 'Inactive',
             ],
             'edit'           => 'Edit',
@@ -348,7 +348,7 @@ return [
                 'tag-post-count'      => 'Show Tags With Posts Count',
                 'author-page'         => 'Show Author Page',
             ],
-        
+
             'comment' => [
                 'title'                        => 'Comment Setting',
                 'status'                       => 'Status',
@@ -361,6 +361,28 @@ return [
                 'meta-title'       => 'Meta Title',
                 'meta-keywords'    => 'Meta Keywords',
                 'meta-description' => 'Meta Description',
+            ],
+        ],
+    ],
+
+    'shop' => [
+        'blog' => [
+            'title'            => 'Blog',
+            'news_and_updates' => "News & Updates",
+            'details_page'     => "Details Page",
+            'read-more'        => 'Read More',
+
+            'post' => [
+                'view' => [
+                    'author'         => 'Author:',
+                    'date-published' => 'Date published:',
+                    'check-out-news' => 'Check out our other news & updates',
+                ],
+    
+                'index' => [
+                    'title'     => 'News & Updates',
+                    'no-record' => 'No Records available!',
+                ],
             ],
         ],
     ],
