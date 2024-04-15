@@ -8,7 +8,7 @@
             src="https://demo.thewebtech.co.in/vendor/blog/images/user.png"
             width="50" 
             height="50" 
-            class="mr-3 rounded-circle"
+            class="rounded-circle mr-3"
             style="background-color: rgb(223, 223, 223);"
         >
 
@@ -31,7 +31,7 @@
                     </button>
 
                     <div 
-                        class="row justify-content-center mt-3 d-none comment-form-holder" 
+                        class="row justify-content-center d-none comment-form-holder mt-3" 
                         style="display: none;"
                     >
 

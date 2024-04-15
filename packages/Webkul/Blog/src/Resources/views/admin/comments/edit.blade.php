@@ -15,16 +15,16 @@
     >
         {!! view_render_event('admin.blog.comments.edit.before') !!}
 
-        <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
-            <p class="text-[20px] text-gray-800 dark:text-white font-bold">
+        <div class="flex items-center justify-between gap-[16px] max-sm:flex-wrap">
+            <p class="text-[20px] font-bold text-gray-800 dark:text-white">
                 @lang('blog::app.comments.edit.title')
             </p>
 
-            <div class="flex gap-x-[10px] items-center">
+            <div class="flex items-center gap-x-[10px]">
                 <!-- Back Button -->
                 <a
                     href="{{ route('admin.blog.tag.index') }}"
-                    class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white"
+                    class="transparent-button hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800"
                 >
                     @lang('blog::app.comments.edit.back-btn')
                 </a>
@@ -40,14 +40,14 @@
         </div>
 
         <!-- Full Panel -->
-        <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
+        <div class="mt-[14px] flex gap-[10px] max-xl:flex-wrap">
 
             <!-- Left Section -->
-            <div class="flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
+            <div class="flex flex-1 flex-col gap-[8px] max-xl:flex-auto">
 
                 <!-- General -->
-                <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
-                    <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
+                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
+                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.comments.edit.general')
                     </p>
 
@@ -88,7 +88,7 @@
                                 id="post"
                                 v-bind="field"
                                 :class="[errors['{{ 'post' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
-                                class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
+                                class="flex min-h-[39px] w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                                 placeholder="{{ trans('blog::app.comments.edit.post') }}"
                                 v-slugify-target:slug="setValues"
                                 disabled="disabled"
@@ -123,7 +123,7 @@
                                 id="author_name"
                                 v-bind="field"
                                 :class="[errors['{{ 'author_name' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
-                                class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
+                                class="flex min-h-[39px] w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                                 placeholder="{{ trans('blog::app.comments.edit.name') }}"
                                 v-slugify-target:slug
                                 disabled="disabled"
@@ -137,7 +137,7 @@
                     </x-admin::form.control-group>
 
                     <!-- Published At -->
-                    <x-admin::form.control-group class="w-full mb-2.5">
+                    <x-admin::form.control-group class="mb-2.5 w-full">
                         <x-admin::form.control-group.label class="required">
                             @lang('blog::app.comments.edit.comment-date')
                         </x-admin::form.control-group.label>
@@ -190,12 +190,12 @@
             </div>
 
             <!-- Right Section -->
-            <div class="flex flex-col gap-[8px] w-[360px] max-w-full">
+            <div class="flex w-[360px] max-w-full flex-col gap-[8px]">
                 <!-- Settings -->
 
                 <x-admin::accordion>
                     <x-slot:header>
-                        <p class="p-[10px] text-gray-600 dark:text-gray-300 text-[16px] font-semibold">
+                        <p class="p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
                             @lang('blog::app.comments.edit.settings')
                         </p>
                     </x-slot:header>
@@ -203,7 +203,7 @@
                     <x-slot:content>
                         <!-- Status -->
                         <x-admin::form.control-group class="mb-2.5">
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
                                 @lang('blog::app.comments.edit.status.title')
                             </x-admin::form.control-group.label>
 

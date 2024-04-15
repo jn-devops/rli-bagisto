@@ -11,12 +11,12 @@
     >
         {!! view_render_event('admin.blogs.setting.before') !!}
 
-        <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
-            <p class="text-[20px] text-gray-800 dark:text-white font-bold">
+        <div class="flex items-center justify-between gap-[16px] max-sm:flex-wrap">
+            <p class="text-[20px] font-bold text-gray-800 dark:text-white">
                 @lang('blog::app.setting.index.title')
             </p>
 
-            <div class="flex gap-x-[10px] items-center">
+            <div class="flex items-center gap-x-[10px]">
                 <!-- Save Button -->
                 <button
                     type="submit"
@@ -28,11 +28,11 @@
         </div>
 
         <!-- Full Panel -->
-        <div class="flex gap-[10px] mt-[14px] max-xl:flex-wrap">
-            <div class="flex flex-col gap-[8px] flex-1 max-xl:flex-auto">
+        <div class="mt-[14px] flex gap-[10px] max-xl:flex-wrap">
+            <div class="flex flex-1 flex-col gap-[8px] max-xl:flex-auto">
             <!-- Post Setting Section -->
-                <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
-                    <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
+                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
+                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.setting.index.post.title')
                     </p>
 
@@ -83,7 +83,7 @@
                         >
                         
                         <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
                                 @lang('blog::app.setting.index.post.category-post-count')
                             </x-admin::form.control-group.label>
 
@@ -112,7 +112,7 @@
                         />
                         
                         <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
                                 @lang('blog::app.setting.index.post.tag-post-count')
                             </x-admin::form.control-group.label>
 
@@ -141,7 +141,7 @@
                         >
                         
                         <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
                                 @lang('blog::app.setting.index.post.author-page')
                             </x-admin::form.control-group.label>
 
@@ -164,8 +164,8 @@
                 </div>
                 
                 <!-- Comment Setting Section -->
-                <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
-                    <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
+                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
+                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.setting.index.comment.title')
                     </p>
 
@@ -179,7 +179,7 @@
                         />
                         
                         <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
                                 @lang('blog::app.setting.index.comment.status')
                             </x-admin::form.control-group.label>
 
@@ -206,7 +206,7 @@
                         >
 
                         <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
                                 @lang('blog::app.setting.index.comment.allow-guest-comment')
                             </x-admin::form.control-group.label>
 
@@ -248,10 +248,10 @@
                 </div>
             </div>
             
-            <div class="flex flex-col gap-[8px] w-[360px] max-w-full">
+            <div class="flex w-[360px] max-w-full flex-col gap-[8px]">
                 <!-- Default Blog SEO Setting Section -->
-                <div class="p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
-                    <p class="mb-[16px] text-[16px] text-gray-800 dark:text-white font-semibold">
+                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
+                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.setting.index.seo.title')
                     </p>
 

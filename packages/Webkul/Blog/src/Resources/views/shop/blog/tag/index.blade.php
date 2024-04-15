@@ -60,16 +60,16 @@
                                     </div>
                                 </section>
 
-                                <div class="flex flex-wrap grid-wrap">
+                                <div class="grid-wrap flex flex-wrap">
                                     <div class="column-12">
-                                        <div class="text-justify blog-post-content">
+                                        <div class="blog-post-content text-justify">
                                             {!! $tag->description !!}
                                         </div>
                                     </div>
                                     
                                     <div class="column-9">
                                         @if( !empty($blogs) &&  count($blogs) > 0 )
-                                            <div class="flex flex-wrap blog-grid-list">
+                                            <div class="blog-grid-list flex flex-wrap">
                                                 @foreach($blogs as $blog)
                                                     <div class="blog-post-item">
                                                         <div class="blog-post-box">
@@ -138,7 +138,7 @@
                                                     </div>
                                                 @endforeach
 
-                                                <div class="w-full col-lg-12 mt-5 mb-5">
+                                                <div class="col-lg-12 mb-5 mt-5 w-full">
                                                     {!! $blogs->links() !!}
                                                 </div>
                                             </div>
@@ -147,9 +147,9 @@
                                         @endif
                                     </div>
 
-                                    <div class=" column-3 blog-sidebar">
+                                    <div class="column-3 blog-sidebar">
                                         <div class="row">
-                                            <div class="col-lg-12 mb-4 categories"><h3>Categories</h3>
+                                            <div class="col-lg-12 categories mb-4"><h3>Categories</h3>
                                                 <ul class="list-group">
                                                     @foreach($categories as $category)
                                                         <li>

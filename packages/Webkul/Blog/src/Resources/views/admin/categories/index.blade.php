@@ -3,12 +3,12 @@
         @lang('blog::app.category.index.title')
     </x-slot:title>
 
-    <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
-        <p class="text-[20px] text-gray-800 dark:text-white font-bold">
+    <div class="flex items-center justify-between gap-[16px] max-sm:flex-wrap">
+        <p class="text-[20px] font-bold text-gray-800 dark:text-white">
             @lang('blog::app.category.index.title')
         </p>
 
-        <div class="flex gap-x-[10px] items-center">
+        <div class="flex items-center gap-x-[10px]">
             @if (bouncer()->hasPermission('blog.category.create'))
                 <a href="{{ route('admin.blog.category.create') }}">
                     <div class="primary-button">

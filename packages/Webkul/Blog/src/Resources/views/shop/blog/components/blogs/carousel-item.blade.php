@@ -6,9 +6,10 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-blog-card-template">
-        <div class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1">
+        <div class="min-w-[350px] max-w-[350px]">
+          
             <x-shop::media.images.lazy
-                class="h-[290px] cursor-pointer rounded-[20px] bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
+                class="h-[290px] rounded-[20px] bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
                 ::src="blog.base_image"
             ></x-shop::media.images.lazy>
     
@@ -19,7 +20,7 @@
 
             <button
                 @click="redirectBlogPage(blog)"
-                class="w-[150px] rounded-[20px] border-[3px] border-[#CC035C] px-[25px] py-[10px] font-semibold text-[#CC035C]">
+                class="rounded-[20px] border-[3px] border-[#CC035C] px-[25px] py-[10px] font-semibold text-[#CC035C]">
                 @lang('blog::app.shop.blog.read-more')
             </button>
         </div>

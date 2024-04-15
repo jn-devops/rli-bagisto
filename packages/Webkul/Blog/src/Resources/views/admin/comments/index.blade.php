@@ -3,8 +3,8 @@
         @lang('blog::app.comments.index.title')
     </x-slot:title>
 
-    <div class="flex gap-[16px] justify-between items-center max-sm:flex-wrap">
-        <p class="text-[20px] text-gray-800 dark:text-white font-bold">
+    <div class="flex items-center justify-between gap-[16px] max-sm:flex-wrap">
+        <p class="text-[20px] font-bold text-gray-800 dark:text-white">
             @lang('blog::app.comments.index.title')
         </p>
     </div>

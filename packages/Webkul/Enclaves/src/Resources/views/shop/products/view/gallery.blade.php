@@ -7,21 +7,21 @@
         <div class="gap-[20px] max-1280:flex-wrap">
             <div class="w-full">
                 <!-- Media shimmer Effect -->
-                <div class="max-w-[657px] max-h-[700px]" v-show="isMediaLoading">
-                    <div class="min-w-[657px] min-h-[700px] bg-[#E9E9E9] rounded-[12px] shimmer"></div>
+                <div class="max-h-[700px] max-w-[657px]" v-show="isMediaLoading">
+                    <div class="shimmer min-h-[700px] min-w-[657px] rounded-[12px] bg-[#E9E9E9]"></div>
                 </div>
 
                 <img
                     v-show="! isMediaLoading"
                     :src="baseFile.path" 
                     v-if="baseFile.type == 'image'"
-                    class="w-full rounded-[10px] w-[657px] h-[700px] cursor-pointer"
+                    class="h-[700px] w-[657px] w-full cursor-pointer rounded-[10px]"
                     alt="@lang('shop::app.products.view.gallery.product-image')"
                     @load="onMediaLoad()"
                 />
             </div>
             
-            <div class="flex flex-wrap gap-[16px] relative" v-if="isMobile">
+            <div class="relative flex flex-wrap gap-[16px]" v-if="isMobile">
                 <template v-for="(image, index) in media.images">
                     <div v-if="index < 3" 
                         :class="`${index == `2` ? 'relative' : ''}`">
@@ -35,8 +35,8 @@
                         </x-shop::media.images.lazy>
 
                         <p
-                            v-if="index == 2"
-                            class="p-1 absolute bg-black bottom-[10px] right-2 text-white cursor-pointer" 
+                            v-if="index == 2 && ((media.images.length - 3) != 0)"
+                            class="absolute bottom-[10px] right-2 cursor-pointer bg-black p-1 text-white" 
                             v-text="'+' + (media.images.length - 3)"
                             @click="productSliderModel()"
                         ></p>
@@ -44,10 +44,10 @@
                 </template>
             </div>
 
-            <div class="flex gap-[10px] w-[100px] mt-[10px]" v-else>
+            <div class="mt-[10px] flex w-[100px] gap-[10px]" v-else>
                 <template v-for="(image, index) in media.images">
-                    <div v-if="index < 5" 
-                        :class="`${index == `4` ? 'relative' : ''}`">
+                    <div v-if="index < 7" 
+                        :class="`${index == `6` ? 'relative' : ''}`">
                         <x-shop::media.images.lazy
                             alt="@lang('shop::app.products.view.gallery.thumbnail-image')"
                             ::class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
@@ -57,9 +57,9 @@
                         </x-shop::media.images.lazy>
 
                         <p
-                            v-if="index == 4"
-                            class="p-1 absolute bottom-[30px] right-2 bg-black text-white cursor-pointer" 
-                            v-text="'+' + (media.images.length - 5)"
+                            v-if="index == 6 && ((media.images.length - 7) != 0)"
+                            class="absolute bottom-[30px] right-2 cursor-pointer bg-black p-1 text-white" 
+                            v-text="'+' + (media.images.length - 7)"
                             @click="productSliderModel()"
                         ></p>
                     </div>
@@ -68,11 +68,11 @@
         </div>
 
         <!-- Product slider Image with shimmer -->
-        <div class="flex gap-[30px] max-1180:hidden 1180:hidden overflow-auto scrollbar-hide">
+        <div class="scrollbar-hide flex gap-[30px] overflow-auto max-1180:hidden 1180:hidden">
             <x-shop::media.images.lazy
                 ::src="baseFile.path"
                 v-if="baseFile.type == 'image'"
-                class="rounded-[5px] w-[657px] h-[700px]"
+                class="h-[700px] w-[657px] rounded-[5px]"
                 alt="@lang('shop::app.products.view.gallery.product-image')"
                 @load="onMediaLoad()"
             >
@@ -81,7 +81,7 @@
 
         <x-shop::modal.image-slider ref="imageSliderModel">
 
-            <!-- Modal Contentd -->
+            <!-- Modal Content Id -->
             <x-slot:content>
                 <x-shop::form
                     v-slot="{ meta, errors, handleSubmit }"
@@ -90,27 +90,27 @@
                     <div class="relative m-auto">
                         <div
                             v-for="(image, index) in media.images"
-                            class="fade p-10"
+                            class="fade p-4"
                             ref="slides"
                             :key="index"
                             aria-label="Image Slide"
                         >
                             <img
                                 :src="image.large_image_url"
-                                class="w-full rounded-[5px] cursor-pointer h-[480px]"
+                                class="h-[480px] w-full cursor-pointer rounded-[5px]"
                                 alt="@lang('shop::app.products.view.gallery.product-image')"
                             />
                         </div>
 
                         <span
-                            class="icon-arrow-left text-[24px] font-bold text-white w-auto -mt-[22px] p-[12px] absolute top-1/2 left-[10px] bg-[rgba(0,0,0,0.8)] transition-all opacity-30 rounded-full hover:opacity-100 cursor-pointer"
+                            class="icon-arrow-left absolute left-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[rgba(0,0,0,0.8)] p-[12px] text-[24px] font-bold text-white opacity-30 transition-all hover:opacity-100"
                             v-if="media.images?.length >= 2"
                             @click="navigate(currentIndex -= 1)"
                         >
                         </span>
 
                         <span
-                            class="icon-arrow-right text-[24px] font-bold text-white w-auto -mt-[22px] p-[12px] absolute top-1/2 right-[10px] bg-[rgba(0,0,0,0.8)] transition-all opacity-30 rounded-full hover:opacity-100 cursor-pointer"
+                            class="icon-arrow-right absolute right-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[rgba(0,0,0,0.8)] p-[12px] text-[24px] font-bold text-white opacity-30 transition-all hover:opacity-100"
                             v-if="media.images?.length >= 2"
                             @click="navigate(currentIndex += 1)"
                         >

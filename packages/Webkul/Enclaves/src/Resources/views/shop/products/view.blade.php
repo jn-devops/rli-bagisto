@@ -142,38 +142,38 @@
                             :value="qty"
                         >
 
-                        <div class="flex gap-[54px] mt-12 max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-6">
+                        <div class="mt-12 flex gap-[54px] max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-6">
                             <div class="w-full">
                                 <!-- Gallery Blade Inclusion -->
                                 @include('shop::products.view.gallery')
 
                                 <!-- unit -->
-                                <div class="flex gap-[60px] flex-wrap mt-[40px] max-sm:gap-[30px]">
+                                <div class="mt-[40px] flex flex-wrap gap-[60px] max-sm:gap-[30px]">
                                     <div class="flex gap-[10px]">
-                                        <span class="icon w-[24px] h-[24px] bg-red-700"></span>
+                                        <span class="icon h-[24px] w-[24px] bg-red-700"></span>
 
                                         <div class="grid gap-[12px]">
-                                            <p class="text-[15px] text-[#989898] leading-4">@lang('1st Floor')</p>
+                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('1st Floor')</p>
                                             
                                             <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
                                         </div>
                                     </div>
 
                                     <div class="flex gap-[10px]">
-                                        <span class="icon w-[24px] h-[24px] bg-red-700"></span>
+                                        <span class="icon h-[24px] w-[24px] bg-red-700"></span>
 
                                         <div class="grid gap-[12px]">
-                                            <p class="text-[15px] text-[#989898] leading-4">@lang('Unit')</p>
+                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('Unit')</p>
 
                                             <p class="text-[18px] leading-4">{{ $product->end_unit }}</p>
                                         </div>
                                     </div>
 
                                     <div class="flex gap-[10px]">
-                                        <span class="icon w-[24px] h-[24px] bg-red-700"></span>
+                                        <span class="icon h-[24px] w-[24px] bg-red-700"></span>
 
                                         <div class="grid gap-[12px]">
-                                            <p class="text-[15px] text-[#989898] leading-4">@lang('Floor Area')</p>
+                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('Floor Area')</p>
 
                                             <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
                                         </div>
@@ -182,7 +182,7 @@
 
                                 <!-- Product Name -->
                                 {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
-                                <h1 class="text-[40px] font-bold mt-[26px] leading-[48px] max-sm:text-[26px] max-sm:leading-[36px]">
+                                <h1 class="mt-[26px] text-[40px] font-bold leading-[48px] max-sm:text-[26px] max-sm:leading-[36px]">
                                     {{ $product->name }}
                                 </h1>
 
@@ -190,13 +190,13 @@
                                     <x-shop::layouts.read-more-smooth
                                         text="{!! $product->description !!}"
                                         limit="300"
-                                        class="text-[20px] mt-[50px] max-sm:text-[16px] max-sm:mt-[25px]"
+                                        class="mt-[50px] text-[20px] max-sm:mt-[25px] max-sm:text-[16px]"
                                     >
                                     </x-shop::layouts.read-more-smooth>
                                 {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                             </div>
 
-                            <div class="p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-w-[676px] rounded-[20px] max-sm:p-[25px] mix-w-[438px] md:min-w-[400px]">
+                            <div class="mix-w-[438px] max-w-[676px] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-[25px] md:min-w-[400px]">
                                 <!-- Price -->
                                 <div class="grid gap-[10px]">
                                     <p class="text-[20px] font-semibold max-sm:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>
@@ -217,28 +217,28 @@
                                     </P>
                                 </div>
                                 
-                                <div class="flex flex-col gap-[20px] border-b-[1px] border-[]#D9D9D9 pb-[42px] mt-[10px]">
+                                <div class="border-[]#D9D9D9 mt-[10px] flex flex-col gap-[20px] border-b-[1px] pb-[42px]">
                                     <!-- location-->
-                                    <div class="flex gap-[6px] flex-wrap">
+                                    <div class="flex flex-wrap gap-[6px]">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Location:</p>
                                         <p class="text-[20px] max-sm:text-[18px]">{{ $product->location }}</p>
                                     </div>
                                     <!-- Bedroom -->
-                                    <div class="flex gap-[6px] flex-wrap">
+                                    <div class="flex flex-wrap gap-[6px]">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Bedrooms:</p>
                                         <p class="text-[20px] max-sm:text-[18px]">{{ $product->bedrooms }}</p>
                                     </div>
                                     <!-- toilet bath -->
-                                    <div class="flex gap-[6px] flex-wrap">
+                                    <div class="flex flex-wrap gap-[6px]">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Toilet and Bath:</p>
                                         <p class="text-[20px] max-sm:text-[18px]">{{ $product->t_and_b }}</p>
                                     </div>
                                 </div>
 
-                                <div class="flex flex-col gap-[20px] border-b-[1px] border-[]#D9D9D9 pb-[42px] max-w-[400px]">
+                                <div class="border-[]#D9D9D9 flex max-w-[400px] flex-col gap-[20px] border-b-[1px] pb-[42px]">
                                     {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
-                                    <p class="mt-[25px] text-[18px] text-[#6E6E6E] max-sm:text-[14px] max-sm:mt-[15px]">
+                                    <p class="mt-[25px] text-[18px] text-[#6E6E6E] max-sm:mt-[15px] max-sm:text-[14px]">
                                         {!! $product->short_description !!}
                                     </p>
 
@@ -250,16 +250,16 @@
                                 </div>
 
                                 <!-- Seller detail -->
-                                <!-- <div class="flex flex-col mt-[28px] gap-[20px]">
+                                <!-- <div class="mt-[28px] flex flex-col gap-[20px]">
                                     
                                     <div class="flex">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]"> Seller Details:</p>
                                     </div>
-                                    <div class="flex gap-[6px] flex-wrap">
+                                    <div class="flex flex-wrap gap-[6px]">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Name:</p>
                                         <p class="text-[20px] max-sm:text-[18px]">Charles Ley Baldmor</p>
                                     </div>
-                                    <div class="flex gap-[6px] flex-wrap">
+                                    <div class="flex flex-wrap gap-[6px]">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Email:</p>
                                         <p class="text-[20px] max-sm:text-[18px]">cbbaldemor@joy-nostalg.com</p>
                                     </div>
@@ -271,7 +271,7 @@
                                 @if ($product->getTypeInstance()->showQuantityBox())
                                     <button
                                         type="submit"
-                                        class="mt-[30px] ml-[0px] block mx-auto w-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)]  text-white text-[16px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
+                                        class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[43px] py-[16px] text-center text-[16px] font-medium text-white"
                                         {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                     >
                                         @lang('shop::app.products.view.add-to-cart')
@@ -284,12 +284,12 @@
 
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
                                     <button 
-                                        class="mt-[30px] ml-[0px] block mx-auto w-full text-[#CC035C] border-[#CC035C] border-[3px] font-medium py-[16px] px-[43px] rounded-[18px] text-center"
+                                        class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] border-[3px] border-[#CC035C] px-[43px] py-[16px] text-center font-medium text-[#CC035C]"
                                         href="#"
                                         @click="is_buy_now=1; is_kyc_process=1;"
                                         {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                     >
-                                        @lang('enclaves::app.shop.product.select-area')
+                                        @lang('enclaves::app.shop.product.reserve-now')
                                     </button>
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
 

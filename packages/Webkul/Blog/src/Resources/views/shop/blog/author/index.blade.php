@@ -2,18 +2,26 @@
     $channel = core()->getCurrentChannel();
 @endphp
 
-
-{{-- SEO Meta Content --}}
+<!-- SEO Meta Content -->
 @push ('meta')
-    <meta name="title" content="{{ $enableBlogSeoMetaTitle ?? ( $channel->home_seo['meta_title'] ?? '' ) }}" />
+    <meta 
+        name="title" 
+        content="{{ $enableBlogSeoMetaTitle ?? ( $channel->home_seo['meta_title'] ?? '' ) }}" 
+    />
 
-    <meta name="description" content="{{ $enableBlogSeoMetaKeywords ?? ( $channel->home_seo['meta_description'] ?? '' ) }}" />
+    <meta 
+        name="description" 
+        content="{{ $enableBlogSeoMetaKeywords ?? ( $channel->home_seo['meta_description'] ?? '' ) }}" 
+    />
 
-    <meta name="keywords" content="{{ $enableBlogSeoMetaDescription ?? ( $channel->home_seo['meta_keywords'] ?? '' ) }}" />
+    <meta 
+        name="keywords" 
+        content="{{ $enableBlogSeoMetaDescription ?? ( $channel->home_seo['meta_keywords'] ?? '' ) }}" 
+    />
 @endPush
 
 <x-shop::layouts>
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
         {{ __('Blog Author Page') }}
     </x-slot>
@@ -32,14 +40,14 @@
                     <div class="container-right row no-margin col-12 no-padding">
                         <div id="blog" class="container mt-5">
                             <div class="full-content-wrapper">
-                                <div class="col-lg-12"><h1 class="mb-3 page-title">Posts by {{ $author->author }}</h1></div>
-                                <div class="flex flex-wrap grid-wrap">
+                                <div class="col-lg-12"><h1 class="page-title mb-3">Posts by {{ $author->author }}</h1></div>
+                                <div class="grid-wrap flex flex-wrap">
                                     
                                     <div class="column-9">
 
                                         @if( !empty($blogs) &&  count($blogs) > 0 )
 
-                                            <div class="flex flex-wrap blog-grid-list">
+                                            <div class="blog-grid-list flex flex-wrap">
 
                                                 @foreach($blogs as $blog)
                                                     <div class="blog-post-item">
@@ -85,7 +93,7 @@
                                                     </div>
                                                 @endforeach
 
-                                                <div class="w-full col-lg-12 mt-5 mb-5">
+                                                <div class="col-lg-12 mb-5 mt-5 w-full">
                                                     {!! $blogs->links() !!}
                                                 </div>
 
@@ -99,9 +107,9 @@
 
                                     </div>
 
-                                    <div class=" column-3 blog-sidebar">
+                                    <div class="column-3 blog-sidebar">
                                         <div class="row">
-                                            <div class="col-lg-12 mb-4 categories">
+                                            <div class="col-lg-12 categories mb-4">
                                                 <h3>Categories</h3>
 
                                                 <ul class="list-group">

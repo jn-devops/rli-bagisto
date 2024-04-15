@@ -10,24 +10,24 @@
     <script type="text/x-template" id="v-blogs-carousel-template">
         <!-- Section new place made just for you -->
         <div 
-            class="container mt-[150px] max-lg:px-[30px] max-sm:mt-[30px] bg-[url('../images/blog-bg.svg')] bg-no-repeat [background-size:51%] bg-right"
+            class="container mt-[150px] bg-[url('../images/blog-bg.svg')] bg-right bg-no-repeat [background-size:51%] max-lg:px-[30px] max-sm:mt-[30px]"
             v-if="blogs.length > 0"
             >
         
-            <div class="rli-title p-[61px] max-w-[1024px] max-sm:text-[25px]">
+            <div class="rli-title max-w-[1024px] p-[61px] max-sm:text-[25px]">
                 <p class="text-[#CC035C]">@lang('Raemulan Lands Inc')</p>
                 <p class="mt-[40px]">@lang('News & Updates')</p>
             </div>
             
-            <div class="flex justify-between relative top-[215px] z-10" v-if="blogs.length">
+            <div class="relative top-[215px] z-10 flex justify-between" v-if="blogs.length">
                 <span 
-                    class="icon-arrow-left-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px] bg-white"
+                    class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
                     @click="swipeLeft"
                 >
                 </span>
 
                 <span 
-                    class="icon-arrow-right-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px] bg-white"
+                    class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
                     @click="swipeRight"
                     >
                 </span>
@@ -35,9 +35,9 @@
 
             <div
                 ref="swiperContainer"
-                class="flex gap-14 mt-[22px] overflow-auto scrollbar-hide max-sm:mt-[20px]"
+                class="scrollbar-hide mt-[22px] flex gap-14 overflow-auto max-sm:mt-[20px]"
             >
-                <x-blog::blogs.item v-for="blog in blogs" />
+                <x-blog::blogs.carousel-item v-for="blog in blogs" />
             </div>
         </div>
 
