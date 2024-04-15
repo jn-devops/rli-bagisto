@@ -4,7 +4,7 @@ return [
     'config' => [
         'admin-menu' => [
             'title'      => 'Blog',
-            'posts'      => 'posts',
+            'posts'      => 'Posts',
             'categories' => 'Categories',
             'tags'       => 'Tags',
             'comments'   => 'Comments',

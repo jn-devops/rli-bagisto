@@ -22,25 +22,22 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-blog-list-template">
         <!-- Section new place made just for you -->
-        <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
-            <!-- Breadcrumbs -->
-            <x-shop::breadcrumbs name="blogs"></x-shop::breadcrumbs>
+        <div class="container px-[60px] max-lg:px-[30px]">
+            <template v-if="isLoading">
+                <!-- Shimmer Load -->
+                <div class="shimmer rounded-1xl mb-[10px] mt-[10px] h-[65px] w-[30%]"></div>
+                
+                <x-blog::shimmer.blogs.item count="9"/>
+            </template>
 
-            <div class="grid grid-cols-3 mt-[40px]" v-if="blogs.length > 0">
-                <x-blog::blogs.item v-for="blog in blogs"/>
-            </div>
-            <div class="flex justify-center mt-[40px]" v-else>
-                <p class="text-[20px] font-bold">
-                    @lang('blog::app.shop.blog.post.index.no-record')
-
-                    <img 
-                        class="" 
-                        src="{{ bagisto_asset('images/thank-you.png') }}" 
-                        alt="thankyou" 
-                        title=""
-                    >
-                </p>
-            </div>
+            <template v-else>
+                <!-- Breadcrumbs -->
+                <x-shop::breadcrumbs name="blogs"></x-shop::breadcrumbs>
+                
+                <div class="mt-[30px] grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-sm:mt-[20px] max-sm:grid-cols-1 max-sm:justify-items-center">
+                    <x-blog::blogs.item v-for="blog in blogs"/>
+                </div>
+            </template>
         </div>
     </script>
 
@@ -66,13 +63,13 @@
                             page: 10,
                         }
                     })
-                        .then(response => {
-                            this.isLoading = false;
+                    .then(response => {
+                        this.isLoading = false;
 
-                            this.blogs = response.data.data;
-                        }).catch(error => {
-                            console.log(error);
-                        });
+                        this.blogs = response.data.data;
+                    }).catch(error => {
+                        console.log(error);
+                    });
                 },
             },
         });
