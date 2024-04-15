@@ -49,7 +49,7 @@
                 leave-to-class="opacity-0"
                 >
                 <div
-                    class="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity z-[1]"
+                    class="fixed inset-0 z-[1] bg-gray-500 bg-opacity-50 transition-opacity"
                     v-show="isOpen"
                 ></div>
             </transition>
@@ -65,16 +65,17 @@
                 leave-to-class="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
                 >
                 <div
-                    class="fixed inset-0 z-10 transform transition overflow-y-auto" 
+                    class="fixed inset-0 z-10 transform overflow-y-auto transition" 
                     v-show="isOpen"
                 >
-                    <span
-                        class="icon-cancel text-[30px] cursor-pointer"
-                        @click="toggle"
-                    >
-                    </span>
+                    <div class="box-shadow absolute left-[50%] top-[58%] z-[999] inline-table w-full max-w-[700px] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-[#F5F5F5] max-md:w-[80%] dark:bg-gray-900">
+                        
+                        <span
+                            class="icon-cancel relative left-[4%] top-[15%] z-[9999] cursor-pointer text-[30px]"
+                            @click="toggle"
+                        >
+                        </span>
 
-                    <div class="w-full max-w-[700px] z-[999] inline-table absolute left-[50%] top-[50%] bg-[#F5F5F5] max-md:w-[80%] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white dark:bg-gray-900 box-shadow">
                         <slot name="content"></slot>
                     </div>
                 </div>
