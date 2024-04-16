@@ -258,5 +258,20 @@ return [
                 ],
             ],
         ],
+
+        'catalog' => [
+            'category' => [
+                'index' => [
+                    'button-setting' => 'Button Setting',
+                    'button' => [
+                        'color'            => 'Color',
+                        'border-color'     => 'Border Color',
+                        'background-color' => 'Background Color',
+                        'sort'             => 'Sort',
+                        'field-info'       => "Please ensure that the value starts with a '#' symbol, like this: #ABCD.",
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

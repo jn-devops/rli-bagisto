@@ -5,7 +5,7 @@ namespace Webkul\Enclaves\Http\Controllers\Category;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Enclaves\Http\Controllers\Controller;
-use Webkul\Shop\Http\Resources\CategoryResource;
+use Webkul\Enclaves\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -34,17 +34,17 @@ class CategoryController extends Controller
          * will be shown in the current locale.
          */
         $defaultParams = [
-            'status'    => 1,
-            'locale'    => app()->getLocale(),
+            'status' => 1,
+            'locale' => app()->getLocale(),
         ];
 
         $categories = $this->categoryRepository
-            ->leftJoin('category_translations', 'category_translations.category_id', '=', 'categories.id')
-            ->where($defaultParams)
-            ->whereNotNull('parent_id')
-            ->limit(request('limit') ?? self::LIMIT)
-            ->orderBy('categories.id', request('short') ?? self::SHORT)
-            ->get();
+                            ->leftJoin('category_translations', 'category_translations.category_id', '=', 'categories.id')
+                            ->where($defaultParams)
+                            ->whereNotNull('parent_id')
+                            ->limit(request('limit') ?? self::LIMIT)
+                            ->orderBy('categories.sort', request('sort') ?? self::SHORT)
+                            ->get();
 
         return CategoryResource::collection($categories);
     }

@@ -2,6 +2,7 @@
 
 namespace Webkul\Blog\Datagrids;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Webkul\Blog\Repositories\BlogCategoryRepository;
 use Webkul\Blog\Repositories\BlogTagRepository;
@@ -109,8 +110,8 @@ class BlogDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($value) {
                 $tags = '-';
-
-                $tagIds = array_values(array_unique(explode(',', $value->tags)));
+                
+                $tagIds = array_unique(explode(',', $value->tags));
 
                 if (! empty($tagIds)) {
                     $tagDetails = app(BlogTagRepository::class)->whereIn('id', $tagIds)->get();
@@ -164,12 +165,7 @@ class BlogDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                if ($row->published_at != ''
-                    && $row->published_at != null) {
-                    return date_format(date_create($row->published_at), 'j F, Y');
-                }
-
-                return '-';
+                return Carbon::parse($row->published_at)->format('j F, Y');
             },
         ]);
 
