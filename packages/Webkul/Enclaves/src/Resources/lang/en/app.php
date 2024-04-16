@@ -262,7 +262,7 @@ return [
         'catalog' => [
             'category' => [
                 'index' => [
-                    'button-setting' => 'Button Setting',
+                    'button-setting' => 'Our Newest Communities Button Setting',
                     'button' => [
                         'color'            => 'Color',
                         'border-color'     => 'Border Color',
