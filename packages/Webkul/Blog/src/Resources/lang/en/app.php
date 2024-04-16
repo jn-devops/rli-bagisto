@@ -371,6 +371,8 @@ return [
             'news_and_updates' => "News & Updates",
             'details_page'     => "Details Page",
             'read-more'        => 'Read More',
+            'load-more'        => 'Load More',
+            'loading'          => 'Loading...',
 
             'post' => [
                 'view' => [

@@ -2,6 +2,7 @@
 
 namespace Webkul\Blog\Datagrids;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Webkul\Blog\Models\Blog;
 use Webkul\Blog\Repositories\BlogRepository;
@@ -98,12 +99,7 @@ class CommentDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
-                if ($row->created_at != ''
-                    && $row->created_at != null) {
-                    return date_format(date_create($row->created_at), 'j F, Y');
-                }
-
-                return '-';
+                return Carbon::parse($row->created_at)->format('j F, Y');
             },
         ]);
     }

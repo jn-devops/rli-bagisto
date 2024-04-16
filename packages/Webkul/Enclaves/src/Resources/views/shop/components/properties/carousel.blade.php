@@ -11,41 +11,41 @@
         <!-- Section new place made just for you -->
      
         <div>
-            <div class="relative w-full h-full max-sm:hidden">
-                <div class="absolute inset-0 bg-left bg-[url('../images/community-bg-left.svg')] bg-no-repeat h-[500px]"></div>
+            <div class="relative h-full w-full max-sm:hidden">
+                <div class="absolute inset-0 h-[500px] bg-[url('../images/community-bg-left.svg')] bg-left bg-no-repeat"></div>
                 
-                <div class="absolute inset-0 bg-right bg-[url('../images/community-right.svg')] bg-no-repeat h-[500px]"></div>
+                <div class="absolute inset-0 h-[500px] bg-[url('../images/community-right.svg')] bg-right bg-no-repeat"></div>
             </div>
 
             <div class="container mb-[50px] max-lg:px-[30px] max-sm:mt-[30px]">
                 <div class="flex justify-center gap-[20px] max-sm:items-center">
-                    <h3 class="mt-[140px] rli-title max-sm:text-[25px] max-w-[1024px]" v-text="title"></h3>
+                    <h3 class="rli-title mt-[140px] max-w-[1024px] max-sm:text-[25px]" v-text="title"></h3>
                 </div>
 
-                <div class="flex justify-between relative top-[215px] z-10" v-if="categories.length">
+                <div class="relative top-[215px] z-10 flex justify-between" v-if="categories.length">
                     <span 
-                        class="icon-arrow-left-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px] bg-white"
+                        class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeLeft"
                     >
                     </span>
 
                     <span 
-                        class="icon-arrow-right-stylish text-[24px] text-[#d30a5a] inline-block cursor-pointer border-2 border-[#E9E9E9] p-[25px] max-sm:p-[8px] bg-white"
+                        class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeRight"
                         >
                     </span>
                 </div>
 
-                <div class="grid grid-cols-3 gap-8 mt-[30px]" v-if="isLoading">
+                <div class="mt-[30px] grid grid-cols-3 gap-8" v-if="isLoading">
                     @for ($i = 0;  $i < 3; $i++)
-                        <div class="grid gap-8 relative w-full max-sm:grid-cols-1">
+                        <div class="relative grid w-full gap-8 max-sm:grid-cols-1">
                             <div class="relative rounded-sm">
-                                <div class="shimmer rounded-[20px] bg-[#F5F5F5] w-full h-[290px]"></div>
+                                <div class="shimmer h-[290px] w-full rounded-[20px] bg-[#F5F5F5]"></div>
                             </div>
 
-                            <div class="grid gap-2.5 content-start">
-                                <p class="shimmer w-[75%] h-[24px]"></p>
-                                <p class="shimmer w-[55%] h-[50px]"></p>
+                            <div class="grid content-start gap-2.5">
+                                <p class="shimmer h-[24px] w-[75%]"></p>
+                                <p class="shimmer h-[50px] w-[55%]"></p>
                             </div>
                         </div>
                     @endfor
@@ -53,27 +53,29 @@
 
                 <div
                     ref="swiperContainer"
-                    class="flex gap-14 mt-[22px] overflow-auto scrollbar-hide max-sm:mt-[20px]"
+                    class="scrollbar-hide mt-[22px] flex gap-14 overflow-auto max-sm:mt-[20px]"
                     >
-                    <div class="grid gap-2.5 relative min-w-[350px] max-w-[350px]" v-for="category in categories">
-                        <div class="relative overflow-hidden  group max-w-[350px] max-h-[289px] rounded-[20px]">
+                    <div class="relative grid min-w-[350px] max-w-[350px] gap-2.5" v-for="category in categories">
+                        <div class="group relative max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
                     
                             <x-shop::media.images.lazy
-                                class="rounded bg-[#F5F5F5] group-hover:scale-105 transition-all duration-300 w-full h-[290px]"
+                                class="h-[290px] w-full rounded bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
                                 ::src="category.images.banner_url"
                             ></x-shop::media.images.lazy>
                         </div>
 
-                        <div class="grid gap-2.5 content-start">
+                        <div class="grid content-start gap-2.5">
                             <p 
-                                class="text-[20px] font-bold font-popins" 
+                                class="font-popins text-[20px] font-bold" 
                                 v-text="category.name"
                             ></p>
 
                             <div class="grid grid-cols-2 items-center justify-between max-425:grid">
+
                                 <button
+                                    :style="{ color: category.btn_color, borderColor: category.btn_border_color, background: category.btn_background_color }"
                                     @click="redirectCategory(category)"
-                                    class="p-3 rounded-[20px] text-[#CC035C] font-semibold border-[#CC035C] border-[3px] text-nowrap"
+                                    class="text-nowrap rounded-[20px] border-[3px] border-[#CC035C] p-3 font-semibold text-[#CC035C]"
                                 >
                                     @lang('enclaves::app.shop.customers.browse-properties')
                                 </button>

@@ -249,8 +249,8 @@ class BlogController extends Controller
 
         $limit = 10;
 
-        if(! empty(request('page'))) {
-            $limit = (int)request('page');
+        if(! empty(request('limit'))) {
+            $limit = (int)request('limit');
         }
 
         $blogs->take($limit);

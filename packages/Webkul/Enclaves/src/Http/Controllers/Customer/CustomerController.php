@@ -93,7 +93,7 @@ class CustomerController extends Controller
      */
     public function destroy()
     {
-        $customerRepository = $this->customerRepository->findorFail(auth()->guard('customer')->user()->id);
+        $customerRepository = $this->customerRepository->findOrFail(auth()->guard('customer')->user()->id);
 
         try {
             if (Hash::check(request()->input('password'), $customerRepository->password)) {

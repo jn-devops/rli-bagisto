@@ -40,8 +40,8 @@ class InquiriesController extends Controller
     public function tickets()
     {
         $tickets = $this->ticketsRepository
-            ->with(['files', 'reasons', 'status'])
-            ->get();
+                        ->with(['files', 'reasons', 'status'])
+                        ->get();
 
         return view('shop::customers.account.inquire.tickets', compact('tickets'));
     }

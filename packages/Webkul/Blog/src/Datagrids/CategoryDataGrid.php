@@ -62,8 +62,8 @@ class CategoryDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 $parentCategory = app(BlogCategoryRepository::class)
-                    ->where('id', (int) $row->parent_id)
-                    ->first();
+                                ->where('id', (int) $row->parent_id)
+                                ->first();
 
                 return $parentCategory?->name ?? '-';
             },
