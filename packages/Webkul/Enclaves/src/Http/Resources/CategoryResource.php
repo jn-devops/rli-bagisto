@@ -31,6 +31,7 @@ class CategoryResource extends JsonResource
             'btn_border_color'     => $this->btn_border_color,
             'btn_background_color' => $this->btn_background_color,
             'btn_color'            => $this->btn_color,
+            'btn_text'             => $this->btn_text,
         ];
     }
 }
