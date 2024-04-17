@@ -9,7 +9,6 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-properties-carousel-template">
         <!-- Section new place made just for you -->
-     
         <div>
             <div class="relative h-full w-full max-sm:hidden">
                 <div class="absolute inset-0 h-[500px] bg-[url('../images/community-bg-left.svg')] bg-left bg-no-repeat"></div>
@@ -65,21 +64,19 @@
                         </div>
 
                         <div class="grid content-start gap-2.5">
-                            <p 
+                            <p
                                 class="font-popins text-[20px] font-bold" 
                                 v-text="category.name"
                             ></p>
 
-                            <div class="grid grid-cols-2 items-center justify-between max-425:grid">
-
-                                <button
-                                    :style="{ color: category.btn_color, borderColor: category.btn_border_color, background: category.btn_background_color }"
-                                    @click="redirectCategory(category)"
-                                    class="text-nowrap rounded-[20px] border-[3px] border-[#CC035C] p-3 font-semibold text-[#CC035C]"
-                                >
-                                    @lang('enclaves::app.shop.customers.browse-properties')
-                                </button>
-                            </div>
+                            <button
+                                @click="redirectCategory(category)"
+                                class="text-nowrap rounded-[20px] border-[3px] border-[#CC035C] p-3 font-semibold text-[#CC035C]"
+                                :style="{color: category.btn_color, borderColor: category.btn_border_color, background: category.btn_background_color, width:'fit-content'}"
+                            >
+                                <span v-if="category.btn_text" v-text="category.btn_text"></span>
+                                <span v-else>@lang('enclaves::app.shop.customers.browse-properties')</span>
+                            </button>
                         </div>
                     </div>
                 </div>

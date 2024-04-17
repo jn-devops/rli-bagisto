@@ -9,6 +9,27 @@
     <x-slot:content class="pointer-events-none">
         <x-admin::form.control-group class="mb-[10px]">
             <x-admin::form.control-group.label class="required">
+                @lang('enclaves::app.admin.catalog.category.index.button.text')
+            </x-admin::form.control-group.label>
+
+            <x-admin::form.control-group.control
+                type="text"
+                name="btn_text"
+                :value="old('btn_text') ?: $category->btn_text"
+                ::rules="{ required: true}"
+                :label="trans('enclaves::app.admin.catalog.category.index.button.text')"
+                :placeholder="trans('enclaves::app.admin.catalog.category.index.button.text')"
+            >
+            </x-admin::form.control-group.control>
+
+            <x-admin::form.control-group.error
+                control-name="btn_text"
+            >
+            </x-admin::form.control-group.error>
+        </x-admin::form.control-group>
+
+        <x-admin::form.control-group class="mb-[10px]">
+            <x-admin::form.control-group.label class="required">
                 @lang('enclaves::app.admin.catalog.category.index.button.color')
             </x-admin::form.control-group.label>
 

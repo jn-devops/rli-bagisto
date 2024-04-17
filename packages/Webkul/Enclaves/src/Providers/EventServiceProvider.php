@@ -26,10 +26,10 @@ class EventServiceProvider extends ServiceProvider
             'Webkul\Enclaves\Listeners\Category@afterUpdate',
         ],
         'catalog.category.update.after' => [
-            'Webkul\Enclaves\Listeners\Category@afterUpdate',
+            'Webkul\Enclaves\Listeners\Category@afterCreateOrUpdate',
         ],
         'catalog.category.create.after' => [
-            'Webkul\Enclaves\Listeners\Category@afterCreate',
+            'Webkul\Enclaves\Listeners\Category@afterCreateOrUpdate',
         ],
     ];
 

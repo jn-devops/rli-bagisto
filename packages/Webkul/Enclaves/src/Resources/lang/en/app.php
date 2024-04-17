@@ -264,6 +264,7 @@ return [
                 'index' => [
                     'button-setting' => 'Our Newest Communities Button Setting',
                     'button' => [
+                        'text'             => 'Text',
                         'color'            => 'Color',
                         'border-color'     => 'Border Color',
                         'background-color' => 'Background Color',
