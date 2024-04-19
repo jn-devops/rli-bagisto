@@ -28,16 +28,17 @@ class CategoryRepository extends Repository
     public function getAll(array $params = [])
     {
         $queryBuilder = $this->query()
+            ->select('categories.*')
             ->leftJoin('category_translations', 'category_translations.category_id', '=', 'categories.id');
 
         foreach ($params as $key => $value) {
             switch ($key) {
                 case 'name':
-                    $queryBuilder->where('category_translations.name', 'like', '%' . urldecode($value) . '%');
+                    $queryBuilder->where('category_translations.name', 'like', '%'.urldecode($value).'%');
 
                     break;
                 case 'description':
-                    $queryBuilder->where('category_translations.description', 'like', '%' . urldecode($value) . '%');
+                    $queryBuilder->where('category_translations.description', 'like', '%'.urldecode($value).'%');
 
                     break;
                 case 'status':
@@ -227,16 +228,6 @@ class CategoryRepository extends Repository
     }
 
     /**
-     * Find by path.
-     *
-     * @return \Webkul\Category\Contracts\Category
-     */
-    public function findByPath(string $urlPath)
-    {
-        return $this->model->whereTranslation('url_path', $urlPath)->first();
-    }
-
-    /**
      * Upload category's images.
      *
      * @param  array  $data
@@ -248,8 +239,7 @@ class CategoryRepository extends Repository
     {
         if (isset($data[$type])) {
             foreach ($data[$type] as $imageId => $image) {
-                $file = $type . '.' . $imageId;
-                $dir = 'category/' . $category->id;
+                $file = $type.'.'.$imageId;
 
                 if (request()->hasFile($file)) {
                     if ($category->{$type}) {
@@ -260,7 +250,7 @@ class CategoryRepository extends Repository
 
                     $image = $manager->make(request()->file($file))->encode('webp');
 
-                    $category->{$type} = 'category/' . $category->id . '/' . Str::random(40) . '.webp';
+                    $category->{$type} = 'category/'.$category->id.'/'.Str::random(40).'.webp';
 
                     Storage::put($category->{$type}, $image);
 

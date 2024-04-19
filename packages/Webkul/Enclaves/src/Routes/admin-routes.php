@@ -12,6 +12,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
     // Over ride route
     Route::controller(ThemeController::class)->group(function () {
         Route::get('settings/themes/edit/{id}', 'edit')->name('admin.settings.themes.edit');
+  
+        Route::post('edit/{id}', 'update')->name('enclaves.settings.themes.update');
     });
 
     Route::controller(InquiriesController::class)->prefix('inquiries')->group(function () {

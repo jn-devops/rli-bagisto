@@ -5,24 +5,24 @@ return [
      * System Configuration.
      */
     [
-        'key'  => 'bulkupload',
-        'name' => 'bulkupload::app.admin.system.bulkupload.index.title',
-        'info' => 'bulkupload::app.admin.system.bulkupload.index.info',
+        'key'  => 'bulkUpload',
+        'name' => 'bulkUpload::app.admin.system.bulkUpload.index.title',
+        'info' => 'bulkUpload::app.admin.system.bulkUpload.index.info',
         'sort' => 5,
     ], [
-        'key'  => 'bulkupload.settings',
-        'name' => 'bulkupload::app.admin.system.bulkupload.setting.title',
-        'info' => 'bulkupload::app.admin.system.bulkupload.setting.info',
+        'key'  => 'bulkUpload.settings',
+        'name' => 'bulkUpload::app.admin.system.bulkUpload.setting.title',
+        'info' => 'bulkUpload::app.admin.system.bulkUpload.setting.info',
         'icon' => 'settings/store.svg',
         'sort' => 1,
     ], [
-        'key'    => 'bulkupload.settings.general',
-        'name'   => 'bulkupload::app.admin.system.bulkupload.general',
+        'key'    => 'bulkUpload.settings.general',
+        'name'   => 'bulkUpload::app.admin.system.bulkUpload.general',
         'sort'   => 1,
         'fields' => [
             [
                 'name'          => 'status',
-                'title'         => 'bulkupload::app.admin.system.status',
+                'title'         => 'bulkUpload::app.admin.system.status',
                 'type'          => 'boolean',
                 'channel_based' => true,
                 'locale_based'  => false,

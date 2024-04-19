@@ -92,6 +92,7 @@ class InvoiceRepository extends Repository
                     'price'                => $orderItem->price,
                     'base_price'           => $orderItem->base_price,
                     'total'                => $orderItem->price * $qty,
+                    'base_total'           => $orderItem->base_price * $qty,
                     'tax_amount'           => (($orderItem->tax_amount / $orderItem->qty_ordered) * $qty),
                     'base_tax_amount'      => (($orderItem->base_tax_amount / $orderItem->qty_ordered) * $qty),
                     'discount_amount'      => (($orderItem->discount_amount / $orderItem->qty_ordered) * $qty),
@@ -99,11 +100,10 @@ class InvoiceRepository extends Repository
                     'product_id'           => $orderItem->product_id,
                     'product_type'         => $orderItem->product_type,
                     'additional'           => $orderItem->additional,
-
-                    // customization code
-                    'base_total'           => ($orderItem->base_price + $orderItem->processing_fee) * $qty,
-                    'processing_fee'       => $orderItem->processing_fee,
-                    // customization code
+                     // customization code
+                     'base_total'           => ($orderItem->base_price + $orderItem->processing_fee) * $qty,
+                     'processing_fee'       => $orderItem->processing_fee,
+                     // customization code
                 ]);
 
                 if ($orderItem->getTypeInstance()->isComposite()) {
@@ -122,6 +122,7 @@ class InvoiceRepository extends Repository
                             'price'                => $childOrderItem->price,
                             'base_price'           => $childOrderItem->base_price,
                             'total'                => $childOrderItem->price * $finalQty,
+                            'base_total'           => $childOrderItem->base_price * $finalQty,
                             'tax_amount'           => 0,
                             'base_tax_amount'      => 0,
                             'discount_amount'      => 0,
@@ -178,6 +179,11 @@ class InvoiceRepository extends Repository
             } else {
                 $this->orderRepository->updateOrderStatus($order);
             }
+
+            /**
+             * Temporary property has been used to avoid request helper usage in listener.
+             */
+            $invoice->can_create_transaction = request()->has('can_create_transaction') && request()->input('can_create_transaction') == '1';
 
             Event::dispatch('sales.invoice.save.after', $invoice);
         } catch (\Exception $e) {
@@ -285,7 +291,7 @@ class InvoiceRepository extends Repository
      * Update state.
      *
      * @param  \Webkul\Sales\Models\Invoice  $invoice
-     * @return void
+     * @return bool
      */
     public function updateState($invoice, $status)
     {

@@ -64,6 +64,13 @@ abstract class AbstractType
     protected $canBeMovedFromWishlistToCart = true;
 
     /**
+     * Product can be added to cart with options or not.
+     *
+     * @var bool
+     */
+    protected $canBeAddedToCartWithoutOptions = true;
+
+    /**
      * Products of this type can be copied in the admin backend.
      *
      * @var bool
@@ -111,8 +118,7 @@ abstract class AbstractType
         protected ProductInventoryRepository $productInventoryRepository,
         protected ProductImageRepository $productImageRepository,
         protected ProductVideoRepository $productVideoRepository,
-        protected ProductCustomerGroupPriceRepository $productCustomerGroupPriceRepository,
-        protected ProductAttributeValueRepository $productAttributeValueRepository,
+        protected ProductCustomerGroupPriceRepository $productCustomerGroupPriceRepository
     ) {
     }
 
@@ -180,7 +186,7 @@ abstract class AbstractType
                 || $attribute->type === 'file'
             ) {
                 $data[$attribute->code] = gettype($data[$attribute->code]) === 'object'
-                    ? request()->file($attribute->code)->store('product/' . $product->id)
+                    ? request()->file($attribute->code)->store('product/'.$product->id)
                     : $data[$attribute->code];
             }
 
@@ -206,12 +212,20 @@ abstract class AbstractType
             $attributeValue = $attributeValues->first();
 
             if (! $attributeValue) {
+                $uniqueId = implode('|', array_filter([
+                    $data['channel'],
+                    $data['locale'],
+                    $product->id,
+                    $attribute->id,
+                ]));
+
                 $this->attributeValueRepository->create([
                     'product_id'            => $product->id,
                     'attribute_id'          => $attribute->id,
                     $attribute->column_name => $data[$attribute->code],
                     'channel'               => $attribute->value_per_channel ? $data['channel'] : null,
                     'locale'                => $attribute->value_per_locale ? $data['locale'] : null,
+                    'unique_id'             => $uniqueId,
                 ]);
             } else {
                 $previousTextValue = $attributeValue->text_value;
@@ -284,12 +298,12 @@ abstract class AbstractType
     public function copy()
     {
         if (! $this->canBeCopied()) {
-            throw new \Exception(trans('admin::app.response.product-can-not-be-copied', ['type' => $this->product->type]));
+            throw new \Exception(trans('product::app.response.product-can-not-be-copied', ['type' => $this->product->type]));
         }
 
         $copiedProduct = $this->product
             ->replicate()
-            ->fill(['sku' => 'temporary-sku-' . substr(md5(microtime()), 0, 6)]);
+            ->fill(['sku' => 'temporary-sku-'.substr(md5(microtime()), 0, 6)]);
 
         $copiedProduct->save();
 
@@ -307,11 +321,19 @@ abstract class AbstractType
      */
     protected function copyAttributeValues($product): void
     {
-        $productFlat = $this->product->product_flats[0]?->replicate() ?? new ProductFlat();
+        $productFlat = $this->product->product_flats->first()?->replicate() ?? new ProductFlat();
 
         $productFlat->product_id = $product->id;
 
-        $attributesToSkip = config('products.skipAttributesOnCopy') ?? [];
+        $attributesToSkip = config('products.copy.skip_attributes') ?? [];
+
+        $copyAttributes = [
+            'name'           => trans('product::app.datagrid.copy-of', ['value' => $this->product->name]),
+            'url_key'        => trans('product::app.datagrid.copy-of-slug', ['value' => $this->product->url_key]),
+            'sku'            => $product->sku,
+            'product_number' => ! empty($this->product->product_number) ? trans('product::app.datagrid.copy-of-slug', ['value' => $this->product->product_number]) : null,
+            'status'         => 0,
+        ];
 
         foreach ($this->product->attribute_values as $attributeValue) {
             $attribute = $attributeValue->attribute;
@@ -320,27 +342,19 @@ abstract class AbstractType
                 continue;
             }
 
-            $value = null;
+            $value = $copyAttributes[$attribute->code] ?? null;
 
-            if ($attribute->code == 'name') {
-                $value = trans('admin::app.catalog.products.index.datagrid.copy-of', ['value' => $this->product->name]);
-            } elseif ($attribute->code == 'url_key') {
-                $value = trans('admin::app.catalog.products.index.datagrid.copy-of-slug', ['value' => $this->product->url_key]);
-            } elseif ($attribute->code == 'sku') {
-                $value = $product->sku;
-            } elseif ($attribute->code === 'product_number') {
-                if (! empty($this->product->product_number)) {
-                    $value = trans('admin::app.catalog.products.index.datagrid.copy-of-slug', ['value' => $this->product->product_number]);
-                }
-            } elseif ($attribute->code == 'status') {
-                $value = 0;
-            }
-
-            $newAttributeValue = $attributeValue->replicate();
+            $newAttributeValue = $attributeValue->replicate()->fill([
+                'unique_id' => implode('|', array_filter([
+                    $attributeValue->channel,
+                    $attributeValue->locale,
+                    $product->id,
+                    $attribute->id,
+                ])),
+            ]);
 
             if (! is_null($value)) {
                 $newAttributeValue->{$attribute->column_name} = $value;
-
                 $productFlat->{$attribute->code} = $value;
             }
 
@@ -358,7 +372,7 @@ abstract class AbstractType
      */
     protected function copyRelationships($product)
     {
-        $attributesToSkip = config('products.skipAttributesOnCopy') ?? [];
+        $attributesToSkip = config('products.copy.skip_attributes') ?? [];
 
         if (! in_array('categories', $attributesToSkip)) {
             $product->categories()->sync($this->product->categories->pluck('id'));
@@ -392,7 +406,7 @@ abstract class AbstractType
             }
         }
 
-        if (config('products.linkProductsOnCopy')) {
+        if (! in_array('product_relations', $attributesToSkip)) {
             DB::table('product_relations')->insert([
                 'parent_id' => $this->product->id,
                 'child_id'  => $product->id,
@@ -407,11 +421,11 @@ abstract class AbstractType
     {
         $path = explode('/', $media->path);
 
-        $copiedMedia->path = 'product/' . $product->id . '/' . end($path);
+        $copiedMedia->path = 'product/'.$product->id.'/'.end($path);
 
         $copiedMedia->save();
 
-        Storage::makeDirectory('product/' . $product->id);
+        Storage::makeDirectory('product/'.$product->id);
 
         Storage::copy($media->path, $copiedMedia->path);
     }
@@ -457,13 +471,6 @@ abstract class AbstractType
     public function isSaleable()
     {
         if (! $this->product->status) {
-            return false;
-        }
-
-        if (
-            is_callable(config('products.isSaleable')) &&
-            call_user_func(config('products.isSaleable'), $this->product) === false
-        ) {
             return false;
         }
 
@@ -574,6 +581,16 @@ abstract class AbstractType
     public function canBeMovedFromWishlistToCart($item)
     {
         return $this->canBeMovedFromWishlistToCart;
+    }
+
+    /**
+     * Return true if product can be added to cart without options.
+     *
+     * @return bool
+     */
+    public function canBeAddedToCartWithoutOptions()
+    {
+        return $this->canBeAddedToCartWithoutOptions;
     }
 
     /**
@@ -697,6 +714,7 @@ abstract class AbstractType
         $customerGroup = $this->customerRepository->getCurrentGroup();
 
         $indexer = $this->getPriceIndexer()
+            ->setChannel(core()->getCurrentChannel())
             ->setCustomerGroup($customerGroup)
             ->setProduct($this->product);
 
@@ -714,6 +732,7 @@ abstract class AbstractType
 
         $indices = $this->product
             ->price_indices
+            ->where('channel_id', core()->getCurrentChannel()->id)
             ->where('customer_group_id', $customerGroup->id)
             ->first();
 
@@ -849,7 +868,7 @@ abstract class AbstractType
         $data = $this->getQtyRequest($data);
 
         if (! $this->haveSufficientQuantity($data['quantity'])) {
-            return trans('shop::app.checkout.cart.inventory-warning');
+            return trans('product::app.checkout.cart.inventory-warning');
         }
 
         $price = $this->getFinalPrice();
@@ -1073,10 +1092,10 @@ abstract class AbstractType
 
         $discount = number_format((($this->product->price - $price) * 100) / ($this->product->price), 2);
 
-        $offerLines = trans('shop::app.products.type.abstract.offers', [
+        $offerLines = trans('product::app.type.abstract.offers', [
             'qty'      => $customerGroupPrice->qty,
             'price'    => core()->currency($price),
-            'discount' => $discount,
+            'discount' => '<span>'.$discount.'%</span>',
         ]);
 
         return $offerLines;

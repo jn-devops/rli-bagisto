@@ -327,7 +327,7 @@ class Product extends Model implements ProductContract
             return $this->typeInstance;
         }
 
-        $this->typeInstance = app(config('product_types.' . $this->type . '.class'));
+        $this->typeInstance = app(config('product_types.'.$this->type.'.class'));
 
         if (! $this->typeInstance instanceof AbstractType) {
             throw new Exception("Please ensure the product type '{$this->type}' is configured in your application.");
@@ -336,26 +336,6 @@ class Product extends Model implements ProductContract
         $this->typeInstance->setProduct($this);
 
         return $this->typeInstance;
-    }
-
-    /**
-     * Return the product id attribute.
-     *
-     * @return int
-     */
-    public function getProductIdAttribute()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Return the product attribute.
-     *
-     * @return self
-     */
-    public function getProductAttribute()
-    {
-        return $this;
     }
 
     /**
@@ -442,7 +422,7 @@ class Product extends Model implements ProductContract
                 if (empty($attributeValue[$attribute->column_name])) {
                     $attributeValue = $this->attribute_values
                         ->where('channel', core()->getDefaultChannelCode())
-                        ->where('locale', core()->getDefaultChannelLocaleCode())
+                        ->where('locale', core()->getDefaultLocaleCodeFromDefaultChannel())
                         ->where('attribute_id', $attribute->id)
                         ->first();
                 }
@@ -461,7 +441,7 @@ class Product extends Model implements ProductContract
 
                 if (empty($attributeValue[$attribute->column_name])) {
                     $attributeValue = $this->attribute_values
-                        ->where('locale', core()->getDefaultChannelLocaleCode())
+                        ->where('locale', core()->getDefaultLocaleCodeFromDefaultChannel())
                         ->where('attribute_id', $attribute->id)
                         ->first();
                 }

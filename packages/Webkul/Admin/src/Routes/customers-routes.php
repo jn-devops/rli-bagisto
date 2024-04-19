@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\Admin\Http\Controllers\Customers\AddressController;
+use Webkul\Admin\Http\Controllers\Customers\Customer\CartController;
+use Webkul\Admin\Http\Controllers\Customers\Customer\CompareController;
+use Webkul\Admin\Http\Controllers\Customers\Customer\OrderController;
+use Webkul\Admin\Http\Controllers\Customers\Customer\WishlistController;
 use Webkul\Admin\Http\Controllers\Customers\CustomerController;
 use Webkul\Admin\Http\Controllers\Customers\CustomerGroupController;
 use Webkul\Admin\Http\Controllers\Customers\ReviewController;
@@ -9,7 +13,7 @@ use Webkul\Admin\Http\Controllers\Customers\ReviewController;
 /**
  * Customers routes.
  */
-Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url') . '/customers'], function () {
+Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url').'/customers'], function () {
     Route::prefix('customers')->group(function () {
         /**
          * Customer management routes.
@@ -21,11 +25,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url') . '
 
             Route::post('create', 'store')->name('admin.customers.customers.store');
 
-            Route::get('edit/{id}', 'edit')->name('admin.customers.customers.edit');
-
             Route::get('search', 'search')->name('admin.customers.customers.search');
 
-            Route::get('login-as-customer/{id}', 'login_as_customer')->name('admin.customers.customers.login_as_customer');
+            Route::get('login-as-customer/{id}', 'loginAsCustomer')->name('admin.customers.customers.login_as_customer');
 
             Route::post('note/{id}', 'storeNotes')->name('admin.customer.note.store');
 
@@ -35,9 +37,31 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url') . '
 
             Route::post('mass-update', 'massUpdate')->name('admin.customers.customers.mass_update');
 
-            Route::post('/{id}', 'destroy')->name('admin.customers.customers.delete');
+            Route::post('{id}', 'destroy')->name('admin.customers.customers.delete');
 
-            Route::get('{id}/orders', 'orders')->name('admin.customers.customers.orders.data');
+            Route::controller(WishlistController::class)->group(function () {
+                Route::get('{id}/wishlist-items', 'items')->name('admin.customers.customers.wishlist.items');
+
+                Route::delete('{id}/wishlist-items', 'destroy')->name('admin.customers.customers.wishlist.items.delete');
+            });
+
+            Route::controller(CompareController::class)->group(function () {
+                Route::get('{id}/compare-items', 'items')->name('admin.customers.customers.compare.items');
+
+                Route::delete('{id}/compare-items', 'destroy')->name('admin.customers.customers.compare.items.delete');
+            });
+
+            Route::controller(CartController::class)->prefix('{id}/cart')->group(function () {
+                Route::post('create', 'store')->name('admin.customers.customers.cart.store');
+
+                Route::get('items', 'items')->name('admin.customers.customers.cart.items');
+
+                Route::delete('items', 'destroy')->name('admin.customers.customers.cart.items.delete');
+            });
+
+            Route::controller(OrderController::class)->group(function () {
+                Route::get('{id}/recent-order-items', 'recentItems')->name('admin.customers.customers.orders.recent_items');
+            });
         });
 
         /**

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Laravel\Sanctum\HasApiTokens;
 use Shetabit\Visitor\Traits\Visitor;
 use Webkul\Checkout\Models\CartProxy;
 use Webkul\Core\Models\SubscribersListProxy;
@@ -19,7 +20,7 @@ use Webkul\Shop\Mail\Customer\ResetPasswordNotification;
 
 class Customer extends Authenticatable implements CustomerContract
 {
-    use HasFactory, Notifiable, Visitor;
+    use HasApiTokens, HasFactory, Notifiable, Visitor;
 
     /**
      * The table associated with the model.
@@ -43,11 +44,9 @@ class Customer extends Authenticatable implements CustomerContract
      * @var array
      */
     protected $fillable = [
-        'name',
         'first_name',
         'last_name',
         'gender',
-        'address',
         'date_of_birth',
         'email',
         'phone',
@@ -58,16 +57,7 @@ class Customer extends Authenticatable implements CustomerContract
         'subscribed_to_news_letter',
         'status',
         'is_verified',
-        'is_kyc_verified',
         'is_suspended',
-        'middle_name',
-        'marital_status',
-        'country_code',
-        'citizenship',
-        'suffix',
-        'email_type',
-        'phone_type',
-        'image',
     ];
 
     /**
@@ -87,16 +77,6 @@ class Customer extends Authenticatable implements CustomerContract
      * @var array
      */
     protected $appends = ['image_url'];
-
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Webkul\Customer\Database\Factories\CustomerFactory
-     */
-    protected static function newFactory()
-    {
-        return CustomerFactory::new();
-    }
 
     /**
      * Send the password reset notification.
@@ -123,7 +103,7 @@ class Customer extends Authenticatable implements CustomerContract
      */
     public function getNameAttribute(): string
     {
-        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+        return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
     /**
@@ -297,5 +277,15 @@ class Customer extends Authenticatable implements CustomerContract
     public function subscription()
     {
         return $this->hasOne(SubscribersListProxy::modelClass(), 'customer_id');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Webkul\Customer\Database\Factories\CustomerFactory
+     */
+    protected static function newFactory()
+    {
+        return CustomerFactory::new();
     }
 }

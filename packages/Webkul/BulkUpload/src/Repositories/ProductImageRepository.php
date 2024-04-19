@@ -74,7 +74,7 @@ class ProductImageRepository extends Repository
      * @param  array  $imageZipName
      * @return mixed
      */
-    public function bulkuploadImages($data, $product)
+    public function bulkUploadImages($data, $product)
     {
         foreach ($data['images'] ?? [] as $value) {
             $importPath = "imported-products/admin/images/{$data['sku']}/";

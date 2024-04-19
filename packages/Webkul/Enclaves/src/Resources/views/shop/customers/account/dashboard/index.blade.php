@@ -1,7 +1,7 @@
 <x-shop::layouts.account>
     <!-- Page Title -->
     <x-slot:title>
-        @lang('shop::app.customers.account.dashboard.title')
+        @lang('enclaves::app.shop.customers.account.dashboard.index.title')
     </x-slot>
 
     <!-- Breadcrumbs -->
@@ -10,11 +10,11 @@
     @endSection
 
     <h2 class="text-[29px] font-semibold max-md:text-[20px]">
-        @lang('shop::app.customers.account.dashboard.title')
+        @lang('enclaves::app.shop.customers.account.dashboard.index.title')
     </h2>
 
     <!-- Dashboard Information -->
-    <div class="p-[36px] bg-[#F7F8FA] rounded-[20px] mt-[18px]">
+    <div class="mt-[18px] rounded-[20px] bg-[#F7F8FA] p-[36px]">
         {!! view_render_event('bagisto.shop.customers.account.dashboard.before') !!}
            
             <!-- Property section -->
@@ -22,7 +22,7 @@
 
             <!-- payment scheduler, Amortization Details, Reservation fee -->
             
-            <div class="flex gap-[25px] flex-wrap">
+            <div class="flex flex-wrap gap-[25px]">
                 <!-- left side -->
                 @include('shop::customers.account.dashboard.body.schedule')  
 

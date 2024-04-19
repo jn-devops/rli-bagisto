@@ -1,31 +1,31 @@
 <x-admin::layouts.anonymous>
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
         @lang("admin::app.errors.{$errorCode}.title")
     </x-slot>
 
-    {{-- Error page Information --}}
-	<div class="flex justify-center items-center h-[100vh] bg-white dark:bg-gray-900 ">
-        <div class="flex gap-[20px] items-center max-w-[745px]">
+    <!-- Error page Information -->
+	<div class="flex h-[100vh] items-center justify-center bg-white dark:bg-gray-900">
+        <div class="flex max-w-[745px] items-center gap-5">
             <div class="w-full">
                 <img
                     src="{{ bagisto_asset('images/logo.svg') }}"
-                    class="mb-[25px]"
+                    class="mb-6"
                 >
 
-				<div class="text-[38px] text-gray-800 dark:text-white font-bold">
+				<div class="text-[38px] font-bold text-gray-800 dark:text-white">
                     {{ $errorCode }}
                 </div>
 
-                <p class="mb-[25px] text-[14px] text-gray-800">
+                <p class="mb-6 text-sm text-gray-800">
                     @lang("admin::app.errors.{$errorCode}.description")
                 </p>
 
-                <div class="mb-[25px]">
-                    <div class="flex gap-[10px] items-center">
+                <div class="mb-6">
+                    <div class="flex items-center gap-2.5">
                         <a
                             onclick="history.back()"
-                            class="text-[14px] text-blue-600 font-semibold transition-all hover:underline"
+                            class="text-sm font-semibold text-blue-600 transition-all hover:underline"
                         >
                             @lang('admin::app.errors.go-back')
                         </a>
@@ -38,18 +38,18 @@
 
                         <a
                             href="{{ route('admin.dashboard.index') }}"
-                            class="text-[14px] text-blue-600 font-semibold transition-all hover:underline"
+                            class="text-sm font-semibold text-blue-600 transition-all hover:underline"
                         >
                             @lang('admin::app.errors.dashboard')
                         </a>
                     </div>
                 </div>
 
-                <p class="text-[14px] text-gray-800">
+                <p class="text-sm text-gray-800">
                     @lang('admin::app.errors.support', [
                         'link'  => 'mailto:support@example.com',
                         'email' => 'support@example.com',
-                        'class' => 'text-blue-600 font-semibold transition-all hover:underline',
+                        'class' => 'font-semibold text-blue-600 transition-all hover:underline',
                     ])
                 </p>
             </div>

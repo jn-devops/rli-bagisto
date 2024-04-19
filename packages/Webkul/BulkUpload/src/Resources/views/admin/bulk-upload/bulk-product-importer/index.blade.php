@@ -1,6 +1,6 @@
 <x-admin::layouts>
     <x-slot:title>
-        @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.index')
+        @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.index')
     </x-slot>
 
     <v-create-bulk-product></v-create-bulk-product>
@@ -8,12 +8,12 @@
     @pushOnce('scripts')
         <script type="text/x-template" id="v-create-bulk-product-template">
             <div>
-                <div class="flex  gap-[16px] justify-between items-center max-sm:flex-wrap">
-                    <p class="text-[20px] text-gray-800 dark:text-white font-bold">
-                        @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.add-profile')
+                <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
+                    <p class="text-xl font-bold text-gray-800 dark:text-white">
+                        @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.add-profile')
                     </p>
             
-                    <div class="flex gap-x-[10px] items-center">
+                    <div class="flex items-center gap-x-[10px]">
                         <!-- Create a new Group -->
                         @if (bouncer()->hasPermission('admin.bulk-upload.bulk-product-importer.index'))
                             <button 
@@ -21,7 +21,7 @@
                                 class="primary-button"
                                 @click="$refs.bulkProductUpdateOrCreateModal.open()"
                             >
-                                @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.add-profile')
+                                @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.add-profile')
                             </button>
                         @endif
                     </div>
@@ -36,7 +36,7 @@
                     <template #body="{ columns, records, performAction, setCurrentSelectionMode, applied}">
                         <div
                             v-for="record in records"
-                            class="row grid gap-[10px] items-center px-[16px] py-[16px] border-b-[1px] dark:border-gray-800 text-gray-600 dark:text-gray-300 transition-all hover:bg-gray-50 dark:hover:bg-gray-950"
+                            class="row grid items-center gap-2.5 border-b px-4 py-4 text-gray-600 transition-all hover:bg-gray-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-950"
                             :style="'grid-template-columns: repeat(' + (record.actions.length ? 6 : 5) + ', 1fr);'"
                         >
                             @if ($hasPermission)
@@ -45,13 +45,13 @@
                                     :name="`mass_action_select_record_${record.id}`"
                                     :id="`mass_action_select_record_${record.id}`"
                                     :value="record.id"
-                                    class="hidden peer"
+                                    class="peer hidden"
                                     v-model="applied.massActions.indices"
                                     @change="setCurrentSelectionMode"
                                 >
 
                                 <label
-                                    class="icon-uncheckbox rounded text cursor-pointer peer-checked:icon-checked peer-checked:text-blue-600 rounded-[6px] text-[24px]"
+                                    class="icon-uncheckbox text peer-checked:icon-checked cursor-pointer rounded rounded-[6px] text-[24px] peer-checked:text-blue-600"
                                     :for="`mass_action_select_record_${record.id}`"
                                 >
                                 </label>
@@ -69,11 +69,11 @@
                             <p v-text="record.created_at"></p>
                            
                             <!-- Actions -->
-                            <div class="flex justify-end">
+                            <div class="place-self-end">
                                 <a @click="id=1; editModal(record)">
                                     <span
                                         :class="record.actions.find(action => action.title === 'Edit')?.icon"
-                                        class="icon-edit cursor-pointer rounded-[6px] p-[6px] text-[24px] transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
+                                        class="icon-edit cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 max-sm:place-self-center dark:hover:bg-gray-800"
                                         :title="record.actions.find(action => action.title === 'Edit')?.title"
                                     >
                                     </span>
@@ -82,7 +82,7 @@
                                 <a @click="performAction(record.actions.find(action => action.method === 'POST'))">
                                     <span
                                         :class="record.actions.find(action => action.method === 'POST')?.icon"
-                                        class="cursor-pointer rounded-[6px] p-[6px] text-[24px] transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
+                                        class="icon-delete cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 max-sm:place-self-center dark:hover:bg-gray-800"
                                         :title="record.actions.find(action => action.method === 'POST')?.title"
                                     >
                                     </span>
@@ -109,12 +109,12 @@
                         <x-admin::modal ref="bulkProductUpdateOrCreateModal">          
                             <x-slot:header>
                                 <!-- Modal Header -->
-                                <p class="text-gray-800 dark:text-white font-bold">
+                                <p class="font-bold text-gray-800 dark:text-white">
                                     <span v-if="id">
-                                        @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.edit-profile')
+                                        @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.edit-profile')
                                     </span>
                                     <span v-else>
-                                        @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.add-profile')
+                                        @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.add-profile')
                                     </span>
                                 </p>    
                             </x-slot:header>
@@ -122,9 +122,9 @@
                             <x-slot:content>
                                 <!-- Modal Content -->
                                 <div class="px-4 py-2.5 dark:border-gray-800">
-                                    <x-admin::form.control-group class="w-full mb-2.5">
+                                    <x-admin::form.control-group class="mb-2.5 w-full">
                                         <x-admin::form.control-group.label class="required">
-                                            @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.name')
+                                            @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.name')
                                         </x-admin::form.control-group.label>
 
                                         <x-admin::form.control-group.control
@@ -138,8 +138,8 @@
                                             name="name"
                                             id="name"
                                             rules="required"
-                                            :label="trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.name')"
-                                            :placeholder="trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.name')"
+                                            :label="trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.name')"
+                                            :placeholder="trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.name')"
                                         >
                                         </x-admin::form.control-group.control>
 
@@ -149,9 +149,9 @@
                                         </x-admin::form.control-group.error>
                                     </x-admin::form.control-group>
                                     
-                                    <x-admin::form.control-group class="w-full mb-2.5" >
+                                    <x-admin::form.control-group class="mb-2.5 w-full" >
                                         <x-admin::form.control-group.label class="required">
-                                            @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.family')
+                                            @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.family')
                                         </x-admin::form.control-group.label>
                                         
                                         <input type="hidden" :value="family.id" v-if="id" name="family_id">
@@ -162,10 +162,10 @@
                                             id="attribute_family_id"
                                             rules="required"
                                                                                    
-                                            :label="trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.family')"
+                                            :label="trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.family')"
                                         >
                                             <option value="">
-                                                @lang('bulkupload::app.admin.bulk-upload.run-profile.please-select')
+                                                @lang('bulkUpload::app.admin.bulk-upload.run-profile.please-select')
                                             </option>
 
                                             <option v-if="id">@{{ family.name }}</option>
@@ -189,9 +189,9 @@
                                     </x-admin::form.control-group>
                                     
 
-                                    <x-admin::form.control-group class="w-full mb-2.5">
+                                    <x-admin::form.control-group class="mb-2.5 w-full">
                                         <x-admin::form.control-group.label class="required">
-                                            @lang('bulkupload::app.admin.bulk-upload.bulk-product-importer.locale')
+                                            @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.locale')
                                         </x-admin::form.control-group.label>
 
                                         <x-admin::form.control-group.control
@@ -199,10 +199,10 @@
                                             name="locale_code"
                                             id="locale_code"
                                             rules="required"
-                                            :label="trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.locale')"
+                                            :label="trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.locale')"
                                         >
                                             <option value="">
-                                                @lang('bulkupload::app.admin.bulk-upload.run-profile.please-select')
+                                                @lang('bulkUpload::app.admin.bulk-upload.run-profile.please-select')
                                             </option>
 
                                             @foreach (core()->getAllLocales() as $localeModel)
@@ -222,12 +222,12 @@
             
                             <x-slot:footer>
                                 <!-- Modal Submission -->
-                                <div class="flex gap-x-2.5 items-center">
+                                <div class="flex items-center gap-x-2.5">
                                     <button 
                                         type="submit"
                                         class="primary-button"
                                     >
-                                        @lang('bulkupload::app.admin.bulk-upload.upload-files.save')
+                                        @lang('bulkUpload::app.admin.bulk-upload.upload-files.save')
                                     </button>
                                 </div>
                             </x-slot:footer>
@@ -238,7 +238,7 @@
         </script>
         
         <script type="module">
-            // create vue tempalete
+            // create vue template
             app.component('v-create-bulk-product', {
                 template: '#v-create-bulk-product-template',
 
@@ -292,7 +292,7 @@
                         this.data.attribute_family_id = value.name;
                         this.data.created_at = value.created_at;  
                         
-                        // Get attribute family by iporter id
+                        // Get attribute family by importer id
                         const uri = "{{ route('admin.bulk-upload.bulk-product-importer.get-attribute-family') }}"
                         
                         this.$axios.post(uri,{

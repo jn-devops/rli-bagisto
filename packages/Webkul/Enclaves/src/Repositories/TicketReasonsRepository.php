@@ -3,7 +3,7 @@
 namespace Webkul\Enclaves\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Enclaves\Contracts\TicketReasons;
+use Webkul\Enclaves\Models\TicketReasons;
 
 class TicketReasonsRepository extends Repository
 {

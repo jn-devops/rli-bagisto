@@ -11,12 +11,12 @@
     >
         {!! view_render_event('admin.blogs.setting.before') !!}
 
-        <div class="flex items-center justify-between gap-[16px] max-sm:flex-wrap">
-            <p class="text-[20px] font-bold text-gray-800 dark:text-white">
+        <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
+            <p class="text-5 font-bold text-gray-800 dark:text-white">
                 @lang('blog::app.setting.index.title')
             </p>
 
-            <div class="flex items-center gap-x-[10px]">
+            <div class="flex items-center gap-x-3">
                 <!-- Save Button -->
                 <button
                     type="submit"
@@ -28,11 +28,11 @@
         </div>
 
         <!-- Full Panel -->
-        <div class="mt-[14px] flex gap-[10px] max-xl:flex-wrap">
-            <div class="flex flex-1 flex-col gap-[8px] max-xl:flex-auto">
+        <div class="mt-4 flex gap-3 max-xl:flex-wrap">
+            <div class="flex flex-1 flex-col gap-2 max-xl:flex-auto">
             <!-- Post Setting Section -->
-                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
-                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
+                <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
+                    <p class="text-4 mb-4 font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.setting.index.post.title')
                     </p>
 
@@ -164,8 +164,8 @@
                 </div>
                 
                 <!-- Comment Setting Section -->
-                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
-                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
+                <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
+                    <p class="text-4 mb-4 font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.setting.index.comment.title')
                     </p>
 
@@ -248,17 +248,17 @@
                 </div>
             </div>
             
-            <div class="flex w-[360px] max-w-full flex-col gap-[8px]">
+            <div class="flex w-[360px] max-w-full flex-col gap-2">
                 <!-- Default Blog SEO Setting Section -->
-                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
-                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
+                <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
+                    <p class="text-4 mb-4 font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.setting.index.seo.title')
                     </p>
 
                     <div class="mt-8">
                         
                         <!-- Meta Title -->
-                        <x-admin::form.control-group class="mb-[10px]">
+                        <x-admin::form.control-group class="mb-3">
                             <x-admin::form.control-group.label>
                                 @lang('blog::app.setting.index.seo.meta-title')
                             </x-admin::form.control-group.label>
@@ -275,7 +275,7 @@
                         </x-admin::form.control-group>
 
                         <!-- Meta Keywords -->
-                        <x-admin::form.control-group class="mb-[10px]">
+                        <x-admin::form.control-group class="mb-3">
                             <x-admin::form.control-group.label>
                                 @lang('blog::app.setting.index.seo.meta-keywords')
                             </x-admin::form.control-group.label>
@@ -292,7 +292,7 @@
                         </x-admin::form.control-group>
 
                         <!-- Meta Description -->
-                        <x-admin::form.control-group class="mb-[10px]">
+                        <x-admin::form.control-group class="mb-3">
                             <x-admin::form.control-group.label>
                                 @lang('blog::app.setting.index.seo.meta-description')
                             </x-admin::form.control-group.label>

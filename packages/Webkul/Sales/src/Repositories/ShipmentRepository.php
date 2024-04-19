@@ -6,6 +6,7 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Webkul\Core\Eloquent\Repository;
+use Webkul\Sales\Models\Order;
 
 class ShipmentRepository extends Repository
 {
@@ -55,7 +56,7 @@ class ShipmentRepository extends Repository
                 'track_number'        => $data['shipment']['track_number'],
                 'customer_id'         => $order->customer_id,
                 'customer_type'       => $order->customer_type,
-                'order_address_id'    => $order->shipping_address->id ?? 0,
+                'order_address_id'    => $order->shipping_address->id,
                 'inventory_source_id' => $data['shipment']['source'],
             ]);
 
@@ -74,19 +75,19 @@ class ShipmentRepository extends Repository
                 $totalWeight += $orderItem->weight * $qty;
 
                 $this->shipmentItemRepository->create([
-                    'shipment_id'    => $shipment->id,
-                    'order_item_id'  => $orderItem->id,
-                    'name'           => $orderItem->name,
-                    'sku'            => $orderItem->getTypeInstance()->getOrderedItem($orderItem)->sku,
-                    'qty'            => $qty,
-                    'weight'         => $orderItem->weight * $qty,
-                    'price'          => $orderItem->price,
-                    'base_price'     => $orderItem->base_price,
-                    'base_total'     => $orderItem->base_price * $qty,
-                    'product_id'     => $orderItem->product_id,
-                    'product_type'   => $orderItem->product_type,
-                    'additional'     => $orderItem->additional,
-
+                    'shipment_id'   => $shipment->id,
+                    'order_item_id' => $orderItem->id,
+                    'name'          => $orderItem->name,
+                    'sku'           => $orderItem->getTypeInstance()->getOrderedItem($orderItem)->sku,
+                    'qty'           => $qty,
+                    'weight'        => $orderItem->weight * $qty,
+                    'price'         => $orderItem->price,
+                    'base_price'    => $orderItem->base_price,
+                    'total'         => $orderItem->price * $qty,
+                    'base_total'    => $orderItem->base_price * $qty,
+                    'product_id'    => $orderItem->product_id,
+                    'product_type'  => $orderItem->product_type,
+                    'additional'    => $orderItem->additional,
                     // Customization code
                     'total'          => ($orderItem->price + $orderItem->processing_fee) * $qty,
                     'processing_fee' => $orderItem->processing_fee,
@@ -130,7 +131,7 @@ class ShipmentRepository extends Repository
             if (isset($orderState)) {
                 $this->orderRepository->updateOrderStatus($order, $orderState);
             } elseif ($order->hasOpenInvoice()) {
-                $this->orderRepository->updateOrderStatus($order, 'pending_payment');
+                $this->orderRepository->updateOrderStatus($order, Order::STATUS_PENDING_PAYMENT);
             } else {
                 $this->orderRepository->updateOrderStatus($order);
             }

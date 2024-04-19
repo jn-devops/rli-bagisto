@@ -40,7 +40,7 @@ class AttributeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerConfig();
+       // $this->registerConfig();
     }
 
     /**

@@ -22,8 +22,14 @@ class CartAddress extends Address implements CartAddressContract
 {
     use HasFactory;
 
+    /**
+     * Define the address type shipping.
+     */
     public const ADDRESS_TYPE_SHIPPING = 'cart_shipping';
 
+    /**
+     * Define the address type billing.
+     */
     public const ADDRESS_TYPE_BILLING = 'cart_billing';
 
     /**
@@ -61,7 +67,7 @@ class CartAddress extends Address implements CartAddressContract
      */
     public function cart(): BelongsTo
     {
-        return $this->belongsTo(Cart::class);
+        return $this->belongsTo(CartProxy::modelClass());
     }
 
     /**

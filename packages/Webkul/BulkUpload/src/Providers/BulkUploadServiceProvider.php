@@ -37,15 +37,13 @@ class BulkUploadServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/../Routes/admin-routes.php');
 
-        $this->loadRoutesFrom(__DIR__ . '/../Routes/shop-routes.php');
-
-        $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'bulkupload');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'bulkUpload');
 
         $this->publishes([
             __DIR__ . '/../../publishable/assets' => public_path('vendor/webkul/admin/assets'),
         ], 'public');
 
-        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'bulkupload');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'bulkUpload');
 
         $this->app->register(ModuleServiceProvider::class);
 

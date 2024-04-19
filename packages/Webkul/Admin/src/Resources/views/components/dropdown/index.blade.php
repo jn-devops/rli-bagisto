@@ -11,7 +11,7 @@
 
     @isset($content)
         <template v-slot:content>
-            <div {{ $content->attributes->merge(['class' => 'p-[20px]']) }}>
+            <div {{ $content->attributes->merge(['class' => 'p-5']) }}>
                 {{ $content }}
             </div>
         </template>
@@ -19,7 +19,7 @@
 
     @isset($menu)
         <template v-slot:menu>
-            <ul {{ $menu->attributes->merge(['class' => 'py-[15px]']) }}>
+            <ul {{ $menu->attributes->merge(['class' => 'py-4']) }}>
                 {{ $menu }}
             </ul>
         </template>
@@ -27,10 +27,13 @@
 </v-dropdown>
 
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-dropdown-template">
+    <script
+        type="text/x-template"
+        id="v-dropdown-template"
+    >
         <div>
             <div
-                class="select-none flex"
+                class="flex select-none"
                 ref="toggleBlock"
                 @click="toggle()"
             >
@@ -40,15 +43,15 @@
             <transition
                 tag="div"
                 name="dropdown"
-                enter-active-class="transition ease-out duration-100"
-                enter-from-class="transform opacity-0 scale-95"
-                enter-to-class="transform opacity-100 scale-100"
-                leave-active-class="transition ease-in duration-75"
-                leave-from-class="transform opacity-100 scale-100"
-                leave-to-class="transform opacity-0 scale-95"
+                enter-active-class="transition duration-100 ease-out"
+                enter-from-class="scale-95 transform opacity-0"
+                enter-to-class="scale-100 transform opacity-100"
+                leave-active-class="transition duration-75 ease-in"
+                leave-from-class="scale-100 transform opacity-100"
+                leave-to-class="scale-95 transform opacity-0"
             >
                 <div
-                    class="absolute bg-white dark:bg-gray-900 shadow-[0px_8px_10px_0px_rgba(0,0,0,0.20),0px_6px_30px_0px_rgba(0,0,0,0.12),0px_16px_24px_0px_rgba(0,0,0,0.14)] rounded-[4px] w-max z-10"
+                    class="absolute z-10 w-max rounded bg-white shadow-[0px_8px_10px_0px_rgba(0,0,0,0.20),0px_6px_30px_0px_rgba(0,0,0,0.12),0px_16px_24px_0px_rgba(0,0,0,0.14)] dark:bg-gray-900"
                     :style="positionStyles"
                     v-show="isActive"
                 >

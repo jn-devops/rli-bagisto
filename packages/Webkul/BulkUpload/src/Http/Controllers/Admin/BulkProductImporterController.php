@@ -34,7 +34,7 @@ class BulkProductImporterController extends Controller
 
         $families = $this->attributeFamilyRepository->all();
 
-        return view('bulkupload::admin.bulk-upload.bulk-product-importer.index', compact('families'));
+        return view('bulkUpload::admin.bulk-upload.bulk-product-importer.index', compact('families'));
     }
 
     /**
@@ -57,7 +57,7 @@ class BulkProductImporterController extends Controller
         }
 
         return new JsonResponse([
-            'message' => trans('bulkupload::app.admin.bulk-upload.messages.profile-saved'),
+            'message' => trans('bulkUpload::app.admin.bulk-upload.messages.profile-saved'),
             'status'  => true,
         ]);
     }
@@ -75,7 +75,7 @@ class BulkProductImporterController extends Controller
 
         $profiles = $this->bulkProductImporterRepository->findOrFail($id);
 
-        return view('bulkupload::admin.bulk-upload.bulk-product-importer.edit', compact('families', 'profiles'));
+        return view('bulkUpload::admin.bulk-upload.bulk-product-importer.edit', compact('families', 'profiles'));
     }
 
     /**
@@ -107,7 +107,7 @@ class BulkProductImporterController extends Controller
         }
 
         return new JsonResponse([
-            'message' => trans('bulkupload::app.admin.bulk-upload.messages.update-profile'),
+            'message' => trans('bulkUpload::app.admin.bulk-upload.messages.update-profile'),
             'status'  => true,
         ]);
     }
@@ -126,12 +126,12 @@ class BulkProductImporterController extends Controller
         }
 
         return new JsonResponse([
-            'message' => trans('bulkupload::app.admin.bulk-upload.messages.profile-deleted'),
+            'message' => trans('bulkUpload::app.admin.bulk-upload.messages.profile-deleted'),
         ]);
     }
 
     /**
-     * Mass Delete the dataflowprofiles
+     * Mass Delete the dataflow profiles
      *
      * @return \Illuminate\Http\Response
      */
@@ -143,7 +143,7 @@ class BulkProductImporterController extends Controller
         }
 
         return new JsonResponse([
-            'message' => trans('bulkupload::app.admin.bulk-upload.messages.all-profile-deleted'),
+            'message' => trans('bulkUpload::app.admin.bulk-upload.messages.all-profile-deleted'),
         ]);
     }
 

@@ -1,26 +1,39 @@
-{{-- Tax Collected Shimmer --}}
-<div class="flex-1 relative p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
-    {{-- Header --}}
-    <div class="flex items-center justify-between mb-[16px]">
-        <div class="shimmer w-[150px] h-[17px]"></div>
+<!-- Tax Collected Shimmer -->
+<div class="box-shadow relative flex-1 rounded bg-white p-4 dark:bg-gray-900">
+    <!-- Header -->
+    <div class="mb-4 flex items-center justify-between">
+        <div class="shimmer h-[17px] w-[150px]"></div>
 
-        <div class="shimmer w-[79px] h-[21px]"></div>
+        <div class="shimmer h-[21px] w-[79px]"></div>
     </div>
 
-    <div class="grid gap-[16px]">
-        <div class="flex gap-[16px] items-center  justify-between">
-            <div class="shimmer w-[120px] h-[36px]"></div>
-            <div class="shimmer w-[75px] h-[17px]"></div>
+    <div class="grid gap-4">
+        <div class="flex items-center justify-between gap-4">
+            <div class="shimmer h-9 w-[120px]"></div>
+            <div class="shimmer h-[17px] w-[75px]"></div>
         </div>
 
-        <div class="shimmer w-[120px] h-[20px]"></div>
+        <div class="shimmer h-5 w-[120px]"></div>
     
-        {{-- Graph Shimmer --}}
-        <x-admin::shimmer.reporting.graph/>
+        <!-- Graph Shimmer -->
+        <x-admin::shimmer.reporting.graph :count=15 />
 
-        <div class="shimmer w-[150px] h-[17px] mb-[16px]"></div>
+        <!-- Date Range -->
+        <div class="flex justify-center gap-5">
+            <div class="flex items-center gap-1">
+                <div class="shimmer h-3.5 w-3.5 rounded-md"></div>
+                <div class="shimmer h-[17px] w-[143px]"></div>
+            </div>
+            
+            <div class="flex items-center gap-1">
+                <div class="shimmer h-3.5 w-3.5 rounded-md"></div>
+                <div class="shimmer h-[17px] w-[143px]"></div>
+            </div>
+        </div>
 
-        {{-- Progress Bar Shimmer --}}
-        <x-admin::shimmer.reporting.progress-bar/>
+        <div class="shimmer mb-4 h-[17px] w-[150px]"></div>
+
+        <!-- Progress Bar Shimmer -->
+        <x-admin::shimmer.reporting.progress-bar />
     </div>
 </div>

@@ -17,18 +17,18 @@
         </template>
 
         <template v-else>
-            <div class="sticky top-[30px] h-max w-[442px] max-w-full pl-[30px] max-lg:w-auto max-lg:max-w-[442px] max-lg:pl-0 ">
+            <div class="sticky top-[30px] h-max w-[442px] max-w-full pl-[30px] max-lg:w-auto max-lg:max-w-[442px] max-lg:pl-0">
                 <h2 class="text-[26px] font-medium max-sm:text-[20px]">
                     @lang('shop::app.checkout.onepage.summary.cart-summary')
                 </h2>
                 
-                <div class="grid mt-[40px] border-b-[1px] border-[#E9E9E9] max-sm:mt-[20px]">
+                <div class="mt-[40px] grid border-b-[1px] border-[#E9E9E9] max-sm:mt-[20px]">
                     <div 
                         class="flex gap-x-[15px] pb-[20px]"
                         v-for="item in cart.items"
                     >
                         <img
-                            class="max-w-[90px] max-h-[90px] w-[90px] h-[90px] rounded-md"
+                            class="h-[90px] max-h-[90px] w-[90px] max-w-[90px] rounded-md"
                             :src="item.base_image.small_image_url"
                             :alt="item.name"
                             width="110"
@@ -58,8 +58,8 @@
 
                 </div>
 
-                <div class="grid gap-[15px] mt-[25px] mb-[30px]">
-                    <div class="flex text-right justify-between">
+                <div class="mb-[30px] mt-[25px] grid gap-[15px]">
+                    <div class="flex justify-between text-right">
                         <p class="text-[16px] max-sm:text-[14px] max-sm:font-normal">
                             @lang('shop::app.checkout.onepage.summary.sub-total')
                         </p>
@@ -72,7 +72,7 @@
                     </div>
 
                     <div 
-                        class="flex text-right justify-between"
+                        class="flex justify-between text-right"
                         v-for="(amount, index) in cart.base_tax_amounts"
                         v-if="parseFloat(cart.base_tax_total)"
                     >
@@ -88,7 +88,7 @@
                     </div>
 
                     <div 
-                        class="flex text-right justify-between"
+                        class="flex justify-between text-right"
                         v-if="! cart.selected_shipping_rate"
                     >
                         <p class="text-[16px]">
@@ -103,7 +103,7 @@
                     </div>
 
                     <div 
-                        class="flex text-right justify-between"
+                        class="flex justify-between text-right"
                         v-if="cart.base_discount_amount && parseFloat(cart.base_discount_amount) > 0"
                     >
                         <p class="text-[16px]">
@@ -119,9 +119,9 @@
 
                     @include('shop::checkout.onepage.coupon')
 
-                    @include('bulkupload::shop.bulk-upload.checkout.onepage.index')
+                    @include('enclaves::checkout.onepage.properties.fee.index')
 
-                    <div class="flex text-right justify-between">
+                    <div class="flex justify-between text-right">
                         <p class="text-[18px] font-semibold">
                             @lang('shop::app.checkout.onepage.summary.grand-total')
                         </p>
@@ -145,7 +145,7 @@
                     >
                         <button
                             v-if="! isLoading"
-                            class="block w-max py-[11px] px-[43px] bg-navyBlue text-white text-base font-medium rounded-[18px] text-center cursor-pointer max-sm:text-[14px] max-sm:px-[25px] max-sm:mb-[40px]"
+                            class="block w-max cursor-pointer rounded-[18px] bg-navyBlue px-[43px] py-[11px] text-center text-base font-medium text-white max-sm:mb-[40px] max-sm:px-[25px] max-sm:text-[14px]"
                             @click="placeOrder"
                         >
                             @lang('shop::app.checkout.onepage.summary.place-order')    
@@ -153,10 +153,10 @@
 
                         <button
                             v-else
-                            class="flex gap-[10px] items-center w-max py-[11px] px-[32px] bg-navyBlue text-white text-base font-medium rounded-[18px] text-center max-sm:text-[14px] max-sm:px-[25px] max-sm:mb-[40px]"
+                            class="flex w-max items-center gap-[10px] rounded-[18px] bg-navyBlue px-[32px] py-[11px] text-center text-base font-medium text-white max-sm:mb-[40px] max-sm:px-[25px] max-sm:text-[14px]"
                         >
                             <!-- Spinner -->
-                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <svg class="h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle
                                     class="opacity-25"
                                     cx="12"

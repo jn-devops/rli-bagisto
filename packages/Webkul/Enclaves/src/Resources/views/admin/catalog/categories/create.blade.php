@@ -6,7 +6,7 @@
         </p>
     </x-slot:header>
     
-    <x-slot:content class="pointer-events-none">
+    <x-slot:content>
         <x-admin::form.control-group class="mb-[10px]">
             <x-admin::form.control-group.label class="required">
                 @lang('enclaves::app.admin.catalog.category.index.button.text')

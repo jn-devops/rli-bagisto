@@ -23,12 +23,12 @@
     >
         {!! view_render_event('admin.blog.categories.create.before') !!}
 
-        <div class="flex items-center justify-between gap-[16px] max-sm:flex-wrap">
-            <p class="text-[20px] font-bold text-gray-800 dark:text-white">
+        <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
+            <p class="text-5 font-bold text-gray-800 dark:text-white">
                 @lang('blog::app.category.create.title')
             </p>
 
-            <div class="flex items-center gap-x-[10px]">
+            <div class="flex items-center gap-x-3">
                 <!-- Cancel Button -->
                 <a
                     href="{{ route('admin.blog.category.index') }}"
@@ -48,12 +48,12 @@
         </div>
 
         <!-- Full Panel -->
-        <div class="mt-[14px] flex gap-[10px] max-xl:flex-wrap">
+        <div class="mt-4 flex gap-3 max-xl:flex-wrap">
             <!-- Left Section -->
-            <div class="flex flex-1 flex-col gap-[8px] max-xl:flex-auto">
+            <div class="flex flex-1 flex-col gap-2 max-xl:flex-auto">
                 <!-- General -->
-                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
-                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
+                <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
+                    <p class="text-4 mb-4 font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.category.create.general')
                     </p>
 
@@ -85,7 +85,7 @@
                                 id="name"
                                 v-bind="field"
                                 :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
-                                class="flex min-h-[39px] w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
+                                class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                                 placeholder="{{ trans('blog::app.category.create.name') }}"
                                 v-slugify-target:slug="setValues"
                             >
@@ -117,7 +117,7 @@
                                 id="slug"
                                 v-bind="field"
                                 :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
-                                class="flex min-h-[39px] w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
+                                class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                                 placeholder="{{ trans('blog::app.category.create.slug') }}"
                                 v-slugify-target:slug
                             >
@@ -132,8 +132,8 @@
                 </div>
 
                 <!-- Description and images -->
-                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
-                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
+                <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
+                    <p class="text-4 mb-4 font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.category.create.description-and-images')
                     </p>
 
@@ -179,8 +179,8 @@
                 </div>
 
                 <!-- SEO Details -->
-                <div class="box-shadow rounded-[4px] bg-white p-[16px] dark:bg-gray-900">
-                    <p class="mb-[16px] text-[16px] font-semibold text-gray-800 dark:text-white">
+                <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
+                    <p class="text-4 mb-4 font-semibold text-gray-800 dark:text-white">
                         @lang('blog::app.category.create.search-engine-optimization')
                     </p>
 
@@ -251,12 +251,12 @@
             </div>
 
             <!-- Right Section -->
-            <div class="flex w-[360px] max-w-full flex-col gap-[8px]">
+            <div class="flex w-[360px] max-w-full flex-col gap-2">
 
                 <!-- Settings -->
                 <x-admin::accordion>
                     <x-slot:header>
-                        <p class="p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
+                        <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
                             @lang('blog::app.category.create.settings')
                         </p>
                     </x-slot:header>
@@ -283,14 +283,14 @@
                 <!-- Parent Category -->
                 <x-admin::accordion>
                     <x-slot:header>
-                        <p class="p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
+                        <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
                             @lang('blog::app.category.create.parent-category')
                         </p>
                     </x-slot:header>
 
                     <x-slot:content>
                         <!-- Status -->
-                        <div class="flex flex-col gap-[12px]">
+                        <div class="flex flex-col gap-3">
                             <x-admin::tree.view
                                 input-type="radio"
                                 name-field="parent_id"
@@ -313,7 +313,7 @@
 @pushOnce('scripts')
     <!-- SEO Vue Component Template -->
     <script type="text/x-template" id="v-seo-helper-custom-template">
-        <div class="mb-[30px] flex flex-col gap-[3px]">
+        <div class="mb-8 flex flex-col gap-1">
             <p 
                 class="text-[#161B9D] dark:text-white"
                 v-text="metaTitle"

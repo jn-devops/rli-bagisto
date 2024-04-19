@@ -112,36 +112,206 @@ return [
 
     'shop' => [
         'layouts' => [
+            'my-account'   => 'My Account',
+            'dashboard'    => "Dashboard",
+            'profile'      => 'Profile',
+            'documents'    => 'Documents',
+            'inquiries'    => 'Inquiries',
             'transactions' => 'Transactions',
             'inquiries'    => 'Inquiries',
             'help-seminar' => 'Help Seminar',
         ],
 
         'customers' => [
-            'inquiries' => [
-                'title'         => 'Inquiries',
-                'help_test'     => 'How can we help you?',
-                'submit-header' => 'Submit Ticket',
-                'submit-text'   => 'Click here to report your concern and we will respons as soon as we can.',
-                'tickets'       => 'Your Tickets',
-                'tickets_text'  => 'You can follow-up and get updates on your active tickets here.',
-                'frequently'    => 'Frequently Asked Questions',
-                'placeholder'   => 'Write the details of your concern here....',
-                'reservation'   => 'Reservation',
-                'btn-upload'    => 'Upload Files',
-                'submit'        => 'Submit',
-
-                'list' => [
-                    'title'          => 'Your Tickets',
-                    'create-success' => 'Ticket successfully created',
-                ],
-            ],
-
             'login-form' => [
                 'page-title' => 'Log in your Account',
             ],
 
             'account' => [
+                'customer-profile' => [
+                    'personal-details' => [
+                        'title'           => 'Personal Details',
+                        'full-name'       => 'Full Name',
+                        'dob'             => 'Date of Birth',
+                        'email'           => 'Email',
+                        'phone'           => 'Phone',
+                        'lot_unit_number' => 'Lot / Unit number: ',
+                        'select'          => "Select",
+                    ],
+
+                    'view' => [
+                        'title'           => 'Personal Details',
+
+                        'info' => [
+                            'full-name'       => 'Full Name', 
+                            'dob'             => 'Date of Birth',
+                            'email'           => 'Email',
+                            'phone'           => 'Phone',
+                            'lot-unit-number' => 'Lot / Unit number: ',
+                            'civil-status'    => "Civil Status",
+                            'gender'          => 'Gender',
+                            'address-1'       => 'Address-1',
+                        ],
+
+                        'information' => [
+                            'title'                     => 'Employment Information',
+                            'full-name'                 => 'Full Name',
+                            'dob'                       => 'Date of Birth',
+                            'email'                     => 'Email',
+                            'phone'                     => 'Phone',
+                            'lot-unit-number'           => 'Lot / Unit number: ',
+                            'select'                    => "Select",
+                            'civil-status'              => "Civil Status",
+                            'gender'                    => "Gender",
+                            'address-1'                 => 'Address 1',
+                            'address-2'                 => 'Address 2',
+                            'work-industry'             => 'Work Industry:',
+                            'gross-income'              => 'Gross Income: ',
+                            'nationality'               => 'Nationality',
+                            'current-position'          => 'Current Position',
+                            'tax-identification-number' => 'Tax Identification Number:',
+                            'PAG-IBIG-number'           => 'PAG-IBIG Number',
+                            'SSS-GSIS-number'           => 'SSS Number',
+
+                            'employment' => [
+                                'type'   => "Employment Type",
+                                'status' => 'Employment Status',
+                            ],
+
+                            'employer' => [
+                                'name'    => 'Employer Name',
+                                'number'  => 'Employer Contact Number:',
+                                'address' => 'Employer Address',
+                            ],
+                        ],
+
+                        'co-borrower' => [
+                            'title'                     => "Borrower's Data (Spouse, Attorney in fact, Co-Borrower)",
+                            'secondary-address'         => 'Secondary Home Address: ',
+                            'civil-status'              => 'Civil Status: ',
+                            'gender'                    => 'Gender',
+                            'dob'                       => 'Date of Birth',
+                            'primary-email-address'     => 'Primary Email Address:',
+                            'primary-phone-number'      => 'Primary Phone Number',
+                            'work-industry'             => 'Work Industry',
+                            'gross-income'              => 'Gross Income: ',
+                            'nationality'               => 'Nationality',
+                            'current-position'          => 'Current Position: ',
+                            'tax-identification-number' => 'Tax Identification Number:',
+                            'PAG-IBIG-number'           => 'PAG-IBIG Number',
+                            'SSS-GSIS-number'           => 'SSS Number',
+
+                            'employment' => [
+                                'type'   => "Employment Type",
+                                'status' => 'Employment Status',
+                            ],
+
+                            'employer' => [
+                                'name'    => 'Employer Name',
+                                'number'  => 'Employer Contact Number: ',
+                                'address' => 'Employer Address: ',
+                            ],
+                        ],
+                    ],
+
+                    'header' => [
+                        'email' => 'Email: ',
+                        'age'   => 'Age: ',
+                        'step'  => 'Steps to get your dream house',
+                        'read-now' => 'Read Now',
+                    ],
+
+                    'form' => [
+                        'full-name'              => 'Full Name: ',
+                        'address'                => 'Primary Home Address: ',
+                        'lot-unit-number'        => 'Lot / Unit Number: ',
+                        'select'                 => 'Select',
+                        'employment-information' => 'Employment Information',
+                        'co-Borrower'            => "Borrower's Data (Spouse, Attorney in fact, Co-Borrower)",
+                    ],
+                ],
+
+                'dashboard' => [
+                    'index' => [
+                        'title' => 'Dashboard',
+                    ],
+
+                    'header' => [
+                        'monthly-amortization' => 'Monthly Amortization: ',
+                        'reserved' => 'Reserved',
+                        'total-contract-price' => 'Total Contract Price',
+                    ],
+
+                    'body' => [
+                        'payment-details' => 'Payment Details',
+                        'tcp'             => 'TCP',
+                        'down-payment'    => 'Down Payment',
+                        'balance'         => 'Balance',
+                        'info'            => '*remaining balance will be paid thru Pag-Ibig Financing',
+                    ],
+                ],
+
+                'transactions' => [
+                    'index' => [
+                        'title' => 'Transactions',
+                    ],
+
+                    'view' => [
+                        'page-title' => 'Order #:order_id',
+                        'details'    => 'Transaction Details',
+                    ],
+
+                    'datagrid' => [
+                        'transaction-no' => 'Transaction No',
+                        'property'       => 'Property',
+                        'sku'            => 'SKU',
+                        'contract'       => 'Contract',
+                        'reservation'    => 'Reservation Fee',
+                        'status'         => [
+                            'title' => 'Status',
+                            'options' => [
+                                'processing'      => 'Processing',
+                                'completed'       => 'Completed',
+                                'canceled'        => 'Canceled',
+                                'closed'          => 'Closed',
+                                'pending'         => 'Pending',
+                                'pending-payment' => 'Pending Payment',
+                                'fraud'           => 'Fraud',
+                            ],
+                        ],
+                    ],
+                ],
+
+                'inquiries' => [
+                    'title'         => 'Inquiries',
+                    'help_test'     => 'How can we help you?',
+                    'submit-header' => 'Submit Ticket',
+                    'submit-text'   => 'Click here to report your concern and we will respons as soon as we can.',
+                    'tickets'       => 'Your Tickets',
+                    'tickets_text'  => 'You can follow-up and get updates on your active tickets here.',
+                    'frequently'    => 'Frequently Asked Questions',
+                    'placeholder'   => 'Write the details of your concern here....',
+                    'reservation'   => 'Reservation',
+                    'btn-upload'    => 'Upload Files',
+                    'submit'        => 'Submit',
+
+                    'list' => [
+                        'title'          => 'Your Tickets',
+                        'create-success' => 'Ticket successfully created',
+                    ],
+
+                    'success'      => 'Successfully submitted!',
+                    'upload-files' => 'Upload Files',
+                ],
+
+                'documents' => [
+                    'title' => 'Documents',
+                    'go-to-documents' => 'Go to my Documents',
+                    'press-button'    => 'Press the button above and enter your',
+                    'reference-code'  => 'Reference Code: ',
+                    'reference-info'  => 'to confirm and manage your documents.',
+                ],
+
                 'help-seminar' => [
                     'title' => 'Help Seminar',
                 ],

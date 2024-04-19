@@ -5,32 +5,32 @@
 @pushOnce('scripts')
 
 <script type="text/x-template" id="v-product-image-spot-url-template">
-    <div class="p-4 relative bg-white dark:bg-gray-900 rounded box-shadow">
+    <div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900">
 
         <!-- Panel Header -->
-        <div class="flex gap-5 justify-between mb-4">
+        <div class="mb-4 flex justify-between gap-5">
             <div class="flex flex-col gap-2">
-                <p class="text-base text-gray-800 dark:text-white font-semibold">
-                    @lang('bulkupload::app.admin.bulk-upload.slot.heading')
+                <p class="text-base font-semibold text-gray-800 dark:text-white">
+                    @lang('bulkUpload::app.admin.bulk-upload.slot.heading')
                 </p>
 
-                <p class="text-xs text-gray-500 dark:text-gray-300 font-medium">
-                    @lang('bulkupload::app.admin.bulk-upload.slot.info')
+                <p class="text-xs font-medium text-gray-500 dark:text-gray-300">
+                    @lang('bulkUpload::app.admin.bulk-upload.slot.info')
                 </p>
 
-                <p class="text-xs text-gray-500 dark:text-gray-300 font-medium">
-                    @lang('bulkupload::app.admin.bulk-upload.slot.big_info')
+                <p class="text-xs font-medium text-gray-500 dark:text-gray-300">
+                    @lang('bulkUpload::app.admin.bulk-upload.slot.big_info')
                 </p>
 
-                <p class="text-xs text-gray-500 dark:text-gray-300 font-medium">
-                    @lang('bulkupload::app.admin.bulk-upload.slot.big_info_secound')
+                <p class="text-xs font-medium text-gray-500 dark:text-gray-300">
+                    @lang('bulkUpload::app.admin.bulk-upload.slot.big_info_secound')
                 </p>
             </div>
         </div>
 
         <!-- Image Blade Component -->
         <div class="flex flex-wrap gap-[4px]">
-            <div class="grid gap-[8px] justify-items-center min-w-[120px] max-h-[120px] relative rounded overflow-hidden transition-all hover:border-gray-400 group cursor-pointer"
+            <div class="group relative grid max-h-[120px] min-w-[120px] cursor-pointer justify-items-center gap-[8px] overflow-hidden rounded transition-all hover:border-gray-400"
                 v-for="image in images"
                 >
                 <!-- Image Preview -->
@@ -45,7 +45,7 @@
         <div class="flex flex-wrap gap-1">
             <div 
                 v-if="url" 
-                class="grid justify-items-center relative rounded overflow-hidden transition-all hover:border-gray-400 group"
+                class="group relative grid justify-items-center overflow-hidden rounded transition-all hover:border-gray-400"
             >
                 <v-product-spot 
                     :image-url="url" 
@@ -80,8 +80,8 @@
                 <x-admin::modal ref="addSpotModal">
                     <!-- Model Header -->
                     <x-slot:header>
-                        <p class="text-lg text-gray-800 dark:text-white font-bold">
-                            @lang('bulkupload::app.admin.bulk-upload.slot.title')
+                        <p class="text-lg font-bold text-gray-800 dark:text-white">
+                            @lang('bulkUpload::app.admin.bulk-upload.slot.title')
                         </p>
                     </x-slot:header>
 
@@ -92,7 +92,7 @@
                             class="mb-[10px] justify-between p-[10px] dark:border-gray-800"
                             >
                             <x-admin::form.control-group.label class="required">
-                                @lang('bulkupload::app.admin.bulk-upload.slot.flat')
+                                @lang('bulkUpload::app.admin.bulk-upload.slot.flat')
                             </x-admin::form.control-group.label>
                             
                             <x-admin::form.control-group.control
@@ -100,8 +100,8 @@
                                 name="flat_numbers"
                                 rules="required"
                                 v-model="flats.slot.flat_numbers"
-                                :label="trans('bulkupload::app.admin.bulk-upload.slot.flat')"
-                                :placeholder="trans('bulkupload::app.admin.bulk-upload.slot.flat')"
+                                :label="trans('bulkUpload::app.admin.bulk-upload.slot.flat')"
+                                :placeholder="trans('bulkUpload::app.admin.bulk-upload.slot.flat')"
                             >
                             </x-admin::form.control-group.control>
 
@@ -167,13 +167,13 @@
 
                     <!-- Model Footer -->
                     <x-slot:footer>
-                        <div class="flex gap-x-[10px] items-center">
+                        <div class="flex items-center gap-x-[10px]">
                             <!-- Add Group Button -->
                             <button
                                 type="submit"
                                 class="primary-button"
                             >
-                                @lang('bulkupload::app.admin.bulk-upload.slot.button')
+                                @lang('bulkUpload::app.admin.bulk-upload.slot.button')
                             </button>
                         </div>
                     </x-slot:footer>

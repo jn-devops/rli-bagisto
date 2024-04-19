@@ -4,8 +4,6 @@ namespace Webkul\Sales\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Webkul\Sales\Models\Invoice;
-use Webkul\Sales\Models\Order;
-use Webkul\Sales\Models\OrderAddress;
 
 class InvoiceFactory extends Factory
 {
@@ -30,39 +28,7 @@ class InvoiceFactory extends Factory
      */
     public function definition(): array
     {
-        $subTotal = $this->faker->randomFloat(2);
-
-        $shippingAmount = $this->faker->randomFloat(2);
-
-        $taxAmount = $this->faker->randomFloat(2);
-
-        if (! isset($attributes['order_id'])) {
-            $attributes['order_id'] = Order::factory();
-        }
-
-        if (! isset($attributes['order_address_id'])) {
-            $attributes['order_address_id'] = OrderAddress::factory();
-        }
-
-        return [
-            'email_sent'            => 0,
-            'total_qty'             => $this->faker->randomNumber(),
-            'base_currency_code'    => 'EUR',
-            'channel_currency_code' => 'EUR',
-            'order_currency_code'   => 'EUR',
-            'sub_total'             => $subTotal,
-            'base_sub_total'        => $subTotal,
-            'grand_total'           => $subTotal,
-            'base_grand_total'      => $subTotal,
-            'shipping_amount'       => $shippingAmount,
-            'base_shipping_amount'  => $shippingAmount,
-            'tax_amount'            => $taxAmount,
-            'base_tax_amount'       => $taxAmount,
-            'discount_amount'       => 0,
-            'base_discount_amount'  => 0,
-            'order_id'              => $attributes['order_id'],
-            'order_address_id'      => $attributes['order_address_id'],
-        ];
+        return [];
     }
 
     public function pending(): InvoiceFactory

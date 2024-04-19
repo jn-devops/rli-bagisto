@@ -44,6 +44,10 @@ class WishlistController extends APIController
      */
     public function store(): JsonResource
     {
+        $this->validate(request(), [
+            'product_id' => 'required|integer|exists:products,id',
+        ]);
+
         $product = $this->productRepository->find(request()->input('product_id'));
 
         if (! $product) {
@@ -93,7 +97,7 @@ class WishlistController extends APIController
         }
 
         try {
-            $result = Cart::moveToCart($wishlistItem);
+            $result = Cart::moveToCart($wishlistItem, request()->input('quantity'));
 
             if ($result) {
                 return new JsonResource([

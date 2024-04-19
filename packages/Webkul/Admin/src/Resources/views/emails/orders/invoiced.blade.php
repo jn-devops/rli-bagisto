@@ -5,7 +5,7 @@
         </span> <br>
 
         <p style="font-size: 16px;color: #5E5E5E;line-height: 24px;">
-            {{ __('admin::app.emails.dear', ['customer_name' => $invoice->order->customer_full_name]) }},👋
+            {{ __('admin::app.emails.dear', ['admin_name' => core()->getAdminEmailDetails()['name']]) }},👋
         </p>
 
         <p style="font-size: 16px;color: #5E5E5E;line-height: 24px;">
@@ -33,7 +33,7 @@
 
                     {{ $invoice->order->shipping_address->name }}<br/>
                     
-                    {{ $invoice->order->shipping_address->address1 }}<br/>
+                    {{ $invoice->order->shipping_address->address }}<br/>
                     
                     {{ $invoice->order->shipping_address->postcode . " " . $invoice->order->shipping_address->city }}<br/>
                     
@@ -65,7 +65,7 @@
 
                     {{ $invoice->order->billing_address->name }}<br/>
                     
-                    {{ $invoice->order->billing_address->address1 }}<br/>
+                    {{ $invoice->order->billing_address->address }}<br/>
                     
                     {{ $invoice->order->billing_address->postcode . " " . $invoice->order->billing_address->city }}<br/>
                     

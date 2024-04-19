@@ -1,5 +1,5 @@
 <v-mini-cart>
-    <span class="icon-cart text-[24px] cursor-pointer"></span>
+    <span class="icon-cart cursor-pointer text-[24px]"></span>
 </v-mini-cart>
 
 @pushOnce('scripts')
@@ -7,10 +7,10 @@
         <x-shop::drawer>
             <x-slot:toggle>
                 <span class="relative">
-                    <span class="icon-cart text-[24px] cursor-pointer"></span>
+                    <span class="icon-cart cursor-pointer text-[24px]"></span>
 
                     <span
-                        class="absolute px-[7px] top-[-15px] left-[18px] py-[5px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[44px] text-white text-[10px] font-semibold leading-[9px]"
+                        class="absolute left-[18px] top-[-15px] rounded-[44px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[7px] py-[5px] text-[10px] font-semibold leading-[9px] text-white"
                         v-if="cart?.items_qty"
                     >
                         @{{ cart.items_qty }}
@@ -19,7 +19,7 @@
             </x-slot:toggle>
 
             <x-slot:header>
-                <div class="flex justify-between items-center">
+                <div class="flex items-center justify-between">
                     <p class="text-[26px] font-medium">
                         @lang('shop::app.checkout.cart.mini-cart.shopping-cart')
                     </p>
@@ -28,7 +28,7 @@
 
             <x-slot:content>
                 <div 
-                    class="grid gap-[50px] mt-[35px]" 
+                    class="mt-[35px] grid gap-[50px]" 
                     v-if="cart?.items?.length"
                 >
                     <div 
@@ -39,15 +39,15 @@
                         <div class="">
                             <img
                                 :src="item.base_image.small_image_url"
-                                class="max-w-[110px] max-h-[110px] rounded-[12px]"
+                                class="max-h-[110px] max-w-[110px] rounded-[12px]"
                             />
                         </div>
 
-                        <div class="grid flex-1 gap-y-[10px] place-content-start justify-stretch">
+                        <div class="grid flex-1 place-content-start justify-stretch gap-y-[10px]">
                             <div class="flex flex-wrap justify-between">
                                 
                                 <p
-                                    class="text-[16px] font-medium max-w-[80%]"
+                                    class="max-w-[80%] text-[16px] font-medium"
                                     v-text="item.name"
                                 >
                                 </p>
@@ -60,18 +60,18 @@
 
                                 <p class="text-[18px]">
                                     <span class="font-bold">@lang('enclaves::app.shop.product.reservation-fee')</span>
-                                    <span class="text-red-600 font-bold" v-text="cart?.processing_fee"></span>
+                                    <span class="font-bold text-red-600" v-text="cart?.processing_fee"></span>
                                 </p>
 
                             </div>
 
                             <div
-                                class="grid gap-x-[10px] gap-y-[6px] select-none"
+                                class="grid select-none gap-x-[10px] gap-y-[6px]"
                                 v-if="item.options.length"
                             >
                                 <div class="">
                                     <p
-                                        class="flex gap-x-[15px] items-center text-[16px] cursor-pointer"
+                                        class="flex cursor-pointer items-center gap-x-[15px] text-[16px]"
                                         @click="item.option_show = ! item.option_show"
                                     >
                                         @lang('shop::app.checkout.cart.mini-cart.see-details')
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex gap-[20px] items-center flex-wrap">
+                            <div class="flex flex-wrap items-center gap-[20px]">
                                 <button
                                     type="button"
                                     class="text-[#0A49A7]"
@@ -114,7 +114,7 @@
                     class="pb-[30px]"
                     v-else
                 >
-                    <div class="grid gap-y-[20px] b-0 place-items-center">
+                    <div class="b-0 grid place-items-center gap-y-[20px]">
                         <img src="{{ bagisto_asset('images/thank-you.png') }}">
 
                         <p class="text-[20px]">
@@ -126,7 +126,7 @@
 
             <x-slot:footer>
                 <div v-if="cart?.items?.length">
-                    <div class="flex justify-between items-center mt-[60px] mb-[30px] px-[25px] pb-[8px] border-b-[1px] border-[#E9E9E9]">
+                    <div class="mb-[30px] mt-[60px] flex items-center justify-between border-b-[1px] border-[#E9E9E9] px-[25px] pb-[8px]">
                         <p class="text-[14px] font-medium text-[#6E6E6E]">
                             @lang('shop::app.checkout.cart.mini-cart.subtotal')
                         </p>
@@ -141,7 +141,7 @@
                     <div class="px-[25px]">
                         <button
                             @click="handleKycVerificationRedirect"
-                            class="block w-full mx-auto m-0 ml-[0px] py-[15px] px-[43px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-sm:px-[20px]"
+                            class="m-0 mx-auto ml-[0px] block w-full cursor-pointer rounded-[18px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[43px] py-[15px] text-center text-base font-medium text-white max-sm:px-[20px]"
                             >
                             @lang('enclaves::app.shop.product.reserve-now')
                         </button>
@@ -202,7 +202,7 @@
 
 
                 getReqirectURL() {
-                    this.$axios.get("{{ route('ekyc.property.verfiy-url') }}")
+                    this.$axios.get("{{ route('enclaves.api.property.verfiy-url.index') }}")
                         .then(response => {
                             this.verificationUrl = response.data.data.ekyc_redirect;
                         })

@@ -38,22 +38,22 @@ class AddressController extends APIController
 
         Event::dispatch('customer.addresses.create.before');
 
-        $data = array_merge(request()->only([
+        $data = array_merge($request->only([
             'company_name',
             'first_name',
             'last_name',
             'vat_id',
-            'address1',
+            'address',
             'country',
             'state',
             'city',
             'postcode',
             'phone',
             'default_address',
+            'email',
         ]), [
-            'customer_id'     => $customer->id,
-            'address1'        => implode(PHP_EOL, array_filter($request->input('address1'))),
-            'address2'        => implode(PHP_EOL, array_filter($request->input('address2', []))),
+            'customer_id' => $customer->id,
+            'address'     => implode(PHP_EOL, array_filter($request->input('address'))),
         ]);
 
         $customerAddress = $this->customerAddressRepository->create($data);
@@ -61,6 +61,42 @@ class AddressController extends APIController
         Event::dispatch('customer.addresses.create.after', $customerAddress);
 
         return new JsonResource([
+            'data'    => new AddressResource($customerAddress),
+            'message' => trans('shop::app.customers.account.addresses.create-success'),
+        ]);
+    }
+
+    /**
+     * Update address for customer.
+     */
+    public function update(AddressRequest $request): JsonResource
+    {
+        $customer = auth()->guard('customer')->user();
+
+        Event::dispatch('customer.addresses.update.before');
+
+        $customerAddress = $this->customerAddressRepository->update(array_merge($request->only([
+            'company_name',
+            'first_name',
+            'last_name',
+            'vat_id',
+            'address',
+            'country',
+            'state',
+            'city',
+            'postcode',
+            'phone',
+            'default_address',
+            'email',
+        ]), [
+            'customer_id'     => $customer->id,
+            'address'         => implode(PHP_EOL, array_filter(request()->input('address'))),
+        ]), request('id'));
+
+        Event::dispatch('customer.addresses.update.after', $customerAddress);
+
+        return new JsonResource([
+            'data'    => new AddressResource($customerAddress),
             'message' => trans('shop::app.customers.account.addresses.create-success'),
         ]);
     }

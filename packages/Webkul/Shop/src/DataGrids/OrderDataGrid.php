@@ -4,6 +4,7 @@ namespace Webkul\Shop\DataGrids;
 
 use Illuminate\Support\Facades\DB;
 use Webkul\DataGrid\DataGrid;
+use Webkul\Sales\Models\Order;
 
 class OrderDataGrid extends DataGrid
 {
@@ -21,14 +22,9 @@ class OrderDataGrid extends DataGrid
                 'orders.status',
                 'orders.created_at',
                 'orders.grand_total',
-                'orders.order_currency_code',
-                'order_items.name as product_name',
-                'order_items.sku as sku',
-                'orders.processing_fee as reservation_fee',
+                'orders.order_currency_code'
             )
-            ->leftJoin('order_items', 'order_items.order_id', 'orders.id')
-            ->where('customer_id', auth()->guard('customer')->user()->id)
-            ->groupBy('orders.id');
+            ->where('customer_id', auth()->guard('customer')->user()->id);
 
         return $queryBuilder;
     }
@@ -42,7 +38,7 @@ class OrderDataGrid extends DataGrid
     {
         $this->addColumn([
             'index'      => 'increment_id',
-            'label'      => trans('shop::app.customers.account.orders.transaction-no'),
+            'label'      => trans('shop::app.customers.account.orders.order-id'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -50,21 +46,9 @@ class OrderDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'product_name',
-            'label'      => trans('shop::app.customers.account.orders.property'),
+            'index'      => 'created_at',
+            'label'      => trans('shop::app.customers.account.orders.order-date'),
             'type'       => 'date_range',
-            'searchable' => true,
-            'sortable'   => true,
-            'filterable' => true,
-            'closure'    => function ($row) {
-                return '<a href="" class="link">' . $row->product_name . '</a>';
-            },
-        ]);
-
-        $this->addColumn([
-            'index'      => 'sku',
-            'label'      => trans('shop::app.customers.account.orders.view.information.sku'),
-            'type'       => 'integer',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
@@ -72,25 +56,13 @@ class OrderDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'grand_total',
-            'label'      => trans('shop::app.customers.account.orders.contract'),
+            'label'      => trans('shop::app.customers.account.orders.total'),
             'type'       => 'integer',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
                 return core()->formatPrice($row->grand_total, $row->order_currency_code);
-            },
-        ]);
-
-        $this->addColumn([
-            'index'      => 'reservation_fee',
-            'label'      => trans('shop::app.customers.account.orders.reservation'),
-            'type'       => 'integer',
-            'searchable' => true,
-            'sortable'   => true,
-            'filterable' => true,
-            'closure'    => function ($row) {
-                return core()->formatPrice($row->reservation_fee);
             },
         ]);
 
@@ -105,68 +77,60 @@ class OrderDataGrid extends DataGrid
                     'options' => [
                         [
                             'label'  => trans('shop::app.customers.account.orders.status.options.processing'),
-                            'value'  => 'processing',
+                            'value'  => Order::STATUS_PROCESSING,
                         ],
                         [
                             'label'  => trans('shop::app.customers.account.orders.status.options.completed'),
-                            'value'  => 'completed',
+                            'value'  => Order::STATUS_COMPLETED,
                         ],
                         [
                             'label'  => trans('shop::app.customers.account.orders.status.options.canceled'),
-                            'value'  => 'canceled',
+                            'value'  => Order::STATUS_CANCELED,
                         ],
                         [
                             'label'  => trans('shop::app.customers.account.orders.status.options.closed'),
-                            'value'  => 'closed',
+                            'value'  => Order::STATUS_CLOSED,
                         ],
                         [
                             'label'  => trans('shop::app.customers.account.orders.status.options.pending'),
-                            'value'  => 'pending',
+                            'value'  => Order::STATUS_PENDING,
                         ],
                         [
                             'label'  => trans('shop::app.customers.account.orders.status.options.pending-payment'),
-                            'value'  => 'pending_payment',
+                            'value'  => Order::STATUS_PENDING_PAYMENT,
                         ],
                         [
                             'label'  => trans('shop::app.customers.account.orders.status.options.fraud'),
-                            'value'  => 'fraud',
+                            'value'  => Order::STATUS_FRAUD,
                         ],
                     ],
                 ],
             ],
-
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
             'closure'    => function ($row) {
                 switch ($row->status) {
-                    case 'processing':
-                        return '<span class="success">' . trans('shop::app.customers.account.orders.status.options.processing') . '</span>';
-                        break;
+                    case Order::STATUS_PROCESSING:
+                        return '<p class="label-processing">'.trans('shop::app.customers.account.orders.status.options.processing').'</p>';
 
-                    case 'completed':
-                        return '<span class="success">' . trans('shop::app.customers.account.orders.status.options.completed') . '</span>';
-                        break;
+                    case Order::STATUS_COMPLETED:
+                        return '<p class="label-active">'.trans('shop::app.customers.account.orders.status.options.completed').'</p>';
 
-                    case 'canceled':
-                        return '<span class="danger">' . trans('shop::app.customers.account.orders.status.options.canceled') . '</span>';
-                        break;
+                    case Order::STATUS_CANCELED:
+                        return '<p class="label-canceled">'.trans('shop::app.customers.account.orders.status.options.canceled').'</p>';
 
-                    case 'closed':
-                        return '<span class="info">' . trans('shop::app.customers.account.orders.status.options.closed') . '</span>';
-                        break;
+                    case Order::STATUS_CLOSED:
+                        return '<p class="label-closed">'.trans('shop::app.customers.account.orders.status.options.closed').'</p>';
 
-                    case 'pending':
-                        return '<span class="warning">' . trans('shop::app.customers.account.orders.status.options.pending') . '</span>';
-                        break;
+                    case Order::STATUS_PENDING:
+                        return '<p class="label-pending">'.trans('shop::app.customers.account.orders.status.options.pending').'</p>';
 
-                    case 'pending_payment':
-                        return '<span class="warning">' . trans('shop::app.customers.account.orders.status.options.pending-payment') . '</span>';
-                        break;
+                    case Order::STATUS_PENDING_PAYMENT:
+                        return '<p class="label-pending">'.trans('shop::app.customers.account.orders.status.options.pending-payment').'</p>';
 
-                    case 'fraud':
-                        return '<span class="danger">' . trans('shop::app.customers.account.orders.status.options.fraud') . '</span>';
-                        break;
+                    case Order::STATUS_FRAUD:
+                        return '<p class="label-canceled">'.trans('shop::app.customers.account.orders.status.options.fraud').'</p>';
                 }
             },
         ]);
@@ -181,10 +145,10 @@ class OrderDataGrid extends DataGrid
     {
         $this->addAction([
             'icon'   => 'icon-eye',
-            'title'  => trans('ui::app.datagrid.view'),
+            'title'  => trans('shop::app.customers.account.orders.action-view'),
             'method' => 'GET',
             'url'    => function ($row) {
-                return route('shop.customers.account.transactions.view', $row->id);
+                return route('shop.customers.account.orders.view', $row->id);
             },
         ]);
     }

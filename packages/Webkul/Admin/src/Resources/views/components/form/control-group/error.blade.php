@@ -1,15 +1,16 @@
-@props(['controlName' => ''])
+@props([
+    'name'        => null,
+    'controlName' => '',
+])
 
-@if (! empty($controlName))
-    <v-error-message
-        name="{{ $controlName }}"
-        {{ $attributes }}
-        v-slot="{ message }"
+<v-error-message
+    {{ $attributes }}
+    name="{{ $name ?? $controlName }}"
+    v-slot="{ message }"
+>
+    <p
+        {{ $attributes->merge(['class' => 'mt-1 text-xs italic text-red-600']) }}
+        v-text="message"
     >
-        <p
-            {{ $attributes->merge(['class' => 'mt-1 text-red-600 text-xs italic']) }}
-            v-text="message"
-        >
-        </p>
-    </v-error-message>
-@endif
+    </p>
+</v-error-message>

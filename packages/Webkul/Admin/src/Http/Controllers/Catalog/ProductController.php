@@ -12,6 +12,7 @@ use Webkul\Admin\Http\Requests\MassDestroyRequest;
 use Webkul\Admin\Http\Requests\MassUpdateRequest;
 use Webkul\Admin\Http\Requests\ProductForm;
 use Webkul\Admin\Http\Resources\AttributeResource;
+use Webkul\Admin\Http\Resources\ProductResource;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\Core\Rules\Slug;
 use Webkul\Inventory\Repositories\InventorySourceRepository;
@@ -37,11 +38,11 @@ class ProductController extends Controller
     public function __construct(
         protected AttributeFamilyRepository $attributeFamilyRepository,
         protected InventorySourceRepository $inventorySourceRepository,
-        protected ProductRepository $productRepository,
         protected ProductAttributeValueRepository $productAttributeValueRepository,
         protected ProductDownloadableLinkRepository $productDownloadableLinkRepository,
         protected ProductDownloadableSampleRepository $productDownloadableSampleRepository,
-        protected ProductInventoryRepository $productInventoryRepository
+        protected ProductInventoryRepository $productInventoryRepository,
+        protected ProductRepository $productRepository,
     ) {
     }
 
@@ -110,15 +111,13 @@ class ProductController extends Controller
 
         Event::dispatch('catalog.product.create.before');
 
-        $data = request()->only([
+        $product = $this->productRepository->create(request()->only([
             'type',
             'attribute_family_id',
             'sku',
             'super_attributes',
             'family',
-        ]);
-
-        $product = $this->productRepository->create($data);
+        ]));
 
         Event::dispatch('catalog.product.create.after', $product);
 
@@ -134,10 +133,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $product = $this->productRepository->findOrFail($id);
 
@@ -149,10 +147,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductForm $request, $id)
+    public function update(ProductForm $request, int $id)
     {
         Event::dispatch('catalog.product.update.before', $id);
 
@@ -168,10 +165,9 @@ class ProductController extends Controller
     /**
      * Update inventories.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateInventories(InventoryRequest $inventoryRequest, $id)
+    public function updateInventories(InventoryRequest $inventoryRequest, int $id)
     {
         $product = $this->productRepository->findOrFail($id);
 
@@ -190,10 +186,9 @@ class ProductController extends Controller
     /**
      * Uploads downloadable file.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function uploadLink($id)
+    public function uploadLink(int $id)
     {
         return response()->json(
             $this->productDownloadableLinkRepository->upload(request()->all(), $id)
@@ -223,10 +218,9 @@ class ProductController extends Controller
     /**
      * Uploads downloadable sample file.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function uploadSample($id)
+    public function uploadSample(int $id)
     {
         return response()->json(
             $this->productDownloadableSampleRepository->upload(request()->all(), $id)
@@ -235,13 +229,9 @@ class ProductController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
      */
-    public function destroy($id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $product = $this->productRepository->findOrFail($id);
-
         try {
             Event::dispatch('catalog.product.delete.before', $id);
 
@@ -336,7 +326,7 @@ class ProductController extends Controller
     {
         $results = [];
 
-        request()->query->add([
+        $products = $this->productRepository->searchFromDatabase([
             'status'               => null,
             'visible_individually' => null,
             'name'                 => request('query'),
@@ -344,23 +334,7 @@ class ProductController extends Controller
             'order'                => 'desc',
         ]);
 
-        $products = $this->productRepository->searchFromDatabase();
-
-        foreach ($products as $product) {
-            $results[] = [
-                'id'              => $product->id,
-                'sku'             => $product->sku,
-                'name'            => $product->name,
-                'price'           => $product->price,
-                'formatted_price' => core()->formatBasePrice($product->price),
-                'images'          => $product->images,
-                'inventories'     => $product->inventories,
-            ];
-        }
-
-        $products->setCollection(collect($results));
-
-        return response()->json($products);
+        return ProductResource::collection($products);
     }
 
     /**

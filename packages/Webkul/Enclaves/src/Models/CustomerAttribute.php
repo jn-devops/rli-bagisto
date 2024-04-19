@@ -23,6 +23,6 @@ class CustomerAttribute extends TranslatableModel implements CustomerAttributeCo
      */
     public function options(): HasMany
     {
-        return $this->hasMany(CustomerAttributeOptionProxy::modelClass());
+        return $this->hasMany(CustomerAttributeOption::class);
     }
 }

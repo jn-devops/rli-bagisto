@@ -14,20 +14,12 @@ class LoginController extends Controller
     use DispatchesJobs, ValidatesRequests;
 
     /**
-     * Contains route related configuration
-     *
-     * @var array
-     */
-    protected $_config;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct(protected CustomerSocialAccountRepository $customerSocialAccountRepository)
     {
-        $this->_config = request('_config');
     }
 
     /**
@@ -66,7 +58,7 @@ class LoginController extends Controller
         auth()->guard('customer')->login($customer, true);
 
         // Event passed to prepare cart after login
-        Event::dispatch('customer.after.login', $customer->email);
+        Event::dispatch('customer.after.login', $customer);
 
         return redirect()->intended('shop.customers.account.profile.index');
     }

@@ -2,34 +2,34 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-profile-header-template">
-        <section class="flex flex-col justify-between gap-y-8 gap-x-4 rounded-[1.25rem] bg-[rgba(237,_239,_245)] px-8 py-5 md:items-center lg:flex-row xl:gap-x-8 xl:px-12 xl:pt-[2.313rem] xl:pb-[1.875rem]">
-            <figure class="flex justify-start w-full gap-x-8">
+        <section class="flex flex-col justify-between gap-x-4 gap-y-8 rounded-[1.25rem] bg-[rgba(237,_239,_245)] px-8 py-5 md:items-center lg:flex-row xl:gap-x-8 xl:px-12 xl:pb-[1.875rem] xl:pt-[2.313rem]">
+            <figure class="flex w-full justify-start gap-x-8">
 
                 <x-shop::form
-                    class="rounded mt-[30px]"
+                    class="mt-[30px] rounded"
                     enctype="multipart/form-data"
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
                 >
                     <form @change="handleSubmit($event, updateProfile)">
-                        <div class="size-24 xl:size-[7.565rem] relative rounded-full">
+                        <div class="relative size-24 rounded-full xl:size-[7.565rem]">
                             <img
                                 v-if="imagePreviewURL"
                                 :src="imagePreviewURL"
-                                alt="Image preview"
-                                class="size-24 xl:size-[7.565rem] rounded-full object-cover"
+                                alt="image-preview"
+                                class="size-24 rounded-full object-cover xl:size-[7.565rem]"
                             />
 
                             <img
                                 v-else
                                 src="{{ $customer->image_url ??  bagisto_asset('images/user-placeholder.png') }}"
-                                alt="Image preview"
-                                class="size-24 xl:size-[7.565rem] rounded-full object-cover"
+                                alt="image-preview"
+                                class="size-24 rounded-full object-cover xl:size-[7.565rem]"
                             />
 
                             <label 
                                 for="profile-upload" 
-                                class="absolute top-14 right-3 xl:top-20 xl:right-4"
+                                class="absolute right-3 top-14 xl:right-4 xl:top-20"
                             >
                                 <input 
                                     type="file"
@@ -42,8 +42,8 @@
 
                                 <img
                                     src="{{ bagisto_asset('images/camera-icon.png') }}"
-                                    alt="profile image"
-                                    class="rounded-full size-9" 
+                                    alt="profile-image"
+                                    class="size-9 rounded-full" 
                                 />
                             </label>
                         </div>
@@ -56,23 +56,26 @@
                     </h3>
 
                     <h4 class="text-base font-bold text-black xl:text-[1.313rem] xl:leading-6"> 
-                        Email: <span class="font-normal">{{ $customer->email }}</span>
+                        @lang('enclaves::app.shop.customers.account.customer-profile.header.email') 
+                        <span class="font-normal">{{ $customer->email }}</span>
                     </h4>
 
                     <h4 class="text-base font-bold text-black xl:text-[1.313rem] xl:leading-6"> 
-                        Age: <span class="font-normal">{{ $customer->date_of_birth }}</span>
+                        @lang('enclaves::app.shop.customers.account.customer-profile.header.age') 
+
+                        <span class="font-normal">{{ $customer->date_of_birth }}</span>
                     </h4>
                 </figcaption>
             </figure>
             
             <article
-                class="lg:max-w-64 flex w-full max-w-full flex-col gap-y-6 rounded-[1.25rem] bg-[rgba(161,_184,_214)] py-5 px-6">
+                class="flex w-full max-w-full flex-col gap-y-6 rounded-[1.25rem] bg-[rgba(161,_184,_214)] px-6 py-5 lg:max-w-64">
                 <h3 class="text-xl font-semibold text-white xl:text-[1.565rem] xl:leading-7">
-                    @lang('Steps to get your dream house')
+                    @lang('enclaves::app.shop.customers.account.customer-profile.header.step') 
                 </h3>
 
-                <button class="text-balance font-regular ml-auto max-w-fit rounded-full bg-white py-3.5 px-6 text-base leading-4 text-black">
-                    @lang('Read now')
+                <button class="font-regular ml-auto max-w-fit text-balance rounded-full bg-white px-6 py-3.5 text-base leading-4 text-black">
+                    @lang('enclaves::app.shop.customers.account.customer-profile.header.read-now') 
                 </button>
             </article>
         </section>

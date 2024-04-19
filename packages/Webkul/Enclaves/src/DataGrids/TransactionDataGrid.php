@@ -42,7 +42,7 @@ class TransactionDataGrid extends DataGrid
     {
         $this->addColumn([
             'index'      => 'increment_id',
-            'label'      => trans('shop::app.customers.account.orders.transaction-no'),
+            'label'      => trans('enclaves::app.shop.customers.account.transactions.datagrid.transaction-no'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -51,7 +51,7 @@ class TransactionDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'product_name',
-            'label'      => trans('shop::app.customers.account.orders.property'),
+            'label'      => trans('enclaves::app.shop.customers.account.transactions.datagrid.property'),
             'type'       => 'date_range',
             'searchable' => true,
             'sortable'   => true,
@@ -63,7 +63,7 @@ class TransactionDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'sku',
-            'label'      => trans('shop::app.customers.account.orders.view.information.sku'),
+            'label'      => trans('enclaves::app.shop.customers.account.transactions.datagrid.sku'),
             'type'       => 'integer',
             'searchable' => true,
             'sortable'   => true,
@@ -72,7 +72,7 @@ class TransactionDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'grand_total',
-            'label'      => trans('shop::app.customers.account.orders.contract'),
+            'label'      => trans('enclaves::app.shop.customers.account.transactions.datagrid.contract'),
             'type'       => 'integer',
             'searchable' => true,
             'sortable'   => true,
@@ -84,7 +84,7 @@ class TransactionDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'reservation_fee',
-            'label'      => trans('shop::app.customers.account.orders.reservation'),
+            'label'      => trans('enclaves::app.shop.customers.account.transactions.datagrid.reservation'),
             'type'       => 'integer',
             'searchable' => true,
             'sortable'   => true,
@@ -96,38 +96,38 @@ class TransactionDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'status',
-            'label'      => trans('shop::app.customers.account.orders.status.title'),
+            'label'      => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.title'),
             'type'       => 'dropdown',
             'options'    => [
                 'type'   => 'basic',
                 'params' => [
                     'options' => [
                         [
-                            'label'  => trans('shop::app.customers.account.orders.status.options.processing'),
+                            'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.processing'),
                             'value'  => 'processing',
                         ],
                         [
-                            'label'  => trans('shop::app.customers.account.orders.status.options.completed'),
+                            'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.completed'),
                             'value'  => 'completed',
                         ],
                         [
-                            'label'  => trans('shop::app.customers.account.orders.status.options.canceled'),
+                            'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.canceled'),
                             'value'  => 'canceled',
                         ],
                         [
-                            'label'  => trans('shop::app.customers.account.orders.status.options.closed'),
+                            'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.closed'),
                             'value'  => 'closed',
                         ],
                         [
-                            'label'  => trans('shop::app.customers.account.orders.status.options.pending'),
+                            'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending'),
                             'value'  => 'pending',
                         ],
                         [
-                            'label'  => trans('shop::app.customers.account.orders.status.options.pending-payment'),
+                            'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending-payment'),
                             'value'  => 'pending_payment',
                         ],
                         [
-                            'label'  => trans('shop::app.customers.account.orders.status.options.fraud'),
+                            'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.fraud'),
                             'value'  => 'fraud',
                         ],
                     ],
@@ -139,31 +139,31 @@ class TransactionDataGrid extends DataGrid
             'closure'    => function ($row) {
                 switch ($row->status) {
                     case 'processing':
-                        return '<span class="success">' . trans('shop::app.customers.account.orders.status.options.processing') . '</span>';
+                        return '<span class="success">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.processing') . '</span>';
                         break;
 
                     case 'completed':
-                        return '<span class="success">' . trans('shop::app.customers.account.orders.status.options.completed') . '</span>';
+                        return '<span class="success">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.completed') . '</span>';
                         break;
 
                     case 'canceled':
-                        return '<span class="danger">' . trans('shop::app.customers.account.orders.status.options.canceled') . '</span>';
+                        return '<span class="danger">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.canceled') . '</span>';
                         break;
 
                     case 'closed':
-                        return '<span class="info">' . trans('shop::app.customers.account.orders.status.options.closed') . '</span>';
+                        return '<span class="info">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.closed') . '</span>';
                         break;
 
                     case 'pending':
-                        return '<span class="warning">' . trans('shop::app.customers.account.orders.status.options.pending') . '</span>';
+                        return '<span class="warning">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending') . '</span>';
                         break;
 
                     case 'pending_payment':
-                        return '<span class="success">' . trans('shop::app.customers.account.orders.status.options.pending-payment') . '</span>';
+                        return '<span class="success">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending-payment') . '</span>';
                         break;
 
                     case 'fraud':
-                        return '<span class="danger">' . trans('shop::app.customers.account.orders.status.options.fraud') . '</span>';
+                        return '<span class="danger">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.fraud') . '</span>';
                         break;
                 }
             },

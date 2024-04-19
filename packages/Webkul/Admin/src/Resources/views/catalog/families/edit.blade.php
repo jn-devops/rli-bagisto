@@ -1,9 +1,9 @@
 <x-admin::layouts>
     <x-slot:title>
         @lang('admin::app.catalog.families.edit.title')
-    </x-slot:title>
+    </x-slot>
 
-    {{-- Input Form --}}
+    <!-- Input Form -->
     <x-admin::form
         method="PUT"
         :action="route('admin.catalog.families.update', $attributeFamily->id)"
@@ -11,16 +11,16 @@
 
         {!! view_render_event('bagisto.admin.catalog.families.edit.edit_form_control.before', ['attributeFamily' => $attributeFamily]) !!}
 
-        {{-- Page Header --}}
-        <div class="flex justify-between items-center">
-            <p class="text-[20px] text-gray-800 dark:text-white font-bold">
+        <!-- Page Header -->
+        <div class="flex items-center justify-between">
+            <p class="text-xl font-bold text-gray-800 dark:text-white">
                 @lang('admin::app.catalog.families.edit.title')
             </p>
 
-            <div class="flex gap-x-[10px] items-center">
+            <div class="flex items-center gap-x-2.5">
                 <a
                     href="{{ route('admin.catalog.families.index') }}"
-                    class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white"
+                    class="transparent-button hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800"
                 >
                     @lang('admin::app.catalog.families.edit.back-btn')
                 </a>
@@ -34,38 +34,36 @@
             </div>
         </div>
 
-        {{-- Container --}}
-        <div class="flex gap-[10px] mt-[14px]">
-            {{-- Left Container --}}
+        <!-- Container -->
+        <div class="mt-3.5 flex gap-2.5">
+            <!-- Left Container -->
 
             {!! view_render_event('bagisto.admin.catalog.families.edit.card.attributes-panel.before', ['attributeFamily' => $attributeFamily]) !!}
 
-            <div class="flex flex-col gap-[8px] flex-1 bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
+            <div class="box-shadow flex flex-1 flex-col gap-2 rounded bg-white dark:bg-gray-900">
                 <v-family-attributes>
-                    <x-admin::shimmer.families.attributes-panel/>
+                    <x-admin::shimmer.families.attributes-panel />
                 </v-family-attributes>
             </div>
 
             {!! view_render_event('bagisto.admin.catalog.families.edit.card.attributes-panel.after', ['attributeFamily' => $attributeFamily]) !!}
 
             {!! view_render_event('bagisto.admin.catalog.families.edit.card.accordion.general.before', ['attributeFamily' => $attributeFamily]) !!}
-
-            {{-- Right Container --}}
-            <div class="flex flex-col gap-[8px] w-[360px] max-w-full">
-                {{-- General Pannel --}}
-                <div class="bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
-                    {{-- Panel Header --}}
-                    <div class="flex items-center justify-between p-[6px]">
-                        <p class="p-[10px] text-gray-600 dark:text-gray-300 text-[16px] font-semibold">
-                            @lang('General')
+    
+            <!-- Right Container -->
+            <div class="flex w-[360px] max-w-full select-none flex-col gap-2">
+                <!-- General Pannel -->
+                <x-admin::accordion>
+                    <!-- Panel Header -->
+                    <x-slot:header>
+                        <p class="p-2.5 text-base font-semibold text-gray-800 dark:text-white">
+                            @lang('admin::app.catalog.families.edit.general')
                         </p>
-
-                        <span class="icon-arrow-up p-[6px] rounded-[6px] text-[24px] cursor-pointer transition-all hover:bg-gray-100 dark:hover:bg-gray-950 "></span>
-                    </div>
-
-                    {{-- Panel Content --}}
-                    <div class="px-[16px] pb-[16px]">
-                        <x-admin::form.control-group class="mb-4">
+                    </x-slot>
+                
+                    <!-- Panel Content -->
+                    <x-slot:content>
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="!text-gray-800 dark:!text-white">
                                 @lang('admin::app.catalog.families.edit.code')
                             </x-admin::form.control-group.label>
@@ -73,23 +71,20 @@
                             <x-admin::form.control-group.control
                                 type="text"
                                 name="code"
+                                rules="required"
                                 value="{{ old('code') ?? $attributeFamily->code }}"
                                 disabled="disabled"
-                                rules="required"
                                 :label="trans('admin::app.catalog.families.create.code')"
                                 :placeholder="trans('admin::app.catalog.families.edit.enter-code')"
-                            >
-                            </x-admin::form.control-group.control>
+                            />
 
                             <input type="hidden" name="code" value="{{ $attributeFamily->code }}"/>
 
-                            <x-admin::form.control-group.error
-                                control-name="code"
-                            >
-                            </x-admin::form.control-group.error>
+                            <x-admin::form.control-group.error control-name="code" />
                         </x-admin::form.control-group>
 
-                        <x-admin::form.control-group class="mb-4">
+                        <!-- Name -->
+                        <x-admin::form.control-group class="!mb-0">
                             <x-admin::form.control-group.label class="!text-gray-800 dark:!text-white">
                                 @lang('admin::app.catalog.families.edit.name')
                             </x-admin::form.control-group.label>
@@ -97,24 +92,19 @@
                             <x-admin::form.control-group.control
                                 type="text"
                                 name="name"
-                                value="{{ old('name') ?? $attributeFamily->name }}"
                                 rules="required"
+                                value="{{ old('name') ?? $attributeFamily->name }}"
                                 :label="trans('admin::app.catalog.families.create.name')"
                                 :placeholder="trans('admin::app.catalog.families.edit.enter-name')"
-                            >
-                            </x-admin::form.control-group.control>
+                            />
 
-                            <x-admin::form.control-group.error
-                                control-name="name"
-                            >
-                            </x-admin::form.control-group.error>
+                            <x-admin::form.control-group.error control-name="name" />
                         </x-admin::form.control-group>
-                    </div>
-                </div>
+                    </x-slot>
+                </x-admin::accordion>
             </div>
 
             {!! view_render_event('bagisto.admin.catalog.families.edit.card.accordion.general.after', ['attributeFamily' => $attributeFamily]) !!}
-
         </div>
 
         {!! view_render_event('bagisto.admin.catalog.families.edit.edit_form_control.after', ['attributeFamily' => $attributeFamily]) !!}
@@ -125,20 +115,20 @@
         <script type="text/x-template" id="v-family-attributes-template">
             <div class="">
                 <!-- Panel Header -->
-                <div class="flex gap-[10px] justify-between flex-wrap mb-[10px] p-[16px]">
+                <div class="mb-2.5 flex flex-wrap justify-between gap-2.5 p-4">
                     <!-- Panel Header -->
-                    <div class="flex flex-col gap-[8px]">
-                        <p class=" text-[16px] text-gray-800 dark:text-white font-semibold">
+                    <div class="flex flex-col gap-2">
+                        <p class="text-base font-semibold text-gray-800 dark:text-white">
                             @lang('admin::app.catalog.families.edit.groups')
                         </p>
 
-                        <p class=" text-[12px] text-gray-500 dark:text-gray-300 font-medium">
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-300">
                             @lang('admin::app.catalog.families.edit.groups-info')
                         </p>
                     </div>
                     
                     <!-- Panel Content -->
-                    <div class="flex gap-x-[4px] items-center">
+                    <div class="flex items-center gap-x-1">
                         <!-- Delete Group Button -->
                         <div
                             class="transparent-button text-red-600"
@@ -158,12 +148,12 @@
                 </div>
 
                 <!-- Panel Content -->
-                <div class="flex [&>*]:flex-1 gap-[20px] justify-between px-[16px]">
+                <div class="flex [&>*]:flex-1 gap-5 justify-between px-4">
                     <!-- Attributes Groups Container -->
                     <div v-for="(groups, column) in columnGroups">
                         <!-- Attributes Groups Header -->
-                        <div class="flex flex-col mb-[16px]">
-                            <p class="text-gray-600 dark:text-gray-300 font-semibold leading-[24px]">
+                        <div class="mb-4 flex flex-col">
+                            <p class="font-semibold leading-6 text-gray-600 dark:text-gray-300">
                                 @{{
                                     column == 1
                                     ? "@lang('admin::app.catalog.families.edit.main-column')"
@@ -171,15 +161,16 @@
                                 }}
                             </p>
                             
-                            <p class="text-[12px] text-gray-800 dark:text-white font-medium ">
+                            <p class="text-xs font-medium text-gray-800 dark:text-white">
                                 @lang('admin::app.catalog.families.edit.edit-group-info')
                             </p>
                         </div>
 
                         <!-- Draggable Attribute Groups -->
                         <draggable
-                            class="h-[calc(100vh-285px)] pb-[16px] overflow-auto ltr:border-r-[1px] rtl:border-l-[1px] border-gray-200"
+                            class="h-[calc(100vh-285px)] overflow-auto border-gray-200 pb-4 ltr:border-r rtl:border-l"
                             ghost-class="draggable-ghost"
+                            handle=".icon-drag"
                             v-bind="{animation: 200}"
                             :list="groups"
                             item-key="id"
@@ -188,37 +179,43 @@
                             <template #item="{ element, index }">
                                 <div class="">
                                     <!-- Group Container -->
-                                    <div class="flex items-center group">
+                                    <div class="group flex items-center">
                                         <!-- Toggle -->
                                         <i
-                                            class="icon-sort-down text-[20px] rounded-[6px] cursor-pointer transition-all hover:bg-gray-100 dark:hover:bg-gray-950 group-hover:text-gray-800"
+                                            class="icon-sort-down cursor-pointer rounded-md text-xl transition-all hover:bg-gray-100 group-hover:text-gray-800 dark:hover:bg-gray-950 dark:group-hover:text-white"
                                             @click="element.hide = ! element.hide"
                                         ></i>
 
                                         <!-- Group Name -->
                                         <div
-                                            class="group_node flex gap-[6px] max-w-max py-[6px] ltr:pr-[6px] rtl:pl-[6px] rounded-[4px] transition-all text-gray-600 dark:text-gray-300 group cursor-pointer"
+                                            class="group_node group flex max-w-max gap-1.5 rounded py-1.5 text-gray-600 transition-all dark:text-gray-300 ltr:pr-1.5 rtl:pl-1.5"
                                             :class="{'bg-blue-600 text-white group-hover:[&>*]:text-white': selectedGroup.id == element.id}"
-                                            @click="groupSelected(element)"
+                                            @click.stop="groupSelected(element)"
                                         >
-                                            <i class="icon-drag text-[20px] text-inherit pointer-events-none transition-all group-hover:text-gray-800"></i>
+                                            <i class="icon-drag cursor-grab text-xl text-inherit transition-all group-hover:text-gray-800 dark:group-hover:text-white"></i>
 
                                             <i
-                                                class="text-[20px] text-inherit pointer-events-none transition-all group-hover:text-gray-800"
+                                                class="text-xl text-inherit transition-all group-hover:text-gray-800 dark:group-hover:text-white"
                                                 :class="[element.is_user_defined ? 'icon-folder' : 'icon-folder-block']"
                                             ></i>
 
                                             <span
-                                                class="text-[14px] text-inherit font-regular pointer-events-none transition-all group-hover:text-gray-800"
+                                                class="font-regular text-sm text-inherit transition-all group-hover:text-gray-800 dark:group-hover:text-white"
                                                 v-show="editableGroup.id != element.id"
                                             >
                                                 @{{ element.name }}
                                             </span>
 
                                             <input
+                                                type="hidden"
+                                                :name="'attribute_groups[' + element.id + '][code]'"
+                                                :value="element.code"
+                                            />
+                                            
+                                            <input
                                                 type="text"
                                                 :name="'attribute_groups[' + element.id + '][name]'"
-                                                class="group_node text-[14px] !text-gray-600 dark:text-gray-300"
+                                                class="group_node text-sm !text-gray-600 dark:text-gray-300"
                                                 v-model="element.name"
                                                 v-show="editableGroup.id == element.id"
                                             />
@@ -239,8 +236,9 @@
 
                                     <!-- Group Attributes -->
                                     <draggable
-                                        class="ltr:ml-[43px] rtl:mr-[43px]"
+                                        class="ltr:ml-11 rtl:mr-11"
                                         ghost-class="draggable-ghost"
+                                        handle=".icon-drag"
                                         v-bind="{animation: 200}"
                                         :list="getGroupAttributes(element)"
                                         item-key="id"
@@ -250,30 +248,29 @@
                                         v-show="! element.hide"
                                     >
                                         <template #item="{ element, index }">
-                                            <div class="flex gap-[6px] max-w-max py-[6px] ltr:pr-[6px] rtl:pl-[6px] rounded-[4px] text-gray-600 dark:text-gray-300 group cursor-pointer">
-                                                <i class="icon-drag text-[20px] transition-all group-hover:text-gray-700"></i>
+                                            <div class="group flex max-w-max gap-1.5 rounded py-1.5 text-gray-600 dark:text-gray-300 ltr:pr-1.5 rtl:pl-1.5">
+                                                <i class="icon-drag cursor-grab text-xl transition-all group-hover:text-gray-800 dark:group-hover:text-white"></i>
 
                                                 <i
-                                                    class="text-[20px] transition-all group-hover:text-gray-700"
+                                                    class="text-xl transition-all group-hover:text-gray-800 dark:group-hover:text-white"
                                                     :class="[parseInt(element.is_user_defined) ? 'icon-attribute' : 'icon-attribute-block']"
                                                 ></i>
                                                 
-
-                                                <span class="text-[14px] font-regular transition-all group-hover:text-gray-800 max-xl:text-[12px]">
+                                                <span class="font-regular text-sm transition-all group-hover:text-gray-800 dark:group-hover:text-white max-xl:text-xs">
                                                     @{{ element.admin_name }}
                                                 </span>
 
                                                 <input
                                                     type="hidden"
                                                     :name="'attribute_groups[' + element.group_id + '][custom_attributes][' + index + '][id]'"
-                                                    class="text-[14px] text-gray-600 dark:text-gray-300"
+                                                    class="text-sm text-gray-600 dark:text-gray-300"
                                                     v-model="element.id"
                                                 />
 
                                                 <input
                                                     type="hidden"
                                                     :name="'attribute_groups[' + element.group_id + '][custom_attributes][' + index + '][position]'"
-                                                    class="text-[14px] text-gray-600 dark:text-gray-300"
+                                                    class="text-sm text-gray-600 dark:text-gray-300"
                                                     :value="index + 1"
                                                 />
                                             </div>
@@ -287,12 +284,12 @@
                     <!-- Unassigned Attributes Container -->
                     <div class="">
                         <!-- Unassigned Attributes Header -->
-                        <div class="flex flex-col mb-[16px]">
-                            <p class="text-gray-600 dark:text-gray-300 font-semibold leading-[24px]">
+                        <div class="mb-4 flex flex-col">
+                            <p class="font-semibold leading-6 text-gray-600 dark:text-gray-300">
                                 @lang('admin::app.catalog.families.edit.unassigned-attributes')
                             </p>
 
-                            <p class="text-[12px] text-gray-800 dark:text-white font-medium ">
+                            <p class="text-xs font-medium text-gray-800 dark:text-white">
                                 @lang('admin::app.catalog.families.edit.unassigned-attributes-info')
                             </p>
                         </div>
@@ -300,20 +297,21 @@
                         <!-- Draggable Unassigned Attributes -->
                         <draggable
                             id="unassigned-attributes"
-                            class="h-[calc(100vh-285px)] pb-[16px] overflow-auto"
+                            class="h-[calc(100vh-285px)] overflow-auto pb-4"
                             ghost-class="draggable-ghost"
+                            handle=".icon-drag"
                             v-bind="{animation: 200}"
                             :list="unassignedAttributes"
                             item-key="id"
                             group="attributes"
                         >
                             <template #item="{ element }">
-                                <div class="flex gap-[6px] max-w-max py-[6px] ltr:pr-[6px] rtl:pl-[6px] rounded-[4px] text-gray-600 dark:text-gray-300 group cursor-pointer">
-                                    <i class="icon-drag text-[20px] transition-all group-hover:text-gray-700"></i>
+                                <div class="group flex max-w-max gap-1.5 rounded py-1.5 text-gray-600 dark:text-gray-300 ltr:pr-1.5 rtl:pl-1.5">
+                                    <i class="icon-drag cursor-grab text-xl transition-all group-hover:text-gray-800 dark:group-hover:text-white"></i>
 
-                                    <i class="icon-attribute text-[20px] transition-all group-hover:text-gray-700"></i>
+                                    <i class="icon-attribute text-xl transition-all group-hover:text-gray-800 dark:group-hover:text-white"></i>
 
-                                    <span class="text-[14px] font-regular transition-all group-hover:text-gray-800 max-xl:text-[12px]">
+                                    <span class="font-regular text-sm transition-all group-hover:text-gray-800 dark:group-hover:text-white max-xl:text-xs">
                                         @{{ element.admin_name }}
                                     </span>
                                 </div>
@@ -328,63 +326,79 @@
                 >
                     <form @submit="handleSubmit($event, addGroup)">
                         <x-admin::modal ref="addGroupModal">
+                            <!-- Modal Header -->
                             <x-slot:header>
-                                <p class="text-[18px] text-gray-800 dark:text-white font-bold">
+                                <p class="text-lg font-bold text-gray-800 dark:text-white">
                                     @lang('admin::app.catalog.families.edit.add-group-title')
                                 </p>
-                            </x-slot:header>
+                            </x-slot>
 
+                            <!-- Modal Content -->
                             <x-slot:content>
-                                <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800  ">
-                                    <x-admin::form.control-group class="mb-[10px]">
-                                        <x-admin::form.control-group.label>
-                                            @lang('admin::app.catalog.families.edit.name')
-                                        </x-admin::form.control-group.label>
+                                <x-admin::form.control-group>
+                                    <x-admin::form.control-group.label class="required">
+                                        @lang('admin::app.catalog.families.edit.code')
+                                    </x-admin::form.control-group.label>
 
-                                        <x-admin::form.control-group.control
-                                            type="text"
-                                            name="name"
-                                            rules="required"
-                                            :label="trans('admin::app.catalog.families.edit.name')"
-                                            :placeholder="trans('admin::app.catalog.families.edit.name')"
-                                        >
-                                        </x-admin::form.control-group.control>
+                                    <x-admin::form.control-group.control
+                                        type="text"
+                                        name="code"
+                                        rules="required"
+                                        :label="trans('admin::app.catalog.families.edit.code')"
+                                        :placeholder="trans('admin::app.catalog.families.edit.code')"
+                                    />
 
-                                        <x-admin::form.control-group.error control-name="name"></x-admin::form.control-group.error>
-                                    </x-admin::form.control-group>
+                                    <x-admin::form.control-group.error control-name="code" />
+                                </x-admin::form.control-group>
 
-                                    <x-admin::form.control-group class="mb-4">
-                                        <x-admin::form.control-group.label class="!text-gray-800 font-medium">
-                                            @lang('admin::app.catalog.families.edit.column')
-                                        </x-admin::form.control-group.label>
+                                <x-admin::form.control-group>
+                                    <x-admin::form.control-group.label class="required">
+                                        @lang('admin::app.catalog.families.edit.name')
+                                    </x-admin::form.control-group.label>
 
-                                        <x-admin::form.control-group.control
-                                            type="select"
-                                            name="column"
-                                            rules="required"
-                                            :label="trans('admin::app.catalog.families.edit.column')"
-                                        >
-                                            <!-- Default Option -->
-                                            <option value="">
-                                                @lang('admin::app.catalog.families.create.select-group')
-                                            </option>
+                                    <x-admin::form.control-group.control
+                                        type="text"
+                                        name="name"
+                                        rules="required"
+                                        :label="trans('admin::app.catalog.families.edit.name')"
+                                        :placeholder="trans('admin::app.catalog.families.edit.name')"
+                                    />
 
-                                            <option value="1">
-                                                @lang('admin::app.catalog.families.edit.main-column')
-                                            </option>
+                                    <x-admin::form.control-group.error control-name="name" />
+                                </x-admin::form.control-group>
 
-                                            <option value="2">
-                                                @lang('admin::app.catalog.families.edit.right-column')
-                                            </option>
-                                        </x-admin::form.control-group.control>
+                                <x-admin::form.control-group class="mb-4">
+                                    <x-admin::form.control-group.label class="required">
+                                        @lang('admin::app.catalog.families.edit.column')
+                                    </x-admin::form.control-group.label>
 
-                                        <x-admin::form.control-group.error control-name="column"></x-admin::form.control-group.error>
-                                    </x-admin::form.control-group>
-                                </div>
-                            </x-slot:content>
+                                    <x-admin::form.control-group.control
+                                        type="select"
+                                        name="column"
+                                        rules="required"
+                                        :label="trans('admin::app.catalog.families.edit.column')"
+                                    >
+                                        <!-- Default Option -->
+                                        <option value="">
+                                            @lang('admin::app.catalog.families.create.select-group')
+                                        </option>
 
+                                        <option value="1">
+                                            @lang('admin::app.catalog.families.edit.main-column')
+                                        </option>
+
+                                        <option value="2">
+                                            @lang('admin::app.catalog.families.edit.right-column')
+                                        </option>
+                                    </x-admin::form.control-group.control>
+
+                                    <x-admin::form.control-group.error control-name="column" />
+                                </x-admin::form.control-group>
+                            </x-slot>
+
+                            <!-- Modal Footer -->
                             <x-slot:footer>
-                                <div class="flex gap-x-[10px] items-center">
+                                <div class="flex items-center gap-x-2.5">
                                     <button 
                                         type="submit"
                                         class="primary-button"
@@ -392,7 +406,7 @@
                                         @lang('admin::app.catalog.families.edit.add-group-btn')
                                     </button>
                                 </div>
-                            </x-slot:footer>
+                            </x-slot>
                         </x-admin::modal>
                     </form>
                 </x-admin::form>
@@ -407,11 +421,13 @@
                     return {
                         selectedGroup: {
                             id: null,
+                            code: null,
                             name: null,
                         },
 
                         editableGroup: {
                             id: null,
+                            code: null,
                             name: null,
                         },
 
@@ -470,6 +486,7 @@
                                 ? group
                                 : {
                                     id: null,
+                                    code: null,
                                     name: null,
                                 };
                         }
@@ -478,14 +495,25 @@
                     },
 
                     addGroup(params, { resetForm, setErrors }) {
-                        if (this.isGroupAlreadyExists(params.name)) {
-                            setErrors({'name': ["@lang('admin::app.catalog.families.edit.group-already-exists')"]});
+                        let isGroupCodeAlreadyExists = this.isGroupCodeAlreadyExists(params.code);
+
+                        let isGroupNameAlreadyExists = this.isGroupNameAlreadyExists(params.name);
+
+                        if (isGroupCodeAlreadyExists || isGroupCodeAlreadyExists) {
+                            if (isGroupCodeAlreadyExists) {
+                                setErrors({'code': ["@lang('admin::app.catalog.families.edit.group-code-already-exists')"]});
+                            }
+
+                            if (isGroupNameAlreadyExists) {
+                                setErrors({'name': ["@lang('admin::app.catalog.families.edit.group-name-already-exists')"]});
+                            }
 
                             return;
                         }
 
                         this.columnGroups[params.column].push({
                             'id': 'group_' + params.column + '_' + this.columnGroups[params.column].length,
+                            'code': params.code,
                             'name': params.name,
                             'is_user_defined': 1,
                             'custom_attributes': [],
@@ -496,7 +524,11 @@
                         this.$refs.addGroupModal.close();
                     },
                     
-                    isGroupAlreadyExists(name) {
+                    isGroupCodeAlreadyExists(code) {
+                        return this.columnGroups[1].find(group => group.code == code) || this.columnGroups[2].find(group => group.code == code);
+                    },
+                    
+                    isGroupNameAlreadyExists(name) {
                         return this.columnGroups[1].find(group => group.name == name) || this.columnGroups[2].find(group => group.name == name);
                     },
                     
@@ -534,6 +566,7 @@
                         if (! e.target.classList.contains('group_node')) {
                             this.editableGroup = {
                                 id: null,
+                                code: null,
                                 name: null,
                             };
                         }

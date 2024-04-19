@@ -37,9 +37,9 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
          * Login routes.
          */
         Route::controller(SessionController::class)->prefix('login')->group(function () {
-            Route::get('', 'show')->name('shop.customer.session.index');
+            Route::get('', 'index')->name('shop.customer.session.index');
 
-            Route::post('', 'create')->name('shop.customer.session.create');
+            Route::post('', 'store')->name('shop.customer.session.create');
         });
 
         /**
@@ -95,7 +95,7 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
                     Route::get('edit', 'edit')->name('shop.customers.account.profile.edit');
 
-                    Route::post('edit', 'update')->name('shop.customers.account.profile.store');
+                    Route::post('edit', 'update')->name('shop.customers.account.profile.update');
 
                     Route::post('destroy', 'destroy')->name('shop.customers.account.profile.destroy');
 
@@ -124,15 +124,16 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
                 /**
                  * Orders.
                  */
-                // Order is Transactions
-                Route::controller(OrderController::class)->prefix('transactions')->group(function () {
-                    Route::get('', 'index')->name('shop.customers.account.transactions.index');
+                Route::controller(OrderController::class)->prefix('orders')->group(function () {
+                    Route::get('', 'index')->name('shop.customers.account.orders.index');
 
-                    Route::get('view/{id}', 'view')->name('shop.customers.account.transactions.view');
+                    Route::get('view/{id}', 'view')->name('shop.customers.account.orders.view');
 
-                    Route::post('cancel/{id}', 'cancel')->name('shop.customers.account.transactions.cancel');
+                    Route::get('reorder/{id}', 'reorder')->name('shop.customers.account.orders.reorder');
 
-                    Route::get('print/Invoice/{id}', 'printInvoice')->name('shop.customers.account.transactions.print-invoice');
+                    Route::post('cancel/{id}', 'cancel')->name('shop.customers.account.orders.cancel');
+
+                    Route::get('print/Invoice/{id}', 'printInvoice')->name('shop.customers.account.orders.print-invoice');
                 });
 
                 /**
