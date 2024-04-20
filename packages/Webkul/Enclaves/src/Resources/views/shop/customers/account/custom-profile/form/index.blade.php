@@ -13,13 +13,13 @@
         <div>
             <!-- Tabs -->
             <div
-                class="flex gap-[30px] justify-center pt-[18px]"
+                class="flex justify-center gap-[30px] pt-[18px]"
                 :style="positionStyles"
             >
                 <template v-for="attribute, index in attributes">
                     <div
                         v-if="['employment_type', 'borrower_data'].includes(index)"
-                        class="pb-[10px] px-[20px] text-[15px] font-medium text-[#6E6E6E] cursor-pointer"
+                        class="cursor-pointer px-[20px] pb-[10px] text-[15px] font-medium text-[#6E6E6E]"
                         :class="{'text-black border-b-pink-700 border-b-[2px] transition': tabs[index].isActive }"
                         @click="change(index)"
                         v-text="tabs[index].title"
@@ -35,30 +35,30 @@
                         :id="tabs[index].title"
                         v-if="['employment_type', 'borrower_data'].includes(index) && tabs[index].isActive"
                     >
-                        <section class="inset-1 border border-[rgba(237,_239,_245)] rounded-[1.25rem] lg:px-[3.185rem] lg:py-[3.75rem]">
+                        <section class="inset-1 rounded-[1.25rem] border border-[rgba(237,_239,_245)] lg:px-[3.185rem] lg:py-[3.75rem]">
                             <div 
                                 class="mb-10"
                                 v-if="['borrower_data'].includes(index)"
                                 >
                                 <div>
-                                    <span class="font-semibold text-[21px]">
-                                        Full Name:
+                                    <span class="text-[21px] font-semibold">
+                                        @lang('enclaves::app.shop.customers.account.customer-profile.form.full-name') 
                                     </span>
-                                    <span v-text="values[index]?.employer_name">
-                                    </span>
+
+                                    <span v-text="values[index]?.employer_name"></span>
                                 </div>
 
                                 <div>
-                                    <span class="font-semibold text-[21px]">
-                                        Primary Home Address:
+                                    <span class="text-[21px] font-semibold">
+                                        @lang('enclaves::app.shop.customers.account.customer-profile.form.address') 
                                     </span>
-                                    <span v-text="values[index]?.employer_address">
-                                    </span>
+                                    
+                                    <span v-text="values[index]?.employer_address"></span>
                                 </div>
 
                                 <div>
-                                    <span class="font-semibold text-[21px]">
-                                        Lot / Unit umber:
+                                    <span class="text-[21px] font-semibold">
+                                        @lang('enclaves::app.shop.customers.account.customer-profile.form.lot-unit-number')
                                     </span>
                                     <span>
                                         Lot A
@@ -66,12 +66,12 @@
                                 </div>
                             </div>
                             
-                            <div class="grid gap-7 lg:gap-11 lg:grid-cols-2">
+                            <div class="grid gap-7 lg:grid-cols-2 lg:gap-11">
                                 <template v-for="attribute_type in attribute">
-                                    <div class="flex flex-col min-w-full gap-2 lg:gap-4">
+                                    <div class="flex min-w-full flex-col gap-2 lg:gap-4">
                                         <label
                                             :for="attribute_type.name"
-                                            class="block text-lg lg:text-xl font-medium leading-[1.565rem] text-black xl:text-[1.565rem]"
+                                            class="block text-lg font-medium leading-[1.565rem] text-black lg:text-xl xl:text-[1.565rem]"
                                             v-text="attribute_type.name"
                                         >
                                         </label>
@@ -79,14 +79,16 @@
                                         <!-- select -->
                                         <select
                                             id="civil-status"
-                                            class="form-select styled-select flex min-w-full appearance-none rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] bg-no-repeat py-3 lg:py-6 px-6 lg:px-8 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)]"
+                                            class="form-select styled-select flex min-w-full appearance-none rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] bg-no-repeat px-6 py-3 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)] lg:px-8 lg:py-6"
                                             autocomplete="civil-status"
                                             v-if="attribute_type.type === 'select'"
                                             @change="selectOption($event)"
                                             :formType="index"
                                             :name="attribute_type.code"
                                         >
-                                            <option class="text-[rgba(184,_184,_184)]" selected>@lang('Select')</option>
+                                            <option class="text-[rgba(184,_184,_184)]" selected>
+                                                @lang('enclaves::app.shop.customers.account.customer-profile.form.select')
+                                            </option>
                                             
                                             <template v-for="option in attribute_type.options">
                                                 <option v-text="option.value" :selected="values[index][attribute_type.code] == option.value"></option>
@@ -95,7 +97,7 @@
 
                                         <!-- checkbox -->
                                         <div
-                                            class="flex flex-wrap items-center pt-1 gap-x-5 gap-y-5 lg:pt-1" 
+                                            class="flex flex-wrap items-center gap-x-5 gap-y-5 pt-1 lg:pt-1" 
                                             v-if="attribute_type.type === 'checkbox'"
                                         >
                                             <div
@@ -125,7 +127,7 @@
                                         <!-- input type text -->
                                         <input
                                             type="text"
-                                            class="flex min-w-full rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] py-3 lg:py-6 px-6 lg:px-8 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)]" 
+                                            class="flex min-w-full rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] px-6 py-3 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)] lg:px-8 lg:py-6" 
                                             autocomplete="off"
                                             v-if="attribute_type.type === 'text'"
                                             :value="values[index][attribute_type.code]"
@@ -156,12 +158,12 @@
 
                     tabs: {
                         'employment_type' : {
-                            title: 'Employment Information',
+                            title: "@lang('enclaves::app.shop.customers.account.customer-profile.form.employment-information')",
                             isActive: true,
                         }, 
 
                         'borrower_data': {
-                            title: `Borrower's Data (Spouse, Attorney in fact, Co-Borrower)`,
+                            title: "@lang('enclaves::app.shop.customers.account.customer-profile.form.co-Borrower')",
                             isActive: false,
                         }
                     }

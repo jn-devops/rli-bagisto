@@ -95,7 +95,9 @@ class SimpleProductRepository extends BaseRepository
             'attribute_family_id' => $dataFlowProfileRecord->profiler->attribute_family_id,
         ];
 
-        if (trim($csvData['type']) == 'variant') {
+        
+        if (! empty($csvData['parent'])) {
+            Log::info($csvData['parent']);
             $csvData['parent_id'] = $this->productRepository->findOneByField('sku', $csvData['parent'])->id;
 
             $superAttributes['super_attributes'] = $csvData['super_attributes'];
@@ -135,10 +137,10 @@ class SimpleProductRepository extends BaseRepository
 
             Event::dispatch('catalog.product.create.after', $product);
 
-            // Product Update Procesing
+            // Product Update Processing
             $this->updateProduct($csvData, $product, $dataFlowProfileRecord);
         } else {
-            // Product Update Procesing
+            // Product Update Processing
             $this->updateProduct($csvData, $product, $dataFlowProfileRecord);
         }
     }
@@ -168,7 +170,8 @@ class SimpleProductRepository extends BaseRepository
         $data = $this->processProductAttributes($csvData, $product);
 
         // Process inventory for configurable product
-        if (in_array($product->type, ['variant', 'configurable'])) {
+        if (in_array($product->type, ['configurable'])
+            || (! empty($csvData['parent']) && $csvData['type'] === "simple")) {
             $this->processProductInventoryForConfiguration($csvData, $data);
         } else {
             $this->processProductInventory($csvData, $data);
@@ -260,7 +263,7 @@ class SimpleProductRepository extends BaseRepository
 
         // Upload images
         if ($productFlat) {
-            $this->productImageRepository->bulkuploadImages($data, $productFlat);
+            $this->productImageRepository->bulkUploadImages($data, $productFlat);
         }
     }
 
@@ -431,8 +434,8 @@ class SimpleProductRepository extends BaseRepository
 
         $images = Storage::disk('local')->files($imagePath);
 
-        foreach ($images as $imageArraykey => $imagePath) {
-            $productImages[$imageArraykey] = $imagePath;
+        foreach ($images as $imageKey => $imagePath) {
+            $productImages[$imageKey] = $imagePath;
         }
 
         return $productImages;
@@ -516,7 +519,7 @@ class SimpleProductRepository extends BaseRepository
 
         if (! (count($uniqueLengths) === 1)) {
             return [
-                'error' => ["Please provide correct value for Lnik, Sample Link realted field for sku: {$product->sku}"],
+                'error' => ["Please provide correct value for Link, Sample Link related field for sku: {$product->sku}"],
             ];
         }
 
@@ -628,7 +631,7 @@ class SimpleProductRepository extends BaseRepository
 
         if (! (count($uniqueLengths) === 1)) {
             return [
-                'error' => ["Please provide correct value for Sample realted field for sku: {$product->sku}"],
+                'error' => ["Please provide correct value for Sample related field for sku: {$product->sku}"],
             ];
         }
 

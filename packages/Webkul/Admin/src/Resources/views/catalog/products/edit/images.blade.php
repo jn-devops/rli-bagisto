@@ -1,14 +1,14 @@
 {!! view_render_event('bagisto.admin.catalog.product.edit.form.images.before', ['product' => $product]) !!}
 
-<div class="relative p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
+<div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900">
     <!-- Panel Header -->
-    <div class="flex gap-[20px] justify-between mb-[16px]">
-        <div class="flex flex-col gap-[8px]">
-            <p class="text-[16px] text-gray-800 dark:text-white font-semibold">
+    <div class="mb-4 flex justify-between gap-5">
+        <div class="flex flex-col gap-2">
+            <p class="text-base font-semibold text-gray-800 dark:text-white">
                 @lang('admin::app.catalog.products.edit.images.title')
             </p>
 
-            <p class="text-[12px] text-gray-500 dark:text-gray-300 font-medium">
+            <p class="text-xs font-medium text-gray-500 dark:text-gray-300">
                 @lang('admin::app.catalog.products.edit.images.info')
             </p>
         </div>
@@ -20,8 +20,7 @@
         allow-multiple="true"
         show-placeholders="true"
         :uploaded-images="$product->images"
-    >
-    </x-admin::media.images>
+    />
 </div>
 
 {!! view_render_event('bagisto.admin.catalog.product.edit.form.images.after', ['product' => $product]) !!}

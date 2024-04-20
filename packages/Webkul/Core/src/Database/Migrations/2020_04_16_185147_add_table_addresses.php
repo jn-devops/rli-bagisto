@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('vat_id')->nullable();
-            $table->boolean('default_address')->default(false)->comment('only for customer_addresses');
+            $table->boolean('default_address')->nullable()->default(false)->comment('only for customer_addresses');
             $table->json('additional')->nullable();
             $table->timestamps();
 

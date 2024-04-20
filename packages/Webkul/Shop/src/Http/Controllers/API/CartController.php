@@ -2,15 +2,15 @@
 
 namespace Webkul\Shop\Http\Controllers\API;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
-use Webkul\CartRule\Repositories\CartRuleCouponRepository;
+use Illuminate\Http\Response;
 use Webkul\Checkout\Facades\Cart;
-use Webkul\Customer\Repositories\WishlistRepository;
-use Webkul\Product\Repositories\ProductRepository;
+use Illuminate\Support\Facades\Event;
 use Webkul\Shop\Http\Resources\CartResource;
+use Webkul\Shop\Http\Resources\ProductResource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\Product\Repositories\ProductRepository;
+use Webkul\CartRule\Repositories\CartRuleCouponRepository;
 
 class CartController extends APIController
 {
@@ -20,7 +20,6 @@ class CartController extends APIController
      * @return void
      */
     public function __construct(
-        protected WishlistRepository $wishlistRepository,
         protected ProductRepository $productRepository,
         protected CartRuleCouponRepository $cartRuleCouponRepository
     ) {
@@ -47,65 +46,47 @@ class CartController extends APIController
     /**
      * Store items in cart.
      */
-    public function store(): JsonResource
+    public function store()
     {
-        try {
-            $product = $this->productRepository->with('parent')->find(request()->input('product_id'));
+        $this->validate(request(), [
+            'product_id' => 'required|integer|exists:products,id',
+        ]);
+
+        $product = $this->productRepository->with('parent')->findOrFail(request()->input('product_id'));
+        
+       try {
+            if (! $product->status) {
+                throw new \Exception(trans('shop::app.checkout.cart.inactive-add'));
+            }
+            
+      
+
+            $response = [];
 
             if (request()->get('is_buy_now')) {
                 Cart::deActivateCart();
+
+                $response['redirect'] = route('shop.product_or_category.index', $product->url_key);
             }
 
-            $cart = Cart::addProduct($product->id, request()->all());
+            $cart = Cart::addProduct($product, request()->all());
 
-            /**
-             * To Do (@devansh-webkul): Need to check this and improve cart facade.
-             */
-            if (
-                is_array($cart)
-                && isset($cart['warning'])
-            ) {
-                return new JsonResource([
-                    'message' => $cart['warning'],
-                ]);
-            }
-
-            if ($cart) {
-                if ($customer = auth()->guard('customer')->user()) {
-                    $this->wishlistRepository->deleteWhere([
-                        'product_id'  => $product->id,
-                        'customer_id' => $customer->id,
-                    ]);
-                }
-
-                // TODO : this is customization.
-                if (request()->get('is_buy_now')) {
-                    Event::dispatch('shop.item.buy-now', request()->input('product_id'));
-
-                    $cartResource = new CartResource(Cart::getCart());
-
-                    return new JsonResource([
-                        'data'          => $cartResource,
-                        'ekyc_redirect' => route('ekyc.verification.index', [
-                            'slug'   => Str::slug(strtolower($product->getAttribute('name'))),
-                            'cartId' => $cartResource->id,
-                        ]),
-                        'redirect'      => route('shop.checkout.onepage.index'),
-                        'message'       => trans('shop::app.checkout.cart.item-add-to-cart'),
-                    ]);
-                }
-                // TODO : this is customization.
-
-                return new JsonResource([
-                    'data'     => new CartResource(Cart::getCart()),
-                    'message'  => trans('shop::app.checkout.cart.item-add-to-cart'),
-                ]);
-            }
-        } catch (\Exception $exception) {
-            return new JsonResource([
-                'redirect_uri' => route('shop.product_or_category.index', $product->product->url_key),
-                'message'      => $exception->getMessage(),
+            // Customization code
+            $response['ekyc_redirect'] = route('ekyc.verification.index', [
+                'slug'   => Str::slug(strtolower($product->getAttribute('name'))),
+                'cartId' => $cart->id,
             ]);
+            // Customization code
+
+            return new JsonResource(array_merge([
+                'data'    => new CartResource($cart),
+                'message' => trans('shop::app.checkout.cart.item-add-to-cart'),
+            ], $response));
+        } catch (\Exception $exception) {
+            return response()->json([
+                'redirect_uri' => request()->get('is_buy_now') ? route('shop.product_or_category.index', $product->url_key) : null,
+                'message'      => trans('shop::app.checkout.cart.inactive-add'),
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -114,6 +95,10 @@ class CartController extends APIController
      */
     public function destroy(): JsonResource
     {
+        $this->validate(request(), [
+            'cart_item_id' => 'required|exists:cart_items,id',
+        ]);
+
         Cart::removeItem(request()->input('cart_item_id'));
 
         Cart::collectTotals();
@@ -144,8 +129,10 @@ class CartController extends APIController
      */
     public function moveToWishlist(): JsonResource
     {
-        foreach (request()->input('ids') as $id) {
-            Cart::moveToWishlist($id);
+        foreach (request()->input('ids') as $index => $id) {
+            $qty = request()->input('qty')[$index];
+
+            Cart::moveToWishlist($id, $qty);
         }
 
         return new JsonResource([
@@ -178,48 +165,49 @@ class CartController extends APIController
      */
     public function storeCoupon()
     {
-        $couponCode = request()->input('code');
+        $validatedData = $this->validate(request(), [
+            'code' => 'required',
+        ]);
 
         try {
-            if (strlen($couponCode)) {
-                $coupon = $this->cartRuleCouponRepository->findOneByField('code', $couponCode);
+            if (strlen($validatedData['code'])) {
+                $coupon = $this->cartRuleCouponRepository->findOneByField('code', $validatedData['code']);
 
                 if (! $coupon) {
                     return (new JsonResource([
                         'data'     => new CartResource(Cart::getCart()),
                         'message'  => trans('Coupon not found.'),
-                    ]))
-                        ->response()
-                        ->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+                    ]))->response()->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                 }
 
                 if ($coupon->cart_rule->status) {
-                    if (Cart::getCart()->coupon_code == $couponCode) {
+                    if (Cart::getCart()->coupon_code == $validatedData['code']) {
                         return (new JsonResource([
                             'data'     => new CartResource(Cart::getCart()),
-                            'message'  => trans('shop::app.checkout.cart.coupon-already-applied'),
-                        ]))
-                            ->response()
-                            ->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+                            'message'  => trans('shop::app.checkout.coupon.already-applied'),
+                        ]))->response()->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                     }
 
-                    Cart::setCouponCode($couponCode)->collectTotals();
+                    Cart::setCouponCode($validatedData['code'])->collectTotals();
 
-                    if (Cart::getCart()->coupon_code == $couponCode) {
+                    if (Cart::getCart()->coupon_code == $validatedData['code']) {
                         return new JsonResource([
                             'data'     => new CartResource(Cart::getCart()),
-                            'message'  => trans('shop::app.checkout.cart.coupon.success-apply'),
+                            'message'  => trans('shop::app.checkout.coupon.success-apply'),
                         ]);
                     }
                 }
+
+                return (new JsonResource([
+                    'data'     => new CartResource(Cart::getCart()),
+                    'message'  => trans('Coupon not found.'),
+                ]))->response()->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         } catch (\Exception $e) {
             return (new JsonResource([
                 'data'    => new CartResource(Cart::getCart()),
-                'message' => trans('shop::app.checkout.cart.coupon.error'),
-            ]))
-                ->response()
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+                'message' => trans('shop::app.checkout.coupon.error'),
+            ]))->response()->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -232,7 +220,35 @@ class CartController extends APIController
 
         return new JsonResource([
             'data'     => new CartResource(Cart::getCart()),
-            'message'  => trans('shop::app.checkout.cart.coupon.remove'),
+            'message'  => trans('shop::app.checkout.coupon.remove'),
         ]);
+    }
+
+    /**
+     * Cross-sell product listings.
+     *
+     * @return \Illuminate\Http\Resources\Json\JsonResource::collection
+     */
+    public function crossSellProducts()
+    {
+        $cart = Cart::getCart();
+
+        if (! $cart) {
+            return new JsonResource([
+                'data' => [],
+            ]);
+        }
+
+        $productIds = $cart->items->pluck('product_id')->toArray();
+
+        $products = $this->productRepository
+            ->select('products.*', 'product_cross_sells.child_id')
+            ->join('product_cross_sells', 'products.id', '=', 'product_cross_sells.child_id')
+            ->whereIn('product_cross_sells.parent_id', $productIds)
+            ->groupBy('product_cross_sells.child_id')
+            ->take(core()->getConfigData('catalog.products.cart_view_page.no_of_cross_sells_products'))
+            ->get();
+
+        return ProductResource::collection($products);
     }
 }

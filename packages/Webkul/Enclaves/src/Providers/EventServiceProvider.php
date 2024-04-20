@@ -4,6 +4,7 @@ namespace Webkul\Enclaves\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Webkul\Enclaves\Helpers\Product\ProductImageUpdate;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -58,6 +59,22 @@ class EventServiceProvider extends ServiceProvider
 
         Event::listen('bagisto.admin.catalog.categories.create.card.accordion.filterable_attributes.after', function ($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('enclaves::admin.catalog.categories.create');
+        });
+
+        Event::listen('bagisto.admin.catalog.product.edit.form.images.before', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::admin.images.url');
+        });
+
+        Event::listen('bagisto.shop.products.price.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::shop.products.prices.processing');
+        });
+
+        Event::listen('bagisto.shop.checkout.addresses.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::shop.checkout.onepage.properties.index');
+        });
+
+        Event::listen('catalog.product.update.after', function ($product) {
+            app(ProductImageUpdate::class)->insertImages($product);
         });
     }
 }

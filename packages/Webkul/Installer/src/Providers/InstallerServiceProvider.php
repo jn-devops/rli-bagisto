@@ -5,7 +5,9 @@ namespace Webkul\Installer\Providers;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Webkul\Installer\Console\Commands\Installer as InstallerCommand;
 use Webkul\Installer\Http\Middleware\CanInstall;
+use Webkul\Installer\Http\Middleware\Locale;
 
 class InstallerServiceProvider extends ServiceProvider
 {
@@ -18,10 +20,22 @@ class InstallerServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap the application events.
+     *
+     * @return void
      */
     public function boot(Router $router)
     {
         $router->middlewareGroup('install', [CanInstall::class]);
+
+        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
+
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'installer');
+
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'installer');
+
+        $router->aliasMiddleware('installer_locale', Locale::class);
+
+        Event::listen('bagisto.installed', 'Webkul\Installer\Listeners\Installer@installed');
     }
 
     /**
@@ -32,14 +46,6 @@ class InstallerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerCommands();
-
-        $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
-
-        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'installer');
-
-        Event::listen('bagisto.installed', 'Webkul\Installer\Listeners\Installer@installed');
-
-        Event::listen('bagisto.updates.check', 'Webkul\Installer\Listeners\Installer@getUpdates');
     }
 
     /**
@@ -49,7 +55,7 @@ class InstallerServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Webkul\Installer\Console\Commands\Install::class,
+                InstallerCommand::class,
             ]);
         }
     }

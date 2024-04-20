@@ -217,7 +217,7 @@
                                     </P>
                                 </div>
                                 
-                                <div class="border-[]#D9D9D9 mt-[10px] flex flex-col gap-[20px] border-b-[1px] pb-[42px]">
+                                <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                     <!-- location-->
                                     <div class="flex flex-wrap gap-[6px]">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Location:</p>
@@ -235,7 +235,7 @@
                                     </div>
                                 </div>
 
-                                <div class="border-[]#D9D9D9 flex max-w-[400px] flex-col gap-[20px] border-b-[1px] pb-[42px]">
+                                <div class="flex max-w-[400px] flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                     {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
                                     <p class="mt-[25px] text-[18px] text-[#6E6E6E] max-sm:mt-[15px] max-sm:text-[14px]">

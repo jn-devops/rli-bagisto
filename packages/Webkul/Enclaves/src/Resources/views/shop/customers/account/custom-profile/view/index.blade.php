@@ -3,17 +3,17 @@
 @pushOnce('scripts')
 
 <script type="text/x-template" id="v-customer-view-template">
-    <section class="inset-1 rounded-[1.25rem] md:px-6 border border-[rgba(237,_239,_245)] p-8 lg:px-[3.375rem] lg:py-[3.75rem]">
+    <section class="inset-1 rounded-[1.25rem] border border-[rgba(237,_239,_245)] p-8 md:px-6 lg:px-[3.375rem] lg:py-[3.75rem]">
         <h3 class="text-lg font-semibold text-[rgba(204,_3,_92)] lg:text-[1.565rem] lg:leading-7"> 
-            Personal Details 
+            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.full-name') 
         </h3>
 
         <article class="py-8 md:py-[3.125rem]">
             <table class="table-auto">
                 <dl class="flex flex-col gap-3">
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-semibold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.full-name')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-semibold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.full-name')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -21,9 +21,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.dob') 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.dob')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -31,9 +31,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.email')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.email') 
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -41,9 +41,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.phone')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.phone')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -52,18 +52,18 @@
                     </div>
 
                     <!-- Static Content -->
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Lot / Unit number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.lot-unit-number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> Lot A </dd>
                     </div>
 
                     <!-- Static Content -->
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Civil Status: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.civil-status')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -71,9 +71,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.gender')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.gender')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -81,9 +81,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="min-w-full whitespace-nowrap tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.addresses.address-1')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="min-w-full whitespace-nowrap font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:text-base sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.info.address-1') 
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -95,15 +95,15 @@
         </article>
 
         <h3 class="text-lg font-semibold text-[rgba(204,_3,_92)] lg:text-[1.565rem] lg:leading-7">
-            Employment Information 
+            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.title')
         </h3>
 
         <article class="py-8 md:py-[3.125rem]">
             <table class="table-auto">
                 <dl class="flex flex-col gap-3">
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-semibold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.full-name')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-semibold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.full-name')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -111,9 +111,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.dob')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.dob')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -121,9 +121,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 pb-8 sm:px-0 md:pb-[3.125rem]">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.email')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 pb-8 sm:px-0 md:pb-[3.125rem] lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.email')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -131,9 +131,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            @lang('shop::app.customers.account.profile.phone')
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.phone')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -141,9 +141,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Lot / Unit number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.lot-unit-number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -151,9 +151,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Work Industry: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.work-industry')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -161,9 +161,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Gross Income: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.gross-income')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -172,9 +172,9 @@
                     </div>
 
                     <div
-                        class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 pb-8 sm:px-0 md:pb-[3.125rem]">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Nationality: 
+                        class="flex flex-col gap-x-6 gap-y-1.5 pb-8 sm:px-0 md:pb-[3.125rem] lg:columns-2 lg:flex-row">
+                        <dt class="w-full font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:text-base sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.nationality')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -182,9 +182,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employment Type: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.employment.type')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -192,9 +192,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employment Status: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.employment.status')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -202,9 +202,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Current Position: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.current-position')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -212,9 +212,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employer Name: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.employer.name')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -222,9 +222,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employer Contact Number:
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.employer.number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -232,9 +232,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employer Address: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.employer.address')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -242,9 +242,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Tax Identification Number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.tax-identification-number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -252,18 +252,18 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            PAG-IBIG Number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.PAG-IBIG-number')
                         </dt>
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
                              1324244
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            SSS/GSIS Number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.information.SSS-GSIS-number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -275,15 +275,15 @@
         </article>
 
         <h3 class="text-lg font-semibold text-[rgba(204,_3,_92)] lg:text-[1.565rem] lg:leading-7">
-            Borrower's Data (Spouse, Attorney in fact, Co-Borrower)
+            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.title')
         </h3>
 
         <article class="py-8 md:py-[3.125rem]">
             <table class="table-auto">
                 <dl class="flex flex-col gap-3">
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 pb-4 sm:px-0">
-                        <dt class="min-w-full tracking-tighter whitespace-nowrap sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-semibold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Secondary Home Address: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 pb-4 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="min-w-full whitespace-nowrap text-base font-semibold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.secondary-address')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -291,9 +291,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Civil Status: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.civil-status')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -301,9 +301,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Gender: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.gender')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -311,9 +311,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Date of Birth: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.dob')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -321,9 +321,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Primary Email Address:
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.primary-email-address')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -331,9 +331,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Primary Phone Number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.primary-phone-number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -341,9 +341,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Work Industry 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.work-industry')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -351,9 +351,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 pb-8 sm:px-0 md:pb-[3.125rem]">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Gross Income: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 pb-8 sm:px-0 md:pb-[3.125rem] lg:columns-2 lg:flex-row">
+                        <dt class="w-full font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:text-base sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.gross-income')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -361,9 +361,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Nationality: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.nationality')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -371,9 +371,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employment Type:
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.employment.type')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -381,9 +381,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employment Status:: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.employment.status')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -391,9 +391,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Current Position: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.current-position')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -401,9 +401,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employer Name: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.employer.name')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -411,9 +411,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employer Contact Number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.employer.number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -421,9 +421,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Employer Address: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.employer.address')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl"> 
@@ -431,9 +431,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            Tax Identification Number:
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.tax-identification-number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -441,9 +441,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            PAG-IBIG Number: 
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.PAG-IBIG-number')
                         </dt>
 
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
@@ -451,9 +451,9 @@
                         </dd>
                     </div>
 
-                    <div class="flex flex-col gap-y-1.5 lg:flex-row lg:columns-2 gap-x-6 sm:px-0">
-                        <dt class="w-full tracking-tighter sm:tracking-normal sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap text-base font-bold leading-5 text-gray-900 md:w-[17rem] md:min-w-[17rem] md:text-xl">
-                            SSS/GSIS Number:
+                    <div class="flex flex-col gap-x-6 gap-y-1.5 sm:px-0 lg:columns-2 lg:flex-row">
+                        <dt class="w-full text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem] md:text-xl">
+                            @lang('enclaves::app.shop.customers.account.customer-profile.view.co-borrower.SSS-GSIS-number')
                         </dt>
                         <dd class="text-base font-normal leading-5 text-gray-900 md:text-xl">
                             32324242

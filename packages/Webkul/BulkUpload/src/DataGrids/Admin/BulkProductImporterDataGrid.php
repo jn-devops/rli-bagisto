@@ -59,7 +59,7 @@ class BulkProductImporterDataGrid extends DataGrid
     {
         $this->addColumn([
             'index'      => 'profile_name',
-            'label'      => trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.name'),
+            'label'      => trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.name'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -68,7 +68,7 @@ class BulkProductImporterDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'name',
-            'label'      => trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.family'),
+            'label'      => trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.family'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -77,7 +77,7 @@ class BulkProductImporterDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'locale_code',
-            'label'      => trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.data-grid.locale_code'),
+            'label'      => trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.data-grid.locale_code'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -86,7 +86,7 @@ class BulkProductImporterDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'created_at',
-            'label'      => trans('bulkupload::app.admin.bulk-upload.bulk-product-importer.data-grid.created-at'),
+            'label'      => trans('bulkUpload::app.admin.bulk-upload.bulk-product-importer.data-grid.created-at'),
             'type'       => 'datetime',
             'sortable'   => true,
             'searchable' => true,

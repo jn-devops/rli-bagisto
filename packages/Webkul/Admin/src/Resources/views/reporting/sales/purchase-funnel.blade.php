@@ -1,41 +1,44 @@
-{{-- Purchase Funnel Vue Component --}}
+<!-- Purchase Funnel Vue Component -->
 <v-reporting-sales-purchase-funnel>
-    {{-- Shimmer --}}
-    <x-admin::shimmer.reporting.sales.purchase-funnel/>
+    <!-- Shimmer -->
+    <x-admin::shimmer.reporting.sales.purchase-funnel />
 </v-reporting-sales-purchase-funnel>
 
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-reporting-sales-purchase-funnel-template">
+    <script
+        type="text/x-template"
+        id="v-reporting-sales-purchase-funnel-template"
+    >
         <!-- Shimmer -->
         <template v-if="isLoading">
-            <x-admin::shimmer.reporting.sales.purchase-funnel/>
+            <x-admin::shimmer.reporting.sales.purchase-funnel />
         </template>
 
         <!-- Purchase Funnel Section -->
         <template v-else>
-            <div class="flex-1 relative p-[16px] bg-white dark:bg-gray-900 rounded-[4px] box-shadow">
+            <div class="box-shadow relative flex-1 rounded bg-white p-4 dark:bg-gray-900">
                 <!-- Header -->
-                <p class="text-[16px] text-gray-600 dark:text-white font-semibold mb-[16px]">
+                <p class="mb-4 text-base font-semibold text-gray-600 dark:text-white">
                     @lang('admin::app.reporting.sales.index.purchase-funnel')
                 </p>
                 
                 <!-- Content -->
-                <div class="grid grid-cols-4 gap-[24px]">
+                <div class="grid grid-cols-4 gap-6">
                     <!-- Total Visits -->
-                    <div class="flex flex-col gap-[16px]">
-                        <div class="grid gap-[2px]">
-                            <p class="text-[16px] text-gray-800 dark:text-white font-semibold">
+                    <div class="flex flex-col gap-4">
+                        <div class="grid gap-0.5">
+                            <p class="text-base font-semibold leading-none text-gray-800 dark:text-white">
                                 @{{ report.statistics.visitors.total }}
                             </p>
 
-                            <p class="text-[12px] text-gray-600 dark:text-gray-300 font-semibold">
+                            <p class="text-xs font-semibold leading-none text-gray-600 dark:text-gray-300">
                                 @lang('admin::app.reporting.sales.index.total-visits')
                             </p>
                         </div>
 
-                        <div class="w-full relative bg-slate-100 aspect-[0.5/1]">
+                        <div class="relative aspect-[0.5/1] w-full bg-slate-100">
                             <div
-                                class="w-full absolute bottom-0 bg-emerald-400"
+                                class="absolute bottom-0 w-full bg-emerald-400"
                                 :style="{ 'height': report.statistics.visitors.progress + '%' }"
                             ></div>
                         </div>
@@ -46,20 +49,20 @@
                     </div>
 
                     <!-- Total Product Visits -->
-                    <div class="flex flex-col gap-[16px]">
-                        <div class="grid gap-[2px]">
-                            <p class="text-[16px] text-gray-800 dark:text-white font-semibold">
+                    <div class="flex flex-col gap-4">
+                        <div class="grid gap-0.5">
+                            <p class="text-base font-semibold leading-none text-gray-800 dark:text-white">
                                 @{{ report.statistics.product_visitors.total }}
                             </p>
 
-                            <p class="text-[12px] text-gray-600 dark:text-gray-300 font-semibold">
+                            <p class="text-xs font-semibold text-gray-600 dark:text-gray-300">
                                 @lang('admin::app.reporting.sales.index.product-views')
                             </p>
                         </div>
 
-                        <div class="w-full relative bg-slate-100 aspect-[0.5/1]">
+                        <div class="relative aspect-[0.5/1] w-full bg-slate-100">
                             <div
-                                class="w-full absolute bottom-0 bg-emerald-400"
+                                class="absolute bottom-0 w-full bg-emerald-400"
                                 :style="{ 'height': (report.statistics.product_visitors.progress).toFixed(2) + '%' }"
                             ></div>
                         </div>
@@ -71,20 +74,20 @@
                     </div>
 
                     <!-- Total Added To Cart -->
-                    <div class="flex flex-col gap-[16px]">
-                        <div class="grid gap-[2px]">
-                            <p class="text-[16px] text-gray-800 dark:text-white font-semibold">
+                    <div class="flex flex-col gap-4">
+                        <div class="grid gap-0.5">
+                            <p class="text-base font-semibold leading-none text-gray-800 dark:text-white">
                                 @{{ report.statistics.carts.total }}
                             </p>
 
-                            <p class="text-[12px] text-gray-600 dark:text-gray-300 font-semibold">
+                            <p class="text-xs font-semibold text-gray-600 dark:text-gray-300">
                                 @lang('admin::app.reporting.sales.index.added-to-cart')
                             </p>
                         </div>
 
-                        <div class="w-full relative bg-slate-100 aspect-[0.5/1]">
+                        <div class="relative aspect-[0.5/1] w-full bg-slate-100">
                             <div
-                                class="w-full absolute bottom-0 bg-emerald-400"
+                                class="absolute bottom-0 w-full bg-emerald-400"
                                 :style="{ 'height': (report.statistics.carts.progress).toFixed(2) + '%' }"
                             ></div>
                         </div>
@@ -96,20 +99,20 @@
                     </div>
 
                     <!-- Total Purchased -->
-                    <div class="flex flex-col gap-[16px]">
-                        <div class="grid gap-[2px]">
-                            <p class="text-[16px] text-gray-800 dark:text-white font-semibold">
+                    <div class="flex flex-col gap-4">
+                        <div class="grid gap-0.5">
+                            <p class="text-base font-semibold leading-none text-gray-800 dark:text-white">
                                 @{{ report.statistics.orders.total }}
                             </p>
 
-                            <p class="text-[12px] text-gray-600 dark:text-gray-300 font-semibold">
+                            <p class="text-xs font-semibold text-gray-600 dark:text-gray-300">
                                 @lang('admin::app.reporting.sales.index.purchased')
                             </p>
                         </div>
 
-                        <div class="w-full relative bg-slate-100 dark:text-gray-300 aspect-[0.5/1]">
+                        <div class="relative aspect-[0.5/1] w-full bg-slate-100 dark:text-gray-300">
                             <div
-                                class="w-full absolute bottom-0 bg-emerald-400"
+                                class="absolute bottom-0 w-full bg-emerald-400"
                                 :style="{ 'height': report.statistics.orders.progress + '%' }"
                             ></div>
                         </div>
@@ -122,11 +125,11 @@
                 </div>
 
                 <!-- Date Range Section -->
-                <div class="flex gap-[20px] justify-end mt-[24px]">
-                    <div class="flex gap-[4px] items-center">
-                        <span class="w-[14px] h-[14px] rounded-[3px] bg-emerald-400"></span>
+                <div class="mt-6 flex justify-end gap-5">
+                    <div class="flex items-center gap-1">
+                        <span class="h-3.5 w-3.5 rounded-md bg-emerald-400"></span>
 
-                        <p class="text-[12px] dark:text-gray-300">
+                        <p class="text-xs dark:text-gray-300">
                             @{{ report.date_range.current }}
                         </p>
                     </div>

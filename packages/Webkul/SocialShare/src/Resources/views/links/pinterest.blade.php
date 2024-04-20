@@ -13,12 +13,17 @@
 <v-pinterest-share></v-pinterest-share>
 
 @push('scripts')
-    <script type="text/x-template" id="v-pinterest-share-template">
+    <script
+        type="text/x-template"
+        id="v-pinterest-share-template"
+    >
         <li class="transition-all hover:opacity-[0.8]">
             <a 
-                href="#" 
+                :href="shareUrl" 
                 @click="openSharePopup"
                 aria-label="Pinterest"
+                role="button"
+                tabindex="0"
             >
                 @include('social_share::icons.pinterest')
             </a>
@@ -29,14 +34,14 @@
         app.component('v-pinterest-share', {
             template: '#v-pinterest-share-template',
 
-            data: function () {
+            data() {
                 return {
                     shareUrl: '{{ $pinterestURL }}'
                 }
             },
 
             methods: {
-                openSharePopup: function () {
+                openSharePopup() {
                     window.open(this.shareUrl, '_blank', 'resizable=yes,top=500,left=500,width=500,height=500')
                 }
             }

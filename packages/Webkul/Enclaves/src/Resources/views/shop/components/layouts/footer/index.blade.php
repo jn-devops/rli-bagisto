@@ -3,7 +3,7 @@
     The category repository is injected directly here because there is no way
     to retrieve it from the view composer, as this is an anonymous component.
 -->
-@inject('themeCustomizationRepository', 'Webkul\Shop\Repositories\ThemeCustomizationRepository')
+@inject('themeCustomizationRepository', 'Webkul\Theme\Repositories\ThemeCustomizationRepository')
 
 <!--
     This code needs to be refactored to reduce the amount of PHP in the Blade
@@ -17,17 +17,17 @@
     ]);
 @endphp
 
-<footer class="pt-[95px] relative before:contents='' before:bg-[url('../images/footer-bg.png')] before:bottom-[93px] before:bg-[0%_100%] before:block before:h-[270px] before:[background-size:60%] before:absolute before:w-full before:bg-no-repeat before:left-[0]">
-    <div class="px-[30px] pb-[34px] flex gap-[80px] max-1024:flex-wrap justify-center">
+<footer class="before:contents='' relative pt-[95px] before:absolute before:bottom-[93px] before:left-[0] before:block before:h-[270px] before:w-full before:bg-[url('../images/footer-bg.png')] before:bg-[0%_100%] before:bg-no-repeat before:[background-size:60%]">
+    <div class="flex justify-center gap-[80px] px-[30px] pb-[34px] max-1024:flex-wrap">
 
-        <div class="border-r-[1px] border-[#308BB6] max-w-[720px] pr-[21px] min-w-[270px] max-1024:border-r-0">
+        <div class="min-w-[270px] max-w-[720px] border-r-[1px] border-[#308BB6] pr-[21px] max-1024:border-r-0">
             <img 
                 class="max-h-[292px]"
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}" 
                 alt="footer-logo"
             />
 
-            <div class="grid grid-cols-2 mt-5 gap-x-7 gap-y-4 max-2xl:grid-cols-1">
+            <div class="mt-5 grid grid-cols-2 gap-x-7 gap-y-4 max-2xl:grid-cols-1">
 
                 <div>
                     <span></span>
@@ -56,10 +56,10 @@
         </div>
 
         <div class="flex gap-[80px] max-768:gap-[40px] max-668:flex-wrap">
-            <div class="pr-[79px] border-r-[1px] border-[#308BB6] flex flex-col justify-start max-668:border-r-0 relative">
+            <div class="relative flex flex-col justify-start border-r-[1px] border-[#308BB6] pr-[79px] max-668:border-r-0">
                 <p class="text-[35px] font-bold">@lang('Quicklinks')</p>
 
-                <div class="grid gap-[20px] mt-[21px]">
+                <div class="mt-[21px] grid gap-[20px]">
                     @if ($customization->options)
                         @foreach ($customization->options as $footerLinkSection)
 
@@ -82,11 +82,11 @@
                 </div>
             </div>
 
-            <div class="flex flex-col justify-start max-w-[618px]">
-                <div class="flex gap-4 justify-between flex-wrap">
-                    <h1 class="text-[30px] flex font-bold">@lang('Follow Us')</h1>
+            <div class="flex max-w-[618px] flex-col justify-start">
+                <div class="flex flex-wrap justify-between gap-4">
+                    <h1 class="flex text-[30px] font-bold">@lang('Follow Us')</h1>
                     <div class="flex gap-[20px]">
-                        <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
+                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
                             <a 
                                 href="#"
                                 alt="facebook"
@@ -98,7 +98,7 @@
                             </a>
                         </div>
 
-                        <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
+                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
                             <a 
                                 href="#"
                                 alt="instagram"
@@ -110,7 +110,7 @@
                             </a>
                         </div>
 
-                        <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
+                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
                             <a 
                                 href="#"
                                 alt="youtube"
@@ -122,7 +122,7 @@
                             </a>
                         </div>
 
-                        <div class="p-[10px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 rounded-full h-fit">
+                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
                             <a 
                                 href="#"
                                 alt="tiktok"
@@ -138,7 +138,7 @@
 
                 <!-- News Letter subscription -->
                 @if (core()->getConfigData('customer.settings.newsletter.subscription'))
-                    <div class="grid gap-[10px] mt-[34px]">
+                    <div class="mt-[34px] grid gap-[10px]">
 
                         <p class="max-w-[288px] text-[20px]"> 
                             @lang('shop::app.components.layouts.footer.newsletter-text')
@@ -168,7 +168,7 @@
                                 <x-shop::form.control-group.control 
                                     type="email" 
                                     name="email"
-                                    class="text-[20px] font-medium text-black w-full mb-3 py-2 px-3 shadow border rounded transition-all hover:border-gray-400 focus:border-gray-400 block h-[50px] max-w-full pr-[110px] bg-[#F4F4F4] max-1060:w-full"
+                                    class="max-1060:w-full mb-3 block h-[50px] w-full max-w-full rounded border bg-[#F4F4F4] px-3 py-2 pr-[110px] text-[20px] font-medium text-black shadow transition-all hover:border-gray-400 focus:border-gray-400"
                                     rules="required|email"
                                     label="Email"
                                     placeholder="Email Address"
@@ -182,15 +182,15 @@
 
                                 <button 
                                     type="submit"
-                                    class="absolute flex right-0 items-center h-[50px] !w-[110px] top-[0px] w-max px-[38px] py-[13px] bg-white text-[12px] text-white font-medium rtl:left-[0px] ltr:right-[0px] !bg-gradient-to-r from-[#e0165d] to-yellow-500"
+                                    class="absolute justify-center right-0 top-[0px] flex h-[50px] !w-[110px] items-center bg-white !bg-gradient-to-r from-[#e0165d] to-yellow-500 text-[12px] font-medium text-white ltr:right-[0px] rtl:left-[0px]"
                                 >
-                                    @lang('shop::app.components.layouts.footer.send')
+                                    @lang('shop::app.components.layouts.footer.subscribe')
                                 </button>
                             </div>
 
                         </x-shop::form>
 
-                        <p class="text-[17px] mt-[50px]"> @lang('shop::app.components.layouts.footer.subscribe-stay-touch')
+                        <p class="mt-[50px] text-[17px]"> @lang('shop::app.components.layouts.footer.subscribe-stay-touch')
                         </p>
                     </div>
                 @endif
@@ -198,8 +198,8 @@
         </div>
 
     </div>
-    <div class="py-[33px] px-[86px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] max-sm:px-[26px] max-sm:py-[16px]">
-        <p class="text-[18px] font-medium text-white z-[999] max-sm:text-[14px]">
+    <div class="bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[86px] py-[33px] max-sm:px-[26px] max-sm:py-[16px]">
+        <p class="z-[999] text-[18px] font-medium text-white max-sm:text-[14px]">
             @lang('shop::app.components.layouts.footer.footer-text')
         </p>
     </div>

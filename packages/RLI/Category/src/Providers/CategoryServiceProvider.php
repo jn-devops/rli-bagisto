@@ -40,7 +40,7 @@ class CategoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerConfig();
+        //$this->registerConfig();
     }
 
     /**

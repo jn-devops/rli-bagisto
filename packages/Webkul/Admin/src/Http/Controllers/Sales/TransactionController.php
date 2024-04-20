@@ -2,10 +2,14 @@
 
 namespace Webkul\Admin\Http\Controllers\Sales;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Webkul\Admin\DataGrids\Sales\OrderTransactionsDataGrid;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Admin\Http\Resources\TransactionResource;
 use Webkul\Payment\Facades\Payment;
+use Webkul\Sales\Models\Invoice;
+use Webkul\Sales\Models\Order;
 use Webkul\Sales\Repositories\InvoiceRepository;
 use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\Sales\Repositories\OrderTransactionRepository;
@@ -37,27 +41,15 @@ class TransactionController extends Controller
             return app(OrderTransactionsDataGrid::class)->toJson();
         }
 
-        return view('admin::sales.transactions.index');
-    }
+        $paymentMethods = Payment::getSupportedPaymentMethods();
 
-    /**
-     * Display a form to save the transaction.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        $payment_methods = Payment::getSupportedPaymentMethods();
-
-        return view('admin::sales.transactions.create', compact('payment_methods'));
+        return view('admin::sales.transactions.index', compact('paymentMethods'));
     }
 
     /**
      * Save the transaction.
-     *
-     * @return \Illuminate\View\View
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $this->validate(request(), [
             'invoice_id'     => 'required',
@@ -65,12 +57,12 @@ class TransactionController extends Controller
             'amount'         => 'required|numeric',
         ]);
 
-        $invoice = $this->invoiceRepository->where('increment_id', $request->invoice_id)->first();
+        $invoice = $this->invoiceRepository->where('id', $request->invoice_id)->first();
 
         if (! $invoice) {
-            session()->flash('error', trans('admin::app.sales.transactions.edit.invoice-missing'));
-
-            return redirect()->back();
+            return new JsonResponse([
+                'message' => trans('admin::app.sales.transactions.index.create.invoice-missing'),
+            ], 400);
         }
 
         $transactionAmtBefore = $this->orderTransactionRepository->where('invoice_id', $invoice->id)->sum('amount');
@@ -78,29 +70,27 @@ class TransactionController extends Controller
         $transactionAmtFinal = $request->amount + $transactionAmtBefore;
 
         if ($invoice->state == 'paid') {
-            session()->flash('info', trans('admin::app.sales.transactions.edit.already-paid'));
-
-            return redirect(route('admin.sales.transactions.index'));
+            return new JsonResponse([
+                'message' => trans('admin::app.sales.transactions.index.create.already-paid'),
+            ], 400);
         }
 
         if ($transactionAmtFinal > $invoice->base_grand_total) {
-            session()->flash('info', trans('admin::app.sales.transactions.edit.transaction-amount-exceeds'));
-
-            return redirect(route('admin.sales.transactions.create'));
+            return new JsonResponse([
+                'message' => trans('admin::app.sales.transactions.index.create.transaction-amount-exceeds'),
+            ], 400);
         }
 
         if ($request->amount <= 0) {
-            session()->flash('info', trans('admin::app.sales.transactions.edit.transaction-amount-zero'));
-
-            return redirect(route('admin.sales.transactions.create'));
+            return new JsonResponse([
+                'message' => trans('admin::app.sales.transactions.index.create.transaction-amount-zero'),
+            ], 400);
         }
 
         $order = $this->orderRepository->find($invoice->order_id);
 
-        $randomId = random_bytes(20);
-
         $this->orderTransactionRepository->create([
-            'transaction_id' => bin2hex($randomId),
+            'transaction_id' => bin2hex(random_bytes(20)),
             'type'           => $request->payment_method,
             'payment_method' => $request->payment_method,
             'invoice_id'     => $invoice->id,
@@ -117,61 +107,27 @@ class TransactionController extends Controller
         if ($transactionTotal >= $invoice->base_grand_total) {
             $shipments = $this->shipmentRepository->where('order_id', $invoice->order_id)->first();
 
-            if (isset($shipments)) {
-                $this->orderRepository->updateOrderStatus($order, 'completed');
-            } else {
-                $this->orderRepository->updateOrderStatus($order, 'processing');
-            }
+            $status = isset($shipments)
+                ? Order::STATUS_COMPLETED
+                : Order::STATUS_PROCESSING;
 
-            $this->invoiceRepository->updateState($invoice, 'paid');
+            $this->orderRepository->updateOrderStatus($order, $status);
+
+            $this->invoiceRepository->updateState($invoice, Invoice::STATUS_PAID);
         }
 
-        session()->flash('success', trans('admin::app.sales.transactions.edit.transaction-saved'));
-
-        return redirect(route('admin.sales.transactions.index'));
+        return new JsonResponse([
+            'message' => trans('admin::app.sales.transactions.index.create.transaction-saved'),
+        ]);
     }
 
     /**
      * Show the view for the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
      */
-    public function view($id)
+    public function view(int $id): TransactionResource
     {
         $transaction = $this->orderTransactionRepository->findOrFail($id);
 
-        $transData = json_decode(json_encode(json_decode($transaction['data'])), true);
-
-        $transactionDetailsData = $this->convertIntoSingleDimArray($transData);
-
-        return view('admin::sales.transactions.view', compact('transaction', 'transactionDetailsData'));
-    }
-
-    /**
-     * Convert transaction details data into single dim array.
-     *
-     * @param  array  $data
-     * @return array
-     */
-    public function convertIntoSingleDimArray($transData)
-    {
-        $data = [];
-
-        foreach ($transData as $key => $data) {
-            if (is_array($data)) {
-                $this->convertIntoSingleDimArray($data);
-            } else {
-                $skipAttributes = ['sku', 'name', 'category', 'quantity'];
-
-                if (gettype($key) == 'integer' || in_array($key, $skipAttributes)) {
-                    continue;
-                }
-
-                $data[$key] = $data;
-            }
-        }
-
-        return $data;
+        return new TransactionResource($transaction);
     }
 }

@@ -39,7 +39,8 @@ class Customer extends Base
             if (! core()->getConfigData('emails.general.notifications.emails.general.notifications.registration')) {
                 return;
             }
-            Mail::queue(new RegistrationNotification($customer, $customer->original_password));
+
+            Mail::queue(new RegistrationNotification($customer));
         } catch (\Exception $e) {
             report($e);
         }
@@ -83,12 +84,12 @@ class Customer extends Base
      */
     public function afterNoteCreated($note)
     {
-        if (! request()->has('customer_notified')) {
+        if (! $note->customer_notified) {
             return;
         }
 
         try {
-            Mail::send(new NoteNotification($note, request()->input('note', 'email')));
+            Mail::queue(new NoteNotification($note));
         } catch (\Exception $e) {
             session()->flash('warning', $e->getMessage());
         }

@@ -76,11 +76,6 @@ return [
             'driver' => 'errorlog',
             'level'  => 'debug',
         ],
-
-        'responseLog' => [
-            'driver' => 'single',
-            'path'   => storage_path('logs/responseLog.log'),
-            'level'  => 'info',
-        ],
     ],
+
 ];

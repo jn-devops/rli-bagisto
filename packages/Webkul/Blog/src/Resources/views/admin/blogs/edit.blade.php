@@ -49,10 +49,10 @@
         </div>
 
         <!-- Full Panel -->
-        <div class="mt-[14px] flex gap-[10px] max-xl:flex-wrap">
+        <div class="mt-4 flex gap-3 max-xl:flex-wrap">
 
             <!-- Left Section -->
-            <div class="flex flex-1 flex-col gap-[8px] max-xl:flex-auto">
+            <div class="flex flex-1 flex-col gap-2 max-xl:flex-auto">
 
                 <!-- General -->
                 <div class="box-shadow rounded bg-white p-4 dark:bg-gray-900">
@@ -96,7 +96,7 @@
                                 id="name"
                                 v-bind="field"
                                 :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
-                                class="flex min-h-[39px] w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
+                                class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                                 placeholder="{{ trans('blog::app.blog.edit.name') }}"
                                 v-slugify-target:slug="setValues"
                             >
@@ -128,7 +128,7 @@
                                 id="slug"
                                 v-bind="field"
                                 :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
-                                class="flex min-h-[39px] w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
+                                class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                                 placeholder="{{ trans('blog::app.blog.edit.slug') }}"
                                 v-slugify-target:slug
                             >
@@ -292,12 +292,12 @@
             </div>
 
             <!-- Right Section -->
-            <div class="flex w-[360px] max-w-full flex-col gap-[8px]">
+            <div class="flex w-[360px] max-w-full flex-col gap-2">
                 <!-- Settings -->
 
                 <x-admin::accordion>
                     <x-slot:header>
-                        <p class="p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
+                        <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
                             @lang('blog::app.blog.edit.settings')
                         </p>
                     </x-slot:header>
@@ -437,7 +437,7 @@
                 <!-- Default Categories -->
                 <x-admin::accordion>
                     <x-slot:header>
-                        <p class="required p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
+                        <p class="required text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
                             @lang('blog::app.blog.edit.default-category')
                         </p>
                     </x-slot:header>
@@ -477,7 +477,7 @@
                 <!-- Additional Category -->
                 <x-admin::accordion>
                     <x-slot:header>
-                        <p class="p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
+                        <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
                             @lang('blog::app.blog.edit.additional-categories')
                         </p>
                     </x-slot:header>
@@ -485,7 +485,7 @@
                     <x-slot:content>
 
                         <!-- Status -->
-                        <div class="flex flex-col gap-[12px]">
+                        <div class="flex flex-col gap-3">
                             <x-admin::tree.view
                                 input-type="checkbox"
                                 name-field="categorys"
@@ -505,7 +505,7 @@
                 <!-- Tags -->
                 <x-admin::accordion>
                     <x-slot:header>
-                        <p class="required p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
+                        <p class="required text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
                             @lang('blog::app.blog.edit.tag-title')
                         </p>
                     </x-slot:header>
@@ -549,7 +549,7 @@
 @pushOnce('scripts')
     <!-- SEO Vue Component Template -->
     <script type="text/x-template" id="v-seo-helper-custom-template">
-        <div class="mb-[30px] flex flex-col gap-[3px]">
+        <div class="mb-8 flex flex-col gap-1">
             <p 
                 class="text-[#161B9D] dark:text-white"
                 v-text="metaTitle"

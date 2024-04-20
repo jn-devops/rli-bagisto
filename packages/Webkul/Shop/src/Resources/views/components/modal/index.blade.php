@@ -13,43 +13,59 @@
     @endisset
 
     @isset($header)
-        <template v-slot:header>
-            {{ $header }}
+        <template v-slot:header="{ toggle, isOpen }">
+            <div {{ $header->attributes->merge(['class' => 'flex items-center justify-between gap-5 border-b border-[#E9E9E9] bg-white p-8']) }}>
+                {{ $header }}
+
+                <span
+                    class="icon-cancel cursor-pointer text-3xl"
+                    @click="toggle"
+                >
+                </span>
+            </div>
         </template>
     @endisset
 
     @isset($content)
         <template v-slot:content>
-            {{ $content }}
+            <div {{ $content->attributes->merge(['class' => 'bg-white p-8']) }}>
+                {{ $content }}
+            </div>
         </template>
     @endisset
 
     @isset($footer)
         <template v-slot:footer>
-            {{ $footer }}
+            <div {{ $content->attributes->merge(['class' => 'mt-5 bg-white p-8']) }}>
+                {{ $footer }}
+            </div>
         </template>
     @endisset
 </v-modal>
 
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-modal-template">
+    <script
+        type="text/x-template"
+        id="v-modal-template"
+    >
         <div>
             <div @click="toggle">
-                <slot name="toggle"></slot>
+                <slot name="toggle">
+                </slot>
             </div>
 
             <transition
                 tag="div"
                 name="modal-overlay"
-                enter-class="ease-out duration-300"
+                enter-class="duration-300 ease-out"
                 enter-from-class="opacity-0"
                 enter-to-class="opacity-100"
-                leave-class="ease-in duration-200"
+                leave-class="duration-200 ease-in"
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
-                >
+            >
                 <div
-                    class="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity z-[1]"
+                    class="fixed inset-0 z-10 bg-gray-500 bg-opacity-50 transition-opacity"
                     v-show="isOpen"
                 ></div>
             </transition>
@@ -57,38 +73,31 @@
             <transition
                 tag="div"
                 name="modal-content"
-                enter-class="ease-out duration-300"
-                enter-from-class="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
-                enter-to-class="opacity-100 translate-y-0 md:scale-100"
-                leave-class="ease-in duration-200"
-                leave-from-class="opacity-100 translate-y-0 md:scale-100"
-                leave-to-class="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
-                >
+                enter-class="duration-300 ease-out"
+                enter-from-class="translate-y-4 opacity-0 md:translate-y-0 md:scale-95"
+                enter-to-class="translate-y-0 opacity-100 md:scale-100"
+                leave-class="duration-200 ease-in"
+                leave-from-class="translate-y-0 opacity-100 md:scale-100"
+                leave-to-class="translate-y-4 opacity-0 md:translate-y-0 md:scale-95"
+            >
                 <div
-                    class="fixed inset-0 z-10 transform transition overflow-y-auto" v-show="isOpen"
+                    class="fixed inset-0 z-10 transform overflow-y-auto transition" v-show="isOpen"
                 >
-                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                        <div class="w-full max-w-[595px] z-[999] absolute left-[50%] top-[50%] bg-[#F5F5F5] max-md:w-[90%] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white dark:bg-gray-900 box-shadow">
+                    <div class="flex min-h-full items-end justify-center p-4 sm:items-center sm:p-0">
+                        <div class="absolute left-1/2 top-1/2 z-[999] w-full max-w-[595px] -translate-x-1/2 -translate-y-1/2 bg-[#F5F5F5] max-md:w-[90%]">
+                            <!-- Header Slot-->
+                            <slot
+                                name="header"
+                                :toggle="toggle"
+                                :isOpen="isOpen"
+                            >
+                            </slot>
 
-                            <div>
-                                <div class="flex gap-[20px] justify-between items-center p-[20px] bg-white border-[#E9E9E9]">
-                                    <slot name="header"></slot>
+                            <!-- Content Slot-->
+                            <slot name="content"></slot>
 
-                                    <span
-                                        class="icon-cancel text-[30px] cursor-pointer"
-                                        @click="toggle"
-                                    >
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <slot name="content"></slot>
-                            </div>
-
-                            <div class="flex justify-end px-[16px] py-[10px]">
-                                <slot name="footer"></slot>
-                            </div>
+                            <!-- Footer Slot-->
+                            <slot name="footer"></slot>
                         </div>
                     </div>
                 </div>

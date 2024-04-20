@@ -3,7 +3,7 @@
 namespace Webkul\Enclaves\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Enclaves\Contracts\CustomerAttribute;
+use Webkul\Enclaves\Models\CustomerAttribute;
 
 class CustomerAttributeRepository extends Repository
 {

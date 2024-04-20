@@ -5,6 +5,7 @@ namespace Webkul\Core;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Webkul\Core\Concerns\CurrencyFormatter;
 use Webkul\Core\Models\Channel;
 use Webkul\Core\Repositories\ChannelRepository;
 use Webkul\Core\Repositories\CoreConfigRepository;
@@ -18,12 +19,14 @@ use Webkul\Tax\Repositories\TaxCategoryRepository;
 
 class Core
 {
+    use CurrencyFormatter;
+
     /**
      * The Bagisto version.
      *
      * @var string
      */
-    const BAGISTO_VERSION = '2.0.0';
+    const BAGISTO_VERSION = '2.1.x-dev';
 
     /**
      * Current Channel.
@@ -89,15 +92,6 @@ class Core
     protected $singletonInstances = [];
 
     /**
-     * Register your core config keys here which you don't want to
-     * load in static array. These keys will load from database
-     * every time the `getConfigData` method is called.
-     */
-    private $coreConfigExceptions = [
-        'catalog.products.guest_checkout.allow_guest_checkout',
-    ];
-
-    /**
      * Create a new instance.
      *
      * @return void
@@ -140,16 +134,20 @@ class Core
      *
      * @return \Webkul\Core\Contracts\Channel
      */
-    public function getCurrentChannel()
+    public function getCurrentChannel(?string $hostname = null)
     {
+        if (! $hostname) {
+            $hostname = request()->getHttpHost();
+        }
+
         if ($this->currentChannel) {
             return $this->currentChannel;
         }
 
         $this->currentChannel = $this->channelRepository->findWhereIn('hostname', [
-            request()->getHttpHost(),
-            'http://' . request()->getHttpHost(),
-            'https://' . request()->getHttpHost(),
+            $hostname,
+            'http://'.$hostname,
+            'https://'.$hostname,
         ])->first();
 
         if (! $this->currentChannel) {
@@ -164,7 +162,7 @@ class Core
      */
     public function setCurrentChannel(Channel $channel): void
     {
-        $this->currentChannel = $currentChannel;
+        $this->currentChannel = $channel;
     }
 
     /**
@@ -198,6 +196,14 @@ class Core
     }
 
     /**
+     * Set the default channel.
+     */
+    public function setDefaultChannel(Channel $channel): void
+    {
+        $this->defaultChannel = $channel;
+    }
+
+    /**
      * Returns the default channel code configured in `config/app.php`.
      */
     public function getDefaultChannelCode(): string
@@ -214,17 +220,9 @@ class Core
     }
 
     /**
-     * Returns default channel locale code.
-     */
-    public function getDefaultChannelLocaleCode(): string
-    {
-        return $this->getDefaultChannel()->default_locale->code;
-    }
-
-    /**
      * Get channel code from request.
      *
-     * @return string
+     * @return \Webkul\Core\Contracts\Channel
      */
     public function getRequestedChannel()
     {
@@ -538,28 +536,9 @@ class Core
     }
 
     /**
-     * Return currency symbol from currency code.
-     *
-     * @param  string|\Webkul\Core\Contracts\Currency  $currency
-     * @return string
+     * Format price.
      */
-    public function currencySymbol($currency)
-    {
-        $code = $currency instanceof \Webkul\Core\Contracts\Currency ? $currency->code : $currency;
-
-        $formatter = new \NumberFormatter(app()->getLocale() . '@currency=' . $code, \NumberFormatter::CURRENCY);
-
-        return $formatter->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
-    }
-
-    /**
-     * Format and convert price with currency symbol.
-     *
-     * @param  float  $price
-     * @param  string (optional)  $currencyCode
-     * @return string
-     */
-    public function formatPrice($price, $currencyCode = null)
+    public function formatPrice(?float $price, ?string $currencyCode = null): string
     {
         if (is_null($price)) {
             $price = 0;
@@ -569,56 +548,21 @@ class Core
             ? $this->getAllCurrencies()->where('code', $currencyCode)->first()
             : $this->getCurrentCurrency();
 
-        $formatter = new \NumberFormatter(app()->getLocale(), \NumberFormatter::CURRENCY);
-
-        $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $currency->decimal ?? 2);
-
-        if (! $currency) {
-            return $formatter->formatCurrency($price, $currencyCode);
-        }
-
-        if ($symbol = $currency->symbol) {
-            if ($this->currencySymbol($currency) == $symbol) {
-                return $formatter->formatCurrency($price, $currency->code);
-            }
-
-            $formatter->setSymbol(\NumberFormatter::CURRENCY_SYMBOL, $symbol);
-
-            return $formatter->format($price);
-        }
-
-        return $formatter->formatCurrency($price, $currency->code);
+        return $this->formatCurrency($price, $currency);
     }
 
     /**
-     * Format price with base currency symbol. This method also give ability to encode
-     * the base currency symbol and its optional.
-     *
-     * @param  float  $price
-     * @param  bool  $isEncoded
-     * @return string
+     * Format price with base currency symbol.
      */
-    public function formatBasePrice($price, $isEncoded = false)
+    public function formatBasePrice(?float $price): string
     {
         if (is_null($price)) {
             $price = 0;
         }
 
-        $formatter = new \NumberFormatter(app()->getLocale(), \NumberFormatter::CURRENCY);
+        $currency = $this->getBaseCurrency();
 
-        if ($symbol = $this->getBaseCurrency()->symbol) {
-            if ($this->currencySymbol($this->getBaseCurrencyCode()) == $symbol) {
-                $content = $formatter->formatCurrency($price, $this->getBaseCurrencyCode());
-            } else {
-                $formatter->setSymbol(\NumberFormatter::CURRENCY_SYMBOL, $symbol);
-
-                $content = $formatter->format($this->convertPrice($price));
-            }
-        } else {
-            $content = $formatter->formatCurrency($price, $this->getBaseCurrencyCode());
-        }
-
-        return ! $isEncoded ? $content : htmlentities($content);
+        return $this->formatCurrency($price, $currency);
     }
 
     /**
@@ -916,7 +860,7 @@ class Core
             }
 
             foreach ($coreData['fields'] as $field) {
-                $name = $coreData['key'] . '.' . $field['name'];
+                $name = $coreData['key'].'.'.$field['name'];
 
                 if ($name == $fieldName) {
                     return $field;
@@ -1071,19 +1015,19 @@ class Core
     }
 
     /**
-     * Get Shop email sender details.
+     * Get sender email details.
      *
      * @return array
      */
     public function getSenderEmailDetails()
     {
-        $sender_name = $this->getConfigData('emails.configure.email_settings.sender_name') ?: config('mail.from.name');
+        $senderName = $this->getConfigData('emails.configure.email_settings.sender_name') ?: config('mail.from.name');
 
-        $sender_email = $this->getConfigData('emails.configure.email_settings.shop_email_from') ?: config('mail.from.address');
+        $senderEmail = $this->getConfigData('emails.configure.email_settings.shop_email_from') ?: config('mail.from.address');
 
         return [
-            'name'  => $sender_name,
-            'email' => $sender_email,
+            'name'  => $senderName,
+            'email' => $senderEmail,
         ];
     }
 

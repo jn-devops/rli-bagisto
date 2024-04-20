@@ -1,18 +1,14 @@
 <div class="flex flex-col">
-    <p class="text-gray-800 font-semibold leading-6 dark:text-white">
+    <p class="font-semibold leading-6 text-gray-800 dark:text-white">
         {{ $address->company_name ?? '' }}
     </p>
 
-    <p class="text-gray-800 font-semibold leading-6 dark:text-white">
+    <p class="font-semibold leading-6 text-gray-800 dark:text-white">
         {{ $address->name }}
     </p>
     
-    <p class="text-gray-600 dark:text-gray-300 leading-6">
-        {{ $address->address1 }}<br>
-
-        @if ($address->address2)
-            {{ $address->address2 }}<br>
-        @endif
+    <p class="!leading-6 text-gray-600 dark:text-gray-300">
+        {{ $address->address }}<br>
 
         {{ $address->city }}<br>
 

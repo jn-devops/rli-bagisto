@@ -11,7 +11,7 @@ use Webkul\Blog\Repositories\BlogCommentRepository;
 use Webkul\Blog\Repositories\BlogRepository;
 use Webkul\Blog\Repositories\BlogTagRepository;
 use Webkul\Core\Repositories\CoreConfigRepository;
-use Webkul\Shop\Repositories\ThemeCustomizationRepository;
+use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 use Webkul\User\Repositories\AdminRepository;
 
 class Controller extends BaseController

@@ -1,11 +1,15 @@
 <v-charts-line {{ $attributes }}></v-charts-line>
 
 @pushOnce('scripts')
-    {{-- SEO Vue Component Template --}}
-    <script type="text/x-template" id="v-charts-line-template">
+    <!-- SEO Vue Component Template -->
+    <script
+        type="text/x-template"
+        id="v-charts-line-template"
+    >
         <canvas
             :id="$.uid + '_chart'"
-            class="flex items-end w-full aspect-[3.23/1]"
+            class="flex w-full items-end"
+            :style="'aspect-ratio:' + aspectRatio + '/1'"
         ></canvas>
     </script>
 
@@ -13,7 +17,22 @@
         app.component('v-charts-line', {
             template: '#v-charts-line-template',
 
-            props: ['labels', 'datasets'],
+            props: {
+                labels: {
+                    type: Array, 
+                    default: [],
+                },
+
+                datasets: {
+                    type: Array, 
+                    default: true,
+                },
+
+                aspectRatio: {
+                    type: Number, 
+                    default: 3.23,
+                },
+            },
 
             data() {
                 return {
@@ -41,7 +60,7 @@
                         },
                 
                         options: {
-                            aspectRatio: 3.17,
+                            aspectRatio: this.aspectRatio,
                             
                             plugins: {
                                 legend: {

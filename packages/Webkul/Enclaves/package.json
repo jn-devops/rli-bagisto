@@ -18,6 +18,7 @@
     "@vee-validate/rules": "^4.9.1",
     "mitt": "^3.0.0",
     "vee-validate": "^4.9.1",
-    "vue-flatpickr": "^2.3.0"
+    "vue-flatpickr": "^2.3.0",
+    "vue-iframes": "^0.0.20"
   }
 }

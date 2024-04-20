@@ -3,14 +3,16 @@
 namespace Webkul\Enclaves\Routes;
 
 use Illuminate\Support\Facades\Route;
+use Webkul\Enclaves\Http\Controllers\Ekyc\EkycController;
+use Webkul\Enclaves\Http\Controllers\Product\ProductController;
 use Webkul\Enclaves\Http\Controllers\Category\CategoryController;
+use Webkul\Enclaves\Http\Controllers\Customer\CustomerController;
+use Webkul\Enclaves\Http\Controllers\Checkout\OnepageCheckoutController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DashboardController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DocumentsController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\HelpSeminarController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\InquiriesController;
+use Webkul\Enclaves\Http\Controllers\Customer\Account\HelpSeminarController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\TransactionController;
-use Webkul\Enclaves\Http\Controllers\Customer\CustomerController;
-use Webkul\Enclaves\Http\Controllers\Product\ProductController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
@@ -69,10 +71,19 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         });
     });
 
-    Route::group(['prefix' => 'api'], function () {
+    Route::controller(OnepageCheckoutController::class)
+        ->prefix('checkout/bulk-upload')
+        ->group(function () {
+            Route::get('/store-authentication', 'authentication')->name('shop.checkout.authentication.store');
+        });
 
+    Route::group(['prefix' => 'api'], function () {
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {
             Route::get('', 'index')->name('enclaves.api.categories.index');
+        });
+
+        Route::controller(EkycController::class)->prefix('ekyc')->group(function () {
+            Route::get('', 'index')->name('enclaves.api.property.verfiy-url.index');
         });
     });
 });

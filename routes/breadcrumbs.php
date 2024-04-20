@@ -14,31 +14,10 @@ Breadcrumbs::for('account', function (BreadcrumbTrail $trail) {
     $trail->push(trans('shop::app.layouts.my-account'), route('shop.customers.account.profile.index'));
 });
 
-//# This is customization code. it will remove from here.
-
-// Customization
 // Home > My Account > Profile
 Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
     $trail->push(trans('shop::app.layouts.profile'), route('shop.customers.account.profile.index'));
-});
-
-// Home > My Account > Dashboard
-Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
-    $trail->parent('account');
-    $trail->push(trans('shop::app.layouts.dashboard'), route('enclaves.customers.account.dashboard.index'));
-});
-
-// Home > My Account > documents
-Breadcrumbs::for('documents', function (BreadcrumbTrail $trail) {
-    $trail->parent('account');
-    $trail->push(trans('shop::app.layouts.documents'), route('shop.customers.account.profile.index'));
-});
-
-//Home > My Account >> inquiries
-Breadcrumbs::for('inquiries', function (BreadcrumbTrail $trail) {
-    $trail->parent('account');
-    $trail->push(trans('shop::app.layouts.inquiries'), route('enclaves.customers.account.inquiries.index'));
 });
 
 // Home > My Account > Profile > Edit
@@ -66,14 +45,14 @@ Breadcrumbs::for('addresses.edit', function (BreadcrumbTrail $trail, $entity) {
 });
 
 // Home > My Account > Orders
-Breadcrumbs::for('transactions', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('orders', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
-    $trail->push(trans('shop::app.layouts.transactions'), route('shop.customers.account.transactions.index'));
+    $trail->push(trans('shop::app.layouts.orders'), route('shop.customers.account.orders.index'));
 });
 
-Breadcrumbs::for('transactions.view', function (BreadcrumbTrail $trail, $entity) {
-    $trail->parent('transactions');
-    $trail->push(trans('shop::app.customers.account.transactions.view.title'), route('shop.customers.account.transactions.view', $entity->id));
+Breadcrumbs::for('orders.view', function (BreadcrumbTrail $trail, $entity) {
+    $trail->parent('orders');
+    $trail->push(trans('shop::app.customers.account.orders.view.title'), route('shop.customers.account.orders.view', $entity->id));
 });
 
 // Home > My Account > Downloadable Products
@@ -102,7 +81,7 @@ Breadcrumbs::for('cart', function (BreadcrumbTrail $trail) {
 
 // Home > Checkout
 Breadcrumbs::for('checkout', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
+    $trail->parent('cart');
     $trail->push(trans('shop::app.checkout.onepage.index.checkout'), route('shop.checkout.onepage.index'));
 });
 

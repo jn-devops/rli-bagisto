@@ -5,7 +5,7 @@ namespace Webkul\BulkUpload\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Webkul\Admin\Imports\DataGridImport;
+use Webkul\BulkUpload\Imports\DataGridImport;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\BulkUpload\Jobs\ProductUploadJob;
 use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
@@ -41,7 +41,7 @@ class UploadFileController extends Controller
     {
         $families = $this->attributeFamilyRepository->all();
 
-        return view('bulkupload::admin.bulk-upload.upload-files.index', compact('families'));
+        return view('bulkUpload::admin.bulk-upload.upload-files.index', compact('families'));
     }
 
     /**
@@ -98,7 +98,7 @@ class UploadFileController extends Controller
         $importer = $this->bulkProductImporterRepository->find($importerId);
 
         if (empty($importer)) {
-            session()->flash('error', trans('bulkupload::app.admin.bulk-upload.messages.data-profile-not-selected'));
+            session()->flash('error', trans('bulkUpload::app.admin.bulk-upload.messages.data-profile-not-selected'));
 
             return back();
         }
@@ -123,7 +123,7 @@ class UploadFileController extends Controller
             if (in_array($linkFiles->getClientOriginalExtension(), $validImageExtensions)) {
                 $product['upload_link_files'] = $linkFiles->storeAs($fileStorePath . '/link-files', uniqid() . '.' . $linkFiles->getClientOriginalExtension());
             } else {
-                session()->flash('error', trans('bulkupload::app.admin.bulk-upload.messages.file-format-error'));
+                session()->flash('error', trans('bulkUpload::app.admin.bulk-upload.messages.file-format-error'));
 
                 return back();
             }
@@ -137,7 +137,7 @@ class UploadFileController extends Controller
             if (in_array($linkSampleFiles->getClientOriginalExtension(), $validImageExtensions)) {
                 $product['upload_link_sample_files'] = $linkSampleFiles->storeAs($fileStorePath . '/link-sample-files', uniqid() . '.' . $linkSampleFiles->getClientOriginalExtension());
             } else {
-                session()->flash('error', trans('bulkupload::app.admin.bulk-upload.messages.file-format-error'));
+                session()->flash('error', trans('bulkUpload::app.admin.bulk-upload.messages.file-format-error'));
 
                 return back();
             }
@@ -151,7 +151,7 @@ class UploadFileController extends Controller
             if (in_array($sampleFile->getClientOriginalExtension(), $validImageExtensions)) {
                 $product['upload_sample_files'] = $sampleFile->storeAs($fileStorePath . '/sample-file', uniqid() . '.' . $sampleFile->getClientOriginalExtension());
             } else {
-                session()->flash('error', trans('bulkupload::app.admin.bulk-upload.messages.file-format-error'));
+                session()->flash('error', trans('bulkUpload::app.admin.bulk-upload.messages.file-format-error'));
 
                 return back();
             }
@@ -164,7 +164,7 @@ class UploadFileController extends Controller
             if (in_array($uploadedImage->getClientOriginalExtension(), $validImageExtensions)) {
                 $product['image_path'] = $uploadedImage->storeAs($fileStorePath . '/images', uniqid() . '.' . $uploadedImage->getClientOriginalExtension());
             } else {
-                session()->flash('error', trans('bulkupload::app.admin.bulk-upload.messages.file-format-error'));
+                session()->flash('error', trans('bulkUpload::app.admin.bulk-upload.messages.file-format-error'));
 
                 return back();
             }
@@ -177,7 +177,7 @@ class UploadFileController extends Controller
             if (in_array($uploadedFile->getClientOriginalExtension(), $validExtensions)) {
                 $product['file_path'] = $uploadedFile->storeAs($fileStorePath . '/files', uniqid() . '.' . $uploadedFile->getClientOriginalExtension());
             } else {
-                session()->flash('error', trans('bulkupload::app.admin.bulk-upload.messages.file-format-error'));
+                session()->flash('error', trans('bulkUpload::app.admin.bulk-upload.messages.file-format-error'));
 
                 return back();
             }
@@ -185,7 +185,7 @@ class UploadFileController extends Controller
 
         $this->importProductRepository->create($product);
 
-        session()->flash('success', trans('bulkupload::app.admin.bulk-upload.messages.profile-saved'));
+        session()->flash('success', trans('bulkUpload::app.admin.bulk-upload.messages.profile-saved'));
 
         return back();
     }
@@ -203,7 +203,7 @@ class UploadFileController extends Controller
 
         $families = $this->attributeFamilyRepository->whereIn('id', $uniqueAttributeFamilyIds)->get();
 
-        return view('bulkupload::admin.bulk-upload.run-profile.index', compact('families'));
+        return view('bulkUpload::admin.bulk-upload.run-profile.index', compact('families'));
     }
 
     /**
@@ -271,7 +271,7 @@ class UploadFileController extends Controller
                 if ($data['type'] == 'booking') {
                     return response()->json([
                         'success' => false,
-                        'message' => trans('bulkupload::app.admin.bulk-upload.messages.product-not-supported'),
+                        'message' => trans('bulkUpload::app.admin.bulk-upload.messages.product-not-supported'),
                     ]);
                 }
             }
@@ -335,7 +335,14 @@ class UploadFileController extends Controller
 
                 $imageZipName[] = $fileName;
 
-                Storage::put('imported-products/admin/images/' . $images['sku'] . '/' . $fileName, file_get_contents($path));
+                $context = stream_context_create([
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                    ],
+                ]);
+
+                Storage::put('imported-products/admin/images/' . $images['sku'] . '/' . $fileName, file_get_contents($path,false, $context));
             }
         }
 

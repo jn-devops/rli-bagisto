@@ -1,19 +1,20 @@
 <x-admin::layouts>
+    <!-- Page Title -->
     <x-slot:title>
         @lang('admin::app.sales.invoices.index.title')
-    </x-slot:title>
+    </x-slot>
 
-    <div class="flex  gap-[16px] justify-between items-center max-sm:flex-wrap">
-        <p class="py-[11px] text-[20px] text-gray-800 dark:text-white font-bold">
+    <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
+        <p class="py-3 text-xl font-bold text-gray-800 dark:text-white">
             @lang('admin::app.sales.invoices.index.title')
         </p>
 
-        <div class="flex gap-x-[10px] items-center">
+        <div class="flex items-center gap-x-2.5">
             <!-- Export Modal -->
-            <x-admin::datagrid.export src="{{ route('admin.sales.invoices.index') }}"></x-admin::datagrid.export>
+            <x-admin::datagrid.export src="{{ route('admin.sales.invoices.index') }}" />
         </div>
     </div>
 
-    <x-admin::datagrid src="{{ route('admin.sales.invoices.index') }}"></x-admin::datagrid>
+    <x-admin::datagrid src="{{ route('admin.sales.invoices.index') }}" />
 
 </x-admin::layouts>

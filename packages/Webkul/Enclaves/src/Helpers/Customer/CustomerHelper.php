@@ -20,7 +20,7 @@ class CustomerHelper
     }
 
     /**
-     * Update profile Imagfe
+     * Update profile Image
      */
     public function updateProfile($data)
     {
@@ -34,12 +34,10 @@ class CustomerHelper
 
         $path = $dir . '/' . $name;
 
-        $updateData = [
-            'image' => $path,
-        ];
-
-        $customer = $this->customerRepository->update($updateData, $data['customer_id']);
-
+        $customer = $this->customerRepository->findOrFail($data['customer_id']);
+        $customer->image = $path;
+        $customer->save();
+        
         if (request()->hasFile('image')) {
             if ($dir) {
                 Storage::delete($dir);

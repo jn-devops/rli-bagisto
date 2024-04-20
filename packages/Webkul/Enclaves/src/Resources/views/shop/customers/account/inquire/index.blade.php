@@ -1,7 +1,7 @@
 <x-shop::layouts.account>
     <!-- Page Title -->
     <x-slot:title>
-        @lang('shop::app.customers.account.inquiries.title')
+        @lang('enclaves::app.shop.customers.account.inquiries.title')
     </x-slot>
 
     <!-- Breadcrumbs -->
@@ -14,23 +14,24 @@
 
     @pushOnce('scripts')
         <script type="text/x-template" id="v-account-inquiries-template">
-            <div class="grid w-full font-montserrat gap-y-[0.813rem] max-md:mt-[30px]">
+            <div class="font-montserrat grid w-full gap-y-[0.813rem] max-md:mt-[30px]">
                 <h2 class="text-[1.813rem] font-semibold leading-[1.975rem] text-black">
-                    @lang('enclaves::app.shop.customers.inquiries.title')
+                    @lang('enclaves::app.shop.customers.account.inquiries.title')
                 </h2>
 
                 <div class="mb-14">
-                    <h1 class="font-bold text-[25px]">
-                        @lang('enclaves::app.shop.customers.inquiries.help_test')
+                    <h1 class="text-[25px] font-bold">
+                        @lang('enclaves::app.shop.customers.account.inquiries.help_test')
+
                     </h1>
                 </div>
 
-                <div class="flex flex-col md:px-6 xl:flex-row gap-11">
+                <div class="flex flex-col gap-11 md:px-6 xl:flex-row">
                     <button 
-                        class="flex rounded-[0.625rem] items-center pl-8 pr-6 text-left hover:shadow-xl shadow-lg duration-300 shadow-[rgba(0,_0,_0,_0.1)] gap-x-3 pt-9 pb-11"
+                        class="flex items-center gap-x-3 rounded-[0.625rem] pb-11 pl-8 pr-6 pt-9 text-left shadow-lg shadow-[rgba(0,_0,_0,_0.1)] duration-300 hover:shadow-xl"
                         @click="$refs.addInquireModal.open()"
                     >
-                        <div class="flex items-center justify-center p-3 border-[rgba(233,_233,_233)] border rounded-full">
+                        <div class="flex items-center justify-center rounded-full border border-[rgba(233,_233,_233)] p-3">
                             <svg 
                                 width="38" 
                                 height="38" 
@@ -45,18 +46,18 @@
                             </svg>
                         </div>
 
-                        <hgroup class="flex flex-col max-w-80 gap-4 pr-1.5 mr-4">
+                        <hgroup class="mr-4 flex max-w-80 flex-col gap-4 pr-1.5">
                             <h4 class="text-xl font-bold leading-5 text-black">
-                                @lang('enclaves::app.shop.customers.inquiries.submit-header')
+                                @lang('enclaves::app.shop.customers.account.inquiries.submit-header')
                             </h4>
 
-                            <p class="text-[1.065rem] leading-[1.375rem] font-normal"> 
-                                @lang('enclaves::app.shop.customers.inquiries.submit-text')
+                            <p class="text-[1.065rem] font-normal leading-[1.375rem]"> 
+                                @lang('enclaves::app.shop.customers.account.inquiries.submit-text')
                             </p>
                         </hgroup>
 
                         <svg 
-                            class="ml-auto min-w-10 ml-auto"
+                            class="ml-auto min-w-10"
                             width="39"
                             height="27"
                             viewBox="0 0 39 27"
@@ -72,10 +73,10 @@
 
                     <a 
                         href="{{ route('enclaves.customers.account.inquiries.tickets') }}"
-                        class="flex rounded-[0.625rem] items-center pl-8 pr-6 text-left hover:shadow-xl shadow-lg duration-300 shadow-[rgba(0,_0,_0,_0.1)] gap-x-3 pt-9 pb-11"
+                        class="flex items-center gap-x-3 rounded-[0.625rem] pb-11 pl-8 pr-6 pt-9 text-left shadow-lg shadow-[rgba(0,_0,_0,_0.1)] duration-300 hover:shadow-xl"
                     >
 
-                        <div class="flex items-center justify-center p-3 border-[rgba(233,_233,_233)] border rounded-full">
+                        <div class="flex items-center justify-center rounded-full border border-[rgba(233,_233,_233)] p-3">
                             <svg 
                                 width="35"
                                 height="35"
@@ -90,13 +91,13 @@
                             </svg>
                         </div>
 
-                        <hgroup class="flex flex-col max-w-80 gap-4 pr-1.5 mr-4">
+                        <hgroup class="mr-4 flex max-w-80 flex-col gap-4 pr-1.5">
                             <h4 class="text-xl font-bold leading-5 text-black">
-                                @lang('enclaves::app.shop.customers.inquiries.tickets')
+                                @lang('enclaves::app.shop.customers.account.inquiries.tickets')
                             </h4>
 
-                            <p class="text-[1.065rem] leading-[1.375rem] font-normal"> 
-                                @lang('enclaves::app.shop.customers.inquiries.tickets_text')
+                            <p class="text-[1.065rem] font-normal leading-[1.375rem]"> 
+                                @lang('enclaves::app.shop.customers.account.inquiries.tickets_text')
                             </p>
                         </hgroup>
 
@@ -116,7 +117,7 @@
                 </div>
 
                 <div class="mb-10 mt-10">
-                    <h1 class="font-bold text-[25px]">@lang('enclaves::app.shop.customers.inquiries.frequently')</h1>
+                    <h1 class="text-[25px] font-bold">@lang('enclaves::app.shop.customers.account.inquiries.frequently')</h1>
                 </div>
 
                 <x-shop::accordion.custom-accordion :is-active=false>
@@ -157,7 +158,7 @@
                         <x-shop::modal ref="addInquireModal">
                             <x-slot:header>
                                 <h2 class="text-[20px] font-medium max-sm:text-[22px]">
-                                    @lang('enclaves::app.shop.customers.inquiries.submit')
+                                    @lang('enclaves::app.shop.customers.account.inquiries.submit')
                                 </h2>
                             </x-slot:header>
 
@@ -165,11 +166,11 @@
                                 <div v-if="! isSubmited">
 
                                     <x-shop::form.control-group>
-                                        <div class="px-[30px] py-[20px] bg-white">
+                                        <div class="bg-white px-[30px] py-[20px]">
                                             <x-shop::form.control-group.control
                                                 type="select"
                                                 name="reason"
-                                                class="py-[20px] px-[25px]"
+                                                class="px-[25px] py-[20px]"
                                                 rules="required"
                                             >
                                             @foreach ($reasons as $reason)
@@ -181,17 +182,17 @@
                                     </x-shop::form.control-group>
 
                                     <x-shop::form.control-group>
-                                        <div class="px-[30px] bg-white">
+                                        <div class="bg-white px-[30px]">
                                             <x-shop::form.control-group.control
                                                 type="textarea"
                                                 name="comment"
-                                                class="py-[20px] px-[25px] h-[150px]"
+                                                class="h-[150px] px-[25px] py-[20px]"
                                                 rules="required"
                                                 placeholder="Write the details of your concern here...."
                                             />
 
                                             <x-shop::form.control-group.error
-                                                class=" text-left"
+                                                class="text-left"
                                                 control-name="textarea"
                                             >
                                             </x-shop::form.control-group.error>
@@ -219,31 +220,31 @@
                                             role="button"
                                             for="upload-file"
                                             refs="upload-file"
-                                            class="primary-button flex gap-2 py-[8px] px-[20px] rounded-[18px] !bg-[#F8EBEB] text-[#CC035C] border-[#F8EBEB] my-[15px]"
+                                            class="primary-button my-[15px] flex gap-2 rounded-[18px] border-[#F8EBEB] !bg-[#F8EBEB] px-[20px] py-[8px] text-[#CC035C]"
                                         >
                                             <img 
                                                 src="{{ bagisto_asset('images/upload-file.png') }}" 
                                                 alt="upload-file" 
-                                                class="w-[15px] h-[20px] my-[4px]"
+                                                class="my-[4px] h-[20px] w-[15px]"
                                             />
-
-                                            {{ 'Upload Files' }}
-                                            
+                                            @lang('enclaves::app.shop.customers.account.inquiries.upload-files')
                                         </label>
                                     </div>
                                 </div>
+                                
                                 <div v-else>
-                                    @lang('Successfully submitted!')
+                                    @lang('enclaves::app.shop.customers.account.inquiries.success')
                                 </div>
+
                             </x-slot:content>
 
                             <x-slot:footer v-if="isSubmited">
-                                <div class="flex mb-5">
+                                <div class="mb-5 flex">
                                     <button
                                         type="submit"
-                                        class="primary-button flex py-[11px] px-[30px] rounded-[15px] max-sm:text-[14px] max-sm:px-[25px] !bg-gradient-to-r from-[#e0165d] to-yellow-500 border-[#F8EBEB] text-white"
+                                        class="primary-button flex rounded-[15px] border-[#F8EBEB] !bg-gradient-to-r from-[#e0165d] to-yellow-500 px-[30px] py-[11px] text-white max-sm:px-[25px] max-sm:text-[14px]"
                                     >
-                                        @lang('enclaves::app.shop.customers.inquiries.submit')
+                                        @lang('enclaves::app.shop.customers.account.inquiries.submit')
                                     </button>
                                 </div>
                             </x-slot:footer>

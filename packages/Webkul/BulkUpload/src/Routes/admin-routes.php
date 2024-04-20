@@ -9,7 +9,7 @@ Route::middleware(['web', 'admin'])
     ->prefix(config('app.admin_url'))
     ->group(function () {
 
-        Route::prefix('bulkupload')->group(function () {
+        Route::prefix('bulk-upload')->group(function () {
             Route::prefix('bulk-product-importer')->group(function () {
                 // Index
                 Route::get('/', [BulkProductImporterController::class, 'index'])

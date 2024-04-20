@@ -39,12 +39,11 @@ class CustomerFactory extends Factory
             'gender'            => Arr::random(['male', 'female', 'other']),
             'email'             => $this->faker->email,
             'status'            => 1,
-            'password'          => Hash::make($password = $this->faker->password),
+            'password'          => Hash::make($this->faker->password),
             'customer_group_id' => 2,
             'is_verified'       => 1,
-            'created_at'        => $now = date('Y-m-d H:i:s'),
-            'updated_at'        => $now,
-            'notes'             => json_encode(['plain_password' => $password], JSON_THROW_ON_ERROR),
+            'created_at'        => now(),
+            'updated_at'        => now(),
         ];
     }
 

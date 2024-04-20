@@ -1,37 +1,36 @@
 @props(['count' => 0])
 
-<div class="flex justify-between items-center overflow-auto journal-scroll">
-    <h2 class="shimmer w-[110px] h-[39px]"></h2>
+<div class="journal-scroll flex items-center justify-between overflow-auto">
+    <h2 class="shimmer h-[32px] w-[110px]"></h2>
 </div>
 
-<div class="grid gap-[20px] mt-[60px] max-1060:grid-cols-[1fr]">
+<div class="mt-14 grid gap-5 max-1060:grid-cols-[1fr]">
     @for ($i = 0;  $i < $count; $i++)
         <!-- Single card -->
-        <div class="flex gap-[20px] p-[25px] border rounded-[12px] max-sm:flex-wrap">
+        <div class="flex gap-5 rounded-xl border p-6 max-sm:flex-wrap">
             <x-shop::media.images.lazy
-                class="max-w-[128px] max-h-[146px] min-w-[128px] w-[128px] h-[146px] rounded-[12px]" 
+                class="h-[146px] max-h-[146px] w-[128px] min-w-[128px] max-w-[128px] rounded-xl" 
                 alt="Review Image"                   
-            >
-            </x-shop::media.images.lazy>
+            />
 
             <div class="w-full">
                 <div class="flex justify-between">
                     <p class="shimmer h-[30px] w-[110px]"></p>
 
-                    <div class="flex gap-[10px] items-center">
-                        <span class="shimmer h-[24px] w-[24px]"></span>
-                        <span class="shimmer h-[24px] w-[24px]"></span>
-                        <span class="shimmer h-[24px] w-[24px]"></span>
-                        <span class="shimmer h-[24px] w-[24px]"></span>
-                        <span class="shimmer h-[24px] w-[24px]"></span>
+                    <div class="flex items-center gap-0.5">
+                        <span class="shimmer h-6 w-6"></span>
+                        <span class="shimmer h-6 w-6"></span>
+                        <span class="shimmer h-6 w-6"></span>
+                        <span class="shimmer h-6 w-6"></span>
+                        <span class="shimmer h-6 w-6"></span>
                     </div>
                 </div>
 
-                <p class="shimmer h-[20px] w-[110px] mt-[10px]"></p>
+                <p class="shimmer mt-2.5 h-5 w-[110px]"></p>
 
-                <p class="shimmer h-[20px] w-full mt-[20px]"></p>
+                <p class="shimmer mt-5 h-5 w-full"></p>
 
-                <p class="shimmer h-[20px] w-full mt-[10px]"></p>
+                <p class="shimmer mt-2.5 h-5 w-full"></p>
             </div>
         </div>
     @endfor

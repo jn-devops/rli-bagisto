@@ -1,18 +1,18 @@
 <x-shop::layouts.account>
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
-        @lang('shop::app.customers.account.orders.title')
+        @lang('enclaves::app.shop.customers.account.transactions.index.title')
     </x-slot>
 
-    {{-- Breadcrumbs --}}
+    <!-- Breadcrumbs -->
     @section('breadcrumbs')
         <x-shop::breadcrumbs name="transactions"></x-shop::breadcrumbs>
     @endSection
 
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between">
         <div class="">
             <h2 class="text-[26px] font-medium">
-                @lang('shop::app.customers.account.transactions.title')
+                @lang('enclaves::app.shop.customers.account.transactions.index.title')
             </h2>
         </div>
     </div>

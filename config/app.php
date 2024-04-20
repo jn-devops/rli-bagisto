@@ -45,6 +45,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Debug Allowed IPs
+    |--------------------------------------------------------------------------
+    |
+    | This value is used to allow the debug mode only for the specified IPs.
+    | This is useful when you want to debug the application on the production
+    | server without enabling it for everyone.
+    */
+
+    'debug_allowed_ips' => env('APP_DEBUG_ALLOWED_IPS', null),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
@@ -54,7 +66,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://127.0.0.1:8000'),
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -204,10 +216,12 @@ return [
         Webkul\Core\Providers\EnvValidatorServiceProvider::class,
         Webkul\Customer\Providers\CustomerServiceProvider::class,
         Webkul\DataGrid\Providers\DataGridServiceProvider::class,
+        Webkul\DataTransfer\Providers\DataTransferServiceProvider::class,
         Webkul\DebugBar\Providers\DebugBarServiceProvider::class,
         Webkul\FPC\Providers\FPCServiceProvider::class,
         Webkul\Installer\Providers\InstallerServiceProvider::class,
         Webkul\Inventory\Providers\InventoryServiceProvider::class,
+        Webkul\MagicAI\Providers\MagicAIServiceProvider::class,
         Webkul\Marketing\Providers\MarketingServiceProvider::class,
         Webkul\Notification\Providers\NotificationServiceProvider::class,
         Webkul\Payment\Providers\PaymentServiceProvider::class,
@@ -223,11 +237,15 @@ return [
         Webkul\Tax\Providers\TaxServiceProvider::class,
         Webkul\Theme\Providers\ThemeServiceProvider::class,
         Webkul\User\Providers\UserServiceProvider::class,
-        Webkul\KrayinConnector\Providers\KrayinConnectorServiceProvider::class,
-        Webkul\BulkUpload\Providers\BulkUploadServiceProvider::class,
-        Webkul\Ekyc\Providers\EkycServiceProvider::class,
+
         Webkul\Enclaves\Providers\EnclavesServiceProvider::class,
+        Webkul\BulkUpload\Providers\BulkUploadServiceProvider::class,
         Webkul\Blog\Providers\BlogServiceProvider::class,
+        Webkul\Ekyc\Providers\EkycServiceProvider::class,
+        Webkul\KrayinConnector\Providers\KrayinConnectorServiceProvider::class,
+
+        RLI\Attribute\Providers\AttributeServiceProvider::class,
+        RLI\Category\Providers\CategoryServiceProvider::class,
     ])->toArray(),
 
     /*

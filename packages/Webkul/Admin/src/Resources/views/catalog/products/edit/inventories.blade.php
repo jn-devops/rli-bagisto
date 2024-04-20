@@ -1,18 +1,18 @@
 {!! view_render_event('bagisto.admin.catalog.product.edit.form.inventories.controls.before', ['product' => $product]) !!}
 
 <v-inventories>
-    {{-- Panel Content --}}
-    <div class="mb-[20px] text-[14px] text-gray-600 dark:text-gray-300">
-        <div class="flex  items-center relative mb-[10px]">
-            <span class="inline-block ltr:mr-[5px] rtl:ml-[5px] p-[5px] bg-yellow-500 rounded-full"></span>
+    <!-- Panel Content -->
+    <div class="mb-5 text-sm text-gray-600 dark:text-gray-300">
+        <div class="relative mb-2.5 flex items-center">
+            <span class="inline-block rounded-full bg-yellow-500 p-1.5 ltr:mr-1.5 rtl:ml-1.5"></span>
 
             @lang('admin::app.catalog.products.edit.inventories.pending-ordered-qty', [
                 'qty' => $product->ordered_inventories->pluck('qty')->first() ?? 0,
             ])
             
-            <i class="icon-information text-[18px] ltr:ml-[10px] rtl:mr-[10px] font-bold text-white rounded-full bg-gray-700 transition-all hover:bg-gray-800 peer"></i>
+            <i class="icon-information peer rounded-full bg-gray-700 text-lg font-bold text-white transition-all hover:bg-gray-800 ltr:ml-2.5 rtl:mr-2.5"></i>
 
-            <div class="hidden absolute bottom-[25px] p-[10px] bg-black opacity-80 rounded-[8px] text-[14px] italic text-white peer-hover:block">
+            <div class="absolute bottom-6 hidden rounded-lg bg-black p-2.5 text-sm italic text-white opacity-80 peer-hover:block">
                 @lang('admin::app.catalog.products.edit.inventories.pending-ordered-qty-info')
             </div>
         </div>
@@ -33,21 +33,22 @@
                 type="text"
                 :name="'inventories[' . $inventorySource->id . ']'"
                 :rules="'numeric|min:0'"
-                :label="$inventorySource->name"
                 :value="$qty"
-            >
-            </x-admin::form.control-group.control>
+                :label="$inventorySource->name"
+            />
 
-            <x-admin::form.control-group.error :control-name="'inventories[' . $inventorySource->id . ']'"></x-admin::form.control-group.error>
+            <x-admin::form.control-group.error :control-name="'inventories[' . $inventorySource->id . ']'" />
         </x-admin::form.control-group>
     @endforeach
 </v-inventories>
 
 {!! view_render_event('bagisto.admin.catalog.product.edit.form.inventories.controls.after', ['product' => $product]) !!}
 
-
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-inventories-template">
+    <script
+        type="text/x-template"
+        id="v-inventories-template"
+    >
         <div v-show="manageStock">
             <slot></slot>
         </div>

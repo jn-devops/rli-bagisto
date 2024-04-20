@@ -1,20 +1,20 @@
-<div class="grid gap-[27px]">
+<div class="grid gap-7">
     @foreach (range(1, 5) as $i)
         <div class="grid">
-            <div class="shimmer w-[150px] h-[17px]"></div>
+            <div class="shimmer h-[17px] w-[150px]"></div>
 
-            <div class="flex gap-[20px] items-center">
-                <div class="shimmer w-full h-[8px]"></div>
+            <div class="flex items-center gap-5">
+                <div class="shimmer h-2 w-full"></div>
 
-                <div class="shimmer w-[35px] h-[17px]"></div>
+                <div class="shimmer h-[17px] w-[35px]"></div>
             </div>
         </div>
     @endforeach
 
-    <div class="flex gap-[20px] justify-end">
-        <div class="flex gap-[4px] items-center">
-            <div class="shimmer w-[14px] h-[14px] rounded-[3px]"></div>
-            <div class="shimmer w-[143px] h-[17px]"></div>
+    <div class="flex justify-end gap-5">
+        <div class="flex items-center gap-1">
+            <div class="shimmer h-3.5 w-3.5 rounded-md"></div>
+            <div class="shimmer h-[17px] w-[143px]"></div>
         </div>
     </div>
 </div>

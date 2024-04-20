@@ -4,7 +4,7 @@
     position="{{ $position }}"
     {{ $attributes }}
 >
-    <x-admin::shimmer.tabs/>
+    <x-admin::shimmer.tabs />
 </v-tabs>
 
 @pushOnce('scripts')
@@ -14,13 +14,13 @@
     >
         <div>
             <div
-                class="flex gap-[15px] justify-center pt-[8px] bg-neutral-100 max-sm:hidden"
+                class="flex justify-center gap-4 bg-neutral-100 pt-2 max-sm:hidden"
                 :style="positionStyles"
             >
                 <div
                     v-for="tab in tabs"
-                    class="pb-[14px] px-[10px] text-[16px] font-medium text-gray-300 cursor-pointer"
-                    :class="{'border-navyBlue border-b-[2px] text-black transition': tab.isActive }"
+                    class="cursor-pointer px-2.5 pb-3.5 text-base font-medium text-gray-300"
+                    :class="{'border-navyBlue border-b-2 text-black transition': tab.isActive }"
                     v-text="tab.title"
                     @click="change(tab)"
                 >

@@ -19,13 +19,13 @@
         "ext-tokenizer": "*",
         "astrotomic/laravel-translatable": "^11.0.0",
         "barryvdh/laravel-dompdf": "^2.0.0",
-        "cviebrock/laravel-elasticsearch": "^10.0",
         "diglactic/laravel-breadcrumbs": "^8.0",
         "doctrine/dbal": "^3.0",
+        "elasticsearch/elasticsearch": "^8.10",
         "enshrined/svg-sanitize": "^0.16.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.4",
-        "intervention/imagecache": "^2.6",
+        "intervention/imagecache": "^2.5.2",
         "kalnoy/nestedset": "^6.0",
         "khaled.alshamaa/ar-php": "^6.0.0",
         "konekt/concord": "^1.2",
@@ -36,6 +36,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.0",
         "maatwebsite/excel": "^3.1.46",
+        "openai-php/laravel": "^0.7.8",
         "paypal/paypal-checkout-sdk": "1.0.1",
         "predis/predis": "^2.2",
         "prettus/l5-repository": "^2.6",
@@ -43,18 +44,18 @@
         "shetabit/visitor": "^4.1",
         "spatie/laravel-responsecache": "^7.4",
         "spatie/laravel-sitemap": "^6.2",
-        "spatie/laravel-webhook-client": "^3.2",
+        "spatie/laravel-webhook-client": "^3.3",
         "spatie/laravel-webhook-server": "^3.8"
     },
     "require-dev": {
-        "bagisto/bagisto-package-generator": "dev-master",
-        "bagisto/laravel-datafaker": "^2.0@alpha",
+        "bagisto/laravel-datafaker": "dev-master",
         "barryvdh/laravel-debugbar": "^3.8",
         "fakerphp/faker": "^1.9.1",
-        "laravel/pint": "^1.15",
+        "laravel/pint": "^1.8",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^7.0",
         "pestphp/pest": "^2.6",
+        "pestphp/pest-plugin-laravel": "^2.1",
         "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0"
     },
@@ -73,10 +74,12 @@
             "Webkul\\Core\\": "packages/Webkul/Core/src",
             "Webkul\\Customer\\": "packages/Webkul/Customer/src",
             "Webkul\\DataGrid\\": "packages/Webkul/DataGrid/src",
+            "Webkul\\DataTransfer\\": "packages/Webkul/DataTransfer/src",
             "Webkul\\DebugBar\\": "packages/Webkul/DebugBar/src",
             "Webkul\\FPC\\": "packages/Webkul/FPC/src",
             "Webkul\\Installer\\": "packages/Webkul/Installer/src",
             "Webkul\\Inventory\\": "packages/Webkul/Inventory/src",
+            "Webkul\\MagicAI\\": "packages/Webkul/MagicAI/src",
             "Webkul\\Marketing\\": "packages/Webkul/Marketing/src",
             "Webkul\\Notification\\": "packages/Webkul/Notification/src",
             "Webkul\\Paypal\\": "packages/Webkul/Paypal/src",
@@ -92,11 +95,13 @@
             "Webkul\\Tax\\": "packages/Webkul/Tax/src",
             "Webkul\\Theme\\": "packages/Webkul/Theme/src",
             "Webkul\\User\\": "packages/Webkul/User/src",
-            "Webkul\\KrayinConnector\\": "packages/Webkul/KrayinConnector/src",
+            
+            "Webkul\\Blog\\": "packages/Webkul/Blog/src",
+            "Webkul\\Enclaves\\": "packages/Webkul/Enclaves/src",
             "Webkul\\BulkUpload\\": "packages/Webkul/BulkUpload/src",
             "Webkul\\Ekyc\\": "packages/Webkul/Ekyc/src",
-            "Webkul\\Enclaves\\": "packages/Webkul/Enclaves/src",
-            "Webkul\\Blog\\": "packages/Webkul/Blog/src",
+            "Webkul\\KrayinConnector\\": "packages/Webkul/KrayinConnector/src",
+
             "RLI\\Attribute\\": "packages/RLI/Attribute/src",
             "RLI\\Category\\": "packages/RLI/Category/src"
         }
@@ -105,6 +110,7 @@
         "psr-4": {
             "Tests\\": "tests/",
             "Webkul\\Admin\\Tests\\": "packages/Webkul/Admin/tests",
+            "Webkul\\Core\\Tests\\": "packages/Webkul/Core/tests",
             "Webkul\\DataGrid\\Tests\\": "packages/Webkul/DataGrid/tests",
             "Webkul\\Shop\\Tests\\": "packages/Webkul/Shop/tests"
         }
@@ -114,17 +120,16 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi",
-            "Webkul\\Installer\\Events\\ComposerEvents::postCreateProject"
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate --ansi"
         ]
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "shetabit/visitor"
+            ]
         }
     },
     "config": {

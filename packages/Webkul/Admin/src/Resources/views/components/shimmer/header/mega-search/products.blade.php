@@ -1,21 +1,21 @@
 @for ($i = 0; $i < 3; $i++)
-    <div class="flex gap-[10px] justify-between p-[16px] border-b-[1px] border-slate-300">
+    <div class="flex justify-between gap-2.5 border-b border-slate-300 p-4 dark:border-gray-800">
         <!-- Left Information -->
-        <div class="flex gap-[10px]">
+        <div class="flex gap-2.5">
             <!-- Image -->
-            <div class="shimmer w-[46px] h-[46px] rounded-[4px]">
+            <div class="shimmer h-[46px] w-[46px] rounded">
             </div>
             <!-- Details -->
 
-            <div class="grid gap-[6px] place-content-start">
-                <p class="shimmer w-[350px] h-[17px]"></p>
-                <p class="shimmer w-[150px] h-[17px]"></p>
+            <div class="grid place-content-start gap-1.5">
+                <p class="shimmer h-[17px] w-[350px]"></p>
+                <p class="shimmer h-[17px] w-[150px]"></p>
             </div>
         </div>
 
         <!-- Right Information -->
-        <div class="grid gap-[4px] place-content-center text-right">
-                <p class="shimmer w-[50px] h-[17px]"></p>
+        <div class="grid place-content-center gap-1 text-right">
+                <p class="shimmer h-[17px] w-[50px]"></p>
         </div>
     </div>
 @endfor

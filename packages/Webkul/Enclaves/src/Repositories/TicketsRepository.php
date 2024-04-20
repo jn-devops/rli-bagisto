@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Enclaves\Contracts\Tickets;
+use Webkul\Enclaves\Models\Tickets;
 
 class TicketsRepository extends Repository
 {

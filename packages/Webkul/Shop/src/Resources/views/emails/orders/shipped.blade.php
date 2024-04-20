@@ -11,7 +11,7 @@
         <p style="font-size: 16px;color: #5E5E5E;line-height: 24px;">
             @lang('shop::app.emails.orders.shipped.greeting', [
                 'invoice_id' => $shipment->increment_id,
-                'order_id'   => '<a href="' . route('shop.customers.account.transactions.view', $shipment->order_id) . '" style="color: #2969FF;">#' . $shipment->order->increment_id . '</a>',
+                'order_id'   => '<a href="' . route('shop.customers.account.orders.view', $shipment->order_id) . '" style="color: #2969FF;">#' . $shipment->order->increment_id . '</a>',
                 'created_at' => core()->formatDate($shipment->order->created_at, 'Y-m-d H:i:s')
             ])
         </p>
@@ -33,7 +33,7 @@
 
                     {{ $shipment->order->shipping_address->name }}<br/>
                     
-                    {{ $shipment->order->shipping_address->address1 }}<br/>
+                    {{ $shipment->order->shipping_address->address }}<br/>
                     
                     {{ $shipment->order->shipping_address->postcode . " " . $shipment->order->shipping_address->city }}<br/>
                     
@@ -85,7 +85,7 @@
 
                     {{ $shipment->order->billing_address->name }}<br/>
                     
-                    {{ $shipment->order->billing_address->address1 }}<br/>
+                    {{ $shipment->order->billing_address->address }}<br/>
                     
                     {{ $shipment->order->billing_address->postcode . " " . $shipment->order->billing_address->city }}<br/>
                     

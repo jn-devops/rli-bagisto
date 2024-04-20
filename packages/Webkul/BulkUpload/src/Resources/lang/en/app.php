@@ -6,7 +6,7 @@ return [
          * System Configuration.
          */
         'system'      => [
-            'bulkupload' => [
+            'bulkUpload' => [
                 'general'   => 'General',
                 'index'     => [
                     'title' => 'Bulk-Upload Product',
