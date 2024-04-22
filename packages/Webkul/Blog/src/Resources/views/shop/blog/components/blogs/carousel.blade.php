@@ -14,7 +14,7 @@
             v-if="blogs.length > 0"
             >
         
-            <div class="rli-title max-w-[1024px] p-[61px] max-sm:text-[25px]">
+            <div class="rli-title max-w-[1024px] max-sm:text-[25px]">
                 <p class="text-[#CC035C]">@lang('Raemulan Lands Inc')</p>
                 <p class="mt-[40px]">@lang('News & Updates')</p>
             </div>

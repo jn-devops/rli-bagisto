@@ -39,20 +39,18 @@
                 </button>
             </div>
             <div v-else>
-                
-                
-
                 <div v-if="isIfreamLoaded">
                     <iframe
                         :src="embedURL"
                         width="1160" 
                         height="700"
+                        style="overflow:auto;"
                     >
                     </iframe>
                 </div>
                 <div v-else>
                     <div class="shimmer h-[700px] w-full">
-                        <div class="absolute top-[60%] left-[50%]">Page Loading...</div>
+                        <div class="absolute left-[50%] top-[60%]">Page Loading...</div>
                     </div>
                 </div>
                 

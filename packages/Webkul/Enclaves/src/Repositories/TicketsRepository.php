@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Enclaves\Models\Tickets;
 
 class TicketsRepository extends Repository
 {
@@ -15,7 +14,7 @@ class TicketsRepository extends Repository
      */
     public function model(): string
     {
-        return Tickets::class;
+        return 'Webkul\Enclaves\Contracts\Tickets';
     }
 
     /**
@@ -38,7 +37,7 @@ class TicketsRepository extends Repository
 
         $ticket->files()->insert([
             'name'      => $name,
-            'path'      => $dir,
+            'path'      => $path,
             'ticket_id' => $ticket->id,
         ]);
 
@@ -72,7 +71,7 @@ class TicketsRepository extends Repository
 
             $ticket->files()->insert([
                 'name'      => $name,
-                'path'      => $dir,
+                'path'      => $path,
                 'ticket_id' => $ticket->id,
             ]);
 

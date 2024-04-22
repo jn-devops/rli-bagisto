@@ -34,15 +34,26 @@ class InquiriesController extends AbstractController
     /**
      * Display all tickets in view
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View | JsonResponse
      */
     public function tickets()
     {
-        $tickets = $this->ticketsRepository
-                        ->with(['files', 'reasons', 'status'])
-                        ->get();
+        $limit = request('limit') ?? 4;
 
-        return view('shop::customers.account.inquire.tickets', compact('tickets'));
+        $tickets = $this->ticketsRepository;
+
+        $count = $tickets->count();
+
+        $tickets = $tickets->with(['files', 'reasons', 'status'])->orderBy('id', 'desc')->limit($limit);
+    
+        if (request()->ajax()) {
+            return new JsonResponse([
+                'tickets' => $tickets,
+                'count'   => $count,
+            ]);
+        }
+
+        return view('shop::customers.account.inquire.tickets', compact('tickets', 'count'));
     }
 
     /**

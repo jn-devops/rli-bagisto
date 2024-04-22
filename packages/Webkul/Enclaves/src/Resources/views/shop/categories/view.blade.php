@@ -153,7 +153,7 @@
 
                                                 <button
                                                     @click="redirectToProduct(product)"
-                                                    class="rounded-[20px] border-2 border-[#CC035C] bg-white px-[25px] py-[10px] font-semibold text-[#CC035C]"
+                                                    class="text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
                                                 >
                                                     @lang('enclaves::app.shop.customers.choose-unit')
                                                 </button>
@@ -236,19 +236,21 @@
                                                     </span>
                                                 </div>
 
-                                                
-                                                <div class="grid gap-[12px]">
-                                                    <p class="font-popins text-[16px] font-medium text-[#A0A0A0]">
-                                                        @lang('enclaves::app.shop.customers.total-contract-price')
-                                                    </p>
-                                                </div>
+                                                <div class="justify-right grid grid-cols-2 items-center max-425:grid">
+                                                    <div>
+                                                        <div 
+                                                            class="font-popins text-wrap text-[15px] font-medium" 
+                                                            v-html="product.price_html">
+                                                        </div>
 
-                                                <div class="grid grid-cols-2 items-center justify-between max-425:grid">
-                                                    <div class="font-popins text-wrap text-[20px] font-medium" v-html="product.price_html"></div>
+                                                        <p class="font-popins text-[11px] font-medium text-[#A0A0A0]">
+                                                            @lang('enclaves::app.shop.customers.total-contract-price')
+                                                        </p>
+                                                    </div>
 
                                                     <button
                                                         @click="redirectToProduct(product)"
-                                                        class="rounded-[20px] border-[3px] border-[#CC035C] bg-white px-[25px] py-[10px] font-semibold text-[#CC035C]"
+                                                        class="text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
                                                     >
                                                         @lang('enclaves::app.shop.customers.choose-unit')
                                                     </button>

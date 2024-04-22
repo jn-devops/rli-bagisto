@@ -3,8 +3,6 @@
 namespace Webkul\Enclaves\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Enclaves\Models\TicketReasons;
-
 class TicketReasonsRepository extends Repository
 {
     /**
@@ -12,6 +10,6 @@ class TicketReasonsRepository extends Repository
      */
     public function model(): string
     {
-        return TicketReasons::class;
+        return 'Webkul\Enclaves\Contracts\TicketReasons';
     }
 }

@@ -71,10 +71,11 @@
 
                             <button
                                 @click="redirectCategory(category)"
-                                class="text-nowrap rounded-[20px] border-[3px] border-[#CC035C] p-3 font-semibold text-[#CC035C]"
+                                class="text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[10px] font-semibold text-[#CC035C]"
                                 :style="{color: category.btn_color, borderColor: category.btn_border_color, background: category.btn_background_color, width:'fit-content'}"
                             >
                                 <span v-if="category.btn_text" v-text="category.btn_text"></span>
+
                                 <span v-else>@lang('enclaves::app.shop.customers.browse-properties')</span>
                             </button>
                         </div>
