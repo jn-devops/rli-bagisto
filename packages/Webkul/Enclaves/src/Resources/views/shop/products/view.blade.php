@@ -153,7 +153,7 @@
                                         <span class="icon h-[24px] w-[24px] bg-red-700"></span>
 
                                         <div class="grid gap-[12px]">
-                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('1st Floor')</p>
+                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('enclaves::app.shop.product.first-floor')</p>
                                             
                                             <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
                                         </div>
@@ -163,7 +163,7 @@
                                         <span class="icon h-[24px] w-[24px] bg-red-700"></span>
 
                                         <div class="grid gap-[12px]">
-                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('Unit')</p>
+                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('enclaves::app.shop.product.unit')</p>
 
                                             <p class="text-[18px] leading-4">{{ $product->end_unit }}</p>
                                         </div>
@@ -173,7 +173,7 @@
                                         <span class="icon h-[24px] w-[24px] bg-red-700"></span>
 
                                         <div class="grid gap-[12px]">
-                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('Floor Area')</p>
+                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('enclaves::app.shop.product.floor-area')</p>
 
                                             <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
                                         </div>
@@ -196,7 +196,7 @@
                                 {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                             </div>
 
-                            <div class="mix-w-[438px] max-w-[676px] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-[25px] md:min-w-[400px]">
+                            <div class="mix-w-[438px] max-w-[400px] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-[25px] md:min-w-[400px]">
                                 <!-- Price -->
                                 <div class="grid gap-[10px]">
                                     <p class="text-[20px] font-semibold max-sm:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>
@@ -220,17 +220,17 @@
                                 <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                     <!-- location-->
                                     <div class="flex flex-wrap gap-[6px]">
-                                        <p class="text-[20px] font-bold max-sm:text-[18px]">Location:</p>
+                                        <p class="text-[20px] font-bold max-sm:text-[18px]">@lang('enclaves::app.shop.product.location')</p>
                                         <p class="text-[20px] max-sm:text-[18px]">{{ $product->location }}</p>
                                     </div>
                                     <!-- Bedroom -->
                                     <div class="flex flex-wrap gap-[6px]">
-                                        <p class="text-[20px] font-bold max-sm:text-[18px]">Bedrooms:</p>
+                                        <p class="text-[20px] font-bold max-sm:text-[18px]">@lang('enclaves::app.shop.product.bedrooms')</p>
                                         <p class="text-[20px] max-sm:text-[18px]">{{ $product->bedrooms }}</p>
                                     </div>
                                     <!-- toilet bath -->
                                     <div class="flex flex-wrap gap-[6px]">
-                                        <p class="text-[20px] font-bold max-sm:text-[18px]">Toilet and Bath:</p>
+                                        <p class="text-[20px] font-bold max-sm:text-[18px]">@lang('enclaves::app.shop.product.t_and_b')</p>
                                         <p class="text-[20px] max-sm:text-[18px]">{{ $product->t_and_b }}</p>
                                     </div>
                                 </div>
@@ -281,15 +281,16 @@
                                 {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
                                 
                                 <!-- Buy Now Button -->
+                                {!! $product->button_text != '0' && $product->button_text ? $product->button_information : '' !!}
 
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
                                     <button 
                                         class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] border-[3px] border-[#CC035C] px-[43px] py-[16px] text-center font-medium text-[#CC035C]"
-                                        href="#"
                                         @click="is_buy_now=1; is_kyc_process=1;"
+                                        style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                         {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                     >
-                                        @lang('enclaves::app.shop.product.reserve-now')
+                                        @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
                                     </button>
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
 

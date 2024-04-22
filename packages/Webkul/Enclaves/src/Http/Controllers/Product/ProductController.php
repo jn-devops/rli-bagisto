@@ -21,9 +21,7 @@ class ProductController extends Controller
      */
     public function profileUpdate(): JsonResponse
     {
-        $data = request()->all();
-
-        app(CustomerHelper::class)->updateProfile($data);
+        app(CustomerHelper::class)->updateProfile(request()->all());
 
         return new JsonResponse([
             'message' => trans('shop::app.customers.account.profile.edit-success'),

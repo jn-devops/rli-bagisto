@@ -10,12 +10,17 @@ use Webkul\Enclaves\Http\Resources\CategoryResource;
 class CategoryController extends Controller
 {
     /**
+     * Default Status
+     */
+    protected const ENABLED = 1;
+
+    /**
      * Default short
      */
     protected const SHORT = 'desc';
 
     /**
-     * Default limt
+     * Default limit
      */
     protected const LIMIT = 10;
 
@@ -34,7 +39,7 @@ class CategoryController extends Controller
          * will be shown in the current locale.
          */
         $defaultParams = [
-            'status' => 1,
+            'status' => self::ENABLED,
             'locale' => app()->getLocale(),
         ];
 

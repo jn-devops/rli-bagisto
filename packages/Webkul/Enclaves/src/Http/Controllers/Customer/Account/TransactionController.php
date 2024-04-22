@@ -3,12 +3,11 @@
 namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 use Webkul\Core\Traits\PDFHandler;
-use Webkul\Enclaves\DataGrids\TransactionDataGrid;
-use Webkul\Enclaves\Http\Controllers\Controller;
-use Webkul\Sales\Repositories\InvoiceRepository;
 use Webkul\Sales\Repositories\OrderRepository;
+use Webkul\Sales\Repositories\InvoiceRepository;
+use Webkul\Enclaves\DataGrids\TransactionDataGrid;
 
-class TransactionController extends Controller
+class TransactionController extends AbstractController
 {
     use PDFHandler;
 
@@ -41,7 +40,7 @@ class TransactionController extends Controller
     public function view($id)
     {
         $order = $this->orderRepository->findOneWhere([
-            'customer_id' => auth()->guard('customer')->id(),
+            'customer_id' => self::customerId(),
             'id'          => $id,
         ]);
 
@@ -56,11 +55,12 @@ class TransactionController extends Controller
      */
     public function printInvoice($id)
     {
-        $invoice = $this->invoiceRepository->where('id', $id)
-            ->whereHas('order', function ($query) {
-                $query->where('customer_id', auth()->guard('customer')->id());
-            })
-            ->firstOrFail();
+        $invoice = $this->invoiceRepository
+                        ->where('id', $id)
+                        ->whereHas('order', function ($query) {
+                            $query->where('customer_id', self::customerId());
+                        })
+                        ->firstOrFail();
 
         return $this->downloadPDF(
             view('shop::customers.account.orders.pdf', compact('invoice'))->render(),
@@ -76,7 +76,7 @@ class TransactionController extends Controller
      */
     public function cancel($id)
     {
-        $customer = auth()->guard('customer')->user();
+        $customer = self::customer();
 
         /* find by order id in customer's order */
         $order = $customer->orders()->find($id);
