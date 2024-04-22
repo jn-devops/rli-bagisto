@@ -2,9 +2,7 @@
 
 namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
-use Webkul\Enclaves\Http\Controllers\Controller;
-
-class DocumentsController extends Controller
+class DocumentsController extends AbstractController
 {
     public function __construct(
     ) {

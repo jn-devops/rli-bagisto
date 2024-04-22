@@ -21,12 +21,16 @@ class EkycController extends Controller
     public function index(): JsonResource
     {
         if (auth()->guard()->check()) {
-            $cart = $this->cartRepository->with('items')->findOneWhere([
-                'customer_id' => auth()->guard()->user()->id,
-                'is_active'   => 1,
-            ]);
+            $cart = $this->cartRepository
+                        ->with('items')
+                        ->findOneWhere([
+                            'customer_id' => auth()->guard()->user()->id,
+                            'is_active'   => 1,
+                        ]);
         } elseif (session()->has('cart')) {
-            $cart = $this->cartRepository->with('items')->find(session()->get('cart')->id);
+            $cart = $this->cartRepository
+                        ->with('items')
+                        ->find(session()->get('cart')->id);
         }
 
         $productSlug = '';

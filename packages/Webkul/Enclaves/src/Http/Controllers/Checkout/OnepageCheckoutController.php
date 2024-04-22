@@ -40,8 +40,8 @@ class OnepageCheckoutController extends APIController
         return new JsonResponse([
             'flats' => $products->map(function ($product) {
                 return $this->productPropertiesRepository
-                    ->with('slots')
-                    ->findWhereIn('product_id', $product->pluck('id')->toArray());
+                            ->with('slots')
+                            ->findWhereIn('product_id', $product->pluck('id')->toArray());
             }),
         ]);
     }
@@ -56,7 +56,10 @@ class OnepageCheckoutController extends APIController
         return new JsonResponse([
             'slots' => $this->productPropertiesRepository
                 ->with('slots')
-                ->where(['product_id' => request('product_id'), 'image_url' => request('imageUrl')])->get(),
+                ->where([
+                    'product_id' => request('product_id'),
+                    'image_url'  => request('imageUrl'),
+                ])->get(),
         ]);
     }
 

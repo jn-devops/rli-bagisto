@@ -327,6 +327,12 @@ return [
             'select-area'     => 'Check & Select Area',
             'reservation-fee' => 'Reservation Fee: ',
             'contract-price'  => 'Total Contract Price:',
+            'first-floor'     => '1st Floor',
+            'floor-area'      => 'Floor Area',
+            'location'        => 'Location: ',
+            'bedrooms'        => 'Bedrooms',
+            't_and_b'         => 'Toilet and Bath:',
+            'unit'            => 'Unit',
             'cart'            => [
                 'add-to-cart' => 'Choose Unit',
             ],

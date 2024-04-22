@@ -29,13 +29,29 @@ class CustomerController extends Controller
     }
 
     /**
+     * customer to profile id.
+     */
+    private function customerId(): int
+    {
+        return auth()->guard('customer')->user()->id;
+    }
+
+    /**
+     * customer to profile.
+     */
+    private function getCustomer(): mixed
+    {
+        return $this->customerRepository->findOrFail(self::customerId());
+    }
+
+    /**
      * Taking the customer to profile details page.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
+        $customer = self::getCustomer();
 
         return view('shop::customers.account.custom-profile.index', compact('customer'));
     }
@@ -47,7 +63,7 @@ class CustomerController extends Controller
      */
     public function edit()
     {
-        $customer = $this->customerRepository->find(auth()->guard('customer')->user()->id);
+        $customer = self::getCustomer();
 
         return view('shop::customers.account.profile.edit', compact('customer'));
     }
@@ -61,7 +77,7 @@ class CustomerController extends Controller
     {
         $data = $profileRequest->validated();
 
-        $data['customer_id'] = auth()->guard('customer')->user()->id;
+        $data['customer_id'] = self::customerId();
 
         $data['attribute_id'] = $this->customerAttributeRepository->findOneByField(['code' => $data['name'], 'form_type' => $data['formType']])?->id;
 
@@ -93,7 +109,7 @@ class CustomerController extends Controller
      */
     public function destroy()
     {
-        $customerRepository = $this->customerRepository->findOrFail(auth()->guard('customer')->user()->id);
+        $customerRepository = self::getCustomer();
 
         try {
             if (Hash::check(request()->input('password'), $customerRepository->password)) {
@@ -103,7 +119,7 @@ class CustomerController extends Controller
 
                     return redirect()->route('shop.customers.account.profile.index');
                 } else {
-                    $this->customerRepository->delete(auth()->guard('customer')->user()->id);
+                    $this->customerRepository->delete(self::customerId());
 
                     session()->flash('success', trans('shop::app.customers.account.profile.delete-success'));
 
@@ -157,7 +173,7 @@ class CustomerController extends Controller
     {
         $values = [];
 
-        $customer_id = auth()->guard('customer')->user()->id;
+        $customer_id = self::customerId();
 
         foreach ($attributesAndOptions as $type => $attributes) {
             foreach ($attributes as $attribute) {

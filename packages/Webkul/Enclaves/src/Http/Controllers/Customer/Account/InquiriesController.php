@@ -3,11 +3,10 @@
 namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 use Illuminate\Http\JsonResponse;
-use Webkul\Enclaves\Http\Controllers\Controller;
-use Webkul\Enclaves\Repositories\TicketReasonsRepository;
 use Webkul\Enclaves\Repositories\TicketsRepository;
+use Webkul\Enclaves\Repositories\TicketReasonsRepository;
 
-class InquiriesController extends Controller
+class InquiriesController extends AbstractController
 {
     /**
      * Create a new controller instance.
@@ -58,7 +57,7 @@ class InquiriesController extends Controller
         ]);
 
         $data = [
-            'customer_id'      => auth()->guard('admin')->user()->id,
+            'customer_id'      => self::customerId(),
             'ticket_reason_id' => 1,
             'ticket_status_id' => 1,
             'comment'          => $request['comment'],
