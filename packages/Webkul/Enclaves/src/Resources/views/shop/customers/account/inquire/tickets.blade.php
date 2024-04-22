@@ -15,13 +15,13 @@
 
     @pushOnce('scripts')
         <script type="text/x-template" id="v-tickets-template">
-            <templete>
+            <div>
                 <div class="flex items-center justify-between">
                     <div class="">
                         <h2 class="text-[29px] font-medium">
                             @lang('enclaves::app.shop.customers.account.inquiries.list.title')
 
-                            <span v-text="'(' + count + ')'">0</span>
+                            <span v-text="count_of_tickets"></span>
                         </h2>
                     </div>
                 </div>
@@ -32,12 +32,12 @@
                             <div class="shimmer mt-10 h-[80px] w-full"></div>
                         @endfor
                     </span>
-                    <span v-for="ticket in tickets">
+                    
+                    <span v-if="tickets" v-for="ticket in tickets">
                         <x-shop::accordion.custom-accordion 
                             :is-active=false 
                             class="border"
-                            >
-
+                        >
                             <x-slot:header>
                                 <div class="flex w-full items-center justify-between">
                                     <div v-text="ticket.reasons.name"></div>
@@ -53,12 +53,11 @@
                             <x-slot:content>
                                 <span v-text="ticket.comment"></span>
 
-                                <div class="mt-8">
-                                    <img 
-                                        :src=`{{ Storage::url("") }}${file.path}`
+                                <div class="mt-8" v-if="ticket.files"  v-for="file in ticket.files">
+                                    <img
+                                        :src="storagePath + file.path"
                                         :alt="file.name" 
                                         class="h-[200px] w-[200px] rounded-xl"
-                                        v-for="file in ticket.files"
                                     />
                                 </div>
                             </x-slot:content>
@@ -76,7 +75,7 @@
                         </button>
                     </div>
                 </div>
-            </templete>
+            </div>
         </script>
 
         <script type="module">
@@ -89,8 +88,9 @@
                         isLoading: true,
                         tickets: {},
                         loadingText: '',
-                        count: 0,
+                        count_of_tickets: 0,
                         reaming: 0,
+                        storagePath: `{{ Storage::url("") }}`,
                     }
                 },
 
@@ -117,7 +117,7 @@
                         .then(response => {
                             this.tickets = response.data.tickets;
 
-                            this.count = this.tickets.length;
+                            this.count_of_tickets = this.tickets.length;
 
                             this.reaming =  response.data.count - this.tickets.length;
 
