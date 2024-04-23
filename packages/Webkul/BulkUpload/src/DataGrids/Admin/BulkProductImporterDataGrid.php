@@ -8,25 +8,6 @@ use Webkul\DataGrid\DataGrid;
 class BulkProductImporterDataGrid extends DataGrid
 {
     /**
-     * @var int
-     */
-    protected $index = 'id';
-
-    /**
-     * Sort order.
-     *
-     * @var string
-     */
-    protected $sortOrder = 'desc';
-
-    /**
-     * Items per page.
-     *
-     * @var int
-     */
-    protected $itemsPerPage = 10;
-
-    /**
      * Prepare query builder.
      *
      * @return void

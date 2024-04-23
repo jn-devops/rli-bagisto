@@ -3,14 +3,14 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-inquiries-edit-form-template">
         <div>
-            <div class="flex gap-x-[10px] items-center">
+            <div class="flex items-center gap-5">
                 <!-- Delete Button -->
                 <button
                     type="button"
-                    class="text-red-600 font-bold"
+                    class="font-bold text-red-600"
                     @click="destroy"
                 >
-                    @lang('enclaves::app.admin.inquiries.form.edit.delete')
+                    @lang('enclaves::app.admin.inquiries.tickets.form.edit.delete')
                 </button>
 
                 <!-- Update Button -->
@@ -19,39 +19,39 @@
                     class="primary-button"
                     @click="$refs.inquiriesCreateModal.toggle()"
                 >
-                    @lang('enclaves::app.admin.inquiries.form.edit.edit-btn')
+                    @lang('enclaves::app.admin.inquiries.tickets.form.edit.edit-btn')
                 </button>
             </div>
 
             <x-admin::form
-                :action="route('enclaves.admin.inquiries.update', ['id' => $ticket->id])"
+                :action="route('enclaves.admin.inquiries.ticket.update', ['id' => $ticket->id])"
                 enctype="multipart/form-data"
                 method="post"
             >
                 <!-- Inquiries Create Modal -->
                 <x-admin::modal ref="inquiriesCreateModal">
                     <x-slot:header>
-                        <p class="text-[18px] text-gray-800 dark:text-white font-bold">
-                            @lang('enclaves::app.admin.inquiries.title')
+                        <p class="text-[18px] font-bold text-gray-800 dark:text-white">
+                            @lang('enclaves::app.admin.inquiries.tickets.title')
                         </p>
                     </x-slot:header>
 
                     <x-slot:content>
                         <!-- Modal Content -->
-                        <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800  ">
+                        <div class="border-b-[1px] px-[16px] py-[10px] dark:border-gray-800">
                             {!! view_render_event('bagisto.admin.inquiries.edit.before') !!}
 
                             <x-admin::form.control-group>
-                                <label class="block leading-[24px] text-[12px] text-gray-800 dark:text-white font-medium required">
-                                    @lang('enclaves::app.admin.inquiries.form.edit.customer')
+                                <label class="required mb-1.5 flex items-center gap-1 text-xs font-medium text-gray-800 dark:text-white">
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.edit.customer')
                                 </label>
 
                                 <select
                                     type="select"
                                     name="customer_id"
                                     rules="required"
-                                    class="custom-select flex w-full min-h-[39px] py-[6px] px-[12px] bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-[6px] text-[14px] text-gray-600 dark:text-gray-300 font-normal transition-all hover:border-gray-400 dark:hover:border-gray-400"
-                                    label="trans('enclaves::app.admin.inquiries.form.edit.customer')"
+                                    class="custom-select w-full rounded-md border bg-white px-3 py-2.5 text-sm font-normal text-gray-600 transition-all hover:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400"
+                                    label="trans('enclaves::app.admin.inquiries.tickets.form.edit.customer')"
                                 >
                                     <option value="0" disabled>@lang('Select Customer')</option>
 
@@ -66,16 +66,16 @@
                             </x-admin::form.control-group>
 
                             <x-admin::form.control-group>
-                                <label class="block leading-[24px] text-[12px] text-gray-800 dark:text-white font-medium required">
-                                    @lang('enclaves::app.admin.inquiries.form.edit.reason')
+                                <label class="required mb-1.5 flex items-center gap-1 text-xs font-medium text-gray-800 dark:text-white">
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.edit.reason')
                                 </label>
 
                                 <select
                                     type="select"
                                     name="ticket_reason_id"
                                     rules="required"
-                                    class="custom-select flex w-full min-h-[39px] py-[6px] px-[12px] bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-[6px] text-[14px] text-gray-600 dark:text-gray-300 font-normal transition-all hover:border-gray-400 dark:hover:border-gray-400"
-                                    label="trans('enclaves::app.admin.inquiries.form.edit.reason')"
+                                    class="custom-select w-full rounded-md border bg-white px-3 py-2.5 text-sm font-normal text-gray-600 transition-all hover:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400"
+                                    label="trans('enclaves::app.admin.inquiries.tickets.form.edit.reason')"
                                 >
                                     <option value="0" disabled>@lang('Select Reason')</option>
 
@@ -91,16 +91,16 @@
                             </x-admin::form.control-group>
 
                             <x-admin::form.control-group>
-                                <label class="block leading-[24px] text-[12px] text-gray-800 dark:text-white font-medium required">
-                                    @lang('enclaves::app.admin.inquiries.form.edit.status')
+                                <label class="required mb-1.5 flex items-center gap-1 text-xs font-medium text-gray-800 dark:text-white">
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.edit.status')
                                 </label>
 
                                 <select
                                     type="select"
                                     name="ticket_status_id"
                                     rules="required"
-                                    class="custom-select flex w-full min-h-[39px] py-[6px] px-[12px] bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-[6px] text-[14px] text-gray-600 dark:text-gray-300 font-normal transition-all hover:border-gray-400 dark:hover:border-gray-400"
-                                    label="trans('enclaves::app.admin.inquiries.form.edit.status')"
+                                    class="custom-select w-full rounded-md border bg-white px-3 py-2.5 text-sm font-normal text-gray-600 transition-all hover:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400"
+                                    label="trans('enclaves::app.admin.inquiries.tickets.form.edit.status')"
                                 >
                                     <option value="0" disabled>@lang('Select Status')</option>
 
@@ -116,7 +116,7 @@
 
                             <x-admin::form.control-group>
                                 <x-admin::form.control-group.label class="required">
-                                    @lang('enclaves::app.admin.inquiries.form.edit.comment')
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.edit.comment')
                                 </x-admin::form.control-group.label>
 
                                 <x-admin::form.control-group.control
@@ -124,7 +124,7 @@
                                     name="comment"
                                     rules="required"
                                     value="{{ $ticket->comment }}"
-                                    :label="trans('enclaves::app.admin.inquiries.form.edit.comment')"
+                                    :label="trans('enclaves::app.admin.inquiries.tickets.form.edit.comment')"
                                 >
                                 </x-admin::form.control-group.control>
 
@@ -142,12 +142,12 @@
                     </x-slot:content>
 
                     <x-slot:footer>
-                        <div class="flex gap-x-[10px] items-center">
+                        <div class="flex items-center gap-x-[10px]">
                             <button
                                 type="submit"
                                 class="primary-button"
                             >
-                                @lang('enclaves::app.admin.inquiries.form.edit.update-btn')
+                                @lang('enclaves::app.admin.inquiries.tickets.form.edit.update-btn')
                             </button>
                         </div>
                     </x-slot:footer>
@@ -181,7 +181,7 @@
                 destroy() {
                     this.$emitter.emit('open-confirm-modal', {
                         agree: () => {
-                            this.$axios.get("{{ route('enclaves.admin.inquiries.destroy', ['id' => $ticket->id]) }}")
+                            this.$axios.get("{{ route('enclaves.admin.inquiries.ticket.destroy', ['id' => $ticket->id]) }}")
                                 .then(response => {
                                     this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 

@@ -6,17 +6,15 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
 use Webkul\Customer\Repositories\CustomerRepository;
-use Webkul\Enclaves\DataGrids\InquiriesDataGrid;
+use Webkul\Enclaves\DataGrids\TicketsDataGrid;
 use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Enclaves\Repositories\TicketsRepository;
 use Webkul\Enclaves\Repositories\TicketStatusRepository;
 
-class InquiriesController extends Controller
+class TicketsController extends Controller
 {
-    /**
+   /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct(
         protected TicketStatusRepository $ticketStatusRepository,
@@ -26,17 +24,17 @@ class InquiriesController extends Controller
     }
 
     /**
-     * List of Inquiries
+     * view tickets
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index() 
     {
         if (request()->ajax()) {
-            return app(InquiriesDataGrid::class)->toJson();
+            return app(TicketsDataGrid::class)->toJson();
         }
 
-        return view('enclaves::admin.inquiries.index');
+        return view('enclaves::admin.inquiries.tickets.index');
     }
 
     /**
@@ -50,7 +48,7 @@ class InquiriesController extends Controller
 
         $customer = $this->customerRepository->findOrFail($ticket->customer_id);
 
-        return view('enclaves::admin.inquiries.view', compact('ticket', 'customer'));
+        return view('enclaves::admin.inquiries.tickets.view', compact('ticket', 'customer'));
     }
 
     /**
@@ -77,7 +75,7 @@ class InquiriesController extends Controller
 
         $this->ticketsRepository->uploadMultipleImages($ticket);
 
-        session()->flash('success', trans('enclaves::app.admin.inquiries.form.create.create-success'));
+        session()->flash('success', trans('enclaves::app.admin.inquiries.tickets.form.create.create-success'));
 
         return redirect()->back();
     }
@@ -107,7 +105,7 @@ class InquiriesController extends Controller
             $this->ticketsRepository->uploadMultipleImages($ticket);
         }
 
-        session()->flash('success', trans('enclaves::app.admin.inquiries.form.edit.update-success'));
+        session()->flash('success', trans('enclaves::app.admin.inquiries.tickets.form.edit.update-success'));
 
         return redirect()->back();
     }
@@ -126,7 +124,7 @@ class InquiriesController extends Controller
 
             $this->ticketsRepository->delete($id);
 
-            session()->flash('success', trans('enclaves::app.admin.inquiries.form.edit.delete-success'));
+            session()->flash('success', trans('enclaves::app.admin.inquiries.tickets.form.edit.delete-success'));
 
             return redirect()->route('enclaves.admin.inquiries.index');
         } catch (\Exception $e) {
@@ -137,7 +135,7 @@ class InquiriesController extends Controller
     }
 
     /**
-     * mass Delere Inquiries
+     * mass Delete Inquiries
      */
     public function massDestroy(MassDestroyRequest $massDestroyRequest): JsonResponse
     {
@@ -159,7 +157,7 @@ class InquiriesController extends Controller
             }
 
             return new JsonResponse([
-                'message' => trans('enclaves::app.admin.inquiries.form.edit.delete-success'),
+                'message' => trans('enclaves::app.admin.inquiries.tickets.form.edit.delete-success'),
             ]);
         } catch (\Exception $e) {
             return new JsonResponse([

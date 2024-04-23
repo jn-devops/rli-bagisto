@@ -3,6 +3,7 @@
 namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 use Illuminate\Http\JsonResponse;
+use Webkul\Enclaves\Repositories\FaqRepository;
 use Webkul\Enclaves\Repositories\TicketsRepository;
 use Webkul\Enclaves\Repositories\TicketReasonsRepository;
 
@@ -16,6 +17,7 @@ class InquiriesController extends AbstractController
     public function __construct(
         protected TicketsRepository $ticketsRepository,
         protected TicketReasonsRepository $ticketReasonsRepository,
+        protected FaqRepository $faqRepository,
     ) {
     }
 
@@ -28,7 +30,9 @@ class InquiriesController extends AbstractController
     {
         $reasons = $this->ticketReasonsRepository->get();
 
-        return view('shop::customers.account.inquire.index', compact('reasons'));
+        $faqs = $this->faqRepository->findWhere(['status' => 1]);
+
+        return view('shop::customers.account.inquire.index', compact('reasons', 'faqs'));
     }
 
     /**

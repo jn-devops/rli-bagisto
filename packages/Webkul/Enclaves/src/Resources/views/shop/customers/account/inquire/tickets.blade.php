@@ -21,18 +21,12 @@
                         <h2 class="text-[29px] font-medium">
                             @lang('enclaves::app.shop.customers.account.inquiries.list.title')
 
-                            <span v-text="count_of_tickets"></span>
+                            (<span v-text="count_of_tickets"></span>)
                         </h2>
                     </div>
                 </div>
 
                 <div class="items-center justify-between p-3 pt-10">
-                    <span v-if="loading">
-                        @for ($i = 0; $i < 4; $i++)
-                            <div class="shimmer mt-10 h-[80px] w-full"></div>
-                        @endfor
-                    </span>
-                    
                     <span v-if="tickets" v-for="ticket in tickets">
                         <x-shop::accordion.custom-accordion 
                             :is-active=false 
@@ -40,10 +34,30 @@
                         >
                             <x-slot:header>
                                 <div class="flex w-full items-center justify-between">
-                                    <div v-text="ticket.reasons.name"></div>
+                                    <p>
+                                        <span class="font-bold">
+                                            @lang('enclaves::app.shop.customers.account.inquiries.concern')
+                                        </span>
+                                        <span v-text="ticket.reasons.name"></span>
+                                    </p>
                                     
                                     <div 
+                                        class="m-2 flex h-[30px] items-center rounded-full border bg-[#6CF0A9] p-4 text-[16px] text-[#2BBF1E]"
+                                        v-if="ticket.status.name === 'Resolved'"
+                                        v-text="ticket.status.name"
+                                    >
+                                    </div>
+
+                                    <div 
                                         class="m-2 flex h-[30px] items-center rounded-full border bg-[#fac04f42] p-4 text-[16px] text-[#C3890F]"
+                                        v-if="ticket.status.name === 'Pending'"
+                                        v-text="ticket.status.name"
+                                    >
+                                    </div>
+
+                                    <div 
+                                        class="m-2 flex h-[30px] items-center rounded-full border bg-[#fa4f4f42] p-4 text-[16px] text-[#c30f0f]"
+                                        v-if="ticket.status.name === 'Rejected'"
                                         v-text="ticket.status.name"
                                     >
                                     </div>
@@ -62,7 +76,14 @@
                                 </div>
                             </x-slot:content>
                         </x-shop::accordion.custom-accordion>
+                    </span>
 
+                    <span 
+                        class="flex flex-wrap gap-10" 
+                        v-if="isLoading">
+                        @for ($i = 0; $i < 4; $i++)
+                            <div class="shimmer h-[85px] w-full"></div>
+                        @endfor
                     </span>
 
                     <div class="flex justify-center">
@@ -107,6 +128,7 @@
                     },
 
                     getTickets() {
+                        this.isLoading = true;
                         this.loadingText = "Loading..";
                         
                         this.$axios.get("{{ route('enclaves.customers.account.inquiries.tickets') }}", {
