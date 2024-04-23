@@ -22,7 +22,6 @@
                 <div class="mb-14">
                     <h1 class="text-[25px] font-bold">
                         @lang('enclaves::app.shop.customers.account.inquiries.help_test')
-
                     </h1>
                 </div>
 
@@ -117,36 +116,27 @@
                 </div>
 
                 <div class="mb-10 mt-10">
-                    <h1 class="text-[25px] font-bold">@lang('enclaves::app.shop.customers.account.inquiries.frequently')</h1>
+                    <h1 class="text-[25px] font-bold">
+                        @lang('enclaves::app.shop.customers.account.inquiries.frequently')
+                    </h1>
                 </div>
+                
+                @foreach ($faqs as $faq)
+                    
+                    <x-shop::accordion.custom-accordion :is-active=false>
+                        <x-slot:header>
+                            <div>{{ $faq->question }}</div>
+                        </x-slot:header>
 
-                <x-shop::accordion.custom-accordion :is-active=false>
-                    <x-slot:header>
-                        <div>@lang('Is it safe to buy or rent property online?')</div>
-                    </x-slot:header>
-
-                    <x-slot:content>
-                        <x-shop::layouts.read-more-smooth 
-                                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."                                    
-                                limit="400"
-                            >
-                        </x-shop::layouts.read-more-smooth>
-                    </x-slot:content>
-                </x-shop::accordion.custom-accordion>
-
-                <x-shop::accordion.custom-accordion :is-active=false>
-                    <x-slot:header>
-                        <div>@lang('Is it safe to buy or rent property online?')</div>
-                    </x-slot:header>
-
-                    <x-slot:content>
-                        <x-shop::layouts.read-more-smooth 
-                                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."                                    
-                                limit="400"
-                            >
-                        </x-shop::layouts.read-more-smooth>
-                    </x-slot:content>
-                </x-shop::accordion.custom-accordion>
+                        <x-slot:content>
+                            <x-shop::layouts.read-more-smooth 
+                                    text="{{ $faq->answer }}"                                    
+                                    limit="400"
+                                >
+                            </x-shop::layouts.read-more-smooth>
+                        </x-slot:content>
+                    </x-shop::accordion.custom-accordion>
+                @endforeach
 
                 <!-- Customers Inquiries modal -->
                 <x-shop::form 
@@ -174,7 +164,9 @@
                                                 rules="required"
                                             >
                                             @foreach ($reasons as $reason)
-                                                <option value="{{ $reason->name }}">{{ $reason->name }}</option>
+                                                <option value="{{ $reason->name }}">
+                                                    {{ $reason->name }}
+                                                </option>
                                             @endforeach
                                             
                                             </x-admin::form.control-group.control>
@@ -188,7 +180,7 @@
                                                 name="comment"
                                                 class="h-[150px] px-[25px] py-[20px]"
                                                 rules="required"
-                                                placeholder="Write the details of your concern here...."
+                                                placeholder="@lang('enclaves::app.shop.customers.account.inquiries.placeholder')"
                                             />
 
                                             <x-shop::form.control-group.error
@@ -204,7 +196,7 @@
                                         <img
                                             v-if="imagePreviewURL"
                                             :src="imagePreviewURL"
-                                            alt="Image preview"
+                                            alt="Image-preview"
                                             style="max-width: 100%;width: 250px; object-fit: cover"
                                         />
 
@@ -244,7 +236,7 @@
                                         type="submit"
                                         class="primary-button flex rounded-[15px] border-[#F8EBEB] !bg-gradient-to-r from-[#e0165d] to-yellow-500 px-[30px] py-[11px] text-white max-sm:px-[25px] max-sm:text-[14px]"
                                     >
-                                        @lang('enclaves::app.shop.customers.account.inquiries.submit!')
+                                        @lang('enclaves::app.shop.customers.account.inquiries.submit')
                                     </button>
                                 </div>
                             </x-slot:footer>

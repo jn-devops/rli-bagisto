@@ -1,25 +1,24 @@
 @props(['options'])
 
 <v-carousel>
-    <div class="shimmer w-full aspect-[2.743/1]">
+    <div class="shimmer aspect-[2.743/1] w-full">
     </div>
 </v-carousel>
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-carousel-template">
-        <div class="grid grid-cols-2 bg-[url('../images/hero-bg.png')] bg-no-repeat [background-size:51%] overflow-hidden max-1180:px-[34px] max-1100:bg-none max-1100:grid-cols-1">
+        <div class="grid grid-cols-2 overflow-hidden bg-[url('../images/hero-bg.png')] bg-no-repeat [background-size:51%] max-1180:px-[34px] max-1100:grid-cols-1 max-1100:bg-none">
             
-            <div class="m-auto w-full max-w-[532px] mt-[70px] h-[550px] max-1180:max-w-[472px] max-1100:h-auto max-1100:mx-0 max-sm:mt-8">
+            <div class="m-auto mt-[70px] h-[550px] w-full max-w-[532px] max-1180:max-w-[472px] max-1100:mx-0 max-1100:h-auto max-sm:mt-8">
                 
 				<p class="text-2xl font-bold text-[#CC035C]">@lang('enclaves::app.shop.homepage.slider.title')</p>
 
-                <h1 class="hero-heading text-[60px] font-bold leading-[74px] mt-[18px] min-h-[148px] max-1180:text-[46px] max-sm:text-[40px] max-sm:leading-[55px] max-sm:min-h-[110px]"></h1>
+                <h1 class="hero-heading mt-[18px] min-h-[148px] text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-sm:min-h-[110px] max-sm:text-[40px] max-sm:leading-[55px]"></h1>
                 
 				<!-- Click event handle into vue code -->
 				<a
                     href="javascript:void(0)"
-                    class="hero-btn block max-w-max mt-[94px] text-white px-[60px] py-[38px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] rounded-[20px] max-sm:mt-[40px] max-sm:px-[40px]
-                    max-sm:py-[20px]"
+                    class="hero-btn mt-[94px] block max-w-max rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[38px] text-white max-sm:mt-[40px] max-sm:px-[40px] max-sm:py-[20px]"
 					v-text="activeButtonText"
                 >
                 </a>
@@ -39,13 +38,13 @@
 						:key="index"
 					>
 						<div 
-							class="shimmer w-[640px] h-[120px]" 
+							class="shimmer h-[120px] w-[640px]" 
 							v-show="isLoading"
 							>
 						</div>
 
 						<img
-							class="w-full aspect-[2.743/1]"
+							class="aspect-[2.743/1] w-full"
 							:class="image.className"
                             :src="image.image"
                             :srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"

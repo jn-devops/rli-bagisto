@@ -5,7 +5,7 @@ namespace Webkul\Enclaves\DataGrids;
 use Illuminate\Support\Facades\DB;
 use Webkul\DataGrid\DataGrid;
 
-class InquiriesDataGrid extends DataGrid
+class TicketsDataGrid extends DataGrid
 {
     /**
      * Primary column.
@@ -55,7 +55,7 @@ class InquiriesDataGrid extends DataGrid
     {
         $this->addColumn([
             'index'      => 'ticket_id',
-            'label'      => trans('enclaves::app.admin.inquiries.datagrid.header.id'),
+            'label'      => trans('enclaves::app.admin.inquiries.tickets.datagrid.header.id'),
             'type'       => 'integer',
             'searchable' => true,
             'sortable'   => true,
@@ -67,7 +67,7 @@ class InquiriesDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'full_name',
-            'label'      => trans('enclaves::app.admin.inquiries.datagrid.header.customer-name'),
+            'label'      => trans('enclaves::app.admin.inquiries.tickets.datagrid.header.customer-name'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -76,7 +76,7 @@ class InquiriesDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'reasons_name',
-            'label'      => trans('enclaves::app.admin.inquiries.datagrid.header.reason'),
+            'label'      => trans('enclaves::app.admin.inquiries.tickets.datagrid.header.reason'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -85,7 +85,7 @@ class InquiriesDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'comment',
-            'label'      => trans('enclaves::app.admin.inquiries.datagrid.header.comment'),
+            'label'      => trans('enclaves::app.admin.inquiries.tickets.datagrid.header.comment'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -99,7 +99,7 @@ class InquiriesDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'status',
-            'label'      => trans('enclaves::app.admin.inquiries.datagrid.header.status'),
+            'label'      => trans('enclaves::app.admin.inquiries.tickets.datagrid.header.status'),
             'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
@@ -115,8 +115,8 @@ class InquiriesDataGrid extends DataGrid
                         return '<span class="label-pending p-1">' . $row->status . '</span>';
 
                         break;
-                    case 'Canceled':
-                        return '<span class="label-danger p-1">' . $row->status . '</span>';
+                    case 'Rejected':
+                        return '<span class="label-info p-1">' . $row->status . '</span>';
                         break;
                 }
             },
@@ -124,7 +124,7 @@ class InquiriesDataGrid extends DataGrid
 
         $this->addColumn([
             'index'      => 'created_at',
-            'label'      => trans('enclaves::app.admin.inquiries.datagrid.header.created-at'),
+            'label'      => trans('enclaves::app.admin.inquiries.tickets.datagrid.header.created-at'),
             'type'       => 'date_range',
             'searchable' => true,
             'sortable'   => true,
@@ -144,7 +144,7 @@ class InquiriesDataGrid extends DataGrid
             'title'  => trans('ui::app.datagrid.view'),
             'method' => 'GET',
             'url'    => function ($row) {
-                return route('enclaves.admin.inquiries.view', $row->ticket_id);
+                return route('enclaves.admin.inquiries.ticket.view', $row->ticket_id);
             },
         ]);
 
@@ -153,7 +153,7 @@ class InquiriesDataGrid extends DataGrid
             'title'  => trans('ui::app.datagrid.view'),
             'method' => 'GET',
             'url'    => function ($row) {
-                return route('enclaves.admin.inquiries.destroy', $row->ticket_id);
+                return route('enclaves.admin.inquiries.ticket.destroy', $row->ticket_id);
             },
         ]);
     }
@@ -169,7 +169,7 @@ class InquiriesDataGrid extends DataGrid
             'icon'   => 'icon-delete',
             'title'  => trans('delete'),
             'method' => 'POST',
-            'url'    => route('enclaves.admin.inquiries.mass-destroy'),
+            'url'    => route('enclaves.admin.inquiries.ticket.mass-destroy'),
         ]);
     }
 }

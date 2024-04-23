@@ -28,7 +28,7 @@ class BlogResource extends JsonResource
     {
         return [
             'id'          => $this->id,
-            'name'        => substr($this->name, 0, 30). '..',
+            'name'        => substr($this->name, 0, 75). '..',
             'slug'        => $this->slug,
             'category'    => $this->category,
             'base_image'  => $this->src ? Storage::url($this->src) : null,

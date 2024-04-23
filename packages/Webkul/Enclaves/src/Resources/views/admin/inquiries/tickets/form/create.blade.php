@@ -10,37 +10,37 @@
                 class="primary-button"
                 @click="$refs.inquiriesCreateModal.toggle()"
             >
-                @lang('enclaves::app.admin.inquiries.form.create.create-btn')
+                @lang('enclaves::app.admin.inquiries.tickets.form.create.create-btn')
             </button>
 
             <x-admin::form
-                :action="route('enclaves.admin.inquiries.store')"
+                :action="route('enclaves.admin.inquiries.ticket.store')"
                 enctype="multipart/form-data"
                 method="post"
             >
                 <!-- Customer Create Modal -->
                 <x-admin::modal ref="inquiriesCreateModal">
                     <x-slot:header>
-                        <p class="text-[18px] text-gray-800 dark:text-white font-bold">
-                            @lang('enclaves::app.admin.inquiries.title')
+                        <p class="text-[18px] font-bold text-gray-800 dark:text-white">
+                            @lang('enclaves::app.admin.inquiries.tickets.title')
                         </p>
                     </x-slot:header>
 
                     <x-slot:content>
                         <!-- Modal Content -->
-                        <div class="px-[16px] py-[10px] border-b-[1px] dark:border-gray-800  ">
+                        <div class="border-b-[1px] px-[16px] py-[10px] dark:border-gray-800">
                             {!! view_render_event('bagisto.admin.inquiries.create.before') !!}
 
                             <x-admin::form.control-group>
                                 <x-admin::form.control-group.label class="required">
-                                    @lang('enclaves::app.admin.inquiries.form.create.customer')
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.create.customer')
                                 </x-admin::form.control-group.label>
 
                                 <x-admin::form.control-group.control
                                     type="select"
                                     name="customer_id"
                                     rules="required"
-                                    :label="trans('enclaves::app.admin.inquiries.form.create.customer')"
+                                    :label="trans('enclaves::app.admin.inquiries.tickets.form.create.customer')"
                                 >
                                     <option value="0" disabled>Select Customer</option>
 
@@ -57,14 +57,14 @@
 
                             <x-admin::form.control-group>
                                 <x-admin::form.control-group.label class="required">
-                                    @lang('enclaves::app.admin.inquiries.form.create.reason')
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.create.reason')
                                 </x-admin::form.control-group.label>
 
                                 <x-admin::form.control-group.control
                                     type="select"
                                     name="ticket_reason_id"
                                     rules="required"
-                                    :label="trans('enclaves::app.admin.inquiries.form.create.reason')"
+                                    :label="trans('enclaves::app.admin.inquiries.tickets.form.create.reason')"
                                 >
                                     <option value="0" disabled>Select Reason</option>
 
@@ -80,14 +80,14 @@
 
                             <x-admin::form.control-group>
                                 <x-admin::form.control-group.label class="required">
-                                    @lang('enclaves::app.admin.inquiries.form.create.status')
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.create.status')
                                 </x-admin::form.control-group.label>
 
                                 <x-admin::form.control-group.control
                                     type="select"
                                     name="ticket_status_id"
                                     rules="required"
-                                    :label="trans('enclaves::app.admin.inquiries.form.create.status')"
+                                    :label="trans('enclaves::app.admin.inquiries.tickets.form.create.status')"
                                 >
                                     <option value="0" disabled>Select Status</option>
 
@@ -103,14 +103,14 @@
 
                             <x-admin::form.control-group>
                                 <x-admin::form.control-group.label class="required">
-                                    @lang('enclaves::app.admin.inquiries.form.create.comment')
+                                    @lang('enclaves::app.admin.inquiries.tickets.form.create.comment')
                                 </x-admin::form.control-group.label>
 
                                 <x-admin::form.control-group.control
                                     type="textarea"
                                     name="comment"
                                     rules="required"
-                                    :label="trans('enclaves::app.admin.inquiries.form.create.comment')"
+                                    :label="trans('enclaves::app.admin.inquiries.tickets.form.create.comment')"
                                 >
                                 </x-admin::form.control-group.control>
 
@@ -124,12 +124,12 @@
                     </x-slot:content>
 
                     <x-slot:footer>
-                        <div class="flex gap-x-[10px] items-center">
+                        <div class="flex items-center gap-x-[10px]">
                             <button
                                 type="submit"
                                 class="primary-button"
                             >
-                                @lang('enclaves::app.admin.inquiries.form.create.save-btn')
+                                @lang('enclaves::app.admin.inquiries.tickets.form.create.save-btn')
                             </button>
                         </div>
                     </x-slot:footer>

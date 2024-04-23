@@ -295,6 +295,7 @@ return [
                     'btn-upload'    => 'Upload Files',
                     'submit'        => 'Submit',
                     'load-more'     => 'Load More',
+                    'concern'       => 'Nature of concern: ',
                     'list' => [
                         'title'          => 'Your Tickets',
                         'create-success' => 'Ticket successfully created',
@@ -302,6 +303,7 @@ return [
 
                     'success'      => 'Successfully submitted!',
                     'upload-files' => 'Upload Files',
+                    'placeholder'  => 'Write the details of your concern here....',
                 ],
 
                 'documents' => [
@@ -384,53 +386,115 @@ return [
 
         'menu' => [
             'inquiries' => 'Inquiries',
+            'tickets'   => 'Tickets',
+            'faq'       => 'Frequently Asked Questions',
         ],
 
         'inquiries' => [
             'title' => 'Inquiries',
 
-            'datagrid' => [
-                'header' => [
-                    'id'            => 'id',
-                    'customer-name' => 'Customer Name',
-                    'reason'        => 'Reason',
-                    'comment'       => 'Comments',
-                    'status'        => 'Status',
-                    'created-at'    => 'Created At',
+            'tickets' => [
+                'title' => 'Tickets',
+
+                'datagrid' => [
+                    'header' => [
+                        'id'            => 'id',
+                        'customer-name' => 'Customer Name',
+                        'reason'        => 'Reason',
+                        'comment'       => 'Comments',
+                        'status'        => 'Status',
+                        'created-at'    => 'Created At',
+                    ],
+                ],
+
+                'form' => [
+                    'create' => [
+                        'customer'       => 'Customer',
+                        'create-btn'     => 'Create',
+                        'reason'         => 'Reason',
+                        'status'         => 'Status',
+                        'comment'        => 'Comment',
+                        'save-btn'       => 'Save',
+                        'create-success' => 'Inquiry created successfully',
+                    ],
+
+                    'view' => [
+                        'comment'         => 'Comment:',
+                        'attachment'      => 'Attachment:',
+                        'comment-name'    => 'Comment Name:',
+                        'no-image'        => 'No image Available',
+                        'attachment-info' => 'Click on Image for Download',
+                        'delete-btn'      => 'Delete',
+                    ],
+
+                    'edit' => [
+                        'edit-btn'       => 'Edit',
+                        'customer'       => 'Customer',
+                        'reason'         => 'Reason',
+                        'status'         => 'Status',
+                        'comment'        => 'Comment',
+                        'update-btn'     => 'Update',
+                        'delete'         => 'Delete',
+                        'error'          => 'Some think is wrong',
+                        'delete-success' => 'Inquiry Deleted Successfully',
+                        'update-success' => 'Inquiry updated successfully',
+                    ],
                 ],
             ],
 
-            'form' => [
-                'create' => [
-                    'customer'       => 'Customer',
-                    'create-btn'     => 'Create',
-                    'reason'         => 'Reason',
-                    'status'         => 'Status',
-                    'comment'        => 'Comment',
-                    'save-btn'       => 'Save',
-                    'create-success' => 'Inquiry created successfully',
+            'faq' => [
+                'title' => 'Frequently Asked Questions',
+
+                'datagrid' => [
+                    'id'         => 'id',
+                    'full_name'  => 'Customer Name',
+                    'question'   => 'Question',
+                    'answer'     => 'Answer',
+                    'status'     => 'Status',
+                    'created_at' => 'Created At',
+                    'get'        => 'Edit',
                 ],
 
-                'view' => [
-                    'comment'         => 'Comment:',
-                    'attachment'      => 'Attachment:',
-                    'comment-name'    => 'Comment Name:',
-                    'no-image'        => 'No image Available',
-                    'attachment-info' => 'Click on Image for Download',
-                    'delete-btn'      => 'Delete',
-                ],
+                'form' => [
+                    'create' => [
+                        'customer'          => 'Customer',
+                        'question'          => 'Question',
+                        'answer'            => 'Answer',
+                        'selected-customer' => 'Selected Customer',
+                        'create-btn'        => 'Create',
+                        'status'            => 'Status',
+                        'save-btn'          => 'Save',
+                        'create-success'    => 'Successfully created',
+                        'delete-success'    => 'Successfully Deleted',
+                        'delete-failed'     => 'FAQ deleted Failed',
+                        'update-success'    => 'Successfully Updated',
+                        'update-failed'     => 'Updated Failed',
+                    ],
 
-                'edit' => [
-                    'edit-btn'       => 'Edit',
-                    'customer'       => 'Customer',
-                    'reason'         => 'Reason',
-                    'status'         => 'Status',
-                    'comment'        => 'Comment',
-                    'update-btn'     => 'Update',
-                    'delete'         => 'Delete',
-                    'error'          => 'Somethink is wrong',
-                    'delete-success' => 'Inquiry Deleted Successfully',
-                    'update-success' => 'Inquiry updated successfully',
+                    'view' => [
+                        'comment'         => 'Comment:',
+                        'attachment'      => 'Attachment:',
+                        'comment-name'    => 'Comment Name:',
+                        'no-image'        => 'No image Available',
+                        'attachment-info' => 'Click on Image for Download',
+                        'delete-btn'      => 'Delete',
+                    ],
+
+                    'edit' => [
+                        'edit-btn'          => 'Edit',
+                        'selected-customer' => 'Selected Customer',
+                        'customer'          => 'Customer',
+                        'reason'            => 'Reason',
+                        'status'            => 'Status',
+                        'comment'           => 'Comment',
+                        'question'          => 'Question',
+                        'answer'            => 'Answer',
+                        'update-btn'        => 'Update',
+                        'delete'            => 'Delete',
+                        'error'             => 'Some think is wrong',
+                        'delete-success'    => 'Inquiry Deleted Successfully',
+                        'update-success'    => 'Inquiry updated successfully',
+                    ],
                 ],
             ],
         ],

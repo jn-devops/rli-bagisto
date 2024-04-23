@@ -20,7 +20,7 @@ class TicketsStatusSeeder extends Seeder
                 'name' => 'Pending',
             ], [
                 'id'   => 3,
-                'name' => 'Canceled',
+                'name' => 'Rejected',
             ],
         ]);
     }
