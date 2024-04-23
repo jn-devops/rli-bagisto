@@ -14,13 +14,13 @@
             ></x-shop::media.images.lazy>
     
             <p 
-                class="font-popins text-[20px] font-bold" 
+                class="font-popins mt-[10px] text-[20px] font-bold" 
                 v-text="blog.name"
             ></p>
 
             <button
                 @click="redirectBlogPage(blog)"
-                class="rounded-[20px] border-[3px] border-[#CC035C] px-[25px] py-[10px] font-semibold text-[#CC035C]">
+                class="mt-[10px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[8px] font-semibold text-[#CC035C]">
                 @lang('blog::app.shop.blog.read-more')
             </button>
         </div>

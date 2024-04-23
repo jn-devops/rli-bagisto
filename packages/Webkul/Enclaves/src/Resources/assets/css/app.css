@@ -465,6 +465,13 @@
   }
 
   /* Icons style */
+  .icon-folder:before {
+    content: "\e91e";
+  }
+
+  .icon-dashboard:before {
+    content: "\e913";
+  }
 
   .icon-add-new:before {
     content: "\e900";

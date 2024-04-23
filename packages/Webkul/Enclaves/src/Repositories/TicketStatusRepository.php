@@ -3,7 +3,6 @@
 namespace Webkul\Enclaves\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Enclaves\Models\TicketStatus;
 
 class TicketStatusRepository extends Repository
 {
@@ -12,6 +11,6 @@ class TicketStatusRepository extends Repository
      */
     public function model(): string
     {
-        return TicketStatus::class;
+        return 'Webkul\Enclaves\Contracts\TicketStatus';
     }
 }

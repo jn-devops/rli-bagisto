@@ -11,6 +11,6 @@ class TicketFilesRepository extends Repository
      */
     public function model(): string
     {
-        return 'Webkul\Enclaves\Models\TicketFiles';
+        return 'Webkul\Enclaves\Contracts\TicketFiles';
     }
 }

@@ -294,7 +294,7 @@ return [
                     'reservation'   => 'Reservation',
                     'btn-upload'    => 'Upload Files',
                     'submit'        => 'Submit',
-
+                    'load-more'     => 'Load More',
                     'list' => [
                         'title'          => 'Your Tickets',
                         'create-success' => 'Ticket successfully created',

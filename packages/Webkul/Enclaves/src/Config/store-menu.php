@@ -23,13 +23,13 @@ return [
         'key'   => 'account.documents',
         'name'  => 'enclaves::app.shop.layouts.documents',
         'route' => 'enclaves.customers.account.documents.index',
-        'icon'  => 'icon-dashboard',
+        'icon'  => 'icon-hamburger',
         'sort'  => 2,
     ], [
         'key'   => 'account.inquiries',
         'name'  => 'enclaves::app.shop.layouts.inquiries',
         'route' => 'enclaves.customers.account.inquiries.index',
-        'icon'  => 'icon-dashboard',
+        'icon'  => 'icon-support',
         'sort'  => 2,
     ], [
         'key'   => 'account.transactions',
@@ -41,7 +41,7 @@ return [
         'key'   => 'account.home-seminar',
         'name'  => 'enclaves::app.shop.layouts.help-seminar',
         'route' => 'enclaves.customers.account.help-seminar.index',
-        'icon'  => 'icon-orders',
+        'icon'  => 'icon-folder',
         'sort'  => 2,
     ],
 ];

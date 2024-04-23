@@ -162,11 +162,11 @@
                                 </h2>
                             </x-slot:header>
 
-                            <x-slot:content>
+                            <x-slot:content class="bg-white">
                                 <div v-if="! isSubmited">
 
                                     <x-shop::form.control-group>
-                                        <div class="bg-white px-[30px] py-[20px]">
+                                        <div class="px-[30px] py-[20px]">
                                             <x-shop::form.control-group.control
                                                 type="select"
                                                 name="reason"
@@ -182,7 +182,7 @@
                                     </x-shop::form.control-group>
 
                                     <x-shop::form.control-group>
-                                        <div class="bg-white px-[30px]">
+                                        <div class="px-[30px]">
                                             <x-shop::form.control-group.control
                                                 type="textarea"
                                                 name="comment"
@@ -235,16 +235,16 @@
                                 <div v-else>
                                     @lang('enclaves::app.shop.customers.account.inquiries.success')
                                 </div>
-
                             </x-slot:content>
 
-                            <x-slot:footer v-if="isSubmited">
+                            <x-slot:footer>
                                 <div class="mb-5 flex">
                                     <button
+                                        v-if="! isSubmited"
                                         type="submit"
                                         class="primary-button flex rounded-[15px] border-[#F8EBEB] !bg-gradient-to-r from-[#e0165d] to-yellow-500 px-[30px] py-[11px] text-white max-sm:px-[25px] max-sm:text-[14px]"
                                     >
-                                        @lang('enclaves::app.shop.customers.account.inquiries.submit')
+                                        @lang('enclaves::app.shop.customers.account.inquiries.submit!')
                                     </button>
                                 </div>
                             </x-slot:footer>
