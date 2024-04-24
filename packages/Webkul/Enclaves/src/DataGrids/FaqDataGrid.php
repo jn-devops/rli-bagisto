@@ -115,7 +115,7 @@ class FaqDataGrid extends DataGrid
             'method' => 'GET',
             'icon'   => 'icon icon-edit',
             'url'    => function ($row) {
-                return route('enclaves.admin.inquiries.ticket.edit', $row->id);
+                return route('enclaves.admin.inquiries.faq.edit', $row->id);
             },
         ]);
 
@@ -124,7 +124,7 @@ class FaqDataGrid extends DataGrid
             'title'  => 'Delete',
             'method' => 'POST',
             'url'    => function ($row) {
-                return route('enclaves.admin.inquiries.ticket.destroy', $row->id);
+                return route('enclaves.admin.inquiries.faq.destroy', $row->id);
             },
         ]);
     }

@@ -34,7 +34,7 @@
                     <div class="flex-1">
                         <x-shop::layouts.read-more-smooth
                             text="{!! $category->description !!}"
-                            limit="700"
+                            limit=700
                         >
                         </x-shop::layouts.read-more-smooth>
                     </div>

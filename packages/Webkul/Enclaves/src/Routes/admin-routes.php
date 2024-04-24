@@ -36,10 +36,10 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
 
         Route::post('store', 'store')->name('enclaves.admin.inquiries.faq.store');
 
-        Route::get('edit/{id}', 'edit')->name('enclaves.admin.inquiries.ticket.edit');
+        Route::get('edit/{id}', 'edit')->name('enclaves.admin.inquiries.faq.edit');
 
-        Route::post('update', 'update')->name('enclaves.admin.inquiries.ticket.update');
+        Route::post('update', 'update')->name('enclaves.admin.inquiries.faq.update');
 
-        Route::post('delete/{id}', 'destroy')->name('enclaves.admin.inquiries.ticket.destroy');
+        Route::post('delete/{id}', 'destroy')->name('enclaves.admin.inquiries.faq.destroy');
     });
 });

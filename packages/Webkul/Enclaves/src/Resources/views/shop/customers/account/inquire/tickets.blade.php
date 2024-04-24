@@ -9,8 +9,6 @@
         <x-shop::breadcrumbs name="inquiries"></x-shop::breadcrumbs>
     @endSection
 
-   
-
     <v-tickets></v-tickets>
 
     @pushOnce('scripts')
@@ -65,7 +63,7 @@
                             </x-slot:header>
 
                             <x-slot:content>
-                                <span v-text="ticket.comment"></span>
+                                <span v-html="ticket.comment"></span>
 
                                 <div class="mt-8" v-if="ticket.files"  v-for="file in ticket.files">
                                     <img
@@ -153,5 +151,4 @@
             })
         </script>
     @endPushOnce
-    
 </x-shop::layouts.account>

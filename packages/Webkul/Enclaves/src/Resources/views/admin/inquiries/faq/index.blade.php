@@ -180,6 +180,12 @@
                                         />
 
                                         <x-admin::form.control-group.error control-name="status" />
+
+                                        <input  
+                                            type="hidden" 
+                                            name="status" 
+                                            :value="data.status.search('Active') > 0 ? 1 : 0" 
+                                        />
                                     </div>
                                 </x-admin::form.control-group>
                                 
@@ -222,7 +228,7 @@
             methods: {
                 // Open update modal and submit request
                 updateFaq(params, { resetForm, setErrors  }) {
-                    this.$axios.post("{{ route('enclaves.admin.inquiries.ticket.update') }}", params)
+                    this.$axios.post("{{ route('enclaves.admin.inquiries.faq.update') }}", params)
                         .then((response) => {
                             this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
