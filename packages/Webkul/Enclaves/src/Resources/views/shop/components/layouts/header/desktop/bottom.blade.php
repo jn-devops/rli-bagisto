@@ -4,16 +4,16 @@
         additional levels are required, users can customize them according to their needs.
     -->
     <!-- Left Nagivation Section -->
-    <div class="flex items-center gap-x-[40px] pt-[28px] max-[1180px]:gap-x-[20px]">
+    <div class="flex gap-x-[40px] pt-[28px] max-[1180px]:gap-x-[20px]">
         <a
             href="{{ route('shop.home.index') }}"
-            class="rli-logo rli-main-sprite -mt-[21px] inline-block max-h-[62px] max-w-[276px] place-self-start bg-[position:-5px_-3px] max-1366:-mt-[14px]"
             aria-label="Bagisto "
         >
             <img
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                 width="131"
                 height="29"
+                class="h-[30px]"
                 alt="Bagisto"
             >
         </a>
@@ -30,10 +30,11 @@
     <!-- Right Nagivation Section -->
     <div class="flex items-center gap-x-[35px] max-[1100px]:gap-x-[25px] max-lg:gap-x-[30px]">
         <!-- Search Bar Container -->
+        {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.before') !!}
         <form
             action="{{ route('shop.search.index') }}"
             class="flex max-w-[445px] items-center"
-        >
+            >
             <label
                 for="organic-search"
                 class="sr-only"
@@ -58,6 +59,7 @@
                 @endif
             </div>
         </form>
+        {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.after') !!}
 
         <!-- Right Navigation Links -->
         <div class="mt-[5px] flex gap-x-[35px] max-[1100px]:gap-x-[25px] max-lg:gap-x-[30px]">
