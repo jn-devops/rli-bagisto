@@ -4,20 +4,32 @@
     'class' => '',
 ])
 
-<v-read-more-smooth></v-read-more-smooth>
+<v-read-more-smooth text="{{ $text }}" limit="{{ $limit }}"></v-read-more-smooth>
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-read-more-smooth-template">
         <div>
-            <span class="{{ $class }}" ref="mainParagraph">{{ $text }}</span>&nbsp;
+            <span 
+                class="{{ $class }}" 
+                v-html="visualText"
+            ></span>
             
-            <span
-                @click="formattedBody"
-                v-if="fullText.length > limit"
-                class="{{ $class }} font-bold underline cursor-pointer" style="font-weight: 600"
-            >
-                <span v-if="showingFullText"> Read Less</span>
-                <span v-else> Read More</span>
+            <span v-if="isReadMoreLessEnabled">
+                <span 
+                    class="font-bold" 
+                    v-if="isReadMore"
+                    @click="readMore"
+                >
+                    @lang('enclaves::app.shop.components.layouts.read-more')
+                </span>
+
+                <span 
+                    class="font-bold" 
+                    @click="readLess"
+                    v-else
+                >
+                    @lang('enclaves::app.shop.components.layouts.read-less')
+                </span>
             </span>
         </div>
     </script>
@@ -25,42 +37,53 @@
     <script type="module">
         app.component('v-read-more-smooth', {
             template: '#v-read-more-smooth-template',
+            props: {
+                text: {
+                    type: String, 
+                    required: false,
+                },
+
+                limit: {
+                    type: Number, 
+                    required: false,
+                },
+            },
 
             data() {
                 return  {
-                    fullText: '',
-                    limit: '{{ $limit }}',
-                    showingFullText: false,
+                    isReadMoreLessEnabled: false,
+                    isReadMore: false,
                     refreshComponent: 1,
-                    regex: /(<([^>]+)>)/ig,
+                    visualText: '',
                 }
             },
 
             mounted() {
-                this.fullText = this.$refs.mainParagraph.innerText.replace(this.regex, "");
+                if(this.text.length > parseInt(this.limit)) {
+                    this.isReadMore = true;
+                    this.isReadMoreLessEnabled = true;
 
-                if(this.fullText.length > this.limit) {
-                    this.showingFullText = this.fullText.length < this.limit;
-
-                    this.$refs.mainParagraph.innerText = this.manupulateText();
+                    this.visualText = this.manupulateText();
+                } else {
+                    this.visualText = this.text;
                 }
             },
 
             methods: {
-                formattedBody() {
-                    this.showingFullText = !this.showingFullText;
-
-                    this.$refs.mainParagraph.innerText = this.fullText;
-
-                    if (! this.showingFullText) {
-                        this.$refs.mainParagraph.innerText = this.manupulateText();
-                    }
-
-                    ++this.refreshComponent;
+                manupulateText() {
+                    return `${this.text.slice(0, this.limit).trim()}...`;
                 },
 
-                manupulateText() {
-                    return `${this.fullText.slice(0, this.limit).trim()}...`;
+                readMore() {
+                    this.visualText = this.text;
+
+                    this.isReadMore = false;
+                },
+
+                readLess() {
+                    this.visualText = this.manupulateText();
+
+                    this.isReadMore = true;
                 },
             },
         });

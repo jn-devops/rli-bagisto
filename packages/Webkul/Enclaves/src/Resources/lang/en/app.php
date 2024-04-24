@@ -360,6 +360,8 @@ return [
 
         'components' => [
             'layouts' => [
+                'read-more' => 'Read More',
+                'read-less' => 'Read Less',
                 'header' => [
                     'login'           => 'Log in',
                     'manage-property' => 'Manage your property.',

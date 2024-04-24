@@ -130,9 +130,9 @@
 
                         <x-slot:content>
                             <x-shop::layouts.read-more-smooth 
-                                    text="{{ $faq->answer }}"                                    
-                                    limit="400"
-                                >
+                                text="{!! $faq->answer !!}"                                    
+                                limit="400"
+                            >
                             </x-shop::layouts.read-more-smooth>
                         </x-slot:content>
                     </x-shop::accordion.custom-accordion>

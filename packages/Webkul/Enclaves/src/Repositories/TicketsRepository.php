@@ -61,8 +61,8 @@ class TicketsRepository extends Repository
         $manager = new ImageManager();
 
         $dir = 'tickets/' . $ticket->id;
-
-        foreach (request()->file('file') as $key => $file) {
+        
+        foreach (request()->file('file') ?? [] as $key => $file) {
             $image = $manager->make($file)->encode('webp');
 
             $name = Str::random(5) . '_' . $key . '.webp';

@@ -75,7 +75,7 @@ class FaqController extends Controller
                 'status',
             ]);
             
-            if(isset($data['status'])) {
+            if(request()->has('status')) {
                 $data['status'] = 1;
             } else {
                 $data['status'] = 0;
