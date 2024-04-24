@@ -303,7 +303,6 @@ return [
 
                     'success'      => 'Successfully submitted!',
                     'upload-files' => 'Upload Files',
-                    'placeholder'  => 'Write the details of your concern here....',
                 ],
 
                 'documents' => [

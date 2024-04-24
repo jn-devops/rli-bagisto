@@ -1,20 +1,20 @@
 {!!view_render_event('bagisto.shop.categories.view.filters.before') !!}
 
-<!-- Desktop Filters Naviation -->
+<!-- Desktop Filters Navigation -->
 <div v-if="! isMobile">
-    <!-- Filters Vue Compoment -->
+    <!-- Filters Vue Component -->
     <v-filters
         @filter-applied="setFilters('filter', $event)"
         @filter-clear="clearFilters('filter', $event)"
     >
-        {{-- Category Filter Shimmer Effect --}}
+        <!-- Category Filter Shimmer Effect -->
         <x-shop::shimmer.categories.filters/>
     </v-filters>
 </div>
 
-<!-- Mobile Filters Naviation -->
+<!-- Mobile Filters Navigation -->
 <div
-    class="grid grid-cols-[1fr_auto_1fr] justify-items-center items-center w-full max-w-full fixed bottom-0 left-0 px-[20px] bg-white border-t-[1px] border-[#E9E9E9] z-50"
+    class="fixed bottom-0 left-0 z-50 grid w-full max-w-full grid-cols-[1fr_auto_1fr] items-center justify-items-center border-t-[1px] border-[#E9E9E9] bg-white px-[20px]"
     v-if="isMobile"
     >
     <!-- Filter Drawer -->
@@ -26,7 +26,7 @@
         <!-- Drawer Toggler -->
         <x-slot:toggle>
             <div
-                class="flex items-center gap-x-[10px] px-[10px] py-[14px] text-[16px] font-medium uppercase cursor-pointer"
+                class="flex cursor-pointer items-center gap-x-[10px] px-[10px] py-[14px] text-[16px] font-medium uppercase"
                 @click="isDrawerActive.filter = true"
             >
                 <span class="icon-filter-1 text-[24px]"></span>
@@ -37,13 +37,13 @@
 
         <!-- Drawer Header -->
         <x-slot:header>
-            <div class="flex justify-between items-center pb-[20px] border-b-[1px] border-[#E9E9E9]">
+            <div class="flex items-center justify-between border-b-[1px] border-[#E9E9E9] pb-[20px]">
                 <p class="text-[18px] font-semibold">
                     @lang('shop::app.categories.filters.filters')
                 </p>
 
                 <p
-                    class="mr-[50px] text-[12px] font-medium cursor-pointer"
+                    class="mr-[50px] cursor-pointer text-[12px] font-medium"
                     @click="clearFilters('filter', '')"
                 >
                     @lang('shop::app.categories.filters.clear-all')
@@ -53,18 +53,18 @@
 
         <!-- Drawer Content -->
         <x-slot:content>
-            <!-- Filters Vue Compoment -->
+            <!-- Filters Vue Component -->
             <v-filters
                 @filter-applied="setFilters('filter', $event)"
                 @filter-clear="clearFilters('filter', $event)"
             >
-                {{-- Category Filter Shimmer Effect --}}
+                <!-- Category Filter Shimmer Effect -->
                 <x-shop::shimmer.categories.filters/>
             </v-filters>
         </x-slot:content>
     </x-shop::drawer>
 
-    <!-- Seperator -->
+    <!-- Separator -->
     <span class="h-[20px] w-[2px] bg-[#E9E9E9]"></span>
 
     <!-- Sort Drawer -->
@@ -72,11 +72,11 @@
         position="bottom"
         width="100%"
         ::is-active="isDrawerActive.toolbar"
-    >
+        >
         <!-- Drawer Toggler -->
         <x-slot:toggle>
             <div
-                class="flex items-center gap-x-[10px] px-[10px] py-[14px] text-[16px] font-medium uppercase cursor-pointer"
+                class="flex cursor-pointer items-center gap-x-[10px] px-[10px] py-[14px] text-[16px] font-medium uppercase"
                 @click="isDrawerActive.toolbar = true"
             >
                 <span class="icon-sort-1 text-[24px]"></span>
@@ -87,7 +87,7 @@
 
         <!-- Drawer Header -->
         <x-slot:header>
-            <div class="flex justify-between items-center pb-[20px] border-b-[1px] border-[#E9E9E9]">
+            <div class="flex items-center justify-between border-b-[1px] border-[#E9E9E9] pb-[20px]">
                 <p class="text-[18px] font-semibold">
                     @lang('shop::app.categories.filters.sort')
                 </p>
@@ -104,7 +104,7 @@
 {!!view_render_event('bagisto.shop.categories.view.filters.after') !!}
 
 @pushOnce('scripts')
-    {{-- Filters Vue template --}}
+    <!-- Filters Vue template -->
     <script type="text/x-template" id="v-filters-template">
         <!-- Filter Shimmer Effect -->
         <template v-if="isLoading">
@@ -113,14 +113,14 @@
 
         <!-- Filters Container -->
         <template v-else>
-            <div class="grid grid-cols-[1fr] panel-side max-w-[400px] gap-[20px] max-h-[1320px] overflow-y-auto overflow-x-hidden journal-scroll pr-[26px] min-w-[342px] max-xl:min-w-[270px] max-md:hidden">
+            <div class="panel-side journal-scroll grid max-h-[1320px] min-w-[342px] max-w-[400px] grid-cols-[1fr] gap-[20px] overflow-y-auto overflow-x-hidden pr-[26px] max-xl:min-w-[270px] max-md:hidden">
                 <!-- Filters Header Container -->
-                <div class="flex justify-between items-center h-[50px] pb-[10px] border-b-[1px] border-[#E9E9E9] max-md:hidden">
+                <div class="flex h-[50px] items-center justify-between border-b-[1px] border-[#E9E9E9] pb-[10px] max-md:hidden">
                     <p class="text-[18px] font-semibold">
                         @lang('shop::app.categories.filters.filters')
                     </p>
 
-                    <p class="text-[12px] font-medium cursor-pointer" @click='clear()'>
+                    <p class="cursor-pointer text-[12px] font-medium" @click='clear()'>
                         @lang('shop::app.categories.filters.clear-all')
                     </p>
                 </div>
@@ -138,13 +138,13 @@
         </template>
     </script>
 
-    {{-- Filter Item Vue template --}}
+    <!-- Filter Item Vue template -->
     <script type="text/x-template" id="v-filter-item-template">
         <template v-if="filter.type === 'price' || filter.options.length">
             <x-shop::accordion>
                 <!-- Filter Item Header -->
                 <x-slot:header>
-                    <div class="flex justify-between items-center">
+                    <div class="flex items-center justify-between">
                         <p
                             class="text-[18px] font-semibold"
                             v-text="filter.name"
@@ -173,25 +173,25 @@
                             :key="option.id"
                             v-for="(option, optionIndex) in filter.options"
                         >
-                            <div class="items-center flex gap-x-[15px] pl-2 rounded hover:bg-gray-100 select-none">
+                            <div class="flex select-none items-center gap-x-[15px] rounded pl-2 hover:bg-gray-100">
                                 <input
                                     type="checkbox"
                                     :id="'option_' + option.id"
-                                    class="hidden peer"
+                                    class="peer hidden"
                                     :value="option.id"
                                     v-model="appliedValues"
                                     @change="applyValue"
                                 />
 
                                 <label
-                                    class="icon-uncheck text-[24px] text-navyBlue peer-checked:icon-check-box peer-checked:text-navyBlue cursor-pointer"
+                                    class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-[24px] text-navyBlue peer-checked:text-navyBlue"
                                     :for="'option_' + option.id"
                                 >
                                 </label>
 
                                 <label
                                     :for="'option_' + option.id"
-                                    class="w-full p-2 pl-0 text-[16px] text-gray-900 cursor-pointer"
+                                    class="w-full cursor-pointer p-2 pl-0 text-[16px] text-gray-900"
                                     v-text="option.name"
                                 >
                                 </label>

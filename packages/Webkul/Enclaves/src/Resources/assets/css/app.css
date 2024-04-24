@@ -350,6 +350,7 @@
 
     .et-slider img.active {
       animation: unset;
+      border-radius: 0px !important;
       width: 100%;
     }
 

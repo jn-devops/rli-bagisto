@@ -180,7 +180,7 @@
                                                 name="comment"
                                                 class="h-[150px] px-[25px] py-[20px]"
                                                 rules="required"
-                                                placeholder="@lang('enclaves::app.shop.customers.account.inquiries.placeholder')"
+                                                placeholder="Write the details of your concern here...."
                                             />
 
                                             <x-shop::form.control-group.error

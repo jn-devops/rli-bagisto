@@ -7,27 +7,31 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-carousel-template">
-        <div class="grid grid-cols-2 overflow-hidden bg-[url('../images/hero-bg.png')] bg-no-repeat [background-size:51%] max-1180:px-[34px] max-1100:grid-cols-1 max-1100:bg-none">
-            
-            <div class="m-auto mt-[70px] h-[550px] w-full max-w-[532px] max-1180:max-w-[472px] max-1100:mx-0 max-1100:h-auto max-sm:mt-8">
-                
-				<p class="text-2xl font-bold text-[#CC035C]">@lang('enclaves::app.shop.homepage.slider.title')</p>
 
-                <h1 class="hero-heading mt-[18px] min-h-[148px] text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-sm:min-h-[110px] max-sm:text-[40px] max-sm:leading-[55px]"></h1>
-                
-				<!-- Click event handle into vue code -->
-				<a
-                    href="javascript:void(0)"
-                    class="hero-btn mt-[94px] block max-w-max rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[38px] text-white max-sm:mt-[40px] max-sm:px-[40px] max-sm:py-[20px]"
-					v-text="activeButtonText"
-                >
-                </a>
+		<!-- Hero section -->
+		<div class="grid grid-cols-2 flex-col-reverse overflow-hidden max-1100:flex sm:px-[34px]">
+			<div class="sm:bg-full min-w-full bg-[url('../images/hero-bg.png')] bg-contain bg-right-top bg-no-repeat py-[70px] max-sm:py-5">
+				<div class="m-auto h-[700px] w-full max-w-[532px] px-5 max-1180:max-w-[472px] max-1100:mx-0 max-1100:h-auto sm:px-0">
+					<p class="text-xs font-bold text-[#CC035C] sm:text-2xl">
+						@lang('enclaves::app.shop.homepage.slider.title')
+					</p>
 
-                <div class="dot-container hidden"></div>
-            </div>
+					<h1 class="hero-heading mt-2 pr-6 text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-sm:text-[35px] max-sm:leading-[42px] sm:mt-[18px]">
+					</h1>
+					<div class="" v-text="activeButtonText"></div>
+					<a 
+						href="javascript:void(0)" 
+						class="hero-btn mt-[94px] flex max-w-max items-center gap-[18px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[30px] text-sm font-medium text-white max-sm:mt-5 max-sm:px-[26px] max-sm:py-[18px] sm:text-[25px]"
+					>
+						<span v-text="activeButtonText"></span>
+						<span class="icon-arrow-right-stylish inline-block cursor-pointer text-[18px] font-medium sm:text-[40px]"></span>
+					</a>
 
-            <div class="et-slider-section mt-[72px]">
-                <div class="et-slider">
+					<div class="dot-container hidden"></div>
+				</div>
+			</div>
+			<div class="et-slider-section sm:mt-[72px]">
+				<div class="et-slider">
 					<a
 						v-for="(image, index) in images"
 						class="fade"
@@ -36,7 +40,7 @@
 						aria-label="Image Slide"
 						:href="image.link || '#'"
 						:key="index"
-					>
+						>
 						<div 
 							class="shimmer h-[120px] w-[640px]" 
 							v-show="isLoading"
@@ -46,16 +50,16 @@
 						<img
 							class="aspect-[2.743/1] w-full"
 							:class="image.className"
-                            :src="image.image"
-                            :srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
-                            :alt="image.className"
+							:src="image.image"
+							:srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
+							:alt="image.className"
 							@load="onLoad"
 							v-show="! isLoading"
 						/>
-                    </a>
-                </div>
-            </div>
-        </div>
+					</a>
+				</div>
+			</div>
+		</div>
     </script>
 
     <script type="module">

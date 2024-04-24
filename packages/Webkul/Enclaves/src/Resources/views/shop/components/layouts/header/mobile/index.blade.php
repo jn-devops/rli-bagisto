@@ -1,7 +1,7 @@
-{{--
+<!--
     This code needs to be refactored to reduce the amount of PHP in the Blade
     template as much as possible.
---}}
+-->
 @php
     $showCompare = (bool) core()->getConfigData('general.content.shop.compare_option');
 
@@ -10,22 +10,23 @@
 
 <div class="hidden flex-wrap gap-[15px] px-[15px] pt-[25px] max-lg:mb-[15px] max-lg:flex">
     <div class="flex w-full items-center justify-between">
-        {{-- Left Navigation --}}
+        <!-- Left Navigation -->
         <div class="flex items-center gap-x-[5px]">
             <x-shop::drawer
                 position="left"
                 width="80%"
-            >
+                >
                 <x-slot:toggle>
-                    <span class="icon-hamburger cursor-pointer text-[24px]"></span>
+                    <span class="icon-hamburger cursor-pointer text-[35px]"></span>
                 </x-slot:toggle>
 
                 <x-slot:header>
                     <div class="flex items-center justify-between">
                         <a href="{{ route('shop.home.index') }}">
                             <img
-                                src="{{ bagisto_asset('images/logo.svg') }}"
+                                src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                                 alt="Bagisto"
+                                class="h-[30px]"
                                 width="131"
                                 height="29"
                             >
@@ -34,14 +35,12 @@
                 </x-slot:header>
 
                 <x-slot:content>
-                    {{-- Account Profile Hero Section --}}
+                    <!-- Account Profile Hero Section -->
                     <div class="mb-[15px] grid grid-cols-[auto_1fr] items-center gap-[15px] rounded-[12px] border border-[#E9E9E9] p-[10px]">
-                        <div class="">
-                            <img
-                                src="{{ auth()->user()?->image_url ??  bagisto_asset('images/user-placeholder.png') }}"
-                                class="h-[60px] w-[60px] rounded-full"
-                            >
-                        </div>
+                        <img
+                            src="{{ auth()->user()?->image_url ??  bagisto_asset('images/user-placeholder.png') }}"
+                            class="h-[60px] w-[60px] rounded-full"
+                        >
 
                         @guest('customer')
                             <a
@@ -63,7 +62,7 @@
                         @endauth
                     </div>
 
-                    {{-- Mobile category view --}}
+                    <!-- Mobile category view -->
                     <v-mobile-category></v-mobile-category>
 
                 </x-slot:content>
@@ -73,19 +72,19 @@
 
             <a
                 href="{{ route('shop.home.index') }}"
-                class="max-h-[30px]"
                 aria-label="Bagisto"
-            >
+                >
                 <img
-                    src="{{ bagisto_asset('images/logo.svg') }}"
+                    src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                     alt="Bagisto"
+                    class="h-[30px]"
                     width="131"
                     height="29"
                 >
             </a>
         </div>
 
-        {{-- Right Navigation --}}
+        <!-- Right Navigation -->
         <div>
             <div class="flex items-center gap-x-[20px]">
                 @if ($showCompare)
@@ -104,7 +103,7 @@
                         <span class="icon-users cursor-pointer text-[24px]"></span>
                     </x-slot:toggle>
 
-                    {{-- Guest Dropdown --}}
+                    <!-- Guest Dropdown -->
                     @guest('customer')
                         <x-slot:content>
                             <div class="grid gap-[10px]">
@@ -130,7 +129,7 @@
                         </x-slot:content>
                     @endguest
 
-                    {{-- Customers Dropdown --}}
+                    <!-- Customers Dropdown -->
                     @auth('customer')
                         <x-slot:content class="!p-[0px]">
                             <div class="grid gap-[10px] p-[20px] pb-0">
@@ -170,7 +169,7 @@
                                     </a>
                                 @endif
 
-                                {{--Customers logout--}}
+                                <!--Customers logout-->
                                 @auth('customer')
                                     <x-shop::form
                                         method="DELETE"
@@ -195,8 +194,8 @@
         </div>
     </div>
 
-    {{-- Serach Catalog Form --}}
-    <form action="{{ route('shop.search.index') }}" class="flex w-full items-center">
+    <!-- Serach Catalog Form -->
+    <form action="{{ route('shop.search.index') }}" class="flex w-full items-center max-lg:hidden">
         <label for="organic-search" class="sr-only">Search</label>
 
         <div class="relative w-full">

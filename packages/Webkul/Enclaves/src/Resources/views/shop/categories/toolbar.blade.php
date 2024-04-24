@@ -15,7 +15,7 @@
                 <x-shop::dropdown position="bottom-left">
                     <x-slot:toggle>
                         <!-- Dropdown Toggler -->
-                        <button class="flex justify-between items-center gap-[15px] max-w-[200px] w-full p-[14px] rounded-lg bg-white border border-[#E9E9E9] text-[16px] transition-all hover:border-gray-400 focus:border-gray-400 max-md:pr-[10px] max-md:pl-[10px] max-md:border-0 max-md:w-[110px] cursor-pointer">
+                        <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-[15px] rounded-lg border border-[#E9E9E9] bg-white p-[14px] text-[16px] transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-[10px] max-md:pr-[10px]">
                             @{{ sortLabel ?? "@lang('shop::app.products.sort-by.title')" }}
 
                             <span class="icon-arrow-down text-[24px]"></span>
@@ -35,15 +35,15 @@
                 </x-shop::dropdown>
 
                 <!-- Product Pagination Limit -->
-                <div class="flex gap-[40px] items-center">
+                <div class="flex items-center gap-[40px]">
                     <!-- Product Pagination Limit -->
                     <x-shop::dropdown position="bottom-right">
                         <x-slot:toggle>
                             <!-- Dropdown Toggler -->
-                            <button class="flex gap-[15px] justify-between items-center max-w-[200px] bg-white border border-[#E9E9E9] text-[16px] rounded-lg w-full p-[14px] max-md:pr-[10px] transition-all hover:border-gray-400 focus:border-gray-400 max-md:pl-[10px] max-md:border-0 max-md:w-[110px] cursor-pointer">
+                            <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-[15px] rounded-lg border border-[#E9E9E9] bg-white p-[14px] text-[16px] transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-[10px] max-md:pr-[10px]">
                                 @{{ filters.applied.limit ?? "@lang('shop::app.categories.toolbar.show')" }}
 
-                                <span class="text-[24px] icon-arrow-down"></span>
+                                <span class="icon-arrow-down text-[24px]"></span>
                             </button>
                         </x-slot:toggle>
                     
@@ -60,16 +60,16 @@
                     </x-shop::dropdown>
 
                     <!-- Listing Mode Switcher -->
-                    <div class="flex gap-[20px] items-center">
+                    <div class="flex items-center gap-[20px]">
                         <span
-                            class="text-[24px] cursor-pointer"
+                            class="cursor-pointer text-[24px]"
                             :class="(filters.applied.mode === 'list') ? 'icon-listing-fill' : 'icon-listing'"
                             @click="changeMode('list')"
                         >
                         </span>
 
                         <span
-                            class="text-[24px] cursor-pointer"
+                            class="cursor-pointer text-[24px]"
                             :class="(filters.applied.mode === 'grid') ? 'icon-grid-view-fill' : 'icon-grid-view'"
                             @click="changeMode()"
                         >
