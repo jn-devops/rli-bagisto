@@ -18,6 +18,8 @@
     "@vee-validate/rules": "^4.9.1",
     "mitt": "^3.0.0",
     "vee-validate": "^4.9.1",
+    "vue-accessible-color-picker": "^5.0.1",
+    "vue-color": "^2.8.1",
     "vue-flatpickr": "^2.3.0",
     "vue-iframes": "^0.0.20"
   }

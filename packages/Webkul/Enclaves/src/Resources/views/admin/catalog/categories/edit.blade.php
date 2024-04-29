@@ -1,12 +1,29 @@
 <!-- Add code into category edit page -->
 <x-admin::accordion>
     <x-slot:header>
-        <p class="required p-[10px] text-[16px] font-semibold text-gray-600 dark:text-gray-300">
+        <p class="p-2.5 text-base font-semibold text-gray-800 dark:text-white">
             @lang('enclaves::app.admin.catalog.category.index.button-setting')
         </p>
     </x-slot:header>
     
     <x-slot:content>
+        <div class="flex w-full flex-col gap-2 mb-4">
+            <p class="required font-medium text-gray-800 dark:text-white">
+                @lang('enclaves::app.admin.catalog.category.index.button.banner')
+            </p>
+
+            <p class="text-xs text-gray-500">
+                @lang('enclaves::app.admin.catalog.category.index.button.banner-info')
+            </p>
+
+            <x-admin::media.images 
+                name="community_banner_path" 
+                width="220px"
+                :uploaded-images="$category->community_banner_path ? [['id' => 'community_banner_path', 'url' => Storage::url($category->community_banner_path)]] : []"
+                
+            />
+        </div>
+
         <x-admin::form.control-group class="mb-[10px]">
             <x-admin::form.control-group.label class="required">
                 @lang('enclaves::app.admin.catalog.category.index.button.text')
@@ -33,7 +50,7 @@
                 @lang('enclaves::app.admin.catalog.category.index.button.color')
             </x-admin::form.control-group.label>
 
-            <p class="text-[12px] text-gray-500">
+            <p class="text-xs text-gray-500">
                 @lang('enclaves::app.admin.catalog.category.index.button.field-info')
             </p>
 
@@ -58,7 +75,7 @@
                 @lang('enclaves::app.admin.catalog.category.index.button.border-color')
             </x-admin::form.control-group.label>
 
-            <p class="text-[12px] text-gray-500">
+            <p class="text-xs text-gray-500">
                 @lang('enclaves::app.admin.catalog.category.index.button.field-info')
             </p>
 
@@ -83,7 +100,7 @@
                 @lang('enclaves::app.admin.catalog.category.index.button.background-color')
             </x-admin::form.control-group.label>
 
-            <p class="text-[12px] text-gray-500">
+            <p class="text-xs text-gray-500">
                 @lang('enclaves::app.admin.catalog.category.index.button.field-info')
             </p>
 

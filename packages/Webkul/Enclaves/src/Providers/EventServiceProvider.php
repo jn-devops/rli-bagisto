@@ -49,7 +49,7 @@ class EventServiceProvider extends ServiceProvider
             $viewRenderEventManager->addTemplate('enclaves::admin.customers.form.create.index');
         });
 
-        Event::listen('bagisto.admin.customers.customers.edit.after', function ($viewRenderEventManager) {
+        Event::listen('bagisto.admin.customers.customers.view.edit.after', function ($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('enclaves::admin.customers.form.edit.index');
         });
 

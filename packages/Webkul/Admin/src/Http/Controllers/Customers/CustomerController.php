@@ -5,7 +5,6 @@ namespace Webkul\Admin\Http\Controllers\Customers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Mail;
 use Webkul\Admin\DataGrids\Customers\CustomerDataGrid;
 use Webkul\Admin\DataGrids\Customers\View\InvoicesDatagrid;
 use Webkul\Admin\DataGrids\Customers\View\OrdersDataGrid;
@@ -13,7 +12,6 @@ use Webkul\Admin\DataGrids\Customers\View\ReviewDatagrid;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
 use Webkul\Admin\Http\Requests\MassUpdateRequest;
-use Webkul\Admin\Mail\Customer\NewCustomerNotification;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Customer\Repositories\CustomerNoteRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
@@ -105,13 +103,9 @@ class CustomerController extends Controller
 
         $customer = $this->customerRepository->create($data);
 
-        if (core()->getConfigData('emails.general.notifications.emails.general.notifications.customer')) {
-            try {
-                Mail::queue(new NewCustomerNotification($customer, $password));
-            } catch (\Exception $e) {
-                report($e);
-            }
-        }
+        // Customization code
+        Event::dispatch('customer.registration.after', $customer);
+        // Customization code
 
         return new JsonResponse([
             'data'    => $customer,
@@ -173,7 +167,7 @@ class CustomerController extends Controller
      */
     public function destroy(int $id)
     {
-        $customer = $this->customerRepository->findorFail($id);
+        $customer = $this->customerRepository->findOrFail($id);
 
         if (! $customer) {
             return response()->json(['message' => trans('admin::app.customers.customers.delete-failed')], 400);
