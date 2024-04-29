@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('question')->nullable();
             $table->text('answer')->nullable();
-            $table->text('status')->nullable()->default(0);
+            $table->text('status')->default(0);
             $table->timestamps();
         });
     }

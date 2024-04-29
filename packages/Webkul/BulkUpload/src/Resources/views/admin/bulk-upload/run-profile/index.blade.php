@@ -94,30 +94,26 @@
                             <div class="control-group product-uploading-message">
                                 <p v-if="running" class="dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.upload-product-time'): @{{ formattedTime }}</p> 
                             </div>
-                            <div class="page-action" v-if="this.product_file_id != '' && this.product_file_id != 'Please Select'">
-                                <div class="flex items-center gap-[10px]">
-                                    <span type="submit" @click="runProfiler" :class="{ disabled: isDisabled }" :disabled="isDisabled" class="primary-button">
-                                        @lang('bulkUpload::app.admin.bulk-upload.run-profile.run')
-                                    </span>
-                                    
-                                    <span type="submit" @click="deleteFile" class="primary-button">
-                                        @lang('bulkUpload::app.admin.bulk-upload.upload-file.delete')
-                                    </span>
-                                </div>
+                            
+                            <div class="flex gap-2.5"  v-if="this.product_file_id != '' && this.product_file_id != 'Please Select'">
+                                <span type="submit" @click="runProfiler" :class="{ disabled: isDisabled }" :disabled="isDisabled" class="primary-button">
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.run')
+                                </span>
+                                
+                                <span type="submit" @click="deleteFile" class="primary-button">
+                                    @lang('bulkUpload::app.admin.bulk-upload.upload-file.delete')
+                                </span>
                             </div>
                         </x-admin::form>
                     </div>
-                </div>
 
-                {{-- Right Section --}}
-                <div v-if="errorCsvFile.length" class="flex w-[360px] max-w-full flex-col gap-2">
-                    <div class="box-shadow rounded-1 bg-white dark:bg-gray-900">
+                    <div  v-if="errorCsvFile" class="box-shadow rounded-1 bg-white p-2.5 dark:bg-gray-900">
                         <p
                             class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
                             @lang('bulkUpload::app.admin.bulk-upload.run-profile.error')
                         </p>
-
-                        <div v-for="(item, index) in errorCsvFile" :key="index" >
+                        
+                        <div v-for="(item, index) in errorCsvFile" :key="index">
                             <div class="row grid grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center border-b-2 px-4 py-2.5 dark:border-gray-800">
                                 <div class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
                                     @lang('bulkUpload::app.admin.bulk-upload.upload-files.profiler-name'):- @{{ profilerNames[index] }}
@@ -146,15 +142,15 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- After Product Uploaded Error Records -->
+                
+                <!-- Right Section -->
                 <div class="flex w-[360px] max-w-full flex-col gap-2">
                     <div class="box-shadow rounded-1 bg-white p-2.5 dark:bg-gray-900">
 
                         <!-- Uploaded product records -->
                         <p v-if="isProductUploaded" class="mb-[16px] text-base font-semibold text-gray-800 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.run-profile.uploaded-product')</p>
                         <p class="mb-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.uploaded-product')</p>
-                        
+
                         <ul class="border-3 h-40 rounded border-gray-800 bg-gray-200 p-4 dark:border-gray-800 dark:bg-gray-200" style="max-height: 250px;overflow: auto;">
                             <li v-for="(item, index) in uploadedProductList" :key="index" class="mb-3">
                                 <p class="text-sm">Product id: <span class="italic">@{{ item.id }}</span></p>
@@ -209,9 +205,11 @@
                     },
 
                     formattedTime() {
-                        let constminutes = Math.floor(this.timer.seconds / 60);
-                        let constseconds = this.timer.seconds % 60;
-                        return `${constminutes} minutes ${constseconds} seconds`;
+                        let minutes = Math.floor(this.timer.seconds / 60);
+                        
+                        let seconds = this.timer.seconds % 60;
+
+                        return `${minutes} minutes ${seconds} seconds`;
                     },
                 },
 
@@ -223,12 +221,14 @@
 
                 methods: {
                     async getImporter() {
-                        if (this.attribute_family_id === '' || this.attribute_family_id === 'Please Select') {
-                            return; // Exit early if attribute_family_id is empty or 'Please Select'
+                        if (this.attribute_family_id === '' 
+                                    || this.attribute_family_id === 'Please Select') {
+                            // Exit early if attribute_family_id is empty or 'Please Select'
+                            return;
                         }
 
                         try {
-                            const uri = "{{ route('admin.bulk-upload.upload-file.get-importar') }}";
+                            const uri = "{{ route('admin.bulk-upload.upload-file.get-importer') }}";
                             
                             const response = await this.$axios.get(uri, {
                                 params: {

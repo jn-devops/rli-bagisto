@@ -48,7 +48,7 @@ class ProductUploadJob implements ShouldQueue
         $uploadedProduct = [];
         $isError = false;
         $count = 0;
-
+        
         foreach ($this->chunk as $data) {
             foreach ($data as $key => $arr) {
                 $count++;

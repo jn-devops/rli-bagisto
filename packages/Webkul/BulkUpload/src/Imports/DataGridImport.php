@@ -18,4 +18,5 @@ class DataGridImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
     }
+
 }

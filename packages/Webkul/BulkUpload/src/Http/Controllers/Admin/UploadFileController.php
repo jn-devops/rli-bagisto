@@ -261,9 +261,16 @@ class UploadFileController extends Controller
             ]);
         }
 
-        $csvData = (new DataGridImport)->toArray($productFileRecord->file_path)[0];
+        $csvData = (new DataGridImport())->toArray($productFileRecord->file_path)[0];
 
-        $csvImageData = (new DataGridImport)->toArray($productFileRecord->file_path)[2] ?? [];
+        if(count($csvData[0]) > 41) {
+            return response()->json([
+                'error'   => true,
+                'message' => 'Invalid File found. please remove null column value after super_attribute field.',
+            ]);
+        }
+
+        $csvImageData = (new DataGridImport())->toArray($productFileRecord->file_path)[2] ?? [];
 
         // Check booking type product is not supported
         if (! empty($csvData)) {
@@ -296,8 +303,9 @@ class UploadFileController extends Controller
             $this->storeImageZip($csvImageData);
         }
 
+        
         $chunks = array_chunk($csvData, 100);
-
+       
         $batch = Bus::batch([])->dispatch();
 
         $batch->add(new ProductUploadJob($productFileRecord, $chunks, $countCSV));
@@ -342,7 +350,7 @@ class UploadFileController extends Controller
                     ],
                 ]);
 
-                Storage::put('imported-products/admin/images/' . $images['sku'] . '/' . $fileName, file_get_contents($path,false, $context));
+                Storage::put('imported-products/admin/images/' . $images['sku'] . '/' . $fileName, file_get_contents($path, false, $context));
             }
         }
 
@@ -471,6 +479,6 @@ class UploadFileController extends Controller
             $status = false;
         }
 
-        return response()->json(['response' => $data, 'status' => $status, 'success'=>$message], 200);
+        return response()->json(['response' => $data, 'status' => $status, 'success' => $message], 200);
     }
 }

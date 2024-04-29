@@ -16,7 +16,7 @@ Route::middleware(['web', 'admin'])
                     ->name('admin.bulk-upload.bulk-product-importer.index');
 
                 // Store
-                Route::post('/addprofile', [BulkProductImporterController::class, 'store'])
+                Route::post('/add-profile', [BulkProductImporterController::class, 'store'])
                     ->name('admin.bulk-upload.bulk-product-importer.add');
 
                 // Edit
@@ -31,7 +31,7 @@ Route::middleware(['web', 'admin'])
                     ->name('admin.bulk-upload.bulk-product-importer.delete');
 
                 // Mass Destroy
-                Route::post('/massdestroy', [BulkProductImporterController::class, 'massDestroy'])
+                Route::post('/mass-destroy', [BulkProductImporterController::class, 'massDestroy'])
                     ->name('admin.bulk-upload.bulk-product-importer.massDelete');
 
                 // Get Attribute Family by Importer ID
@@ -58,19 +58,19 @@ Route::middleware(['web', 'admin'])
             });
 
             Route::prefix('import-product-file')->group(function () {
-                // Get attribut family when uploading bulk-product
+                // Get attribute family when uploading bulk-product
                 Route::get('/', [UploadFileController::class, 'getFamilyAttributesToUploadFile'])
                     ->name('admin.bulk-upload.import-file.run-profile.index');
 
                 // Get product importer records while product is uploading
                 Route::get('/get-importer', [UploadFileController::class, 'getProductImporter'])
-                    ->name('admin.bulk-upload.upload-file.get-importar');
+                    ->name('admin.bulk-upload.upload-file.get-importer');
 
-                // Delete importer file while uploading bulk-produuct
+                // Delete importer file while uploading bulk-product
                 Route::post('/delete-file', [UploadFileController::class, 'deleteProductFile'])
                     ->name('admin.bulk-upload.upload-file.delete');
 
-                // Read csv file and exicute the uploading product
+                // Read csv file and execute the uploading product
                 Route::post('/read-csv', [UploadFileController::class, 'readCSVData'])
                     ->name('admin.bulk-upload.upload-file.run-profile.read-csv');
 

@@ -47,9 +47,8 @@ class ProductRepository extends Repository
      */
     public function create(array $data)
     {
-        
         $typeInstance = app(config('product_types.'.$data['type'].'.class'));
-    
+
         $product = $typeInstance->create($data);
 
         return $product;
