@@ -14,15 +14,12 @@ class Customer
      *
      * @return void
      */
-    public function afterCreate($data)
+    public function afterCreate($customer)
     {
         $password = request('password_confirmation');
 
-        $customer = app(CustomerRepository::class)->updateOrCreate([
-            'email' => request('email'),
-        ], [
-            'password' => bcrypt($password),
-        ]);
+        $customer->password = bcrypt($password);
+        $customer->save();
 
         try {
             Mail::queue(new NewCustomerNotification($customer, $password));
@@ -36,17 +33,14 @@ class Customer
      *
      * @return void
      */
-    public function afterUpdate()
+    public function afterUpdate($customer)
     {
         if (! $password = request('password_confirmation')) {
             return;
         }
 
-        $customer = app(CustomerRepository::class)->updateOrCreate([
-            'email' => request('email'),
-        ], [
-            'password' => bcrypt($password),
-        ]);
+        $customer->password = bcrypt($password);
+        $customer->save();
 
         try {
             Mail::queue(new UpdateCustomerNotification($customer, $password));

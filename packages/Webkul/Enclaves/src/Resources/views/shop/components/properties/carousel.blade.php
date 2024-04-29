@@ -54,12 +54,12 @@
                     ref="swiperContainer"
                     class="scrollbar-hide mt-[22px] flex gap-14 overflow-auto max-sm:mt-[20px]"
                     >
+
                     <div class="relative grid min-w-[350px] max-w-[350px] gap-2.5" v-for="category in categories">
                         <div class="group relative max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
-                    
                             <x-shop::media.images.lazy
                                 class="h-[290px] w-full rounded bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
-                                ::src="category.images.banner_url"
+                                ::src="category.images.community_banner_path ?? category.images.banner_url"
                             ></x-shop::media.images.lazy>
                         </div>
 

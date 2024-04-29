@@ -129,7 +129,7 @@
                         </div>
                     </div>
 
-                    <!-- Custoemr, Email, Location Section -->
+                    <!-- Customers, Email, Location Section -->
                     <div class="">
                         <div class="flex flex-col gap-1.5">
                             <p
@@ -152,7 +152,7 @@
                         </div>
                     </div>
 
-                    <!-- Imgaes Section -->
+                    <!-- Images Section -->
                     <div class="flex items-center justify-between gap-x-2">
                         <div class="flex flex-col gap-1.5">
                             <p
