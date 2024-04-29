@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('question')->nullable();
             $table->text('answer')->nullable();
-            $table->text('status')->default(0);
+//            $table->text('status')->default(0);
+            $table->text('status'); //removed default(0) 30 Apr 2024 by jn-devops
             $table->timestamps();
         });
     }
