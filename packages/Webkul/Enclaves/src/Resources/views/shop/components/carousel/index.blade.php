@@ -18,7 +18,7 @@
 
 					<h1 class="hero-heading mt-2 pr-6 text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-sm:text-[35px] max-sm:leading-[42px] sm:mt-[18px]">
 					</h1>
-					<div class="" v-text="activeButtonText"></div>
+					
 					<a 
 						href="javascript:void(0)" 
 						class="hero-btn mt-[94px] flex max-w-max items-center gap-[18px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[30px] text-sm font-medium text-white max-sm:mt-5 max-sm:px-[26px] max-sm:py-[18px] sm:text-[25px]"

@@ -21,7 +21,7 @@ use Webkul\Product\Repositories\ProductRepository;
 class SimpleProductRepository extends BaseRepository
 {
     /**
-     * Pre-defind Array for Array
+     * Pre-defined Array for Array
      */
     protected $errors = [];
 
@@ -32,13 +32,6 @@ class SimpleProductRepository extends BaseRepository
 
     /**
      * Create a new repository instance.
-     *
-     * @param  \Webkul\Attribute\Repositories\AttributeFamilyRepository  $attributeFamilyRepository
-     * @param  \Webkul\Attribute\Repositories\AttributeOptionRepository  $attributeOptionRepository
-     * @param  \Webkul\Product\Repositories\ProductRepository  $productRepository
-     * @param  \Webkul\BulkUpload\Repositories\ImportProductRepository  $importProductRepository
-     * @param  \Webkul\BulkUpload\Repositories\ProductImageRepository  $productImageRepository
-     * @return void
      */
     public function __construct(
         protected AttributeRepository $attributeRepository,
@@ -66,7 +59,7 @@ class SimpleProductRepository extends BaseRepository
     /**
      * create & update simple-type product
      *
-     * @param  array  $dataFlowProfileRecord
+     * @param  mixed  $dataFlowProfileRecord
      * @param  array  $csvData
      * @param  int  $key
      * @return mixed
@@ -95,9 +88,8 @@ class SimpleProductRepository extends BaseRepository
             'attribute_family_id' => $dataFlowProfileRecord->profiler->attribute_family_id,
         ];
 
-        
         if (! empty($csvData['parent'])) {
-            Log::info($csvData['parent']);
+            
             $csvData['parent_id'] = $this->productRepository->findOneByField('sku', $csvData['parent'])->id;
 
             $superAttributes['super_attributes'] = $csvData['super_attributes'];
@@ -132,8 +124,10 @@ class SimpleProductRepository extends BaseRepository
         // Create Product
         if (! $product) {
             Event::dispatch('catalog.product.create.before');
-
+            
             $product = $this->productRepository->create($createProduct);
+            
+            Log::info($product);
 
             Event::dispatch('catalog.product.create.after', $product);
 
@@ -150,7 +144,7 @@ class SimpleProductRepository extends BaseRepository
      *
      * @param  array  $csvData
      * @param  mixed  $product
-     * @param  array  $dataFlowProfileRecord
+     * @param  mixed  $dataFlowProfileRecord
      * @return array $data
      */
     private function updateProduct($csvData, $product, $dataFlowProfileRecord)
@@ -482,7 +476,7 @@ class SimpleProductRepository extends BaseRepository
      *
      * @param  string|array  $csvData
      * @param  array  $dataFlowProfileRecord
-     * @param  string|array  $product
+     * @param  mixed  $product
      * @return mixed
      */
     public function addLinksAndSamples($csvData, $dataFlowProfileRecord, $product)
@@ -597,9 +591,9 @@ class SimpleProductRepository extends BaseRepository
     /**
      * add sample file and return error
      *
-     * @param  string|array  $csvData
-     * @param  array  $dataFlowProfileRecord
-     * @param  string|array  $product
+     * @param  mixed  $csvData
+     * @param  mixed  $dataFlowProfileRecord
+     * @param  mixed  $product
      * @return mixed
      */
     public function addSamples($csvData, $dataFlowProfileRecord, $product)

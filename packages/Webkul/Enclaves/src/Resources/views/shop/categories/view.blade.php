@@ -218,7 +218,7 @@
                                             </div>
 
                                             <div class="relative grid content-start gap-4">
-                                                <div class="flex gap-[16px]">
+                                                <div class="flex h-[50px] gap-[16px]">
                                                     <p 
                                                         class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
                                                         v-text="product.name"
