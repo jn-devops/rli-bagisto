@@ -201,7 +201,7 @@
                                 <div class="grid gap-[10px]">
                                     <p class="text-[20px] font-semibold max-sm:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>
                                     
-                                    <P class="text-[22px] max-sm:text-[20px]">
+                                    <p class="text-[22px] max-sm:text-[20px]">
                                         {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
                                             {!! $product->getTypeInstance()->getPriceHtml() !!}
 
@@ -214,7 +214,7 @@
                                                 @endif
                                             </span>
                                         {!! view_render_event('bagisto.shop.products.price.after', ['product' => $product]) !!}
-                                    </P>
+                                    </p>
                                 </div>
                                 
                                 <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">

@@ -52,14 +52,18 @@ class CartController extends APIController
             'product_id' => 'required|integer|exists:products,id',
         ]);
 
-        $product = $this->productRepository->with('parent')->findOrFail(request()->input('product_id'));
-        
-       try {
+        // Customization START
+        if(! empty(request()->has("selected_configurable_option"))) {
+            $product = $this->productRepository->with('parent')->findOrFail(request()->input('selected_configurable_option'));
+        } else {
+            $product = $this->productRepository->with('parent')->findOrFail(request()->input('product_id'));
+        }
+        // Customization END
+
+        try {
             if (! $product->status) {
                 throw new \Exception(trans('shop::app.checkout.cart.inactive-add'));
             }
-            
-      
 
             $response = [];
 

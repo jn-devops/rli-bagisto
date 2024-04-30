@@ -13,10 +13,7 @@ use Webkul\Product\Repositories\ProductRepository;
 class EkycController extends Controller
 {
     /**
-     * \Webkul\Product\Repositories\ProductRepository $productRepository
-     * \Webkul\BulkUpload\Repositories\EkycVerificationRepository $ekycVerificationRepository
-     * \Webkul\Checkout\Repositories\CartRepository $cartRepository
-     * \Webkul\Customer\Repositories\CustomerRepository $customerRepository
+     * Create a new class instance.
      */
     public function __construct(
         protected ProductRepository $productRepository,
@@ -73,7 +70,7 @@ class EkycController extends Controller
 
         $product = $this->productRepository->findBySlug($data['slug']);
 
-        // Getting transation id for API
+        // Getting transition id for API
         $transaction_id = encrypt($data['cartId']);
 
         $this->ekycVerificationRepository->updateOrCreate([
