@@ -25,22 +25,22 @@ class BlogController extends Controller
         $paginate = $paginate ?? 9;
 
         $blogs = $this->blogRepository
-            ->where('status', 1)
-            ->orderBy('id', 'desc')
-            ->paginate($paginate);
+                    ->where('status', 1)
+                    ->orderBy('id', 'desc')
+                    ->paginate($paginate);
 
         $categories = $this->blogCategoryRepository
-            ->where('status', 1)
-            ->get();
+                            ->where('status', 1)
+                            ->get();
 
         $tags = $this->getTagsWithCount();
 
         $customizations = $this->themeCustomizationRepository
-            ->orderBy('sort_order')
-            ->findWhere([
-                'status'     => self::STATUS,
-                'channel_id' => core()->getCurrentChannel()->id,
-            ]);
+                                ->orderBy('sort_order')
+                                ->findWhere([
+                                    'status'     => self::STATUS,
+                                    'channel_id' => core()->getCurrentChannel()->id,
+                                ]);
 
         $showCategoriesCount = $this->getConfigByKey('blog_post_show_categories_with_count');
 
@@ -81,7 +81,9 @@ class BlogController extends Controller
             abort(404);
         }
 
-        $author = $this->blogRepository->where('author_id', $author_id)->firstOrFail();
+        $author = $this->blogRepository
+                        ->where('author_id', $author_id)
+                        ->firstOrFail();
 
         $paginate = $this->getConfigByKey('blog_post_per_page');
 
@@ -93,14 +95,18 @@ class BlogController extends Controller
             ->orderBy('id', 'desc')
             ->paginate($paginate);
 
-        $categories = $this->blogCategoryRepository->where('status', 1)->get();
+        $categories = $this->blogCategoryRepository
+                            ->where('status', 1)
+                            ->get();
 
         $tags = $this->getTagsWithCount();
 
-        $customizations = $this->themeCustomizationRepository->orderBy('sort_order')->findWhere([
-            'status'     => self::STATUS,
-            'channel_id' => core()->getCurrentChannel()->id,
-        ]);
+        $customizations = $this->themeCustomizationRepository
+                                ->orderBy('sort_order')
+                                ->findWhere([
+                                    'status'     => self::STATUS,
+                                    'channel_id' => core()->getCurrentChannel()->id,
+                                ]);
 
         $showCategoriesCount = $this->getConfigByKey('blog_post_show_categories_with_count');
 
@@ -137,11 +143,15 @@ class BlogController extends Controller
      */
     public function view($blog_slug, $slug)
     {
-        $blog = $this->blogRepository->where('slug', $slug)->firstOrFail();
+        $blog = $this->blogRepository
+                        ->where('slug', $slug)
+                        ->firstOrFail();
 
         $blogId = $blog->id ?? 0;
 
-        $blogTags = $this->blogTagRepository->whereIn('id', explode(',', $blog->tags))->get();
+        $blogTags = $this->blogTagRepository
+                        ->whereIn('id', explode(',', $blog->tags))
+                        ->get();
 
         $paginate = $this->getConfigByKey('blog_post_maximum_related');
 
@@ -149,7 +159,10 @@ class BlogController extends Controller
 
         $blogCategoryIds = array_merge(explode(',', $blog->default_category), explode(',', $blog->categorys));
 
-        $relatedBlogs = $this->blogRepository->orderBy('id', 'desc')->where('status', 1)->whereNotIn('id', [$blogId]);
+        $relatedBlogs = $this->blogRepository
+                                ->orderBy('id', 'desc')
+                                ->where('status', 1)
+                                ->whereNotIn('id', [$blogId]);
 
         if (! empty($blogCategoryIds)) {
 
@@ -169,13 +182,18 @@ class BlogController extends Controller
 
         $relatedBlogs = $relatedBlogs->paginate($paginate);
 
-        $categories = $this->blogCategoryRepository->where('status', 1)->get();
+        $categories = $this->blogCategoryRepository
+                                ->where('status', 1)
+                                ->get();
 
         $tags = $this->getTagsWithCount();
 
         $comments = $this->getCommentsRecursive($blogId);
 
-        $totalComments = $this->blogCommentRepository->where('post', $blogId)->where('status', 2)->get();
+        $totalComments = $this->blogCommentRepository
+                                ->where('post', $blogId)
+                                ->where('status', 2)
+                                ->get();
 
         $totalCommentsCnt = ! empty($totalComments) ? $totalComments->count() : 0;
 

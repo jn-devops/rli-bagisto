@@ -31,15 +31,15 @@
                             height="172"
                         >
                     @endif
+
                     <div class="flex-1">
                         <x-shop::layouts.read-more-smooth
                             text="{!! $category->description !!}"
-                            limit=700
+                            limit=300
                         >
                         </x-shop::layouts.read-more-smooth>
                     </div>
                 </div>
-
                 </p>
             </div>
         @endif
@@ -47,10 +47,7 @@
 
     @if (in_array($category->display_mode, [null, 'products_only', 'products_and_description']))
         <!-- Category Vue Component -->
-        <v-category>
-            <!-- Category Shimmer Effect -->
-            <x-shop::shimmer.categories.view/>
-        </v-category>
+        <v-category></v-category>
     @endif
 
     @pushOnce('scripts')
@@ -71,7 +68,8 @@
                         </div>
 
                         <!-- Product List Card Container -->
-                        <div v-if="filters.toolbar.mode === 'list'" class="mt-8 grid grid-cols-1 gap-6">
+                        <div v-if="filters.toolbar.mode === 'list'" 
+                                class="mt-8 grid grid-cols-1 gap-6">
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
                                 <x-shop::shimmer.products.cards.list count="12"></x-shop::shimmer.products.cards.list>
@@ -180,107 +178,93 @@
 
                         <!-- Product Grid Card Container -->
                         <div v-else>
-                            <!-- Product Card Shimmer Effect -->
-                            <template v-if="isLoading">
-                                <x-shop::shimmer.products.cards.grid count="12"></x-shop::shimmer.products.cards.grid>
-                            </template>
+                            <template v-if="! isLoading">
+                                <div class="grid grid-cols-3 max-lg:grid-cols-2 gap-6 mt-10">
+                                    <div
+                                        v-for="product in products"
+                                        class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1"
+                                        >
+                                        <div class="group relative max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
+                                            <x-shop::media.images.lazy
+                                                @click="redirectToProduct(product)"
+                                                class="cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
+                                                ::src="product.base_image.medium_image_url"
+                                            ></x-shop::media.images.lazy>
 
-                            <!-- Product Card Listing -->
-                            <template v-else>
-                                <template v-if="products.length">
-                                    <div class="max-1060:grid-cols-2 mt-[30px] grid grid-cols-3 gap-8 max-sm:mt-[20px] max-sm:grid-cols-1 max-sm:justify-items-center">
-                                        <div
-                                            v-for="product in products"
-                                            class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1"
-                                            >
-                                            <div class="group relative max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
-                                                <x-shop::media.images.lazy
+                                            <div class="action-items bg-black"> 
+                                                <p
+                                                    class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-[#E51A1A] px-[10px] text-[14px] text-white"
+                                                    v-if="product.on_sale"
+                                                >
+                                                    @lang('shop::app.components.products.card.sale')
+                                                </p>
+
+                                                <p
+                                                    class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-navyBlue px-[10px] text-[14px] text-white"
+                                                    v-else-if="product.is_new"
+                                                >
+                                                    @lang('shop::app.components.products.card.new')
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid max-sm:grid-cols-1 grid-cols-1 gap-5">
+                                            <div class="flex gap-[16px]">
+                                                <p 
+                                                    class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
+                                                    v-text="product.name"
                                                     @click="redirectToProduct(product)"
-                                                    class="cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
-                                                    ::src="product.base_image.medium_image_url"
-                                                ></x-shop::media.images.lazy>
-
-                                                <div class="action-items bg-black"> 
-                                                    <p
-                                                        class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-[#E51A1A] px-[10px] text-[14px] text-white"
-                                                        v-if="product.on_sale"
-                                                    >
-                                                        @lang('shop::app.components.products.card.sale')
-                                                    </p>
-
-                                                    <p
-                                                        class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-navyBlue px-[10px] text-[14px] text-white"
-                                                        v-else-if="product.is_new"
-                                                    >
-                                                        @lang('shop::app.components.products.card.new')
-                                                    </p>
-                                                </div>
+                                                ></p>
+                                            
+                                                <span 
+                                                    class="absolute right-[10px] cursor-pointer text-2xl"
+                                                    :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
+                                                    role="button"
+                                                    tabindex="0"
+                                                    aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
+                                                    @click="addToWishlist(product.id)"
+                                                >
+                                                </span>
                                             </div>
 
-                                            <div class="relative grid content-start gap-4">
-                                                <div class="flex h-[50px] gap-[16px]">
-                                                    <p 
-                                                        class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
-                                                        v-text="product.name"
-                                                        @click="redirectToProduct(product)"
-                                                    ></p>
-                                                
-                                                    <span 
-                                                        class="absolute right-[10px] cursor-pointer text-2xl"
-                                                        :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
-                                                        role="button"
-                                                        tabindex="0"
-                                                        aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
-                                                        @click="addToWishlist(product.id)"
-                                                    >
-                                                    </span>
-                                                </div>
-
-                                                <div class="justify-right grid grid-cols-2 items-center max-425:grid">
-                                                    <div>
-                                                        <div 
-                                                            class="font-popins text-wrap text-[15px] font-medium" 
-                                                            v-html="product.price_html">
-                                                        </div>
-
-                                                        <p class="font-popins text-[11px] font-medium text-[#A0A0A0]">
-                                                            @lang('enclaves::app.shop.customers.total-contract-price')
-                                                        </p>
+                                            <div class="flex flex-wrap justify-between">
+                                                <div class="max-sm:mb-4">
+                                                    <div 
+                                                        class="font-popins text-wrap text-[15px] font-medium" 
+                                                        v-html="product.price_html">
                                                     </div>
 
-                                                    <button
-                                                        @click="redirectToProduct(product)"
-                                                        class="text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
-                                                    >
-                                                        @lang('enclaves::app.shop.customers.choose-unit')
-                                                    </button>
+                                                    <p class="font-popins text-[11px] font-medium text-[#A0A0A0]">
+                                                        @lang('enclaves::app.shop.customers.total-contract-price')
+                                                    </p>
                                                 </div>
+
+                                                <button
+                                                    @click="redirectToProduct(product)"
+                                                    class="max-sm:w-full h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
+                                                >
+                                                    @lang('enclaves::app.shop.customers.choose-unit')
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </template>
-
-                                <!-- Empty Products Container -->
-                                <template v-else>
-                                    <div class="m-auto grid h-[476px] w-[100%] place-content-center items-center justify-items-center text-center">
-                                        <img 
-                                            src="{{ bagisto_asset('images/thank-you.png') }}"
-                                            alt="placeholder"
-                                        />
-                                        
-                                        <p class="text-[20px]">
-                                            @lang('shop::app.categories.view.empty')
-                                        </p>
-                                    </div>
-                                </template>
+                                </div>
                             </template>
+
+                            <template v-else>
+                                <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
+                            </template> 
                         </div>
 
                         <!-- Load More Button -->
+                        <template v-if="isMoreLoading">
+                            <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
+                        </template>
+
                         <div 
                             class="row mt-12 text-center" 
                             v-if="links.next"
-                        >
+                            >
                             <button
                                 class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
                                 @click="loadMoreProducts"
@@ -302,6 +286,8 @@
                         isMobile: window.innerWidth <= 767,
 
                         isLoading: true,
+
+                        isMoreLoading: false,
 
                         isDrawerActive: {
                             toolbar: false,
@@ -376,9 +362,13 @@
                     },
 
                     loadMoreProducts() {
+                        this.isMoreLoading = true;
+
                         if (this.links.next) {
                             this.$axios.get(this.links.next).then(response => {
                                 this.products = [...this.products, ...response.data.data];
+                                
+                                this.isMoreLoading = false;
 
                                 this.links = response.data.links;
                             }).catch(error => {

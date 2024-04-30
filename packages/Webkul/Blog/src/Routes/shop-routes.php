@@ -9,7 +9,6 @@ use Webkul\Blog\Http\Controllers\Shop\CategoryController;
 Route::group(['middleware' => ['web', 'theme', 'locale', 'currency']], function () {
     Route::get('/blogs', [BlogController::class, 'index'])->name('shop.article.index');
 
-
     Route::group(['prefix' => 'blog'], function() {
         Route::get('list', [BlogController::class, 'blogFrontEnd'])->name('shop.blogs.front-end');
 

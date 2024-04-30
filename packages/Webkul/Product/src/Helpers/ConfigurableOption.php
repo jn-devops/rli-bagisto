@@ -49,7 +49,7 @@ class ConfigurableOption
                 $this->allowedVariants[] = $variant;
             }
         }
-
+        
         return $this->allowedVariants;
     }
 

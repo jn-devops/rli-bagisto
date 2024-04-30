@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\Attribute\Repositories\AttributeOptionRepository;
 use Webkul\Attribute\Repositories\AttributeRepository;
@@ -89,7 +90,6 @@ class SimpleProductRepository extends BaseRepository
         ];
 
         if (! empty($csvData['parent'])) {
-            
             $csvData['parent_id'] = $this->productRepository->findOneByField('sku', $csvData['parent'])->id;
 
             $superAttributes['super_attributes'] = $csvData['super_attributes'];
@@ -118,6 +118,11 @@ class SimpleProductRepository extends BaseRepository
             $csvData['super_attributes'] = $productSuperAttributes;
         }
 
+        // URL Slug Update
+        if(! empty($csvData['name'])) {
+            $csvData['url_key'] = Str::slug(strtolower($csvData['name']));
+        }
+
         // Check for Duplicate SKU
         $product = $this->productRepository->firstWhere('sku', $csvData['sku']);
 
@@ -126,8 +131,6 @@ class SimpleProductRepository extends BaseRepository
             Event::dispatch('catalog.product.create.before');
             
             $product = $this->productRepository->create($createProduct);
-            
-            Log::info($product);
 
             Event::dispatch('catalog.product.create.after', $product);
 
@@ -163,10 +166,16 @@ class SimpleProductRepository extends BaseRepository
         // Process product attributes
         $data = $this->processProductAttributes($csvData, $product);
 
+        $PRODUCT_TYPE_SIMPLE_AND_PARENT = (! empty($csvData['parent']) && $csvData['type'] === "simple");
+
         // Process inventory for configurable product
         if (in_array($product->type, ['configurable'])
-            || (! empty($csvData['parent']) && $csvData['type'] === "simple")) {
+            || $PRODUCT_TYPE_SIMPLE_AND_PARENT) {
             $this->processProductInventoryForConfiguration($csvData, $data);
+            
+            if($PRODUCT_TYPE_SIMPLE_AND_PARENT) {
+                $this->processingVariantProducts($csvData);
+            }
         } else {
             $this->processProductInventory($csvData, $data);
         }
@@ -258,6 +267,31 @@ class SimpleProductRepository extends BaseRepository
         // Upload images
         if ($productFlat) {
             $this->productImageRepository->bulkUploadImages($data, $productFlat);
+        }
+    }
+
+    /**
+     * Process product super attribute
+     *
+     * @param  array  $csvData
+     * @param  mixed  $product
+     * @return array $data
+     */
+    protected function processingVariantProducts($csvData)
+    {
+        foreach ($csvData['super_attributes'] as $attributeCode => $attributeOptions) {
+            $attribute = $this->attributeRepository->findOneByField('code', $attributeCode);
+            
+            $superAttributes[$attribute->id] = $attributeOptions;
+
+            $superAttributesValue = [
+                'product_id'   => $csvData['parent_id'],
+                'attribute_id' => $attribute->id,
+            ];
+
+            if (! DB::table('product_super_attributes')->where($superAttributesValue)->first()) {
+                DB::table('product_super_attributes')->insert($superAttributesValue);
+            }
         }
     }
 
@@ -549,11 +583,12 @@ class SimpleProductRepository extends BaseRepository
                 core()->getCurrentLocale()->code => [
                     'title' => $linkTitle,
                 ],
-                'price'                          => isset($linkData['link_prices'][$index]) ? $linkData['link_prices'][$index] : '',
-                'type'                           => trim($linkData['link_types'][$index]),
-                'sample_type'                    => trim($linkData['link_sample_types'][$index]),
-                'downloads'                      => isset($linkData['link_downloads'][$index]) ? $linkData['link_downloads'][$index] : 0,
-                'sort_order'                     => isset($linkData['link_sort_orders'][$index]) ? $linkData['link_sort_orders'][$index] : 0,
+
+                'price'       => isset($linkData['link_prices'][$index]) ? $linkData['link_prices'][$index] : '',
+                'type'        => trim($linkData['link_types'][$index]),
+                'sample_type' => trim($linkData['link_sample_types'][$index]),
+                'downloads'   => isset($linkData['link_downloads'][$index]) ? $linkData['link_downloads'][$index] : 0,
+                'sort_order'  => isset($linkData['link_sort_orders'][$index]) ? $linkData['link_sort_orders'][$index] : 0,
             ];
 
             if (trim($linkData['link_types'][$index]) == 'url') {
