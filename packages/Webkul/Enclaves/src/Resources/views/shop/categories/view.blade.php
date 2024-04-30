@@ -31,15 +31,15 @@
                             height="172"
                         >
                     @endif
+
                     <div class="flex-1">
                         <x-shop::layouts.read-more-smooth
                             text="{!! $category->description !!}"
-                            limit=700
+                            limit=300
                         >
                         </x-shop::layouts.read-more-smooth>
                     </div>
                 </div>
-
                 </p>
             </div>
         @endif
@@ -47,10 +47,7 @@
 
     @if (in_array($category->display_mode, [null, 'products_only', 'products_and_description']))
         <!-- Category Vue Component -->
-        <v-category>
-            <!-- Category Shimmer Effect -->
-            <x-shop::shimmer.categories.view/>
-        </v-category>
+        <v-category></v-category>
     @endif
 
     @pushOnce('scripts')
@@ -182,8 +179,7 @@
                         <!-- Product Grid Card Container -->
                         <div v-else>
                             <template v-if="! isLoading">
-                                <div class="max-1060:grid-cols-2 mt-[30px] grid grid-cols-3 gap-8 max-sm:mt-[20px] max-sm:grid-cols-1 max-sm:justify-items-center">
-                                    
+                                <div class="grid grid-cols-3 max-lg:grid-cols-2 gap-6 mt-10">
                                     <div
                                         v-for="product in products"
                                         class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1"
@@ -212,8 +208,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="relative grid content-start gap-4">
-                                            <div class="flex h-[50px] gap-[16px]">
+                                        <div class="grid max-sm:grid-cols-1 grid-cols-1 gap-5">
+                                            <div class="flex gap-[16px]">
                                                 <p 
                                                     class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
                                                     v-text="product.name"
@@ -231,8 +227,8 @@
                                                 </span>
                                             </div>
 
-                                            <div class="justify-right grid grid-cols-2 items-center max-425:grid">
-                                                <div>
+                                            <div class="flex flex-wrap justify-between">
+                                                <div class="max-sm:mb-4">
                                                     <div 
                                                         class="font-popins text-wrap text-[15px] font-medium" 
                                                         v-html="product.price_html">
@@ -245,7 +241,7 @@
 
                                                 <button
                                                     @click="redirectToProduct(product)"
-                                                    class="text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
+                                                    class="max-sm:w-full h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
                                                 >
                                                     @lang('enclaves::app.shop.customers.choose-unit')
                                                 </button>
@@ -256,24 +252,8 @@
                             </template>
 
                             <template v-else>
-                                <template v-if="products.length" 
-                                        class="max-1060:grid-cols-1 mt-[30px] grid grid-cols-3 gap-8 max-sm:mt-[20px] max-sm:grid-cols-1 max-sm:justify-items-center">
-                                    <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
-                                </template>
-                                
-                                <template v-if="! isLoading && ! products.length">
-                                    <div class="m-auto grid h-[476px] w-[100%] place-content-center items-center justify-items-center text-center">
-                                        <img 
-                                            src="{{ bagisto_asset('images/thank-you.png') }}"
-                                            alt="placeholder"
-                                        />
-                                        
-                                        <p class="text-[20px]">
-                                            @lang('shop::app.categories.view.empty')
-                                        </p>
-                                    </div>
-                                </template>
-                            </template>
+                                <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
+                            </template> 
                         </div>
 
                         <!-- Load More Button -->
@@ -284,7 +264,7 @@
                         <div 
                             class="row mt-12 text-center" 
                             v-if="links.next"
-                        >
+                            >
                             <button
                                 class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
                                 @click="loadMoreProducts"

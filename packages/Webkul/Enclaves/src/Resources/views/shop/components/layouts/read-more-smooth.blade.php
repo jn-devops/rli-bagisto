@@ -8,9 +8,8 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-read-more-smooth-template">
-        <div>
-            <span 
-                class="{{ $class }}" 
+        <div class="{{ $class }}">
+            <span
                 v-html="visualText"
             ></span>
             
