@@ -162,14 +162,14 @@ class SimpleProductRepository extends BaseRepository
         // Process product attributes
         $data = $this->processProductAttributes($csvData, $product);
 
-        $PRODUCT_SIMPLE_AND_PARENT_WITH_CONFIGURABLE = (! empty($csvData['parent']) && $csvData['type'] === "simple");
+        $PRODUCT_TYPE_SIMPLE_AND_PARENT = (! empty($csvData['parent']) && $csvData['type'] === "simple");
 
         // Process inventory for configurable product
         if (in_array($product->type, ['configurable'])
-            || $PRODUCT_SIMPLE_AND_PARENT_WITH_CONFIGURABLE) {
+            || $PRODUCT_TYPE_SIMPLE_AND_PARENT) {
             $this->processProductInventoryForConfiguration($csvData, $data);
             
-            if($PRODUCT_SIMPLE_AND_PARENT_WITH_CONFIGURABLE) {
+            if($PRODUCT_TYPE_SIMPLE_AND_PARENT) {
                 $this->processingVariantProducts($csvData);
             }
         } else {
