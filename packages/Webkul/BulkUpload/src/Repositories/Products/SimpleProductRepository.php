@@ -118,7 +118,11 @@ class SimpleProductRepository extends BaseRepository
             $csvData['super_attributes'] = $productSuperAttributes;
         }
 
-        
+        // URL Slug Update
+        if(! empty($csvData['name'])) {
+            $csvData['url_key'] = Str::slug(strtolower($csvData['name']));
+        }
+
         // Check for Duplicate SKU
         $product = $this->productRepository->firstWhere('sku', $csvData['sku']);
 
