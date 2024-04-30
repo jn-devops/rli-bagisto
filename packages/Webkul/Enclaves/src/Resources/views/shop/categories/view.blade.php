@@ -181,7 +181,7 @@
 
                         <!-- Product Grid Card Container -->
                         <div v-else>
-                            <templete v-if="! isLoading">
+                            <template v-if="! isLoading">
                                 <div class="max-1060:grid-cols-2 mt-[30px] grid grid-cols-3 gap-8 max-sm:mt-[20px] max-sm:grid-cols-1 max-sm:justify-items-center">
                                     
                                     <div
@@ -253,9 +253,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </templete>
+                            </template>
 
-                            <templete v-else>
+                            <template v-else>
                                 <template v-if="products.length" 
                                         class="max-1060:grid-cols-1 mt-[30px] grid grid-cols-3 gap-8 max-sm:mt-[20px] max-sm:grid-cols-1 max-sm:justify-items-center">
                                     <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
@@ -273,7 +273,7 @@
                                         </p>
                                     </div>
                                 </template>
-                            </templete>
+                            </template>
                         </div>
 
                         <!-- Load More Button -->
