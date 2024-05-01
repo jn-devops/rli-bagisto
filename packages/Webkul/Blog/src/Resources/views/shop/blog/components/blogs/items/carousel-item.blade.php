@@ -6,20 +6,20 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-blog-card-template">
-        <div class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1">
+        <div class="max-w-[350px] max-lg:min-w-[120px] lg:min-w-[350px]">
             <x-shop::media.images.lazy
-                class="h-[290px] cursor-pointer rounded-[20px] bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
+                class="h-[310px] rounded-3xl max-lg:h-[128px]"
                 ::src="blog.base_image"
             ></x-shop::media.images.lazy>
     
             <p 
-                class="font-popins text-[20px] font-bold" 
+                class="font-popins mt-[10px] overflow-hidden text-ellipsis whitespace-nowrap text-[20px] font-bold max-sm:text-[14px]" 
                 v-text="blog.name"
             ></p>
 
             <button
                 @click="redirectBlogPage(blog)"
-                class="w-[150px] rounded-[20px] border-[3px] border-[#CC035C] px-[25px] py-[10px] font-semibold text-[#CC035C]">
+                class="mt-[5px] flex items-start text-[#CC035C] underline max-sm:text-[12px]">
                 @lang('blog::app.shop.blog.read-more')
             </button>
         </div>

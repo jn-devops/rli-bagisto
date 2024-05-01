@@ -21,7 +21,10 @@
                     <h3 class="rli-title mt-[140px] max-w-[1024px] max-sm:text-[25px]" v-text="title"></h3>
                 </div>
 
-                <div class="relative top-[215px] z-10 flex justify-between" v-if="categories.length">
+                <div 
+                    class="relative z-10 flex justify-between max-lg:top-[100px] lg:top-[200px]" 
+                    v-if="categories.length"
+                >
                     <span 
                         class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeLeft"
@@ -35,11 +38,11 @@
                     </span>
                 </div>
 
-                <div class="mt-[30px] grid grid-cols-3 gap-8" v-if="isLoading">
+                <div class="mt-[30px] grid grid-cols-3 gap-8 max-lg:grid-cols-2" v-if="isLoading">
                     @for ($i = 0;  $i < 3; $i++)
                         <div class="relative grid w-full gap-8 max-sm:grid-cols-1">
                             <div class="relative rounded-sm">
-                                <div class="shimmer h-[290px] w-full rounded-[20px] bg-[#F5F5F5]"></div>
+                                <div class="shimmer h-[310px] w-full rounded-3xl max-lg:h-[128px]"></div>
                             </div>
 
                             <div class="grid content-start gap-2.5">
@@ -52,20 +55,18 @@
 
                 <div
                     ref="swiperContainer"
-                    class="scrollbar-hide mt-[22px] flex gap-14 overflow-auto max-sm:mt-[20px]"
+                    class="scrollbar-hide mt-[22px] flex gap-5 overflow-auto max-sm:mt-[20px]"
                     >
 
-                    <div class="relative grid min-w-[350px] max-w-[350px] gap-2.5" v-for="category in categories">
-                        <div class="group relative max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
-                            <x-shop::media.images.lazy
-                                class="h-[290px] w-full rounded bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
-                                ::src="category.images.community_banner_path ?? category.images.banner_url"
-                            ></x-shop::media.images.lazy>
-                        </div>
+                    <div class="max-w-[350px] max-lg:min-w-[120px] lg:min-w-[350px]" v-for="category in categories">
+                        <x-shop::media.images.lazy
+                            class="h-[310px] rounded-3xl transition-all duration-300 group-hover:scale-105 max-lg:h-[128px]"
+                            ::src="category.images.community_banner_path ?? category.images.banner_url"
+                        ></x-shop::media.images.lazy>
 
                         <div class="grid content-start gap-2.5">
                             <p
-                                class="font-popins text-[20px] font-bold" 
+                                class="font-popins text-[20px] font-bold max-sm:text-[14px]" 
                                 v-text="category.name"
                             ></p>
 

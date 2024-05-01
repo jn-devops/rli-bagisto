@@ -53,7 +53,7 @@
             </p>
 
             <x-admin::form.control-group.control
-                type="text"
+                type="color"
                 name="btn_color"
                 :value="old('btn_color')"
                 ::rules="{ required: true, regex: /^#([A-Za-z0-9]+)$/ }"
@@ -78,7 +78,7 @@
             </p>
 
             <x-admin::form.control-group.control
-                type="text"
+                type="color"
                 name="btn_border_color"
                 :value="old('btn_border_color')"
                 ::rules="{ required: true, regex: /^#([A-Za-z0-9]+)$/ }"
@@ -103,7 +103,7 @@
             </p>
 
             <x-admin::form.control-group.control
-                type="text"
+                type="color"
                 name="btn_background_color"
                 :value="old('background_color')"
                 ::rules="{ required: true, regex: /^#([A-Za-z0-9]+)$/ }"

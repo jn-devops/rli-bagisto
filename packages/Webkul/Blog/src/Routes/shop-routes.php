@@ -10,16 +10,23 @@ Route::group(['middleware' => ['web', 'theme', 'locale', 'currency']], function 
     Route::get('/blogs', [BlogController::class, 'index'])->name('shop.article.index');
 
     Route::group(['prefix' => 'blog'], function() {
-        Route::get('list', [BlogController::class, 'blogFrontEnd'])->name('shop.blogs.front-end');
 
-        Route::get('author/{id}', [BlogController::class, 'authorPage'])->name('shop.blog.author.index');
+        Route::controller(BlogController::class)->group(function () {
+            Route::get('list', 'blogFrontEnd')->name('shop.blogs.front-end');
 
-        Route::get('{slug}/{blog_slug?}', [BlogController::class, 'view'])->name('shop.article.view');
+            Route::get('{slug}/{blog_slug?}', 'view')->name('shop.article.view');
+        });
 
-        Route::get('tag/{slug}', [TagController::class, 'index'])->name('shop.blog.tag.index');
+        Route::controller(TagController::class)->group(function () {
+            Route::get('tag/{slug}', 'index')->name('shop.blog.tag.index');
+        });
 
-        Route::get('{slug}', [CategoryController::class, 'index'])->name('shop.blog.category.index');
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('{slug}', 'index')->name('shop.blog.category.index');
+        });
 
-        Route::post('api/v1/blog/comment/store', [CommentController::class, 'store'])->name('shop.blog.comment.store');
+        Route::controller(CommentController::class)->group(function () {
+            Route::post('api/v1/blog/comment/store', 'store')->name('shop.blog.comment.store');
+        });
     });
 });

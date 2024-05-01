@@ -1,10 +1,10 @@
 @props(['count' => 0])
 
-<div class="grid grid-cols-3 gap-8">
+<div class="mt-5 grid grid-cols-3 gap-6 max-lg:grid-cols-2">
     @for ($i = 0;  $i < $count; $i++)
-        <div class="grid max-w-[350px] gap-8 relative w-full max-sm:grid-cols-1 {{ $attributes["class"] }}">
+        <div class="grid gap-5 {{ $attributes['class'] }}">
             <div class="relative rounded-sm">
-                <div class="shimmer h-[290px] w-full rounded-[20px] bg-[#F5F5F5]"></div>
+                <div class="shimmer h-[310px] rounded-3xl max-lg:h-[150px]"></div>
             </div>
 
             <div class="grid content-start gap-2.5">
