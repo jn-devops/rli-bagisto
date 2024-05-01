@@ -200,7 +200,7 @@
     </div>
     <div class="bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[86px] py-[33px] max-sm:px-[26px] max-sm:py-[16px]">
         <p class="z-[999] text-[18px] font-medium text-white max-sm:text-[14px]">
-            @lang('shop::app.components.layouts.footer.footer-text')
+            @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
         </p>
     </div>
 </footer>

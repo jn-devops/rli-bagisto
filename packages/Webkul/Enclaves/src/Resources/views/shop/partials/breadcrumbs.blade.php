@@ -1,5 +1,5 @@
 @unless ($breadcrumbs->isEmpty())
-<div class="flex justify-start mt-[30px] max-lg:hidden">
+<div class="flex justify-start mt-[30px]">
     <div class="flex gap-x-[14px] items-center">
         @foreach ($breadcrumbs as $breadcrumb)
             @if (

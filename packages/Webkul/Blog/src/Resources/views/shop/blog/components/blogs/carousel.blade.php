@@ -3,7 +3,6 @@
     title="{{ $title }}"
     navigation-link="{{ $navigationLink ?? '' }}"
 >
-    <x-shop::shimmer.products.carousel :navigation-link="$navigationLink ?? false"></x-shop::shimmer.products.carousel>
 </v-blogs-carousel>
 
 @pushOnce('scripts')
@@ -18,35 +17,39 @@
                 <p class="text-[#CC035C]">@lang('Raemulan Lands Inc')</p>
                 <p class="mt-[40px]">@lang('News & Updates')</p>
             </div>
-            
-            <div class="relative top-[215px] z-10 flex justify-between" v-if="blogs.length">
-                <span 
-                    class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
-                    @click="swipeLeft"
-                >
-                </span>
 
-                <span 
-                    class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
-                    @click="swipeRight"
+            <div>
+                <div 
+                    class="relative z-10 flex justify-between max-lg:top-[100px] lg:top-[200px]" 
+                    v-if="blogs.length"
                     >
-                </span>
-            </div>
+                    <span 
+                        class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                        @click="swipeLeft"
+                    >
+                    </span>
 
-            <div
-                ref="swiperContainer"
-                class="scrollbar-hide mt-[22px] flex gap-14 overflow-auto max-sm:mt-[20px]"
-            >
-                <x-blog::blogs.carousel-item v-for="blog in blogs" />
+                    <span 
+                        class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                        @click="swipeRight"
+                        >
+                    </span>
+                </div>
+
+                <div
+                    ref="swiperContainer"
+                    class="scrollbar-hide flex gap-5 overflow-auto"
+                >
+                    <x-blog::blogs.items.carousel-item v-for="blog in blogs" />
+                </div>
             </div>
         </div>
 
         <!-- Product Card Listing -->
         <template v-if="isLoading">
-            <x-shop::shimmer.products.carousel 
-                :navigation-link="$navigationLink ?? false"
-            >
-            </x-shop::shimmer.products.carousel>
+            <div class="p-6 lg:hidden">
+                <x-blog::shimmer.blogs.item count=2 />
+            </div>
         </template>
     </script>
 

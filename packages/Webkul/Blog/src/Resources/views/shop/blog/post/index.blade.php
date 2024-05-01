@@ -15,7 +15,9 @@
 @endPush
 
 <!-- Page Title -->
-<x-slot:title>@lang('blog::app.shop.blog.post.index.title')</x-slot>
+<x-slot:title>
+    @lang('blog::app.shop.blog.post.index.title')
+</x-slot>
 
 <v-blog-list></v-blog-list>
 
@@ -25,27 +27,27 @@
         <div class="container px-[60px] max-lg:px-[30px]">
             <template v-if="isLoading">
                 <!-- Shimmer Load -->
-                <div class="shimmer rounded-1xl mb-[10px] mt-[10px] h-[65px] w-[30%]"></div>
+                <div class="shimmer rounded-1xl mt-[10px] h-[65px] w-[30%]"></div>
                 
-                <x-blog::shimmer.blogs.item count="9"/>
+                <x-blog::shimmer.blogs.item count="6"/>
             </template>
 
             <template v-else>
                 <!-- Breadcrumbs -->
                 <x-shop::breadcrumbs name="blogs"></x-shop::breadcrumbs>
                 
-                <div class="mt-[30px] grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-sm:mt-[20px] max-sm:grid-cols-1 max-sm:justify-items-center">
-                    <x-blog::blogs.item v-for="blog in blogs"/>
+                <div class="mt-10 grid grid-cols-3 gap-6 max-lg:grid-cols-2">
+                    <x-blog::blogs.items.post-item v-for="blog in blogs"/>
                 </div>
 
-
-                <div class="mt-3 text-center">
+                <div class="mt-3 text-center"
+                    v-if="limit < blogs.length"
+                >
                     <button
+                        class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
                         @click="getMoreBlogs()"
-                        class="w-[150px] rounded-[20px] border-[3px] px-[25px] py-[10px] font-semibold text-[#CC035C]"
                         v-text="loadMoreTxt"
                     >
-                        
                     </button>
                 </div>
             </template>
@@ -66,7 +68,7 @@
             },
 
             mounted() {
-                this.getblogs();
+                this.getPosts();
             },
 
             methods: {
@@ -75,10 +77,10 @@
 
                     this.loadMoreTxt = `{{ trans('blog::app.shop.blog.loading') }}`;
 
-                    this.getblogs();
+                    this.getPosts();
                 },
 
-                getblogs() {
+                getPosts() {
                     this.$axios.get("{{ route('shop.blogs.front-end') }}", {
                         params: {
                             limit: this.limit,

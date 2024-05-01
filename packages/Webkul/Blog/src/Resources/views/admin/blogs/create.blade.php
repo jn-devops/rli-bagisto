@@ -24,11 +24,11 @@
         {!! view_render_event('admin.blogs.create.before') !!}
 
         <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
-            <p class="text-5 font-bold text-gray-800 dark:text-white">
+            <p class="text-xl font-bold text-gray-800 dark:text-white">
                 @lang('blog::app.blog.create.title')
             </p>
 
-            <div class="flex items-center gap-x-3">
+            <div class="flex items-center gap-x-2.5">
                 <!-- Cancel Button -->
                 <a
                     href="{{ route('admin.blog.index') }}"
@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <!-- Full Pannel -->
+        <!-- Full Panel -->
         <div class="mt-4 flex gap-3 max-xl:flex-wrap">
 
             <!-- Left Section -->
