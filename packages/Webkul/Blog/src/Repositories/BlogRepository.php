@@ -165,27 +165,4 @@ class BlogRepository extends Repository
 
         return $blog;
     }
-
-    /**
-     * Get only single blogs.
-     *
-     * @return array
-     */
-    public function getBlogCategories($id)
-    {
-        $locale = config('app.locale');
-
-        $categoryId = DB::table('blog_categories')
-            ->where('slug', $id)->first();
-
-        $blogs = DB::table('blogs')
-            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('default_category', $categoryId['id'])
-            ->where('status', 1)
-            ->where('locale', $locale)
-            ->orderBy('id', 'DESC')
-            ->paginate(12);
-
-        return $blogs;
-    }
 }

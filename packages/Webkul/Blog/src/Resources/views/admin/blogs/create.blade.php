@@ -49,10 +49,8 @@
 
         <!-- Full Panel -->
         <div class="mt-4 flex gap-3 max-xl:flex-wrap">
-
             <!-- Left Section -->
             <div class="flex flex-1 flex-col gap-2 max-xl:flex-auto">
-
                 <!-- General -->
                 <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
                     <p class="text-4 mb-4 font-semibold text-gray-800 dark:text-white">
@@ -201,13 +199,10 @@
                             <p class="font-medium text-gray-800 dark:text-white">
                                 @lang('blog::app.blog.create.image')
                             </p>
-
                             <x-admin::media.images name="src"></x-admin::media.images>
 
                             <x-admin::form.control-group.error control-name="src"></x-admin::form.control-group.error>
-
                         </div>
-
                     </div>
                 </div>
 
@@ -237,9 +232,7 @@
                                 :placeholder="trans('blog::app.blog.create.meta-title')"
                             >
                             </x-admin::form.control-group.control>
-
                             <x-admin::form.control-group.error control-name="meta_title"></x-admin::form.control-group.error>
-
                         </x-admin::form.control-group>
 
                         <!-- Meta Keywords -->
@@ -284,13 +277,11 @@
                         </x-admin::form.control-group>
                     </div>
                 </div>
-
             </div>
 
             <!-- Right Section -->
             <div class="flex w-[360px] max-w-full flex-col gap-2">
                 <!-- Settings -->
-
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
@@ -299,7 +290,6 @@
                     </x-slot:header>
 
                     <x-slot:content>
-
                         <!-- Published At -->
                         <x-admin::form.control-group class="mb-2.5 w-full">
                             <x-admin::form.control-group.label class="required">
@@ -338,23 +328,7 @@
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
-
-                        <!-- Allow Comments -->
-                        <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
-                                @lang('blog::app.blog.create.allow_comments')
-                            </x-admin::form.control-group.label>
-
-                            <x-admin::form.control-group.control
-                                type="switch"
-                                name="allow_comments"
-                                class="cursor-pointer"
-                                value="1"
-                                :label="trans('blog::app.blog.create.allow_comments')"
-                            >
-                            </x-admin::form.control-group.control>
-                        </x-admin::form.control-group>
-
+                        
                         <!-- Author -->
                         @php
 
@@ -374,7 +348,12 @@
                             </x-admin::form.control-group.label>
 
                             @if( $role != 'Administrator' )
-                                <input type="hidden" name="author_id" id="author_id" value="{{$user_id}}">
+                                <input type="hidden" 
+                                    name="author_id" 
+                                    id="author_id" 
+                                    value="{{$user_id}}"
+                                >
+                                
                                 <x-admin::form.control-group.control
                                     type="text"
                                     name="author"
@@ -408,120 +387,8 @@
                                 </x-admin::form.control-group.error>
                             @endif
                         </x-admin::form.control-group>
-
                     </x-slot:content>
                 </x-admin::accordion>
-
-                <!-- Default Categories -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="required text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
-                            @lang('blog::app.blog.create.default-category')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-
-                        <!-- Category -->
-                        <x-admin::form.control-group class="mb-2.5">
-                            <!-- <x-admin::form.control-group.label class="required font-medium text-gray-800 dark:text-white">
-                                @lang('blog::app.blog.create.default-category')
-                            </x-admin::form.control-group.label> -->
-
-                            <x-admin::form.control-group.control
-                                type="select"
-                                name="default_category"
-                                id="default_category"
-                                {{-- class="cursor-pointer" --}}
-                                rules="required"
-                                :value="old('default_category')"
-                                :label="trans('blog::app.blog.create.default-category')"
-                            >
-                                <!-- Options -->
-                                <option value="">
-                                    @lang('blog::app.blog.create.default-category')
-                                </option>
-
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" data-slug="{{ $category->slug }}" id="{{ 'default_category'.$category->id }}" >{{ $category->name }}</option>
-                                @endforeach
-
-                            </x-admin::form.control-group.control>
-
-                            <x-admin::form.control-group.error
-                                control-name="default_category"
-                            >
-                            </x-admin::form.control-group.error>
-                        </x-admin::form.control-group>
-
-                    </x-slot:content>
-                </x-admin::accordion>
-
-                <!-- Additional Categories -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
-                            @lang('blog::app.blog.create.additional-categories')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-
-                        <!-- Status -->
-                        <div class="flex flex-col gap-3">
-                            <x-admin::tree.view
-                                input-type="checkbox"
-                                name-field="categorys"
-                                id-field="id"
-                                value-field="id"
-                                :items="json_encode($additionalCategories)"
-                                behavior="no"
-                                :fallback-locale="config('app.fallback_locale')"
-                            >
-                            </x-admin::tree.view>
-                        </div>
-
-                    </x-slot:content>
-                </x-admin::accordion>
-
-                <!-- Tags -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="required text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
-                            @lang('blog::app.blog.create.tag-title')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-                        @foreach ($tags as $tag)
-                            <x-admin::form.control-group class="!mb-0 flex gap-2.5 p-1.5">
-                                <x-admin::form.control-group.control
-                                    type="checkbox"
-                                    name="tags[]"
-                                    :id="$tag->name"
-                                    :value="$tag->id"
-                                    rules="required"
-                                    :for="$tag->name"
-                                    :label="trans('blog::app.blog.create.tag-title')"
-                                >
-                                </x-admin::form.control-group.control>
-
-                                <x-admin::form.control-group.label
-                                    :for="$tag->name"
-                                    class="cursor-pointer !text-sm font-semibold !text-gray-600 dark:!text-gray-300"
-                                >
-                                    {{ $tag->name }}
-                                </x-admin::form.control-group.label>
-                            </x-admin::form.control-group>
-                        @endforeach
-
-                        <x-admin::form.control-group.error
-                            control-name="tags[]"
-                        >
-                        </x-admin::form.control-group.error>
-                    </x-slot:content>
-                </x-admin::accordion>
-
                 {!! view_render_event('admin.blogs.create.after') !!}
             </div>
         </div>
@@ -578,8 +445,6 @@
                     metaDescription: this.$parent.getValues()['meta_description'],
 
                     metaSlug: this.$parent.getValues()['slug'],
-
-                    metaSlugCategory: this.$parent.getValues()['default_category'],
                 }
             },
 
@@ -592,11 +457,7 @@
 
                 self.metaSlug = document.getElementById('slug').value;
 
-                var d_cat_id = document.getElementById('default_category').value;
-
-                var d_cat_slug = document.getElementById('default_category' + d_cat_id).getAttribute("data-slug");
-
-                self.metaSlugCategory = ( d_cat_slug != '' && d_cat_slug != null && d_cat_slug != undefined ) ? d_cat_slug : '';
+                self.metaSlugCategory = '';
 
                 document.getElementById('meta_title').addEventListener('input', function(e) {
                     self.metaTitle = e.target.value;
@@ -616,11 +477,6 @@
                 document.getElementById('slug').addEventListener('input', function(e) {
                     var slug = e.target.value;
                     self.metaSlug = ( slug != '' && slug != null && slug != undefined ) ? slug : '';
-                });
-
-                document.getElementById('default_category').addEventListener('change', function(e) {
-                    var cat_slug = document.getElementById('default_category' + e.target.value).getAttribute("data-slug");
-                    self.metaSlugCategory = ( cat_slug != '' && cat_slug != null && cat_slug != undefined ) ? cat_slug : '';
                 });
             },
         });

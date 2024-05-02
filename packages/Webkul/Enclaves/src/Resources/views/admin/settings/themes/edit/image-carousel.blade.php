@@ -497,15 +497,15 @@
                     enctype="multipart/form-data"
                     ref="editSliderForm"
                 >
-                <x-admin::modal ref="editSliderModal">
-                    <x-slot:header>
-                        <p class="text-4.5 font-bold text-gray-800 dark:text-white">
-                            @lang('enclaves::app.admin.settings.themes.edit.edit-slider')
-                        </p>
-                    </x-slot:header>
+                    <x-admin::modal ref="editSliderModal">
+                        <x-slot:header>
+                            <p class="text-4.5 font-bold text-gray-800 dark:text-white">
+                                @lang('enclaves::app.admin.settings.themes.edit.edit-slider')
+                            </p>
+                        </x-slot:header>
 
-                    <x-slot:content>
-                    <div class="border-b-1 px-4 py-2.5 dark:border-gray-800">
+                        <x-slot:content>
+                            <div class="border-b-1 px-4 py-2.5 dark:border-gray-800">
                                 <input 
                                     type="hidden" 
                                     name="editRowIndex" 
@@ -657,7 +657,7 @@
                                 <!-- Save Button -->
                                 <button 
                                     type="submit"
-                                    class="rounded-1.5 cursor-pointer border border-blue-700 bg-blue-600 px-3 py-1.5 font-semibold text-gray-50"
+                                    class="primary-button"
                                 >
                                     @lang('admin::app.settings.themes.edit.save-btn')
                                 </button>
@@ -701,92 +701,6 @@
             methods: {
                 toggleCdnField(val) {
                     this.isUsingCDN = val;
-                },
-                
-                saveSliderImage(params, { resetForm ,setErrors }) {
-                    let formData = new FormData(this.$refs.createSliderForm);
-
-                    try {
-                        if (! formData.get("{{ $currentLocale->code }}[button_text]")) {
-                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
-                        }
-                    } catch (error) {
-                        setErrors({'button_text': [error.message]});
-                    }
-
-                    try {
-                        if (formData.get("{{ $currentLocale->code }}[button_text]").length > 20) {
-                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_button_text') }}");
-                        }
-                    } catch (error) {
-                        setErrors({'button_text': [error.message]});
-                    }
-
-                    try {
-                        if (formData.get("{{ $currentLocale->code }}[slider_syntax]").length > 30) {
-                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_slider_text') }}");
-                        }
-                    } catch (error) {
-                        setErrors({'slider_syntax': [error.message]});
-                    }
-
-                    try {
-                        if (! formData.get("{{ $currentLocale->code }}[slider_syntax]")) {
-                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
-                        }
-                    } catch (error) {
-                        setErrors({'slider_syntax': [error.message]});
-                    }
-
-                    if(this.isUsingCDN) {
-                        try {
-                            if (! formData.get('{{ $currentLocale->code }}[image_cdn_link]')) {
-                                throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
-                            }
-                            
-                            this.sliders.images.push({
-                                isUsingCDN: this.isUsingCDN,
-                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
-                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
-                                link: formData.get("{{ $currentLocale->code }}[link]"),
-                                image_cdn_link:formData.get('{{ $currentLocale->code }}[image_cdn_link]'),
-                            });
-
-                            this.$refs.addSliderModal.toggle();
-
-                            resetForm();
-
-                        } catch (error) {
-                            setErrors({'image_cdn_link': [error.message]});
-                        }
-                    } else {
-                        try {
-                            if (! formData.get("slider_image[]")) {
-                                throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
-                            }
-
-                            const sliderImage = formData.get("slider_image[]");
-
-                            this.sliders.images.push({
-                                slider_image: sliderImage,
-                                isUsingCDN: this.isUsingCDN,
-                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
-                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
-                                link: formData.get("{{ $currentLocale->code }}[link]"),
-                                image_cdn_link:[],
-                            });
-
-                            if (sliderImage instanceof File) {
-                                this.setFile(sliderImage, this.sliders.images.length - 1);
-                            }
-
-                            this.$refs.addSliderModal.toggle();
-
-                            resetForm();
-                        } catch (error) {
-                            setErrors({'slider_image': [error.message]});
-                        }
-                    }
                 },
 
                 setFile(file, index) {
@@ -921,6 +835,92 @@
                             }
 
                             this.$refs.editSliderModal.toggle();
+
+                            resetForm();
+                        } catch (error) {
+                            setErrors({'slider_image': [error.message]});
+                        }
+                    }
+                },
+
+                saveSliderImage(params, { resetForm ,setErrors }) {
+                    let formData = new FormData(this.$refs.createSliderForm);
+
+                    try {
+                        if (! formData.get("{{ $currentLocale->code }}[button_text]")) {
+                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
+                        }
+                    } catch (error) {
+                        setErrors({'button_text': [error.message]});
+                    }
+
+                    try {
+                        if (formData.get("{{ $currentLocale->code }}[button_text]").length > 20) {
+                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_button_text') }}");
+                        }
+                    } catch (error) {
+                        setErrors({'button_text': [error.message]});
+                    }
+
+                    try {
+                        if (formData.get("{{ $currentLocale->code }}[slider_syntax]").length > 30) {
+                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.limit_slider_text') }}");
+                        }
+                    } catch (error) {
+                        setErrors({'slider_syntax': [error.message]});
+                    }
+
+                    try {
+                        if (! formData.get("{{ $currentLocale->code }}[slider_syntax]")) {
+                            throw new Error("{{ trans('enclaves::app.admin.settings.themes.edit.required') }}");
+                        }
+                    } catch (error) {
+                        setErrors({'slider_syntax': [error.message]});
+                    }
+
+                    if(this.isUsingCDN) {
+                        try {
+                            if (! formData.get('{{ $currentLocale->code }}[image_cdn_link]')) {
+                                throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                            }
+                            
+                            this.sliders.images.push({
+                                isUsingCDN: this.isUsingCDN,
+                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
+                                link: formData.get("{{ $currentLocale->code }}[link]"),
+                                image_cdn_link:formData.get('{{ $currentLocale->code }}[image_cdn_link]'),
+                            });
+
+                            this.$refs.addSliderModal.toggle();
+
+                            resetForm();
+
+                        } catch (error) {
+                            setErrors({'image_cdn_link': [error.message]});
+                        }
+                    } else {
+                        try {
+                            if (! formData.get("slider_image[]")) {
+                                throw new Error("{{ trans('admin::app.settings.themes.edit.slider-required') }}");
+                            }
+
+                            const sliderImage = formData.get("slider_image[]");
+
+                            this.sliders.images.push({
+                                slider_image: sliderImage,
+                                isUsingCDN: this.isUsingCDN,
+                                button_text:formData.get("{{ $currentLocale->code }}[button_text]"),
+                                slider_syntax:formData.get("{{ $currentLocale->code }}[slider_syntax]"),
+                                link: formData.get("{{ $currentLocale->code }}[link]"),
+                                image_cdn_link:[],
+                            });
+
+                            if (sliderImage instanceof File) {
+                                this.setFile(sliderImage, this.sliders.images.length - 1);
+                            }
+
+                            this.$refs.addSliderModal.toggle();
 
                             resetForm();
                         } catch (error) {

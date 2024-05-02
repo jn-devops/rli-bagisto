@@ -20,15 +20,11 @@ return new class extends Migration
             $table->string('short_description');
             $table->longText('description');
             $table->foreignId('channels');
-            $table->foreignId('default_category');
-            $table->string('categorys')->nullable();
-            $table->string('tags');
+            $table->string('src');
             $table->string('author');
             $table->foreignId('author_id')->default(0);
-            $table->string('src');
             $table->string('locale');
             $table->boolean('status');
-            $table->boolean('allow_comments');
             $table->string('meta_title');
             $table->string('meta_description');
             $table->string('meta_keywords');

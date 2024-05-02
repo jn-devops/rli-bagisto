@@ -2,8 +2,11 @@
 
 namespace Webkul\Enclaves\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
 {
@@ -19,6 +22,8 @@ class CategoryResource extends JsonResource
 
         if($this->community_banner_path) {
             $communityBannerPath = $this->communityBannerPath();
+        } else {
+            $communityBannerPath = bagisto_asset('images/medium-product-placeholder.webp', 'shop');
         }
 
         return [

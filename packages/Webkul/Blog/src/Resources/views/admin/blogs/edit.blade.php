@@ -354,193 +354,67 @@
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
-
-                        <!-- Allow Comments -->
-                        <input type="hidden" name="allow_comments" id="allow_comments" value="@php echo $blog->allow_comments @endphp">
-                        <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
-                                @lang('blog::app.blog.edit.allow-comments')
-                            </x-admin::form.control-group.label>
-
-                            @php 
-                                $selectedValueAllowComments = old('allow_comments') ?: $blog->allow_comments 
-                            @endphp
-
-                            <x-admin::form.control-group.control
-                                type="switch"
-                                name="allow_comments_switch"
-                                class="cursor-pointer"
-                                value="1"
-                                :label="trans('blog::app.blog.edit.allow-comments')"
-                                :checked="(boolean) $selectedValueAllowComments"
-                            >
-                            </x-admin::form.control-group.control>
-                        </x-admin::form.control-group>
-
                         <!-- Author -->
                         @php
 
-                            $loggedIn_user = auth()->guard('admin')->user()->toarray();
+                        $loggedIn_user = auth()->guard('admin')->user()->toarray();
 
-                            $user_id = ( array_key_exists('id', $loggedIn_user) ) ? $loggedIn_user['id'] : 0;
-                            
-                            $user_name = ( array_key_exists('name', $loggedIn_user) ) ? $loggedIn_user['name'] : '';
-                            
-                            $role = ( array_key_exists('role', $loggedIn_user) ) ? ( array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
+                        $user_id = ( array_key_exists('id', $loggedIn_user) ) ? $loggedIn_user['id'] : 0;
+
+                        $user_name = ( array_key_exists('name', $loggedIn_user) ) ? $loggedIn_user['name'] : '';
+
+                        $role = ( array_key_exists('role', $loggedIn_user) ) ? ( array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
 
                         @endphp
 
                         <x-admin::form.control-group class="mb-2.5">
                             <x-admin::form.control-group.label class="required font-medium text-gray-800 dark:text-white">
-                                @lang('blog::app.blog.edit.author')
-                            </x-admin::form.control-group.label>
+                            @lang('blog::app.blog.edit.author')
+                        </x-admin::form.control-group.label>
 
-                            @if( $role != 'Administrator' )
-                                <input type="hidden" name="author_id" id="author_id" value="{{$user_id}}">
-                                
-                                <x-admin::form.control-group.control
-                                    type="text"
-                                    name="author"
-                                    rules="required"
-                                    disabled="disabled"
-                                    :value="$user_name"
-                                    :label="trans('blog::app.blog.edit.author')"
-                                    :placeholder="trans('blog::app.blog.edit.author')"
-                                >
-                                </x-admin::form.control-group.control>
-                            @else
-                                <x-admin::form.control-group.control
-                                    type="select"
-                                    name="author_id"
-                                    id="author_id"
-                                    rules="required"
-                                    :value="old('author_id') ?? $blog->author_id"
-                                    :label="trans('blog::app.blog.author')"
-                                >
-                                    <!-- Options -->
-                                    <option value="">@lang('blog::app.blog.edit.select-author')</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </x-admin::form.control-group.control>
-
-                                <x-admin::form.control-group.error
-                                    control-name="author"
-                                >
-                                </x-admin::form.control-group.error>
-                            @endif
-                        </x-admin::form.control-group>
-
-                    </x-slot:content>
-                </x-admin::accordion>
-
-                <!-- Default Categories -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="required text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
-                            @lang('blog::app.blog.edit.default-category')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-
-                        <!-- Category -->
-                        <x-admin::form.control-group class="mb-2.5">
-
+                        @if( $role != 'Administrator' )
+                            <input 
+                                type="hidden" 
+                                name="author_id" 
+                                id="author_id" 
+                                value="{{$user_id}}"
+                            >
+                            
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="author"
+                                rules="required"
+                                disabled="disabled"
+                                :value="$user_name"
+                                :label="trans('blog::app.blog.edit.author')"
+                                :placeholder="trans('blog::app.blog.edit.author')"
+                            >
+                            </x-admin::form.control-group.control>
+                        @else
                             <x-admin::form.control-group.control
                                 type="select"
-                                name="default_category"
-                                id="default_category"
-                                {{-- class="cursor-pointer" --}}
+                                name="author_id"
+                                id="author_id"
                                 rules="required"
-                                :value="old('default_category') ?? $blog->default_category"
-                                :label="trans('blog::app.blog.edit.default-category')"
+                                :value="old('author_id') ?? $blog->author_id"
+                                :label="trans('blog::app.blog.author')"
                             >
                                 <!-- Options -->
-                                <option value="">
-                                    @lang('blog::app.blog.edit.select-default-category')
-                                </option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" data-slug="{{ $category->slug }}" id="{{ 'default_category'.$category->id }}" {{ $blog->default_category == $category->id ? 'selected' : '' }} >{{ $category->name }}</option>
+                                <option value="">@lang('blog::app.blog.edit.select-author')</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error
-                                control-name="default_category"
+                                control-name="author"
                             >
                             </x-admin::form.control-group.error>
+                        @endif
                         </x-admin::form.control-group>
-
                     </x-slot:content>
+                    
                 </x-admin::accordion>
-
-                <!-- Additional Category -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
-                            @lang('blog::app.blog.edit.additional-categories')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-
-                        <!-- Status -->
-                        <div class="flex flex-col gap-3">
-                            <x-admin::tree.view
-                                input-type="checkbox"
-                                name-field="categorys"
-                                id-field="id"
-                                value-field="id"
-                                :items="json_encode($additionalCategories)"
-                                :value="json_encode(explode(',', $blog->categorys))"
-                                behavior="no"
-                                :fallback-locale="config('app.fallback_locale')"
-                            >
-                            </x-admin::tree.view>
-                        </div>
-
-                    </x-slot:content>
-                </x-admin::accordion>
-
-                <!-- Tags -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="required text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
-                            @lang('blog::app.blog.edit.tag-title')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-                        @foreach ($tags as $tag)
-                            <x-admin::form.control-group class="!mb-0 flex gap-2.5 p-1.5">
-                                <x-admin::form.control-group.control
-                                    type="checkbox"
-                                    name="tags[]"
-                                    :id="$tag->name"
-                                    :value="$tag->id"
-                                    rules="required"
-                                    :for="$tag->name"
-                                    :label="trans('blog::app.blog.edit.tag-title')"
-                                    :checked="in_array($tag->id, explode(',', $blog->tags))"
-                                >
-                                </x-admin::form.control-group.control>
-
-                                <x-admin::form.control-group.label
-                                    :for="$tag->name"
-                                    class="cursor-pointer !text-sm font-semibold !text-gray-600 dark:!text-gray-300"
-                                >
-                                    {{ $tag->name }}
-                                </x-admin::form.control-group.label>
-                            </x-admin::form.control-group>
-                        @endforeach
-
-                        <x-admin::form.control-group.error
-                            control-name="tags[]"
-                        >
-                        </x-admin::form.control-group.error>
-                    </x-slot:content>
-                </x-admin::accordion>
-
                 {!! view_render_event('admin.blogs.edit.after', ['blogs' => $blog]) !!}
             </div>
         </div>
@@ -597,8 +471,6 @@
                     metaDescription: this.$parent.getValues()['meta_description'],
 
                     metaSlug: this.$parent.getValues()['slug'],
-
-                    metaSlugCategory: this.$parent.getValues()['default_category'],
                 }
             },
 
@@ -611,11 +483,7 @@
 
                 self.metaSlug = document.getElementById('slug').value;
 
-                var d_cat_id = document.getElementById('default_category').value;
-
-                var d_cat_slug = document.getElementById('default_category' + d_cat_id).getAttribute("data-slug");
-
-                self.metaSlugCategory = ( d_cat_slug != '' && d_cat_slug != null && d_cat_slug != undefined ) ? d_cat_slug : '';
+                self.metaSlugCategory = '';
 
                 document.getElementById('meta_title').addEventListener('input', function(e) {
                     self.metaTitle = e.target.value;
@@ -635,20 +503,7 @@
                 document.getElementById('slug').addEventListener('input', function(e) {
                     var slug = e.target.value;
                     self.metaSlug = ( slug != '' && slug != null && slug != undefined ) ? slug : '';
-                });
-
-                document.getElementById('default_category').addEventListener('change', function(e) {
-                    var cat_slug = document.getElementById('default_category' + e.target.value).getAttribute("data-slug");
-                    self.metaSlugCategory = ( cat_slug != '' && cat_slug != null && cat_slug != undefined ) ? cat_slug : '';
-                });
-
-                document.getElementById('status_switch').addEventListener('change', function(e) {
-                    document.getElementById('status').value = ( e.target.checked == true || e.target.checked == 'true' ) ? 1 : 0;
-                });
-
-                document.getElementById('allow_comments_switch').addEventListener('change', function(e) {
-                    document.getElementById('allow_comments').value = ( e.target.checked == true || e.target.checked == 'true' ) ? 1 : 0;
-                });
+                })
             },
         });
     </script>

@@ -52,7 +52,11 @@
                                 src="{{ Storage::url($blog->src ?? 'placeholder-thumb.jpg') }}"
                             ></x-shop::media.images.lazy>
                         @else
-                            <div class="shimmer h-[500px] w-full rounded-3xl"></div>
+                            <x-shop::media.images.lazy
+                                class="w-full max-lg:h-[300px] lg:h-[500px] lg:rounded-3xl"
+                                alt="large-product-placeholder"
+                                src="{{ bagisto_asset('images/large-product-placeholder.webp', 'shop') }}"
+                            ></x-shop::media.images.lazy>
                         @endif
                     </div>
 
@@ -83,7 +87,7 @@
                     <x-blog::shimmer.blogs.item count=3 />
                 </div>
                 
-                <div class="mt-5 flex justify-center">
+                <div class="mt-5 flex justify-center" v-if="blogs.length > 3">
                     <button
                         @click="getMoreBlogs()"
                         class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
@@ -105,7 +109,7 @@
                     blog: @json($blog),
                     isLoading: true,
                     isRelativeLoading: false,
-                    limit: 3,
+                    limit: `{{ $limit }}`,
                     loadMoreTxt: `{{ trans('blog::app.shop.blog.load-more') }}`,
                 };
             },
@@ -120,7 +124,7 @@
 
             methods: {
                 getMoreBlogs() {
-                    this.limit += 3;
+                    this.limit += `{{ $limit }}`;
 
                     this.isRelativeLoading = true;
 

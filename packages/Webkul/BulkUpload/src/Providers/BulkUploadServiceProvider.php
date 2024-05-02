@@ -2,7 +2,9 @@
 
 namespace Webkul\BulkUpload\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Webkul\BulkUpload\Http\Middleware\BulkUpload;
 
 class BulkUploadServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,7 @@ class BulkUploadServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
         /**
          * OverRide simple Type class
@@ -43,7 +45,15 @@ class BulkUploadServiceProvider extends ServiceProvider
             __DIR__ . '/../../publishable/assets' => public_path('vendor/webkul/admin/assets'),
         ], 'public');
 
+        $router->aliasMiddleware('bulkUpload', BulkUpload::class);
+
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'bulkUpload');
+
+        if(core()->getConfigData('bulkUpload.settings.general.status')) {
+            $this->mergeConfigFrom(
+                dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
+            );
+        }
 
         $this->app->register(ModuleServiceProvider::class);
 
@@ -72,10 +82,6 @@ class BulkUploadServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             dirname(__DIR__) . '/Config/system.php', 'core'
-        );
-
-        $this->mergeConfigFrom(
-            dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
         );
     }
 }

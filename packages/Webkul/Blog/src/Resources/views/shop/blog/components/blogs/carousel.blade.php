@@ -1,8 +1,15 @@
 <v-blogs-carousel
     src="{{ $src }}"
     title="{{ $title }}"
-    navigation-link="{{ $navigationLink ?? '' }}"
+    navigation-link="{{ $navigationLink ?? '' }}" 
 >
+    <div class="container mt-[150px] max-lg:px-[30px] max-sm:mt-[30px]">
+        <div class="shimmer h-[40px] w-[50%]"></div>
+        <div class="shimmer mt-[50px] h-[40px] w-[50%]"></div>
+
+        <x-blog::shimmer.blogs.item count="3" />
+    </div>
+
 </v-blogs-carousel>
 
 @pushOnce('scripts')
@@ -12,9 +19,9 @@
             class="container mt-[150px] bg-[url('../images/blog-bg.svg')] bg-right bg-no-repeat [background-size:51%] max-lg:px-[30px] max-sm:mt-[30px]"
             v-if="blogs.length > 0"
             >
-        
             <div class="rli-title max-w-[1024px] max-sm:text-[25px]">
                 <p class="text-[#CC035C]">@lang('Raemulan Lands Inc')</p>
+
                 <p class="mt-[40px]">@lang('News & Updates')</p>
             </div>
 
@@ -47,8 +54,12 @@
 
         <!-- Product Card Listing -->
         <template v-if="isLoading">
-            <div class="p-6 lg:hidden">
-                <x-blog::shimmer.blogs.item count=2 />
+            <div class="container mt-[150px] max-lg:px-[30px] max-sm:mt-[30px]">
+                <div class="shimmer h-[40px] w-[50%]"></div>
+                
+                <div class="shimmer mt-[50px] h-[40px] w-[50%]"></div>
+
+                <x-blog::shimmer.blogs.item count="3" />
             </div>
         </template>
     </script>

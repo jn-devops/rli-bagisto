@@ -4,7 +4,7 @@
     @for ($i = 0;  $i < $count; $i++)
         <div class="grid gap-5 {{ $attributes['class'] }}">
             <div class="relative rounded-sm">
-                <div class="shimmer h-[310px] rounded-3xl max-lg:h-[150px]"></div>
+                <div class="shimmer rounded-3xl max-lg:h-[150px] lg:h-[310px]"></div>
             </div>
 
             <div class="grid content-start gap-2.5">

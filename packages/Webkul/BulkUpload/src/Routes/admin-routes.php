@@ -5,7 +5,7 @@ use Webkul\BulkUpload\Http\Controllers\Admin\BulkProductImporterController;
 use Webkul\BulkUpload\Http\Controllers\Admin\ReadProductUrlController;
 use Webkul\BulkUpload\Http\Controllers\Admin\UploadFileController;
 
-Route::middleware(['web', 'admin'])
+Route::middleware(['web', 'admin', 'bulkUpload'])
     ->prefix(config('app.admin_url'))
     ->group(function () {
 
