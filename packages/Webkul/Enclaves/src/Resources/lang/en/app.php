@@ -128,96 +128,88 @@ return [
             ],
 
             'account' => [
-                'customer-profile' => [
-                    'personal-details' => [
+                'customer_profile' => [
+                    'personal_details' => [
                         'title'           => 'Personal Details',
-                        'full-name'       => 'Full Name',
+                        'full_name'       => 'Full Name',
                         'dob'             => 'Date of Birth',
                         'email'           => 'Email',
                         'phone'           => 'Phone',
-                        'lot_unit_number' => 'Lot / Unit number: ',
-                        'select'          => "Select",
+                        'address_1'       => 'Address-1',
+                        'civil_status'    => 'Civil Status',
+                        'gender'          => 'Gender',
+                        'lot_unit_number' => 'Lot / Unit number',
+                        'select'          => 'Select',
                     ],
 
                     'view' => [
-                        'title'           => 'Personal Details',
-
-                        'info' => [
-                            'full-name'       => 'Full Name', 
+                        'title'            => 'Personal Details',
+                        'no_record'        => 'No Record Found!',
+                        'add_record'       => 'Add Details to go',
+                        'personal_details' => [
+                            'full_name'       => 'Full Name', 
                             'dob'             => 'Date of Birth',
                             'email'           => 'Email',
                             'phone'           => 'Phone',
-                            'lot-unit-number' => 'Lot / Unit number: ',
-                            'civil-status'    => "Civil Status",
+                            'lot_unit_number' => 'Lot / Unit number',
+                            'civil_status'    => "Civil Status",
                             'gender'          => 'Gender',
-                            'address-1'       => 'Address-1',
+                            'address_1'       => 'Address-1',
                         ],
 
-                        'information' => [
+                        'employment_type' => [
                             'title'                     => 'Employment Information',
-                            'full-name'                 => 'Full Name',
+                            'full_name'                 => 'Full Name',
                             'dob'                       => 'Date of Birth',
                             'email'                     => 'Email',
                             'phone'                     => 'Phone',
-                            'lot-unit-number'           => 'Lot / Unit number: ',
+                            'lot_unit_number'           => 'Lot / Unit number',
                             'select'                    => "Select",
-                            'civil-status'              => "Civil Status",
+                            'civil_status'              => "Civil Status",
                             'gender'                    => "Gender",
                             'address-1'                 => 'Address 1',
                             'address-2'                 => 'Address 2',
-                            'work-industry'             => 'Work Industry:',
-                            'gross-income'              => 'Gross Income: ',
+                            'work_industry'             => 'Work Industry',
+                            'gross_income'              => 'Gross Income ',
                             'nationality'               => 'Nationality',
-                            'current-position'          => 'Current Position',
-                            'tax-identification-number' => 'Tax Identification Number:',
-                            'PAG-IBIG-number'           => 'PAG-IBIG Number',
-                            'SSS-GSIS-number'           => 'SSS Number',
-
-                            'employment' => [
-                                'type'   => "Employment Type",
-                                'status' => 'Employment Status',
-                            ],
-
-                            'employer' => [
-                                'name'    => 'Employer Name',
-                                'number'  => 'Employer Contact Number:',
-                                'address' => 'Employer Address',
-                            ],
+                            'current_position'          => 'Current Position',
+                            'tax_identification_number' => 'Tax Identification Number',
+                            'PAG_IBIG_number'           => 'PAG-IBIG Number',
+                            'SSS_GSIS_number'           => 'SSS Number',
+                            'employment_status'         => "Employment Status",
+                            'employment_type'           => "Employment Type",
+                            'employer_name'             => "Employer Name",
+                            'employer_contact_number'   => "Employer Number",
+                            'employer_address'          => "Employer Address",
                         ],
 
-                        'co-borrower' => [
+                        'borrower_data' => [
                             'title'                     => "Borrower's Data (Spouse, Attorney in fact, Co-Borrower)",
-                            'secondary-address'         => 'Secondary Home Address: ',
-                            'civil-status'              => 'Civil Status: ',
+                            'secondary_home_address'    => 'Secondary Home Address',
+                            'civil_status'              => 'Civil Status',
                             'gender'                    => 'Gender',
                             'dob'                       => 'Date of Birth',
-                            'primary-email-address'     => 'Primary Email Address:',
-                            'primary-phone-number'      => 'Primary Phone Number',
-                            'work-industry'             => 'Work Industry',
-                            'gross-income'              => 'Gross Income: ',
+                            'primary_email_address'     => 'Primary Email Address',
+                            'primary_mobile_number'     => 'Primary Phone Number',
+                            'work_industry'             => 'Work Industry',
+                            'gross_income'              => 'Gross Income',
                             'nationality'               => 'Nationality',
-                            'current-position'          => 'Current Position: ',
-                            'tax-identification-number' => 'Tax Identification Number:',
-                            'PAG-IBIG-number'           => 'PAG-IBIG Number',
-                            'SSS-GSIS-number'           => 'SSS Number',
-
-                            'employment' => [
-                                'type'   => "Employment Type",
-                                'status' => 'Employment Status',
-                            ],
-
-                            'employer' => [
-                                'name'    => 'Employer Name',
-                                'number'  => 'Employer Contact Number: ',
-                                'address' => 'Employer Address: ',
-                            ],
+                            'current_position'          => 'Current Position',
+                            'tax_identification_number' => 'Tax Identification Number',
+                            'PAG_IBIG_number'           => 'PAG-IBIG Number',
+                            'SSS_GSIS_number'           => 'SSS Number',
+                            'employment_type'           => "Employment Type",
+                            'employment_status'         => "Employment Status",
+                            'employer_name'             => 'Employer Name',
+                            'employer_contact_number'   => 'Employer  Contact Number',
+                            'employer_address'          => 'Employer Address',
                         ],
                     ],
 
                     'header' => [
-                        'email' => 'Email: ',
-                        'age'   => 'Age: ',
-                        'step'  => 'Steps to get your dream house',
+                        'email'    => 'Email: ',
+                        'age'      => 'Age: ',
+                        'step'     => 'Steps to get your dream house',
                         'read-now' => 'Read Now',
                     ],
 
@@ -238,7 +230,7 @@ return [
 
                     'header' => [
                         'monthly-amortization' => 'Monthly Amortization: ',
-                        'reserved' => 'Reserved',
+                        'reserved'             => 'Reserved',
                         'total-contract-price' => 'Total Contract Price',
                     ],
 

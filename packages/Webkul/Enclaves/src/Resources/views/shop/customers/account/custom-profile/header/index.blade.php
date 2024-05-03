@@ -2,11 +2,11 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-profile-header-template">
-        <section class="flex flex-col justify-between gap-x-4 gap-y-8 rounded-[1.25rem] bg-[rgba(237,_239,_245)] px-8 py-5 md:items-center lg:flex-row xl:gap-x-8 xl:px-12 xl:pb-[1.875rem] xl:pt-[2.313rem]">
-            <figure class="flex w-full justify-start gap-x-8">
+        <section class="mt-[18px] grid grid-cols-3 items-center gap-5 rounded-[1.25rem] bg-[rgba(237,_239,_245)] p-3 max-lg:grid-cols-1">
+            <figure class="w-full items-center justify-start p-3">
 
                 <x-shop::form
-                    class="mt-[30px] rounded"
+                    class="rounded"
                     enctype="multipart/form-data"
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
@@ -49,33 +49,37 @@
                         </div>
                     </form>
                 </x-shop::form>
-
-                <figcaption class="flex flex-col gap-y-1.5 pt-2 lg:gap-y-2.5">
-                    <h3 class="text-lg font-semibold text-black xl:text-[1.565rem] xl:leading-7">
-                        {{ $customer->first_name }}
-                    </h3>
-
-                    <h4 class="text-base font-bold text-black xl:text-[1.313rem] xl:leading-6"> 
-                        @lang('enclaves::app.shop.customers.account.customer-profile.header.email') 
-                        <span class="font-normal">{{ $customer->email }}</span>
-                    </h4>
-
-                    <h4 class="text-base font-bold text-black xl:text-[1.313rem] xl:leading-6"> 
-                        @lang('enclaves::app.shop.customers.account.customer-profile.header.age') 
-
-                        <span class="font-normal">{{ $customer->date_of_birth }}</span>
-                    </h4>
-                </figcaption>
             </figure>
-            
-            <article
-                class="flex w-full max-w-full flex-col gap-y-6 rounded-[1.25rem] bg-[rgba(161,_184,_214)] px-6 py-5 lg:max-w-64">
-                <h3 class="text-xl font-semibold text-white xl:text-[1.565rem] xl:leading-7">
-                    @lang('enclaves::app.shop.customers.account.customer-profile.header.step') 
+
+            <article class="flex flex-col gap-y-1.5 pt-2 lg:gap-y-2.5">
+                <h3 class="text-[20px] font-semibold text-black xl:text-[1.565rem] xl:leading-7">
+                    {{ $customer->first_name }}
                 </h3>
 
-                <button class="font-regular ml-auto max-w-fit text-balance rounded-full bg-white px-6 py-3.5 text-base leading-4 text-black">
-                    @lang('enclaves::app.shop.customers.account.customer-profile.header.read-now') 
+                <h4 class="text-nowrap text-base font-bold text-black xl:leading-6"> 
+                    @lang('enclaves::app.shop.customers.account.customer_profile.header.email')
+
+                    <span class="font-normal">
+                        {{ $customer->email }}
+                    </span>
+                </h4>
+
+                <h4 class="text-base font-bold text-black xl:leading-6"> 
+                    @lang('enclaves::app.shop.customers.account.customer_profile.header.age') 
+
+                    <span class="font-normal">
+                        {{ $customer->age }}{{ '+ Years' }}
+                    </span>
+                </h4>
+            </article>
+            
+            <article class="flex w-full flex-wrap gap-3 rounded-[1.25rem] bg-[rgba(161,_184,_214)] p-5">
+                <h3 class="text-xl font-semibold text-white xl:text-[1.565rem] xl:leading-7">
+                    @lang('enclaves::app.shop.customers.account.customer_profile.header.step') 
+                </h3>
+
+                <button class="font-regular max-w-fit text-balance rounded-full bg-white px-6 py-3.5 text-base leading-4 text-black">
+                    @lang('enclaves::app.shop.customers.account.customer_profile.header.read-now') 
                 </button>
             </article>
         </section>

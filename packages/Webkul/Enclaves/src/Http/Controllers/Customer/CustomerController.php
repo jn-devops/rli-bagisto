@@ -2,15 +2,16 @@
 
 namespace Webkul\Enclaves\Http\Controllers\Customer;
 
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-use Webkul\Core\Repositories\SubscribersListRepository;
+use Webkul\Shop\Http\Controllers\Controller;
 use Webkul\Customer\Repositories\CustomerRepository;
+use Webkul\Core\Repositories\SubscribersListRepository;
+use Webkul\Product\Repositories\ProductReviewRepository;
 use Webkul\Enclaves\Http\Requests\Customer\ProfileRequest;
 use Webkul\Enclaves\Repositories\CustomerAttributeRepository;
 use Webkul\Enclaves\Repositories\CustomerAttributeValueRepository;
-use Webkul\Product\Repositories\ProductReviewRepository;
-use Webkul\Shop\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
@@ -45,6 +46,19 @@ class CustomerController extends Controller
     }
 
     /**
+     * customer to profile.
+     * 
+     * @param int $id
+     * @return mixed
+     */
+    private function getAttributesValues($id)
+    {
+        return $this->customerAttributeValueRepository
+                                    ->findWhere(['customer_id' => $id])
+                                    ->groupBy('form_type');
+    }
+
+    /**
      * Taking the customer to profile details page.
      *
      * @return \Illuminate\View\View
@@ -52,6 +66,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = self::getCustomer();
+        $customer->age =  Carbon::parse($customer->date_of_birth)->age;
+        $customer->attributes = $this->getAttributesValues($customer->id);
 
         return view('shop::customers.account.custom-profile.index', compact('customer'));
     }
@@ -64,7 +80,7 @@ class CustomerController extends Controller
     public function edit()
     {
         $customer = self::getCustomer();
-
+        
         return view('shop::customers.account.profile.edit', compact('customer'));
     }
 
@@ -84,6 +100,7 @@ class CustomerController extends Controller
         $customer = $this->customerAttributeValueRepository->updateOrCreate([
             'customer_id'  => $data['customer_id'],
             'attribute_id' => $data['attribute_id'],
+            'form_type'    => $data['formType'],
         ], $data);
 
         if ($customer) {

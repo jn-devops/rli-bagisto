@@ -42,7 +42,7 @@
                                 >
                                 <div>
                                     <span class="text-[21px] font-semibold">
-                                        @lang('enclaves::app.shop.customers.account.customer-profile.form.full-name') 
+                                        @lang('enclaves::app.shop.customers.account.customer_profile.form.full-name') 
                                     </span>
 
                                     <span v-text="values[index]?.employer_name"></span>
@@ -50,19 +50,10 @@
 
                                 <div>
                                     <span class="text-[21px] font-semibold">
-                                        @lang('enclaves::app.shop.customers.account.customer-profile.form.address') 
+                                        @lang('enclaves::app.shop.customers.account.customer_profile.form.address') 
                                     </span>
                                     
                                     <span v-text="values[index]?.employer_address"></span>
-                                </div>
-
-                                <div>
-                                    <span class="text-[21px] font-semibold">
-                                        @lang('enclaves::app.shop.customers.account.customer-profile.form.lot-unit-number')
-                                    </span>
-                                    <span>
-                                        Lot A
-                                    </span>
                                 </div>
                             </div>
                             
@@ -70,7 +61,7 @@
                                 <template v-for="attribute_type in attribute">
                                     <div class="flex min-w-full flex-col gap-2 lg:gap-4">
                                         <label
-                                            :for="attribute_type.name"
+                                            :for="index + '_' + attribute_type.code"
                                             class="block text-lg font-medium leading-[1.565rem] text-black lg:text-xl xl:text-[1.565rem]"
                                             v-text="attribute_type.name"
                                         >
@@ -78,7 +69,7 @@
 
                                         <!-- select -->
                                         <select
-                                            id="civil-status"
+                                            :id="index + '_' + attribute_type.code"
                                             class="form-select styled-select flex min-w-full appearance-none rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] bg-no-repeat px-6 py-3 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)] lg:px-8 lg:py-6"
                                             autocomplete="civil-status"
                                             v-if="attribute_type.type === 'select'"
@@ -87,7 +78,7 @@
                                             :name="attribute_type.code"
                                         >
                                             <option class="text-[rgba(184,_184,_184)]" selected>
-                                                @lang('enclaves::app.shop.customers.account.customer-profile.form.select')
+                                                @lang('enclaves::app.shop.customers.account.customer_profile.form.select')
                                             </option>
                                             
                                             <template v-for="option in attribute_type.options">
@@ -107,7 +98,7 @@
                                                 <input
                                                     type="radio"
                                                     class="size-7 appearance-none rounded-full border-2 border-white shadow-[0px_4px_4px] shadow-neutral-300 outline-none ring-0 checked:bg-blue-400 [&:not(checked)]:bg-[rgba(245,_245,_245)]" 
-                                                    :id="attribute_type.code"
+                                                    :id="index + '_' + attribute_type.code"
                                                     :name="attribute_type.code"
                                                     :value="option.value.toLowerCase()"
                                                     :checked="values[index][attribute_type.code] == option.value.toLowerCase()"
@@ -116,7 +107,7 @@
                                                 />
 
                                                 <label
-                                                    :for="option.value"
+                                                    :for="index + '_' + attribute_type.code"
                                                     class="block text-[1.313rem] font-medium leading-[1.313rem] text-black"
                                                     v-text="option.value"
                                                 >
@@ -131,7 +122,21 @@
                                             autocomplete="off"
                                             v-if="attribute_type.type === 'text'"
                                             :value="values[index][attribute_type.code]"
-                                            :id="attribute_type.code"
+                                            :id="index + '_' + attribute_type.code"
+                                            :name="attribute_type.code"
+                                            :placeholder="attribute_type.name"
+                                            :formType="index"
+                                            @change="selectOption($event)"
+                                        />
+
+                                        <!-- date -->
+                                        <input
+                                            type="date"
+                                            class="flex min-w-full rounded-[1.25rem] border-0 bg-[rgba(245,_245,_245)] px-6 py-3 text-xl leading-5 shadow-sm ring-0 ring-inset ring-[rgba(184,_184,_184)] placeholder:text-[rgba(184,_184,_184)] focus:ring-1 focus:ring-inset focus:ring-[rgba(184,_184,_184)] lg:px-8 lg:py-6" 
+                                            autocomplete="off"
+                                            v-if="attribute_type.type === 'date'"
+                                            :value="values[index][attribute_type.code]"
+                                            :id="index + '_' + attribute_type.code"
                                             :name="attribute_type.code"
                                             :placeholder="attribute_type.name"
                                             :formType="index"
@@ -158,12 +163,12 @@
 
                     tabs: {
                         'employment_type' : {
-                            title: "@lang('enclaves::app.shop.customers.account.customer-profile.form.employment-information')",
+                            title: "@lang('enclaves::app.shop.customers.account.customer_profile.form.employment-information')",
                             isActive: true,
                         }, 
 
                         'borrower_data': {
-                            title: "@lang('enclaves::app.shop.customers.account.customer-profile.form.co-Borrower')",
+                            title: "@lang('enclaves::app.shop.customers.account.customer_profile.form.co-Borrower')",
                             isActive: false,
                         }
                     }

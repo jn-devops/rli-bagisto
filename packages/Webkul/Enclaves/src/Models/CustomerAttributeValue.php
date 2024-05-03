@@ -23,6 +23,7 @@ class CustomerAttributeValue extends TranslatableModel implements CustomerAttrib
     protected $fillable = [
         'name',
         'value',
+        'form_type',
         'customer_id',
         'attribute_id',
     ];

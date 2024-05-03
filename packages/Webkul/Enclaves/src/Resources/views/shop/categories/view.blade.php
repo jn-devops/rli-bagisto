@@ -67,26 +67,29 @@
                             @include('shop::categories.toolbar')
                         </div>
 
-                        <!-- Product List Card Container -->
-                        <div v-if="filters.toolbar.mode === 'list'" 
-                                class="mt-8 grid grid-cols-1 gap-6">
-                            <!-- Product Card Shimmer Effect -->
-                            <template v-if="isLoading">
-                                <x-shop::shimmer.products.cards.list count="12"></x-shop::shimmer.products.cards.list>
-                            </template>
+                        <!-- //v-if="products.length" -->
+                        <template v-if="products.length || isLoading">
+                            <!-- Product List Card Container -->
+                            <div 
+                                v-if="filters.toolbar.mode === 'list'" 
+                                class="mt-8 grid grid-cols-1 gap-6"
+                                >
+                                <!-- Product Card Shimmer Effect -->
+                                <template v-if="isLoading">
+                                    <x-shop::shimmer.products.cards.list count="12"></x-shop::shimmer.products.cards.list>
+                                </template>
 
-                            <!-- Product Card Listing -->
-                            <template v-else>
-                                <template v-if="products.length">
+                                <!-- Product Card Listing -->
+                                <template v-else>
                                     <div
                                         v-for="product in products"
                                         class="relative flex max-w-max grid-cols-2 gap-4 overflow-hidden rounded max-sm:flex-wrap"
                                         >
 
-                                        <div class="group relative max-h-[289px] min-w-[280px] max-w-[350px] overflow-hidden rounded-[20px]">
+                                        <div class="group relative flex max-h-[289px] min-w-[280px] max-w-[350px] overflow-hidden rounded-[20px]">
                                             <x-shop::media.images.lazy
                                                 @click="redirectToProduct(product)"
-                                                class="cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
+                                                class="w-full cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
                                                 ::src="product.base_image.medium_image_url"
                                             ></x-shop::media.images.lazy>
 
@@ -159,102 +162,102 @@
                                         </div>
                                     </div>
                                 </template>
+                            </div>
 
-                                <!-- Empty Products Container -->
-                                <template v-else>
-                                    <div class="m-auto grid h-[476px] w-[100%] place-content-center items-center justify-items-center text-center">
-                                        <img 
-                                            src="{{ bagisto_asset('images/thank-you.png') }}"
-                                            alt="placeholder"
-                                        />
-                                
-                                        <p class="text-[20px]">
-                                            @lang('shop::app.categories.view.empty')
-                                        </p>
-                                    </div>
-                                </template>
-                            </template>
-                        </div>
-
-                        <!-- Product Grid Card Container -->
-                        <div v-else>
-                            <template v-if="! isLoading">
-                                <div class="grid grid-cols-3 max-lg:grid-cols-2 gap-6 mt-10">
-                                    <div
-                                        v-for="product in products"
-                                        class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1"
-                                        >
-                                        <div class="group relative max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
-                                            <x-shop::media.images.lazy
-                                                @click="redirectToProduct(product)"
-                                                class="cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
-                                                ::src="product.base_image.medium_image_url"
-                                            ></x-shop::media.images.lazy>
-
-                                            <div class="action-items bg-black"> 
-                                                <p
-                                                    class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-[#E51A1A] px-[10px] text-[14px] text-white"
-                                                    v-if="product.on_sale"
-                                                >
-                                                    @lang('shop::app.components.products.card.sale')
-                                                </p>
-
-                                                <p
-                                                    class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-navyBlue px-[10px] text-[14px] text-white"
-                                                    v-else-if="product.is_new"
-                                                >
-                                                    @lang('shop::app.components.products.card.new')
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="grid max-sm:grid-cols-1 grid-cols-1 gap-5">
-                                            <div class="flex gap-[16px]">
-                                                <p 
-                                                    class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
-                                                    v-text="product.name"
+                            <!-- Product Grid Card Container -->
+                            <div v-else>
+                                <template v-if="! isLoading">
+                                    <div class="mt-10 grid grid-cols-3 gap-6 max-lg:grid-cols-2">
+                                        <div
+                                            v-for="product in products"
+                                            class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1"
+                                            >
+                                            <div class="group relative flex max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
+                                                <x-shop::media.images.lazy
                                                     @click="redirectToProduct(product)"
-                                                ></p>
-                                            
-                                                <span 
-                                                    class="absolute right-[10px] cursor-pointer text-2xl"
-                                                    :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
-                                                    role="button"
-                                                    tabindex="0"
-                                                    aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
-                                                    @click="addToWishlist(product.id)"
-                                                >
-                                                </span>
-                                            </div>
+                                                    class="w-full cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
+                                                    ::src="product.base_image.medium_image_url"
+                                                ></x-shop::media.images.lazy>
 
-                                            <div class="flex flex-wrap justify-between">
-                                                <div class="max-sm:mb-4">
-                                                    <div 
-                                                        class="font-popins text-wrap text-[15px] font-medium" 
-                                                        v-html="product.price_html">
-                                                    </div>
+                                                <div class="action-items bg-black"> 
+                                                    <p
+                                                        class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-[#E51A1A] px-[10px] text-[14px] text-white"
+                                                        v-if="product.on_sale"
+                                                    >
+                                                        @lang('shop::app.components.products.card.sale')
+                                                    </p>
 
-                                                    <p class="font-popins text-[11px] font-medium text-[#A0A0A0]">
-                                                        @lang('enclaves::app.shop.customers.total-contract-price')
+                                                    <p
+                                                        class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-navyBlue px-[10px] text-[14px] text-white"
+                                                        v-else-if="product.is_new"
+                                                    >
+                                                        @lang('shop::app.components.products.card.new')
                                                     </p>
                                                 </div>
+                                            </div>
 
-                                                <button
-                                                    @click="redirectToProduct(product)"
-                                                    class="max-sm:w-full h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
-                                                >
-                                                    @lang('enclaves::app.shop.customers.choose-unit')
-                                                </button>
+                                            <div class="grid grid-cols-1 gap-5 max-sm:grid-cols-1">
+                                                <div class="flex gap-[16px]">
+                                                    <p 
+                                                        class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
+                                                        v-text="product.name"
+                                                        @click="redirectToProduct(product)"
+                                                    ></p>
+                                                
+                                                    <span 
+                                                        class="absolute right-[10px] cursor-pointer text-2xl"
+                                                        :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
+                                                        role="button"
+                                                        tabindex="0"
+                                                        aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
+                                                        @click="addToWishlist(product.id)"
+                                                    >
+                                                    </span>
+                                                </div>
+
+                                                <div class="flex flex-wrap justify-between">
+                                                    <div class="max-sm:mb-4">
+                                                        <div 
+                                                            class="font-popins text-wrap text-[15px] font-medium" 
+                                                            v-html="product.price_html">
+                                                        </div>
+
+                                                        <p class="font-popins text-[11px] font-medium text-[#A0A0A0]">
+                                                            @lang('enclaves::app.shop.customers.total-contract-price')
+                                                        </p>
+                                                    </div>
+
+                                                    <button
+                                                        @click="redirectToProduct(product)"
+                                                        class="h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-sm:w-full"
+                                                    >
+                                                        @lang('enclaves::app.shop.customers.choose-unit')
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </template>
+                                </template>
 
-                            <template v-else>
-                                <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
-                            </template> 
-                        </div>
+                                <template v-else>
+                                    <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
+                                </template> 
+                            </div>
+                        </template>
+                        
+                        <!-- Empty Products Container -->
+                        <template v-else>
+                            <div class="m-auto grid h-[476px] w-[100%] place-content-center items-center justify-items-center text-center">
+                                <img 
+                                    src="{{ bagisto_asset('images/thank-you.png') }}"
+                                    alt="placeholder"
+                                />
+                        
+                                <p class="text-[20px]">
+                                    @lang('shop::app.categories.view.empty')
+                                </p>
+                            </div>
+                        </template>
 
                         <!-- Load More Button -->
                         <template v-if="isMoreLoading">
@@ -350,15 +353,15 @@
                         this.$axios.get("{{ route('shop.api.products.index', ['category_id' => $category->id]) }}", {
                             params: this.queryParams 
                         })
-                            .then(response => {
-                                this.isLoading = false;
+                        .then(response => {
+                            this.isLoading = false;
 
-                                this.products = response.data.data;
+                            this.products = response.data.data;
 
-                                this.links = response.data.links;
-                            }).catch(error => {
-                                console.log(error);
-                            });
+                            this.links = response.data.links;
+                        }).catch(error => {
+                            console.log(error);
+                        });
                     },
 
                     loadMoreProducts() {
@@ -408,15 +411,15 @@
                     addToWishlist(product_id) {
                         if (this.isCustomer) {
                             this.$axios.post(`{{ route('shop.api.customers.account.wishlist.store') }}`, {
-                                    product_id: product_id
-                                })
-                                .then(response => {
-                                    location.reload();
-                                })
-                                .catch(error => {});
-                            } else {
-                                window.location.href = "{{ route('shop.customer.session.index')}}";
-                            }
+                                product_id: product_id
+                            })
+                            .then(response => {
+                                location.reload();
+                            })
+                            .catch(error => {});
+                        } else {
+                            window.location.href = "{{ route('shop.customer.session.index')}}";
+                        }
                     },
                 },
             });

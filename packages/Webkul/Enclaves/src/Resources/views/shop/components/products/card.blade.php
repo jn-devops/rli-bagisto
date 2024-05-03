@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="relative grid grid-cols-2 items-center justify-between max-lg:grid-cols-1 max-425:grid">
-                    <div class="font-popins text-wrap text-[20px] font-medium max-sm:text-[14px]" v-html="product.price_html"></div>
+                    <div class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-wrap text-[20px] font-medium max-sm:text-[14px]" v-html="product.price_html"></div>
 
                     <button
                         @click="productConfirmModal(product)"
