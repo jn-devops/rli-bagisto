@@ -16,15 +16,6 @@ class SettingController extends Controller
     {
         $configKeys = [
             'blog_post_per_page',
-            'blog_post_maximum_related',
-            'blog_post_recent_order_by',
-            'blog_post_show_categories_with_count',
-            'blog_post_show_tags_with_count',
-            'blog_post_show_author_page',
-            'blog_post_enable_comment',
-            'blog_post_allow_guest_comment',
-            'blog_post_enable_comment_moderation',
-            'blog_post_maximum_nested_comment',
             'blog_seo_meta_title',
             'blog_seo_meta_keywords',
             'blog_seo_meta_description',
@@ -57,12 +48,6 @@ class SettingController extends Controller
         $data = request()->all();
 
         $configExceptKeys = [
-            'switch_blog_post_show_categories_with_count',
-            'switch_blog_post_show_tags_with_count',
-            'switch_blog_post_show_author_page',
-            'switch_blog_post_enable_comment',
-            'switch_blog_post_allow_guest_comment',
-            'switch_blog_post_enable_comment_moderation',
         ];
 
         foreach ($data ?? [] as $key => $value) {
@@ -84,7 +69,7 @@ class SettingController extends Controller
             }
         }
 
-        session()->flash('success', trans('blog::app.setting.success'));
+        session()->flash('success', trans('blog::app.setting.index.success'));
 
         return redirect()->route('admin.blog.setting.index');
     }

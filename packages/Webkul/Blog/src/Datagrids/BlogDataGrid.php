@@ -4,8 +4,6 @@ namespace Webkul\Blog\Datagrids;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Webkul\Blog\Repositories\BlogCategoryRepository;
-use Webkul\Blog\Repositories\BlogTagRepository;
 use Webkul\DataGrid\DataGrid;
 
 class BlogDataGrid extends DataGrid
@@ -15,17 +13,7 @@ class BlogDataGrid extends DataGrid
      */
     public function prepareQueryBuilder()
     {
-        $loggedInUser = auth()->guard('admin')->user();
-
-        $userId = $loggedInUser->id ?? 0;
-
-        $role = $loggedInUser->role->name ?? 'Administrator';
-
         $queryBuilder = DB::table('blogs');
-
-        if ($role != 'Administrator') {
-            $queryBuilder->where('blogs.author_id', $userId);
-        }
 
         $queryBuilder->select(
             'blogs.id',
@@ -34,14 +22,11 @@ class BlogDataGrid extends DataGrid
             'blogs.short_description',
             'blogs.description',
             'blogs.channels',
-            'blogs.default_category',
-            'blogs.categorys',
             'blogs.published_at',
-            'blogs.author',
             'blogs.tags',
             'blogs.src',
+            'blogs.author',
             'blogs.status',
-            'blogs.allow_comments',
             'blogs.published_at',
             'blogs.meta_title',
             'blogs.meta_description',
@@ -72,60 +57,6 @@ class BlogDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'default_category',
-            'label'      => trans('blog::app.datagrids.blog.category'),
-            'type'       => 'string',
-            'searchable' => true,
-            'sortable'   => true,
-            'filterable' => true,
-            'closure'    => function ($row) {
-                $catagories = '-';
-
-                $defaultCategory = explode(',', $row->default_category);
-
-                $catagories = explode(',', $row->categorys);
-
-                $allCatagories = array_merge($defaultCategory, $catagories);
-
-                $categoriesIds = array_values(array_unique($allCatagories));
-
-                if (! empty($categoriesIds)) {
-                    $categories = app(BlogCategoryRepository::class)->whereIn('id', $categoriesIds)->get();
-
-                    $categoriesNames = ! empty($categories) ? $categories->pluck('name')->toarray() : [];
-
-                    $catagories = ! empty($categoriesNames) ? implode(', ', $categoriesNames) : '-';
-                }
-
-                return $catagories;
-            },
-        ]);
-
-        $this->addColumn([
-            'index'      => 'tags',
-            'label'      => trans('blog::app.datagrids.blog.tags'),
-            'type'       => 'string',
-            'searchable' => true,
-            'sortable'   => true,
-            'filterable' => true,
-            'closure'    => function ($value) {
-                $tags = '-';
-                
-                $tagIds = array_unique(explode(',', $value->tags));
-
-                if (! empty($tagIds)) {
-                    $tagDetails = app(BlogTagRepository::class)->whereIn('id', $tagIds)->get();
-
-                    $tagNames = ! empty($tagDetails) ? $tagDetails->pluck('name')->toarray() : [];
-
-                    $tags = ! empty($tagNames) ? implode(', ', $tagNames) : '-';
-                }
-
-                return $tags;
-            },
-        ]);
-
-        $this->addColumn([
             'index'      => 'status',
             'label'      => trans('blog::app.datagrids.blog.status'),
             'type'       => 'boolean',
@@ -142,19 +73,12 @@ class BlogDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'allow_comments',
-            'label'      => trans('blog::app.datagrids.blog.allow-comments'),
-            'type'       => 'boolean',
+            'index'      => 'author',
+            'label'      => trans('blog::app.datagrids.blog.author'),
+            'type'       => 'string',
             'searchable' => true,
             'sortable'   => true,
             'filterable' => true,
-            'closure'    => function ($row) {
-                if ($row->allow_comments) {
-                    return '<span class="badge badge-md badge-success label-active">' . trans('blog::app.datagrids.blog.yes') . '</span>';
-                }
-
-                return '<span class="badge badge-md badge-danger label-info">' . trans('blog::app.datagrids.blog.no') . '</span>';
-            },
         ]);
 
         $this->addColumn([
@@ -167,15 +91,6 @@ class BlogDataGrid extends DataGrid
             'closure'    => function ($row) {
                 return Carbon::parse($row->published_at)->format('j F, Y');
             },
-        ]);
-
-        $this->addColumn([
-            'index'      => 'author',
-            'label'      => trans('blog::app.datagrids.blog.author'),
-            'type'       => 'string',
-            'searchable' => true,
-            'sortable'   => true,
-            'filterable' => true,
         ]);
     }
 

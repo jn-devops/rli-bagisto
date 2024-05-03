@@ -36,6 +36,7 @@
                                         <span class="font-bold">
                                             @lang('enclaves::app.shop.customers.account.inquiries.concern')
                                         </span>
+
                                         <span v-text="ticket.reasons.name"></span>
                                     </p>
                                     
@@ -65,12 +66,18 @@
                             <x-slot:content>
                                 <span v-html="ticket.comment"></span>
 
-                                <div class="mt-8" v-if="ticket.files"  v-for="file in ticket.files">
-                                    <img
-                                        :src="storagePath + file.path"
-                                        :alt="file.name" 
-                                        class="h-[200px] w-[200px] rounded-xl"
-                                    />
+                                <div 
+                                    v-if="ticket.files" 
+                                    class="mt-8 flex gap-5">
+                                    <div v-for="file in ticket.files">
+                                        <a :href="storagePath + file.path" target="_blank">
+                                            <img
+                                                :src="storagePath + file.path"
+                                                :alt="file.name" 
+                                                class="h-[200px] w-[200px] rounded-xl"
+                                            />
+                                        </a>
+                                    </div>
                                 </div>
                             </x-slot:content>
                         </x-shop::accordion.custom-accordion>
@@ -87,7 +94,7 @@
                     <div class="flex justify-center">
                         <button
                             v-if="reaming"
-                            class="text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C]"
+                            class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
                             v-text="loadingText"
                             @click="loadMore"
                         >
@@ -115,6 +122,7 @@
 
                 mounted() {
                     this.limit = 4;
+                    
                     this.getTickets();
                 },
 

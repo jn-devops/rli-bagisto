@@ -8,7 +8,7 @@
     <script type="text/x-template" id="v-blog-card-template">
         <div>
             <x-shop::media.images.lazy 
-                class="h-[310px] rounded-3xl max-lg:h-[150px]"
+                class="w-full rounded-3xl max-lg:h-[150px] lg:h-[310px]"
                 ::src="blog.base_image"
                 ::alt="blog.base_image"
             ></x-shop::media.images.lazy>
@@ -40,7 +40,7 @@
 
             methods: {
                 redirectBlogPage(blog) {
-                    window.location.href = `{{ route('shop.article.view','') }}/` + blog.category.slug + '/' + blog.slug;
+                    window.location.href = `{{ route('shop.article.view','') }}/` + blog.slug;
                 },
             }
         });

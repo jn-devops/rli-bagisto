@@ -26,12 +26,19 @@ class BlogResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(! empty($this->src)) {
+            $src =  Storage::url($this->src);
+        } else {
+            $src = bagisto_asset('images/medium-product-placeholder.webp', 'shop');
+        }
+
         return [
             'id'          => $this->id,
             'name'        => $this->name,
+            'author'      => $this->author,
             'slug'        => $this->slug,
             'category'    => $this->category,
-            'base_image'  => $this->src ? Storage::url($this->src) : null,
+            'base_image'  => $src,
         ];
     }
 }

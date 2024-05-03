@@ -31,15 +31,9 @@ class PostController extends Controller
     {
         $locale = core()->getRequestedLocaleCode();
 
-        $categories = $this->blogCategoryRepository->all();
-
-        $additionalCategories = $this->blogCategoryRepository->whereNull('parent_id')->where('status', 1)->get();
-
-        $tags = $this->blogTagRepository->all();
-
         $users = $this->adminRepository->all();
 
-        return view('blog::admin.blogs.create', compact('categories', 'tags', 'users', 'additionalCategories'))->with('locale', $locale);
+        return view('blog::admin.blogs.create', compact('users'))->with('locale', $locale);
     }
 
     /**
@@ -56,16 +50,6 @@ class PostController extends Controller
             $data['locale'] = implode(',', $data['locale']);
         }
 
-        if (array_key_exists('tags', $data)
-                && is_array($data['tags'])) {
-            $data['tags'] = implode(',', $data['tags']);
-        }
-
-        if (array_key_exists('categorys', $data)
-                && is_array($data['categorys'])) {
-            $data['categorys'] = implode(',', $data['categorys']);
-        }
-
         $data['author'] = '';
 
         if (is_array($data)
@@ -74,9 +58,10 @@ class PostController extends Controller
                 && (int) $data['author_id'] > 0) {
             $author = $this->adminRepository->where('id', $data['author_id'])->first();
 
+            $data['author_id'] = $author->id;
             $data['author'] = ($author && ! empty($author)) ? $author->name : '';
         }
-
+        
         $result = $this->blogRepository->save($data);
 
         if ($result) {
@@ -111,15 +96,9 @@ class PostController extends Controller
             return redirect()->route('admin.blog.index');
         }
 
-        $categories = $this->blogCategoryRepository->all();
-
-        $additionalCategories = $this->blogCategoryRepository->whereNull('parent_id')->where('status', 1)->get();
-
-        $tags = $this->blogTagRepository->all();
-
         $users = $this->adminRepository->all();
 
-        return view('blog::admin.blogs.edit', compact('blog', 'categories', 'tags', 'users', 'additionalCategories'));
+        return view('blog::admin.blogs.edit', compact('blog', 'users'));
     }
 
     /**
@@ -137,28 +116,19 @@ class PostController extends Controller
             $data['locale'] = implode(',', $data['locale']);
         }
 
-        if (array_key_exists('tags', $data)
-                && is_array($data['tags'])) {
-            $data['tags'] = implode(',', $data['tags']);
-        }
-
-        if (array_key_exists('categorys', $data)
-                && is_array($data['categorys'])) {
-            $data['categorys'] = implode(',', $data['categorys']);
-        }
-
         $data['author'] = '';
 
         if (is_array($data)
                 && array_key_exists('author_id', $data)
                 && isset($data['author_id'])
                 && (int) $data['author_id'] > 0) {
-            $author_data = $this->adminRepository->where('id', $data['author_id'])->first();
-
-            $data['author'] = ! empty($author_data) ? $author_data->name : '';
+            $author = $this->adminRepository->where('id', $data['author_id'])->first();
+            
+            $data['author_id'] = $author->id;
+            $data['author'] = ! empty($author) ? $author->name : '';
         }
 
-        $result = $this->blogRepository->updateItem($data, $id);
+        $result = $this->blogRepository->update($data, $id);
 
         if ($result) {
             session()->flash('success', trans('blog::app.blog.edit.success.message'));

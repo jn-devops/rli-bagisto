@@ -62,7 +62,7 @@
                 return {
                     isLoading: true,
                     blogs: {},
-                    limit: 10,
+                    limit: `{{ $limit }}`,
                     loadMoreTxt: `{{ trans('blog::app.shop.blog.load-more') }}`,
                 };
             },
@@ -73,7 +73,7 @@
 
             methods: {
                 getMoreBlogs() {
-                    this.limit += 10;
+                    this.limit += `{{ $limit }}`;
 
                     this.loadMoreTxt = `{{ trans('blog::app.shop.blog.loading') }}`;
 

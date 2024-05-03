@@ -28,28 +28,21 @@
             />
 
             <div class="mt-5 grid grid-cols-2 gap-x-7 gap-y-4 max-2xl:grid-cols-1">
-
                 <div>
-                    <span></span>
-
-                    <p class="text-[18px] font-medium text-black">
-                        @lang('17 ADB Ave, Ortigas Center, Pasig, Metro Manila')
+                    <p class="text-[18px] font-medium text-black max-sm:text-[14px]">
+                        @lang('enclaves::app.shop.components.layouts.footer.address')
                     </p>
                 </div>
 
                 <div>
-                    <span></span>
-
-                    <a class="text-[18px] font-medium text-black" href="@lang('mailto:sample@email.com')">
-                        @lang('sample@email.com')
+                    <a class="text-[18px] font-medium text-black max-sm:text-[14px]" href="mailto:@lang('enclaves::app.shop.components.layouts.footer.email')">
+                        @lang('enclaves::app.shop.components.layouts.footer.email')
                     </a>
                 </div>
 
                 <div>
-                    <span></span>
-
-                    <a class="text-[18px] font-medium text-black" href="@lang('phone:+63 9456677654')">
-                        @lang('+63 9456677654')
+                    <a class="text-[18px] font-medium text-black max-sm:text-[14px]" href="phone:@lang('enclaves::app.shop.components.layouts.footer.mobile-number')">
+                        @lang('enclaves::app.shop.components.layouts.footer.mobile-number')
                     </a>
                 </div>
             </div>
@@ -57,7 +50,10 @@
 
         <div class="flex gap-[80px] max-768:gap-[40px] max-668:flex-wrap">
             <div class="relative flex flex-col justify-start border-r-[1px] border-[#308BB6] pr-[79px] max-668:border-r-0">
-                <p class="text-[35px] font-bold">@lang('Quicklinks')</p>
+                
+                <p class="text-[35px] font-bold max-sm:text-[20px]">
+                    @lang('enclaves::app.shop.components.layouts.footer.quicklinks')
+                </p>
 
                 <div class="mt-[21px] grid gap-[20px]">
                     @if ($customization->options)
@@ -72,7 +68,7 @@
                             @foreach ($footerLinkSection as $link)
                                 <a 
                                     href="{{ $link['url'] }}" 
-                                    class="text-[20px] font-medium leading-[20px]"
+                                    class="text-[20px] font-medium leading-[20px] max-sm:text-[14px]"
                                 >
                                     {{ $link['title'] }}
                                 </a>
@@ -84,7 +80,10 @@
 
             <div class="flex max-w-[618px] flex-col justify-start">
                 <div class="flex flex-wrap justify-between gap-4">
-                    <h1 class="flex text-[30px] font-bold">@lang('Follow Us')</h1>
+                    <h1 class="flex text-[30px] font-bold max-sm:text-[20px]">
+                        @lang('enclaves::app.shop.components.layouts.footer.follow-us')
+                    </h1>
+
                     <div class="flex gap-[20px]">
                         <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
                             <a 
@@ -139,39 +138,32 @@
                 <!-- News Letter subscription -->
                 @if (core()->getConfigData('customer.settings.newsletter.subscription'))
                     <div class="mt-[34px] grid gap-[10px]">
-
-                        <p class="max-w-[288px] text-[20px]"> 
+                        <p class="max-w-[288px] text-[20px] max-sm:text-[14px]"> 
                             @lang('shop::app.components.layouts.footer.newsletter-text')
                         </p>
 
                         <x-shop::form 
-                            novalidate="" 
                             method="POST" 
-                            action="http://192.168.15.214/rli-bagisto/public/subscription"
+                            action="{{ route('shop.subscription.store') }}"
                             class="mt-[10px] rounded max-sm:mt-[30px]"
-                        >
-                            <input 
-                                type="hidden" 
-                                name="_token" 
-                                autocomplete="off"
-                                value="vWctccGC1j64MDe8GQKSMgv0uVXceBXhROSZeUxh"
-                            />
+                            >
+                            @csrf
 
                             <label 
                                 for="organic-search"
                                 class="sr-only"
                             >
-                                Search
+                                @lang('enclaves::app.shop.components.layouts.footer.search')
                             </label>
 
                             <div class="relative w-full">
                                 <x-shop::form.control-group.control 
                                     type="email" 
                                     name="email"
-                                    class="max-1060:w-full mb-3 block h-[50px] w-full max-w-full rounded border bg-[#F4F4F4] px-3 py-2 pr-[110px] text-[20px] font-medium text-black shadow transition-all hover:border-gray-400 focus:border-gray-400"
+                                    class="max-1060:w-full mb-3 block h-[50px] w-full max-w-full rounded border bg-[#F4F4F4] px-3 py-2 pr-[110px] text-[20px] font-medium text-black shadow transition-all hover:border-gray-400 focus:border-gray-400 max-sm:text-[14px]"
                                     rules="required|email"
                                     label="Email"
-                                    placeholder="Email Address"
+                                    placeholder="{{ trans('enclaves::app.shop.components.layouts.footer.email-address') }}"
                                 >
                                 </x-shop::form.control-group.control>
 
@@ -182,15 +174,15 @@
 
                                 <button 
                                     type="submit"
-                                    class="absolute justify-center right-0 top-[0px] flex h-[50px] !w-[110px] items-center bg-white !bg-gradient-to-r from-[#e0165d] to-yellow-500 text-[12px] font-medium text-white ltr:right-[0px] rtl:left-[0px]"
+                                    class="absolute right-0 top-[0px] flex h-[50px] !w-[110px] items-center justify-center bg-white !bg-gradient-to-r from-[#e0165d] to-yellow-500 text-[12px] font-medium text-white ltr:right-[0px] rtl:left-[0px]"
                                 >
-                                    @lang('shop::app.components.layouts.footer.subscribe')
+                                    @lang('enclaves::app.shop.components.layouts.footer.subscribe')
                                 </button>
                             </div>
-
                         </x-shop::form>
 
-                        <p class="mt-[50px] text-[17px]"> @lang('shop::app.components.layouts.footer.subscribe-stay-touch')
+                        <p class="mt-[50px] text-[17px] max-sm:text-[14px]">
+                            @lang('enclaves::app.shop.components.layouts.footer.subscribe-stay-touch')
                         </p>
                     </div>
                 @endif
@@ -200,7 +192,7 @@
     </div>
     <div class="bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[86px] py-[33px] max-sm:px-[26px] max-sm:py-[16px]">
         <p class="z-[999] text-[18px] font-medium text-white max-sm:text-[14px]">
-            @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
+            @lang('enclaves::app.shop.components.layouts.footer.copyright', ['current_year'=> date('Y')])
         </p>
     </div>
 </footer>

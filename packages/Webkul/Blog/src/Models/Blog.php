@@ -26,15 +26,11 @@ class Blog extends Model implements BlogContract
         'short_description',
         'description',
         'channels',
-        'default_category',
+        'src',
         'author',
         'author_id',
-        'categorys',
-        'tags',
-        'src',
         'status',
         'locale',
-        'allow_comments',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -48,16 +44,7 @@ class Blog extends Model implements BlogContract
      */
     protected $appends = [
         'src_url',
-        'assign_categorys',
     ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'default_category');
-    }
 
     /**
      * Get the channels.
@@ -79,25 +66,5 @@ class Blog extends Model implements BlogContract
         }
 
         return Storage::url($this->src);
-    }
-
-    /**
-     * get Assign Categorys Attribute.
-     *
-     * @return string
-     */
-    public function getAssignCategorysAttribute()
-    {
-        $categorys = [];
-
-        $categoriesIds = array_values(array_unique(array_merge(explode(',', $this->default_category), explode(',', $this->categorys))));
-
-        if (! empty($categoriesIds)) {
-            $categories = Category::whereIn('id', $categoriesIds)->get();
-
-            $categorys = ! empty($categories) ? $categories : [];
-        }
-
-        return $categorys;
     }
 }

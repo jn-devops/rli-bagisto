@@ -21,14 +21,13 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $paginate = $this->getConfigByKey('blog_post_per_page');
-
-        $paginate = $paginate ?? 9;
-
+        $limit = (int)$this->getConfigByKey('blog_post_per_page');
+        
         $blogs = $this->blogRepository
                     ->where('status', 1)
                     ->orderBy('id', 'desc')
-                    ->paginate($paginate);
+                    ->take($limit)
+                    ->get();
 
         $enableBlogSeoMetaTitle = $this->getConfigByKey('blog_seo_meta_title');
 
@@ -38,6 +37,7 @@ class BlogController extends Controller
 
         return view('blog::shop.blog.post.index', compact(
             'blogs',
+            'limit',
             'enableBlogSeoMetaTitle',
             'enableBlogSeoMetaKeywords',
             'enableBlogSeoMetaDescription',
@@ -50,7 +50,7 @@ class BlogController extends Controller
      * @param  string  $slug
      * @return \Illuminate\View\View | JsonResponse
      */
-    public function view($blog_slug, $slug)
+    public function view($slug)
     {
         $blog = $this->blogRepository
                         ->where('slug', $slug)
@@ -65,9 +65,12 @@ class BlogController extends Controller
         if(request()->ajax()) {
             return new JsonResponse(['blog' => $blog]);
         }
-        
+
+        $limit = $this->getConfigByKey('blog_post_per_page');
+
         return view('blog::shop.blog.post.view', compact(
             'blog',
+            'limit',
             'blogSeoMetaTitle',
             'blogSeoMetaKeywords',
             'blogSeoMetaDescription'
@@ -84,7 +87,7 @@ class BlogController extends Controller
                     ->orderBy('id', 'desc')
                     ->skip(0);
 
-        $limit = 10;
+        $limit = $this->getConfigByKey('blog_post_per_page');
 
         if(! empty(request('limit'))) {
             $limit = (int)request('limit');

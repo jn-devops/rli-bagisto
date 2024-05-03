@@ -9,15 +9,18 @@
     <script type="text/x-template" id="v-carousel-template">
 
 		<!-- Hero section -->
-		<div class="grid grid-cols-2 flex-col-reverse overflow-hidden max-1100:flex sm:px-[34px]">
+		<div class="mb-[100px] grid grid-cols-2 flex-col-reverse overflow-hidden max-1100:flex sm:px-[34px]">
 			<div class="sm:bg-full min-w-full bg-[url('../images/hero-bg.png')] bg-contain bg-right-top bg-no-repeat py-[70px] max-sm:py-5">
-				<div class="m-auto h-[700px] w-full max-w-[532px] px-5 max-1180:max-w-[472px] max-1100:mx-0 max-1100:h-auto sm:px-0">
-					<p class="text-xs font-bold text-[#CC035C] sm:text-2xl">
-						@lang('enclaves::app.shop.homepage.slider.title')
-					</p>
+				<div class="m-auto w-full max-w-[532px] px-5 max-1180:max-w-[472px] max-1100:mx-0 max-1100:h-auto sm:px-0">
+					
+					<div class="sm:h-[100px] md:h-[250px] lg:h-[250px]">
+						<p class="text-xs font-bold text-[#CC035C] sm:text-2xl">
+							@lang('enclaves::app.shop.homepage.slider.title')
+						</p>
 
-					<h1 class="hero-heading mt-2 pr-6 text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-sm:text-[35px] max-sm:leading-[42px] sm:mt-[18px]">
-					</h1>
+						<h1 class="hero-heading mt-2 pr-6 text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-sm:text-[35px] max-sm:leading-[42px] sm:mt-[18px]">
+						</h1>
+					</div>
 					
 					<a 
 						href="javascript:void(0)" 
@@ -52,7 +55,7 @@
 							:class="image.className"
 							:src="image.image"
 							:srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
-							:alt="image.className"
+							alt="homepage-image"
 							@load="onLoad"
 							v-show="! isLoading"
 						/>
@@ -85,16 +88,16 @@
 
 				let next = 1;
 
-				let dotContaier, dots = [];
+				let dotContainer, dots = [];
 
-				let dummyheading = document.querySelector('.hero-heading');
+				let dummyHeading = document.querySelector('.hero-heading');
 
 				let dummyButton = document.querySelector('.hero-btn');
 
 				let typing;
 
-				let sliderdots = () => {
-					dotContaier = document.querySelector('.dot-container');
+				let sliderDots = () => {
+					dotContainer = document.querySelector('.dot-container');
 
 					for (let i = 0; i < sliderImg.length; i++) {
 						let span = document.createElement('span')
@@ -103,11 +106,11 @@
 
 						span.classList.add('dot')
 
-						dotContaier.appendChild(span);
+						dotContainer.appendChild(span);
 					}
 				}
 
-				sliderdots()
+				sliderDots()
 
 				let changeContent = () => {
 					dummyButton.setAttribute('href', this.images[active]['link']);
@@ -118,16 +121,16 @@
 
 					slider_syntax = slider_syntax.split('')
 
-					let titlecounts = ''
+					let titleCounts = ''
 
 					let pos = 0;
 
 					clearInterval(typing);
 
 					typing = setInterval(() => {
-						titlecounts += slider_syntax[pos]
+						titleCounts += slider_syntax[pos]
 
-						dummyheading.innerHTML = titlecounts
+						dummyHeading.innerHTML = titleCounts
 
 						pos++;
 
@@ -139,7 +142,7 @@
 
 				changeContent();
 
-				let changeimage = () => {
+				let changeImage = () => {
 					dots = document.querySelectorAll('.dot-container .dot');
 
 					sliderImg.forEach((ele, i) => {
@@ -159,9 +162,9 @@
 					dots[active].classList.add('active');
 				}
 
-				changeimage();
+				changeImage();
 
-				function setsliderinterval() {
+				function setSliderInterval() {
 					prev = active;
 
 					active = next;
@@ -172,16 +175,16 @@
 						next = active + 1;
 					}
 
-					changeimage()
+					changeImage()
 
 					changeContent()
 				}
 
-				let sliderinterval = setInterval(() => {
-					setsliderinterval();
+				let sliderInterval = setInterval(() => {
+					setSliderInterval();
 				}, 5000);
 
-				let dotevents = () => {
+				let dotEvents = () => {
 					dots.forEach((ele, i) => {
 						ele.addEventListener('click', () => {
 							active = i;
@@ -197,14 +200,14 @@
 								prev = active - 1;
 							}
 							
-							changeimage()
+							changeImage()
 							changeContent()
-							clearInterval(sliderinterval)
+							clearInterval(sliderInterval)
 						})
 					})
 				}
 
-				dotevents();
+				dotEvents();
             },
 
             methods: {

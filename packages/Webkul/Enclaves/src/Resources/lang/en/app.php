@@ -365,6 +365,20 @@ return [
                     'login'           => 'Log in',
                     'manage-property' => 'Manage your property.',
                 ],
+
+                'footer' => [
+                    'address'       => '17 ADB Ave, Ortigas Center, Pasig, Metro Manila',
+                    'email'         => 'sample@email.com',
+                    'mobile-number' => '+63 9456677654',
+                    'quicklinks'    => 'Quicklinks',
+                    'follow-us'     => 'Follow Us',
+                    'search'        => 'Search',
+                    'email-address' => 'Email Address',
+                    'subscribe'     => 'Subscribe',
+                    'copyright'     => 'Copyright © 2010 - :current_year, Raemulan Lands Inc. All rights reserved.',
+
+                    'subscribe-stay-touch' => 'Subscribe to stay in touch.',
+                ],
             ],
         ],
     ],
