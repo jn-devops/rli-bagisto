@@ -71,7 +71,7 @@ class ProductSender
      *
      * @return void
      */
-    public static function daleteProductQty($id)
+    public static function deleteProductQty($id)
     {
         $payload = [
             'api_entity_type'           => 'product.delete',

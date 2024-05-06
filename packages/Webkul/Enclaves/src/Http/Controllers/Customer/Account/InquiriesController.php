@@ -11,8 +11,6 @@ class InquiriesController extends AbstractController
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct(
         protected TicketsRepository $ticketsRepository,
@@ -42,22 +40,22 @@ class InquiriesController extends AbstractController
      */
     public function tickets()
     {
-        $limit = request('limit') ?? 4;
-
-        $tickets = $this->ticketsRepository;
-
-        $count = $tickets->count();
-
-        $tickets = $tickets->with(['files', 'reasons', 'status'])->orderBy('id', 'desc')->limit($limit);
-    
         if (request()->ajax()) {
+            $limit = request('limit') ?? 4;
+
+            $tickets = $this->ticketsRepository;
+
+            $count = $tickets->count();
+
+            $tickets = $tickets->with(['files', 'reasons', 'status'])->orderBy('id', 'desc')->limit($limit);
+    
             return new JsonResponse([
                 'tickets' => $tickets,
                 'count'   => $count,
             ]);
         }
 
-        return view('shop::customers.account.inquire.tickets', compact('tickets', 'count'));
+        return view('shop::customers.account.inquire.tickets');
     }
 
     /**

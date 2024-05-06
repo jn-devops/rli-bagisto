@@ -4,7 +4,7 @@ namespace Webkul\Blog\Http\Resources;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use Illuminate\Support\Carbon;
 class BlogResource extends JsonResource
 {
     /**
@@ -33,12 +33,14 @@ class BlogResource extends JsonResource
         }
 
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'author'      => $this->author,
-            'slug'        => $this->slug,
-            'category'    => $this->category,
-            'base_image'  => $src,
+            'id'                => $this->id,
+            'name'              => $this->name,
+            'short_description' => $this->short_description,
+            'description'       => $this->description,
+            'author'            => $this->author,
+            'post_date'         => Carbon::instance($this->created_at)->format('d M Y'),
+            'slug'              => $this->slug,
+            'base_image'        => $src,
         ];
     }
 }

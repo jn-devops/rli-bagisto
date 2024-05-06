@@ -6,6 +6,9 @@ use Webkul\Enclaves\Http\Controllers\Controller;
 
 class AbstractController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
     public function __construct(
     ) {
     }

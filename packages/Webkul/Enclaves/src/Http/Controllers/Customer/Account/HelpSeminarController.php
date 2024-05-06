@@ -4,6 +4,9 @@ namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 class HelpSeminarController extends AbstractController
 {
+    /**
+     * Create a new controller instance.
+     */
     public function __construct(
     ) {
     }
@@ -15,6 +18,6 @@ class HelpSeminarController extends AbstractController
      */
     public function index()
     {
-        return view('shop::customers.account.help-seminar.index');
+        return redirect()->away('https://hopeful.ph/');
     }
 }

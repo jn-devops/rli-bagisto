@@ -36,6 +36,6 @@ class ProductListener
      */
     public function deleteProductInKrayin($id)
     {
-        ProductSender::daleteProductQty($id);
+        ProductSender::deleteProductQty($id);
     }
 }

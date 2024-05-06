@@ -11,6 +11,9 @@ class TransactionController extends AbstractController
 {
     use PDFHandler;
 
+    /**
+     * Create a new controller instance.
+     */
     public function __construct(
         protected OrderRepository $orderRepository,
         protected InvoiceRepository $invoiceRepository
