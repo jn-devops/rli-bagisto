@@ -13,7 +13,7 @@ class CustomerAttributeAndOptions extends Seeder
 
         DB::table('customer_attribute_options')->delete();
 
-        $currectDateTime = now();
+        $currentDateTime = now();
 
         DB::table('customer_attributes')->insert([
             /**
@@ -21,600 +21,547 @@ class CustomerAttributeAndOptions extends Seeder
              */
             [
                 'id'          => 1,
+                'code'        => 'full_name',
+                'name'        => 'Full Name',
+                'type'        => 'text',
+                'form_type'   => 'personal_details',
+                'position'    => 1,
+                'is_required' => 0,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
+            ], [
+                'id'          => 2,
+                'code'        => 'dob',
+                'name'        => 'Date of Birth',
+                'type'        => 'date',
+                'form_type'   => 'personal_details',
+                'position'    => 1,
+                'is_required' => 0,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
+            ], [
+                'id'          => 3,
+                'code'        => 'email',
+                'name'        => 'Email',
+                'type'        => 'text',
+                'form_type'   => 'personal_details',
+                'position'    => 1,
+                'is_required' => 0,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
+            ], [
+                'id'          => 4,
+                'code'        => 'phone',
+                'name'        => 'Phone',
+                'type'        => 'text',
+                'form_type'   => 'personal_details',
+                'position'    => 1,
+                'is_required' => 0,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
+            ], [
+                'id'          => 5,
+                'code'        => 'lot_unit_number',
+                'name'        => 'Lot / Unit number',
+                'type'        => 'text',
+                'form_type'   => 'personal_details',
+                'position'    => 1,
+                'is_required' => 0,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
+            ], [
+                'id'          => 6,
                 'code'        => 'civil_status',
                 'name'        => 'Civil Status',
                 'type'        => 'select',
                 'form_type'   => 'personal_details',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 2,
+                'id'          => 7,
                 'code'        => 'gender',
                 'name'        => 'Gender',
                 'type'        => 'checkbox',
                 'form_type'   => 'personal_details',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 3,
+                'id'          => 8,
                 'code'        => 'address_1',
                 'name'        => 'Address 1',
                 'type'        => 'text',
                 'form_type'   => 'personal_details',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ],
-
             /**
              *  ------------- Employment Type -------------
              */
             [
-                'id'          => 4,
+                'id'          => 9,
                 'code'        => 'employment_type',
                 'name'        => 'Employment Type',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 5,
+                'id'          => 10,
                 'code'        => 'gross_income',
                 'name'        => 'Gross Income',
-                'type'        => 'select',
+                'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 6,
+                'id'          => 11,
                 'code'        => 'nationality',
                 'name'        => 'Nationality',
-                'type'        => 'select',
+                'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 7,
+                'id'          => 12,
                 'code'        => 'work_industry',
                 'name'        => 'Work Industry',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 8,
+                'id'          => 13,
                 'code'        => 'employment_status',
                 'name'        => 'Employment Status',
                 'type'        => 'select',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 9,
+                'id'          => 14,
                 'code'        => 'current_position',
                 'name'        => 'Current Position',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 10,
+                'id'          => 15,
                 'code'        => 'employer_name',
                 'name'        => 'Employer Name',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 11,
+                'id'          => 16,
                 'code'        => 'employer_contact_number',
                 'name'        => 'Employer Contact Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 12,
+                'id'          => 17,
                 'code'        => 'employer_address',
                 'name'        => 'Employer Address',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 13,
+                'id'          => 18,
                 'code'        => 'tax_identification_number',
                 'name'        => 'Tax Identification Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 14,
+                'id'          => 19,
                 'code'        => 'PAG_IBIG_number',
                 'name'        => 'PAG IBIG Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 15,
+                'id'          => 20,
                 'code'        => 'SSS_GSIS_number',
                 'name'        => 'SSS-GSIS Number',
                 'type'        => 'text',
                 'form_type'   => 'employment_type',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ],
 
             /**
              *  ------------- Borrower's Data -------------
              */
             [
-                'id'          => 16,
+                'id'          => 21,
                 'code'        => 'secondary_home_address',
                 'name'        => 'Secondary Home Address',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 17,
+                'id'          => 22,
                 'code'        => 'civil_status',
                 'name'        => 'Civil Status',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 18,
+                'id'          => 23,
                 'code'        => 'gender',
                 'name'        => 'Gender',
                 'type'        => 'checkbox',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 19,
-                'code'        => 'date_of_birth',
+                'id'          => 24,
+                'code'        => 'dob',
                 'name'        => 'Date of Birth',
-                'type'        => 'select',
+                'type'        => 'date',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 20,
+                'id'          => 25,
                 'code'        => 'primary_email_address',
                 'name'        => 'Primary Email Address',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 21,
+                'id'          => 26,
                 'code'        => 'primary_mobile_number',
                 'name'        => 'Primary Mobile Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 22,
+                'id'          => 27,
                 'code'        => 'work_industry',
                 'name'        => 'Work Industry',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 23,
+                'id'          => 28,
                 'code'        => 'gross_income',
                 'name'        => 'Gross Income',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 24,
+                'id'          => 29,
                 'code'        => 'nationality',
                 'name'        => 'Nationality',
-                'type'        => 'select',
+                'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 25,
+                'id'          => 30,
                 'code'        => 'employment_type',
                 'name'        => 'Employment Type',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 26,
+                'id'          => 31,
                 'code'        => 'employment_status',
                 'name'        => 'Employment Status',
                 'type'        => 'select',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 27,
+                'id'          => 32,
                 'code'        => 'current_position',
                 'name'        => 'Current Position',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 28,
+                'id'          => 33,
                 'code'        => 'employer_name',
                 'name'        => 'Employer Name',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 29,
+                'id'          => 34,
                 'code'        => 'employer_contact_number',
                 'name'        => 'Employer Contact Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 30,
+                'id'          => 35,
                 'code'        => 'employer_address',
                 'name'        => 'Employer Address',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 31,
+                'id'          => 36,
                 'code'        => 'tax_identification_number',
                 'name'        => 'Tax Identification Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 32,
+                'id'          => 37,
                 'code'        => 'PAG_IBIG_number',
                 'name'        => 'PAG IBIG Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ], [
-                'id'          => 33,
+                'id'          => 38,
                 'code'        => 'SSS_GSIS_number',
                 'name'        => 'SSS GSIS Number',
                 'type'        => 'text',
                 'form_type'   => 'borrower_data',
-                'postion'     => 1,
+                'position'    => 1,
                 'is_required' => 0,
-                'created_at'  => $currectDateTime,
-                'updated_at'  => $currectDateTime,
+                'created_at'  => $currentDateTime,
+                'updated_at'  => $currentDateTime,
             ],
         ]);
 
         DB::table('customer_attribute_options')->insert([
             [
-                'id'                    => 1,
-                'customer_attribute_id' => 1, // Civil Status
+                'customer_attribute_id' => 6, // Civil Status
                 'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 2,
-                'customer_attribute_id' => 1, // Civil Status
+                'customer_attribute_id' => 6, // Civil Status
                 'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 3,
-                'customer_attribute_id' => 1, // Civil Status
+                'customer_attribute_id' => 6, // Civil Status
                 'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 4,
-                'customer_attribute_id' => 2, // Gender
+                'customer_attribute_id' => 7, // Gender
                 'value'                 => 'Male',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 5,
-                'customer_attribute_id' => 2, // Gender
+                'customer_attribute_id' => 7, // Gender
                 'value'                 => 'Female',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 6,
-                'customer_attribute_id' => 2, // Gender
+                'customer_attribute_id' => 7, // Gender
                 'value'                 => 'Other',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 7,
-                'customer_attribute_id' => 4, // Employment Type
+                'customer_attribute_id' => 9, // Employment Type
                 'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 8,
-                'customer_attribute_id' => 4, // Employment Type
+                'customer_attribute_id' => 9, // Employment Type
                 'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 9,
-                'customer_attribute_id' => 4, // Employment Type
+                'customer_attribute_id' => 9, // Employment Type
                 'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 10,
-                'customer_attribute_id' => 5, // Gross Income
+                'customer_attribute_id' => 12, // Work Industry
                 'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 11,
-                'customer_attribute_id' => 5, // Gross Income
+                'customer_attribute_id' => 12, // Work Industry
                 'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 12,
-                'customer_attribute_id' => 5, // Gross Income
+                'customer_attribute_id' => 12, // Work Industry
                 'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 13,
-                'customer_attribute_id' => 6, // Nationality
+                'customer_attribute_id' => 13, // Employment Status
                 'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 14,
-                'customer_attribute_id' => 6, // Nationality
+                'customer_attribute_id' => 13, // Employment Status
                 'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 15,
-                'customer_attribute_id' => 6, // Nationality
+                'customer_attribute_id' => 13, // Employment Status
                 'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 16,
-                'customer_attribute_id' => 7, // Work Industry
+                'customer_attribute_id' => 22, // Civil Status
                 'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 17,
-                'customer_attribute_id' => 7, // Work Industry
+                'customer_attribute_id' => 22, // Civil Status
                 'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 18,
-                'customer_attribute_id' => 7, // Work Industry
+                'customer_attribute_id' => 22, // Civil Status
                 'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 19,
-                'customer_attribute_id' => 8, // Employment Status
-                'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 20,
-                'customer_attribute_id' => 8, // Employment Status
-                'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 21,
-                'customer_attribute_id' => 8, // Employment Status
-                'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 22,
-                'customer_attribute_id' => 17, // Civil Status
-                'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 23,
-                'customer_attribute_id' => 17, // Civil Status
-                'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 24,
-                'customer_attribute_id' => 17, // Civil Status
-                'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 25,
-                'customer_attribute_id' => 19, // Date of Birth
-                'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 26,
-                'customer_attribute_id' => 19, // Date of Birth
-                'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 27,
-                'customer_attribute_id' => 19, // Date of Birth
-                'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 28,
-                'customer_attribute_id' => 22, // Work Industry
-                'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 29,
-                'customer_attribute_id' => 22, // Work Industry
-                'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 30,
-                'customer_attribute_id' => 22, // Work Industry
-                'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 31,
-                'customer_attribute_id' => 24, // Nationality
-                'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 32,
-                'customer_attribute_id' => 24, // Nationality
-                'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 33,
-                'customer_attribute_id' => 24, // Nationality
-                'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 34,
-                'customer_attribute_id' => 25, // Employment Type
-                'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 35,
-                'customer_attribute_id' => 25, // Employment Type
-                'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 36,
-                'customer_attribute_id' => 25, // Employment Type
-                'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 37,
-                'customer_attribute_id' => 26, // Employment Status
-                'value'                 => 'option 1',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 38,
-                'customer_attribute_id' => 26, // Employment Status
-                'value'                 => 'option 2',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 39,
-                'customer_attribute_id' => 26, // Employment Status
-                'value'                 => 'option 3',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
-            ], [
-                'id'                    => 40,
-                'customer_attribute_id' => 18, // Gender
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ],  [
+                'customer_attribute_id' => 23, // Gender
                 'value'                 => 'Male',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 41,
-                'customer_attribute_id' => 18, // Gender
+                'customer_attribute_id' => 23, // Gender
                 'value'                 => 'Female',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ], [
-                'id'                    => 42,
-                'customer_attribute_id' => 18, // Gender
+                'customer_attribute_id' => 23, // Gender
                 'value'                 => 'Other',
-                'created_at'            => $currectDateTime,
-                'updated_at'            => $currectDateTime,
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 27, // Work Industry
+                'value'                 => 'option 1',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 27, // Work Industry
+                'value'                 => 'option 2',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 27, // Work Industry
+                'value'                 => 'option 3',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 30, // Employment Type
+                'value'                 => 'option 1',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 30, // Employment Type
+                'value'                 => 'option 2',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 30, // Employment Type
+                'value'                 => 'option 3',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 31, // Employment Status
+                'value'                 => 'option 1',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 31, // Employment Status
+                'value'                 => 'option 2',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
+            ], [
+                'customer_attribute_id' => 31, // Employment Status
+                'value'                 => 'option 3',
+                'created_at'            => $currentDateTime,
+                'updated_at'            => $currentDateTime,
             ],
         ]);
     }

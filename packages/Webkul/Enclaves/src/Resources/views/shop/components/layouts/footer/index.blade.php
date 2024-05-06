@@ -77,62 +77,57 @@
                     @endif
                 </div>
             </div>
-
+            
             <div class="flex max-w-[618px] flex-col justify-start">
                 <div class="flex flex-wrap justify-between gap-4">
                     <h1 class="flex text-[30px] font-bold max-sm:text-[20px]">
                         @lang('enclaves::app.shop.components.layouts.footer.follow-us')
                     </h1>
+                    
+                    @if (! empty($customization->options))
+                        <div class="flex gap-[20px]">
+                            @foreach ($customization->options['column_3'] as $socalLinkSection)
 
-                    <div class="flex gap-[20px]">
-                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
-                            <a 
-                                href="#"
-                                alt="facebook"
-                            >
-                                <img
-                                    src="{{ bagisto_asset('images/facebook.svg') }}"
-                                    alt="facebook" 
-                                />
-                            </a>
-                        </div>
+                                <div class="flex h-auto items-center rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
+                                    <a 
+                                        href="{{ $socalLinkSection['url'] }}"
+                                        alt="{{ $socalLinkSection['title'] }}"
+                                    >
+                                        @switch(strtolower($socalLinkSection['title']))
+                                            @case('facebook')
+                                                    <img
+                                                        src="{{ bagisto_asset('images/facebook.svg') }}"
+                                                        alt="facebook"
+                                                    />
+                                                @break
 
-                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
-                            <a 
-                                href="#"
-                                alt="instagram"
-                            >
-                                <img
-                                    src="{{ bagisto_asset('images/instagram.png') }}"
-                                    alt="instagram"
-                                />
-                            </a>
-                        </div>
+                                            @case('instagram')
+                                                <img
+                                                    src="{{ bagisto_asset('images/instagram.png') }}"
+                                                    alt="instagram"
+                                                />
+                                                @break
 
-                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
-                            <a 
-                                href="#"
-                                alt="youtube"
-                            >
-                                <img
-                                    src="{{ bagisto_asset('images/youtube.png') }}"
-                                    alt="youtube" class="my-[4px]"
-                                />
-                            </a>
-                        </div>
+                                            @case('youtube')
+                                                <img
+                                                    src="{{ bagisto_asset('images/youtube.png') }}"
+                                                    alt="youtube"
+                                                />
+                                                @break
 
-                        <div class="h-fit rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
-                            <a 
-                                href="#"
-                                alt="tiktok"
-                            >
-                                <img
-                                    src="{{ bagisto_asset('images/tiktok.png') }}"
-                                    alt="tiktok"
-                                />
-                            </a>
+                                            @case('tiktok')
+                                                <img
+                                                    src="{{ bagisto_asset('images/tiktok.png') }}"
+                                                    alt="tiktok"
+                                                />
+                                                @break
+                                            @default
+                                        @endswitch
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
-                    </div>
+                    @endif
                 </div>
 
                 <!-- News Letter subscription -->

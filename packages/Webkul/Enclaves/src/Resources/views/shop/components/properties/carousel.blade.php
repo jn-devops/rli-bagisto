@@ -51,7 +51,7 @@
 
                         <div class="grid content-start gap-2.5">
                             <p
-                                class="font-popins text-[20px] font-bold max-sm:text-[14px]" 
+                                class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-[20px] font-bold max-sm:text-[14px]" 
                                 v-text="category.name"
                             ></p>
 

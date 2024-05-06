@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-c7c60907.css",
+    "file": "assets/app-93ff2e79.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -119,6 +119,10 @@
   "src/Resources/assets/images/hero-image.webp": {
     "file": "assets/hero-image-3170dce6.webp",
     "src": "src/Resources/assets/images/hero-image.webp"
+  },
+  "src/Resources/assets/images/icon-add-product.svg": {
+    "file": "assets/icon-add-product-e3232d62.svg",
+    "src": "src/Resources/assets/images/icon-add-product.svg"
   },
   "src/Resources/assets/images/img-offer-big.png": {
     "file": "assets/img-offer-big-56a30cd5.png",
