@@ -18,6 +18,6 @@ class HelpSeminarController extends AbstractController
      */
     public function index()
     {
-        return redirect()->away('https://hopeful.ph/');
+        return redirect()->away(env('HELP_SEMINAR'));
     }
 }
