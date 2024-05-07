@@ -1,7 +1,7 @@
 <x-shop::layouts.account>
     <!-- Page Title -->
     <x-slot:title>
-        @lang('enclaves::app.shop.customers.account.help-seminar.title')
+        @lang('enclaves::app.shop.customers.account.news-updates.index.title')
     </x-slot>
 
     <!-- Breadcrumbs -->
