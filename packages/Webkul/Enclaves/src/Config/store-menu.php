@@ -38,10 +38,16 @@ return [
         'icon'  => 'icon-orders',
         'sort'  => 2,
     ], [
+        'key'   => 'account.news_and_updates',
+        'name'  => 'enclaves::app.shop.layouts.news-updates',
+        'route' => 'enclaves.customers.account.news-updates.index',
+        'icon'  => 'icon-calendar',
+        'sort'  => 2,
+    ], [
         'key'   => 'account.home-seminar',
         'name'  => 'enclaves::app.shop.layouts.help-seminar',
         'route' => 'enclaves.customers.account.help-seminar.index',
-        'icon'  => 'icon-folder',
+        'icon'  => 'icon-support',
         'sort'  => 2,
     ],
 ];

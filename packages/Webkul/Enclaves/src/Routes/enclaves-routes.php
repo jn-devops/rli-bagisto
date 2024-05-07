@@ -7,11 +7,12 @@ use Webkul\Enclaves\Http\Controllers\Ekyc\EkycController;
 use Webkul\Enclaves\Http\Controllers\Product\ProductController;
 use Webkul\Enclaves\Http\Controllers\Category\CategoryController;
 use Webkul\Enclaves\Http\Controllers\Customer\CustomerController;
-use Webkul\Enclaves\Http\Controllers\Checkout\OnepageCheckoutController;
+use Webkul\Enclaves\Http\Controllers\Checkout\OnePageCheckoutController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DashboardController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\DocumentsController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\InquiriesController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\HelpSeminarController;
+use Webkul\Enclaves\Http\Controllers\Customer\Account\NewsUpdatesController;
 use Webkul\Enclaves\Http\Controllers\Customer\Account\TransactionController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
@@ -35,9 +36,9 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
                 Route::controller(InquiriesController::class)->prefix('inquiries')->group(function () {
                     Route::get('', 'index')->name('enclaves.customers.account.inquiries.index');
 
-                    Route::get('/tickets', 'tickets')->name('enclaves.customers.account.inquiries.tickets');
+                    Route::get('tickets', 'tickets')->name('enclaves.customers.account.inquiries.tickets');
 
-                    Route::post('/tickets', 'store')->name('enclaves.customers.account.inquiries.store');
+                    Route::post('tickets', 'store')->name('enclaves.customers.account.inquiries.store');
                 });
 
                 Route::controller(TransactionController::class)->prefix('transactions')->group(function () {
@@ -52,6 +53,10 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
                 Route::controller(HelpSeminarController::class)->prefix('help-seminar')->group(function () {
                     Route::get('', 'index')->name('enclaves.customers.account.help-seminar.index');
+                });
+
+                Route::controller(NewsUpdatesController::class)->prefix('news-updates')->group(function () {
+                    Route::get('', 'index')->name('enclaves.customers.account.news-updates.index');
                 });
 
                 Route::controller(CustomerController::class)->prefix('profile')->group(function () {
@@ -71,11 +76,9 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         });
     });
 
-    Route::controller(OnepageCheckoutController::class)
-        ->prefix('checkout/bulk-upload')
-        ->group(function () {
-            Route::get('/store-authentication', 'authentication')->name('shop.checkout.authentication.store');
-        });
+    Route::controller(OnePageCheckoutController::class)->prefix('checkout/bulk-upload')->group(function () {
+        Route::get('/store-authentication', 'authentication')->name('shop.checkout.authentication.store');
+    });
 
     Route::group(['prefix' => 'api'], function () {
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {

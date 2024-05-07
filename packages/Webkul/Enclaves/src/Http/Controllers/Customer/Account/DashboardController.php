@@ -4,6 +4,9 @@ namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
 
 class DashboardController extends AbstractController
 {
+    /**
+     * Create a new controller instance.
+     */
     public function __construct(
     ) {
     }

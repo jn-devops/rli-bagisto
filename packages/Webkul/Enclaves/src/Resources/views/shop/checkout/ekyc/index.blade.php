@@ -15,7 +15,10 @@
     <script type="text/x-template" id="v-user-kyc-summary-template">
         <!-- Page Content -->
         <div class="container">
-            <div class="m-[20px] p-[20px]" v-if="! sended && ! embedURL">
+            <div 
+                class="m-[20px] p-[20px]" 
+                v-if="! sended && ! embedURL"
+            >
                 <div class="flex w-full justify-center gap-x-[40px] max-[1180px]:gap-x-[20px]">
                     <h1 
                         class="mt-[26px] text-[40px] font-bold leading-[48px] max-sm:text-[26px] max-sm:leading-[36px]"
@@ -38,8 +41,11 @@
                     @lang('enclaves::app.shop.authentication.authenticate')
                 </button>
             </div>
+
             <div v-else>
-                <div v-if="isIfreamLoaded">
+                <div v-if="isIfreamLoaded" 
+                    class="mt-4 flex justify-center border-2"
+                >
                     <iframe
                         :src="embedURL"
                         width="1160" 
@@ -48,12 +54,12 @@
                     >
                     </iframe>
                 </div>
-                <div v-else>
-                    <div class="shimmer h-[700px] w-full">
-                        <div class="absolute left-[50%] top-[60%]">Page Loading...</div>
+
+                <div v-else class="mt-4 flex justify-center border-2">
+                    <div class="shimmer flex h-[700px] w-full items-center justify-center">
+                        <span>Page Loading...</span>
                     </div>
                 </div>
-                
             </div>
         </div>
     </script>
@@ -79,7 +85,9 @@
                 }
 
                 this.resetKycVerification();
+
                 this.getEmbedUrl();
+
                 this.loading();
             },
 
@@ -88,8 +96,6 @@
                     setTimeout(() => {
                         this.isIfreamLoaded = 1;
                     }, 2000);
-
-                    console.log(this.isIfreamLoaded);
                 },
                 handleKycVerification() {
                     this.$axios.post("{{ route('ekyc.verification.store') }}", {

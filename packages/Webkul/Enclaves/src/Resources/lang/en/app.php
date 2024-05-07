@@ -119,6 +119,7 @@ return [
             'inquiries'    => 'Inquiries',
             'transactions' => 'Transactions',
             'inquiries'    => 'Inquiries',
+            'news-updates' => 'News & Updates',
             'help-seminar' => 'Help Seminar',
         ],
 
@@ -307,6 +308,18 @@ return [
 
                 'help-seminar' => [
                     'title' => 'Help Seminar',
+                ],
+
+                'news-updates' => [
+                    'index' => [
+                        'title' => 'News & Updates',
+
+                        'promotions' => [
+                            'top'       => 'Top News & Updates',
+                            'load-more' => 'Load more',
+                            'read-more' => 'Read more',
+                        ],
+                    ],
                 ],
             ],
 

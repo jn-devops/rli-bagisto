@@ -33,7 +33,7 @@ class EkycVerificationCreateOrUpdate
         $password = Str::random(10);
 
         /**
-         * eKyc Proccessing
+         * eKyc Processing
          */
         $verification = $this->ekycVerificationRepository->findOneByField([
             'transaction_id' => $payload['payload']['order']['transaction_id'],
@@ -44,7 +44,7 @@ class EkycVerificationCreateOrUpdate
         if ($verification) {
             return;
         }
-
+        
         $this->ekycVerificationRepository->updateOrCreate([
             'transaction_id' => $payload['payload']['order']['transaction_id'],
             'sku'            => $payload['payload']['order']['product']['sku'],
@@ -65,14 +65,14 @@ class EkycVerificationCreateOrUpdate
         ], decrypt($payload['payload']['order']['transaction_id']));
 
         /**
-         * Account Proccessing
+         * Account Processing
          */
         $payload = $payload['payload']['order']['buyer'];
 
         $name = explode(' ', $payload['name']);
 
         /**
-         * Account Name Proccessing
+         * Account Name Processing
          */
         $firstName = current($name);
         next($name);

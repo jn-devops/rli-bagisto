@@ -3,7 +3,6 @@
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
-
 // Home > My Account > Dashboard
 Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
@@ -26,6 +25,12 @@ Breadcrumbs::for('inquiries', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('transactions', function (BreadcrumbTrail $trail) {
     $trail->parent('account');
     $trail->push(trans('enclaves::app.shop.customers.account.transactions.index.title'), route('shop.customers.account.transactions.index'));
+});
+
+// Home > My Account > news and update
+Breadcrumbs::for('news-updates', function (BreadcrumbTrail $trail) {
+    $trail->parent('account');
+    $trail->push(trans('enclaves::app.shop.customers.account.news-updates.index.title'), route('enclaves.customers.account.news-updates.index'));
 });
 
 Breadcrumbs::for('transactions.view', function (BreadcrumbTrail $trail, $entity) {

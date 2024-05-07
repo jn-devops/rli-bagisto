@@ -57,7 +57,7 @@
 
                             <button
                                 @click="redirectCategory(category)"
-                                class="text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[10px] font-semibold text-[#CC035C]"
+                                class="rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-sm:text-[14px] lg:text-nowrap"
                                 :style="{color: category.btn_color, borderColor: category.btn_border_color, background: category.btn_background_color, width:'fit-content'}"
                             >
                                 <span v-if="category.btn_text" v-text="category.btn_text"></span>

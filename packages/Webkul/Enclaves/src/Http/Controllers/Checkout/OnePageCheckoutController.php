@@ -10,7 +10,7 @@ use Webkul\Payment\Facades\Payment;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Controllers\API\APIController;
 
-class OnepageCheckoutController extends APIController
+class OnePageCheckoutController extends APIController
 {
     /**
      * Create a new controller instance.

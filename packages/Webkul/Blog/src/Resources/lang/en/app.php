@@ -3,7 +3,7 @@
 return [
     'config' => [
         'admin-menu' => [
-            'title'      => 'Blog',
+            'title'      => 'News & Updates',
             'posts'      => 'Posts',
             'categories' => 'Categories',
             'tags'       => 'Tags',
