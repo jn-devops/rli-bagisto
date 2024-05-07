@@ -141,11 +141,11 @@ class BlogRepository extends Repository
         $locale = config('app.locale');
 
         $blogs = DB::table('blogs')
-            ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('status', 1)
-            ->where('locale', $locale)
-            ->orderBy('id', 'DESC')
-            ->paginate(12);
+                ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
+                ->where('status', 1)
+                ->where('locale', $locale)
+                ->orderBy('id', 'DESC')
+                ->paginate(12);
 
         return $blogs;
     }

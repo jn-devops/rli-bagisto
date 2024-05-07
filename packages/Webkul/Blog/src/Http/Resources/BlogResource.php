@@ -2,6 +2,7 @@
 
 namespace Webkul\Blog\Http\Resources;
 
+use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
@@ -38,7 +39,7 @@ class BlogResource extends JsonResource
             'short_description' => $this->short_description,
             'description'       => $this->description,
             'author'            => $this->author,
-            'post_date'         => Carbon::instance($this->created_at)->format('d M Y'),
+            'post_date'         => Carbon::createFromTimestamp(strtotime($this->published_at))->format('d M Y'),
             'slug'              => $this->slug,
             'base_image'        => $src,
         ];

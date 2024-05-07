@@ -128,9 +128,11 @@ class PostController extends Controller
             $data['author'] = ! empty($author) ? $author->name : '';
         }
 
-        $result = $this->blogRepository->update($data, $id);
+        $blog = $this->blogRepository->update($data, $id);
 
-        if ($result) {
+        $this->blogRepository->uploadImages($data,$blog);
+
+        if ($blog) {
             session()->flash('success', trans('blog::app.blog.edit.success.message'));
         } else {
             session()->flash('error', trans('blog::app.blog.edit.failure.message'));

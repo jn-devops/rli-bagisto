@@ -315,7 +315,9 @@ return [
                         'title' => 'News & Updates',
 
                         'promotions' => [
-                            'top' => 'Top News & Updates',
+                            'top'       => 'Top News & Updates',
+                            'load-more' => 'Load more',
+                            'read-more' => 'Read more',
                         ],
                     ],
                 ],
