@@ -34,7 +34,7 @@
                         <v-field
                             as="select"
                             :name="'super_attribute[' + attribute.id + ']'"
-                            class="custom-select block w-full p-[14px] pr-[36px] bg-white border border-[#E9E9E9] rounded-lg text-[16px] text-[#6E6E6E] focus:ring-blue-500 focus:border-blue-500 max-md:border-0 max-md:outline-none max-md:w-[200px] cursor-pointer"
+                            class="custom-select block w-full cursor-pointer rounded-lg border border-[#E9E9E9] bg-white p-[14px] pr-[36px] text-[16px] text-[#6E6E6E] focus:border-blue-500 focus:ring-blue-500 max-md:w-[200px] max-md:border-0 max-md:outline-none"
                             :class="[errors['super_attribute[' + attribute.id + ']'] ? 'border border-red-500' : '']"
                             :id="'attribute_' + attribute.id"
                             rules="required"
@@ -67,7 +67,7 @@
                                 <!-- Color Swatch Options -->
                                 <template v-if="option.id">
                                     <label
-                                        class="relative flex -m-0.5 p-0.5 items-center justify-center rounded-full focus:outline-none cursor-pointer"
+                                        class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
                                         :class="{'ring-gray-900 ring ring-offset-1' : index == attribute.selectedIndex}"
                                         :title="option.label"
                                         v-if="attribute.swatch_type == 'color'"
@@ -87,20 +87,20 @@
                                                 v-bind="field"
                                                 :id="'attribute_' + attribute.id"
                                                 :aria-labelledby="'color-choice-' + index + '-label'"
-                                                class="sr-only peer"
+                                                class="peer sr-only"
                                                 @click="configure(attribute, $event.target.value)"
                                             />
                                         </v-field>
 
                                         <span
-                                            class="h-8 w-8 bg-navyBlue border border-navyBlue border-opacity-10 rounded-full max-sm:h-[25px] max-sm:w-[25px]"
+                                            class="h-8 w-8 rounded-full border border-navyBlue border-opacity-10 bg-navyBlue max-sm:h-[25px] max-sm:w-[25px]"
                                             :style="{ 'background-color': option.swatch_value }"
                                         ></span>
                                     </label>
 
                                     <!-- Image Swatch Options -->
                                     <label 
-                                        class="group relative flex items-center justify-center w-[60px] bg-white overflow-hidden rounded-full border h-[60px] hover:bg-gray-50 focus:outline-none text-gray-900 font-medium uppercase shadow-sm max-sm:w-[35px] max-sm:h-[35px] sm:py-6 cursor-pointer"
+                                        class="group relative flex h-[60px] w-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-full border bg-white font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-sm:h-[35px] max-sm:w-[35px] sm:py-6"
                                         :class="{'ring-2 ring-navyBlue' : index == attribute.selectedIndex }"
                                         :title="option.label"
                                         v-if="attribute.swatch_type == 'image'"
@@ -120,7 +120,7 @@
                                                 v-bind="field"
                                                 :id="'attribute_' + attribute.id"
                                                 :aria-labelledby="'color-choice-' + index + '-label'"
-                                                class="sr-only peer"
+                                                class="peer sr-only"
                                                 @click="configure(attribute, $event.target.value)"
                                             />
                                         </v-field>
@@ -133,7 +133,7 @@
 
                                     <!-- Text Swatch Options -->
                                     <label 
-                                        class="group relative flex items-center justify-center min-w-[60px] bg-white py-3 px-4 rounded-full border h-[60px] hover:bg-gray-50 focus:outline-none text-gray-900 font-medium uppercase shadow-sm max-sm:w-[35px] max-sm:h-[35px] sm:py-6 cursor-pointer"
+                                        class="group relative flex h-[60px] min-w-[60px] cursor-pointer items-center justify-center rounded-full border bg-white px-4 py-3 font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-sm:h-[35px] max-sm:w-[35px] sm:py-6"
                                         :class="{'ring-2 ring-navyBlue' : index == attribute.selectedIndex }"
                                         :title="option.label"
                                         v-if="attribute.swatch_type == 'text'"
@@ -153,7 +153,7 @@
                                                 v-bind="field"
                                                 :id="'attribute_' + attribute.id"
                                                 :aria-labelledby="'color-choice-' + index + '-label'"
-                                                class="sr-only peer"
+                                                class="peer sr-only"
                                                 @click="configure(attribute, $event.target.value)"
                                             />
                                         </v-field>
@@ -163,13 +163,13 @@
                                             v-text="option.label"
                                         ></span>
 
-                                        <span class="absolute -inset-px rounded-full pointer-events-none"></span>
+                                        <span class="pointer-events-none absolute -inset-px rounded-full"></span>
                                     </label>
                                 </template>
                             </template>
 
                             <span
-                                class="text-gray-600 text-sm max-sm:text-[12px]"
+                                class="text-sm text-gray-600 max-sm:text-[12px]"
                                 v-if="! attribute.options.length"
                             >
                                 @lang('shop::app.products.view.type.configurable.select-above-options')
@@ -182,7 +182,7 @@
                         v-slot="{ message }"
                     >
                         <p
-                            class="mt-1 text-red-500 text-xs italic"
+                            class="mt-1 text-xs italic text-red-500"
                             v-text="message"
                         >
                         </p>
@@ -412,26 +412,28 @@
                             }
                         });
 
-                        let priceLabelElement = document.querySelector('.price-label');
-                        
                         let priceElement = document.querySelector('.special-price') ? document.querySelector('.special-price') : document.querySelector('.final-price');
-                   
-                        if (this.childAttributes.length == selectedOptionCount) {
-                            priceLabelElement.style.display = 'none';
+                        let regularPriceElement = document.querySelector('.special-price');
 
-                            priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
-                            
-                            if (priceElement 
-                                    && this.config.variant_prices[this.simpleProduct].final.price < this.config.variant_prices[this.simpleProduct].regular.price) {
-                                priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].regular.formatted_price;
-                               
-                                priceElement.style.display = 'inline-block';
+                        if (this.childAttributes.length == selectedOptionCount) {
+
+                            if (regularPriceElement) {
+                                regularPriceElement.style.display = 'none';
                             }
 
-                        } else {
-                            priceLabelElement.style.display = 'inline-block';
+                            priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
 
+                            if (regularPriceElement && this.config.variant_prices[this.simpleProduct].final.price < this.config.variant_prices[this.simpleProduct].regular.price) {
+                                regularPriceElement.innerHTML = this.config.variant_prices[this.simpleProduct].regular.formatted_price;
+                                regularPriceElement.style.display = 'inline-block';
+                            }
+                            console.log(regularPriceElement);
+
+                            this.$emitter.emit('configurable-variant-selected-event',this.simpleProduct);
+                        } else {
                             priceElement.innerHTML = this.config.regular.formatted_price;
+
+                            this.$emitter.emit('configurable-variant-selected-event', 0);
                         }
                     },
 

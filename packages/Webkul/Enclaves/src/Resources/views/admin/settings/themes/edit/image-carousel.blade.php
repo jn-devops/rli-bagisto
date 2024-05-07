@@ -145,7 +145,7 @@
 
                                                 <span class="text-gray-600 transition-all dark:text-gray-300">
                                                     <a 
-                                                        :href="'{{ config('app.url') }}' + image.image"
+                                                        :href="'{{ config('app.url') }}/' + image.image"
                                                         :ref="'image_' + index"
                                                         target="_blank"
                                                         class="text-blue-600 transition-all hover:underline ltr:ml-2 rtl:mr-2"

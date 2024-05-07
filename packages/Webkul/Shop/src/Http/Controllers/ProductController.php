@@ -21,7 +21,6 @@ class ProductController extends Controller
         protected ProductDownloadableSampleRepository $productDownloadableSampleRepository,
         protected ProductDownloadableLinkRepository $productDownloadableLinkRepository
     ) {
-
     }
 
     /**

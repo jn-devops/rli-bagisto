@@ -1,8 +1,12 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-40806f0d.css",
+    "file": "assets/app-14d08408.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
+  },
+  "src/Resources/assets/fonts/icomoon.woff": {
+    "file": "assets/icomoon-8fde036e.woff",
+    "src": "src/Resources/assets/fonts/icomoon.woff"
   },
   "src/Resources/assets/fonts/velicon.woff": {
     "file": "assets/velicon-2b79b97c.woff",

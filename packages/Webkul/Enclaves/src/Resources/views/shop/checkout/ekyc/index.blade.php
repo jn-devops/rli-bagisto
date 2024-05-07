@@ -14,7 +14,7 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-user-kyc-summary-template">
         <!-- Page Content -->
-        <div class="container">
+        <div class="lg:container">
             <div 
                 class="m-[20px] p-[20px]" 
                 v-if="! sended && ! embedURL"
