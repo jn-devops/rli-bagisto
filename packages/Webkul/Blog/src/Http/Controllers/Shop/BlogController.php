@@ -83,17 +83,13 @@ class BlogController extends Controller
     public function blogFrontEnd(): JsonResource
     {
         $blogs = $this->blogRepository
-                    ->where('status', 1)
-                    ->orderBy('id', 'desc')
-                    ->skip(0);
-
-        $limit = $this->getConfigByKey('blog_post_per_page');
+                    ->where('status', 1);
 
         if(! empty(request('limit'))) {
             $limit = (int)request('limit');
-        }
 
-        $blogs->take($limit);
+            $blogs->skip(0)->take($limit);
+        }
 
         if(! empty(request('id'))) {
             $blogs = $blogs->whereNotIn('id', [(int)request('id')]);

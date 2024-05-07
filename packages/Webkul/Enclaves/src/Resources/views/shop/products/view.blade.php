@@ -7,6 +7,8 @@
     $percentageRatings = $reviewHelper->getPercentageRating($product);
 
     $customAttributeValues = $productViewHelper->getAdditionalData($product);
+
+    $attributeData = collect($customAttributeValues)->filter(fn ($item) => ! empty($item['value']));
 @endphp
 
 <!-- SEO Meta Content -->
@@ -216,24 +218,43 @@
                                         {!! view_render_event('bagisto.shop.products.price.after', ['product' => $product]) !!}
                                     </p>
                                 </div>
-                                
-                                <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
-                                    <!-- location-->
-                                    <div class="flex flex-wrap gap-[6px]">
-                                        <p class="text-[20px] font-bold max-sm:text-[18px]">@lang('enclaves::app.shop.product.location')</p>
-                                        <p class="text-[20px] max-sm:text-[18px]">{{ $product->location }}</p>
+
+                                @if(count($attributeData))
+                                    <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
+                                        @foreach ($customAttributeValues as $customAttributeValue)
+                                            @if (! empty($customAttributeValue['value']))
+                                                <div class="flex flex-wrap gap-[6px]">
+                                                    <p class="text-[20px] font-bold max-sm:text-[18px]">{!! $customAttributeValue['label'] !!}: </p>
+
+                                                    @if ($customAttributeValue['type'] == 'file')
+                                                        <a 
+                                                            href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
+                                                            download="{{ $customAttributeValue['label'] }}"
+                                                            class="text-[20px] max-sm:text-[18px]"
+                                                        >
+                                                            <span class="icon-download text-2xl"></span>
+                                                        </a>
+                                                    @elseif ($customAttributeValue['type'] == 'image')
+                                                        <a 
+                                                            href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
+                                                            download="{{ $customAttributeValue['label'] }}"
+                                                        >
+                                                            <img 
+                                                                class="h-5 min-h-5 w-5 min-w-5" 
+                                                                src="{{ Storage::url($customAttributeValue['value']) }}" 
+                                                            />
+                                                        </a>
+                                                    @else
+                                                        <p class="text-[20px] max-sm:text-[18px]">
+                                                            {!! $customAttributeValue['value'] !!}
+                                                        </p>
+                                                    @endif
+                                                </div>
+
+                                            @endif
+                                        @endforeach
                                     </div>
-                                    <!-- Bedroom -->
-                                    <div class="flex flex-wrap gap-[6px]">
-                                        <p class="text-[20px] font-bold max-sm:text-[18px]">@lang('enclaves::app.shop.product.bedrooms')</p>
-                                        <p class="text-[20px] max-sm:text-[18px]">{{ $product->bedrooms }}</p>
-                                    </div>
-                                    <!-- toilet bath -->
-                                    <div class="flex flex-wrap gap-[6px]">
-                                        <p class="text-[20px] font-bold max-sm:text-[18px]">@lang('enclaves::app.shop.product.t_and_b')</p>
-                                        <p class="text-[20px] max-sm:text-[18px]">{{ $product->t_and_b }}</p>
-                                    </div>
-                                </div>
+                                @endif
 
                                 <div class="flex max-w-[400px] flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                     {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
