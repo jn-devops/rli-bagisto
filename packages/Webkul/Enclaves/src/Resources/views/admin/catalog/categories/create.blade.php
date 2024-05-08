@@ -7,7 +7,7 @@
     </x-slot:header>
     
     <x-slot:content>
-        <div class="flex w-full flex-col gap-2 mb-4">
+        <div class="mb-4 flex w-full flex-col gap-2">
             <p class="font-medium text-gray-800 dark:text-white">
                 @lang('enclaves::app.admin.catalog.category.index.button.banner')
             </p>
@@ -47,11 +47,7 @@
             <x-admin::form.control-group.label class="required">
                 @lang('enclaves::app.admin.catalog.category.index.button.color')
             </x-admin::form.control-group.label>
-
-            <p class="text-xs text-gray-500">
-                @lang('enclaves::app.admin.catalog.category.index.button.field-info')
-            </p>
-
+            
             <x-admin::form.control-group.control
                 type="color"
                 name="btn_color"
@@ -73,10 +69,6 @@
                 @lang('enclaves::app.admin.catalog.category.index.button.border-color')
             </x-admin::form.control-group.label>
 
-            <p class="text-xs text-gray-500">
-                @lang('enclaves::app.admin.catalog.category.index.button.field-info')
-            </p>
-
             <x-admin::form.control-group.control
                 type="color"
                 name="btn_border_color"
@@ -97,11 +89,7 @@
             <x-admin::form.control-group.label class="required">
                 @lang('enclaves::app.admin.catalog.category.index.button.background-color')
             </x-admin::form.control-group.label>
-
-            <p class="text-xs text-gray-500">
-                @lang('enclaves::app.admin.catalog.category.index.button.field-info')
-            </p>
-
+            
             <x-admin::form.control-group.control
                 type="color"
                 name="btn_background_color"
@@ -135,6 +123,25 @@
 
             <x-admin::form.control-group.error
                 control-name="sort"
+            >
+            </x-admin::form.control-group.error>
+        </x-admin::form.control-group>
+
+        <x-admin::form.control-group class="mb-[10px]">
+            <x-admin::form.control-group.label>
+                @lang('enclaves::app.admin.catalog.category.index.button.status')
+            </x-admin::form.control-group.label>
+
+            <x-admin::form.control-group.control
+                type="switch"
+                name="switch_status"
+                value="1"
+                :label="trans('enclaves::app.admin.catalog.category.index.button.status')"
+            >
+            </x-admin::form.control-group.control>
+
+            <x-admin::form.control-group.error
+                control-name="switch_status"
             >
             </x-admin::form.control-group.error>
         </x-admin::form.control-group>

@@ -17,45 +17,57 @@
     ]);
 @endphp
 
-<footer class="before:contents='' relative pt-[95px] before:absolute before:bottom-[93px] before:left-[0] before:block before:h-[270px] before:w-full before:bg-[url('../images/footer-bg.png')] before:bg-[0%_100%] before:bg-no-repeat before:[background-size:60%]">
-    <div class="flex justify-center gap-[80px] px-[30px] pb-[34px] max-1024:flex-wrap">
+<footer class="before:contents='' relative pt-[95px] before:absolute before:bottom-[60px] before:left-[0] before:block before:h-[270px] before:w-full before:bg-[url('../images/footer-bg.png')] before:bg-[0%_100%] before:bg-no-repeat before:[background-size:100%] lg:before:[background-size:60%]">
+    <div class="flex flex-wrap justify-center px-[60px] pb-6 max-lg:px-[15px]">
 
-        <div class="min-w-[270px] max-w-[720px] border-r-[1px] border-[#308BB6] pr-[21px] max-1024:border-r-0">
+        <div class="relative border-r-[1px] border-[#308BB6] px-[30px] max-1024:border-r-0 max-lg:px-[15px]">
             <img 
-                class="max-h-[292px]"
+                class="max-h-[165px]"
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}" 
                 alt="footer-logo"
             />
 
-            <div class="mt-5 grid grid-cols-2 gap-x-7 gap-y-4 max-2xl:grid-cols-1">
-                <div>
-                    <p class="text-[18px] font-medium text-black max-sm:text-[14px]">
+            <div class="mt-[50px] flex flex-wrap gap-3">
+                <div class="flex gap-3 lg:max-w-[150px]">
+                    <span class="icon-location text-[24px] max-sm:text-[14px]"></span>
+
+                    <p class="text-[18px] max-sm:text-[14px]">
                         @lang('enclaves::app.shop.components.layouts.footer.address')
                     </p>
                 </div>
 
                 <div>
-                    <a class="text-[18px] font-medium text-black max-sm:text-[14px]" href="mailto:@lang('enclaves::app.shop.components.layouts.footer.email')">
-                        @lang('enclaves::app.shop.components.layouts.footer.email')
-                    </a>
-                </div>
+                    <div class="mb-[10px] flex gap-3">
+                        <span class="icon-mail-us text-[24px] max-sm:text-[14px]"></span>
 
-                <div>
-                    <a class="text-[18px] font-medium text-black max-sm:text-[14px]" href="phone:@lang('enclaves::app.shop.components.layouts.footer.mobile-number')">
-                        @lang('enclaves::app.shop.components.layouts.footer.mobile-number')
-                    </a>
+                        <a class="text-[18px] max-sm:text-[14px]" 
+                            href="mailto:@lang('enclaves::app.shop.components.layouts.footer.email')"
+                        >
+                            @lang('enclaves::app.shop.components.layouts.footer.email')
+                        </a>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <span class="icon-contact-us text-[24px] max-sm:text-[14px]"></span>
+
+                        <a class="text-[18px] max-sm:text-[14px]" 
+                            href="phone:@lang('enclaves::app.shop.components.layouts.footer.mobile-number')"
+                        >
+                            @lang('enclaves::app.shop.components.layouts.footer.mobile-number')
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex gap-[80px] max-768:gap-[40px] max-668:flex-wrap">
-            <div class="relative flex flex-col justify-start border-r-[1px] border-[#308BB6] pr-[79px] max-668:border-r-0">
+        <div class="flex flex-wrap max-lg:mt-[25px]">
+            <div class="relative mb-[10px] flex flex-col justify-start border-r-[1px] border-[#308BB6] px-[40px] max-lg:px-[15px] max-668:border-r-0">
                 
                 <p class="text-[35px] font-bold max-sm:text-[20px]">
-                    @lang('enclaves::app.shop.components.layouts.footer.quicklinks')
+                    @lang('enclaves::app.shop.components.layouts.footer.quick-links')
                 </p>
 
-                <div class="mt-[21px] grid gap-[20px]">
+                <div class="mt-[21px] grid gap-[10px] lg:gap-3">
                     @if ($customization->options)
                         @foreach ($customization->options as $footerLinkSection)
 
@@ -78,7 +90,7 @@
                 </div>
             </div>
             
-            <div class="flex max-w-[618px] flex-col justify-start">
+            <div class="relative flex flex-col justify-start px-[40px] max-lg:px-[15px]">
                 <div class="flex flex-wrap justify-between gap-4">
                     <h1 class="flex text-[30px] font-bold max-sm:text-[20px]">
                         @lang('enclaves::app.shop.components.layouts.footer.follow-us')
@@ -86,14 +98,14 @@
                     
                     @if (! empty($customization->options))
                         <div class="flex gap-[20px]">
-                            @foreach ($customization->options['column_3'] as $socalLinkSection)
+                            @foreach ($customization->options['column_3'] as $socialLinkSection)
 
                                 <div class="flex h-auto items-center rounded-full !bg-gradient-to-r from-[#e0165d] to-yellow-500 p-[10px]">
                                     <a 
-                                        href="{{ $socalLinkSection['url'] }}"
-                                        alt="{{ $socalLinkSection['title'] }}"
+                                        href="{{ $socialLinkSection['url'] }}"
+                                        alt="{{ $socialLinkSection['title'] }}"
                                     >
-                                        @switch(strtolower($socalLinkSection['title']))
+                                        @switch(strtolower($socialLinkSection['title']))
                                             @case('facebook')
                                                     <img
                                                         src="{{ bagisto_asset('images/facebook.svg') }}"
@@ -176,16 +188,16 @@
                             </div>
                         </x-shop::form>
 
-                        <p class="mt-[50px] text-[17px] max-sm:text-[14px]">
+                        <p class="mt-[50px] text-[17px] max-lg:mb-[25px] max-lg:mt-[25px] max-sm:text-[14px]">
                             @lang('enclaves::app.shop.components.layouts.footer.subscribe-stay-touch')
                         </p>
                     </div>
                 @endif
             </div>
         </div>
-
     </div>
-    <div class="bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[86px] py-[33px] max-sm:px-[26px] max-sm:py-[16px]">
+
+    <div class="flex h-[60px] items-center bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px]">
         <p class="z-[999] text-[18px] font-medium text-white max-sm:text-[14px]">
             @lang('enclaves::app.shop.components.layouts.footer.copyright', ['current_year'=> date('Y')])
         </p>

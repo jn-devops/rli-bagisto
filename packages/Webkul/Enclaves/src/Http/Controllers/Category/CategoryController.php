@@ -47,6 +47,8 @@ class CategoryController extends Controller
                             ->leftJoin('category_translations', 'category_translations.category_id', '=', 'categories.id')
                             ->where($defaultParams)
                             ->whereNotNull('parent_id')
+                            ->where('categories.communities_status', '!=', 0)
+                            ->orWhere('categories.communities_status', '=', null)
                             ->limit(request('limit') ?? self::LIMIT)
                             ->orderBy('categories.sort', request('sort') ?? self::SHORT)
                             ->get();

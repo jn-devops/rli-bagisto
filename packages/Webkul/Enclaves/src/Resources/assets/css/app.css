@@ -465,8 +465,15 @@
   }
 
   /* Icons style */
-    
-
+  .icon-contact-us:before {
+    content: "\e94a";
+  }
+  .icon-location:before {
+    content: "\e94b";
+  }
+  .icon-mail-us:before {
+    content: "\e94c";
+  }
   .icon-dashboard:before {
     content: "\e943";
   }
@@ -610,9 +617,6 @@
   }
   .icon-listing:before {
     content: "\e928";
-  }
-  .icon-location:before {
-    content: "\e929";
   }
   .icon-minus:before {
     content: "\e92a";
