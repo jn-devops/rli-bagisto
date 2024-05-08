@@ -1,11 +1,11 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-14d08408.css",
+    "file": "assets/app-d599533b.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
   "src/Resources/assets/fonts/icomoon.woff": {
-    "file": "assets/icomoon-8fde036e.woff",
+    "file": "assets/icomoon-14b3c3f1.woff",
     "src": "src/Resources/assets/fonts/icomoon.woff"
   },
   "src/Resources/assets/fonts/velicon.woff": {

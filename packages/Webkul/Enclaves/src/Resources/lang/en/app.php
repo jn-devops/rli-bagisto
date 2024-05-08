@@ -375,7 +375,7 @@ return [
                     'address'       => '17 ADB Ave, Ortigas Center, Pasig, Metro Manila',
                     'email'         => 'sample@email.com',
                     'mobile-number' => '+63 9456677654',
-                    'quicklinks'    => 'Quicklinks',
+                    'quick-links'    => 'Quicklinks',
                     'follow-us'     => 'Follow Us',
                     'search'        => 'Search',
                     'email-address' => 'Email Address',
@@ -524,6 +524,7 @@ return [
                 'index' => [
                     'button-setting' => 'Our Newest Communities Button Setting',
                     'button' => [
+                        'status'           => 'Status',
                         'text'             => 'Text',
                         'color'            => 'Color',
                         'border-color'     => 'Border Color',

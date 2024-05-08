@@ -34,7 +34,13 @@ class Category
         } else {
             Storage::delete($path);
         }
-        
+
+        if(empty($data['communities_status']) && ! empty($data['switch_status'])) {
+            $category->communities_status = $data['switch_status'];
+        } else {
+            $category->communities_status = 0;
+        }
+
         $category->btn_text = $data['btn_text'];
         $category->btn_color = $data['btn_color'];
         $category->btn_background_color = $data['btn_background_color'];
