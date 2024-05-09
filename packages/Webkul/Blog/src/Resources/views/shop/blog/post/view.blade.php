@@ -87,7 +87,7 @@
                     <x-blog::shimmer.blogs.item count=3 />
                 </div>
                 
-                <div class="mt-5 flex justify-center" v-if="blogs.length > 3">
+                <div class="mt-5 flex justify-center">
                     <button
                         @click="getMoreBlogs()"
                         class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
@@ -109,7 +109,7 @@
                     blog: @json($blog),
                     isLoading: true,
                     isRelativeLoading: false,
-                    limit: `{{ $limit }}`,
+                    limit: 3,
                     loadMoreTxt: `{{ trans('blog::app.shop.blog.load-more') }}`,
                 };
             },
@@ -124,7 +124,7 @@
 
             methods: {
                 getMoreBlogs() {
-                    this.limit += `{{ $limit }}`;
+                    this.limit += 6;
 
                     this.isRelativeLoading = true;
 
@@ -134,6 +134,8 @@
                 },
 
                 getRelatedPost() {
+                    console.log(this.limit);
+                    
                     this.$axios.get("{{ route('shop.blogs.front-end') }}", {
                         params: {
                             limit: this.limit,

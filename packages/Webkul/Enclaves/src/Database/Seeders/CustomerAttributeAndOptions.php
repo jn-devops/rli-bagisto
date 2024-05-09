@@ -5,6 +5,8 @@ namespace Webkul\Enclaves\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+// Path: php artisan db:seed --class="Webkul\\Enclaves\\Database\\Seeders\\CustomerAttributeAndOptions"
+
 class CustomerAttributeAndOptions extends Seeder
 {
     public function run()

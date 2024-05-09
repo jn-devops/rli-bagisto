@@ -47,7 +47,14 @@ class FaqController extends Controller
             'question',
             'answer',
             'status',
+            'status_switch',
         ]);
+
+        if(request()->has('status_switch')) {
+            $data['status'] = 1;
+        } else {
+            $data['status'] = 0;
+        }
 
         $this->faqRepository->create($data);
 
@@ -73,9 +80,10 @@ class FaqController extends Controller
                 'question',
                 'answer',
                 'status',
+                'status_switch',
             ]);
             
-            if(request()->has('status')) {
+            if(request()->has('status_switch')) {
                 $data['status'] = 1;
             } else {
                 $data['status'] = 0;

@@ -19,13 +19,13 @@
                     @lang('enclaves::app.shop.customers.account.inquiries.title')
                 </h2>
 
-                <div class="mb-14">
+                <div class="mb-10">
                     <h1 class="text-[25px] font-bold">
                         @lang('enclaves::app.shop.customers.account.inquiries.help_test')
                     </h1>
                 </div>
 
-                <div class="flex flex-col gap-11 md:px-6 xl:flex-row">
+                <div class="grid grid-cols-2 gap-3 max-lg:grid-cols-1">
                     <button 
                         class="flex items-center gap-x-3 rounded-[0.625rem] pb-11 pl-8 pr-6 pt-9 text-left shadow-lg shadow-[rgba(0,_0,_0,_0.1)] duration-300 hover:shadow-xl"
                         @click="$refs.addInquireModal.open()"
@@ -50,7 +50,7 @@
                                 @lang('enclaves::app.shop.customers.account.inquiries.submit-header')
                             </h4>
 
-                            <p class="text-[1.065rem] font-normal leading-[1.375rem]"> 
+                            <p class="text-[1.065rem] font-normal leading-[1.375rem] max-lg:hidden"> 
                                 @lang('enclaves::app.shop.customers.account.inquiries.submit-text')
                             </p>
                         </hgroup>
@@ -95,7 +95,7 @@
                                 @lang('enclaves::app.shop.customers.account.inquiries.tickets')
                             </h4>
 
-                            <p class="text-[1.065rem] font-normal leading-[1.375rem]"> 
+                            <p class="text-[1.065rem] font-normal leading-[1.375rem] max-lg:hidden"> 
                                 @lang('enclaves::app.shop.customers.account.inquiries.tickets_text')
                             </p>
                         </hgroup>
@@ -118,25 +118,39 @@
                 <div class="mb-10 mt-10">
                     <h1 class="text-[25px] font-bold">
                         @lang('enclaves::app.shop.customers.account.inquiries.frequently')
+
+                        (<span v-text="faqs.total"></span>)
                     </h1>
                 </div>
-                
-                @foreach ($faqs as $faq)
-                    
+
+                <div v-for="faq in faqs.data">
                     <x-shop::accordion.custom-accordion :is-active=false>
                         <x-slot:header>
-                            <div>{{ $faq->question }}</div>
+                            <div v-text="faq.question"></div>
                         </x-slot:header>
 
                         <x-slot:content>
-                            <x-shop::layouts.read-more-smooth 
-                                text="{!! $faq->answer !!}"                                    
-                                limit="400"
-                            >
-                            </x-shop::layouts.read-more-smooth>
+                            <div v-text="faq.answer"></div>
                         </x-slot:content>
                     </x-shop::accordion.custom-accordion>
-                @endforeach
+                </div>
+
+                <div class="" v-if="isLoading">
+                    @for ($i = 0; $i < 4; $i++)
+                        <div class="shimmer mb-10 h-[70px] rounded-lg"></div>
+                    @endfor
+                </div>
+
+                <div class="flex justify-center" v-if="remaingFaq > 0">
+                    <button 
+                        class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
+                        @click="loadMore()"
+                    >
+                        @lang('enclaves::app.shop.customers.account.inquiries.load-more')
+
+                        (<span v-text="remaingFaq"></span>)
+                    </button>
+                </div>
 
                 <!-- Customers Inquiries modal -->
                 <x-shop::form 
@@ -254,11 +268,49 @@
                     return {
                         isSubmited: false,
                         images: null,
+                        faqLimit: 4,
+                        faqs: {
+                            data: [],
+                            total: 0,
+                        },
+
+                        remaingFaq: 0,
+                        isLoading: true,
                         imagePreviewURL: null,
                     };
                 },
 
+                mounted() {
+                    this.getFaq();
+                },
+
                 methods: {
+                    loadMore() {
+                        this.isLoading = true;
+
+                        this.faqLimit += 4; 
+
+                        this.getFaq();
+                    },
+
+                    getFaq() {
+                        this.$axios.get("{{ route('enclaves.customers.account.inquiries.index') }}", {
+                            params: {
+                                limit: this.faqLimit,
+                            }
+                        })
+                        .then(response => {
+                            this.isLoading = false;
+
+                            this.faqs.data = response.data.faqs;
+
+                            this.faqs.total = response.data.total;
+
+                            this.remaingFaq = response.data.total - this.faqLimit;
+                        })
+                        .catch(error => {});
+                    },
+
                     uploadFile() {
                         this.images = this.$refs.file.files[0];
 

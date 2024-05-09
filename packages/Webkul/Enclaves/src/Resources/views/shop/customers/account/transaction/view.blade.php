@@ -29,67 +29,101 @@
             >
                 <div class="mt-9">
 					<p class="mt-6 text-[20px] font-bold">
-                        Placed On 24 June 2024
+                        {{ core()->formatDate($order->created_at, 'd M Y') }}
                     </p>
 
 					<div class="mt-12 flex flex-wrap items-center justify-between">
 						<div class="flex flex-wrap gap-[20px]">
-							<img class="max-h-[67px] max-w-[80px] rounded-[10px]" src="{{ bagisto_asset('images/document-files.svg') }}" />
-							<p class="max-w-[380px] text-[20px] font-bold">Zaya Studio Condominium Standard Inner Unit</p>
+							<img 
+                                class="max-h-[67px] max-w-[80px] rounded-[10px]" 
+                                src="{{ bagisto_asset('images/document-files.svg') }}" 
+                            />
+							
+                            <p class="max-w-[380px] text-[20px] font-bold">
+                                {{ $order->items->first()->name }}
+                            </p>
 						</div>
-						<a href=""
-							class="flex items-center gap-[8px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[25px] py-[21px] font-medium text-white"><span class="icon-billing text-[24px] font-medium"></span> Billing Statement</a>
 					</div>
 
 					<div class="grid grid-cols-2 gap-[30px] max-2xl:grid-cols-1">
 						<dl class="mt-9 flex flex-col gap-[16px]">
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] text-base font-semibold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Full Name: </dt>
-								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> Charles Ley Baldemor </dd>
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] text-base font-semibold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Full Name: 
+                                </dt>
+
+								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900">
+                                    {{ $order->customer_first_name }}
+                                </dd>
 							</div>
+
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Date of Birth: </dt>
-								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> June 24, 1998 </dd>
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Date of Birth: 
+                                </dt>
+
+								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> 
+                                    June 24, 1998 
+                                </dd>
 							</div>
+
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Email Address: </dt>
-								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> abc@gmail.com </dd>
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Email Address: 
+                                </dt>
+
+								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900">
+                                    {{ $order->customer_email }}
+                                </dd>
 							</div>
+
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Mobile Number: </dt>
-								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> 09467786754 </dd>
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Mobile Number: 
+                                </dt>
+
+								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900">
+                                    
+                                </dd>
 							</div>
+
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Lot / Unit number: </dt>
-								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> Lot A </dd>
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Lot / Unit number: 
+                                </dt>
+
+								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> 
+                                    Lot A 
+                                </dd>
 							</div>
+
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Civil Status: </dt>
-								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> Single </dd>
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Civil Status: 
+                                </dt>
+
+								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> 
+                                    Single 
+                                </dd>
 							</div>
+
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Gender: </dt>
-								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> Male </dd>
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] text-base font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:whitespace-nowrap sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Gender: 
+                                </dt>
+
+								<dd class="text-[16px] text-base font-normal leading-5 text-gray-900"> 
+                                    Male 
+                                </dd>
 							</div>
+
 							<div class="flex columns-2 flex-wrap gap-x-6 sm:px-0">
-								<dt
-									class="w-[10rem] min-w-[10rem] text-[16px] font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:text-base sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
-									Secondary Home Address: </dt>
-								<dd class="max-w-[300px] text-[16px] text-base font-normal leading-5 text-gray-900"> 162 San Juan, Agoo Philippines test
+								<dt class="w-[10rem] min-w-[10rem] text-[16px] font-bold leading-5 tracking-tighter text-gray-900 sm:w-[13rem] sm:min-w-[13rem] sm:text-base sm:tracking-normal md:w-[17rem] md:min-w-[17rem]">
+									Secondary Home Address: 
+                                </dt>
+
+								<dd class="max-w-[300px] text-[16px] text-base font-normal leading-5 text-gray-900"> 
+                                    162 San Juan, Agoo Philippines test
 								</dd>
 							</div>
 						</dl>
@@ -187,12 +221,8 @@
 							</div>
 						</dl>
 					</div>
-
 				</div>
-
-
-
-
+                
             </x-shop::tabs.item>
 
             @if ($order->invoices->count())
@@ -205,11 +235,16 @@
                                     @lang('shop::app.customers.account.orders.view.invoices.individual-invoice', ['invoice_id' => $invoice->increment_id ?? $invoice->id])
                                 </p>
                             </div>
-                            <div class="secondary-button flex items-center gap-x-[10px] border-[#E9E9E9] px-[20px] py-[12px] font-normal">
-                                <a href="{{ route('shop.customers.account.transactions.print-invoice', $invoice->id) }}">
-                                        @lang('shop::app.customers.account.orders.view.invoices.print')
-                                </a>
-                            </div>
+                            
+                            <a 
+                                href="{{ route('shop.customers.account.transactions.print-invoice', $invoice->id) }}" 
+                                class="flex items-center gap-[8px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[25px] py-[21px] font-medium text-white"
+                            >
+                                <span class="icon-billing text-[24px] font-medium"></span>
+
+                                Billing Statement
+                            </a>
+
                         </div>
 
                         <div class="relative mt-[30px] overflow-x-auto rounded-[12px] border">
@@ -404,11 +439,9 @@
                             </div>
                         </div>
                     @endforeach
-
                 </x-shop::tabs.item>
             @endif
 
-          
         </x-shop::tabs>
 
         <div class="mt-[42px] flex flex-wrap justify-between gap-x-[64px] gap-y-[30px] border-t-[1px] border-[#E9E9E9] pt-[26px]">

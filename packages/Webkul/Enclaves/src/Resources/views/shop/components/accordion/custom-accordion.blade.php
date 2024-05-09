@@ -4,7 +4,6 @@
 
 <v-accordion
     is-active="{{ $isActive }}"
-    {{ $attributes }}
 >
     @isset($header)
         <template v-slot:header>
@@ -35,7 +34,7 @@
                 <span :class="`text-[24px] ${isOpen ? 'icon-arrow-up' : 'icon-arrow-down'}`"></span>
             </div>
 
-            <div class="z-10 bg-white rounded-lg p-10" v-show="isOpen">
+            <div class="z-10 rounded-lg bg-white p-10" v-show="isOpen">
                 <slot name="content">
                     @lang('admin::app.components.accordion.default-content')
                 </slot>
