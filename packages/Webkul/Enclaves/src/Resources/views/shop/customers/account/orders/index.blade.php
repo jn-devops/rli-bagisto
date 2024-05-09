@@ -1,10 +1,10 @@
 <x-shop::layouts.account>
-    {{-- Page Title --}}
+    <!-- Page Title -->
     <x-slot:title>
         @lang('enclaves::app.shop.layouts.transactions')
     </x-slot>
 
-    {{-- Breadcrumbs --}}
+    <!-- Breadcrumbs -->
     @section('breadcrumbs')
         <x-shop::breadcrumbs name="transactions"></x-shop::breadcrumbs>
     @endSection
@@ -22,5 +22,4 @@
     <x-shop::datagrid :src="route('shop.customers.account.transactions.index')"></x-shop::datagrid>
     
     {!! view_render_event('bagisto.shop.customers.account.orders.list.after') !!}
-
 </x-shop::layouts.account>

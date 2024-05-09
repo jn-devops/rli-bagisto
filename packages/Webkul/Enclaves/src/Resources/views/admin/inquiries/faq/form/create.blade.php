@@ -71,13 +71,10 @@
                                 <div class="mt-2.5 w-full gap-2.5">
                                     <x-admin::form.control-group.control
                                         type="switch"
-                                        name="status"
+                                        name="status_switch"
                                         :value="1"
                                         :label="trans('enclaves::app.admin.inquiries.faq.form.create.status')"
-                                        ::checked="1"
                                     />
-
-                                    <x-admin::form.control-group.error control-name="status" />
                                 </div>
                             </x-admin::form.control-group>
                             

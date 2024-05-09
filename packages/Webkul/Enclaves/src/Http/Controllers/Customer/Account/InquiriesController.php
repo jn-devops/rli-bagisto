@@ -22,15 +22,26 @@ class InquiriesController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View | JsonResponse
      */
     public function index()
     {
         $reasons = $this->ticketReasonsRepository->get();
 
-        $faqs = $this->faqRepository->findWhere(['status' => 1]);
+        if(request()->ajax()) {
+            $limit = request()->get('limit') ?? 4;
 
-        return view('shop::customers.account.inquire.index', compact('reasons', 'faqs'));
+            $faqs = $this->faqRepository->where(['status' => 1]);
+
+            $faqLimited = $faqs->limit($limit)->get();
+
+            return new JsonResponse([
+                'faqs'  => $faqLimited,
+                'total' => $faqs->count(),
+            ]);
+        }
+
+        return view('shop::customers.account.inquire.index', compact('reasons'));
     }
 
     /**

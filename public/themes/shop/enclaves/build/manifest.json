@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-d599533b.css",
+    "file": "assets/app-6c7aa381.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -11,6 +11,10 @@
   "src/Resources/assets/fonts/velicon.woff": {
     "file": "assets/velicon-2b79b97c.woff",
     "src": "src/Resources/assets/fonts/velicon.woff"
+  },
+  "src/Resources/assets/images/QR-code.svg": {
+    "file": "assets/QR-code-29c3a4af.svg",
+    "src": "src/Resources/assets/images/QR-code.svg"
   },
   "src/Resources/assets/images/address.svg": {
     "file": "assets/address-610a80fd.svg",

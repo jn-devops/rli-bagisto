@@ -9,7 +9,7 @@
         <x-shop::breadcrumbs name="transactions.view" :entity="$order"></x-shop::breadcrumbs>
     @endSection
 
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between">
         <div class="">
             <h2 class="text-[26px] font-medium">
                 Transaction Details
@@ -37,13 +37,13 @@
                     </span>
                 </div>
 
-                <div class="relative overflow-x-auto mt-[30px]">
+                <div class="relative mt-[30px] overflow-x-auto">
                     
-                <div class="flex justify-between items-center mb-10">
+                <div class="mb-10 flex items-center justify-between">
                     <div class="flex items-center">
                         <img src="{{ bagisto_asset('images/document-files.svg') }}" alt="" width="100" height="100"/>
 
-                        <h3 class="text-[22px] font-bold w-[500px]">Zaya Studio Condominium Standard Inner Unit</h3>
+                        <h3 class="w-[500px] text-[22px] font-bold">Zaya Studio Condominium Standard Inner Unit</h3>
                     </div>
                     <form
                         method="POST"
@@ -54,7 +54,7 @@
                     </form>
 
                     <a
-                        class="secondary-button flex items-center border-[#E9E9E9] font-normal text-white h-10 !bg-gradient-to-r from-[#e0165d] to-yellow-500"
+                        class="secondary-button flex h-10 items-center border-[#E9E9E9] !bg-gradient-to-r from-[#e0165d] to-yellow-500 font-normal text-white"
                         href="javascript:void(0);"
                         @click=""
                     >
@@ -62,7 +62,7 @@
                     </a>
                 </div>
 
-                <div class="grid grid-cols-[2fr_1fr] w-full px-[30px] py-[12px] border-b-[1px] border-[#E9E9E9]">
+                <div class="grid w-full grid-cols-[2fr_1fr] border-b-[1px] border-[#E9E9E9] px-[30px] py-[12px]">
                     <div class="grid grid-cols-[1fr_2fr]">
                         <p class="text-[16px] font-medium">
                             @lang('Reference Code:')
@@ -112,17 +112,17 @@
                         <p class="text-[16px] text-[#6E6E6E]"></p>
 
                         <p class="text-[16px] font-medium leading-[0px]">@lang('Name:')</p>
-                        <p class="text-[16px] text-[#6E6E6E] leading-[0px]">-</p>
+                        <p class="text-[16px] leading-[0px] text-[#6E6E6E]">-</p>
 
                         <p class="text-[16px] font-medium leading-[0px]">@lang('Email:')</p>
-                        <p class="text-[16px] text-[#6E6E6E] leading-[0px]">-</p>
+                        <p class="text-[16px] leading-[0px] text-[#6E6E6E]">-</p>
                     </div>
                 </div>
 
-                <div class="px-[30px] py-[12px] border-b-[1px] border-[#E9E9E9]">
-                    <h2 class="font-medium text-[18px]">@lang('Bill To')</h2>
+                <div class="border-b-[1px] border-[#E9E9E9] px-[30px] py-[12px]">
+                    <h2 class="text-[18px] font-medium">@lang('Bill To')</h2>
 
-                    <div class="grid grid-cols-[2fr_1fr] w-full">
+                    <div class="grid w-full grid-cols-[2fr_1fr]">
 
                         <div class="grid grid-cols-[1fr_2fr]">
                             <p class="text-[14px] font-medium">
@@ -150,9 +150,9 @@
                 </div>
 
                 <div class="px-[30px] py-[12px]">
-                    <h2 class="font-medium text-[18px]">@lang('Billing Details')</h2>
+                    <h2 class="text-[18px] font-medium">@lang('Billing Details')</h2>
                     
-                    <div class="grid grid-cols-[2fr_1fr] w-full">
+                    <div class="grid w-full grid-cols-[2fr_1fr]">
                         <div class="grid grid-cols-[1fr_2fr]">
                             <p class="text-[14px] font-medium">
                                 @lang('Item:')
@@ -198,22 +198,22 @@
                 <x-shop::tabs.item  :title="trans('shop::app.customers.account.orders.view.invoices.invoices')">
 
                     @foreach ($order->invoices as $invoice)
-                        <div class="flex justify-between items-center">
+                        <div class="flex items-center justify-between">
                             <div class="">
                                 <p class="text-[15px] font-medium">
                                     @lang('shop::app.customers.account.orders.view.invoices.individual-invoice', ['invoice_id' => $invoice->increment_id ?? $invoice->id])
                                 </p>
                             </div>
-                            <div class="secondary-button flex gap-x-[10px] items-center py-[12px] px-[20px] border-[#E9E9E9] font-normal">
+                            <div class="secondary-button flex items-center gap-x-[10px] border-[#E9E9E9] px-[20px] py-[12px] font-normal">
                                 <a href="{{ route('shop.customers.account.transactions.print-invoice', $invoice->id) }}">
                                         @lang('shop::app.customers.account.orders.view.invoices.print')
                                 </a>
                             </div>
                         </div>
 
-                        <div class="relative overflow-x-auto mt-[30px] border rounded-[12px]">
-                            <table class="w-full text-sm text-left">
-                                <thead class="bg-[#F5F5F5] border-b-[1px] border-[#E9E9E9] text-[14px] text-black">
+                        <div class="relative mt-[30px] overflow-x-auto rounded-[12px] border">
+                            <table class="w-full text-left text-sm">
+                                <thead class="border-b-[1px] border-[#E9E9E9] bg-[#F5F5F5] text-[14px] text-black">
                                     <tr>
                                         <th
                                             scope="col"
@@ -268,51 +268,51 @@
 
                                 <tbody>
                                     @foreach ($invoice->items as $item)
-                                        <tr class="bg-white border-b">
+                                        <tr class="border-b bg-white">
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.invoices.sku')"
                                             >
                                                 {{ $item->getTypeInstance()->getOrderedItem($item)->sku }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.invoices.product-name')"
                                             >
                                                 {{ $item->name }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.invoices.price')"
                                             >
                                                 {{ core()->formatPrice($item->price, $order->order_currency_code) }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.invoices.qty')"
                                             >
                                                 {{ $item->qty }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.invoices.subtotal')"
                                             >
                                                 {{ core()->formatPrice($item->total, $order->order_currency_code) }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.invoices.tax-amount')"
                                             >
                                                 {{ core()->formatPrice($item->tax_amount, $order->order_currency_code) }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.invoices.grand-total')"
                                             >
                                                 {{ core()->formatPrice($item->total + $item->tax_amount, $order->order_currency_code) }}
@@ -323,11 +323,11 @@
                             </table>
                         </div>
 
-                        <div class="flex gap-[40px] items-start mt-[30px] max-lg:gap-[20px] max-md:grid">
+                        <div class="mt-[30px] flex items-start gap-[40px] max-lg:gap-[20px] max-md:grid">
                             <div class="flex-auto max-md:mt-[30px]">
                                 <div class="flex justify-end">
-                                    <div class="grid gap-[8px] max-w-max">
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                    <div class="grid max-w-max gap-[8px]">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.invoices.subtotal')
                                             </p>
@@ -341,7 +341,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.invoices.shipping-handling')
                                             </p>
@@ -356,7 +356,7 @@
                                         </div>
 
                                         @if ($invoice->base_discount_amount > 0)
-                                            <div class="flex gap-x-[20px] justify-between w-full">
+                                            <div class="flex w-full justify-between gap-x-[20px]">
                                                 <p class="text-[14px]">
                                                     @lang('shop::app.customers.account.orders.view.invoices.discount')
                                                 </p>
@@ -371,7 +371,7 @@
                                             </div>
                                         @endif
 
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.invoices.tax')
                                             </p>
@@ -385,7 +385,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.invoices.grand-total')
                                             </p>
@@ -427,9 +427,9 @@
                             </span>
                         </div>
 
-                        <div class="relative overflow-x-auto border rounded-[12px] mt-[30px]">
-                            <table class="w-full text-sm text-left">
-                                <thead class="text-[14px] text-black bg-[#F5F5F5] border-b-[1px] border-[#E9E9E9]  ">
+                        <div class="relative mt-[30px] overflow-x-auto rounded-[12px] border">
+                            <table class="w-full text-left text-sm">
+                                <thead class="border-b-[1px] border-[#E9E9E9] bg-[#F5F5F5] text-[14px] text-black">
                                     <tr>
                                         <th
                                             scope="col"
@@ -456,23 +456,23 @@
 
                                 <tbody>
                                     @foreach ($shipment->items as $item)
-                                        <tr class="bg-white border-b">
+                                        <tr class="border-b bg-white">
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.shipments.sku')"
                                             >
                                                 {{ $item->sku }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.shipments.product-name')"
                                             >
                                                 {{ $item->name }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.shipments.qty')"
                                             >
                                                 {{ $item->qty }}
@@ -497,9 +497,9 @@
                             </span>
                         </div>
 
-                        <div class="relative overflow-x-auto mt-[30px] border rounded-[12px]">
-                            <table class="w-full text-sm text-left">
-                                <thead class="text-[14px] text-black bg-[#F5F5F5] border-b-[1px] border-[#E9E9E9]  ">
+                        <div class="relative mt-[30px] overflow-x-auto rounded-[12px] border">
+                            <table class="w-full text-left text-sm">
+                                <thead class="border-b-[1px] border-[#E9E9E9] bg-[#F5F5F5] text-[14px] text-black">
                                     <tr>
                                         <th
                                             scope="col"
@@ -554,51 +554,51 @@
 
                                 <tbody>
                                     @foreach ($refund->items as $item)
-                                        <tr class="bg-white border-b">
+                                        <tr class="border-b bg-white">
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.refunds.sku')"
                                             >
                                                 {{ $item->child ? $item->child->sku : $item->sku }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.refunds.product-name')"
                                             >
                                                 {{ $item->name }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.refunds.price')"
                                             >
                                                 {{ core()->formatPrice($item->price, $order->order_currency_code) }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.refunds.qty')"
                                             >
                                                 {{ $item->qty }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.refunds.subtotal')"
                                             >
                                                 {{ core()->formatPrice($item->total, $order->order_currency_code) }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.refunds.tax-amount')"
                                             >
                                                 {{ core()->formatPrice($item->tax_amount, $order->order_currency_code) }}
                                             </td>
 
                                             <td
-                                                class="px-3 py-[16px] text-black font-medium"
+                                                class="px-3 py-[16px] font-medium text-black"
                                                 data-value="@lang('shop::app.customers.account.orders.view.refunds.grand-total')"
                                             >
                                                 {{ core()->formatPrice($item->total + $item->tax_amount, $order->order_currency_code) }}
@@ -615,11 +615,11 @@
                             </table>
                         </div>
 
-                        <div class="flex gap-[40px] items-start mt-[30px] max-lg:gap-[20px] max-md:grid">
+                        <div class="mt-[30px] flex items-start gap-[40px] max-lg:gap-[20px] max-md:grid">
                             <div class="flex-auto max-md:mt-[30px]">
                                 <div class="flex justify-end">
-                                    <div class="grid gap-[8px] max-w-max">
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                    <div class="grid max-w-max gap-[8px]">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.refunds.subtotal')
                                             </p>
@@ -633,7 +633,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.refunds.shipping-handling')
                                             </p>
@@ -648,7 +648,7 @@
                                         </div>
 
                                         @if ($refund->discount_amount > 0)
-                                            <div class="flex gap-x-[20px] justify-between w-full">
+                                            <div class="flex w-full justify-between gap-x-[20px]">
                                                 <p class="text-[14px]">
                                                     @lang('shop::app.customers.account.orders.view.refunds.discount')
                                                 </p>
@@ -664,7 +664,7 @@
                                         @endif
 
                                         @if ($refund->tax_amount > 0)
-                                            <div class="flex gap-x-[20px] justify-between w-full">
+                                            <div class="flex w-full justify-between gap-x-[20px]">
                                                 <p class="text-[14px]">
                                                     @lang('shop::app.customers.account.orders.view.refunds.tax')
                                                 </p>
@@ -679,7 +679,7 @@
                                             </div>
                                         @endif
 
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.refunds.adjustment-refund')
                                             </p>
@@ -693,7 +693,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.refunds.adjustment-fee')
                                             </p>
@@ -707,7 +707,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex gap-x-[20px] justify-between w-full">
+                                        <div class="flex w-full justify-between gap-x-[20px]">
                                             <p class="text-[14px]">
                                                 @lang('shop::app.customers.account.orders.view.refunds.grand-total')
                                             </p>
@@ -730,10 +730,10 @@
             @endif
         </x-shop::tabs>
 
-        <div class="flex flex-wrap gap-x-[64px] gap-y-[30px] justify-between mt-[42px] pt-[26px] border-t-[1px] border-[#E9E9E9]">
+        <div class="mt-[42px] flex flex-wrap justify-between gap-x-[64px] gap-y-[30px] border-t-[1px] border-[#E9E9E9] pt-[26px]">
 
             <!-- Payment Method --->
-            <div class="grid gap-[15px] place-content-baseline max-w-[200px] max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-sm:max-w-full">
+            <div class="grid max-w-[200px] place-content-baseline gap-[15px] max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-sm:max-w-full">
                 <p class="text-[16px] text-[#6E6E6E]">
                     @lang('shop::app.customers.account.orders.view.payment-method')
                 </p>

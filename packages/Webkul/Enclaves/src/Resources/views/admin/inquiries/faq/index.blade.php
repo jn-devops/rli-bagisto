@@ -171,21 +171,22 @@
                                     </x-admin::form.control-group.label>
 
                                     <div class="mt-2.5 w-full gap-2.5">
+
+                                       
                                         <x-admin::form.control-group.control
                                             type="switch"
-                                            name="status"
+                                            name="status_switch"
                                             :value="1"
                                             :label="trans('enclaves::app.admin.inquiries.faq.form.edit.status')"
                                             ::checked="data.status.search('Active') > 0 ? 1 : 0"
                                         />
 
-                                        <x-admin::form.control-group.error control-name="status" />
-
-                                        <input  
+                                        <x-admin::form.control-group.control
                                             type="hidden" 
-                                            name="status" 
-                                            :value="data.status.search('Active') > 0 ? 1 : 0" 
+                                            name="status"
+                                            ::value="data.status.search('Active') > 0 ? 1 : 0" 
                                         />
+                                        
                                     </div>
                                 </x-admin::form.control-group>
                                 
@@ -228,6 +229,9 @@
             methods: {
                 // Open update modal and submit request
                 updateFaq(params, { resetForm, setErrors  }) {
+
+                    console.log(params);
+                    
                     this.$axios.post("{{ route('enclaves.admin.inquiries.faq.update') }}", params)
                         .then((response) => {
                             this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
