@@ -7,15 +7,15 @@
         <div class="gap-[20px] max-1280:flex-wrap">
             <div class="w-full">
                 <!-- Media shimmer Effect -->
-                <div class="max-h-[700px] max-w-[657px]" v-show="isMediaLoading">
-                    <div class="shimmer min-h-[700px] min-w-[657px] rounded-[12px] bg-[#E9E9E9]"></div>
+                <div class="max-h-[700px]" v-show="isMediaLoading">
+                    <div class="shimmer min-h-[700px] rounded-[12px] bg-[#E9E9E9]"></div>
                 </div>
 
                 <img
                     v-show="! isMediaLoading"
                     :src="baseFile.path" 
                     v-if="baseFile.type == 'image'"
-                    class="h-[700px] w-[657px] w-full cursor-pointer rounded-[10px]"
+                    class="h-[700px] w-full cursor-pointer rounded-[10px]"
                     alt="@lang('shop::app.products.view.gallery.product-image')"
                     @load="onMediaLoad()"
                 />
@@ -46,15 +46,16 @@
 
             <div class="mt-[10px] flex w-[100px] gap-[10px]" v-else>
                 <template v-for="(image, index) in media.images">
+
                     <div v-if="index < 7" 
                         :class="`${index == `6` ? 'relative' : ''}`">
-                        <x-shop::media.images.lazy
-                            alt="@lang('shop::app.products.view.gallery.thumbnail-image')"
-                            ::class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
-                            ::src="image.small_image_url"
+
+                        <img 
+                            :src="image.small_image_url"  
+                            :class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"  
                             @click="change(image, `image_${index}`)"
+                            alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}"
                         >
-                        </x-shop::media.images.lazy>
 
                         <p
                             v-if="index == 6 && ((media.images.length - 7) != 0)"
@@ -72,15 +73,27 @@
             <x-shop::media.images.lazy
                 ::src="baseFile.path"
                 v-if="baseFile.type == 'image'"
-                class="h-[700px] w-[657px] rounded-[5px]"
+                class="h-[700px] w-[700px] rounded-[5px]"
                 alt="@lang('shop::app.products.view.gallery.product-image')"
                 @load="onMediaLoad()"
             >
             </x-shop::media.images.lazy>
         </div>
 
-        <x-shop::modal.image-slider ref="imageSliderModel">
 
+        <div class="mt-[40px] flex flex-wrap gap-[30px] max-sm:gap-[30px]">
+            <div class="flex gap-[10px]" v-for="option in options">
+                <span class="icon h-[24px] w-[24px] bg-red-700"></span>
+
+                <div class="grid gap-[12px]">
+                    <p class="text-[15px] leading-4 text-[#989898]" v-text="option.label"></p>
+                    
+                    <p class="text-[18px] leading-4"  v-text="option.value"></p>
+                </div>
+            </div>
+        </div>
+
+        <x-shop::modal.image-slider ref="imageSliderModel">
             <!-- Modal Content Id -->
             <x-slot:content>
                 <x-shop::form
@@ -133,6 +146,19 @@
 
                     currentIndex: 1,
 
+                    options: [
+                        {
+                            label: "1st Floor",
+                            value: null,
+                        }, {
+                            label: "End Unit",
+                            value: null,
+                        }, {
+                            label: "Unit Type",
+                            value: null,
+                        },
+                    ],
+                   
                     media: {
                         images: @json(product_image()->getGalleryImages($product)),
 
@@ -148,6 +174,8 @@
                     activeIndex: 0,
 
                     containerOffset: 110,
+
+                    componentRefresh: 1,
                 }
             },
 
@@ -163,6 +191,10 @@
                         }
                     },
                 },
+            },
+
+            updated() {
+                ++this.componentRefresh;
             },
             
             mounted() {

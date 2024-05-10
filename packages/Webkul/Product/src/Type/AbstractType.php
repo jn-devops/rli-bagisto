@@ -786,6 +786,13 @@ abstract class AbstractType
                 'price'           => core()->convertPrice($minimalPrice = $this->evaluatePrice($this->getMinimalPrice())),
                 'formatted_price' => core()->currency($minimalPrice),
             ],
+
+            // Customization start
+            'processing_fee' =>  [
+                'price'           => core()->convertPrice($price = $this->evaluatePrice($this->product->processing_fee)),
+                'formatted_price' => core()->currency($price),
+            ],
+            // Customization End
         ];
     }
 

@@ -414,20 +414,17 @@
 
                         let priceElement = document.querySelector('.special-price') ? document.querySelector('.special-price') : document.querySelector('.final-price');
                         let regularPriceElement = document.querySelector('.special-price');
+                        let processingFee = document.querySelector('.processing_fee');
 
                         if (this.childAttributes.length == selectedOptionCount) {
+                            priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
+                            
+                            processingFee.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
 
                             if (regularPriceElement) {
-                                regularPriceElement.style.display = 'none';
-                            }
-
-                            priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
-
-                            if (regularPriceElement && this.config.variant_prices[this.simpleProduct].final.price < this.config.variant_prices[this.simpleProduct].regular.price) {
                                 regularPriceElement.innerHTML = this.config.variant_prices[this.simpleProduct].regular.formatted_price;
                                 regularPriceElement.style.display = 'inline-block';
                             }
-                            console.log(regularPriceElement);
 
                             this.$emitter.emit('configurable-variant-selected-event',this.simpleProduct);
                         } else {
@@ -453,6 +450,10 @@
                         this.galleryImages.forEach(function(image) {
                             galleryImages.push(image)
                         });
+
+                        if(this.config.variants[this.simpleProduct]) {
+                            this.$parent.$parent.$refs.gallery.options = this.config.variants[this.simpleProduct];
+                        }
 
                         if (galleryImages.length) {
                             this.$parent.$parent.$refs.gallery.media.images =  { ...galleryImages };

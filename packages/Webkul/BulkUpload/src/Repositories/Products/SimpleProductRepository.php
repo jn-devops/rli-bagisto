@@ -129,7 +129,7 @@ class SimpleProductRepository extends BaseRepository
         // Create Product
         if (! $product) {
             Event::dispatch('catalog.product.create.before');
-            
+
             $product = $this->productRepository->create($createProduct);
 
             Event::dispatch('catalog.product.create.after', $product);
@@ -172,7 +172,7 @@ class SimpleProductRepository extends BaseRepository
         if (in_array($product->type, ['configurable'])
             || $PRODUCT_TYPE_SIMPLE_AND_PARENT) {
             $this->processProductInventoryForConfiguration($csvData, $data);
-            
+
             if($PRODUCT_TYPE_SIMPLE_AND_PARENT) {
                 $this->processingVariantProducts($csvData);
             }
@@ -205,9 +205,6 @@ class SimpleProductRepository extends BaseRepository
 
         // Process customer group pricing
         $this->processCustomerGroupPricing($csvData, $data, $product);
-
-        // Process product images
-        $data['images'] = $this->processProductImages($csvData);
 
         if ($product->type == 'downloadable'
                 && isset($csvData['link_titles'])) {
@@ -263,11 +260,6 @@ class SimpleProductRepository extends BaseRepository
         $productFlat = $this->productRepository->update($data, $product->id);
 
         Event::dispatch('catalog.product.update.after', $productFlat);
-
-        // Upload images
-        if ($productFlat) {
-            $this->productImageRepository->bulkUploadImages($data, $productFlat);
-        }
     }
 
     /**
@@ -281,7 +273,7 @@ class SimpleProductRepository extends BaseRepository
     {
         foreach ($csvData['super_attributes'] as $attributeCode => $attributeOptions) {
             $attribute = $this->attributeRepository->findOneByField('code', $attributeCode);
-            
+
             $superAttributes[$attribute->id] = $attributeOptions;
 
             $superAttributesValue = [
@@ -446,27 +438,6 @@ class SimpleProductRepository extends BaseRepository
 
             app(ProductCustomerGroupPriceRepository::class)->saveCustomerGroupPrices($data, $product);
         }
-    }
-
-    /**
-     * Process product images and update $csvData array
-     *
-     * @param  string|array  $csvData
-     * @return mixed
-     */
-    private function processProductImages($csvData)
-    {
-        $productImages = [];
-
-        $imagePath = 'public/imported-products/admin/images/' . $csvData['sku'];
-
-        $images = Storage::disk('local')->files($imagePath);
-
-        foreach ($images as $imageKey => $imagePath) {
-            $productImages[$imageKey] = $imagePath;
-        }
-
-        return $productImages;
     }
 
     /**

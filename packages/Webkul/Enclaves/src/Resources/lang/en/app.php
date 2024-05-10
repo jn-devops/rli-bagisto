@@ -289,6 +289,7 @@ return [
                     'submit'        => 'Submit',
                     'load-more'     => 'Load More',
                     'concern'       => 'Nature of concern: ',
+
                     'list' => [
                         'title'          => 'Your Tickets',
                         'create-success' => 'Ticket successfully created',
@@ -339,6 +340,7 @@ return [
             'bedrooms'        => 'Bedrooms',
             't_and_b'         => 'Toilet and Bath:',
             'unit'            => 'Unit',
+            
             'cart'            => [
                 'add-to-cart' => 'Choose Unit',
             ],

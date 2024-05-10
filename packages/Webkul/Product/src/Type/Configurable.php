@@ -536,6 +536,13 @@ class Configurable extends AbstractType
                 'price'           => $minPrice,
                 'formatted_price' => core()->currency($minPrice),
             ],
+
+             // Customization start
+             'processing_fee' =>  [
+                'price'           => core()->convertPrice($price = $this->evaluatePrice($this->product->processing_fee)),
+                'formatted_price' => core()->currency($price),
+            ],
+             // Customization End
         ];
     }
 

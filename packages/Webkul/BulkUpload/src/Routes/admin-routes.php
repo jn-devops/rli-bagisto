@@ -85,14 +85,6 @@ Route::middleware(['web', 'admin', 'bulkUpload'])
                 // Get uploaded and not uploaded product records
                 Route::post('/get-uploaded-product', [UploadFileController::class, 'getUploadedProductOrNotUploadedProduct'])
                     ->name('admin.bulk-upload.upload-file.get-uploaded-and-not-uploaded-product');
-
-                // Get profile detail
-                Route::get('/get-profiler', [UploadFileController::class, 'getProfiler'])
-                    ->name('admin.bulk-upload.upload-file.run-profile.get-profiler-name');
-
-                // Read error CSV file while bulk-product uploads
-                Route::get('/read-error-file', [UploadFileController::class, 'readErrorFile'])
-                    ->name('admin.bulk-upload.upload-file.run-profile.read-error-file');
             });
 
             Route::prefix('product-image-url')->group(function () {

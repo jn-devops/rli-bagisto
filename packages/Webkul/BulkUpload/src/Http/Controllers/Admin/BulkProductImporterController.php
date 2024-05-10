@@ -64,7 +64,7 @@ class BulkProductImporterController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * Depricate function
+     * Deprecate function
      *
      * @param  int  $id
      * @return \Illuminate\View\View
