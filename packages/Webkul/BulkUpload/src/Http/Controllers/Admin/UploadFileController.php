@@ -3,13 +3,13 @@
 namespace Webkul\BulkUpload\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Webkul\BulkUpload\Imports\DataGridImport;
-use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\BulkUpload\Jobs\ProductUploadJob;
-use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
+use Webkul\BulkUpload\Imports\DataGridImport;
+use Webkul\BulkUpload\Jobs\ProductImageUploading;
 use Webkul\BulkUpload\Repositories\ImportProductRepository;
+use Webkul\Attribute\Repositories\AttributeFamilyRepository;
+use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
 
 class UploadFileController extends Controller
 {
@@ -20,10 +20,6 @@ class UploadFileController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @param  \Webkul\BulkUpload\Repositories\ImportProductRepository  $importProductRepository
-     * @param  \Webkul\BulkUpload\Repositories\BulkProductImporterRepository  $bulkProductImporterRepository
-     * @return void
      */
     public function __construct(
         protected AttributeFamilyRepository $attributeFamilyRepository,
@@ -223,7 +219,7 @@ class UploadFileController extends Controller
     }
 
     /**
-     * Delete producct file from run profiler
+     * Delete product file from run profiler
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -298,64 +294,18 @@ class UploadFileController extends Controller
             ]);
         }
 
-        if (isset($csvImageData)
-                && ! empty($csvImageData)) {
-            $this->storeImageZip($csvImageData);
-        }
-
-        
         $chunks = array_chunk($csvData, 100);
-       
+
         $batch = Bus::batch([])->dispatch();
 
         $batch->add(new ProductUploadJob($productFileRecord, $chunks, $countCSV));
+        
+        $batch->add(new ProductImageUploading($csvImageData));
 
         return response()->json([
             'success' => true,
             'message' => 'CSV Product Successfully Imported',
         ]);
-    }
-
-    /**
-     * Store and extract images from a zip file, removing any single quotes
-     * or double quotes in image filenames.
-     *
-     * @param  $dataFlowProfileRecord  - The data flow profile record containing image information.
-     * @return array - An array containing information about the extracted images.
-     */
-    public function storeImageZip($dataFlowProfileRecord)
-    {
-        $imageZipName = [];
-
-        foreach ($dataFlowProfileRecord as $images) {
-            if (! $images['url_links']) {
-                continue;
-            }
-
-            foreach (json_decode($images['url_links']) as $image_key => $image) {
-                $path = $image;
-
-                $info = pathinfo($path);
-
-                $extension = explode('?', $info['extension']);
-
-                $fileName = $images['sku'] . '_' . $image_key . '.' . $extension[0];
-
-                $imageZipName[] = $fileName;
-
-                $context = stream_context_create([
-                    'ssl' => [
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                    ],
-                ]);
-
-                Storage::put('imported-products/admin/images/' . $images['sku'] . '/' . $fileName, file_get_contents($path, false, $context));
-            }
-        }
-
-        // Return information about the extracted images.
-        return $imageZipName;
     }
 
     /**
@@ -368,12 +318,12 @@ class UploadFileController extends Controller
         $folderPath = public_path('storage/error-csv-file');
 
         // Check if the folder exists
-        if (! File::exists($folderPath)) {
+        if (! Storage::exists($folderPath)) {
             // If it doesn't exist, create it
-            File::makeDirectory($folderPath, 0755, true, true);
+            Storage::makeDirectory($folderPath, 0755, true, true);
         }
 
-        $uploadedFilesError = File::allFiles($folderPath);
+        $uploadedFilesError = Storage::allFiles($folderPath);
 
         $resultArray = collect($uploadedFilesError)
             ->map(function ($file) {
@@ -410,14 +360,6 @@ class UploadFileController extends Controller
     }
 
     /**
-     * Depricate function
-     */
-    public function getProfiler()
-    {
-        return $this->bulkProductImporterRepository->find(request()->input('id'))->name;
-    }
-
-    /**
      * Delete CSV file from run profiler page
      *
      * @return \Illuminate\Http\JsonResponse
@@ -431,27 +373,6 @@ class UploadFileController extends Controller
         }
 
         return response()->json(['message' => 'File not found'], 404);
-    }
-
-    /**
-     * Depricate function
-     */
-    public function readErrorFile()
-    {
-        // Read the CSV file and generate HTML to display product data
-        $csvFilePath = public_path('storage/error-csv-file/' . request()->bulk_product_importer_id . '/' . request()->product_file_id . '/error-file.csv');
-
-        $csvData = [];
-
-        if (($handle = fopen($csvFilePath, 'r')) !== false) {
-            while (($data = fgetcsv($handle)) !== false) {
-                $csvData[] = $data;
-            }
-
-            fclose($handle);
-        }
-
-        return $csvData;
     }
 
     /**

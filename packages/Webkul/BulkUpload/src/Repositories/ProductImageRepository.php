@@ -2,8 +2,8 @@
 
 namespace Webkul\BulkUpload\Repositories;
 
-use Illuminate\Support\Facades\Storage;
 use Webkul\Core\Eloquent\Repository;
+use Illuminate\Support\Facades\Storage;
 
 class ProductImageRepository extends Repository
 {
@@ -63,32 +63,6 @@ class ProductImageRepository extends Repository
 
                 $this->delete($imageId);
             }
-        }
-    }
-
-    /**
-     * Image Upload in bulk
-     *
-     * @param  array  $data
-     * @param  mixed  $product
-     * @param  array  $imageZipName
-     * @return mixed
-     */
-    public function bulkUploadImages($data, $product)
-    {
-        foreach ($data['images'] ?? [] as $value) {
-            $importPath = "imported-products/admin/images/{$data['sku']}/";
-
-            $files = $importPath . basename($value);
-
-            $destination = "product/{$product->id}/" . basename($value);
-
-            Storage::copy($files, $destination);
-
-            $this->create([
-                'path'       => $destination,
-                'product_id' => $product->id,
-            ]);
         }
     }
 }
