@@ -17,7 +17,7 @@
     ]);
 @endphp
 
-<footer class="before:contents='' relative pt-[95px] before:absolute before:bottom-[60px] before:left-[0] before:block before:h-[270px] before:w-full before:bg-[url('../images/footer-bg.png')] before:bg-[0%_100%] before:bg-no-repeat before:[background-size:100%] lg:before:[background-size:60%]">
+<footer class="before:contents='' relative pt-[50px] before:absolute before:bottom-[60px] before:left-[0] before:block before:h-[270px] before:w-full before:bg-[url('../images/footer-bg.png')] before:bg-[0%_100%] before:bg-no-repeat before:[background-size:100%] lg:before:[background-size:60%]">
     <div class="flex flex-wrap justify-center px-[60px] pb-6 max-lg:px-[15px]">
 
         <div class="relative border-r-[1px] border-[#308BB6] px-[30px] max-1024:border-r-0 max-lg:px-[15px]">
@@ -27,7 +27,7 @@
                 alt="footer-logo"
             />
 
-            <div class="mt-[50px] flex flex-wrap gap-3">
+            <div class="mt-[25px] flex flex-wrap gap-3">
                 <div class="flex gap-3 lg:max-w-[150px]">
                     <span class="icon-location text-[24px] max-sm:text-[14px]"></span>
 

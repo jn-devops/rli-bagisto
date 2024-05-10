@@ -4,6 +4,7 @@ namespace Webkul\Product\Helpers;
 
 use Webkul\Product\Facades\ProductImage;
 use Webkul\Product\Facades\ProductVideo;
+use Webkul\Product\Helpers\View as ProductViewHelper;
 
 class ConfigurableOption
 {
@@ -66,6 +67,11 @@ class ConfigurableOption
         $config = [
             'attributes'     => $this->getAttributesData($product, $options),
             'index'          => $options['index'] ?? [],
+            
+            // Customization Start
+            'variants'       => $this->getVariants($product),
+            // Customization End
+
             'variant_prices' => $this->getVariantPrices($product),
             'variant_images' => $this->getVariantImages($product),
             'variant_videos' => $this->getVariantVideos($product),
@@ -171,6 +177,25 @@ class ConfigurableOption
         }
 
         return $attributeOptionsData;
+    }
+
+    /**
+     * Get product prices for configurable variations.
+     *
+     * @param  \Webkul\Product\Contracts\Product  $product
+     * @return array
+     */
+    protected function getVariants($product)
+    {
+        $variants = [];
+
+        foreach ($this->getAllowedVariants($product) as $variant) {
+            $variants[$variant->id] = collect(app(ProductViewHelper::class)->getAdditionalData($variant))->filter(function ($var) {
+                return in_array($var['code'], ['first_floor', 'unit_type', 'end_unit']);
+            });
+        }
+
+        return $variants;
     }
 
     /**
