@@ -59,6 +59,7 @@
     >
     </x-admin::form.control-group.error>
 </x-admin::form.control-group>
+
 @push('scripts')
     <script>
         function switchVisibility(type) {

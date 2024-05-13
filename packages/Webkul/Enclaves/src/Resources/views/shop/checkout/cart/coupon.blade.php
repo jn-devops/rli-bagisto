@@ -18,7 +18,7 @@
                     <!-- Modal Toggler -->
                     <x-slot:toggle>
                         <span 
-                            class="text-[#0A49A7] cursor-pointer" 
+                            class="cursor-pointer text-[#0A49A7]" 
                             v-if="! isCouponApplied"
                         >
                             @lang('shop::app.checkout.cart.coupon.apply')
@@ -32,7 +32,7 @@
                         </h2>
                     </x-slot:header>
 
-                    <!-- Modal Contentd -->
+                    <!-- Modal Contend -->
                     <x-slot:content>
                         <!-- Apply Coupon Form -->
                         <x-shop::form
@@ -42,11 +42,11 @@
                             <!-- Apply coupon form -->
                             <form @submit="handleSubmit($event, applyCoupon)">
                                 <x-shop::form.control-group>
-                                    <div class="p-[30px] bg-white">
+                                    <div class="bg-white p-[30px]">
                                         <x-shop::form.control-group.control
                                             type="text"
                                             name="code"
-                                            class="py-[20px] px-[25px]"
+                                            class="px-[25px] py-[20px]"
                                             rules="required"
                                             :placeholder="trans('shop::app.checkout.cart.coupon.enter-your-code')"
                                             v-model="code"
@@ -62,13 +62,13 @@
                                 </x-shop::form.control-group>
 
                                 <!-- Coupon Form Action Container -->
-                                <div class="p-[30px] bg-white mt-[20px]">
-                                    <div class="flex justify-between items-center gap-[15px] flex-wrap">
+                                <div class="mt-[20px] bg-white p-[30px]">
+                                    <div class="flex flex-wrap items-center justify-between gap-[15px]">
                                         <p class="text-[14px] font-medium text-[#6E6E6E]">
                                             @lang('shop::app.checkout.cart.coupon.subtotal')
                                         </p>
 
-                                        <div class="flex gap-[30px] items-center flex-auto flex-wrap">
+                                        <div class="flex flex-auto flex-wrap items-center gap-[30px]">
                                             <p 
                                                 class="text-[30px] font-semibold max-sm:text-[22px]"
                                                 v-text="subTotal"
@@ -76,7 +76,7 @@
                                             </p>
 
                                             <button
-                                                class="block flex-auto w-max py-[11px] px-[43px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-sm:text-[14px] max-sm:px-[25px]"
+                                                class="block w-max flex-auto cursor-pointer rounded-[18px] bg-navyBlue px-[43px] py-[11px] text-center text-base font-medium text-white max-sm:px-[25px] max-sm:text-[14px]"
                                                 type="submit"
                                             >
                                                @lang('shop::app.checkout.cart.coupon.button-title')
@@ -91,18 +91,18 @@
 
                 <!-- Applied Coupon Information Container -->
                 <div 
-                    class="flex justify-between items-center text-[12px] font-small "
+                    class="font-small flex items-center justify-between text-[12px]"
                     v-if="isCouponApplied"
                 >
                     <p 
-                        class="text-[16px] font-medium cursor-pointer text-navyBlue"
+                        class="cursor-pointer text-[16px] font-medium text-navyBlue"
                         title="@lang('shop::app.checkout.cart.coupon.applied')"
                     >
                         "@{{ isCouponApplied }}"
                     </p>
 
                     <span 
-                        class="icon-cancel text-[30px] cursor-pointer"
+                        class="icon-cancel cursor-pointer text-[30px]"
                         title="@lang('shop::app.checkout.cart.coupon.remove')"
                         @click="destroyCoupon"
                     >

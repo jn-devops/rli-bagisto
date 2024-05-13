@@ -191,7 +191,7 @@ class ConfigurableOption
 
         foreach ($this->getAllowedVariants($product) as $variant) {
             $variants[$variant->id] = collect(app(ProductViewHelper::class)->getAdditionalData($variant))->filter(function ($var) {
-                return in_array($var['code'], ['first_floor', 'unit_type', 'end_unit']);
+                return in_array($var['code'], ['carports','bedrooms', 't_and_b', 'floor_area', 'lot_area', 'unit_type', 'end_unit', 'first_floor', 'ground_floor']);
             });
         }
 

@@ -465,6 +465,47 @@
   }
 
   /* Icons style */
+  .icon-bedrooms:before {
+    content: "\e94d";
+  }
+  .icon-carports:before {
+    content: "\e94e";
+  }
+  .icon-floor-area:before {
+    content: "\e94f";
+  }
+  .icon-first_floor:before {
+    content: "\e950";
+  }
+  .icon-ground_floor:before {
+    content: "\e950";
+  }
+  .icon-lot-area:before {
+    content: "\e951";
+  }
+  .icon-t_and_b:before {
+    content: "\e952";
+  }
+  
+  .icon-unit_type:before {
+    content: "\e953";
+  }
+
+  .icon-end_unit:before {
+    content: "\e953";
+  }
+  .icon-finished:before {
+    content: "\e90f";
+  }
+  
+  .icon-parking:before {
+    content: "\e940";
+  }
+
+  .icon-balcony:before {
+    content: "\e92b";
+  }
+  
   .icon-contact-us:before {
     content: "\e94a";
   }

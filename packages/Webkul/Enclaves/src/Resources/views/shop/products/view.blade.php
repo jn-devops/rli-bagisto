@@ -49,11 +49,15 @@
 @pushOnce('scripts')
     <script>
 		document.addEventListener("DOMContentLoaded", () => {
-			let img = document.querySelectorAll('.et-slider img')
+			let img = document.querySelectorAll('.et-slider img');
+            
 			let active = 1;
+
 			let prev = 0;
+
 			let next = 2;
-			let changeimage = () => {
+
+			let changeImage = () => {
 				img.forEach((ele, i) => {
 					if (i === prev) {
 						ele.className = 'prev'
@@ -67,9 +71,9 @@
 					}
 				})
 			}
-			changeimage();
+			changeImage();
 
-			let sliderinterval = setInterval(() => {
+			let sliderInterval = setInterval(() => {
 				prev = active;
 				active = next;
 				if (active + 1 == img.length) {
@@ -77,7 +81,8 @@
 				} else {
 					next = active + 1;
 				}
-				changeimage()
+
+				changeImage()
 			}, 5000);
 		});
 	</script>
@@ -95,7 +100,7 @@
 
         <!-- Breadcrumbs -->
         <x-shop::breadcrumbs name="product" :entity="$product"></x-shop::breadcrumbs>
-        
+
         <!-- Product Information Vue Component -->
         <v-product :product-id="{{ $product->id }}">
             <x-shop::shimmer.products.view/>
@@ -108,7 +113,7 @@
         >
         </x-shop::products.carousel>
 
-        <!-- Upsell Products -->
+        <!-- Up-sell Products -->
         <x-shop::products.carousel
             :title="trans('shop::app.products.view.up-sell-title')"
             :src="route('shop.api.products.up-sell.index', ['id' => $product->id])">
@@ -148,39 +153,6 @@
                             <div class="w-full">
                                 <!-- Gallery Blade Inclusion -->
                                 @include('shop::products.view.gallery')
-
-                                <!-- unit -->
-                                <div class="mt-[40px] flex flex-wrap gap-[60px] max-sm:gap-[30px]">
-                                    <div class="flex gap-[10px]">
-                                        <span class="icon h-[24px] w-[24px] bg-red-700"></span>
-
-                                        <div class="grid gap-[12px]">
-                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('enclaves::app.shop.product.first-floor')</p>
-                                            
-                                            <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex gap-[10px]">
-                                        <span class="icon h-[24px] w-[24px] bg-red-700"></span>
-
-                                        <div class="grid gap-[12px]">
-                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('enclaves::app.shop.product.unit')</p>
-
-                                            <p class="text-[18px] leading-4">{{ $product->end_unit }}</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex gap-[10px]">
-                                        <span class="icon h-[24px] w-[24px] bg-red-700"></span>
-
-                                        <div class="grid gap-[12px]">
-                                            <p class="text-[15px] leading-4 text-[#989898]">@lang('enclaves::app.shop.product.floor-area')</p>
-
-                                            <p class="text-[18px] leading-4">{{ $product->floor_area }}</p>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <!-- Product Name -->
                                 {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
@@ -282,7 +254,7 @@
                                     </div>
                                     <div class="flex flex-wrap gap-[6px]">
                                         <p class="text-[20px] font-bold max-sm:text-[18px]">Email:</p>
-                                        <p class="text-[20px] max-sm:text-[18px]">cbbaldemor@joy-nostalg.com</p>
+                                        <p class="text-[20px] max-sm:text-[18px]">cbbaldemor@joy-notal.com</p>
                                     </div>
                                 </div> -->
 
@@ -314,7 +286,6 @@
                                         @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
                                     </button>
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
-
                             </div>
                         </div>
                     </form>
@@ -331,7 +302,7 @@
                         return {
                             isWishlist: Boolean("{{ (boolean) auth()->guard()->user()?->wishlist_items->where('channel_id', core()->getCurrentChannel()->id)->where('product_id', $product->id)->count() }}"),
 
-                            isCustomer: '{{ auth()->guard('customer')->check() }}',
+                            isCustomer: "{{ auth()->guard('customer')->check() }}",
 
                             is_buy_now: 0,
 
@@ -368,15 +339,15 @@
 
                         addToWishlist() {
                             if (this.isCustomer) {
-                                this.$axios.post('{{ route('shop.api.customers.account.wishlist.store') }}', {
-                                        product_id: "{{ $product->id }}"
-                                    })
-                                    .then(response => {
-                                        this.isWishlist = ! this.isWishlist;
+                                this.$axios.post("{{ route('shop.api.customers.account.wishlist.store') }}", {
+                                    product_id: "{{ $product->id }}"
+                                })
+                                .then(response => {
+                                    this.isWishlist = ! this.isWishlist;
 
-                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
-                                    })
-                                    .catch(error => {});
+                                    this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
+                                })
+                                .catch(error => {});
                             } else {
                                 window.location.href = "{{ route('shop.customer.session.index')}}";
                             }
