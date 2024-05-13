@@ -8,6 +8,7 @@
             <div class="w-full">
                 <!-- Media shimmer Effect -->
                 <x-shop::media.images.lazy
+                    ::key="refreshBaseImageComponent"
                     v-show="! isMediaLoading"
                     v-if="baseFile.type == 'image'"
                     alt="@lang('shop::app.products.view.gallery.product-image')" 
@@ -145,6 +146,8 @@
 
                     isMediaLoading: true,
 
+                    refreshBaseImageComponent: 1,
+
                     currentIndex: 1,
 
                     options: [],
@@ -223,7 +226,10 @@
                 },
 
                 change(file, index) {
+                console.log('change');
                     this.isMediaLoading = true;
+
+                    ++this.refreshBaseImageComponent;
 
                     if (file.type == 'videos') {
                         this.baseFile.type = 'video';
