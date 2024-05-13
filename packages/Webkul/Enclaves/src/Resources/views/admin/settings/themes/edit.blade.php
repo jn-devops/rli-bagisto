@@ -80,14 +80,14 @@
             </div>
         </div>
 
-        <v-theme-customizer :errors="errors"></v-theme-customizer>
+        <v-theme-customized :errors="errors"></v-theme-customized>
     </x-admin::form>
 
     @pushOnce('scripts')
-        <!-- Customizer Parent Template-->
+        <!-- customized Parent Template-->
         <script
             type="text/x-template"
-            id="v-theme-customizer-template"
+            id="v-theme-customized-template"
         >
             <div>
                 <component
@@ -117,10 +117,10 @@
         <!-- Services-content Template -->
         @includeWhen($theme->type === 'services_content', 'admin::settings.themes.edit.services-content')
 
-        <!-- Parent Theme Customizer Component -->
+        <!-- Parent Theme customized Component -->
         <script type="module">
-            app.component('v-theme-customizer', {
-                template: '#v-theme-customizer-template',
+            app.component('v-theme-customized', {
+                template: '#v-theme-customized-template',
 
                 props: ['errors'],
 

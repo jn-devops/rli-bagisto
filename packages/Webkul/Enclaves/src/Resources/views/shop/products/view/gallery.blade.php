@@ -7,21 +7,18 @@
         <div class="gap-[20px] max-1280:flex-wrap">
             <div class="w-full">
                 <!-- Media shimmer Effect -->
-                <div class="max-h-[700px]" v-show="isMediaLoading">
-                    <div class="shimmer min-h-[700px] rounded-[12px] bg-[#E9E9E9]"></div>
-                </div>
-
-                <img
+                <x-shop::media.images.lazy
                     v-show="! isMediaLoading"
-                    :src="baseFile.path" 
                     v-if="baseFile.type == 'image'"
+                    alt="@lang('shop::app.products.view.gallery.product-image')" 
                     class="h-[700px] w-full cursor-pointer rounded-[10px]"
-                    alt="@lang('shop::app.products.view.gallery.product-image')"
+                    ::src="baseFile.path"
                     @load="onMediaLoad()"
-                />
+                >
+                </x-shop::media.images.lazy>
             </div>
             
-            <div class="relative flex flex-wrap gap-[16px]" v-if="isMobile">
+            <div class="relative mt-[10px] flex flex-wrap gap-[16px]" v-if="isMobile">
                 <template v-for="(image, index) in media.images">
                     <div v-if="index < 3" 
                         :class="`${index == `2` ? 'relative' : ''}`">
@@ -37,7 +34,7 @@
                         <p
                             v-if="index == 2 && ((media.images.length - 3) != 0)"
                             class="absolute bottom-[10px] right-2 cursor-pointer bg-black p-1 text-white" 
-                            v-text="'+' + (media.images.length - 3)"
+                            v-text="'+' + (Object.keys(media.images).length - 3)"
                             @click="productSliderModel()"
                         ></p>
                     </div>
@@ -80,17 +77,21 @@
             </x-shop::media.images.lazy>
         </div>
 
-
         <div class="mt-[40px] flex flex-wrap gap-[30px] max-sm:gap-[30px]">
-            <div class="flex gap-[10px]" v-for="option in options">
-                <span class="icon h-[24px] w-[24px] bg-red-700"></span>
 
-                <div class="grid gap-[12px]">
-                    <p class="text-[15px] leading-4 text-[#989898]" v-text="option.label"></p>
-                    
-                    <p class="text-[18px] leading-4"  v-text="option.value"></p>
-                </div>
-            </div>
+            <template v-for="option in options">    
+                <span v-show="option" class="flex gap-[10px]">
+                    <span class="flex items-center justify-center">
+                        <span :class="`icon-` + option.code + ` flex items-center justify-center bg-white text-[30px] text-[#CC035C] max-sm:text-[18px]`"></span>
+                    </span>
+
+                    <div class="grid gap-[12px]">
+                        <p class="text-[20px] leading-4 text-[#989898] max-sm:text-[14px]" v-text="option.label"></p>
+                        
+                        <p class="text-[20px] leading-4 max-sm:text-[14px]"  v-text="option.value"></p>
+                    </div>
+                </span>
+            </template>
         </div>
 
         <x-shop::modal.image-slider ref="imageSliderModel">
@@ -109,7 +110,7 @@
                             aria-label="Image Slide"
                         >
                             <img
-                                :src="image.large_image_url"
+                                :src="image.original_image_url"
                                 class="h-[480px] w-full cursor-pointer rounded-[5px]"
                                 alt="@lang('shop::app.products.view.gallery.product-image')"
                             />
@@ -146,18 +147,7 @@
 
                     currentIndex: 1,
 
-                    options: [
-                        {
-                            label: "1st Floor",
-                            value: null,
-                        }, {
-                            label: "End Unit",
-                            value: null,
-                        }, {
-                            label: "Unit Type",
-                            value: null,
-                        },
-                    ],
+                    options: [],
                    
                     media: {
                         images: @json(product_image()->getGalleryImages($product)),
@@ -186,8 +176,8 @@
                     handler(newImages, oldImages) {
                         let selectedImage = newImages?.[this.activeIndex.split('_').pop()];
 
-                        if (JSON.stringify(newImages) !== JSON.stringify(oldImages) && selectedImage?.large_image_url) {
-                            this.baseFile.path = selectedImage.large_image_url;
+                        if (JSON.stringify(newImages) !== JSON.stringify(oldImages) && selectedImage?.original_image_url) {
+                            this.baseFile.path = selectedImage.original_image_url;
                         }
                     },
                 },
@@ -205,7 +195,7 @@
 
                     this.baseFile.type = 'image';
 
-                    this.baseFile.path = this.media.images[0].large_image_url;
+                    this.baseFile.path = this.media.images[0].original_image_url;
                 } else if (this.media.videos.length) {
                     this.activeIndex = 'video_0';
 
@@ -244,7 +234,7 @@
                     } else {
                         this.baseFile.type = 'image';
 
-                        this.baseFile.path = file.large_image_url;
+                        this.baseFile.path = file.original_image_url;
                     }
 
                     this.activeIndex = index;

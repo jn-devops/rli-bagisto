@@ -182,7 +182,7 @@
                         .then(response => {
                             this.cart = response.data.data;
 
-                            this.getReqirectURL();
+                            this.getRedirectURL();
                         })
                         .catch(error => {});
                 },
@@ -201,7 +201,7 @@
                 },
 
 
-                getReqirectURL() {
+                getRedirectURL() {
                     this.$axios.get("{{ route('enclaves.api.property.verfiy-url.index') }}")
                         .then(response => {
                             this.verificationUrl = response.data.data.ekyc_redirect;

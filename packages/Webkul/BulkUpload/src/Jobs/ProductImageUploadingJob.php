@@ -16,7 +16,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Product\Repositories\ProductImageRepository;
 
-class ProductImageUploading implements ShouldQueue
+class ProductImageUploadingJob implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -73,6 +73,7 @@ class ProductImageUploading implements ShouldQueue
     
                     $image = $manager->make($response->body())->encode('webp');
                     
+
                     Storage::put($file, $image);
 
                     app(ProductImageRepository::class)->create([

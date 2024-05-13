@@ -1,4 +1,4 @@
-{{-- SEO Meta Content --}}
+<!-- SEO Meta Content --->
 @push('meta')
     <meta name="description" content="@lang('shop::app.checkout.cart.index.cart')"/>
 
@@ -10,14 +10,14 @@
     :has-feature="false"
     :has-footer="false"
 >
-    {{-- Page Title --}}
+    <!-- Page Title --->
     <x-slot:title>
         @lang('shop::app.checkout.cart.index.cart')
     </x-slot>
 
-    {{-- Page Header --}}
+    <!-- Page Header --->
     <div class="flex flex-wrap">
-        <div class="w-full flex justify-between px-[60px] border border-t-0 border-b-[1px] border-l-0 border-r-0 py-[17px] max-lg:px-[30px] max-sm:px-[15px]">
+        <div class="flex w-full justify-between border border-b-[1px] border-l-0 border-r-0 border-t-0 px-[60px] py-[17px] max-lg:px-[30px] max-sm:px-[15px]">
             <div class="flex items-center gap-x-[54px] max-[1180px]:gap-x-[35px]">
                 <a
                     href="{{ route('shop.home.index') }}"
@@ -37,11 +37,11 @@
 
     <div class="flex-auto">
         <div class="container px-[60px] max-lg:px-[30px]">
-            {{-- Breadcrumbs --}}
+            <!-- Breadcrumbs --->
             <x-shop::breadcrumbs name="cart"></x-shop::breadcrumbs>
 
             <v-cart ref="vCart">
-                {{-- Cart Shimmer Effect --}}
+                <!-- Cart Shimmer Effect --->
                 <x-shop::shimmer.checkout.cart :count="3"></x-shop::shimmer.checkout.cart>
             </v-cart>
         </div>
@@ -58,28 +58,28 @@
                 <!-- Cart Information -->
                 <template v-else>
                     <div 
-                        class="flex flex-wrap gap-[75px] mt-[30px] pb-[30px] max-1060:flex-col"
+                        class="max-1060:flex-col mt-[30px] flex flex-wrap gap-[75px] pb-[30px]"
                         v-if="cart?.items?.length"
                     >
-                        <div class="grid gap-[25px] flex-1">
+                        <div class="grid flex-1 gap-[25px]">
                             <!-- Cart Mass Action Container -->
-                            <div class="flex justify-between items-center pb-[10px] border-b-[1px] border-[#E9E9E9] max-sm:block">
+                            <div class="flex items-center justify-between border-b-[1px] border-[#E9E9E9] pb-[10px] max-sm:block">
                                 <div class="flex select-none items-center">
                                     <input
                                         type="checkbox"
                                         id="select-all"
-                                        class="hidden peer"
+                                        class="peer hidden"
                                         v-model="allSelected"
                                         @change="selectAll"
                                     >
 
                                     <label
-                                        class="icon-uncheck text-[24px] text-navyBlue peer-checked:icon-check-box peer-checked:text-navyBlue cursor-pointer"
+                                        class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-[24px] text-navyBlue peer-checked:text-navyBlue"
                                         for="select-all"
                                     >
                                     </label>
 
-                                    <span class="text-[20px] max-md:text-[22px] max-sm:text-[18px] ml-[10px]">
+                                    <span class="ml-[10px] text-[20px] max-md:text-[22px] max-sm:text-[18px]">
                                         @{{ "@lang('shop::app.checkout.cart.index.items-selected')".replace(':count', selectedItemsCount) }}
                                     </span>
                                 </div>
@@ -89,7 +89,7 @@
                                     v-if="selectedItemsCount"
                                 >
                                     <span
-                                        class="text-[16px] text-[#0A49A7] cursor-pointer" 
+                                        class="cursor-pointer text-[16px] text-[#0A49A7]" 
                                         @click="removeSelectedItems"
                                     >
                                         @lang('shop::app.checkout.cart.index.remove')
@@ -99,7 +99,7 @@
                                         <span class="mx-[10px] border-r-[2px] border-[#E9E9E9]"></span>
 
                                         <span
-                                            class="text-[16px] text-[#0A49A7] cursor-pointer" 
+                                            class="cursor-pointer text-[16px] text-[#0A49A7]" 
                                             @click="moveToWishlistSelectedItems"
                                         >
                                             @lang('shop::app.checkout.cart.index.move-to-wishlist')
@@ -113,26 +113,26 @@
                                 class="grid gap-y-[25px]" 
                                 v-for="item in cart?.items"
                             >
-                                <div class="flex gap-x-[10px] justify-between flex-wrap pb-[18px] border-b-[1px] border-[#E9E9E9]">
+                                <div class="flex flex-wrap justify-between gap-x-[10px] border-b-[1px] border-[#E9E9E9] pb-[18px]">
                                     <div class="flex gap-x-[20px]">
-                                        <div class="select-none mt-[43px]">
+                                        <div class="mt-[43px] select-none">
                                             <input
                                                 type="checkbox"
                                                 :id="'item_' + item.id"
-                                                class="hidden peer"
+                                                class="peer hidden"
                                                 v-model="item.selected"
                                                 @change="updateAllSelected"
                                             >
 
                                             <label
-                                                class="icon-uncheck text-[24px] text-navyBlue peer-checked:icon-check-box peer-checked:text-navyBlue cursor-pointer"
+                                                class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-[24px] text-navyBlue peer-checked:text-navyBlue"
                                                 :for="'item_' + item.id"
                                             ></label>
                                         </div>
 
                                         <!-- Cart Item Image -->
                                         <x-shop::media.images.lazy
-                                            class="h-[110px] min-w-[110px] max-w[110px] rounded-[12px]"
+                                            class="max-w[110px] h-[110px] min-w-[110px] rounded-[12px]"
                                             ::src="item.base_image.small_image_url"
                                             ::alt="item.name"
                                             width="110"
@@ -153,13 +153,13 @@
                                     
                                             <!-- Cart Item Options Container -->
                                             <div
-                                                class="grid gap-x-[10px] gap-y-[6px] select-none"
+                                                class="grid select-none gap-x-[10px] gap-y-[6px]"
                                                 v-if="item.options.length"
                                             >
                                                 <!-- Details Toggler -->
                                                 <div class="">
                                                     <p
-                                                        class="flex gap-x-[15px] text-[16px] items-center cursor-pointer whitespace-nowrap"
+                                                        class="flex cursor-pointer items-center gap-x-[15px] whitespace-nowrap text-[16px]"
                                                         @click="item.option_show = ! item.option_show"
                                                     >
                                                         @lang('shop::app.checkout.cart.index.see-details')
@@ -193,7 +193,7 @@
                                                 </p>
                                                 
                                                 <span
-                                                    class="text-[16px] text-[#0A49A7] cursor-pointer" 
+                                                    class="cursor-pointer text-[16px] text-[#0A49A7]" 
                                                     @click="removeItem(item.id)"
                                                 >
                                                     @lang('shop::app.checkout.cart.index.remove')
@@ -203,14 +203,14 @@
                                             <x-shop::quantity-changer
                                                 name="quantity"
                                                 ::value="item?.quantity"
-                                                class="flex gap-x-[10px] border rounded-[54px] border-navyBlue py-[5px] px-[14px] items-center max-w-max"
+                                                class="flex max-w-max items-center gap-x-[10px] rounded-[54px] border border-navyBlue px-[14px] py-[5px]"
                                                 @change="setItemQuantity(item.id, $event)"
                                             >
                                             </x-shop::quantity-changer>
                                         </div>
                                     </div>
 
-                                    <div class="max-sm:hidden text-right">
+                                    <div class="text-right max-sm:hidden">
                                         <p 
                                             class="text-[18px] font-semibold" 
                                             v-text="item.formatted_total"
@@ -219,7 +219,7 @@
                                         
                                         <!-- Cart Item Remove Button -->
                                         <span
-                                            class="text-[16px] text-[#0A49A7] cursor-pointer" 
+                                            class="cursor-pointer text-[16px] text-[#0A49A7]" 
                                             @click="removeItem(item.id)"
                                         >
                                             @lang('shop::app.checkout.cart.index.remove')
@@ -231,7 +231,7 @@
                             {!! view_render_event('bagisto.shop.checkout.cart.controls.before') !!}
         
                             <!-- Cart Item Actions -->
-                            <div class="flex flex-wrap gap-[30px] justify-end">
+                            <div class="flex flex-wrap justify-end gap-[30px]">
                                 <a
                                     class="secondary-button max-h-[55px] rounded-[18px]"
                                     href="{{ route('shop.home.index') }}"
@@ -262,7 +262,7 @@
 
                     <!-- Empty Cart Section -->
                     <div
-                        class="grid items-center justify-items-center w-[100%] m-auto h-[476px] place-content-center text-center"
+                        class="m-auto grid h-[476px] w-[100%] place-content-center items-center justify-items-center text-center"
                         v-else
                     >
                         <img src="{{ bagisto_asset('images/thank-you.png') }}"/>
@@ -305,7 +305,7 @@
 
                 methods: {
                     get() {
-                        this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
+                        this.$axios.get("{{ route('shop.api.checkout.cart.index') }}")
                             .then(response => {
                                 this.cart = response.data.data;
 
@@ -329,7 +329,7 @@
                     },
 
                     update() {
-                        this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty: this.applied.quantity })
+                        this.$axios.put("{{ route('shop.api.checkout.cart.update') }}", { qty: this.applied.quantity })
                             .then(response => {
                                 this.cart = response.data.data;
 
@@ -345,7 +345,7 @@
                     removeItem(itemId) {
                         this.$emitter.emit('open-confirm-modal', {
                             agree: () => {
-                                this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {
+                                this.$axios.post("{{ route('shop.api.checkout.cart.destroy') }}", {
                                         '_method': 'DELETE',
                                         'cart_item_id': itemId,
                                     })
@@ -365,7 +365,7 @@
                             agree: () => {
                                 const selectedItemsIds = this.cart.items.flatMap(item => item.selected ? item.id : []);
 
-                                this.$axios.post('{{ route('shop.api.checkout.cart.destroy_selected') }}', {
+                                this.$axios.post("{{ route('shop.api.checkout.cart.destroy_selected') }}", {
                                         '_method': 'DELETE',
                                         'ids': selectedItemsIds,
                                     })
@@ -387,7 +387,7 @@
                             agree: () => {
                                 const selectedItemsIds = this.cart.items.flatMap(item => item.selected ? item.id : []);
 
-                                this.$axios.post('{{ route('shop.api.checkout.cart.move_to_wishlist') }}', {
+                                this.$axios.post("{{ route('shop.api.checkout.cart.move_to_wishlist') }}", {
                                         'ids': selectedItemsIds,
                                     })
                                     .then(response => {

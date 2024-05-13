@@ -229,9 +229,6 @@
             methods: {
                 // Open update modal and submit request
                 updateFaq(params, { resetForm, setErrors  }) {
-
-                    console.log(params);
-                    
                     this.$axios.post("{{ route('enclaves.admin.inquiries.faq.update') }}", params)
                         .then((response) => {
                             this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });

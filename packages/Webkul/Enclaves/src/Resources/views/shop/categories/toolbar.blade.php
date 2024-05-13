@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <!-- Modile Toolbar -->
+            <!-- Mobile Toolbar -->
             <div class="md:hidden">
                 <ul>
                     <li

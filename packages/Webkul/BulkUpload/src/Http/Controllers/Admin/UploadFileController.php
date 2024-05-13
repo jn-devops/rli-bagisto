@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 use Webkul\BulkUpload\Jobs\ProductUploadJob;
 use Webkul\BulkUpload\Imports\DataGridImport;
-use Webkul\BulkUpload\Jobs\ProductImageUploading;
+use Webkul\BulkUpload\Jobs\ProductImageUploadingJob;
 use Webkul\BulkUpload\Repositories\ImportProductRepository;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
@@ -300,7 +300,7 @@ class UploadFileController extends Controller
 
         $batch->add(new ProductUploadJob($productFileRecord, $chunks, $countCSV));
         
-        $batch->add(new ProductImageUploading($csvImageData));
+        $batch->add(new ProductImageUploadingJob($csvImageData));
 
         return response()->json([
             'success' => true,

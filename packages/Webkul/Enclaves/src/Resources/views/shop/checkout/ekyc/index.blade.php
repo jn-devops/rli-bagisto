@@ -43,7 +43,7 @@
             </div>
 
             <div v-else>
-                <div v-if="isIfreamLoaded" 
+                <div v-if="isIframeLoaded" 
                     class="mt-4 flex justify-center border-2"
                 >
                     <iframe
@@ -75,7 +75,7 @@
                     sended: false,
                     alreadyRedirect: 0,
                     embedURL: null,
-                    isIfreamLoaded: 0,
+                    isIframeLoaded: 0,
                 }
             },
             
@@ -94,7 +94,7 @@
             methods: {
                 loading() {
                     setTimeout(() => {
-                        this.isIfreamLoaded = 1;
+                        this.isIframeLoaded = 1;
                     }, 2000);
                 },
                 handleKycVerification() {

@@ -1,11 +1,11 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-4de2751f.css",
+    "file": "assets/app-036bbf4d.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
   "src/Resources/assets/fonts/icomoon.woff": {
-    "file": "assets/icomoon-14b3c3f1.woff",
+    "file": "assets/icomoon-e2550dcf.woff",
     "src": "src/Resources/assets/fonts/icomoon.woff"
   },
   "src/Resources/assets/fonts/velicon.woff": {
@@ -216,7 +216,7 @@
     "css": [
       "assets/app-05f8acf7.css"
     ],
-    "file": "assets/app-a77e0667.js",
+    "file": "assets/app-020192b6.js",
     "isEntry": true,
     "src": "src/Resources/assets/js/app.js"
   }
