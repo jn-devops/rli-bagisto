@@ -458,6 +458,8 @@
                         if (galleryImages.length) {
                             this.$parent.$parent.$refs.gallery.media.images =  { ...galleryImages };
                         }
+
+                        ++this.$parent.$parent.$refs.gallery.refreshBaseImageComponent;
                     },
                 }
             });
