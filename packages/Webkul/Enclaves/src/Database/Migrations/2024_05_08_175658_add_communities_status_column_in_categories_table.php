@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->unsignedFloat('communities_status')->default(0)->after('banner_path');
+            $table->unsignedFloat('communities_status')->after('banner_path');
         });
     }
 
