@@ -167,8 +167,6 @@
                     activeIndex: 0,
 
                     containerOffset: 110,
-
-                    componentRefresh: 1,
                 }
             },
 
@@ -185,14 +183,12 @@
                     },
                 },
             },
-
-            updated() {
-                ++this.componentRefresh;
-            },
             
             mounted() {
                 this.navigate(this.currentIndex);
-
+                
+                ++this.refreshBaseImageComponent;
+                
                 if (this.media.images.length) {
                     this.activeIndex = 'image_0';
 
@@ -207,13 +203,13 @@
                     this.baseFile.path = this.media.videos[0].video_url;
                 }
             },
-
+            
             computed: {
                 lengthOfMedia() {
                     if (this.media.images.length) {
                         return [...this.media.images, ...this.media.videos].length > 5;
                     }
-                }
+                },
             },
 
             methods: {
@@ -226,7 +222,6 @@
                 },
 
                 change(file, index) {
-                console.log('change');
                     this.isMediaLoading = true;
 
                     ++this.refreshBaseImageComponent;
@@ -247,6 +242,8 @@
                 },
 
                 navigate(index) {
+                    ++this.refreshBaseImageComponent;
+                    
                     if (index > this.media.images.length) {
                         this.currentIndex = 1;
                     }

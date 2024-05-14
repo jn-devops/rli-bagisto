@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->unsignedFloat('communities_status')->after('banner_path');
+            $table->boolean('communities_status')->default(0)->change();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->dropIfExists('communities_status');
+            $table->unsignedFloat('communities_status')->nullable()->change();
         });
     }
 };
