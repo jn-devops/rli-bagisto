@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Webkul\BulkUpload\Repositories\ProductPropertiesRepository;
 use Webkul\BulkUpload\Repositories\ProductPropertyFlatsRepository;
@@ -40,12 +39,14 @@ class ReadProductUrlController extends Controller
 
         $urls = explode(',', request('urls'));
 
+        $imageZipName = $imageName = [];
+        
+        $imageNotFound = [];
+
         if (! empty($urls)) {
-            $imageZipName = $imageName = [];
-
             foreach ($urls as $url) {
-                $response = Http::get($url);
-
+                $response = Http::get(trim($url));
+              
                 if ($response->successful()) {
                     $dir = 'product/' . $id;
 
@@ -56,33 +57,25 @@ class ReadProductUrlController extends Controller
                     $file = $dir . '/' . $fileName;
 
                     $image = $manager->make($response->body())->encode('webp');
-
+                    
                     $imageZipName[] = [
-                        'url'       => config('app.url') . '/storage/' . $file,
+                        'url' => config('app.url') . '/storage/' . $file,
                     ];
     
                     $imageName[] = $fileName;
 
                     Storage::put($file, $image);
-
-                    return new JsonResponse([
-                        'images' => $imageZipName,
-                        'names'  => implode(',', $imageName),
-                    ]);
-
                 } elseif($response->status() === 404) {
-
-                    Log::info('================ CDN Image Uploader if Image Not Found ================');
-
-                    Log::info($url);
-
-                    return new JsonResponse([
-                        'images' => null,
-                        'names'  => [],
-                    ]);
+                    $imageNotFound[] = $url;
                 }
             }
         }
+
+        return new JsonResponse([
+            'images'          => $imageZipName,
+            'names'           => implode(',', $imageName),
+            'image_not_found' => $imageNotFound,
+        ]);
     }
 
     /**

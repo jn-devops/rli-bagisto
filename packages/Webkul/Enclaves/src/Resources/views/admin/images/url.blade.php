@@ -20,8 +20,12 @@
                             </p>
                         </div>
 
-                        <button class="secondary-button">
+                        <button class="secondary-button" v-if="! isLoading">
                             @lang('bulkUpload::app.admin.bulk-upload.image.add-btn')
+                        </button>
+
+                        <button class="secondary-button" disabled v-else>
+                            @lang('enclaves::app.admin.images.is-loading')
                         </button>
                     </div>
 
@@ -57,14 +61,27 @@
 
                             <div class="invisible absolute bottom-0 top-0 flex w-full flex-col justify-between bg-white p-3 opacity-80 transition-all group-hover:visible dark:bg-gray-900">
 
-                                <!-- Image Name -->
-                                <p class="break-all text-xs font-semibold text-gray-600 dark:text-gray-300">
-                                </p>
+                            <!-- Image Name -->
+                            <p class="break-all text-xs font-semibold text-gray-600 dark:text-gray-300"></p>
+                            
                             </div>
                         </div>
                     </div>
                 </form>
             </x-admin::form>
+
+            <div v-if="image_not_found.length">
+                <p class="text-base font-semibold text-gray-800 dark:text-white">
+                    @lang('enclaves::app.admin.images.not-found')
+                </p>
+               
+                <span v-for="image in image_not_found">
+                    <p 
+                        class="mt-1 text-xs italic text-red-600" 
+                        v-text="image"
+                    ></p>
+                </span>
+            </div>
 
             <input type="hidden" name="images_url" :value="names">
         </div>
@@ -76,19 +93,28 @@
 
             data() {
                 return {
+                    isLoading: false,
                     images: [],
                     names: null,
+                    image_not_found: [],
                 }
             },
 
             methods: {
                 updateOrCreate(params) {
                     let self = this;
-                  
+                    
+                    self.isLoading = true;
+                    
                     this.$axios.post("{{ route('admin.bulk-upload.product.url', $product->id) }}", params)
                         .then(function(response) {
                             self.images = response.data.images;
+                            
                             self.names = response.data.names;
+
+                            self.image_not_found = response.data.image_not_found;
+                            
+                            self.isLoading = false;
                         })
                         .catch(function(error) {
                             console.log(error);

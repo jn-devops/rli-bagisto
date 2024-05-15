@@ -539,5 +539,10 @@ return [
                 ],
             ],
         ],
+
+        'images' => [
+            'not-found'  => "System can't find the image at the web address you provided.",
+            'is-loading' => "Loading...", 
+        ],
     ],
 ];
