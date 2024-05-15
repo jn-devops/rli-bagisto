@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\BulkUpload\Http\Controllers\Admin\BulkProductImporterController;
-use Webkul\BulkUpload\Http\Controllers\Admin\ReadProductUrlController;
 use Webkul\BulkUpload\Http\Controllers\Admin\UploadFileController;
 
 Route::middleware(['web', 'admin', 'bulkUpload'])
@@ -85,24 +84,6 @@ Route::middleware(['web', 'admin', 'bulkUpload'])
                 // Get uploaded and not uploaded product records
                 Route::post('/get-uploaded-product', [UploadFileController::class, 'getUploadedProductOrNotUploadedProduct'])
                     ->name('admin.bulk-upload.upload-file.get-uploaded-and-not-uploaded-product');
-            });
-
-            Route::prefix('product-image-url')->group(function () {
-                // Read CDN URL and
-                Route::post('/read-url/{id}', [ReadProductUrlController::class, 'readUrls'])
-                    ->name('admin.bulk-upload.product.url');
-
-                Route::post('/store-product-url/', [ReadProductUrlController::class, 'productUrlStore'])
-                    ->name('admin.bulk-upload.product.url.store');
-
-                Route::get('/get-product-url/', [ReadProductUrlController::class, 'productUrlGet'])
-                    ->name('admin.bulk-upload.product.url.get');
-
-                Route::get('/get-slot/', [ReadProductUrlController::class, 'getSlot'])
-                    ->name('admin.bulk-upload.product.url.slot');
-
-                Route::post('/update-slot/', [ReadProductUrlController::class, 'updateSlotCoordinate'])
-                    ->name('admin.bulk-upload.product.url.slot.update');
             });
         });
     });

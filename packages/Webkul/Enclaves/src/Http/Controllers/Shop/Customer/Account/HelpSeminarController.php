@@ -1,8 +1,8 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
+namespace Webkul\Enclaves\Http\Controllers\Shop\Customer\Account;
 
-class DashboardController extends AbstractController
+class HelpSeminarController extends AbstractController
 {
     /**
      * Create a new controller instance.
@@ -18,6 +18,6 @@ class DashboardController extends AbstractController
      */
     public function index()
     {
-        return view('shop::customers.account.dashboard.index');
+        return redirect()->away(env('HELP_SEMINAR'));
     }
 }

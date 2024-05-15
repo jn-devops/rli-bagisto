@@ -172,7 +172,6 @@
 
                                     <div class="mt-2.5 w-full gap-2.5">
 
-                                       
                                         <x-admin::form.control-group.control
                                             type="switch"
                                             name="status_switch"

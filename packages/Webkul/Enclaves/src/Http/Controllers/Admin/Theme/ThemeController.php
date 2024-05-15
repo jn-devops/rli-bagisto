@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Admin;
+namespace Webkul\Enclaves\Http\Controllers\Admin\Theme;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;

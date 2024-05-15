@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Ekyc;
+namespace Webkul\Enclaves\Http\Controllers\Shop\Ekyc;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;

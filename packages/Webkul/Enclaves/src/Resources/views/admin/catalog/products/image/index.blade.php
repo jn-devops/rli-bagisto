@@ -12,26 +12,26 @@
                     <div class="flex flex-wrap items-center justify-between gap-2.5">
                         <div class="flex flex-col gap-2">
                             <p class="text-base font-semibold text-gray-800 dark:text-white">
-                                @lang('bulkUpload::app.admin.bulk-upload.image.title')
+                                @lang('enclaves::app.admin.catalog.product.image.title')
                             </p>
 
                             <p class="text-xs font-medium text-gray-500 dark:text-gray-300">
-                                @lang('bulkUpload::app.admin.bulk-upload.image.info')
+                                @lang('enclaves::app.admin.catalog.product.image.info')
                             </p>
                         </div>
 
                         <button class="secondary-button" v-if="! isLoading">
-                            @lang('bulkUpload::app.admin.bulk-upload.image.add-btn')
+                            @lang('enclaves::app.admin.catalog.product.image.add-btn')
                         </button>
 
                         <button class="secondary-button" disabled v-else>
-                            @lang('enclaves::app.admin.images.is-loading')
+                            @lang('enclaves::app.admin.catalog.product.image.is-loading')
                         </button>
                     </div>
 
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('bulkUpload::app.admin.bulk-upload.image.url')
+                            @lang('enclaves::app.admin.catalog.product.image.url')
                         </x-admin::form.control-group.label>
 
                         <x-admin::form.control-group.control
@@ -39,8 +39,8 @@
                             name="urls"
                             :value="old('urls') ?: ''"
                             rules="required"
-                            :label="trans('bulkUpload::app.admin.bulk-upload.image.url')"
-                            :placeholder="trans('bulkUpload::app.admin.bulk-upload.image.placeholder')"
+                            :label="trans('enclaves::app.admin.catalog.product.image.url')"
+                            :placeholder="trans('enclaves::app.admin.catalog.product.image.url')"
                         >
                         </x-admin::form.control-group.control>
 
@@ -52,7 +52,10 @@
                     
                     <div class="flex flex-wrap gap-1">
                         <!-- Uploaded Images -->
-                        <div v-for="image, index in images" class="group relative grid max-h-[120px] min-w-[120px] justify-items-center overflow-hidden rounded transition-all hover:border-gray-400">
+                        <div 
+                            v-for="image, index in images" 
+                            class="group relative grid max-h-[120px] min-w-[120px] justify-items-center overflow-hidden rounded transition-all hover:border-gray-400"
+                        >
                             <!-- Image Preview -->
                             <img
                                 :src="image.url"
@@ -72,7 +75,7 @@
 
             <div v-if="image_not_found.length">
                 <p class="text-base font-semibold text-gray-800 dark:text-white">
-                    @lang('enclaves::app.admin.images.not-found')
+                    @lang('enclaves::app.admin.catalog.product.image.not-found')
                 </p>
                
                 <span v-for="image in image_not_found">
@@ -83,7 +86,11 @@
                 </span>
             </div>
 
-            <input type="hidden" name="images_url" :value="names">
+            <input 
+                type="hidden" 
+                name="images_url" 
+                :value="names"
+            />
         </div>
     </script>
 
@@ -106,7 +113,7 @@
                     
                     self.isLoading = true;
                     
-                    this.$axios.post("{{ route('admin.bulk-upload.product.url', $product->id) }}", params)
+                    this.$axios.post("{{ route('enclaves.admin.product.image.url', $product->id) }}", params)
                         .then(function(response) {
                             self.images = response.data.images;
                             

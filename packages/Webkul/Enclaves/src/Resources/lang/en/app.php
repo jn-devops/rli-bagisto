@@ -537,12 +537,35 @@ return [
                         'field-info'       => "Please ensure that the value starts with a '#' symbol, like this: #ABCD",
                     ],
                 ],
-            ],
-        ],
 
-        'images' => [
-            'not-found'  => "System can't find the image at the web address you provided.",
-            'is-loading' => "Loading...", 
+                'image' => [
+                    'error-message'   => "System can't find the image at the web address you provided",
+                    'success-message' => "Image Uploaded successfully",
+                    'is-loading'      => "Loading...", 
+                    'title'           => 'Image CDN',
+                    'info'            => 'Add Image CDN Url with comma(,) separated',
+                    'add-btn'         => 'Review Image',
+                    'review-btn'      => 'Review',
+                    'url'             => 'URL',
+                    'type'            => 'Type',
+                    
+                    'logo_path'             => 'Logo Path',
+                    'banner_path'           => 'Banner Path',
+                    'reload'                => 'Page Reload',
+                    'community_banner_path' => 'Community Banner',
+                ],
+            ],
+
+            'product' => [
+                'image' => [
+                    'title'       => 'Image CDN',
+                    'info'        => 'Add Image CDN Url with comma(,) separated',
+                    'add-btn'     => 'Review Image',
+                    'is-loading'  => "Loading...", 
+                    'url'         => 'URL',
+                    'not-found'   => "System can't find the image at the web address you provided.",
+                ],
+            ]
         ],
     ],
 ];

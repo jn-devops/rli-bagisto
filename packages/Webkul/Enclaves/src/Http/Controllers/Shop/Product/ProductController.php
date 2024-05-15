@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Product;
+namespace Webkul\Enclaves\Http\Controllers\Shop\Product;
 
 use Illuminate\Http\JsonResponse;
 use Webkul\Customer\Repositories\CustomerRepository;

@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Webkul\Enclaves\Http\Controllers\Admin\FaqController;
-use Webkul\Enclaves\Http\Controllers\Admin\ThemeController;
-use Webkul\Enclaves\Http\Controllers\Admin\TicketsController;
+use Webkul\Enclaves\Http\Controllers\Admin\Ticket\FaqController;
+use Webkul\Enclaves\Http\Controllers\Admin\Theme\ThemeController;
+use Webkul\Enclaves\Http\Controllers\Admin\Ticket\TicketsController;
+use Webkul\Enclaves\Http\Controllers\Admin\Product\ReadProductUrlController;
+use Webkul\Enclaves\Http\Controllers\Admin\Category\ReadCategoryUrlController;
 
 /**
  * Settings routes.
@@ -41,5 +43,15 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
         Route::post('update', 'update')->name('enclaves.admin.inquiries.faq.update');
 
         Route::post('delete/{id}', 'destroy')->name('enclaves.admin.inquiries.faq.destroy');
+    });
+
+    Route::prefix('product-image-url')->group(function () {
+        Route::post('{id}/reading-url', [ReadProductUrlController::class, 'readUrls'])
+            ->name('enclaves.admin.product.image.url');
+    });
+
+    Route::prefix('category-image-link')->group(function () {
+        Route::post('{id}/reading-url', [ReadCategoryUrlController::class, 'readUrl'])
+            ->name('enclaves.admin.category.image.url');
     });
 });

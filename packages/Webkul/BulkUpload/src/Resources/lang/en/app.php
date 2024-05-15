@@ -106,37 +106,13 @@ return [
                 'all-profile-deleted'       => 'All the selected profiles have been deleted successfully',
                 'data-profile-not-selected' => 'Bulk Product Importer not selected',
             ],
-
-            'image' => [
-                'title'       => 'Image CDN',
-                'info'        => 'Add Image CDN Url with comma(,) separated',
-                'add-btn'     => 'Review Image',
-                'review-btn'  => 'Review',
-                'url'         => 'URL',
-                'placeholder' => 'URL',
-            ],
-
-            'slot'  => [
-                'title'            => 'Flat Details',
-                'flat'             => 'Flat Number',
-                'button'           => 'Submit',
-                'mouseX'           => 'mouseX',
-                'mouseY'           => 'mouseY',
-                'id'               => 'id',
-                'url'              => 'Url',
-                'product'          => 'Product',
-                'heading'          => 'Select Product',
-                'info'             => '1. Click on any image.',
-                'big_info'         => '2. Control drag and drop on mouse move without Ctrl button.',
-                'big_info_secound' => '3. Control resizing on mouse move with Ctrl button.',
-            ],
         ],
     ],
 
     'shop' => [
         'bulk-upload' => [
             'checkout' => [
-                'title'          => 'Propery Map',
+                'title'          => 'Properly Map',
                 'code'           => 'Property Code',
                 'authentication' => 'Authentication',
                 'onepage'        => [
