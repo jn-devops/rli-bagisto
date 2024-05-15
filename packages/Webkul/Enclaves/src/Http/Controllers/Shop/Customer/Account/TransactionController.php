@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
+namespace Webkul\Enclaves\Http\Controllers\Shop\Customer\Account;
 
 use Webkul\Core\Traits\PDFHandler;
 use Webkul\Sales\Repositories\OrderRepository;

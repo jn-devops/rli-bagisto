@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Customer\Account;
+namespace Webkul\Enclaves\Http\Controllers\Shop\Customer\Account;
 
 use Illuminate\Http\JsonResponse;
 use Webkul\Enclaves\Repositories\FaqRepository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Customer;
+namespace Webkul\Enclaves\Http\Controllers\Shop\Customer;
 
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;

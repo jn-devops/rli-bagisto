@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Admin;
+namespace Webkul\Enclaves\Http\Controllers\Admin\Ticket;
 
 use Webkul\Enclaves\DataGrids\FaqDataGrid;
 use Webkul\Enclaves\Http\Controllers\Controller;

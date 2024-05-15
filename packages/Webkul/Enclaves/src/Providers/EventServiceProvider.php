@@ -62,7 +62,11 @@ class EventServiceProvider extends ServiceProvider
         });
 
         Event::listen('bagisto.admin.catalog.product.edit.form.images.before', function ($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('enclaves::admin.images.url');
+            $viewRenderEventManager->addTemplate('enclaves::admin.catalog.products.image.index');
+        });
+
+        Event::listen('bagisto.admin.catalog.categories.edit.card.description_images.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::admin.catalog.categories.image.index');
         });
 
         Event::listen('bagisto.shop.products.price.after', function ($viewRenderEventManager) {

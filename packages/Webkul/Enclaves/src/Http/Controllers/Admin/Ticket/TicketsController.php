@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Admin;
+namespace Webkul\Enclaves\Http\Controllers\Admin\Ticket;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;

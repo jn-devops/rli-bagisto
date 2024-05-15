@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Enclaves\Http\Controllers\Category;
+namespace Webkul\Enclaves\Http\Controllers\Shop\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Category\Repositories\CategoryRepository;

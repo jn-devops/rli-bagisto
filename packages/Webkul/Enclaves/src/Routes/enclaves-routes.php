@@ -3,17 +3,17 @@
 namespace Webkul\Enclaves\Routes;
 
 use Illuminate\Support\Facades\Route;
-use Webkul\Enclaves\Http\Controllers\Ekyc\EkycController;
-use Webkul\Enclaves\Http\Controllers\Product\ProductController;
-use Webkul\Enclaves\Http\Controllers\Category\CategoryController;
-use Webkul\Enclaves\Http\Controllers\Customer\CustomerController;
-use Webkul\Enclaves\Http\Controllers\Checkout\OnePageCheckoutController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\DashboardController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\DocumentsController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\InquiriesController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\HelpSeminarController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\NewsUpdatesController;
-use Webkul\Enclaves\Http\Controllers\Customer\Account\TransactionController;
+use Webkul\Enclaves\Http\Controllers\Shop\Ekyc\EkycController;
+use Webkul\Enclaves\Http\Controllers\Shop\Product\ProductController;
+use Webkul\Enclaves\Http\Controllers\Shop\Category\CategoryController;
+use Webkul\Enclaves\Http\Controllers\Shop\Customer\CustomerController;
+use Webkul\Enclaves\Http\Controllers\Shop\Checkout\OnePageCheckoutController;
+use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\DashboardController;
+use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\DocumentsController;
+use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\InquiriesController;
+use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\HelpSeminarController;
+use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\NewsUpdatesController;
+use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\TransactionController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
