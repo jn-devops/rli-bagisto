@@ -271,7 +271,7 @@
                     </div>
                 </div>
 
-                {!! view_render_event('bagisto.admin.settings.channels.edit.card.design.after') !!}
+                {!! view_render_event('bagisto.admin.settings.channels.edit.card.design.after', ['channel' => $channel]) !!}
 
                 {!! view_render_event('bagisto.admin.settings.channels.edit.card.seo.before') !!}
 

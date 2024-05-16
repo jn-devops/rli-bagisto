@@ -2,9 +2,10 @@
 
 namespace Webkul\Enclaves\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Webkul\Enclaves\Listeners\ThemeListener;
 use Webkul\Enclaves\Helpers\Product\ProductImageUpdate;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -69,6 +70,14 @@ class EventServiceProvider extends ServiceProvider
             $viewRenderEventManager->addTemplate('enclaves::admin.catalog.categories.image.index');
         });
 
+        Event::listen('bagisto.admin.settings.channels.edit.card.design.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::admin.settings.channels.edit');
+        });
+
+        Event::listen('bagisto.admin.settings.channels.create.card.design.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('enclaves::admin.settings.channels.create');
+        });
+
         Event::listen('bagisto.shop.products.price.after', function ($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('enclaves::shop.products.prices.processing');
         });
@@ -79,6 +88,14 @@ class EventServiceProvider extends ServiceProvider
 
         Event::listen('catalog.product.update.after', function ($product) {
             app(ProductImageUpdate::class)->insertImages($product);
+        });
+
+        Event::listen('core.channel.update.after', function ($theme) {
+            app(ThemeListener::class)->afterUpdateOrCreate($theme);
+        });
+
+        Event::listen('core.channel.create.after', function ($theme) {
+            app(ThemeListener::class)->afterUpdateOrCreate($theme);
         });
     }
 }
