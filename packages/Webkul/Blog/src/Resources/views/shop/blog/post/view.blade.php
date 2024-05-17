@@ -47,7 +47,7 @@
                     <div class="w-[60%] max-sm:w-full">
                         @if ($blog->src)
                             <x-shop::media.images.lazy
-                                class="w-full max-lg:h-[300px] lg:h-[500px] lg:rounded-3xl"
+                                class="w-full max-lg:h-[300px] lg:min-h-[500px] lg:rounded-3xl"
                                 alt="{{ $blog->src }}"
                                 src="{{ Storage::url($blog->src ?? 'placeholder-thumb.jpg') }}"
                             ></x-shop::media.images.lazy>
