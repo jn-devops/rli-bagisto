@@ -127,6 +127,26 @@ class Channel extends TranslatableModel implements ChannelContract
     }
 
     /**
+     * Get Footer logo image url.
+     */
+    public function footer_logo_url()
+    {
+        if (! $this->footer_logo) {
+            return;
+        }
+
+        return Storage::url($this->footer_logo);
+    }
+
+    /**
+     * Get logo image url.
+     */
+    public function getFooterLogoUrlAttribute()
+    {
+        return $this->footer_logo_url();
+    }
+
+    /**
      * Get favicon image url.
      */
     public function favicon_url()

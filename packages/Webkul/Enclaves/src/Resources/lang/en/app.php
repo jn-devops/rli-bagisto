@@ -404,6 +404,30 @@ return [
                     'cdn_status'        => 'CDN Link Status',
                 ],
             ],
+
+            'channels' => [
+                'edit' => [
+                    'footer-logo'       => 'Footer Logo',
+                    'footer-size'       => 'Image resolution should be like 192px X 50px',
+                    'footer-logo-image' => 'Logo CDN',
+                    'type'              => 'Type',
+                    'cdn-link'          => 'CDN Link',
+                    'select-type'       => 'Type',
+                    'preview'           => 'Preview',
+                    'loading'           => 'Loading..',
+                ],
+
+                'create' => [
+                    'footer-logo'       => 'Footer Logo',
+                    'footer-size'       => 'Image resolution should be like 192px X 50px',
+                    'footer-logo-image' => 'Logo CDN',
+                    'type'              => 'Type',
+                    'cdn-link'          => 'CDN Link',
+                    'select-type'       => 'Type',
+                    'preview'           => 'Preview',
+                    'loading'           => 'Loading..',
+                ],
+            ],
         ],
 
         'menu' => [

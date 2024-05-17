@@ -5,6 +5,7 @@ use Webkul\Enclaves\Http\Controllers\Admin\Ticket\FaqController;
 use Webkul\Enclaves\Http\Controllers\Admin\Theme\ThemeController;
 use Webkul\Enclaves\Http\Controllers\Admin\Ticket\TicketsController;
 use Webkul\Enclaves\Http\Controllers\Admin\Product\ReadProductUrlController;
+use Webkul\Enclaves\Http\Controllers\Admin\Channel\ReadChannelUrlController;
 use Webkul\Enclaves\Http\Controllers\Admin\Category\ReadCategoryUrlController;
 
 /**
@@ -53,5 +54,10 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
     Route::prefix('category-image-link')->group(function () {
         Route::post('{id}/reading-url', [ReadCategoryUrlController::class, 'readUrl'])
             ->name('enclaves.admin.category.image.url');
+    });
+
+    Route::prefix('channel-image-link')->group(function () {
+        Route::post('reading-url', [ReadChannelUrlController::class, 'readUrl'])
+            ->name('enclaves.admin.channel.image.url');
     });
 });

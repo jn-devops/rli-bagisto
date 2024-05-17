@@ -22,7 +22,6 @@ class ChannelRepository extends Repository
      */
     public function create(array $data)
     {
-
         $model = $this->getModel();
 
         foreach (core()->getAllLocales() as $locale) {
