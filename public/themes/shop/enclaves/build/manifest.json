@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-036bbf4d.css",
+    "file": "assets/app-f126d632.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -80,13 +80,13 @@
     "file": "assets/fb-8a578956.png",
     "src": "src/Resources/assets/images/fb.png"
   },
-  "src/Resources/assets/images/footer-bg.png": {
-    "file": "assets/footer-bg-b678acbd.png",
-    "src": "src/Resources/assets/images/footer-bg.png"
+  "src/Resources/assets/images/footer-left.png": {
+    "file": "assets/footer-left-de13ef7c.png",
+    "src": "src/Resources/assets/images/footer-left.png"
   },
-  "src/Resources/assets/images/footer-bg.svg": {
-    "file": "assets/footer-bg-3805271c.svg",
-    "src": "src/Resources/assets/images/footer-bg.svg"
+  "src/Resources/assets/images/footer-right.png": {
+    "file": "assets/footer-right-b678acbd.png",
+    "src": "src/Resources/assets/images/footer-right.png"
   },
   "src/Resources/assets/images/hero-1.png": {
     "file": "assets/hero-1-0efb104f.png",
