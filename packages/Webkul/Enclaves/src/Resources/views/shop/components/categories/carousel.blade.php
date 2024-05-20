@@ -15,15 +15,15 @@
             <div class="relative">
                 <div
                     ref="swiperContainer"
-                    class="flex gap-10 overflow-auto scroll-smooth scrollbar-hide max-sm:gap-4"
+                    class="scrollbar-hide flex gap-10 overflow-auto scroll-smooth max-sm:gap-4"
                 >
                     <div
-                        class="grid grid-cols-1 gap-[15px] justify-items-center min-w-[120px] max-w-[120px] font-medium"
+                        class="grid min-w-[120px] max-w-[120px] grid-cols-1 justify-items-center gap-[15px] font-medium"
                         v-for="category in categories"
                     >
                         <a
                             :href="category.url_path"
-                            class="w-[110px] h-[110px] bg-[#F5F5F5] rounded-full"
+                            class="h-[110px] w-[110px] rounded-full bg-[#F5F5F5]"
                             :aria-label="category.name"
                         >
                             <template v-if="category.images.logo_url">
@@ -31,7 +31,7 @@
                                     ::src="category.images.logo_url"
                                     width="110"
                                     height="110"
-                                    class="w-[110px] h-[110px] rounded-full"
+                                    class="h-[110px] w-[110px] rounded-full"
                                     ::alt="category.name"
                                 ></x-shop::media.images.lazy>
                             </template>
@@ -42,7 +42,7 @@
                             class=""
                         >
                             <p
-                                class="text-center text-black text-[18px] max-sm:font-normal"
+                                class="text-center text-[18px] text-black max-sm:font-normal"
                                 v-text="category.name"
                             >
                             </p>
@@ -51,13 +51,13 @@
                 </div>
 
                 <span
-                    class="flex items-center justify-center absolute top-[37px] -left-[41px] w-[50px] h-[50px] bg-white border border-black rounded-full transition icon-arrow-left-stylish text-[25px] hover:bg-black hover:text-white max-lg:-left-[29px] cursor-pointer"
+                    class="icon-arrow-left-stylish absolute -left-[41px] top-[37px] flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-black bg-white text-[25px] transition hover:bg-black hover:text-white max-lg:-left-[29px]"
                     @click="swipeLeft"
                 >
                 </span>
 
                 <span
-                    class="flex items-center justify-center absolute top-[37px] -right-[22px] w-[50px] h-[50px] bg-white border border-black rounded-full transition icon-arrow-right-stylish text-[25px] hover:bg-black hover:text-white max-lg:-right-[29px] cursor-pointer"
+                    class="icon-arrow-right-stylish absolute -right-[22px] top-[37px] flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-black bg-white text-[25px] transition hover:bg-black hover:text-white max-lg:-right-[29px]"
                     @click="swipeRight"
                 >
                 </span>

@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-f126d632.css",
+    "file": "assets/app-73bcf31d.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -39,6 +39,10 @@
   "src/Resources/assets/images/community-bg-left.svg": {
     "file": "assets/community-bg-left-b432e128.svg",
     "src": "src/Resources/assets/images/community-bg-left.svg"
+  },
+  "src/Resources/assets/images/community-bg.png": {
+    "file": "assets/community-bg-0c016251.png",
+    "src": "src/Resources/assets/images/community-bg.png"
   },
   "src/Resources/assets/images/community-right.svg": {
     "file": "assets/community-right-c5ade1f8.svg",
@@ -175,6 +179,10 @@
   "src/Resources/assets/images/small-product-placeholder.webp": {
     "file": "assets/small-product-placeholder-64b7f208.webp",
     "src": "src/Resources/assets/images/small-product-placeholder.webp"
+  },
+  "src/Resources/assets/images/step-image.gif": {
+    "file": "assets/step-image-7b757e4c.gif",
+    "src": "src/Resources/assets/images/step-image.gif"
   },
   "src/Resources/assets/images/thank-you.png": {
     "file": "assets/thank-you-aa4a2b62.png",

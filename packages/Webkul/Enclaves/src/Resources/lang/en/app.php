@@ -387,6 +387,13 @@ return [
                     'subscribe-stay-touch' => 'Subscribe to stay in touch.',
                 ],
             ],
+
+            'products' => [
+                'our'           => 'Our',
+                'made-just'     => 'made just for you',
+                'hopeful-place' => 'Hopeful Place',
+                'view-all'      => 'View all Product',
+            ],
         ],
     ],
 
