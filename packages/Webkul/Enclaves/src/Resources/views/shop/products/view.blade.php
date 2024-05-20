@@ -106,19 +106,6 @@
             <x-shop::shimmer.products.view/>
         </v-product>
 
-        <!-- Featured Products -->
-        <x-shop::products.carousel
-            :title="trans('shop::app.products.view.related-product-title')"
-            :src="route('shop.api.products.related.index', ['id' => $product->id])"
-        >
-        </x-shop::products.carousel>
-
-        <!-- Up-sell Products -->
-        <x-shop::products.carousel
-            :title="trans('shop::app.products.view.up-sell-title')"
-            :src="route('shop.api.products.up-sell.index', ['id' => $product->id])">
-        </x-shop::products.carousel>
-
         {!! view_render_event('bagisto.shop.products.view.after', ['product' => $product]) !!}
 
         @pushOnce('scripts')
