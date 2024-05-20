@@ -11,8 +11,8 @@
                     ::key="refreshBaseImageComponent"
                     v-show="! isMediaLoading"
                     v-if="baseFile.type == 'image'"
-                    alt="@lang('shop::app.products.view.gallery.product-image')" 
-                    class="h-[700px] w-full cursor-pointer rounded-[10px]"
+                    alt="{{ trans('shop::app.products.view.gallery.product-image') }}" 
+                    class="h-[700px] w-full cursor-pointer rounded-[10px] max-lg:h-[240px]"
                     ::src="baseFile.path"
                     @load="onMediaLoad()"
                 >
@@ -24,9 +24,9 @@
                     <div v-if="index < 3" 
                         :class="`${index == `2` ? 'relative' : ''}`">
                         <x-shop::media.images.lazy
-                            alt="@lang('shop::app.products.view.gallery.thumbnail-image')" 
+                            alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}" 
                             v-if="index < 3"
-                            ::class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
+                            ::class="`min-w-[80px] max-h-[80px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
                             ::src="image.small_image_url"
                             @click="change(image, `image_${index}`)"
                         >
@@ -72,7 +72,7 @@
                 ::src="baseFile.path"
                 v-if="baseFile.type == 'image'"
                 class="h-[700px] w-[700px] rounded-[5px]"
-                alt="@lang('shop::app.products.view.gallery.product-image')"
+                alt="{{ trans('shop::app.products.view.gallery.product-image') }}"
                 @load="onMediaLoad()"
             >
             </x-shop::media.images.lazy>
@@ -112,8 +112,8 @@
                         >
                             <img
                                 :src="image.original_image_url"
-                                class="h-[480px] w-full cursor-pointer rounded-[5px]"
-                                alt="@lang('shop::app.products.view.gallery.product-image')"
+                                class="h-[480px] w-full cursor-pointer rounded-[5px] max-lg:h-[280px]"
+                                alt="{{ trans('shop::app.products.view.gallery.product-image') }}"
                             />
                         </div>
 
