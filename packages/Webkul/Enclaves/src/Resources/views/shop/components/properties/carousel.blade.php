@@ -9,30 +9,28 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-properties-carousel-template">
         <!-- Section new place made just for you -->
-        <div>
+        <div class="mt-[20px]">
             <div class="relative h-full w-full max-sm:hidden">
-                <div class="absolute inset-0 h-[500px] bg-[url('../images/community-bg-left.svg')] bg-left bg-no-repeat"></div>
-                
-                <div class="absolute inset-0 h-[500px] bg-[url('../images/community-right.svg')] bg-right bg-no-repeat"></div>
+                <div class="absolute inset-0 h-[750px] bg-[url('../images/community-bg.png')] bg-left bg-no-repeat [background-size:85%]"></div>
             </div>
 
-            <div class="container mb-[50px] max-lg:px-[30px] max-sm:mt-[30px]">
-                <div class="flex justify-center gap-[20px] max-sm:items-center">
-                    <h3 class="rli-title max-w-[1024px] max-sm:text-[25px] md:mt-[140px] lg:mt-[140px]" v-text="title"></h3>
+            <div class="container relative max-lg:px-[32px] lg:pt-[190px]">
+                <div class="flex justify-center gap-[20px] pb-[25px] max-sm:items-center">
+                    <h3 class="text-[40px] font-bold max-lg:text-[30px]" v-text="title"></h3>
                 </div>
 
                 <div 
-                    class="relative z-10 flex justify-between max-lg:top-[100px] lg:top-[200px]" 
+                    class="relative z-10 -m-8 flex justify-between max-lg:top-[50px] lg:top-[130px]" 
                     v-if="categories.length"
                 >
                     <span 
-                        class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                        class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeLeft"
                     >
                     </span>
 
                     <span 
-                        class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                        class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeRight"
                         >
                     </span>
@@ -40,12 +38,12 @@
                 
                 <div
                     ref="swiperContainer"
-                    class="scrollbar-hide mt-[22px] flex gap-5 overflow-auto max-sm:mt-[20px]"
+                    class="scrollbar-hide flex gap-4 overflow-auto"
                     >
 
-                    <div class="max-w-[350px] max-lg:min-w-[120px] lg:min-w-[350px]" v-for="category in categories">
+                    <div class="max-w-[280px] max-lg:min-w-[120px] lg:min-w-[280px]" v-for="category in categories">
                         <x-shop::media.images.lazy
-                            class="h-[310px] w-full rounded-3xl transition-all duration-300 group-hover:scale-105 max-lg:h-[128px]"
+                            class="h-[260px] w-full rounded-3xl transition-all duration-300 group-hover:scale-105 max-lg:h-[128px]"
                             ::src="category.images.community_banner_path ?? category.images.banner_url"
                         ></x-shop::media.images.lazy>
 

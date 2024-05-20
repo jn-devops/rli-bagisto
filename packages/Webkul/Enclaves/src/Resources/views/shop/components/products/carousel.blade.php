@@ -9,16 +9,24 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-products-carousel-template">
         <!-- Section new place made just for you -->
-        <div class="container mt-[80px] max-lg:px-[30px] max-sm:mt-[30px]">
-            <div class="relative top-[215px] z-10 flex justify-between" v-if="products.length">
+        <div class="container bg-[#CC035C] py-[60px] max-lg:px-[32px]">
+            <h1 class="mb-[30px] text-[40px] font-bold text-white max-lg:text-[20px]">
+                @lang('enclaves::app.shop.components.products.our')
+
+                    <span class="text-[#F39C12]">@lang('enclaves::app.shop.components.products.hopeful-place')</span>
+
+                @lang('enclaves::app.shop.components.products.made-just')
+            </h1>
+            
+            <div class="relative z-10 -m-8 flex justify-between max-lg:top-[80px] lg:top-[160px]" v-if="products.length">
                 <span 
-                    class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                    class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                     @click="swipeLeft"
                 >
                 </span>
 
                 <span 
-                    class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                    class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                     @click="swipeRight"
                     >
                 </span>
@@ -26,9 +34,15 @@
 
             <div
                 ref="swiperContainer"
-                class="scrollbar-hide mt-[22px] flex overflow-auto max-lg:gap-5 max-sm:mt-[20px] lg:gap-14"
+                class="scrollbar-hide mt-[22px] flex overflow-auto max-lg:gap-4 max-sm:mt-[20px] lg:gap-4"
             >
                 <x-shop::products.card v-for="product in products"/>
+            </div>
+
+            <div class="mt-[30px] flex justify-end">
+                <a href="" class="font-bold text-white underline">
+                    @lang('enclaves::app.shop.components.products.view-all')
+                </a>
             </div>
         </div>
 

@@ -3,12 +3,12 @@
     title="{{ $title }}"
     navigation-link="{{ $navigationLink ?? '' }}" 
 >
-    <div class="container mt-[150px] max-lg:px-[30px] max-sm:mt-[30px]">
-        <div class="shimmer h-[40px] w-[50%]"></div>
-        <div class="shimmer mt-[50px] h-[40px] w-[50%]"></div>
 
-        <x-blog::shimmer.blogs.item count="3" />
-    </div>
+<div class="container mt-[120px] max-lg:px-[30px] max-sm:mt-[30px]">
+    <div class="shimmer mt-[50px] h-[40px] w-[50%]"></div>
+
+    <x-blog::shimmer.blogs.item count="4" />
+</div>
 
 </v-blogs-carousel>
 
@@ -16,28 +16,26 @@
     <script type="text/x-template" id="v-blogs-carousel-template">
         <!-- Section new place made just for you -->
         <div 
-            class="container mt-[150px] bg-[url('../images/blog-bg.svg')] bg-right bg-no-repeat [background-size:51%] max-lg:px-[30px] max-sm:mt-[30px]"
+            class="container mt-[120px] bg-[url('../images/blog-bg.svg')] bg-right bg-no-repeat pt-[10px] [background-size:40%] max-lg:px-[30px] max-sm:mt-[30px]"
             v-if="blogs.length > 0"
             >
-            <div class="rli-title max-w-[1024px] max-sm:text-[25px]">
-                <p class="text-[#CC035C]">@lang('Raemulan Lands Inc')</p>
-
-                <p class="mt-[40px]">@lang('News & Updates')</p>
+            <div class="rli-title mb-[40px] mt-[25px] max-w-[1024px] max-sm:text-[25px]">
+                <p class="mt-[40px] text-[40px] font-bold max-lg:text-[30px]">@lang('News & Updates')</p>
             </div>
 
             <div>
                 <div 
-                    class="relative z-10 flex justify-between max-lg:top-[100px] lg:top-[200px]" 
+                    class="relative z-10 -m-8 flex justify-between max-lg:top-[50px] lg:top-[140px]" 
                     v-if="blogs.length"
                     >
                     <span 
-                        class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                        class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeLeft"
                     >
                     </span>
 
                     <span 
-                        class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[25px] text-[24px] text-[#d30a5a] max-sm:p-[8px]"
+                        class="icon-arrow-right-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeRight"
                         >
                     </span>
@@ -45,7 +43,7 @@
 
                 <div
                     ref="swiperContainer"
-                    class="scrollbar-hide flex gap-5 overflow-auto"
+                    class="scrollbar-hide flex gap-4 overflow-auto"
                 >
                     <x-blog::blogs.items.carousel-item v-for="blog in blogs" />
                 </div>
@@ -54,12 +52,10 @@
 
         <!-- Product Card Listing -->
         <template v-if="isLoading">
-            <div class="container mt-[150px] max-lg:px-[30px] max-sm:mt-[30px]">
-                <div class="shimmer h-[40px] w-[50%]"></div>
-                
+            <div class="container mt-[150px] max-lg:px-[30px] max-sm:mt-[30px]">                
                 <div class="shimmer mt-[50px] h-[40px] w-[50%]"></div>
 
-                <x-blog::shimmer.blogs.item count="3" />
+                <x-blog::shimmer.blogs.item count="4" />
             </div>
         </template>
     </script>

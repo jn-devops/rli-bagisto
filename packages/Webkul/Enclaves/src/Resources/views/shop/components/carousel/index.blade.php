@@ -9,7 +9,7 @@
     <script type="text/x-template" id="v-carousel-template">
 
 		<!-- Hero section -->
-		<div class="mb-[100px] grid grid-cols-2 flex-col-reverse overflow-hidden max-1100:flex sm:px-[34px]">
+		<div class="grid grid-cols-2 flex-col-reverse overflow-hidden max-1100:flex sm:px-[34px]">
 			<div class="sm:bg-full min-w-full bg-[url('../images/hero-bg.png')] bg-contain bg-right-top bg-no-repeat py-[70px] max-sm:py-5">
 				<div class="m-auto w-full max-w-[532px] px-5 max-1180:max-w-[472px] max-1100:mx-0 max-1100:h-auto sm:px-0">
 					

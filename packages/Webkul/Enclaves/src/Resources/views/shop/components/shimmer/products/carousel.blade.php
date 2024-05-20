@@ -1,8 +1,10 @@
-<div class="container max-lg:px-[30px] max-sm:mt-[30px]">
-    <div class="scrollbar-hide mt-[40px] flex gap-14 overflow-auto max-sm:mt-[20px]">
+<div class="container bg-[#CC035C] py-[60px] max-lg:px-[32px]">
+    <div class="shimmer mb-[50px] h-[50px] w-[70%]"></div>
+
+    <div class="scrollbar-hide mt-[25px] flex overflow-auto max-lg:gap-4 max-sm:mt-[20px] lg:gap-4">
         <x-shop::shimmer.products.cards.home-grid
-            class="min-w-[350px]"
-            :count="3"
+            class="min-w-[280px]"
+            :count="4"
         >
         </x-shop::shimmer.products.cards.home-grid>
     </div>
