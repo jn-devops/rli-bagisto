@@ -16,16 +16,18 @@
     <script type="text/x-template" id="v-blogs-carousel-template">
         <!-- Section new place made just for you -->
         <div 
-            class="container mt-[120px] bg-[url('../images/blog-bg.svg')] bg-right bg-no-repeat pt-[10px] [background-size:40%] max-lg:px-[30px] max-sm:mt-[30px]"
+            class="container mt-32 bg-[url('../images/blog-bg.svg')] bg-right bg-no-repeat [background-size:40%] max-lg:px-[30px] max-sm:mt-[30px]"
             v-if="blogs.length > 0"
             >
-            <div class="rli-title mb-[40px] mt-[25px] max-w-[1024px] max-sm:text-[25px]">
-                <p class="mt-[40px] text-[40px] font-bold max-lg:text-[30px]">@lang('News & Updates')</p>
+            <div class="rli-title max-sm:text-6 mb-10 mt-6 max-w-[1024px]">
+                <p class="text-[40px] font-bold max-lg:text-[25px]">
+                    @lang('News & Updates')
+                </p>
             </div>
 
             <div>
                 <div 
-                    class="relative z-10 -m-8 flex justify-between max-lg:top-[50px] lg:top-[140px]" 
+                    class="relative z-10 -m-8 flex justify-between max-lg:top-[120px] lg:top-[140px]" 
                     v-if="blogs.length"
                     >
                     <span 

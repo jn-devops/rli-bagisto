@@ -8,9 +8,17 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-products-carousel-template">
+
+        <div v-if="isLoading">
+            <x-shop::shimmer.products.carousel 
+                :navigation-link="$navigationLink ?? false"
+            >
+            </x-shop::shimmer.products.carousel>
+        </div>
+
         <!-- Section new place made just for you -->
-        <div class="container bg-[#CC035C] py-[60px] max-lg:px-[32px]">
-            <h1 class="mb-[30px] text-[40px] font-bold text-white max-lg:text-[20px]">
+        <div v-else class="container bg-[#CC035C] py-[60px] max-lg:px-[32px]">
+            <h1 class="mb-[30px] text-[40px] font-bold text-white max-lg:text-[25px]">
                 @lang('enclaves::app.shop.components.products.our')
 
                     <span class="text-[#F39C12]">@lang('enclaves::app.shop.components.products.hopeful-place')</span>
@@ -18,7 +26,7 @@
                 @lang('enclaves::app.shop.components.products.made-just')
             </h1>
             
-            <div class="relative z-10 -m-8 flex justify-between max-lg:top-[80px] lg:top-[160px]" v-if="products.length">
+            <div class="relative z-10 -m-8 flex justify-between max-lg:top-[140px] lg:top-[140px]" v-if="products.length">
                 <span 
                     class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                     @click="swipeLeft"
@@ -45,14 +53,6 @@
                 </a>
             </div>
         </div>
-
-        <!-- Product Card Listing -->
-        <template v-if="isLoading">
-            <x-shop::shimmer.products.carousel 
-                :navigation-link="$navigationLink ?? false"
-            >
-            </x-shop::shimmer.products.carousel>
-        </template>
     </script>
 
     <script type="module">

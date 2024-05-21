@@ -7,27 +7,27 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-product-card-template">
 
-        <div class="relative max-w-[280px] cursor-pointer max-lg:min-w-[120px] lg:min-w-[280px]"
+        <div class="max-w-[280px] cursor-pointer max-lg:min-w-[120px] md:min-w-64 lg:min-w-[300px]"
             v-if="mode != 'list'"
             @click="productConfirmModal(product)"
         >
-            <div class="group flex max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px] max-lg:min-w-[120px]">
+            <div class="group flex overflow-hidden rounded-[20px]">
                 <x-shop::media.images.lazy
-                    class="h-[260px] w-full rounded-3xl shadow-inner transition-all duration-300 group-hover:scale-105 max-lg:h-[128px]"
+                    class="w-full rounded-3xl shadow-inner transition-all duration-300 group-hover:scale-105 max-lg:h-32 md:h-60 lg:h-64"
                     ::src="product.base_image.medium_image_url"
                 ></x-shop::media.images.lazy>
             </div>
 
             <div class="mt-[10px] grid content-start gap-3">
                 <p
-                    class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-[20px] font-bold text-white max-sm:text-[14px]" 
+                    class="font-popins text-5 max-sm:text-3.5 overflow-hidden text-ellipsis whitespace-nowrap font-bold text-white" 
                     v-text="product.name"
                 ></p>
                 
                 <div class="">
                     <div class="relative items-center justify-between">
                         <div 
-                            class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-wrap text-[21px] font-medium text-white max-sm:text-[14px]" 
+                            class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-wrap text-xl font-medium text-white max-sm:text-base" 
                             v-html="product.price_html"
                         ></div>
                     </div>

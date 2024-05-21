@@ -157,7 +157,7 @@
                                 {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                             </div>
 
-                            <div class="mix-w-[438px] max-w-[400px] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-[25px] md:min-w-[400px]">
+                            <div class="rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-[25px] md:w-full lg:w-[40%]">
                                 <!-- Price -->
                                 <div class="grid gap-[10px]">
                                     <p class="text-[20px] font-semibold max-sm:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>

@@ -2,7 +2,7 @@
 <div class="flex flex-wrap gap-4 lg:gap-4">
     @for ($i = 0; $i < $count; $i++)
         <div>
-            <div class="shimmer h-[260px] min-w-[120px] rounded-[20px] max-lg:h-[120px] lg:min-w-[280px]"></div>
+            <div class="shimmer h-[260px] min-w-[120px] rounded-[20px] max-lg:h-[120px] md:h-[170px] md:min-w-[160px] lg:min-w-[300px]"></div>
             
             <div class="shimmer mt-2.5 h-[30px] w-full max-lg:h-[14px]"></div>
 
