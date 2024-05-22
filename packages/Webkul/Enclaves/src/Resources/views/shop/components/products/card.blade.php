@@ -7,7 +7,7 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-product-card-template">
 
-        <div class="max-w-[280px] cursor-pointer max-lg:min-w-[120px] md:min-w-64 lg:min-w-[300px]"
+        <div class="max-w-[280px] cursor-pointer max-lg:min-w-[120px] max-lg:!max-w-[120px] md:min-w-64 lg:min-w-[300px]"
             v-if="mode != 'list'"
             @click="productConfirmModal(product)"
         >
@@ -27,7 +27,7 @@
                 <div class="">
                     <div class="relative items-center justify-between">
                         <div 
-                            class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-wrap text-xl font-medium text-white max-sm:text-base" 
+                            class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-wrap text-base font-medium text-white max-sm:text-base" 
                             v-html="product.price_html"
                         ></div>
                     </div>

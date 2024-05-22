@@ -18,6 +18,8 @@ use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\TransactionController
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
     Route::controller(ProductController::class)->prefix('products')->group(function () {
+        Route::get('', 'index')->name('enclaves.products.index');
+        
         Route::post('customer-profile-update', 'profileUpdate')->name('enclaves.customers.account.profile.update');
     });
 

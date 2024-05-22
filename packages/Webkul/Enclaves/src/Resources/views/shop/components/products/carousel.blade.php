@@ -26,7 +26,7 @@
                 @lang('enclaves::app.shop.components.products.made-just')
             </h1>
             
-            <div class="relative z-10 -m-8 flex justify-between max-lg:top-[140px] lg:top-[140px]" v-if="products.length">
+            <div class="relative top-[130px] z-10 -m-8 flex justify-between max-md:top-[80px]" v-if="products.length">
                 <span 
                     class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                     @click="swipeLeft"
@@ -48,7 +48,7 @@
             </div>
 
             <div class="mt-[30px] flex justify-end">
-                <a href="" class="font-bold text-white underline">
+                <a href="{{ route('enclaves.products.index') }}" class="font-bold text-white underline">
                     @lang('enclaves::app.shop.components.products.view-all')
                 </a>
             </div>
