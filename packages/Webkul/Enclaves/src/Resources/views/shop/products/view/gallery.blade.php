@@ -80,7 +80,7 @@
 
         <div class="flex flex-wrap gap-[30px] max-sm:gap-[30px]">
             <template v-for="option in options">    
-                <span v-show="option" class="mt-[40px] flex gap-[10px]">
+                <span v-show="option.value" class="mt-[40px] flex gap-[10px]">
                     <span class="flex items-center justify-center">
                         <span :class="`icon-` + option.code + ` flex items-center justify-center bg-white text-[30px] text-[#CC035C] max-sm:text-[18px]`"></span>
                     </span>
