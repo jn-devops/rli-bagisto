@@ -45,7 +45,7 @@
 
                 <div
                     ref="swiperContainer"
-                    class="scrollbar-hide flex gap-4 overflow-auto"
+                    class="scrollbar-hide flex gap-4 overflow-auto scroll-smooth"
                 >
                     <x-blog::blogs.items.carousel-item v-for="blog in blogs" />
                 </div>

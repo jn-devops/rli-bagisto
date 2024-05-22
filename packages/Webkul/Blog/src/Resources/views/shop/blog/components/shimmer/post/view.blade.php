@@ -1,12 +1,12 @@
 @props(['count' => 10])
 
-<div class="mt-[30px] w-[40%]">
-    <div class="shimmer rounded-1xl h-[70px] w-full"></div>
+<div class="mb-2 mt-[30px] w-[40%]">
+    <div class="shimmer rounded-1xl h-[40px] w-full"></div>
 </div>
 
-<div class="mt-8 flex justify-between gap-[20px] max-lg:flex-wrap">
-    <div class="w-[60%] max-sm:w-full">
-        <div class="shimmer w-full rounded-[10px] max-lg:h-[300px] lg:h-[500px] lg:rounded-3xl"></div>
+<div class="flex justify-between gap-[20px] max-lg:flex-wrap">
+    <div class="w-[60%] max-sm:w-full md:w-full">
+        <div class="shimmer h-[500px] w-full rounded-[10px] lg:rounded-3xl"></div>
     </div>
 
     <div class="w-[40%] max-sm:w-full">
@@ -30,7 +30,7 @@
 
 <div class="shimmer rounded-1xl mb-[20px] mt-[40px] h-[40px] w-[60%]"></div>
 
-<x-blog::shimmer.blogs.item count="3"/>
+<x-blog::shimmer.blogs.item count="4"/>
 
 <div class="mt-5 flex justify-center">
     <div class="shimmer h-[45px] w-[135px] rounded-[20px] text-[#f8f6f6]"></div>

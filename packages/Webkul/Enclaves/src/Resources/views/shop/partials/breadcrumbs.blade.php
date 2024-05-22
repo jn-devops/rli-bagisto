@@ -1,17 +1,17 @@
 @unless ($breadcrumbs->isEmpty())
-<div class="flex justify-start mt-[30px]">
-    <div class="flex gap-x-[14px] items-center">
+<div class="mb-3 mt-[30px] flex justify-start">
+    <div class="flex items-center gap-x-[14px]">
         @foreach ($breadcrumbs as $breadcrumb)
             @if (
                 $breadcrumb->url 
                 && ! $loop->last
             )
-                <p class="flex items-center gap-x-[14px] text-[16px] font-medium">
+                <p class="flex items-center gap-x-[14px] text-[16px] font-medium max-md:text-xs">
                     {{ $breadcrumb->title }} 
-                    <span class="icon-arrow-right text-[24px]"></span>
+                    <span class="icon-arrow-right text-[24px] font-bold max-md:text-xs"></span>
                 </p>
             @else
-                <p class="text-[#7D7D7D] text-[16px] flex items-center gap-x-[16px] font-medium  after:content[' '] after:bg-[position:-7px_-41px] after:bs-main-sprite after:w-[9px] after:h-[20px] after:last:hidden">
+                <p class="after:content[' '] after:bs-main-sprite flex items-center gap-x-[16px] text-[16px] font-medium text-[#7D7D7D] after:h-[20px] after:w-[9px] after:bg-[position:-7px_-41px] after:last:hidden max-md:text-xs">
                     {{ $breadcrumb->title }}
                 </p>
             @endif
