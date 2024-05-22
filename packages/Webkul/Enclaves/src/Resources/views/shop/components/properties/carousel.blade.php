@@ -9,13 +9,13 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-properties-carousel-template">
         <!-- Section new place made just for you -->
-        <div class="mt-[20px]">
-            <div class="relative h-full w-full max-sm:hidden">
+        <div class="sm:mt-[50px] md:mt-[50px] lg:mt-[20px]">
+            <div class="relative h-full w-full">
                 <div class="absolute inset-0 h-[750px] bg-[url('../images/community-bg.png')] bg-left bg-no-repeat [background-size:85%]"></div>
             </div>
 
-            <div class="container relative max-lg:px-[32px] lg:pt-[190px]">
-                <div class="flex justify-center gap-[20px] pb-[25px] max-sm:items-center">
+            <div class="container relative max-lg:px-[32px] lg:pt-[100px]">
+                <div class="flex justify-center gap-[20px] pb-[50px] max-sm:items-center">
                     <h3 class="text-[40px] font-bold max-lg:text-[25px]" v-text="title"></h3>
                 </div>
 
@@ -38,7 +38,7 @@
                 
                 <div
                     ref="swiperContainer"
-                    class="scrollbar-hide flex gap-4 overflow-auto"
+                    class="scrollbar-hide flex gap-4 overflow-auto scroll-smooth"
                     >
 
                     <div 

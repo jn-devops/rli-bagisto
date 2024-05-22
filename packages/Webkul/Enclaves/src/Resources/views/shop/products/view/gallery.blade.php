@@ -26,7 +26,7 @@
                         <x-shop::media.images.lazy
                             alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}" 
                             v-if="index < 3"
-                            ::class="`min-w-[80px] max-h-[80px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
+                            ::class="`min-w-[86px] max-h-[60px] rounded-[5px] border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
                             ::src="image.small_image_url"
                             @click="change(image, `image_${index}`)"
                         >
@@ -34,7 +34,7 @@
 
                         <p
                             v-if="index == 2 && ((media.images.length - 3) != 0)"
-                            class="absolute bottom-[10px] right-2 cursor-pointer bg-black p-1 text-white" 
+                            class="absolute bottom-[30px] right-2 cursor-pointer rounded-[5px] bg-black p-[6px] text-[14px] leading-[normal] text-white" 
                             v-text="'+' + (Object.keys(media.images).length - 3)"
                             @click="productSliderModel()"
                         ></p>
@@ -50,14 +50,14 @@
 
                         <img 
                             :src="image.small_image_url"  
-                            :class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"  
+                            :class="`min-w-[86px] max-h-[60px] rounded-[5px] border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"  
                             @click="change(image, `image_${index}`)"
                             alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}"
                         >
 
                         <p
                             v-if="index == 6 && ((media.images.length - 7) != 0)"
-                            class="absolute bottom-[30px] right-2 cursor-pointer bg-black p-1 text-white" 
+                            class="absolute bottom-[30px] right-2 cursor-pointer rounded-[5px] bg-black p-[6px] text-[14px] leading-[normal] text-white" 
                             v-text="'+' + (media.images.length - 7)"
                             @click="productSliderModel()"
                         ></p>
@@ -78,9 +78,9 @@
             </x-shop::media.images.lazy>
         </div>
 
-        <div class="mt-[40px] flex flex-wrap gap-[30px] max-sm:gap-[30px]">
+        <div class="flex flex-wrap gap-[30px] max-sm:gap-[30px]">
             <template v-for="option in options">    
-                <span v-show="option" class="flex gap-[10px]">
+                <span v-show="option" class="mt-[40px] flex gap-[10px]">
                     <span class="flex items-center justify-center">
                         <span :class="`icon-` + option.code + ` flex items-center justify-center bg-white text-[30px] text-[#CC035C] max-sm:text-[18px]`"></span>
                     </span>

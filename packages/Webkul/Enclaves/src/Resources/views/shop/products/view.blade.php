@@ -143,7 +143,8 @@
 
                                 <!-- Product Name -->
                                 {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
-                                <h1 class="mt-[26px] text-[40px] font-bold leading-[48px] max-sm:text-[26px] max-sm:leading-[36px]">
+                                
+                                <h1 class="mt-[26px] text-[40px] font-bold leading-[48px] max-md:text-xl max-md:leading-6">
                                     {{ $product->name }}
                                 </h1>
 
@@ -151,7 +152,7 @@
                                     <x-shop::layouts.read-more-smooth
                                         text="{!! $product->description !!}"
                                         limit="300"
-                                        class="mt-[50px] text-[20px] max-sm:mt-[25px] max-sm:text-[16px]"
+                                        class="mt-[50px] text-[20px] max-md:mt-5 max-md:text-xs max-md:leading-[18px]"
                                     >
                                     </x-shop::layouts.read-more-smooth>
                                 {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}

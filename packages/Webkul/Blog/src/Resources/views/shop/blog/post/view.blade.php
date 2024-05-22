@@ -26,7 +26,9 @@
 <!-- Page Title -->
 <x-slot:title>{{ $blog->slug }}</x-slot>
 
-<v-blog-view></v-blog-view>
+<v-blog-view>
+    <x-blog::shimmer.post.view />
+</v-blog-view>
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-blog-view-template">
@@ -43,24 +45,24 @@
                     <x-shop::breadcrumbs name="blog" :entity="$blog"></x-shop::breadcrumbs>
                 </div>
 
-                <div class="mt-10 flex justify-between gap-[20px] max-lg:flex-wrap">
-                    <div class="w-[60%] max-sm:w-full">
+                <div class="flex justify-between gap-[20px] max-lg:flex-wrap">
+                    <div class="max-lg:w-full md:w-full lg:w-[60%]">
                         @if ($blog->src)
                             <x-shop::media.images.lazy
-                                class="w-full max-lg:h-[300px] lg:min-h-[500px] lg:rounded-3xl"
+                                class="w-full max-lg:h-[300px] md:min-h-[480px] lg:min-h-[500px] lg:rounded-3xl"
                                 alt="{{ $blog->src }}"
                                 src="{{ Storage::url($blog->src ?? 'placeholder-thumb.jpg') }}"
                             ></x-shop::media.images.lazy>
                         @else
                             <x-shop::media.images.lazy
-                                class="w-full max-lg:h-[300px] lg:h-[500px] lg:rounded-3xl"
+                                class="w-full max-lg:h-[300px] md:min-h-[480px] lg:h-[500px] lg:rounded-3xl"
                                 alt="large-product-placeholder"
                                 src="{{ bagisto_asset('images/large-product-placeholder.webp', 'shop') }}"
                             ></x-shop::media.images.lazy>
                         @endif
                     </div>
 
-                    <div class="w-[40%] max-sm:w-full">
+                    <div class="max-md:w-full max-sm:w-full lg:w-[40%]">
                         <h3 class="text-[40px] font-bold max-md:text-[20px]">{{ $blog->name }}</h3>
 
                         <p class="text-[25px] max-sm:text-[12px]">@lang('blog::app.shop.blog.post.view.author') {{ $blog->author }}</p>
@@ -79,12 +81,12 @@
                     @lang('blog::app.shop.blog.post.view.check-out-news')
                 </p>
 
-                <div class="grid grid-cols-3 gap-6 max-lg:grid-cols-2" v-if="blogs.length > 0">
+                <div class="grid gap-6 max-lg:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" v-if="blogs.length > 0">
                     <x-blog::blogs.items.post-item v-for="blog in blogs" />
                 </div>
 
                 <div v-if="isRelativeLoading">
-                    <x-blog::shimmer.blogs.item count=3 />
+                    <x-blog::shimmer.blogs.item count=4 />
                 </div>
                 
                 <div class="mt-5 flex justify-center">
@@ -109,7 +111,7 @@
                     blog: @json($blog),
                     isLoading: true,
                     isRelativeLoading: false,
-                    limit: 3,
+                    limit: 4,
                     loadMoreTxt: `{{ trans('blog::app.shop.blog.load-more') }}`,
                 };
             },
@@ -124,7 +126,7 @@
 
             methods: {
                 getMoreBlogs() {
-                    this.limit += 6;
+                    this.limit += 4;
 
                     this.isRelativeLoading = true;
 

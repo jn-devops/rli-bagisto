@@ -42,7 +42,7 @@
 
             <div
                 ref="swiperContainer"
-                class="scrollbar-hide mt-[22px] flex overflow-auto max-lg:gap-4 max-sm:mt-[20px] lg:gap-4"
+                class="scrollbar-hide mt-[22px] flex overflow-auto scroll-smooth max-lg:gap-4 max-sm:mt-[20px] lg:gap-4"
             >
                 <x-shop::products.card v-for="product in products"/>
             </div>
