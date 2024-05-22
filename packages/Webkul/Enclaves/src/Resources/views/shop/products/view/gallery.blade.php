@@ -12,7 +12,7 @@
                     v-show="! isMediaLoading"
                     v-if="baseFile.type == 'image'"
                     alt="{{ trans('shop::app.products.view.gallery.product-image') }}" 
-                    class="h-[700px] w-full cursor-pointer rounded-[10px] max-lg:h-[240px]"
+                    class="w-full cursor-pointer rounded-[10px] max-lg:h-[240px] md:h-[650px] lg:h-[700px]"
                     ::src="baseFile.path"
                     @load="onMediaLoad()"
                 >
@@ -79,7 +79,6 @@
         </div>
 
         <div class="mt-[40px] flex flex-wrap gap-[30px] max-sm:gap-[30px]">
-
             <template v-for="option in options">    
                 <span v-show="option" class="flex gap-[10px]">
                     <span class="flex items-center justify-center">
@@ -112,7 +111,7 @@
                         >
                             <img
                                 :src="image.original_image_url"
-                                class="h-[480px] w-full cursor-pointer rounded-[5px] max-lg:h-[280px]"
+                                class="w-full cursor-pointer rounded-[5px] max-lg:h-[280px] md:h-[500px] lg:h-[480px]"
                                 alt="{{ trans('shop::app.products.view.gallery.product-image') }}"
                             />
                         </div>

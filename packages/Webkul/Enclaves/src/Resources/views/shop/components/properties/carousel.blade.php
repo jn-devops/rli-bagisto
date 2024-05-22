@@ -16,13 +16,13 @@
 
             <div class="container relative max-lg:px-[32px] lg:pt-[190px]">
                 <div class="flex justify-center gap-[20px] pb-[25px] max-sm:items-center">
-                    <h3 class="text-[40px] font-bold max-lg:text-[30px]" v-text="title"></h3>
+                    <h3 class="text-[40px] font-bold max-lg:text-[25px]" v-text="title"></h3>
                 </div>
 
                 <div 
-                    class="relative z-10 -m-8 flex justify-between max-lg:top-[50px] lg:top-[130px]" 
+                    class="relative z-10 -m-8 flex justify-between max-lg:top-[120px] lg:top-[130px]" 
                     v-if="categories.length"
-                >
+                    >
                     <span 
                         class="icon-arrow-left-stylish inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#d30a5a] max-sm:p-[8px]"
                         @click="swipeLeft"
@@ -41,9 +41,12 @@
                     class="scrollbar-hide flex gap-4 overflow-auto"
                     >
 
-                    <div class="max-w-[280px] max-lg:min-w-[120px] lg:min-w-[280px]" v-for="category in categories">
+                    <div 
+                        class="max-w-[280px] cursor-pointer max-lg:min-w-[122px] md:min-w-64 lg:min-w-[300px]" 
+                        v-for="category in categories"
+                    >
                         <x-shop::media.images.lazy
-                            class="h-[260px] w-full rounded-3xl transition-all duration-300 group-hover:scale-105 max-lg:h-[128px]"
+                            class="w-full rounded-3xl shadow-inner transition-all duration-300 group-hover:scale-105 max-lg:h-32 md:h-60 lg:h-64"
                             ::src="category.images.community_banner_path ?? category.images.banner_url"
                         ></x-shop::media.images.lazy>
 

@@ -23,7 +23,7 @@
 
         <div class="relative mb-[15px] flex lg:container max-lg:justify-center">
             <img 
-                class="max-h-[165px] max-lg:w-[120px]"
+                class="max-lg:w-[120px] md:min-w-[220px] lg:max-h-[165px]"
                 src="{{ core()->getCurrentChannel()->footer_logo_url ?? bagisto_asset('images/logo.svg') }}" 
                 alt="footer-logo"
             />
