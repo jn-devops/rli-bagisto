@@ -5,6 +5,9 @@ CSS CODE:
 
 ================================================================================
 @media only screen and (max-width: 600px) {
+    .step-image {
+        height: 100% !important;
+    }
     .image-side {
         background-size: 270px !important;
         height: 320px !important;
@@ -55,14 +58,15 @@ CSS CODE:
 .content-step-count {
     background-color: #CC035C;
     color: white;
-    width: 8%;
-    height: 50px;
+    height: 50px !IMPORTANT;
     border-radius: 50%;
     font-weight: 700;
     margin-right: 10px;
     align-items: center;
     display: flex;
     justify-content: center;
+    min-width: 50px !IMPORTANT;
+    max-width: 50px;
 }
 .count-text {
     font-size: 25px;
