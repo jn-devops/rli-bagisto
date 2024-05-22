@@ -27,7 +27,7 @@
 
             <div>
                 <div 
-                    class="relative z-10 -m-8 flex justify-between max-lg:top-[120px] lg:top-[140px]" 
+                    class="relative top-[130px] z-10 -m-8 flex justify-between max-md:top-[80px]" 
                     v-if="blogs.length"
                     >
                     <span 
