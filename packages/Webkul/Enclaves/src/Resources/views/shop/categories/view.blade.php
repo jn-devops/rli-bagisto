@@ -90,6 +90,7 @@
                                             <x-shop::media.images.lazy
                                                 @click="redirectToProduct(product)"
                                                 class="w-full cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
+                                                ::key="imageComponentRerander"
                                                 ::src="product.base_image.medium_image_url"
                                             ></x-shop::media.images.lazy>
 
@@ -176,6 +177,7 @@
                                                 <x-shop::media.images.lazy
                                                     @click="redirectToProduct(product)"
                                                     class="w-full cursor-pointer rounded-sm bg-[#F5F5F5] transition-all duration-300 group-hover:scale-105"
+                                                    ::key="imageComponentRerander"
                                                     ::src="product.base_image.medium_image_url"
                                                 ></x-shop::media.images.lazy>
 
@@ -309,6 +311,8 @@
                         links: {},
 
                         isCustomer: '{{ auth()->guard("customer")->check() }}',
+
+                        imageComponentRerander: 1,
                     }
                 },
 
@@ -350,10 +354,14 @@
                             filter: false,
                         };
 
+                        this.isLoading = true;
+
                         this.$axios.get("{{ route('shop.api.products.index', ['category_id' => $category->id]) }}", {
                             params: this.queryParams 
                         })
                         .then(response => {
+                            ++this.imageComponentRerander;
+
                             this.isLoading = false;
 
                             this.products = response.data.data;

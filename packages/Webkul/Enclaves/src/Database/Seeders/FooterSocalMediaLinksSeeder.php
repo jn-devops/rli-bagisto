@@ -13,19 +13,19 @@ class FooterSocalMediaLinksSeeder extends Seeder
         // For Static social Media Link.
         $socialMediaLinks = [
             [
-                "url"        => "http://192.168.15.214/rli-bagisto/public/facebook",
+                "url"        => "http://192.168.15.214/rli/bagisto/public/facebook",
                 "title"      => "Facebook",
                 "sort_order" => "1",
             ], [
-                "url"        => "http://192.168.15.214/rli-bagisto/public/instagram",
+                "url"        => "http://192.168.15.214/rli/bagisto/public/instagram",
                 "title"      => "Instagram",
                 "sort_order" => "2",
             ], [
-                "url"        => "http://192.168.15.214/rli-bagisto/public/youtube",
+                "url"        => "http://192.168.15.214/rli/bagisto/public/youtube",
                 "title"      => "Youtube",
                 "sort_order" => "3",
             ], [
-                "url"        => "http://192.168.15.214/rli-bagisto/public/tiktok",
+                "url"        => "http://192.168.15.214/rli/bagisto/public/tiktok",
                 "title"      => "Tiktok",
                 "sort_order" => "4",
             ],

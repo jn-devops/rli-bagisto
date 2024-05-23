@@ -190,7 +190,7 @@
                     <div style="font-size: 18px; font-weight: 600; text-wrap: nowrap; margin-bottom:10px;">Scan to pay</div>
 
                     <div>
-                        <img height="200" width="250" src="{{ Storage::url(core()->getConfigData('sales.invoice_settings.invoice_slip_design.logo')) }}" alt="http://192.168.15.214/rli-bagisto/public/storage/theme/pdf-qr/QR-code.svg">
+                        <img height="200" width="250" src="{{ Storage::url(core()->getConfigData('sales.invoice_settings.invoice_slip_design.logo')) }}" alt="http://192.168.15.214/rli/bagisto/public/storage/theme/pdf-qr/QR-code.svg">
                     </div>
                 </td>
                 
