@@ -2,8 +2,8 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-profile-header-template">
-        <section class="mt-[18px] grid grid-cols-3 items-center gap-5 rounded-[1.25rem] bg-[rgba(237,_239,_245)] p-3 max-lg:grid-cols-1">
-            <figure class="w-full items-center justify-start p-3">
+        <section class="mt-[18px] flex items-center gap-5 rounded-[1.25rem] bg-[rgba(237,_239,_245)] p-3 max-lg:grid-cols-1 max-lg:flex-wrap max-lg:justify-center">
+            <figure class="flex items-center justify-start p-3 max-lg:justify-center">
 
                 <x-shop::form
                     class="rounded"
@@ -51,7 +51,7 @@
                 </x-shop::form>
             </figure>
 
-            <article class="flex flex-col gap-y-1.5 pt-2 lg:gap-y-2.5">
+            <article class="flex w-full flex-col gap-y-1.5 pt-2 lg:gap-y-2.5">
                 <h3 class="text-[20px] font-semibold text-black xl:text-[1.565rem] xl:leading-7">
                     {{ $customer->first_name }}
                 </h3>
@@ -73,14 +73,16 @@
                 </h4>
             </article>
             
-            <article class="flex w-full flex-wrap gap-3 rounded-[1.25rem] bg-[rgba(161,_184,_214)] p-5">
+            <article class="flex flex-wrap gap-3 rounded-[1.25rem] bg-[rgba(161,_184,_214)] p-5">
                 <h3 class="text-xl font-semibold text-white xl:text-[1.565rem] xl:leading-7">
                     @lang('enclaves::app.shop.customers.account.customer_profile.header.step') 
                 </h3>
-
-                <button class="font-regular max-w-fit text-balance rounded-full bg-white px-6 py-3.5 text-base leading-4 text-black">
-                    @lang('enclaves::app.shop.customers.account.customer_profile.header.read-now') 
-                </button>
+                
+                <div class="flex w-full justify-end">
+                    <button class="font-regular max-w-fit text-balance rounded-full bg-white px-6 py-3.5 text-base leading-4 text-black">
+                        @lang('enclaves::app.shop.customers.account.customer_profile.header.read-now') 
+                    </button>
+                </div>
             </article>
         </section>
     </script>
@@ -112,10 +114,10 @@
                     formData.append('customer_id', '{{ $customer->id }}')
 
                     this.$axios.post("{{ route('enclaves.customers.account.profile.update') }}", formData)
-                            .then(response => {
-                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
-                            })
-                            .catch(error => {});
+                        .then(response => {
+                            this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                        })
+                        .catch(error => {});
                 }
             }
         })
