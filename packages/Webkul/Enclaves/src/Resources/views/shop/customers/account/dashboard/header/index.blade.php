@@ -1,4 +1,4 @@
-<div class="flex flex-wrap justify-between gap-[18px]">
+<div class="flex justify-between gap-[18px]">
     <div class="flex flex-wrap gap-[25px]">
         <!-- Product Image -->
         <img
@@ -10,7 +10,7 @@
 
     <div class="grid gap-[12px]">
         <!-- Product Details -->
-        <p class="text-[26px] font-bold">
+        <p class="max-w-max text-[26px] font-bold">
             <!-- Dynamic content -->
             @lang('Zoya Studio Condominium Standard Inner Unit')
         </p>
@@ -29,7 +29,7 @@
 
     <!-- Price -->
     <div class="grid gap-[15px] rounded-[20px] bg-[#5890FE] p-[30px]">
-        <p class="break-all text-[30px] font-bold text-white">@lang('₱22,5000.00')</p>
+        <p class="w-max break-all text-[30px] font-bold text-white">@lang('₱22,5000.00')</p>
         <p class="text-base text-white">
             @lang('enclaves::app.shop.customers.account.dashboard.header.total-contract-price')
         </p>

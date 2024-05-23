@@ -413,13 +413,19 @@
                         });
 
                         let priceElement = document.querySelector('.special-price') ? document.querySelector('.special-price') : document.querySelector('.final-price');
+                        
                         let regularPriceElement = document.querySelector('.special-price');
+                        
                         let processingFee = document.querySelector('.processing_fee');
+
+                        let processingFeeText = document.querySelector('.processing_fee_text');
 
                         if (this.childAttributes.length == selectedOptionCount) {
                             priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
                             
                             processingFee.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
+
+                            processingFeeText.style.display = 'block';
 
                             if (regularPriceElement) {
                                 regularPriceElement.innerHTML = this.config.variant_prices[this.simpleProduct].regular.formatted_price;
