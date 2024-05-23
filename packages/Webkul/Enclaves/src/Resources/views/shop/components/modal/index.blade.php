@@ -68,9 +68,9 @@
                     v-show="isOpen"
                 >
                     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                        <div class="mt-[30px] box-shadow absolute left-[50%] top-[50%] z-[999] w-full max-w-[705px] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-[#F5F5F5] max-md:w-[90%] dark:bg-gray-900">
+                        <div class="box-shadow absolute left-[50%] top-[50%] z-[999] mt-[30px] w-full max-w-[705px] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-[#F5F5F5] bg-white max-md:w-[90%] dark:bg-gray-900">
 
-                            <div>
+                            <div class="shadow-md">
                                 <div class="flex items-center justify-between gap-[20px] border-[#E9E9E9] bg-white p-[20px]">
                                     <slot name="header"></slot>
 
@@ -86,7 +86,7 @@
                                 <slot name="content"></slot>
                             </div>
 
-                            <div class="flex justify-end px-[16px] py-[10px]">
+                            <div class="flex justify-end px-[16px] py-[10px] shadow-md">
                                 <slot name="footer"></slot>
                             </div>
                         </div>

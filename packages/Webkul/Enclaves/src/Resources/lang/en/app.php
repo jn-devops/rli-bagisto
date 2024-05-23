@@ -276,6 +276,8 @@ return [
                 ],
 
                 'inquiries' => [
+                    'submit-heading' => 'Submit A Heading',
+                    
                     'title'         => 'Inquiries',
                     'help_test'     => 'How can we help you?',
                     'submit-header' => 'Submit Ticket',

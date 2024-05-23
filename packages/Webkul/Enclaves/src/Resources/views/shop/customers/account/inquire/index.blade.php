@@ -162,7 +162,7 @@
                         <x-shop::modal ref="addInquireModal">
                             <x-slot:header>
                                 <h2 class="text-[20px] font-medium max-sm:text-[22px]">
-                                    @lang('enclaves::app.shop.customers.account.inquiries.submit')
+                                    @lang('enclaves::app.shop.customers.account.inquiries.submit-heading')
                                 </h2>
                             </x-slot:header>
 
@@ -226,7 +226,7 @@
                                             role="button"
                                             for="upload-file"
                                             refs="upload-file"
-                                            class="primary-button my-[15px] flex gap-2 rounded-[18px] border-[#F8EBEB] !bg-[#F8EBEB] px-[20px] py-[8px] text-[#CC035C]"
+                                            class="primary-button my-[15px] flex w-max gap-2 rounded-[18px] border-[#F8EBEB] !bg-[#F8EBEB] px-[20px] py-[8px] text-[#CC035C]"
                                         >
                                             <img 
                                                 src="{{ bagisto_asset('images/upload-file.png') }}" 
