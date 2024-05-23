@@ -107,21 +107,21 @@
                     @guest('customer')
                         <x-slot:content>
                             <div class="grid gap-[10px]">
-                                <p class="font-dmserif text-[20px]">
+                                <p class="text-[24px] font-bold">
                                     @lang('shop::app.components.layouts.header.welcome-guest')
                                 </p>
 
-                                <p class="text-[14px]">
-                                    @lang('shop::app.components.layouts.header.dropdown-text')
+                                <p class="text-[16px]">
+                                    @lang('enclaves::app.shop.components.layouts.header.manage-property')
                                 </p>
                             </div>
 
                             <p class="py-2px mt-[12px] w-full border border-[#E9E9E9]"></p>
 
-                            <div class="mt-[25px] flex gap-[16px]">
+                            <div class="flex justify-items-end gap-[16px]">
                                 <a
                                     href="{{ route('shop.customer.session.create') }}"
-                                    class="m-0 mx-auto ml-[0px] block w-max cursor-pointer rounded-[18px] bg-navyBlue px-[29px] py-[15px] text-center text-base font-medium text-white"
+                                    class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[43px] py-[16px] text-center text-[16px] font-medium text-white"
                                 >
                                     @lang('shop::app.components.layouts.header.sign-in')
                                 </a>
