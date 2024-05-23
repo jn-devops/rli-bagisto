@@ -259,13 +259,6 @@ class UploadFileController extends Controller
 
         $csvData = (new DataGridImport())->toArray($productFileRecord->file_path)[0];
 
-        if(count($csvData[0]) > 41) {
-            return response()->json([
-                'error'   => true,
-                'message' => 'Invalid File found. please remove null column value after super_attribute field.',
-            ]);
-        }
-
         $csvImageData = (new DataGridImport())->toArray($productFileRecord->file_path)[2] ?? [];
 
         // Check booking type product is not supported

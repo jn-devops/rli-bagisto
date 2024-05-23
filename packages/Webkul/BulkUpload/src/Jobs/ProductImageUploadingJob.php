@@ -60,30 +60,36 @@ class ProductImageUploadingJob implements ShouldQueue
             }
 
             foreach (json_decode($images['url_links']) as $image) {
-                $response = Http::get($image);
 
-                if ($response->successful()) {
-                    $manager = new ImageManager();
+                try {
+                    $response = Http::get($image);
 
-                    $fileName = Str::random(40) . '.webp';
+                    if ($response->successful()) {
+                        $manager = new ImageManager();
 
-                    $dir = 'product/'. $product->id;
+                        $fileName = Str::random(40) . '.webp';
 
-                    $file = $dir . '/' . $fileName;
-    
-                    $image = $manager->make($response->body())->encode('webp');
-                    
+                        $dir = 'product/'. $product->id;
 
-                    Storage::put($file, $image);
+                        $file = $dir . '/' . $fileName;
+        
+                        $image = $manager->make($response->body())->encode('webp');
+                        
 
-                    app(ProductImageRepository::class)->create([
-                        'path'       => $file,
-                        'product_id' => $product->id,
-                    ]);
+                        Storage::put($file, $image);
 
-                } elseif($response->status() === 404) {
-                    Log::info('================ Bulk Image Uploader: if Image Not Found ================');
+                        app(ProductImageRepository::class)->create([
+                            'path'       => $file,
+                            'product_id' => $product->id,
+                        ]);
 
+                    } elseif($response->status() === 404) {
+                        Log::info('================ Bulk Image Uploader: if Image Not Found ================');
+
+                        Log::info($image);
+                    }
+                } catch (\Throwable $th) {
+                    //throw $th;
                     Log::info($image);
                 }
             }
