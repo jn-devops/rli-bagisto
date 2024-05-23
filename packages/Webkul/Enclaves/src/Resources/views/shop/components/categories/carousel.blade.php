@@ -51,13 +51,13 @@
                 </div>
 
                 <span
-                    class="icon-arrow-left-stylish absolute -left-[41px] top-[37px] flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-black bg-white text-[25px] transition hover:bg-black hover:text-white max-lg:-left-[29px]"
+                    class="icon-arrow-left absolute -left-[41px] top-[37px] flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-black bg-white text-[25px] transition hover:bg-black hover:text-white max-lg:-left-[29px]"
                     @click="swipeLeft"
                 >
                 </span>
 
                 <span
-                    class="icon-arrow-right-stylish absolute -right-[22px] top-[37px] flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-black bg-white text-[25px] transition hover:bg-black hover:text-white max-lg:-right-[29px]"
+                    class="icon-arrow-right absolute -right-[22px] top-[37px] flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-black bg-white text-[25px] transition hover:bg-black hover:text-white max-lg:-right-[29px]"
                     @click="swipeRight"
                 >
                 </span>
