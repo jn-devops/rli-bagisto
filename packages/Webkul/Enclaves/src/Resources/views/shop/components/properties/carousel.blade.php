@@ -17,7 +17,7 @@
 
             <div class="container relative max-lg:px-[32px] lg:pt-[50px]">
                 <div class="mt-7 flex justify-center gap-[20px] pb-[50px] max-sm:items-center">
-                    <h3 class="text-[40px] font-bold max-lg:text-[25px]" v-text="title"></h3>
+                    <h3 class="text-[40px] font-bold max-lg:text-[20px]" v-text="title"></h3>
                 </div>
 
                 <div 

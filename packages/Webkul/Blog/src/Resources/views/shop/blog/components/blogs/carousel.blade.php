@@ -20,7 +20,7 @@
             v-if="blogs.length > 0"
             >
             <div class="rli-title max-sm:text-6 mb-10 mt-6 max-w-[1024px]">
-                <p class="text-[40px] font-bold max-lg:text-[25px]">
+                <p class="text-[40px] font-bold max-lg:text-[20px]">
                     @lang('News & Updates')
                 </p>
             </div>

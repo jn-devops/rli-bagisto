@@ -17,8 +17,8 @@
         </div>
 
         <!-- Section new place made just for you -->
-        <div v-else class="container bg-[#CC035C] py-[60px] max-lg:px-[32px]">
-            <h1 class="mb-[30px] text-[40px] font-bold text-white max-lg:text-[25px]">
+        <div v-else class="container bg-[#CC035C] py-[60px] max-lg:px-[32px] max-668:relative max-668:bg-[unset] max-668:py-[10px]">
+            <h1 class="mb-[30px] text-[40px] font-bold text-white max-lg:max-w-[70%] max-lg:text-[20px] max-668:text-black">
                 @lang('enclaves::app.shop.components.products.our')
 
                     <span class="text-[#F39C12]">@lang('enclaves::app.shop.components.products.hopeful-place')</span>
@@ -47,9 +47,9 @@
                 <x-shop::products.card v-for="product in products"/>
             </div>
 
-            <div class="mt-[30px] flex justify-end">
-                <a href="{{ route('enclaves.products.index') }}" class="font-bold text-white underline">
-                    @lang('enclaves::app.shop.components.products.view-all')
+            <div class="mt-[30px] flex justify-end max-668:absolute max-668:-top-[15px] max-668:right-[10px]">
+                <a href="{{ route('enclaves.products.index') }}" class="text-[25px] font-bold text-white underline max-lg:text-[14px] max-668:text-[#CC035C]">
+                    @lang('enclaves::app.shop.components.products.all-products')
                 </a>
             </div>
         </div>
