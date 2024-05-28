@@ -393,8 +393,9 @@ return [
             'products' => [
                 'our'           => 'Our',
                 'made-just'     => 'made just for you',
-                'hopeful-place' => 'Hopeful Place',
+                'hopeful-place' => 'Homeful Place',
                 'view-all'      => 'View all Product',
+                'all-products'  => 'All Products',
             ],
         ],
     ],
