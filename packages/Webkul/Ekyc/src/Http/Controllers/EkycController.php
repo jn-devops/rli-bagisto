@@ -53,7 +53,7 @@ class EkycController extends Controller
     /**
      * EndPoint URL
      */
-    private function getSiteVerifyEndpoint(string $sku, string $transaction_id): string
+    private function getSiteVerifyEndPoint(string $sku, string $transaction_id): string
     {
         /**
          * In Production.
@@ -85,7 +85,7 @@ class EkycController extends Controller
         ]);
 
         return new JsonResource([
-            'redirect' => $this->getSiteVerifyEndpoint($product->sku, $transaction_id),
+            'redirect' => $this->getSiteVerifyEndPoint($product->sku, $transaction_id),
         ]);
     }
 
@@ -186,7 +186,7 @@ class EkycController extends Controller
 
         if ($ekycVerification) {
             return new JsonResource([
-                'url'    => $this->getSiteVerifyEndpoint($product->sku, $ekycVerification->transaction_id),
+                'url'    => $this->getSiteVerifyEndPoint($product->sku, $ekycVerification->transaction_id),
                 'status' => $ekycVerification->status,
             ]);
         }
