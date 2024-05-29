@@ -471,7 +471,7 @@
   .icon-carports:before {
     content: "\e94e";
   }
-  .icon-floor-area:before {
+  .icon-floor_area:before {
     content: "\e94f";
   }
   .icon-first_floor:before {
@@ -480,7 +480,7 @@
   .icon-ground_floor:before {
     content: "\e950";
   }
-  .icon-lot-area:before {
+  .icon-lot_area:before {
     content: "\e951";
   }
   .icon-t_and_b:before {
