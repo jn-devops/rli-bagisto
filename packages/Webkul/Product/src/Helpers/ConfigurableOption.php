@@ -191,7 +191,10 @@ class ConfigurableOption
 
         foreach ($this->getAllowedVariants($product) as $variant) {
             $variants[$variant->id] = collect(app(ProductViewHelper::class)->getAdditionalData($variant))->filter(function ($var) {
-                return in_array($var['code'], ['carports','bedrooms', 't_and_b', 'unit_type']);
+                // Add attribute code under array. which is display on product page
+                $attributeCodes = ['carports','bedrooms','t_and_b'];
+
+                return in_array($var['code'], $attributeCodes);
             });
         }
 
