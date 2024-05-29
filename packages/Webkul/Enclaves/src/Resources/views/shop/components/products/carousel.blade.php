@@ -48,8 +48,12 @@
             </div>
 
             <div class="mt-[30px] flex justify-end max-668:absolute max-668:-top-[15px] max-668:right-[10px]">
-                <a href="{{ route('enclaves.products.index') }}" class="text-[25px] font-bold text-white underline max-lg:text-[14px] max-668:text-[#CC035C]">
+                <a href="{{ route('enclaves.products.index') }}" class="text-[25px] font-bold text-white underline max-lg:text-[14px] max-668:text-[#CC035C] lg:hidden">
                     @lang('enclaves::app.shop.components.products.all-products')
+                </a>
+
+                <a href="{{ route('enclaves.products.index') }}" class="text-[25px] font-bold text-white underline max-lg:hidden max-lg:text-[14px] max-668:text-[#CC035C]">
+                    @lang('enclaves::app.shop.components.products.view-all')
                 </a>
             </div>
         </div>

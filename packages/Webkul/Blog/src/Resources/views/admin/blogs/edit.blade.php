@@ -331,8 +331,7 @@
                         <input 
                             type="hidden"
                             name="status"
-                            id="status"
-                            value="{{ $blog->status }}">
+                            value="0">
                         
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="font-medium text-gray-800 dark:text-white">
@@ -345,15 +344,15 @@
 
                             <x-admin::form.control-group.control
                                 type="switch"
-                                name="status_switch"
-                                id="status_switch"
-                                class="cursor-pointer"
+                                name="status"
+                                id="status"
                                 value="1"
                                 :label="trans('blog::app.blog.edit.status')"
                                 :checked="(boolean) $selectedValueStatus"
                             >
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
+
                         <!-- Author -->
                         @php
 
