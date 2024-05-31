@@ -17,8 +17,13 @@ class ProductController extends Controller
      *
      * @var int Status
      */
-    const STATUS = 1;
+    protected const STATUS = 1;
     
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct(
         protected ProductRepository $productRepository,
         protected CustomerRepository $customerRepository,
@@ -28,6 +33,11 @@ class ProductController extends Controller
     ) {
     }
 
+    /**
+     * Show the view for the specified resource.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('enclaves::products-list.view', [

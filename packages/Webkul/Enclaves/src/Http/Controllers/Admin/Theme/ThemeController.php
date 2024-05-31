@@ -13,6 +13,16 @@ use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 class ThemeController extends Controller
 {
     /**
+     * @return string
+     */
+    protected const IMAGE_CAROUSEL = 'image_carousel';
+
+    /**
+     * @return string
+     */
+    protected const STATIC_CONTENT = 'static_content';
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -54,7 +64,7 @@ class ThemeController extends Controller
 
         $data['status'] = request()->input('status') == 'on';
 
-        if ($data['type'] == 'image_carousel') {
+        if ($data['type'] == self::IMAGE_CAROUSEL) {
             unset($data['options']);
         }
 
@@ -62,7 +72,7 @@ class ThemeController extends Controller
        
         $theme = $this->themeCustomizationRepository->update($data, $id);
 
-        if ($data['type'] == 'image_carousel') {
+        if ($data['type'] == self::IMAGE_CAROUSEL) {
             $this->uploadImage(
                 request()->all(),
                 $theme
@@ -111,7 +121,7 @@ class ThemeController extends Controller
 
                 if (
                     isset($imageOptions['type'])
-                    && $imageOptions['type'] == 'static_content'
+                    && $imageOptions['type'] == self::STATIC_CONTENT
                 ) {
                     return Storage::url($path);
                 }
@@ -140,7 +150,7 @@ class ThemeController extends Controller
 
                     if (
                         isset($imageOptions['type'])
-                        && $imageOptions['type'] == 'static_content'
+                        && $imageOptions['type'] == self::STATIC_CONTENT
                     ) {
                         return Storage::url($path);
                     }

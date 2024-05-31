@@ -24,6 +24,11 @@ class CategoryController extends Controller
      */
     protected const LIMIT = 10;
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct(
         protected CategoryRepository $categoryRepository,
     ) {

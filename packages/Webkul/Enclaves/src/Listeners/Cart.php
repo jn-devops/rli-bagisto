@@ -26,7 +26,7 @@ class Cart
             $attributeInValue = 0;
 
             if ($attributeValue) {
-                $attributeInValue = ((float) $attributeValue->float_value);
+                $attributeInValue = (float) $attributeValue->float_value;
             }
 
             $cart->processing_fee = $attributeInValue;

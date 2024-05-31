@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Webkul\Enclaves\Http\Controllers\Controller;
 
-class ReadProductUrlController extends Controller
+class ReadUrlProductController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,7 @@ class ReadProductUrlController extends Controller
      * @param int
      * @return \Illuminate\Http\JsonResponse
      */
-    public function readUrls($id)
+    public function index($id)
     {
         $this->validate(request(), [
             'urls' => 'required',

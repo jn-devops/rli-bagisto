@@ -9,7 +9,7 @@ use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Enclaves\Http\Controllers\Controller;
 
-class ReadChannelUrlController extends Controller
+class ReadUrlChannelController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,7 @@ class ReadChannelUrlController extends Controller
      * @param int
      * @return \Illuminate\Http\JsonResponse
      */
-    public function readUrl()
+    public function index()
     {
         $this->validate(request(), [
             'link' => 'required',

@@ -105,27 +105,27 @@
                         <div class="relative m-auto">
                             <div
                                 v-for="(image, index) in media.images"
-                                class="fade p-4"
+                                class="fade px-2.5 pb-2.5 pt-0"
                                 ref="slides"
                                 :key="index"
                                 aria-label="Image Slide"
                             >
                                 <img
                                     :src="image.original_image_url"
-                                    class="w-full cursor-pointer rounded-[5px] max-lg:h-[280px] md:h-[500px] lg:h-[480px]"
+                                    class="w-full cursor-pointer rounded-[5px] shadow-2xl max-lg:h-[360px] md:h-[470px] lg:h-[480px]"
                                     alt="{{ trans('shop::app.products.view.gallery.product-image') }}"
                                 />
                             </div>
 
                             <span
-                                class="icon-arrow-left absolute left-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[rgba(0,0,0,0.8)] p-[12px] text-[24px] font-bold text-white opacity-30 transition-all hover:opacity-100"
+                                class="icon-arrow-left absolute left-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[12px] text-[24px] font-bold text-white opacity-70 transition-all hover:opacity-100"
                                 v-if="media.images?.length >= 2"
                                 @click="navigate(currentIndex -= 1)"
                             >
                             </span>
 
                             <span
-                                class="icon-arrow-right absolute right-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[rgba(0,0,0,0.8)] p-[12px] text-[24px] font-bold text-white opacity-30 transition-all hover:opacity-100"
+                                class="icon-arrow-right absolute right-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[12px] text-[24px] font-bold text-white opacity-70 transition-all hover:opacity-100"
                                 v-if="media.images?.length >= 2"
                                 @click="navigate(currentIndex += 1)"
                             >

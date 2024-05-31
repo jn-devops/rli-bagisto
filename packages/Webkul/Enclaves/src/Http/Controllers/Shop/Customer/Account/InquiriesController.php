@@ -11,6 +11,8 @@ class InquiriesController extends AbstractController
 {
     /**
      * Create a new controller instance.
+     *
+     * @return void
      */
     public function __construct(
         protected TicketsRepository $ticketsRepository,

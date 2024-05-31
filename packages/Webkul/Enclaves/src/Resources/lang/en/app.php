@@ -342,6 +342,8 @@ return [
             'bedrooms'        => 'Bedrooms',
             't_and_b'         => 'Toilet and Bath:',
             'unit'            => 'Unit',
+            'property-code'   => 'Property Code: ',
+            'reserve'         => 'Reserve',
             
             'cart'            => [
                 'add-to-cart' => 'Choose Unit',

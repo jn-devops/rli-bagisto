@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Category\Repositories\CategoryRepository;
 
-class ReadCategoryUrlController extends Controller
+class ReadUrlCategoryController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,7 +28,7 @@ class ReadCategoryUrlController extends Controller
      * @param int
      * @return \Illuminate\Http\JsonResponse
      */
-    public function readUrl($id)
+    public function index($id)
     {
         $this->validate(request(), [
             'url'  => 'required',

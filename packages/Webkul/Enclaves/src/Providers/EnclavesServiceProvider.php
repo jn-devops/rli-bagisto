@@ -30,6 +30,8 @@ class EnclavesServiceProvider extends ServiceProvider
         require __DIR__.'/../Routes/breadcrumbs.php';
         
         $this->app->register(EventServiceProvider::class);
+
+        $this->app->register(ModuleServiceProvider::class);
     }
 
     /**

@@ -9,7 +9,11 @@ use Webkul\Checkout\Repositories\CartRepository;
 
 class EkycController extends Controller
 {
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct(
         protected CartRepository $cartRepository,
     ) {
@@ -21,16 +25,17 @@ class EkycController extends Controller
     public function index(): JsonResource
     {
         if (auth()->guard()->check()) {
-            $cart = $this->cartRepository
-                        ->with('items')
+            $cart = $this->cartRepository->with('items')
                         ->findOneWhere([
                             'customer_id' => auth()->guard()->user()->id,
                             'is_active'   => 1,
                         ]);
+
         } elseif (session()->has('cart')) {
             $cart = $this->cartRepository
                         ->with('items')
                         ->find(session()->get('cart')->id);
+    
         }
 
         $productSlug = '';
