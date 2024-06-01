@@ -65,8 +65,7 @@ class TransactionController extends AbstractController
                         })
                         ->firstOrFail();
 
-        return $this->downloadPDF(
-            view('shop::customers.account.transaction.pdf', compact('invoice'))->render(),
+        return $this->downloadPDF(view('shop::customers.account.transaction.pdf', compact('invoice'))->render(),
             'invoice-' . $invoice->created_at->format('d-m-Y')
         );
     }

@@ -420,10 +420,14 @@
 
                         let processingFeeText = document.querySelector('.processing_fee_text');
 
+                        //let processingFeeMobile = document.querySelector('.processing_fee_mobile');
+
                         if (this.childAttributes.length == selectedOptionCount) {
                             priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
                             
                             processingFee.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
+
+                           // processingFeeMobile.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
 
                             processingFeeText.style.display = 'block';
 

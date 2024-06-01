@@ -2,10 +2,8 @@
 
 namespace Webkul\Enclaves\Listeners;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Core\Repositories\ChannelRepository;
-
 
 class ThemeListener
 {

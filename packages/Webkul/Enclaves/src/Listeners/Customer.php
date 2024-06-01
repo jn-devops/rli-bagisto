@@ -3,7 +3,6 @@
 namespace Webkul\Enclaves\Listeners;
 
 use Illuminate\Support\Facades\Mail;
-use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Enclaves\Mail\Customer\NewCustomerNotification;
 use Webkul\Enclaves\Mail\Customer\UpdateCustomerNotification;
 

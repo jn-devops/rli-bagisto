@@ -3,9 +3,9 @@
 namespace Webkul\Enclaves\Providers;
 
 use Illuminate\Support\Facades\Event;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Webkul\Enclaves\Listeners\ThemeListener;
 use Webkul\Enclaves\Helpers\Product\ProductImageUpdate;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {

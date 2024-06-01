@@ -12,8 +12,9 @@ class Currency
      *
      * @return void
      */
-    public function __construct(protected CurrencyRepository $currencyRepository)
-    {
+    public function __construct(
+        protected CurrencyRepository $currencyRepository
+    ) {
     }
 
     /**
