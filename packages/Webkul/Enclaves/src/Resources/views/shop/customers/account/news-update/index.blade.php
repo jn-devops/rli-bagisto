@@ -20,7 +20,7 @@
     @pushOnce('scripts')
         <script type="text/x-template" id="v-news-update-template">
             <!-- documents Information -->
-            <div class="mt-[50px] flex-wrap gap-[32px] max-1280:grid-cols-1 max-sm:mt-[60px]">
+            <div class="mt-[50px] flex-wrap gap-[32px] max-1280:grid-cols-1 max-lg:mt-[60px]">
                 {!! view_render_event('bagisto.shop.customers.account.document.before') !!}
               
                     <section 
@@ -53,7 +53,7 @@
 
                                     <button
                                         @click="viewBlog(blog)"
-                                        class="w-fit rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[10px] font-semibold text-white max-sm:text-[14px] lg:text-nowrap"
+                                        class="w-fit rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[10px] font-semibold text-white max-lg:text-[14px] lg:text-nowrap"
                                     >
                                         @lang('enclaves::app.shop.customers.account.news-updates.index.promotions.read-more')
                                     </button>

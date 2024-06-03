@@ -96,7 +96,7 @@
                 v-else
             >
                 <!-- Search Panel -->
-                <div class="flex max-w-[445px] items-center max-sm:w-full max-sm:max-w-full">
+                <div class="flex max-w-[445px] items-center max-lg:w-full max-lg:max-w-full">
                     <div class="relative w-full">
                         <input
                             type="text"

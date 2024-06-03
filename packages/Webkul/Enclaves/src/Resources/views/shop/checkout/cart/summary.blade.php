@@ -21,12 +21,12 @@
             v-for="(amount, index) in cart.base_tax_amounts"
             v-if="parseFloat(cart.base_tax_total)"
         >
-            <p class="text-[16px] max-sm:text-[14px] max-sm:font-normal">
+            <p class="text-[16px] max-lg:text-[14px] max-lg:font-normal">
                 @lang('shop::app.checkout.cart.summary.tax') (@{{ index }})%
             </p>
 
             <p 
-                class="text-[16px] font-medium max-sm:text-[14px] max-sm:font-medium"
+                class="text-[16px] font-medium max-lg:text-[14px] max-lg:font-medium"
                 v-text="amount"
             >
             </p>

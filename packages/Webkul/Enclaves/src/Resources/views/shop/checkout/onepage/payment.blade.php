@@ -19,7 +19,7 @@
                     <x-shop::accordion>
                         <x-slot:header>
                             <div class="flex justify-between items-center">
-                                <h2 class="text-[26px] font-medium max-sm:text-[20px]">
+                                <h2 class="text-[26px] font-medium max-lg:text-[20px]">
                                     @lang('shop::app.checkout.onepage.payment.payment-method')
                                 </h2>
                             </div>
@@ -28,7 +28,7 @@
                         <x-slot:content>
                             <div class="flex flex-wrap gap-[29px] mt-[30px]">
                                 <div 
-                                    class="relative max-sm:max-w-full max-sm:flex-auto cursor-pointer"
+                                    class="relative max-lg:max-w-full max-lg:flex-auto cursor-pointer"
                                     v-for="(payment, index) in payment_methods"
                                 >
 
@@ -51,7 +51,7 @@
 
                                     <label 
                                         :for="payment.method" 
-                                        class="w-[190px] p-[20px] block border border-[#E9E9E9] rounded-[12px] max-sm:w-full cursor-pointer"
+                                        class="w-[190px] p-[20px] block border border-[#E9E9E9] rounded-[12px] max-lg:w-full cursor-pointer"
                                     >
 
                                         <img

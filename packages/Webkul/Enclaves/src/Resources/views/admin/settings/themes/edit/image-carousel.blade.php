@@ -207,7 +207,7 @@
                 </div>
             
                 <!-- General -->
-                <div class="flex w-[360px] max-w-full flex-col gap-2 max-sm:w-full">
+                <div class="flex w-[360px] max-w-full flex-col gap-2 max-lg:w-full">
                     <x-admin::accordion>
                         <x-slot:header>
                             <p class="p-2.5 text-base font-semibold text-gray-800 dark:text-white">

@@ -144,7 +144,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="max-sm:hidden">
+                                    <div class="max-lg:hidden">
                                         <p 
                                             class="text-[18px] font-semibold" 
                                             v-html="item.product.min_price"

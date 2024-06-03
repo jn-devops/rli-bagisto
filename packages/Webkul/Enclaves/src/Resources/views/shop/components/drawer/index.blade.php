@@ -24,7 +24,7 @@
 
     @isset($content)
         <template v-slot:content>
-            <div class="px-[25px] overflow-auto flex-1 max-sm:px-[15px]">
+            <div class="px-[25px] overflow-auto flex-1 max-lg:px-[15px]">
                 {{ $content }}
             </div>
         </template>
@@ -79,7 +79,7 @@
                 :leave-to-class="enterFromLeaveToClasses"
             >
                 <div
-                    class="fixed z-[1000] bg-white overflow-hidden max-sm:!w-full"
+                    class="fixed z-[1000] bg-white overflow-hidden max-lg:!w-full"
                     :class="{
                         'inset-x-0 top-0': position == 'top',
                         'inset-x-0 bottom-0': position == 'bottom',
@@ -93,7 +93,7 @@
                         <div class="flex flex-col h-full w-full">
                             <div class="flex-1 min-h-0 min-w-0 overflow-auto">
                                 <div class="flex flex-col h-full">
-                                    <div class="grid gap-y-[10px] p-[25px] pb-[20px] max-sm:px-[15px]">
+                                    <div class="grid gap-y-[10px] p-[25px] pb-[20px] max-lg:px-[15px]">
                                         <!-- Content Slot -->
                                         <slot name="header"></slot>
 

@@ -447,7 +447,7 @@
         <div class="mt-[42px] flex flex-wrap justify-between gap-x-[64px] gap-y-[30px] border-t-[1px] border-[#E9E9E9] pt-[26px]">
 
             <!-- Payment Method --->
-            <div class="grid max-w-[200px] place-content-baseline gap-[15px] max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-sm:max-w-full">
+            <div class="grid max-w-[200px] place-content-baseline gap-[15px] max-868:w-full max-868:max-w-full max-md:max-w-[200px] max-lg:max-w-full">
                 <p class="text-[16px] text-[#6E6E6E]">
                     @lang('shop::app.customers.account.orders.view.payment-method')
                 </p>

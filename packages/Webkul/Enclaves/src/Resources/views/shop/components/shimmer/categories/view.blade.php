@@ -1,4 +1,4 @@
-<div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
+<div class="container px-[60px] max-lg:px-[30px] max-lg:px-[15px]">
     <div class="flex gap-[40px] md:mt-[40px] items-start max-lg:gap-[20px]">
         <!-- Desktop Filter Shimmer Effect -->
         <div class="max-md:hidden">
@@ -17,7 +17,7 @@
                     <x-shop::shimmer.products.cards.list count="12"></x-shop::shimmer.products.cards.list>
                 </div>
             @else
-                <div class="grid grid-cols-3 gap-8 mt-[30px] max-sm:mt-[20px] max-1060:grid-cols-2 max-sm:justify-items-center max-sm:gap-[16px]">
+                <div class="grid grid-cols-3 gap-8 mt-[30px] max-lg:mt-[20px] max-1060:grid-cols-2 max-lg:justify-items-center max-lg:gap-[16px]">
                     <!-- Product Card Shimmer Effect -->
                     <x-shop::shimmer.products.cards.grid count="12"></x-shop::shimmer.products.cards.grid> 
                 </div> 

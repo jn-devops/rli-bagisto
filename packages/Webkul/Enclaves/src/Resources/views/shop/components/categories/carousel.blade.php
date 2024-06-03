@@ -11,11 +11,11 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-categories-carousel-template">
-        <div class="container mt-[60px] max-lg:px-[30px] max-sm:mt-[20px]" v-if="! isLoading && categories?.length">
+        <div class="container mt-[60px] max-lg:px-[30px] max-lg:mt-[20px]" v-if="! isLoading && categories?.length">
             <div class="relative">
                 <div
                     ref="swiperContainer"
-                    class="scrollbar-hide flex gap-10 overflow-auto scroll-smooth max-sm:gap-4"
+                    class="scrollbar-hide flex gap-10 overflow-auto scroll-smooth max-lg:gap-4"
                 >
                     <div
                         class="grid min-w-[120px] max-w-[120px] grid-cols-1 justify-items-center gap-[15px] font-medium"
@@ -42,7 +42,7 @@
                             class=""
                         >
                             <p
-                                class="text-center text-[18px] text-black max-sm:font-normal"
+                                class="text-center text-[18px] text-black max-lg:font-normal"
                                 v-text="category.name"
                             >
                             </p>

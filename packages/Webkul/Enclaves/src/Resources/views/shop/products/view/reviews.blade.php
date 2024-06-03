@@ -139,7 +139,7 @@
                             </x-shop::form.control-group>
 
 
-                            <div class="flex gap-[15px] justify-start max-sm:flex-wrap mt-4 max-sm:justify-center max-sm:mb-[20px] max-xl:mb-[20px]">
+                            <div class="flex gap-[15px] justify-start max-lg:flex-wrap mt-4 max-lg:justify-center max-lg:mb-[20px] max-xl:mb-[20px]">
                                 <button
                                     class="primary-button w-full max-w-[374px] py-[16px] px-[43px] rounded-[18px] text-center"
                                     type='submit'
@@ -149,7 +149,7 @@
                                 
                                 <button
                                     type="button"
-                                    class="secondary-button items-center px-[30px] py-[10px] rounded-[18px] max-sm:w-full max-sm:max-w-[374px]"
+                                    class="secondary-button items-center px-[30px] py-[10px] rounded-[18px] max-lg:w-full max-lg:max-w-[374px]"
                                     @click="canReview = false"
                                 >
                                     @lang('shop::app.products.view.reviews.cancel')
@@ -169,8 +169,8 @@
 
                 <template v-else>
                     <!-- Review Section Header -->
-                    <div class="flex gap-[15px] items-center justify-between  max-sm:flex-wrap">
-                        <h3 class="font-dmserif text-[30px] max-sm:text-[22px]">
+                    <div class="flex gap-[15px] items-center justify-between  max-lg:flex-wrap">
+                        <h3 class="font-dmserif text-[30px] max-lg:text-[22px]">
                             @lang('shop::app.products.view.reviews.customer-review')
                         </h3>
                         
@@ -191,8 +191,8 @@
 
                     <template v-if="reviews.length">
                         <!-- Average Rating Section -->
-                        <div class="flex gap-[15px] justify-between items-center max-w-[365px] mt-[30px] max-sm:flex-wrap">
-                            <p class="text-[30px] font-medium max-sm:text-[16px]">{{ number_format($avgRatings, 1) }}</p>
+                        <div class="flex gap-[15px] justify-between items-center max-w-[365px] mt-[30px] max-lg:flex-wrap">
+                            <p class="text-[30px] font-medium max-lg:text-[16px]">{{ number_format($avgRatings, 1) }}</p>
 
                             <x-shop::products.star-rating :value="$avgRatings"></x-shop::products.star-rating>
 
@@ -205,7 +205,7 @@
                         <div class="flex gap-x-[20px] items-center">
                             <div class="flex gap-y-[18px] flex-wrap max-w-[365px] mt-[10px]">
                                 @for ($i = 5; $i >= 1; $i--)
-                                    <div class="flex gap-x-[25px] items-center max-sm:flex-wrap">
+                                    <div class="flex gap-x-[25px] items-center max-lg:flex-wrap">
                                         <div class="text-[16px] font-medium">{{ $i }} Stars</div>
                                         <div class="h-[16px] w-[275px] max-w-full bg-[#E5E5E5] rounded-[2px]">
                                             <div class="h-[16px] bg-[#FEA82B] rounded-[2px]" style="width: {{ $percentageRatings[$i] }}%"></div>
@@ -249,10 +249,10 @@
 
     {{-- Product Review Item Template --}}
     <script type="text/x-template" id="v-product-review-item-template">
-        <div class="flex gap-[20px] p-[25px] border border-[#e5e5e5] rounded-[12px] max-sm:flex-wrap max-xl:mb-[20px]">
+        <div class="flex gap-[20px] p-[25px] border border-[#e5e5e5] rounded-[12px] max-lg:flex-wrap max-xl:mb-[20px]">
             <div>
                 <div
-                    class="flex justify-center items-center min-h-[100px] max-h-[100px] min-w-[100px] max-w-[100px] rounded-[12px] bg-[#F5F5F5] max-sm:hidden"
+                    class="flex justify-center items-center min-h-[100px] max-h-[100px] min-w-[100px] max-w-[100px] rounded-[12px] bg-[#F5F5F5] max-lg:hidden"
                     :title="review.name"
                 >
                     <span
@@ -266,7 +266,7 @@
             <div class="w-full">
                 <div class="flex justify-between">
                     <p
-                        class="text-[20px] font-medium max-sm:text-[16px]"
+                        class="text-[20px] font-medium max-lg:text-[16px]"
                         v-text="review.name"
                     >
                     </p>
@@ -281,19 +281,19 @@
                 </div>
 
                 <p
-                    class="mt-[10px] text-[14px] font-medium max-sm:text-[12px]"
+                    class="mt-[10px] text-[14px] font-medium max-lg:text-[12px]"
                     v-text="review.created_at"
                 >
                 </p>
 
                 <p
-                    class="mt-[20px] text-[16px] text-[#6E6E6E] font-semibold max-sm:text-[12px]"
+                    class="mt-[20px] text-[16px] text-[#6E6E6E] font-semibold max-lg:text-[12px]"
                     v-text="review.title"
                 >
                 </p>
 
                 <p
-                    class="mt-[20px] text-[16px] text-[#6E6E6E] max-sm:text-[12px]"
+                    class="mt-[20px] text-[16px] text-[#6E6E6E] max-lg:text-[12px]"
                     v-text="review.comment"
                 >
                 </p>

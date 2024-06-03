@@ -6,7 +6,7 @@
 
     <div>
         <div class="flex flex-wrap gap-[30px] mt-[30px]">
-            <div class="relative max-w-[217px] select-none max-sm:max-w-full max-sm:flex-auto">
+            <div class="relative max-w-[217px] select-none max-lg:max-w-full max-lg:flex-auto">
                 <span class="shimmer w-[24px] h-[24px] absolute ltr:right-[20px] rtl:left-[20px] top-[20px] rounded-full"></span>
 
                 <label class="block p-[20px] border border-[#E9E9E9] rounded-[12px] ">
@@ -17,7 +17,7 @@
                 </label>
             </div>
 
-            <div class="relative max-w-[217px] select-none max-sm:max-w-full max-sm:flex-auto ">
+            <div class="relative max-w-[217px] select-none max-lg:max-w-full max-lg:flex-auto ">
                 <span class="shimmer w-[24px] h-[24px] absolute ltr:right-[20px] rtl:left-[20px] top-[20px] rounded-full"></span>
 
                 <label class="block p-[20px] border border-[#E9E9E9] rounded-[12px] ">

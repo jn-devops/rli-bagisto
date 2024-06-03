@@ -116,7 +116,7 @@
                                     class="px-6 py-[16px] text-black font-medium border border-[#B9B9B9]"
                                 >
                                     <span
-                                        class="cursor-pointer rounded-[6px] p-[6px] text-[24px] transition-all hover:bg-gray-200 max-sm:place-self-center"
+                                        class="cursor-pointer rounded-[6px] p-[6px] text-[24px] transition-all hover:bg-gray-200 max-lg:place-self-center"
                                         :class="action.icon"
                                         v-text="!action.icon ? action.title : ''"
                                         v-for="action in record.actions"

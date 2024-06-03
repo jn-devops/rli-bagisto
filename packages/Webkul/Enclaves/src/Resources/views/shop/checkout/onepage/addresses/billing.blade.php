@@ -3,7 +3,7 @@
         <x-shop::accordion class="!border-b-[0px]">
             <x-slot:header >
                 <div class="flex justify-between items-center">
-                    <h2 class="text-[26px] font-medium max-sm:text-[20px]">
+                    <h2 class="text-[26px] font-medium max-lg:text-[20px]">
                         @lang('shop::app.checkout.onepage.addresses.billing.billing-address')
                     </h2>
                 </div>
@@ -14,9 +14,9 @@
                     @submit.preventDefault 
                     v-slot="{ meta, errors }"
                 >
-                    <div class="grid gap-[20px] grid-cols-2 mt-[30px] max-1060:grid-cols-[1fr] max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:mt-[15px]">
+                    <div class="grid gap-[20px] grid-cols-2 mt-[30px] max-1060:grid-cols-[1fr] max-lg:grid-cols-2 max-lg:grid-cols-1 max-lg:mt-[15px]">
                         <div 
-                            class="relative max-w-[414px] p-[0px] border border-[#e5e5e5] rounded-[12px] max-sm:flex-wrap select-none cursor-pointer"
+                            class="relative max-w-[414px] p-[0px] border border-[#e5e5e5] rounded-[12px] max-lg:flex-wrap select-none cursor-pointer"
                             v-for="(address, index) in addresses"
                         >
                             <v-field
@@ -71,7 +71,7 @@
                         </div>
 
                         <div 
-                            class="flex justify-center items-center max-w-[414px] p-[20px] border border-[#e5e5e5] rounded-[12px] max-sm:flex-wrap"
+                            class="flex justify-center items-center max-w-[414px] p-[20px] border border-[#e5e5e5] rounded-[12px] max-lg:flex-wrap"
                             @click="showNewBillingAddressForm"
                         >
                             <div class="flex gap-x-[10px] items-center cursor-pointer">
@@ -146,7 +146,7 @@
         <x-shop::accordion>
             <x-slot:header>
                 <div class="flex justify-between items-center">
-                    <h2 class="text-[26px] font-medium max-sm:text-[20px]">
+                    <h2 class="text-[26px] font-medium max-lg:text-[20px]">
                         @lang('shop::app.checkout.onepage.addresses.billing.billing-address')
                     </h2>
                 </div>

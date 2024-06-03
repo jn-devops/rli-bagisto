@@ -6,10 +6,10 @@
 
     <div>
         <div class="flex flex-wrap gap-[29px] mt-[30px]">
-            <div class="relative max-sm:max-w-full max-sm:flex-auto">
+            <div class="relative max-lg:max-w-full max-lg:flex-auto">
                 <span class="shimmer block absolute right-[20px] top-[20px] w-[24px] h-[24px] rounded-full"></span>
 
-                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-sm:w-full ">
+                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-lg:w-full ">
                     <div class="shimmer w-[45px] h-[45px]"></div>
 
                     <p class="shimmer w-[100%] h-[21px] mt-[5px]"></p>
@@ -17,10 +17,10 @@
                 </label>
             </div>
 
-            <div class="relative max-sm:max-w-full max-sm:flex-auto">
+            <div class="relative max-lg:max-w-full max-lg:flex-auto">
                 <span class="shimmer block absolute right-[20px] top-[20px] w-[24px] h-[24px] rounded-full"></span>
 
-                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-sm:w-full">
+                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-lg:w-full">
                     <div class="shimmer w-[45px] h-[45px]"></div>
 
                     <p class="shimmer w-[100%] h-[21px] mt-[5px]"></p>
@@ -28,10 +28,10 @@
                 </label>
             </div>
 
-            <div class="relative max-sm:max-w-full max-sm:flex-auto">
+            <div class="relative max-lg:max-w-full max-lg:flex-auto">
                 <span class="shimmer block absolute right-[20px] top-[20px] w-[24px] h-[24px] rounded-full"></span>
 
-                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-sm:w-full">
+                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-lg:w-full">
                     <div class="shimmer w-[45px] h-[45px]"></div>
 
                     <p class="shimmer w-[100%] h-[21px] mt-[5px]"></p>
@@ -39,10 +39,10 @@
                 </label>
             </div>
 
-            <div class="relative max-sm:max-w-full max-sm:flex-auto">
+            <div class="relative max-lg:max-w-full max-lg:flex-auto">
                 <span class="shimmer block absolute right-[20px] top-[20px] w-[24px] h-[24px] rounded-full"></span>
 
-                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-sm:w-full">
+                <label class="block border border-[#E9E9E9] p-[20px] rounded-[12px] w-[190px] max-lg:w-full">
                     <div class="shimmer w-[45px] h-[45px]"></div>
 
                     <p class="shimmer w-[100%] h-[21px] mt-[5px]"></p>

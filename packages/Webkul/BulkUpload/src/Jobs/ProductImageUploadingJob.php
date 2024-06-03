@@ -62,7 +62,7 @@ class ProductImageUploadingJob implements ShouldQueue
             foreach (json_decode($images['url_links']) as $image) {
 
                 try {
-                    $response = Http::get($image);
+                    $response = Http::get(trim($image));
 
                     if ($response->successful()) {
                         $manager = new ImageManager();
@@ -90,6 +90,8 @@ class ProductImageUploadingJob implements ShouldQueue
                     }
                 } catch (\Throwable $th) {
                     //throw $th;
+                    Log::info('================ Bulk Image Uploader: if Image Not Found ================');
+
                     Log::info($image);
                 }
             }

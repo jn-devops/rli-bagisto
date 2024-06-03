@@ -141,7 +141,7 @@
                     <div class="px-[25px]">
                         <button
                             @click="handleKycVerificationRedirect"
-                            class="m-0 mx-auto ml-[0px] block w-full cursor-pointer rounded-[18px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[43px] py-[15px] text-center text-base font-medium text-white max-sm:px-[20px]"
+                            class="m-0 mx-auto ml-[0px] block w-full cursor-pointer rounded-[18px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[43px] py-[15px] text-center text-base font-medium text-white max-lg:px-[20px]"
                             >
                             @lang('enclaves::app.shop.product.reserve-now')
                         </button>

@@ -68,9 +68,9 @@
                     class="fixed inset-0 z-30 transform overflow-y-auto transition" 
                     v-show="isOpen"
                 >
-                    <div class="box-shadow absolute left-[50%] top-[50%] z-[999] inline-table w-full max-w-[700px] -translate-x-[50%] -translate-y-[35%] rounded-lg bg-white pt-[15px] max-md:w-[90%] max-md:-translate-y-[40%] max-md:-translate-y-[50%] lg:-translate-y-[43%]">
+                    <div class="box-shadow absolute left-[50%] top-[50%] z-[999] inline-table w-full max-w-[700px] -translate-x-[50%] -translate-y-[35%] rounded-lg bg-white pt-[15px] max-md:w-[90%] max-md:-translate-y-[50%] max-sm:-translate-y-[40%] lg:-translate-y-[43%]">
                         <span
-                            class="icon-cancel absolute -right-[15px] -top-[15px] z-[9999] cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-1 text-[20px] text-white"
+                            class="icon-cancel absolute -right-[15px] -top-[15px] z-[9999] cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-1 text-[20px] text-white max-lg:-right-[10px] max-lg:-top-[5px] max-lg:text-[12px]"
                             @click="toggle"
                         >
                         </span>

@@ -26,7 +26,7 @@
                     >
                         <!-- Dropdown Label -->
                         <h3
-                            class="mb-[15px] text-[20px] max-sm:text-[16px]"
+                            class="mb-[15px] text-[20px] max-lg:text-[12px]"
                             v-text="attribute.label"
                         ></h3>
                         
@@ -57,7 +57,7 @@
                     <template v-else>
                         <!-- Option Label -->
                         <h3
-                            class="mb-[15px] text-[20px] max-sm:text-[16px]"
+                            class="mb-[15px] text-[20px] max-lg:text-[12px]"
                             v-text="attribute.label"
                         ></h3>
 
@@ -93,14 +93,14 @@
                                         </v-field>
 
                                         <span
-                                            class="h-8 w-8 rounded-full border border-navyBlue border-opacity-10 bg-navyBlue max-sm:h-[25px] max-sm:w-[25px]"
+                                            class="h-8 w-8 rounded-full border border-navyBlue border-opacity-10 bg-navyBlue max-lg:h-[25px] max-lg:w-[25px]"
                                             :style="{ 'background-color': option.swatch_value }"
                                         ></span>
                                     </label>
 
                                     <!-- Image Swatch Options -->
                                     <label 
-                                        class="group relative flex h-[60px] w-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-full border bg-white font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-sm:h-[35px] max-sm:w-[35px] sm:py-6"
+                                        class="group relative flex h-[60px] w-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-full border bg-white font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-lg:h-[35px] max-lg:w-[35px] sm:py-6"
                                         :class="{'ring-2 ring-navyBlue' : index == attribute.selectedIndex }"
                                         :title="option.label"
                                         v-if="attribute.swatch_type == 'image'"
@@ -133,7 +133,7 @@
 
                                     <!-- Text Swatch Options -->
                                     <label 
-                                        class="group relative flex h-[60px] min-w-[60px] cursor-pointer items-center justify-center rounded-full border bg-white px-4 py-3 font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-sm:h-[35px] max-sm:w-[35px] sm:py-6"
+                                        class="group relative flex h-[60px] min-w-[60px] cursor-pointer items-center justify-center rounded-full border bg-white px-4 py-3 font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-lg:h-[35px] max-lg:w-[35px] sm:py-6"
                                         :class="{'ring-2 ring-navyBlue' : index == attribute.selectedIndex }"
                                         :title="option.label"
                                         v-if="attribute.swatch_type == 'text'"
@@ -159,7 +159,7 @@
                                         </v-field>
 
                                         <span
-                                            class="text-[18px] max-sm:text-[14px]"
+                                            class="text-[18px] max-lg:text-[12px]"
                                             v-text="option.label"
                                         ></span>
 
@@ -169,7 +169,7 @@
                             </template>
 
                             <span
-                                class="text-sm text-gray-600 max-sm:text-[12px]"
+                                class="text-sm text-gray-600 max-lg:text-[12px]"
                                 v-if="! attribute.options.length"
                             >
                                 @lang('shop::app.products.view.type.configurable.select-above-options')
@@ -433,6 +433,7 @@
 
                             if (regularPriceElement) {
                                 regularPriceElement.innerHTML = this.config.variant_prices[this.simpleProduct].regular.formatted_price;
+                                
                                 regularPriceElement.style.display = 'inline-block';
                             }
 
@@ -446,7 +447,7 @@
 
                     changeProductImages () {
                         galleryImages.splice(0, galleryImages.length)
-
+                        
                         if (this.simpleProduct) {
                             this.config.variant_images[this.simpleProduct].forEach(function(image) {
                                 galleryImages.push(image)
@@ -461,12 +462,16 @@
                             galleryImages.push(image)
                         });
 
-                        if(this.config.variants[this.simpleProduct]) {
-                            this.$parent.$parent.$refs.gallery.options = this.config.variants[this.simpleProduct];
+                        if(this.config.variants.options[this.simpleProduct]) {
+                            this.$parent.$parent.$refs.gallery.options = this.config.variants.options[this.simpleProduct];
+                        }
+
+                        if(this.config.variants.details[this.simpleProduct]) {
+                            this.$parent.$parent.$parent.$refs.details.product = this.config.variants.details[this.simpleProduct];
                         }
 
                         if (galleryImages.length) {
-                            this.$parent.$parent.$refs.gallery.media.images =  { ...galleryImages };
+                            this.$parent.$parent.$refs.gallery.media.images = this.config.variant_images[this.simpleProduct];
                         }
 
                         ++this.$parent.$parent.$refs.gallery.refreshBaseImageComponent;

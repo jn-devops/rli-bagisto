@@ -41,7 +41,7 @@
                                             href="{{ route('shop.product_or_category.index', $review->product->url_key) }}"
                                             id="{{ $review->product_id }}"
                                         >
-                                            <div class="flex gap-[20px] rounded-[12px] border border-[#e5e5e5] p-[25px] max-sm:flex-wrap">
+                                            <div class="flex gap-[20px] rounded-[12px] border border-[#e5e5e5] p-[25px] max-lg:flex-wrap">
                                                 <x-shop::media.images.lazy
                                                     class="h-[146px] max-h-[146px] w-[128px] min-w-[128px] max-w-[128px] rounded-[12px]" 
                                                     src="{{ $review->product->base_image_url ?? bagisto_asset('images/small-product-placeholder.webp') }}"
@@ -51,7 +51,7 @@
                 
                                                 <div class="w-full">
                                                     <div class="flex justify-between">
-                                                        <p class="text-[20px] font-medium max-sm:text-[16px]">
+                                                        <p class="text-[20px] font-medium max-lg:text-[16px]">
                                                             {{ $review->title}}
                                                         </p>
                 
@@ -62,11 +62,11 @@
                                                         </div>
                                                     </div>
                 
-                                                    <p class="mt-[10px] text-[14px] font-medium max-sm:text-[12px]">
+                                                    <p class="mt-[10px] text-[14px] font-medium max-lg:text-[12px]">
                                                         {{ $review->created_at }}
                                                     </p>
                 
-                                                    <p class="mt-[20px] text-[16px] text-[#6E6E6E] max-sm:text-[12px]">
+                                                    <p class="mt-[20px] text-[16px] text-[#6E6E6E] max-lg:text-[12px]">
                                                         {{ $review->comment }}
                                                     </p>
                                                 </div>

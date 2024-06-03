@@ -20,19 +20,19 @@
 
             <div class="mt-[10px] grid content-start gap-3 text-white max-668:text-black">
                 <p
-                    class="font-popins text-5 max-sm:text-3.5 overflow-hidden text-ellipsis whitespace-nowrap font-bold" 
+                    class="font-popins text-5 max-lg:text-3.5 overflow-hidden text-ellipsis whitespace-nowrap font-bold" 
                     v-text="product.name"
                 ></p>
                 
                 <div class="">
                     <div class="relative items-center justify-between">
                         <div 
-                            class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-wrap text-base font-medium max-sm:text-base" 
+                            class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-wrap text-base font-medium max-lg:text-base" 
                             v-html="product.price_html"
                         ></div>
                     </div>
                     
-                    <p class="font-popins text-[15px] font-medium max-sm:text-[14px]">
+                    <p class="font-popins text-[15px] font-medium max-lg:text-[14px]">
                         @lang('enclaves::app.shop.customers.total-contract-price')
                     </p>
                 </div>

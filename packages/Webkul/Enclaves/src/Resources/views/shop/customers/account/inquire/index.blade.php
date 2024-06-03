@@ -161,7 +161,7 @@
                     <form @submit="handleSubmit($event, addTicket)" enctype="multipart/form-data">
                         <x-shop::modal ref="addInquireModal">
                             <x-slot:header>
-                                <h2 class="text-[20px] font-medium max-sm:text-[22px]">
+                                <h2 class="text-[20px] font-medium max-lg:text-[22px]">
                                     @lang('enclaves::app.shop.customers.account.inquiries.submit-heading')
                                 </h2>
                             </x-slot:header>
@@ -248,7 +248,7 @@
                                     <button
                                         v-if="! isSubmited"
                                         type="submit"
-                                        class="primary-button flex rounded-[15px] border-[#F8EBEB] !bg-gradient-to-r from-[#e0165d] to-yellow-500 px-[30px] py-[11px] text-white max-sm:px-[25px] max-sm:text-[14px]"
+                                        class="primary-button flex rounded-[15px] border-[#F8EBEB] !bg-gradient-to-r from-[#e0165d] to-yellow-500 px-[30px] py-[11px] text-white max-lg:px-[25px] max-lg:text-[14px]"
                                     >
                                         @lang('enclaves::app.shop.customers.account.inquiries.submit')
                                     </button>

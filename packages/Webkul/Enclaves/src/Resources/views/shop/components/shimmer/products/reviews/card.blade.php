@@ -1,8 +1,8 @@
 @props(['count' => 0])
 
 @for ($i = 0;  $i < $count; $i++)
-    <div class="flex gap-[20px] p-[25px] border border-[#e5e5e5] rounded-[12px] max-sm:flex-wrap">
-        <div class="min-h-[100px] min-w-[100px] max-sm:hidden">
+    <div class="flex gap-[20px] p-[25px] border border-[#e5e5e5] rounded-[12px] max-lg:flex-wrap">
+        <div class="min-h-[100px] min-w-[100px] max-lg:hidden">
             <div class="shimmer w-[100px] h-[100px] rounded-[12px]"></div>
         </div>
 

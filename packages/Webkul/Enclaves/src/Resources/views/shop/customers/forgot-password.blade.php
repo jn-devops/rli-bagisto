@@ -33,14 +33,14 @@
         <div
             class="w-full max-w-[870px] m-auto [box-shadow:0px_4px_40px_0px_rgba(0,_0,_0,_0.1)] px-[90px] py-[60px] rounded-[12px] max-md:px-[30px] max-md:py-[30px]"
         >
-            <h1 class="text-[40px] font-bold text-center max-sm:text-[25px]">
+            <h1 class="text-[40px] font-bold text-center max-lg:text-[25px]">
                 @lang('shop::app.customers.forgot-password.title')
             </h1>
 
             {!! view_render_event('bagisto.shop.customers.forget_password.before') !!}
 
-            <div class="mt-[60px] rounded max-sm:mt-[30px]">
-                <x-shop::form :action="route('shop.customers.forgot_password.store')" class="rounded mt-[60px] max-sm:mt-[30px]">
+            <div class="mt-[60px] rounded max-lg:mt-[30px]">
+                <x-shop::form :action="route('shop.customers.forgot_password.store')" class="rounded mt-[60px] max-lg:mt-[30px]">
                     {!! view_render_event('bagisto.shop.customers.forget_password_form_controls.before') !!}
 
                     <x-shop::form.control-group class="mb-4">

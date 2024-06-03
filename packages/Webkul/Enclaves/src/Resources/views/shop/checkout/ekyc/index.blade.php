@@ -21,14 +21,14 @@
             >
                 <div class="flex w-full justify-center gap-x-[40px] max-[1180px]:gap-x-[20px]">
                     <h1 
-                        class="mt-[26px] text-[40px] font-bold leading-[48px] max-sm:text-[26px] max-sm:leading-[36px]"
+                        class="mt-[26px] text-[40px] font-bold leading-[48px] max-lg:text-[26px] max-lg:leading-[36px]"
                     >
                         @lang('enclaves::app.shop.authentication.title')
                     </h1>
                 </div>
            
                 <p 
-                    class="mt-[50px] text-[20px] max-sm:mt-[25px] max-sm:text-[16px]" 
+                    class="mt-[50px] text-[20px] max-lg:mt-[25px] max-lg:text-[16px]" 
                 >
                     @lang('enclaves::app.shop.authentication.body_text')
                 </p>

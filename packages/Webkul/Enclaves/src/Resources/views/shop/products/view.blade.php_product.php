@@ -90,7 +90,7 @@
 
 <!-- Page Layout -->
 <x-shop::layouts>
-    <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
+    <div class="container px-[60px] max-lg:px-[30px] max-lg:px-[15px]">
         <!-- Page Title -->
         <x-slot:title>
             {{ trim($product->meta_title) != "" ? $product->meta_title : $product->name }}
@@ -137,7 +137,7 @@
                                 :value="qty"
                             >
 
-                            <div class="mt-12 flex gap-[54px] max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-6">
+                            <div class="mt-12 flex gap-[54px] max-1180:flex-wrap max-lg:mt-0 max-lg:gap-y-6">
                                 <div class="w-full">
                                     <!-- Gallery Blade Inclusion -->
                                     @include('shop::products.view.gallery')
@@ -154,12 +154,12 @@
                                     {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                                 </div>
 
-                                <div class="rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-[25px] md:w-full lg:w-[40%]">
+                                <div class="rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-lg:p-[25px] md:w-full lg:w-[40%]">
                                     <!-- Price -->
                                     <div class="grid gap-[10px] max-md:hidden">
-                                        <p class="text-[20px] font-semibold max-sm:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>
+                                        <p class="text-[20px] font-semibold max-lg:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>
                                         
-                                        <p class="text-[22px] max-sm:text-[20px]">
+                                        <p class="text-[22px] max-lg:text-[20px]">
                                             {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
                                                 {!! $product->getTypeInstance()->getPriceHtml() !!}
 
@@ -180,13 +180,13 @@
                                             @foreach ($customAttributeValues as $customAttributeValue)
                                                 @if (! empty($customAttributeValue['value']))
                                                     <div class="flex flex-wrap gap-[6px]">
-                                                        <p class="text-[20px] font-bold max-sm:text-[18px]">{!! $customAttributeValue['label'] !!}: </p>
+                                                        <p class="text-[20px] font-bold max-lg:text-[18px]">{!! $customAttributeValue['label'] !!}: </p>
 
                                                         @if ($customAttributeValue['type'] == 'file')
                                                             <a 
                                                                 href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
                                                                 download="{{ $customAttributeValue['label'] }}"
-                                                                class="text-[20px] max-sm:text-[18px]"
+                                                                class="text-[20px] max-lg:text-[18px]"
                                                             >
                                                                 <span class="icon-download text-2xl"></span>
                                                             </a>
@@ -201,7 +201,7 @@
                                                                 />
                                                             </a>
                                                         @else
-                                                            <p class="text-[20px] max-sm:text-[18px]">
+                                                            <p class="text-[20px] max-lg:text-[18px]">
                                                                 {!! $customAttributeValue['value'] !!}
                                                             </p>
                                                         @endif
@@ -215,7 +215,7 @@
                                     <div class="flex max-w-[400px] flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                         {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
-                                        <p class="mt-[25px] text-[18px] text-[#6E6E6E] max-sm:mt-[15px] max-sm:text-[14px]">
+                                        <p class="mt-[25px] text-[18px] text-[#6E6E6E] max-lg:mt-[15px] max-lg:text-[14px]">
                                             {!! $product->short_description !!}
                                         </p>
 
@@ -230,15 +230,15 @@
                                     <!-- <div class="mt-[28px] flex flex-col gap-[20px]">
                                         
                                         <div class="flex">
-                                            <p class="text-[20px] font-bold max-sm:text-[18px]"> Seller Details:</p>
+                                            <p class="text-[20px] font-bold max-lg:text-[18px]"> Seller Details:</p>
                                         </div>
                                         <div class="flex flex-wrap gap-[6px]">
-                                            <p class="text-[20px] font-bold max-sm:text-[18px]">Name:</p>
-                                            <p class="text-[20px] max-sm:text-[18px]">Charles Ley Baldmor</p>
+                                            <p class="text-[20px] font-bold max-lg:text-[18px]">Name:</p>
+                                            <p class="text-[20px] max-lg:text-[18px]">Charles Ley Baldmor</p>
                                         </div>
                                         <div class="flex flex-wrap gap-[6px]">
-                                            <p class="text-[20px] font-bold max-sm:text-[18px]">Email:</p>
-                                            <p class="text-[20px] max-sm:text-[18px]">cbbaldemor@joy-notal.com</p>
+                                            <p class="text-[20px] font-bold max-lg:text-[18px]">Email:</p>
+                                            <p class="text-[20px] max-lg:text-[18px]">cbbaldemor@joy-notal.com</p>
                                         </div>
                                     </div> -->
 
@@ -332,7 +332,7 @@
                                                         <a 
                                                             href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
                                                             download="{{ $customAttributeValue['label'] }}"
-                                                            class="text-[20px] max-sm:text-[18px]"
+                                                            class="text-[20px] max-lg:text-[18px]"
                                                         >
                                                             <span class="icon-download text-2xl"></span>
                                                         </a>

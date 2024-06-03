@@ -36,15 +36,15 @@
 		<div
 			class="w-full max-w-[870px] m-auto px-[90px] py-[60px] border border-[#E9E9E9] rounded-[12px] max-md:px-[30px] max-md:py-[30px]"
         >
-			<h1 class="text-[40px] font-dmserif max-sm:text-[25px]">
+			<h1 class="text-[40px] font-dmserif max-lg:text-[25px]">
                 @lang('shop::app.customers.signup-form.page-title')
             </h1>
 
-			<p class="mt-[15px] text-[#6E6E6E] text-[20px] max-sm:text-[16px]">
+			<p class="mt-[15px] text-[#6E6E6E] text-[20px] max-lg:text-[16px]">
                 @lang('shop::app.customers.signup-form.form-signup-text')
             </p>
 
-            <div class="mt-[60px] rounded max-sm:mt-[30px]">
+            <div class="mt-[60px] rounded max-lg:mt-[30px]">
                 <x-shop::form :action="route('shop.customers.register.store')">
                     {!! view_render_event('bagisto.shop.customers.signup_form_controls.before') !!}
 
@@ -192,7 +192,7 @@
                             ></label>
 
                             <label
-                                class="pl-0 text-[16] text-[#6E6E6E] max-sm:text-[12px] select-none cursor-pointer"
+                                class="pl-0 text-[16] text-[#6E6E6E] max-lg:text-[12px] select-none cursor-pointer"
                                 for="is-subscribed"
                             >
                                 @lang('shop::app.customers.signup-form.subscribe-to-newsletter')

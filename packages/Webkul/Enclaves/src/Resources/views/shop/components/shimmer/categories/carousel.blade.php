@@ -1,8 +1,8 @@
 @props(['count' => 0])
 
-<div class="container mt-[60px] max-lg:px-[30px] max-sm:mt-[20px]">
+<div class="container mt-[60px] max-lg:px-[30px] max-lg:mt-[20px]">
     <div class="relative">
-        <div class="flex gap-10 overflow-auto scrollbar-hide max-sm:gap-4">
+        <div class="flex gap-10 overflow-auto scrollbar-hide max-lg:gap-4">
             @for ($i = 0;  $i < $count; $i++)
                 <div class="grid grid-cols-1 gap-[15px] justify-items-center min-w-[120px]">
                     <div class="shimmer relative w-[110px] h-[110px] overflow-hidden rounded-full">

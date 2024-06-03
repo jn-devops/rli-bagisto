@@ -1,6 +1,6 @@
 <div class="max-w-full h-max sticky top-[30px] w-[442px] pl-[30px] max-lg:w-auto max-lg:max-w-[442px] max-lg:pl-0 ">
     <h2 class="shimmer w-[50%] h-[39px]"></h2>
-    <div class="grid border-b-[1px] border-[#E9E9E9] mt-[40px] max-sm:mt-[20px]">
+    <div class="grid border-b-[1px] border-[#E9E9E9] mt-[40px] max-lg:mt-[20px]">
 
         {{-- single card --}}
         <div class="flex gap-x-[15px] pb-[20px]">
@@ -55,5 +55,5 @@
         </div>
     </div>
 
-    <div class="shimmer w-[50%] h-[46px] rounded-[18px] max-sm:mb-[40px]"></div>
+    <div class="shimmer w-[50%] h-[46px] rounded-[18px] max-lg:mb-[40px]"></div>
 </div>

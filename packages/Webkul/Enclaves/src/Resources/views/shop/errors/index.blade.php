@@ -16,7 +16,7 @@
     </canvas>
 
     {{-- Error page Information --}}
-	<div class="container absolute left-[50%] top-0 px-[60px] max-lg:px-[30px] max-sm:px-[15px] -translate-x-[50%]">
+	<div class="container absolute left-[50%] top-0 px-[60px] max-lg:px-[30px] max-lg:px-[15px] -translate-x-[50%]">
 		<div class="grid w-full h-[100vh]">
 			<div class="wrapper-404 max-868:!text-[294px] max-md:!text-[140px]">
 				<div class="glow-404">
@@ -38,7 +38,7 @@
 
 					<a 
                         href="{{ route('shop.home.index') }}"
-						class="block w-max mt-[30px] m-auto py-[15px] px-[40px] bg-navyBlue rounded-[45px] text-white text-base font-medium text-center cursor-pointer max-sm:text-[14px] max-sm:px-[25px] max-sm:mb-[40px]"
+						class="block w-max mt-[30px] m-auto py-[15px] px-[40px] bg-navyBlue rounded-[45px] text-white text-base font-medium text-center cursor-pointer max-lg:text-[14px] max-lg:px-[25px] max-lg:mb-[40px]"
                     >
 						@lang('shop::app.errors.go-to-home') 
                     </a>

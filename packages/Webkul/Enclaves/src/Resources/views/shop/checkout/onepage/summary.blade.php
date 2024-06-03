@@ -18,11 +18,11 @@
 
         <template v-else>
             <div class="sticky top-[30px] h-max w-[442px] max-w-full pl-[30px] max-lg:w-auto max-lg:max-w-[442px] max-lg:pl-0">
-                <h2 class="text-[26px] font-medium max-sm:text-[20px]">
+                <h2 class="text-[26px] font-medium max-lg:text-[20px]">
                     @lang('shop::app.checkout.onepage.summary.cart-summary')
                 </h2>
                 
-                <div class="mt-[40px] grid border-b-[1px] border-[#E9E9E9] max-sm:mt-[20px]">
+                <div class="mt-[40px] grid border-b-[1px] border-[#E9E9E9] max-lg:mt-[20px]">
                     <div 
                         class="flex gap-x-[15px] pb-[20px]"
                         v-for="item in cart.items"
@@ -37,19 +37,19 @@
 
                         <div>
                             <p 
-                                class="text-[16px] text-navyBlue max-sm:text-[14px] max-sm:font-medium" 
+                                class="text-[16px] text-navyBlue max-lg:text-[14px] max-lg:font-medium" 
                                 v-text="item.name"
                             >
                             </p>
 
-                            <p class="mt-[10px] text-[18px] font-medium max-sm:text-[14px] max-sm:font-normal">
+                            <p class="mt-[10px] text-[18px] font-medium max-lg:text-[14px] max-lg:font-normal">
                                 @{{ item.formatted_price }}
                             </p>
                             
                             <p 
                                 class="text-[15px]"
                             >
-                                <span class="font-medium max-sm:text-[14px] max-sm:font-normal" v-text="'Property code: '">
+                                <span class="font-medium max-lg:text-[14px] max-lg:font-normal" v-text="'Property code: '">
                                 </span> <span v-text="cart.property_code"></span>
                             </p> 
                         </div>
@@ -60,12 +60,12 @@
 
                 <div class="mb-[30px] mt-[25px] grid gap-[15px]">
                     <div class="flex justify-between text-right">
-                        <p class="text-[16px] max-sm:text-[14px] max-sm:font-normal">
+                        <p class="text-[16px] max-lg:text-[14px] max-lg:font-normal">
                             @lang('shop::app.checkout.onepage.summary.sub-total')
                         </p>
 
                         <p 
-                            class="text-[16px] font-medium max-sm:text-[14px]"
+                            class="text-[16px] font-medium max-lg:text-[14px]"
                             v-text="cart.base_sub_total"
                         >
                         </p>
@@ -76,12 +76,12 @@
                         v-for="(amount, index) in cart.base_tax_amounts"
                         v-if="parseFloat(cart.base_tax_total)"
                     >
-                        <p class="text-[16px] max-sm:text-[14px] max-sm:font-normal">
+                        <p class="text-[16px] max-lg:text-[14px] max-lg:font-normal">
                             @lang('shop::app.checkout.onepage.summary.tax') (@{{ index }})%
                         </p>
 
                         <p 
-                            class="text-[16px] font-medium max-sm:text-[14px]"
+                            class="text-[16px] font-medium max-lg:text-[14px]"
                             v-text="amount"
                         >
                         </p>
@@ -145,7 +145,7 @@
                     >
                         <button
                             v-if="! isLoading"
-                            class="block w-max cursor-pointer rounded-[18px] bg-navyBlue px-[43px] py-[11px] text-center text-base font-medium text-white max-sm:mb-[40px] max-sm:px-[25px] max-sm:text-[14px]"
+                            class="block w-max cursor-pointer rounded-[18px] bg-navyBlue px-[43px] py-[11px] text-center text-base font-medium text-white max-lg:mb-[40px] max-lg:px-[25px] max-lg:text-[14px]"
                             @click="placeOrder"
                         >
                             @lang('shop::app.checkout.onepage.summary.place-order')    
@@ -153,7 +153,7 @@
 
                         <button
                             v-else
-                            class="flex w-max items-center gap-[10px] rounded-[18px] bg-navyBlue px-[32px] py-[11px] text-center text-base font-medium text-white max-sm:mb-[40px] max-sm:px-[25px] max-sm:text-[14px]"
+                            class="flex w-max items-center gap-[10px] rounded-[18px] bg-navyBlue px-[32px] py-[11px] text-center text-base font-medium text-white max-lg:mb-[40px] max-lg:px-[25px] max-lg:text-[14px]"
                         >
                             <!-- Spinner -->
                             <svg class="h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
