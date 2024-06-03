@@ -11,7 +11,7 @@
         @lang('shop::app.search.title', ['query' => request()->query('query')])
     </x-slot>
 
-    <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
+    <div class="container px-[60px] max-lg:px-[30px] max-lg:px-[15px]">
         @if (request()->has('image-search'))
             @include('shop::search.images.results')
         @endif
@@ -33,7 +33,7 @@
             type="text/x-template" 
             id="v-search-template"
         >
-            <div class="container px-[60px] max-lg:px-[30px] max-sm:px-[15px]">
+            <div class="container px-[60px] max-lg:px-[30px] max-lg:px-[15px]">
                 <div class="flex items-start gap-[40px] max-lg:gap-[20px] md:mt-[40px]">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')
@@ -91,7 +91,7 @@
                                     <div class="mt-10 grid grid-cols-3 gap-6 max-lg:grid-cols-2">
                                         <div
                                             v-for="product in products"
-                                            class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1"
+                                            class="relative grid max-w-[350px] gap-2.5 max-lg:grid-cols-1"
                                             >
                                             <div class="group relative flex max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
                                                 <x-shop::media.images.lazy
@@ -117,7 +117,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="grid grid-cols-1 gap-5 max-sm:grid-cols-1">
+                                            <div class="grid grid-cols-1 gap-5 max-lg:grid-cols-1">
                                                 <div class="flex gap-[16px]">
                                                     <p 
                                                         class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
@@ -137,7 +137,7 @@
                                                 </div>
 
                                                 <div class="flex flex-wrap justify-between">
-                                                    <div class="max-sm:mb-4">
+                                                    <div class="max-lg:mb-4">
                                                         <div 
                                                             class="font-popins text-wrap text-[15px] font-medium" 
                                                             v-html="product.price_html">
@@ -150,7 +150,7 @@
 
                                                     <button
                                                         @click="redirectToProduct(product)"
-                                                        class="h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white font-semibold text-[#CC035C] max-sm:h-[30px] max-sm:w-full lg:p-[5px]"
+                                                        class="h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white font-semibold text-[#CC035C] max-lg:h-[30px] max-lg:w-full lg:p-[5px]"
                                                     >
                                                         @lang('enclaves::app.shop.customers.choose-unit')
                                                     </button>

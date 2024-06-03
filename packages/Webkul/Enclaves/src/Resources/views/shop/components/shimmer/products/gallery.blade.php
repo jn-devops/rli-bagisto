@@ -1,10 +1,15 @@
 <div class="w-full">
-    <div class="shimmer h-[700px] w-full rounded-[10px]"></div>
+    <div class="shimmer h-[431px] w-full rounded-[10px] max-lg:h-[240px]"></div>
 </div>
 
-<div class="mt-[10px] grid grid-cols-4 gap-[10px]">
-    <div class="shimmer h-[100px] rounded-[5px]"></div>
-    <div class="shimmer h-[100px] rounded-[5px]"></div>
-    <div class="shimmer h-[100px] rounded-[5px]"></div>
-    <div class="shimmer h-[100px] rounded-[5px]"></div>
+<div class="mt-[10px] flex w-auto gap-[10px] overflow-auto">
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
+    <div class="shimmer h-[60px] w-[86px] rounded-[5px]"></div>
 </div>

@@ -47,7 +47,7 @@
                     
                     <div class="pt-4 text-center text-sm font-medium text-gray-500">
                         <div class="tabs">
-                            <div class="mb-4 flex gap-4 border-b-2 pt-2 max-sm:hidden">
+                            <div class="mb-4 flex gap-4 border-b-2 pt-2 max-lg:hidden">
                                 <!-- HTML Tab Header -->
                                 <p @click="switchEditor('v-html-editor-theme', 1)">
                                     <div
@@ -106,7 +106,7 @@
             </div>
 
             <!-- General -->
-            <div class="flex w-[360px] max-w-full flex-col gap-2 max-sm:w-full">
+            <div class="flex w-[360px] max-w-full flex-col gap-2 max-lg:w-full">
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="p-2.5 text-base font-semibold text-gray-800 dark:text-white">

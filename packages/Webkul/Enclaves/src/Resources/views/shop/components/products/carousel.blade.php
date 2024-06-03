@@ -28,13 +28,13 @@
             
             <div class="relative top-[130px] z-10 -m-8 flex justify-between max-md:top-[80px]" v-if="products.length">
                 <span 
-                    class="icon-arrow-left inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-sm:p-[8px]"
+                    class="icon-arrow-left inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-lg:p-[8px]"
                     @click="swipeLeft"
                 >
                 </span>
 
                 <span 
-                    class="icon-arrow-right inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-sm:p-[8px]"
+                    class="icon-arrow-right inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-lg:p-[8px]"
                     @click="swipeRight"
                     >
                 </span>
@@ -42,7 +42,7 @@
 
             <div
                 ref="swiperContainer"
-                class="scrollbar-hide mt-[22px] flex overflow-auto scroll-smooth max-lg:gap-4 max-sm:mt-[20px] lg:gap-4"
+                class="scrollbar-hide mt-[22px] flex overflow-auto scroll-smooth max-lg:gap-4 max-lg:mt-[20px] lg:gap-4"
             >
                 <x-shop::products.card v-for="product in products"/>
             </div>

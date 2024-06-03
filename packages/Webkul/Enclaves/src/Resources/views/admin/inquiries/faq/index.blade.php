@@ -10,7 +10,7 @@
 
     <script type="text/x-template" id="v-inquiries-faq-template">
         <div>
-            <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
+            <div class="flex items-center justify-between gap-4 max-lg:flex-wrap">
                 <p class="text-xl font-bold text-gray-800 dark:text-white">
                     @lang('enclaves::app.admin.inquiries.faq.title')
                 </p>
@@ -75,7 +75,7 @@
                                 <a @click="id=1; editModal(record)">
                                     <span
                                         :class="record.actions.find(action => action.title === 'Edit')?.icon"
-                                        class="icon-edit cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 max-sm:place-self-center dark:hover:bg-gray-800"
+                                        class="icon-edit cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 max-lg:place-self-center dark:hover:bg-gray-800"
                                         :title="record.actions.find(action => action.title === 'Edit')?.title"
                                     >
                                     </span>
@@ -84,7 +84,7 @@
                                 <a @click="performAction(record.actions.find(action => action.method === 'POST'))">
                                     <span
                                         :class="record.actions.find(action => action.method === 'POST')?.icon"
-                                        class="icon-delete cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 max-sm:place-self-center dark:hover:bg-gray-800"
+                                        class="icon-delete cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 max-lg:place-self-center dark:hover:bg-gray-800"
                                         :title="record.actions.find(action => action.method === 'POST')?.title"
                                     >
                                     </span>

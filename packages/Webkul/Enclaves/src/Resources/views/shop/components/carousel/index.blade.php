@@ -10,21 +10,21 @@
 
 		<!-- Hero section -->
 		<div class="grid grid-cols-2 flex-col-reverse overflow-hidden max-1100:flex sm:px-[34px]">
-			<div class="sm:bg-full min-w-full bg-[url('../images/hero-bg.png')] bg-contain bg-right-top bg-no-repeat py-[70px] max-sm:py-5">
+			<div class="sm:bg-full min-w-full bg-[url('../images/hero-bg.png')] bg-contain bg-right-top bg-no-repeat py-[70px] max-lg:py-5">
 				<div class="m-auto w-full max-w-[532px] px-5 max-1180:max-w-[472px] max-1100:mx-0 max-1100:h-auto sm:px-0">
 					
-					<div class="max-sm:h-[160px] md:h-[250px] lg:h-[250px]">
+					<div class="max-lg:h-[160px] md:h-[250px] lg:h-[250px]">
 						<p class="font-bold text-[#CC035C] max-md:text-[12px] lg:text-xs">
 							@lang('enclaves::app.shop.homepage.slider.title')
 						</p>
 
-						<h1 class="hero-heading mt-2 pr-6 text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-sm:text-[35px] max-sm:leading-[42px] sm:mt-[18px]">
+						<h1 class="hero-heading mt-2 pr-6 text-[60px] font-bold leading-[74px] max-1180:text-[46px] max-lg:text-[35px] max-lg:leading-[42px] sm:mt-[18px]">
 						</h1>
 					</div>
 					
 					<a 
 						href="javascript:void(0)" 
-						class="hero-btn mt-[94px] flex h-[100px] max-w-max items-center gap-[18px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[30px] text-[25px] font-medium text-white max-sm:mt-5 max-sm:h-[50px] max-sm:px-[26px] max-sm:py-[18px] max-sm:text-[14px] sm:text-[25px]"
+						class="hero-btn mt-[94px] flex h-[100px] max-w-max items-center gap-[18px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[30px] text-[25px] font-medium text-white max-lg:mt-5 max-lg:h-[50px] max-lg:px-[26px] max-lg:py-[18px] max-lg:text-[14px] sm:text-[25px]"
 					>
 						<span class="" v-text="activeButtonText"></span>
 						<span class="icon-arrow-right-stylish inline-block cursor-pointer text-[18px] font-medium sm:text-[40px]"></span>

@@ -87,7 +87,7 @@
             </x-slot:toggle>
 
             <x-slot:header>
-                <h2 class="text-[25px] font-medium max-sm:text-[22px]">
+                <h2 class="text-[25px] font-medium max-lg:text-[22px]">
                     @lang('shop::app.customers.account.profile.enter-password')
                 </h2>
             </x-slot:header>
@@ -117,7 +117,7 @@
                     <div class="p-[30px] bg-white mt-[20px]">
                         <button
                             type="submit"
-                            class="primary-button flex py-[11px] px-[43px] rounded-[18px] max-sm:text-[14px] max-sm:px-[25px]"
+                            class="primary-button flex py-[11px] px-[43px] rounded-[18px] max-lg:text-[14px] max-lg:px-[25px]"
                         >
                             @lang('shop::app.customers.account.profile.delete')
                         </button>

@@ -4,7 +4,7 @@
         @lang('enclaves::app.admin.inquiries.tickets.title')
     </x-slot:title>
 
-    <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
+    <div class="flex items-center justify-between gap-4 max-lg:flex-wrap">
         <p class="text-xl font-bold text-gray-800 dark:text-white">
             @lang('enclaves::app.admin.inquiries.tickets.title')
         </p>

@@ -9,61 +9,37 @@
                 <div class="w-full">
                     <!-- Media shimmer Effect -->
                     <x-shop::media.images.lazy
-                        ::key="refreshBaseImageComponent"
+                        alt="{{ trans('shop::app.products.view.gallery.product-image') }}" 
+                        class="w-full cursor-pointer rounded-[10px] max-lg:h-[240px] lg:h-[431px]"
                         v-show="! isMediaLoading"
                         v-if="baseFile.type == 'image'"
-                        alt="{{ trans('shop::app.products.view.gallery.product-image') }}" 
-                        class="w-full cursor-pointer rounded-[10px] max-lg:h-[240px] md:h-[650px] lg:h-[700px]"
+                        ::key="refreshBaseImageComponent"
                         ::src="baseFile.path"
                         @load="onMediaLoad()"
                     >
                     </x-shop::media.images.lazy>
                 </div>
                 
-                <div class="relative mt-[10px] flex flex-wrap gap-[16px]" v-if="isMobile">
-                    <template v-for="(image, index) in media.images">
-                        <div v-if="index < 3" 
-                            :class="`${index == `2` ? 'relative' : ''}`">
-                            <x-shop::media.images.lazy
-                                alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}" 
-                                v-if="index < 3"
-                                ::class="`min-w-[86px] max-h-[60px] rounded-[5px] border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
-                                ::src="image.small_image_url"
-                                @click="change(image, `image_${index}`)"
-                            >
-                            </x-shop::media.images.lazy>
+                <div class="relative">
+                    <div class="relative mt-[10px] flex w-auto gap-[10px] overflow-auto">
+                        <template v-for="(image, index) in media.images">
+                            <div v-if="index < imageLimit">
+                                <img 
+                                    :src="image.small_image_url"  
+                                    :class="`min-w-[86px] max-h-[60px] rounded-[5px] border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"  
+                                    @click="change(image, `image_${index}`)"
+                                    alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}"
+                                >
+                            </div>
+                        </template>
+                    </div>
 
-                            <p
-                                v-if="index == 2 && ((media.images.length - 3) != 0)"
-                                class="absolute bottom-[30px] right-2 cursor-pointer rounded-[5px] bg-black p-[6px] text-[14px] leading-[normal] text-white" 
-                                v-text="'+' + (Object.keys(media.images).length - 3)"
-                                @click="productSliderModel()"
-                            ></p>
-                        </div>
-                    </template>
-                </div>
-
-                <div class="mt-[10px] flex w-[100px] gap-[10px]" v-else>
-                    <template v-for="(image, index) in media.images">
-
-                        <div v-if="index < 7" 
-                            :class="`${index == `6` ? 'relative' : ''}`">
-
-                            <img 
-                                :src="image.small_image_url"  
-                                :class="`min-w-[86px] max-h-[60px] rounded-[5px] border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"  
-                                @click="change(image, `image_${index}`)"
-                                alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}"
-                            >
-
-                            <p
-                                v-if="index == 6 && ((media.images.length - 7) != 0)"
-                                class="absolute bottom-[30px] right-2 cursor-pointer rounded-[5px] bg-black p-[6px] text-[14px] leading-[normal] text-white" 
-                                v-text="'+' + (media.images.length - 7)"
-                                @click="productSliderModel()"
-                            ></p>
-                        </div>
-                    </template>
+                    <p
+                        v-if="media.images.length >= imageLimit"
+                        class="absolute right-[0px] top-[0px] cursor-pointer rounded-[5px] bg-black p-[6px] text-[14px] leading-[normal] text-white" 
+                        v-text="'+' + (media.images.length - imageLimit)"
+                        @click="productSliderModel()"
+                    ></p>
                 </div>
             </div>
 
@@ -79,22 +55,22 @@
                 </x-shop::media.images.lazy>
             </div>
 
-            <div class="flex flex-wrap gap-[30px] max-sm:gap-[30px]">
+            <div class="flex flex-wrap lg:gap-[30px]">
                 <template v-for="option in options">    
-                    <span v-show="option.value" class="mt-[40px] flex gap-[10px]">
-                        <span class="flex items-center justify-center">
-                            <span :class="`icon-` + option.code + ` flex items-center justify-center bg-white text-[30px] text-[#CC035C] max-sm:text-[18px]`"></span>
+                    <span v-show="option.value" class="mt-[40px] flex gap-[10px] max-lg:mt-[10px]">
+                        <span class="flex">
+                            <span :class="`icon-` + option.code + ` bg-white text-[19px] text-[#CC035C] max-sm:text-[12px]`"></span>
                         </span>
 
-                        <div class="grid gap-[12px]">
-                            <p class="text-[20px] leading-4 text-[#989898] max-sm:text-[14px]" v-text="option.label"></p>
+                        <div class="grid gap-[12px] max-lg:gap-[5px]">
+                            <p class="text-[15px] leading-4 text-[#989898] max-sm:text-[12px]" v-text="option.label"></p>
                             
-                            <p class="text-[20px] leading-4 max-sm:text-[14px]"  v-text="option.value"></p>
+                            <p class="text-[18px] leading-4 max-sm:text-[14px]"  v-text="option.value"></p>
                         </div>
                     </span>
                 </template>
             </div>
-
+            
             <x-shop::modal.image-slider ref="imageSliderModel">
                 <!-- Modal Content Id -->
                 <x-slot:content>
@@ -112,20 +88,20 @@
                             >
                                 <img
                                     :src="image.original_image_url"
-                                    class="w-full cursor-pointer rounded-[5px] shadow-2xl max-lg:h-[360px] md:h-[470px] lg:h-[480px]"
+                                    class="w-full cursor-pointer rounded-[5px] shadow-2xl max-lg:max-h-[270px] max-lg:min-h-[200px] lg:h-[480px]"
                                     alt="{{ trans('shop::app.products.view.gallery.product-image') }}"
                                 />
                             </div>
 
                             <span
-                                class="icon-arrow-left absolute left-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[12px] text-[24px] font-bold text-white opacity-70 transition-all hover:opacity-100"
+                                class="icon-arrow-left absolute left-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[12px] text-[24px] font-bold text-white opacity-70 transition-all hover:opacity-100 max-lg:text-[12px]"
                                 v-if="media.images?.length >= 2"
                                 @click="navigate(currentIndex -= 1)"
                             >
                             </span>
 
                             <span
-                                class="icon-arrow-right absolute right-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[12px] text-[24px] font-bold text-white opacity-70 transition-all hover:opacity-100"
+                                class="icon-arrow-right absolute right-[10px] top-1/2 -mt-[22px] w-auto cursor-pointer rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[12px] text-[24px] font-bold text-white opacity-70 transition-all hover:opacity-100 max-lg:text-[12px]"
                                 v-if="media.images?.length >= 2"
                                 @click="navigate(currentIndex += 1)"
                             >
@@ -143,8 +119,6 @@
 
             data() {
                 return {
-                    isMobile: window.innerWidth <= 768,
-
                     isMediaLoading: true,
 
                     refreshBaseImageComponent: 1,
@@ -168,6 +142,10 @@
                     activeIndex: 0,
 
                     containerOffset: 110,
+
+                    imageLimit: 9,
+
+                    screenWidth: window.innerWidth,
                 }
             },
 
@@ -184,12 +162,20 @@
                     },
                 },
             },
-            
+
+            updated() {
+                this.navigate(this.currentIndex);
+            },
+
             mounted() {
+                window.addEventListener('resize', this.updateScreenSize);
+
                 this.navigate(this.currentIndex);
                 
-                ++this.refreshBaseImageComponent;
+                this.updateScreenSize();
                 
+                ++this.refreshBaseImageComponent;
+
                 if (this.media.images.length) {
                     this.activeIndex = 'image_0';
 
@@ -204,6 +190,10 @@
                     this.baseFile.path = this.media.videos[0].video_url;
                 }
             },
+
+            beforeDestroy() {
+                window.removeEventListener('resize', this.updateScreenSize);
+            },
             
             computed: {
                 lengthOfMedia() {
@@ -214,6 +204,18 @@
             },
 
             methods: {
+                updateScreenSize() {
+                    this.screenWidth = window.innerWidth;
+                   
+                    if(this.screenWidth <= 320) {
+                        this.imageLimit = 4;
+                    } else if(this.screenWidth <= 768) {
+                        this.imageLimit = 6;
+                    } else {
+                        this.imageLimit = 9;
+                    }
+                },
+                
                 productSliderModel() {
                     this.$refs.imageSliderModel.toggle();
                 },
@@ -243,8 +245,6 @@
                 },
 
                 navigate(index) {
-                    ++this.refreshBaseImageComponent;
-                    
                     if (index > this.media.images.length) {
                         this.currentIndex = 1;
                     }

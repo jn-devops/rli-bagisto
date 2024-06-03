@@ -44,7 +44,7 @@
                 >
                     <label
                         for="file-input"
-                        class="primary-button flex gap-2 py-[11px] px-[30px] rounded-[18px] max-sm:text-[14px] max-sm:px-[25px] !bg-[#F8EBEB] text-[#CC035C] border-[#F8EBEB]"
+                        class="primary-button flex gap-2 py-[11px] px-[30px] rounded-[18px] max-lg:text-[14px] max-lg:px-[25px] !bg-[#F8EBEB] text-[#CC035C] border-[#F8EBEB]"
                     >
                         <img src="{{ bagisto_asset('images/upload-file.png') }}" alt="upload-file" class="h-[20px] my-[4px]"/>
                         @lang('enclaves::app.shop.customers.inquiries.btn-upload')

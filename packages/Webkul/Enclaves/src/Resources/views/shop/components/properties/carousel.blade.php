@@ -16,7 +16,7 @@
             </div>
 
             <div class="container relative max-lg:px-[32px] lg:pt-[50px]">
-                <div class="mt-7 flex justify-center gap-[20px] pb-[50px] max-sm:items-center">
+                <div class="mt-7 flex justify-center gap-[20px] pb-[50px] max-lg:items-center">
                     <h3 class="text-[40px] font-bold max-lg:text-[20px]" v-text="title"></h3>
                 </div>
 
@@ -25,13 +25,13 @@
                     v-if="categories.length"
                     >
                     <span 
-                        class="icon-arrow-left inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-sm:p-[8px]"
+                        class="icon-arrow-left inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-lg:p-[8px]"
                         @click="swipeLeft"
                     >
                     </span>
 
                     <span 
-                        class="icon-arrow-right inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-sm:p-[8px]"
+                        class="icon-arrow-right inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-lg:p-[8px]"
                         @click="swipeRight"
                         >
                     </span>
@@ -53,13 +53,13 @@
 
                         <div class="grid content-start gap-2.5">
                             <p
-                                class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-[20px] font-bold max-sm:text-[14px]" 
+                                class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-[20px] font-bold max-lg:text-[14px]" 
                                 v-text="category.name"
                             ></p>
 
                             <button
                                 @click="redirectCategory(category)"
-                                class="rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-sm:text-[14px] lg:text-nowrap"
+                                class="rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-lg:text-[14px] lg:text-nowrap"
                                 :style="{color: category.btn_color, borderColor: category.btn_border_color, background: category.btn_background_color, width:'fit-content'}"
                             >
                                 <span v-if="category.btn_text" v-text="category.btn_text"></span>

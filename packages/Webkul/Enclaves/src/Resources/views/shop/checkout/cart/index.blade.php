@@ -17,7 +17,7 @@
 
     <!-- Page Header --->
     <div class="flex flex-wrap">
-        <div class="flex w-full justify-between border border-b-[1px] border-l-0 border-r-0 border-t-0 px-[60px] py-[17px] max-lg:px-[30px] max-sm:px-[15px]">
+        <div class="flex w-full justify-between border border-b-[1px] border-l-0 border-r-0 border-t-0 px-[60px] py-[17px] max-lg:px-[30px] max-lg:px-[15px]">
             <div class="flex items-center gap-x-[54px] max-[1180px]:gap-x-[35px]">
                 <a
                     href="{{ route('shop.home.index') }}"
@@ -63,7 +63,7 @@
                     >
                         <div class="grid flex-1 gap-[25px]">
                             <!-- Cart Mass Action Container -->
-                            <div class="flex items-center justify-between border-b-[1px] border-[#E9E9E9] pb-[10px] max-sm:block">
+                            <div class="flex items-center justify-between border-b-[1px] border-[#E9E9E9] pb-[10px] max-lg:block">
                                 <div class="flex select-none items-center">
                                     <input
                                         type="checkbox"
@@ -79,13 +79,13 @@
                                     >
                                     </label>
 
-                                    <span class="ml-[10px] text-[20px] max-md:text-[22px] max-sm:text-[18px]">
+                                    <span class="ml-[10px] text-[20px] max-md:text-[22px] max-lg:text-[18px]">
                                         @{{ "@lang('shop::app.checkout.cart.index.items-selected')".replace(':count', selectedItemsCount) }}
                                     </span>
                                 </div>
 
                                 <div 
-                                    class="max-sm:ml-[35px] max-sm:mt-[10px]"
+                                    class="max-lg:ml-[35px] max-lg:mt-[10px]"
                                     v-if="selectedItemsCount"
                                 >
                                     <span
@@ -210,7 +210,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-right max-sm:hidden">
+                                    <div class="text-right max-lg:hidden">
                                         <p 
                                             class="text-[18px] font-semibold" 
                                             v-text="item.formatted_total"

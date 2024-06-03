@@ -30,19 +30,19 @@
         </div>
 
         <div class="relative flex flex-wrap justify-between gap-[10px] lg:container">
-            <div class="flex flex-wrap items-center justify-between gap-[10px] pr-[30px] max-lg:gap-[5px] max-lg:p-[30px]">
+            <div class="flex flex-wrap justify-between gap-[10px] pr-[30px] max-lg:gap-[5px] max-lg:p-[30px]">
                 <div class="flex max-w-[300px] gap-3">
-                    <span class="icon-location text-[24px] max-sm:text-[12px]"></span>
+                    <span class="icon-location text-[24px] max-lg:text-[12px]"></span>
 
-                    <p class="text-[18px] max-sm:text-[12px]">
+                    <p class="text-[18px] max-lg:text-[12px]">
                         @lang('enclaves::app.shop.components.layouts.footer.address')
                     </p>
                 </div>
 
                 <div class="flex gap-3">
-                    <span class="icon-mail-us text-[24px] max-sm:text-[12px]"></span>
+                    <span class="icon-mail-us text-[24px] max-lg:text-[12px]"></span>
 
-                    <a class="text-[18px] max-sm:text-[12px]" 
+                    <a class="text-[18px] max-lg:text-[12px]" 
                         href="mailto:@lang('enclaves::app.shop.components.layouts.footer.email')"
                     >
                         @lang('enclaves::app.shop.components.layouts.footer.email')
@@ -50,9 +50,9 @@
                 </div>
 
                 <div class="flex gap-3">
-                    <span class="icon-contact-us text-[24px] max-sm:text-[12px]"></span>
+                    <span class="icon-contact-us text-[24px] max-lg:text-[12px]"></span>
 
-                    <a class="text-[18px] max-sm:text-[12px]" 
+                    <a class="text-[18px] max-lg:text-[12px]" 
                         href="phone:@lang('enclaves::app.shop.components.layouts.footer.mobile-number')"
                     >
                         @lang('enclaves::app.shop.components.layouts.footer.mobile-number')
@@ -62,7 +62,7 @@
             
             <div class="mb-[25px] flex px-[30px]">
                 <div class="relative gap-3">
-                    <h1 class="flex text-[30px] font-bold max-sm:text-[20px]">
+                    <h1 class="flex text-[30px] font-bold max-lg:text-[20px]">
                         @lang('enclaves::app.shop.components.layouts.footer.follow-us')
                     </h1>
 
@@ -115,7 +115,7 @@
         </div>
 
         <div class="flex h-[60px] items-center bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px]">
-            <p class="z-[999] text-[18px] font-medium text-white max-sm:text-[12px]">
+            <p class="z-[999] text-[18px] font-medium text-white max-lg:text-[12px]">
                 @lang('enclaves::app.shop.components.layouts.footer.copyright', ['current_year'=> date('Y')])
             </p>
         </div>

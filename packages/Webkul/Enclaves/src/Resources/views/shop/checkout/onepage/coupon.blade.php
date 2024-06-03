@@ -7,11 +7,11 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-coupon-template">
         <div class="flex text-right justify-between">
-            <p class="text-[16px] max-sm:text-[14px] max-sm:font-normal">
+            <p class="text-[16px] max-lg:text-[14px] max-lg:font-normal">
                 @lang('shop::app.checkout.onepage.coupon.discount')
             </p>
             
-            <p class="text-[16px] max-sm:text-[14px] max-sm:font-medium font-medium">
+            <p class="text-[16px] max-lg:text-[14px] max-lg:font-medium font-medium">
                 <span v-if="! isCouponApplied">
                     <!-- Apply Coupon modal -->
                     <x-shop::modal ref="couponModel">
@@ -22,7 +22,7 @@
                         </x-slot:toggle>
     
                         <x-slot:header>
-                            <h2 class="text-[25px] font-medium max-sm:text-[22px]">
+                            <h2 class="text-[25px] font-medium max-lg:text-[22px]">
                                 @lang('shop::app.checkout.onepage.coupon.apply')
                             </h2>
                         </x-slot:header>
@@ -62,13 +62,13 @@
 
                                             <div class="flex gap-[30px] items-center flex-auto flex-wrap">
                                                 <p 
-                                                    class="text-[30px] font-semibold max-sm:text-[22px]"
+                                                    class="text-[30px] font-semibold max-lg:text-[22px]"
                                                     v-text="subTotal"
                                                 >
                                                 </p>
     
                                                 <button
-                                                    class="block flex-auto w-max py-[11px] px-[43px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-sm:text-[14px] max-sm:px-[25px]"
+                                                    class="block flex-auto w-max py-[11px] px-[43px] bg-navyBlue rounded-[18px] text-white text-base font-medium text-center cursor-pointer max-lg:text-[14px] max-lg:px-[25px]"
                                                     type="submit"
                                                 >
                                                    @lang('shop::app.checkout.onepage.coupon.button-title')

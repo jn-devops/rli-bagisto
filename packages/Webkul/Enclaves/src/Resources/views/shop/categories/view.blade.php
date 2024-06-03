@@ -83,7 +83,7 @@
                                 <template v-else>
                                     <div
                                         v-for="product in products"
-                                        class="relative flex max-w-max grid-cols-2 gap-4 overflow-hidden rounded max-sm:flex-wrap"
+                                        class="relative flex max-w-max grid-cols-2 gap-4 overflow-hidden rounded max-lg:flex-wrap"
                                         >
 
                                         <div class="group relative flex max-h-[289px] min-w-[280px] max-w-[350px] overflow-hidden rounded-[20px]">
@@ -171,7 +171,7 @@
                                     <div class="mt-10 grid grid-cols-3 gap-6 max-lg:grid-cols-2">
                                         <div
                                             v-for="product in products"
-                                            class="relative grid max-w-[350px] gap-2.5 max-sm:grid-cols-1"
+                                            class="relative grid max-w-[350px] gap-2.5 max-lg:grid-cols-1"
                                             >
                                             <div class="group relative flex max-h-[289px] max-w-[350px] overflow-hidden rounded-[20px]">
                                                 <x-shop::media.images.lazy
@@ -198,7 +198,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="grid grid-cols-1 gap-5 max-sm:grid-cols-1">
+                                            <div class="grid grid-cols-1 gap-5 max-lg:grid-cols-1">
                                                 <div class="flex gap-[16px]">
                                                     <p 
                                                         class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
@@ -218,7 +218,7 @@
                                                 </div>
 
                                                 <div class="flex flex-wrap justify-between">
-                                                    <div class="max-sm:mb-4">
+                                                    <div class="max-lg:mb-4">
                                                         <div 
                                                             class="font-popins text-wrap text-[15px] font-medium" 
                                                             v-html="product.price_html">
@@ -231,7 +231,7 @@
 
                                                     <button
                                                         @click="redirectToProduct(product)"
-                                                        class="h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-sm:w-full"
+                                                        class="h-[45px] text-nowrap rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-lg:w-full"
                                                     >
                                                         @lang('enclaves::app.shop.customers.choose-unit')
                                                     </button>

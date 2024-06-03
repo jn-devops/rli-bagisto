@@ -33,14 +33,14 @@
         <div
             class="w-full max-w-[870px] m-auto [box-shadow:0px_4px_40px_0px_rgba(0,_0,_0,_0.1)] px-[90px] py-[60px] rounded-[12px] max-md:px-[30px] max-md:py-[30px]"
         >
-            <h1 class="text-[40px] font-bold text-center max-sm:text-[25px]">
+            <h1 class="text-[40px] font-bold text-center max-lg:text-[25px]">
                 @lang('enclaves::app.shop.customers.login-form.page-title')
             </h1>
 
             {!! view_render_event('bagisto.shop.customers.login.before') !!}
 
-            <div class="mt-[60px] rounded max-sm:mt-[30px]">
-                <x-shop::form :action="route('shop.customer.session.create')" class="rounded mt-[60px] max-sm:mt-[30px]">
+            <div class="mt-[60px] rounded max-lg:mt-[30px]">
+                <x-shop::form :action="route('shop.customer.session.create')" class="rounded mt-[60px] max-lg:mt-[30px]">
 
                     <x-shop::form.control-group class="mb-4">
                         <x-shop::form.control-group.label class="required">
@@ -72,7 +72,7 @@
                         <x-shop::form.control-group.control
                             type="password"
                             name="password"
-                            class="text-[20px] shadow appearance-none border border-red-500 rounded-[16px] w-full py-2 px-3 mb-3 focus:outline-none focus:shadow-outline max-sm:text-[18px]"
+                            class="text-[20px] shadow appearance-none border border-red-500 rounded-[16px] w-full py-2 px-3 mb-3 focus:outline-none focus:shadow-outline max-lg:text-[18px]"
                             value=""
                             id="password"
                             rules="required|min:6"
@@ -102,7 +102,7 @@
                             ></label>
 
                             <label
-                                class="text-[16] text-[#6E6E6E] max-sm:text-[12px] pl-0 select-none cursor-pointer"
+                                class="text-[16] text-[#6E6E6E] max-lg:text-[12px] pl-0 select-none cursor-pointer"
                                 for="show-password"
                             >
                                 @lang('shop::app.customers.login-form.show-password')
@@ -112,7 +112,7 @@
                         <div class="block">
                             <a
                                 href="{{ route('shop.customers.forgot_password.create') }}"
-                                class="text-[16px] cursor-pointer text-black max-sm:text-[12px]"
+                                class="text-[16px] cursor-pointer text-black max-lg:text-[12px]"
                             >
                                 <span>
                                     @lang('shop::app.customers.login-form.forgot-pass')

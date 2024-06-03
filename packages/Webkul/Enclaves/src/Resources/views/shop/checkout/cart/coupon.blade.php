@@ -8,11 +8,11 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-coupon-template">
         <div class="flex justify-between text-right">
-            <p class="text-[16px] max-sm:text-[14px] max-sm:font-normal">
+            <p class="text-[16px] max-lg:text-[14px] max-lg:font-normal">
                 @{{ isCouponApplied ? "@lang('shop::app.checkout.cart.coupon.applied')" : "@lang('shop::app.checkout.cart.coupon.discount')" }}
             </p>
 
-            <p class="text-[16px] font-medium max-sm:text-[14px]">
+            <p class="text-[16px] font-medium max-lg:text-[14px]">
                 <!-- Apply coupon modal -->
                 <x-shop::modal ref="couponModel">
                     <!-- Modal Toggler -->
@@ -27,7 +27,7 @@
 
                     <!-- Modal Header -->
                     <x-slot:header>
-                        <h2 class="text-[25px] font-medium max-sm:text-[22px]">
+                        <h2 class="text-[25px] font-medium max-lg:text-[22px]">
                             @lang('shop::app.checkout.cart.coupon.apply')
                         </h2>
                     </x-slot:header>
@@ -70,13 +70,13 @@
 
                                         <div class="flex flex-auto flex-wrap items-center gap-[30px]">
                                             <p 
-                                                class="text-[30px] font-semibold max-sm:text-[22px]"
+                                                class="text-[30px] font-semibold max-lg:text-[22px]"
                                                 v-text="subTotal"
                                             >
                                             </p>
 
                                             <button
-                                                class="block w-max flex-auto cursor-pointer rounded-[18px] bg-navyBlue px-[43px] py-[11px] text-center text-base font-medium text-white max-sm:px-[25px] max-sm:text-[14px]"
+                                                class="block w-max flex-auto cursor-pointer rounded-[18px] bg-navyBlue px-[43px] py-[11px] text-center text-base font-medium text-white max-lg:px-[25px] max-lg:text-[14px]"
                                                 type="submit"
                                             >
                                                @lang('shop::app.checkout.cart.coupon.button-title')
