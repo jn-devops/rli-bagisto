@@ -46,6 +46,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
         Route::post('update', 'update')->name('enclaves.admin.inquiries.faq.update');
 
         Route::post('delete/{id}', 'destroy')->name('enclaves.admin.inquiries.faq.destroy');
+
+        Route::post('mass-delete', 'massDestroy')->name('enclaves.admin.inquiries.faq.mass-destroy');
+
     });
 
     // CDN Link Url

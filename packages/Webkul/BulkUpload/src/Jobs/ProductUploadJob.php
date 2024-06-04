@@ -2,15 +2,16 @@
 
 namespace Webkul\BulkUpload\Jobs;
 
+use Illuminate\Support\Str;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Webkul\Admin\Exports\DataGridExport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Str;
-use Maatwebsite\Excel\Facades\Excel;
-use Webkul\Admin\Exports\DataGridExport;
 use Webkul\BulkUpload\Repositories\Products\SimpleProductRepository;
 
 class ProductUploadJob implements ShouldQueue
@@ -36,6 +37,8 @@ class ProductUploadJob implements ShouldQueue
      */
     public function handle()
     {
+        Log::info('Bulk Upload Product start');
+        
         // flush session when the new CSV file executing
         session()->forget('notUploadedProduct');
         session()->forget('uploadedProduct');
@@ -76,5 +79,7 @@ class ProductUploadJob implements ShouldQueue
         if ($isError) {
             Excel::store(new DataGridExport(collect($records)), 'error-csv-file/' . $this->dataFlowProfileRecord->profiler->id . '/' . Str::random(10) . '.csv');
         }
+
+        Log::info('Bulk Upload Product end');
     }
 }

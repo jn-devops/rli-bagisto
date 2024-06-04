@@ -260,7 +260,6 @@
     }
   }
 
-
   .et-slider-section {
     flex: 1;
   }
@@ -318,7 +317,6 @@
   }
 
   @media (max-width: 1100px) {
-
     .wk-gird-wide {
       flex-direction: column;
     }
@@ -331,18 +329,13 @@
   }
 
   @media (max-width: 768px) {
-
-
     .et-slider {
       --nextpos: 0%;
       --next-width: 60%;
     }
   }
 
-
   @media (max-width: 525px) {
-
-
     .et-slider {
       padding-bottom: calc(501 / 634 * 100%);
     }
@@ -419,6 +412,11 @@
     border-bottom-right-radius: 6px;
   }
 
+  ul {
+    padding-left: 40px;
+    list-style: disc;
+  }
+
   .warning {
       display: flex;
       color: white;
@@ -441,7 +439,6 @@
       border-radius: 20px 20px 20px 20px;
       background-color: rgb(255, 50, 35);
       padding: 10px;
-
   }
   
   .cancel {
@@ -518,9 +515,11 @@
   .icon-dashboard:before {
     content: "\e943";
   }
+
   .icon-Documents:before {
     content: "\e944";
   }
+
   .icon-enquiries:before {
     content: "\e945";
   }

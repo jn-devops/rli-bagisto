@@ -2,9 +2,11 @@
 
 namespace Webkul\Enclaves\Http\Controllers\Admin\Ticket;
 
+use Illuminate\Http\JsonResponse;
 use Webkul\Enclaves\DataGrids\FaqDataGrid;
-use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Enclaves\Repositories\FaqRepository;
+use Webkul\Enclaves\Http\Controllers\Controller;
+use Webkul\Admin\Http\Requests\MassDestroyRequest;
 
 class FaqController extends Controller
 {
@@ -112,14 +114,31 @@ class FaqController extends Controller
         try {
             $this->faqRepository->delete($id);
 
-            session()->flash('success', trans('enclaves::app.admin.inquiries.faq.form.create.delete-success'));
+            return response()->json([
+                'message' => trans('enclaves::app.admin.inquiries.faq.form.create.delete-success'),
+            ]);
 
-            return redirect()->back();
         } catch (\Throwable $th) {
         }
 
         return response()->json([
             'message' => trans('enclaves::app.admin.inquiries.faq.form.create.delete-failed'),
         ], 500);
+    }
+
+    /**
+     * Remove the specified resources from database.
+     */
+    public function massDestroy(MassDestroyRequest $massDestroyRequest): JsonResponse
+    {
+        $indices = $massDestroyRequest->input('indices');
+
+        foreach ($indices as $index) {
+            $this->faqRepository->delete($index);
+        }
+
+        return new JsonResponse([
+            'message' => trans('enclaves::app.admin.inquiries.faq.form.create.delete-success'),
+        ]);
     }
 }

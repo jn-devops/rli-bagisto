@@ -24,8 +24,6 @@ class FaqDataGrid extends DataGrid
      */
     public function prepareQueryBuilder()
     {
-        $tablePrefix = DB::getTablePrefix();
-
         $queryBuilder = DB::table('ticket_faqs')
             ->addSelect(
                 'ticket_faqs.id as id',
@@ -140,7 +138,7 @@ class FaqDataGrid extends DataGrid
             'icon'   => 'icon-delete',
             'title'  => trans('delete'),
             'method' => 'POST',
-            'url'    => route('enclaves.admin.inquiries.ticket.mass-destroy'),
+            'url'    => route('enclaves.admin.inquiries.faq.mass-destroy'),
         ]);
     }
 }
