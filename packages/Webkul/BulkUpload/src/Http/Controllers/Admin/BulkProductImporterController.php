@@ -121,7 +121,7 @@ class BulkProductImporterController extends Controller
     public function destroy($id)
     {
         try {
-            $this->bulkProductImporterRepository->findOrFail($id)->delete();
+            $this->bulkProductImporterRepository->delete($id);
         } catch (\Exception $e) {
         }
 

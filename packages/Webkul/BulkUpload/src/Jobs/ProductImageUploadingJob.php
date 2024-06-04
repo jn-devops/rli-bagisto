@@ -37,10 +37,14 @@ class ProductImageUploadingJob implements ShouldQueue
      */
     public function handle()
     {
+        Log::info('Bulk Upload Product Image Start');
+
         if (isset($this->csvImageData)
                 && ! empty($this->csvImageData)) {
             $this->storeImageZip($this->csvImageData);
         }
+
+        Log::info('Bulk Upload Product Image End');
     }
 
     /**

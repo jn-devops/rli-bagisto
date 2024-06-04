@@ -131,7 +131,7 @@
                         @lang('admin::app.cms.edit.seo')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
+                    <!-- SEO Title & Description Blade Component -->
                     <x-admin::seo slug="page"/>
 
                     <x-admin::form.control-group>
@@ -272,7 +272,7 @@
                         @endforeach
                         
                         <x-admin::form.control-group.error control-name="channels[]" />
-                    </x-slot>
+                    </x-slot:content>
                 </x-admin::accordion>
 
                 {!! view_render_event('bagisto.admin.cms.pages.edit.card.accordion.seo.after', ['page' => $page]) !!}

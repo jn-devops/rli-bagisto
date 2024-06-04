@@ -83,6 +83,10 @@ class CMSPageDataGrid extends DataGrid
             'index'  => 'url_key',
             'target' => '_blank',
             'url'    => function ($row) {
+                if($row->url_key == 'verify-page') {
+                    return '#';
+                }
+
                 return route('shop.cms.page', $row->url_key);
             },
         ]);
@@ -104,6 +108,10 @@ class CMSPageDataGrid extends DataGrid
                 'title'  => trans('admin::app.cms.index.datagrid.delete'),
                 'method' => 'DELETE',
                 'url'    => function ($row) {
+                    if($row->url_key == 'verify-page') {
+                        return '#';
+                    }
+
                     return route('admin.cms.delete', $row->id);
                 },
             ]);

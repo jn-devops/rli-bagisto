@@ -19,27 +19,58 @@
                 class="m-[20px] p-[20px]" 
                 v-if="! sended && ! embedURL"
             >
-                <div class="flex w-full justify-center gap-x-[40px] max-[1180px]:gap-x-[20px]">
+                <div class="flex w-full justify-center gap-x-[40px] max-[1180px]:gap-x-[20px]"
+                    v-if="isLoaded"
+                >
                     <h1 
-                        class="mt-[26px] text-[40px] font-bold leading-[48px] max-lg:text-[26px] max-lg:leading-[36px]"
+                        class="text-[40px] font-bold leading-[48px] max-lg:text-[26px] max-lg:leading-[36px]"
+                        v-text="crmPage.page_title"
                     >
-                        @lang('enclaves::app.shop.authentication.title')
                     </h1>
                 </div>
-           
-                <p 
-                    class="mt-[50px] text-[20px] max-lg:mt-[25px] max-lg:text-[16px]" 
-                >
-                    @lang('enclaves::app.shop.authentication.body_text')
-                </p>
+
+                <div v-else class="flex justify-center">
+                    <div class="shimmer h-[50px] w-[250px]"></div>
+                </div>
+
+                <div v-if="isLoaded">
+                    <p 
+                        class="mt-[50px] text-[20px] max-lg:mt-[25px] max-lg:text-[16px]"
+                        v-html="crmPage.html_content"
+                    >
+                    </p>
+                </div>
+
+                <div v-else class="mt-[50px]">
+                    <div class="shimmer mt-2 h-[20px] w-full"></div>
+
+                    <div class="shimmer mt-2 h-[20px] w-[80%]"></div>
+
+                    <div class="shimmer mt-2 h-[20px] w-full"></div>
+
+                    <div class="shimmer mt-2 h-[20px] w-[80%]"></div>
+
+                    <div class="shimmer mt-2 h-[20px] w-full"></div>
+
+                    <div class="shimmer mt-2 h-[20px] w-[80%]"></div>
+
+                    <div class="shimmer mt-2 h-[20px] w-full"></div>
+
+                    <div class="shimmer mt-2 h-[20px] w-[80%]"></div>
+                </div>
 
                 <!-- Loader Spinner -->
                 <button
+                    v-if="isLoaded || crmPage.translations"
                     class="mx-auto mt-[30px] flex rounded-[18px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[43px] py-[16px] text-center text-[16px] font-medium text-white"
                     @click="handleKycVerification"
+                    v-text="crmPage.translations[0].btn_title"
                 >
-                    @lang('enclaves::app.shop.authentication.authenticate')
                 </button>
+
+                <div v-else class="mt-12 flex justify-center">
+                    <div class="shimmer h-[50px] w-[250px]"></div>
+                </div>
             </div>
 
             <div v-else>
@@ -76,6 +107,8 @@
                     alreadyRedirect: 0,
                     embedURL: null,
                     isIframeLoaded: 0,
+                    crmPage: {},
+                    isLoaded: false,
                 }
             },
             
@@ -89,14 +122,27 @@
                 this.getEmbedUrl();
 
                 this.loading();
+
+                this.getPageCMS();
             },
 
             methods: {
+                getPageCMS() {
+                    this.$axios.get("{{ route('ekyc.verification.cms') }}")
+                    .then(response => {
+                        this.isLoaded = true;
+
+                        this.crmPage = response.data.data.page;
+                    })
+                    .catch(error => console.log(error));
+                },
+
                 loading() {
                     setTimeout(() => {
                         this.isIframeLoaded = 1;
                     }, 2000);
                 },
+
                 handleKycVerification() {
                     this.$axios.post("{{ route('ekyc.verification.store') }}", {
                         request: this.request,
@@ -166,5 +212,4 @@
         });
     </script>
 @endPushOnce
-
 </x-shop::layouts>

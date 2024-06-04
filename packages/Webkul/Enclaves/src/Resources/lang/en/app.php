@@ -403,6 +403,11 @@ return [
     ],
 
     'admin' => [
+        'cms' => [
+            'title'     => 'Button Setting',
+            'btn-title' => 'Button Title',
+        ],
+        
         'settings' => [
             'themes' => [
                 'edit' => [

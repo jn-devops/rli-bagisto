@@ -81,7 +81,7 @@
                         @lang('admin::app.cms.create.seo')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
+                    <!-- SEO Title & Description Blade Component -->
                     <x-admin::seo/>
 
                     <x-admin::form.control-group>

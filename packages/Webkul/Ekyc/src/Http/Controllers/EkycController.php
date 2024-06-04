@@ -2,13 +2,14 @@
 
 namespace Webkul\Ekyc\Http\Controllers;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Event;
-use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\CMS\Repositories\PageRepository;
 use Webkul\Checkout\Repositories\CartRepository;
-use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Customer\Repositories\CustomerRepository;
+use Webkul\BulkUpload\Repositories\EkycVerificationRepository;
 
 class EkycController extends Controller
 {
@@ -19,7 +20,8 @@ class EkycController extends Controller
         protected ProductRepository $productRepository,
         protected EkycVerificationRepository $ekycVerificationRepository,
         protected CartRepository $cartRepository,
-        protected CustomerRepository $customerRepository
+        protected CustomerRepository $customerRepository,
+        protected PageRepository $pageRepository,
     ) {
     }
 
@@ -194,6 +196,18 @@ class EkycController extends Controller
         return new JsonResource([
             'url'    => null,
             'status' => false,
+        ]);
+    }
+
+    /**
+     * Getting URL
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pageContent()
+    {
+        return new JsonResource([
+            'page'   => $this->pageRepository->findOneByField('layout', 'verify-page'),
         ]);
     }
 }
