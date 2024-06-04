@@ -46,6 +46,14 @@
     <meta property="og:url" content="{{ route('shop.product_or_category.index', $product->url_key) }}" />
 @endPush
 
+@push ('styles')
+    <style>
+        ul {
+            padding-left: 40px;
+            list-style: disc;
+        }
+    </style>
+@endpush
 @pushOnce('scripts')
     <script>
 		document.addEventListener("DOMContentLoaded", () => {
