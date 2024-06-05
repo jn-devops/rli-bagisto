@@ -10,7 +10,7 @@
                     <span class="icon-cart cursor-pointer text-[24px]"></span>
 
                     <span
-                        class="absolute left-[18px] top-[-15px] rounded-[44px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[7px] py-[5px] text-[10px] font-semibold leading-[9px] text-white"
+                        class="absolute left-[18px] top-[-15px] rounded-[44px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-2 py-1 text-[10px] font-semibold leading-[9px] text-white"
                         v-if="cart?.items_qty"
                     >
                         @{{ cart.items_qty }}
@@ -45,7 +45,6 @@
 
                         <div class="grid flex-1 place-content-start justify-stretch gap-y-[10px]">
                             <div class="flex flex-wrap justify-between">
-                                
                                 <p
                                     class="max-w-[80%] text-[16px] font-medium"
                                     v-text="item.name"
@@ -62,11 +61,10 @@
                                     <span class="font-bold">@lang('enclaves::app.shop.product.reservation-fee')</span>
                                     <span class="font-bold text-red-600" v-text="cart?.processing_fee"></span>
                                 </p>
-
                             </div>
 
                             <div
-                                class="grid select-none gap-x-[10px] gap-y-[6px]"
+                                class="grid select-none gap-x-2.5 gap-y-1.5"
                                 v-if="item.options.length"
                             >
                                 <div class="">
@@ -83,7 +81,7 @@
                                     </p>
                                 </div>
 
-                                <div class="grid gap-[8px]" v-show="item.option_show">
+                                <div class="grid gap-2" v-show="item.option_show">
                                     <div class="" v-for="option in item.options">
                                         <p class="text-[14px]">
                                             <span class="font-medium">
@@ -140,9 +138,17 @@
 
                     <div class="px-[25px]">
                         <button
+                            v-if="isLoaded"
                             @click="handleKycVerificationRedirect"
                             class="m-0 mx-auto ml-[0px] block w-full cursor-pointer rounded-[18px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[43px] py-[15px] text-center text-base font-medium text-white max-lg:px-[20px]"
-                            >
+                        >
+                            @lang('enclaves::app.shop.product.reserve-now')
+                        </button>
+
+                        <button
+                            v-else
+                            class="m-0 mx-auto ml-[0px] block w-full cursor-not-allowed rounded-[18px] bg-[linear-gradient(268.1deg,_#f790bd_7.47%,_#ddb86a_98.92%)] px-[43px] py-[15px] text-center text-base font-medium text-white max-lg:px-[20px]"
+                        >
                             @lang('enclaves::app.shop.product.reserve-now')
                         </button>
                     </div>
@@ -160,17 +166,14 @@
                     cart: null,
 
                     verificationUrl: null,
+
+                    isLoaded: 0,
                 }
             },
 
            mounted() {
                 this.getCart();
 
-                /**
-                 * To Do: Implement this.
-                 *
-                 * Action.
-                 */
                 this.$emitter.on('update-mini-cart', (cart) => {
                     this.cart = cart;
                 });
@@ -200,17 +203,22 @@
                         .catch(error => {});
                 },
 
-
                 getRedirectURL() {
                     this.$axios.get("{{ route('enclaves.api.property.verfiy-url.index') }}")
                         .then(response => {
                             this.verificationUrl = response.data.data.ekyc_redirect;
+
+                            this.isLoaded = 1;
                         })
                         .catch(error => {});
                 },
 
                 handleKycVerificationRedirect() {
-                   window.open(this.verificationUrl, "_self");
+                    if(! this.verificationUrl) {
+                        return false;
+                    }
+
+                    window.open(this.verificationUrl, "_self");
                 }
             }
         });

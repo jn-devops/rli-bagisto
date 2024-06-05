@@ -254,7 +254,17 @@
                                     {!! $product->button_text != '0' && $product->button_text ? $product->button_information : '' !!}
 
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
-                                        <button 
+                                        <button
+                                            v-if="isAdding"
+                                            class="mx-auto ml-[0px] mt-[30px] block w-full cursor-not-allowed rounded-[18px] border-[3px] border-[#e785b0] px-[43px] py-[16px] text-center font-medium text-[#e785b0] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
+                                            style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
+                                            disabled
+                                        >
+                                            @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
+                                        </button>
+                                        
+                                        <button
+                                            v-else
                                             class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] border-[3px] border-[#CC035C] px-[43px] py-[16px] text-center font-medium text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
                                             @click="is_buy_now=1; is_kyc_process=1;"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
@@ -289,11 +299,15 @@
                             qty: 1,
 
                             product: @json($product),
+
+                            isAdding: 0,
                         }
                     },
 
                     methods: {
                         addToCart(params) {
+                                this.isAdding = 1;
+                                
                                 let formData = new FormData(this.$refs.formData);
 
                                 this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
@@ -302,6 +316,8 @@
                                         }
                                     })
                                     .then(response => {
+                                        this.isAdding = 0;
+
                                         if (response.data.message) {
                                             this.$emitter.emit('update-mini-cart', response.data.data);
 

@@ -21,16 +21,14 @@
                 </div>
                 
                 <div class="relative">
-                    <div class="relative mt-[10px] flex w-auto gap-[10px] overflow-auto">
+                    <div class="scrollbar-hide relative mt-[10px] flex w-auto gap-[10px] overflow-auto scroll-smooth">
                         <template v-for="(image, index) in media.images">
-                            <div v-if="index < imageLimit">
-                                <img 
-                                    :src="image.small_image_url"  
-                                    :class="`min-w-[86px] max-h-[60px] rounded-[5px] border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"  
-                                    @click="change(image, `image_${index}`)"
-                                    alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}"
-                                >
-                            </div>
+                            <img 
+                                :src="image.small_image_url"  
+                                :class="`min-w-[86px] max-h-[60px] rounded-[5px] border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"  
+                                @click="change(image, `image_${index}`)"
+                                alt="{{ trans('shop::app.products.view.gallery.thumbnail-image') }}"
+                            >
                         </template>
                     </div>
 

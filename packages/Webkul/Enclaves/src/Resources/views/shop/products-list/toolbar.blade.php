@@ -102,7 +102,7 @@
                 return {
                     filters: {
                         available: {
-                            sort: 'created_at-desc',
+                            sort: @json($toolbar->getAvailableOrders()),
 
                             limit: @json($toolbar->getAvailableLimits()),
 
@@ -110,7 +110,7 @@
                         },
 
                         applied: {
-                            sort:  'created_at-desc',
+                            sort: '{{ $toolbar->getOrder(isset($params) ? $params : [])['value'] }}',
 
                             limit: '{{ $toolbar->getLimit(isset($params) ? $params : [] ) }}',
 
