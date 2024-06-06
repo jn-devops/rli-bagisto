@@ -9,6 +9,7 @@ use Webkul\BulkUpload\Imports\DataGridImport;
 use Webkul\BulkUpload\Jobs\ProductImageUploadingJob;
 use Webkul\BulkUpload\Repositories\ImportProductRepository;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
+use Webkul\BulkUpload\Helpers\ResultHelper;
 use Webkul\BulkUpload\Repositories\BulkProductImporterRepository;
 
 class UploadFileController extends Controller
@@ -291,6 +292,11 @@ class UploadFileController extends Controller
 
         $batch = Bus::batch([])->dispatch();
 
+        /**
+         * Deleting all result file.
+         */
+        app(ResultHelper::class)->removeAllFile();
+
         $batch->add(new ProductUploadJob($productFileRecord, $chunks, $countCSV));
         
         $batch->add(new ProductImageUploadingJob($csvImageData));
@@ -375,24 +381,41 @@ class UploadFileController extends Controller
      */
     public function getUploadedProductOrNotUploadedProduct()
     {
-        $data = [];
         $status = request()->status;
         $message = false;
 
-        if (session()->has('notUploadedProduct')) {
-            $data['notUploadedProduct'] = session()->get('notUploadedProduct');
-        }
-
-        if (session()->has('uploadedProduct')) {
-            $data['uploadedProduct'] = session()->get('uploadedProduct');
-        }
 
         if (session()->has('completionMessage')) {
             $message = true;
-            $data['completionMessage'] = session()->get('completionMessage');
+            
             $status = false;
         }
 
-        return response()->json(['response' => $data, 'status' => $status, 'success' => $message], 200);
+        return response()->json(['status' => $status, 'success' => $message], 200);
+    }
+
+
+    /**
+     * Get Final Result
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFinalResult()
+    {
+        /**
+         * image_not_found
+         * bulk_upload_error
+         * product_uploaded
+         */
+        $imageNotUploaded = Storage::get('imported-products/admin/result/image_not_found.json');
+
+        $productUploaded = Storage::get('imported-products/admin/result/product_uploaded.json');
+
+        $data = [
+            'image_not_found'  => $imageNotUploaded,
+            'product_uploaded' => $productUploaded,
+        ];
+
+        return response()->json(['response' => $data, 'status' => true, 'success' => 'asdas'], 200);
     }
 }

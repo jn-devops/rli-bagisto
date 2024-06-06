@@ -107,56 +107,28 @@
                         </x-admin::form>
                     </div>
 
-                    <div  v-if="errorCsvFile" class="box-shadow rounded-1 bg-white p-2.5 dark:bg-gray-900">
-                        <p
-                            class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
-                            @lang('bulkUpload::app.admin.bulk-upload.run-profile.error')
-                        </p>
-                        
-                        <div v-for="(item, index) in errorCsvFile" :key="index">
-                            <div class="row grid grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center border-b-2 px-4 py-2.5 dark:border-gray-800">
-                                <div class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
-                                    @lang('bulkUpload::app.admin.bulk-upload.upload-files.profiler-name'):- @{{ profilerNames[index] }}
-                                </div>
-                            </div>
-
-                            <div class="row grid grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center border-b-2 px-4 py-2.5 dark:border-gray-800">
-                                <div class="gap-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.csv-link')</div>
-                                <div class="gap-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.date-and-time')</div>
-                                <div class="gap-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.delete-file')</div>
-                            </div>
-
-                            <div v-for="(record) in item" class="row border-b-2.5 grid grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center px-4 py-2.5 dark:border-gray-800">
-                                <div class="flex select-none items-center gap-2.5">
-                                    <a :href="record.link" class="text-blue-700 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-file.download-file')</a>
-                                </div>
-                                
-                                <div class="flex select-none items-center gap-2.5 dark:text-white">
-                                    @{{ record.time }}
-                                </div>
-
-                                <div class="flex select-none items-center gap-2.5">
-                                    <button @click="deleteCSV(index, record.fileName)" class="primary-button">@lang('bulkUpload::app.admin.bulk-upload.upload-file.delete')</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 
                 <!-- Right Section -->
                 <div class="flex w-[360px] max-w-full flex-col gap-2">
                     <div class="box-shadow rounded-1 bg-white p-2.5 dark:bg-gray-900">
+                        <p class="text-base font-semibold text-gray-800 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.uploaded-product')</p>
+
+                        <ul class="border-3 mt-[10px] h-40 rounded border-gray-800 bg-gray-200 p-4 dark:border-gray-800 dark:bg-gray-200" style="max-height: 250px;overflow: auto;">
+                            
+                        </ul>
+                    </div>
+
+                    <div class="box-shadow rounded-1 bg-white p-2.5 dark:bg-gray-900">
 
                         <!-- Uploaded product records -->
-                        <p v-if="isProductUploaded" class="mb-[16px] text-base font-semibold text-gray-800 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.run-profile.uploaded-product')</p>
-                        <p class="mb-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.uploaded-product')</p>
+                        <p class="text-base font-semibold text-gray-800 dark:text-white">
+                            @lang('bulkUpload::app.admin.bulk-upload.run-profile.error')
+                        </p>
 
-                        <ul class="border-3 h-40 rounded border-gray-800 bg-gray-200 p-4 dark:border-gray-800 dark:bg-gray-200" style="max-height: 250px;overflow: auto;">
-                            <li v-for="(item, index) in uploadedProductList" :key="index" class="mb-3">
-                                <p class="text-sm">Product id: <span class="italic">@{{ item.id }}</span></p>
-                                <p class="text-sm">Product SKU: <span class="italic">@{{ item.sku }}</span></p>
-                                <p class="text-sm">Product type: <span class="italic">@{{ item.type }}</span></p>
-                            </li>
+                        <ul class="border-3 mt-[10px] h-40 rounded border-gray-800 bg-gray-200 p-4 dark:border-gray-800 dark:bg-gray-200" style="max-height: 250px;overflow: auto;">
+                          
                         </ul>
                     </div>
                 </div>
@@ -176,8 +148,6 @@
                         product_importer: [],
                         attribute_family_id: null,
                         bulk_product_importer_id: null,
-                        uploadedProductList:[],
-                        notUploadedProductList:[],
                         errorCsvFile: [],
                         profilerNames: null,
                         stopInterval: null,
@@ -196,7 +166,6 @@
 
                 mounted() {
                     this.loadStoredTimer();
-                    this.getUploadedProductAndProductValidation(this.status = this.running);
                 },
 
                 computed: {
@@ -301,27 +270,19 @@
                         
                         const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.read-csv') }}";
                         
-                        this.getUploadedProductAndProductValidation(this.status = true);
+
                         this.$axios.post(uri, {
                             product_file_id: id,
                             bulk_product_importer_id: this.bulk_product_importer_id
                         })
-
                         .then((result) => {
                             const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.read-csv') }}";
 
                             this.$emitter.emit('add-flash', { type: 'success', message: result.data.message });
-                            console.log(result.data);
+                           
                             if (result.data.success == true) {
-                                this.getUploadedProductAndProductValidation(this.status = false);
-                            
                                 this.stopTimer();
-                                
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 500);
                             }
-                            
                         })
                         .catch((error) =>{
                         })
@@ -344,73 +305,14 @@
                             });
                     },
 
-                    // Delete CSV file
-                    deleteCSV(id, name) {
-                        
-                        const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.delete-csv-file') }}"
-
-                        this.$axios.post(uri, {id: id, name:name})
-                            .then((result) => {
-                                this.$emitter.emit('add-flash', { type: 'success', message: result.data.message });
-                                this.getErrorCsvFile();
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-                    },
-                    
-                    // Get record uploaded and not uploaded product due to validation error
-                    getUploadedProductAndProductValidation() {
-                        const uri = "{{ route('admin.bulk-upload.upload-file.get-uploaded-and-not-uploaded-product') }}"
-                        var self = this;
-                        
-                        this.$axios.post(uri,{
-                            status:this.status
-                        })
-
-                        .then((result) => {
-                            this.isProductUploaded = true;
-                            this.isProductError = true;
-                            
-                            if (result.data.response.length == 0) {
-                                this.isProductUploaded = false;
-                                this.isProductError = false;
-                            }
-
-                            this.uploadedProductList = result.data.response.uploadedProduct;
-                            this.notUploadedProductList = result.data.response.notUploadedProduct;
-                            
-                            if (result.data.success) {
-                                this.stopTimer();
-                                
-                                this.$emitter.emit('add-flash', { type: 'success', message: result.data.response.completionMessage });
-                                
-                                this.running = true;
-                                // Remove a specific item from localStorage
-                                localStorage.removeItem('timerState');
-
-                                // Remove a specific item from session storage
-                                @php
-                                    Illuminate\Support\Facades\Session::forget('completionMessage');
-                                @endphp
-                            }
-                            
-                            if (result.data.status == true) {
-                                // setTimeout(function() {
-                                //     self.getUploadedProductAndProductValidation(this.status = true);
-                                // }, 3000);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    },
-
                     startTimer() {
                         if (! this.running) {
                             this.startTime = new Date().getTime() - (this.timer.seconds * 1000);
-                            this.timer.interval = setInterval(this.updateTimer, 1000); // Update every second
+                            t
+                            his.timer.interval = setInterval(this.updateTimer, 1000); // Update every second
+                            
                             this.running = true;
+                            
                             this.storeTimerState();
                         }
                     },
@@ -423,14 +325,19 @@
 
                     updateTimer() {
                         let constcurrentTime = new Date().getTime();
+                        
                         let constelapsedTime = Math.floor((constcurrentTime - this.startTime) / 1000);
+                        
                         this.timer.seconds = constelapsedTime;
+                        
                         this.storeTimerState();
                     },
 
                     stopTimer() {
                         clearInterval(this.timer.interval);
+                        
                         this.running = false;
+                        
                         this.storeTimerState();
                     },
 

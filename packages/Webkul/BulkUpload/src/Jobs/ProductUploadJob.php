@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Webkul\Admin\Exports\DataGridExport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Webkul\BulkUpload\Helpers\ResultHelper;
 use Webkul\BulkUpload\Repositories\Products\SimpleProductRepository;
 
 class ProductUploadJob implements ShouldQueue
@@ -40,10 +41,6 @@ class ProductUploadJob implements ShouldQueue
         Log::info('Bulk Upload Product start');
         
         // flush session when the new CSV file executing
-        session()->forget('notUploadedProduct');
-        session()->forget('uploadedProduct');
-        session()->forget('completionMessage');
-
         $simpleProductRepository = app(SimpleProductRepository::class);
 
         $errorArray = [];
@@ -64,9 +61,11 @@ class ProductUploadJob implements ShouldQueue
                     $errorArray['error'] = json_encode($uploadedProduct['error']);
 
                     $records[$key] = (object) array_merge($errorArray, $arr);
-
-                    // store validation for products which is not uploads.
-                    session()->push('notUploadedProduct', $errorArray);
+                    
+                    /**
+                     * Result Data Prepping
+                     */
+                    app(ResultHelper::class)->result($errorArray, 'bulk_upload_error.json');
                 }
             }
         }

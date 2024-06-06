@@ -55,12 +55,12 @@ class EkycController extends Controller
     /**
      * EndPoint URL
      */
-    private function getSiteVerifyEndPoint(string $sku, string $transaction_id): string
+    private function getSiteVerifyEndPoint(string $sku, string $transactionId): string
     {
         /**
          * In Production.
          */
-        return "https://book.homeful.ph/auto-reserve/{$sku}/{$transaction_id}";
+        return "https://book.homeful.ph/auto-reserve/{$sku}/{$transactionId}";
     }
 
     /**
@@ -73,7 +73,7 @@ class EkycController extends Controller
         $product = $this->productRepository->findBySlug($data['slug']);
 
         // Getting transition id for API
-        $transaction_id = encrypt($data['cartId']);
+        $transactionId = encrypt($data['cartId']);
 
         $this->ekycVerificationRepository->updateOrCreate([
             'cart_id' => $data['cartId'],
@@ -82,12 +82,12 @@ class EkycController extends Controller
             'cart_id'        => $data['cartId'],
             'sku'            => $product->sku,
             'status'         => 0,
-            'transaction_id' => $transaction_id,
+            'transaction_id' => $transactionId,
             'payload'        => $data,
         ]);
 
         return new JsonResource([
-            'redirect' => $this->getSiteVerifyEndPoint($product->sku, $transaction_id),
+            'redirect' => $this->getSiteVerifyEndPoint($product->sku, $transactionId),
         ]);
     }
 

@@ -2,22 +2,23 @@
 
 namespace Webkul\BulkUpload\Repositories\Products;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Webkul\BulkUpload\Helpers\ResultHelper;
+use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\Attribute\Repositories\AttributeRepository;
+use Webkul\Core\Eloquent\Repository as BaseRepository;
+use Webkul\BulkUpload\Repositories\ProductImageRepository;
+use Webkul\BulkUpload\Repositories\ImportProductRepository;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\Attribute\Repositories\AttributeOptionRepository;
-use Webkul\Attribute\Repositories\AttributeRepository;
-use Webkul\BulkUpload\Repositories\ImportProductRepository;
-use Webkul\BulkUpload\Repositories\ProductImageRepository;
-use Webkul\Category\Repositories\CategoryRepository;
-use Webkul\Core\Eloquent\Repository as BaseRepository;
 use Webkul\Inventory\Repositories\InventorySourceRepository;
 use Webkul\Product\Repositories\ProductCustomerGroupPriceRepository;
-use Webkul\Product\Repositories\ProductRepository;
 
 class SimpleProductRepository extends BaseRepository
 {
@@ -258,6 +259,16 @@ class SimpleProductRepository extends BaseRepository
         Event::dispatch('catalog.product.update.before', $product->id);
 
         $productFlat = $this->productRepository->update($data, $product->id);
+
+        /**
+         * Result Data Prepping
+         */
+        $data = [
+            'id'   => $productFlat->id,
+            'name' => $productFlat->name,
+        ];
+
+        app(ResultHelper::class)->result($data, 'product_uploaded.json');
 
         Event::dispatch('catalog.product.update.after', $productFlat);
     }

@@ -21,8 +21,6 @@ class BlogController extends Controller
      */
     public function index()
     {
-        abort_if(! core()->getConfigData('blog.settings.general.status'), 404);
-
         $limit = (int)$this->getConfigByKey('blog_post_per_page');
         
         $blogs = $this->blogRepository
@@ -54,8 +52,6 @@ class BlogController extends Controller
      */
     public function view($slug)
     {
-        abort_if(! core()->getConfigData('blog.settings.general.status'), 404);
-
         $blog = $this->blogRepository
                         ->where('slug', $slug)
                         ->firstOrFail();
@@ -86,8 +82,7 @@ class BlogController extends Controller
      */
     public function blogFrontEnd(): JsonResource
     {
-        $blogs = $this->blogRepository
-                    ->where('status', 1);
+        $blogs = $this->blogRepository->where('status', 1);
 
         if(! empty(request('limit'))) {
             $limit = (int)request('limit');

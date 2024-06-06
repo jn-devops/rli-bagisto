@@ -9,13 +9,10 @@ use Webkul\Checkout\Repositories\CartRepository;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
 
-class EkycVerificationCreateOrUpdate
+class EkycVerificationHelper
 {
     /**
-     * \Webkul\Customer\Repositories\EkycVerificationRepository $ekycVerificationRepository
-     * \Webkul\Customer\Repositories\CustomerGroupRepository $customerGroupRepository
-     * \Webkul\Customer\Repositories\CustomerRepository $customerRepository
-     * \Webkul\Customer\Repositories\CartRepository $cartRepository
+     *  Create a new class instance.
      */
     public function __construct(
         protected EkycVerificationRepository $ekycVerificationRepository,
@@ -28,7 +25,7 @@ class EkycVerificationCreateOrUpdate
     /**
      * add customer and ekyc detail
      */
-    public function create($payload)
+    public function store($payload)
     {
         $password = Str::random(10);
 

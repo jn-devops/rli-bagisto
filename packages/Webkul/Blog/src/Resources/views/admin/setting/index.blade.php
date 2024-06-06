@@ -121,31 +121,8 @@
                     </div>
                 </div>
             </div>
-
-            <v-wc-custom-js></v-wc-custom-js>
         </div>
-
-        {!! view_render_event('admin.blogs.setting.after') !!}
-
-    </x-admin::form>
-
-@pushOnce('scripts')
-    {{-- SEO Vue Component Template --}}
-    <script type="text/x-template" id="v-wc-custom-js-template">
         
-    </script>
-
-    <script type="module">
-        app.component('v-wc-custom-js', {
-            template: '#v-wc-custom-js-template',
-
-            data() {
-                return {
-                    
-                }
-            },
-        });
-    </script>
-@endPushOnce
-
+        {!! view_render_event('admin.blogs.setting.after') !!}
+    </x-admin::form>
 </x-admin::layouts>

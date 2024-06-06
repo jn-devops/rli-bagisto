@@ -74,7 +74,7 @@ Route::middleware(['web', 'admin', 'bulkUpload'])
                     ->name('admin.bulk-upload.upload-file.run-profile.read-csv');
 
                 // get error after product uploading
-                Route::get('/download-csv', [UploadFileController::class, 'downloadCsv'])
+                Route::get('/download-csv', [UploadFileController::class, 'getFinalResult'])
                     ->name('admin.bulk-upload.upload-file.run-profile.download-csv');
 
                 // Delete the csv error file

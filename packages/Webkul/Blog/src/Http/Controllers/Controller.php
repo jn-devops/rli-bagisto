@@ -51,6 +51,7 @@ class Controller extends BaseController
     public function getConfigByKey($code = '')
     {
         $config_val = null;
+        
         if (! empty($code)) {
             $config = $this->coreConfigRepository->where('code', $code)->first();
 

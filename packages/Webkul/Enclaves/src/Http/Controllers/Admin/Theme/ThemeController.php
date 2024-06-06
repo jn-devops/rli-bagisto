@@ -127,8 +127,8 @@ class ThemeController extends Controller
                 }
 
                 $options['images'][] = [
-                    'image'       => 'storage/' . $path,
-                    'link'        => $image['link'],
+                    'image'          => 'storage/' . $path,
+                    'link'           => $image['link'],
                     'button_text'    => $image['button_text'],
                     'slider_syntax'  => $image['slider_syntax'],
                     'image_cdn_link' => $image['image_cdn_link'],
@@ -156,8 +156,8 @@ class ThemeController extends Controller
                     }
 
                     $options['images'][] = [
-                        'image'       => 'storage/' . $path,
-                        'link'        => $image['link'],
+                        'image'          => 'storage/' . $path,
+                        'link'           => $image['link'],
                         'button_text'    => $image['button_text'],
                         'slider_syntax'  => $image['slider_syntax'],
                         'image_cdn_link' => $image['image_cdn_link'],
