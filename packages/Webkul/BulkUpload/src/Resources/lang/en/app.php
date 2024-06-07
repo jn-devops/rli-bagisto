@@ -47,20 +47,19 @@ return [
              * Run profiler configuration
              */
             'run-profile' => [
-                'run'               => 'Import Products',
-                'index'             => 'Run Profile',
-                'error'             => 'Products which are not uploaded',
-                'finish'            => 'Finished Profile Execution',
-                'warning'           => 'Warning: Please do not close the window during importing data',
-                'run-command'       => 'Import Products In BackGround',
-                'error-count'       => 'Number of errors while product uploading',
-                'select-file'       => 'Select File',
-                'please-select'     => 'Please Select',
-                'error-in-product'  => 'Error while product uploading',
-                'uploaded-product'  => 'Products which are uploaded',
-                'profile-execution' => 'Starting profile execution, please wait...',
-                'products-uploaded' => 'Products Uploaded',
-                'delete-csv-btn'    => 'Delete CSV',
+                'upload-product-time'   => 'Time Taken',
+                'run'                   => 'Import Products',
+                'index'                 => 'Run Profile',
+                'finish'                => 'Finished Profile Execution',
+                'run-command'           => 'Import Products In BackGround',
+                'select-file'           => 'Select File',
+                'please-select'         => 'Please Select',
+                'error-in-product'      => 'Error while product uploading',
+                'uploaded-product'      => 'Newly uploaded products',
+                'download'              => 'Download',
+                'uploaded-product-info' => 'Anticipate fresh outcomes once the profile run is complete.',
+                'products-uploaded'     => 'Newly uploaded products',
+                'image-not-found'       => 'The image could not be located at the provided CDN link',
             ],
 
             'upload-file' => [
@@ -77,6 +76,7 @@ return [
                 'index'                    => 'Upload Files',
                 'image'                    => 'Image Zip file',
                 'download'                 => 'Download',
+                'upload-file'              => 'Upload Files',
                 'csv-file'                 => 'Sample :filetype CSV File',
                 'xls-file'                 => 'Sample :filetype XLS File',
                 'sample-links'             => 'Is Links have samples',
@@ -95,6 +95,8 @@ return [
                 'csv-link'                 => 'CSV Link',
                 'date-and-time'            => 'Date & Time',
                 'delete-file'              => 'Delete File',
+                'delete-message'           => 'File deleted successfully',
+                'no-record-found'          => 'No Record Found!',
             ],
 
             'messages' => [

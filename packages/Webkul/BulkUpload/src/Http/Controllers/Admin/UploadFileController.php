@@ -312,49 +312,14 @@ class UploadFileController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function downloadCsv()
+    public function getUploaded()
     {
-        $folderPath = public_path('storage/error-csv-file');
+        $limit = request()->input('limit');
 
-        // Check if the folder exists
-        if (! Storage::exists($folderPath)) {
-            // If it doesn't exist, create it
-            Storage::makeDirectory($folderPath, 0755, true, true);
-        }
-
-        $uploadedFilesError = Storage::allFiles($folderPath);
-
-        $resultArray = collect($uploadedFilesError)
-            ->map(function ($file) {
-                return [
-                    $file->getRelativePath() => [
-                        'link'     => asset('storage/error-csv-file/' . $file->getRelativePathname()),
-                        'time'     => date('Y-m-d H:i:s', filectime($file)),
-                        'fileName' => $file->getFilename(),
-                    ],
-                ];
-            })
-            ->groupBy(function ($item) {
-                return key($item);
-            })
-            ->map(function ($group) {
-                return $group->map(function ($item) {
-                    return $item[key($item)];
-                });
-            })
-            ->toArray();
-
-        $ids = array_keys($resultArray);
-
-        $profilerName = $this->bulkProductImporterRepository
-            ->get()
-            ->whereIn('id', $ids)
-            ->pluck('name')
-            ->all();
+        $files = $this->importProductRepository->orderBy('id', 'desc')->limit($limit);
 
         return response()->json([
-            'resultArray'   => $resultArray,
-            'profilerNames' => array_combine($ids, $profilerName),
+            'files' => $files,
         ]);
     }
 
@@ -365,10 +330,16 @@ class UploadFileController extends Controller
      */
     public function deleteCSV()
     {
-        $fileToDelete = 'error-csv-file/' . request('id') . '/' . request('name');
+        $import = $this->importProductRepository->findOrFail(request()->input('id'));
 
-        if (Storage::delete($fileToDelete)) {
-            return response()->json(['message' => 'File deleted successfully']);
+        try {
+            $import->delete(request()->input('id'));
+
+            Storage::delete($import->file_path);
+
+            return response()->json(['message' => trans('bulkUpload::app.admin.bulk-upload.upload-files.delete-message')]);
+        } catch (\Throwable $th) {
+            //throw $th;
         }
 
         return response()->json(['message' => 'File not found'], 404);
@@ -383,7 +354,6 @@ class UploadFileController extends Controller
     {
         $status = request()->status;
         $message = false;
-
 
         if (session()->has('completionMessage')) {
             $message = true;
@@ -412,10 +382,17 @@ class UploadFileController extends Controller
         $productUploaded = Storage::get('imported-products/admin/result/product_uploaded.json');
 
         $data = [
-            'image_not_found'  => $imageNotUploaded,
-            'product_uploaded' => $productUploaded,
+            'image_not_found'  => [
+                'data' => json_decode($imageNotUploaded),
+                'url' => Storage::url('imported-products/admin/result/image_not_found.json'),
+            ],
+            
+            'product_uploaded' => [
+                'data' => json_decode($productUploaded),
+                'url' => Storage::url('imported-products/admin/result/product_uploaded.json'),
+            ],
         ];
 
-        return response()->json(['response' => $data, 'status' => true, 'success' => 'asdas'], 200);
+        return response()->json($data, 200);
     }
 }

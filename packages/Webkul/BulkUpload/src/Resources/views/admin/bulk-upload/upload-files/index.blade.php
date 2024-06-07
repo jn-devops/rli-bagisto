@@ -1,5 +1,5 @@
+@bagistoVite(['src/Resources/assets/css/bulk-app.css'], 'bulk')
 <x-admin::layouts>
-
     <x-slot:title>
         @lang('bulkUpload::app.admin.bulk-upload.upload-files.index')
     </x-slot>
@@ -76,6 +76,60 @@
                                 </button>
                             </div><br>
                         </x-admin::form>
+                    </div>
+
+                    <p class="mb-2 mt-4 text-xl font-semibold text-gray-800 dark:text-white">
+                        @lang('bulkUpload::app.admin.bulk-upload.upload-files.upload-file')
+                    </p> 
+                    
+                    <div class="box-shadow max-h-[200px] overflow-auto rounded bg-white p-3 dark:bg-gray-900">
+                        <ul class="p-4" @wheel="getMoreFile" v-if="uploadFiles.length">
+
+                            <li v-for="file in uploadFiles">
+                                <div class="flex justify-between border-b-2">
+                                    <a class="mb-3 mt-3 text-blue-700 hover:underline" :href="storageUrl + file.file_path" download>
+
+                                        @{{ file.id }} - @{{ file.file_name }}
+
+                                        &nbsp; (@{{ new Date(file.created_at).toLocaleDateString('fr-CA') }})
+                                    </a>
+
+                                    <button @click="deleteFile(file)" class="text-red-700">
+                                        @lang('bulkUpload::app.admin.bulk-upload.upload-files.delete-file')
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <p v-else>
+                            @lang('bulkUpload::app.admin.bulk-upload.upload-files.no-record-found')
+                        </p>
+
+                        <div v-if="! isLoaded">
+                            <div class="mt-4 flex flex-wrap justify-between">
+                                <div class="shimmer h-[40px] w-[50%]"></div>
+
+                                <div class="shimmer h-[40px] w-[20%]"></div>
+                            </div>
+
+                            <div class="mt-4 flex flex-wrap justify-between">
+                                <div class="shimmer h-[40px] w-[50%]"></div>
+
+                                <div class="shimmer h-[40px] w-[20%]"></div>
+                            </div>
+
+                            <div class="mt-4 flex flex-wrap justify-between">
+                                <div class="shimmer h-[40px] w-[50%]"></div>
+
+                                <div class="shimmer h-[40px] w-[20%]"></div>
+                            </div>
+
+                            <div class="mt-4 flex flex-wrap justify-between">
+                                <div class="shimmer h-[40px] w-[50%]"></div>
+
+                                <div class="shimmer h-[40px] w-[20%]"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -282,8 +336,17 @@
                             isDownloadableChecked: false,
                             isLinkSampleHaveChecked: false,
                             isSampleAvailableChecked: false,
+                            uploadFiles: {},
+                            storageUrl: @json(Storage::url('')),
+                            limit: 5,
+                            isLoaded: false,
                         }
                     },
+
+                    mounted () {
+                        this.getDownloadFiles();
+                    },
+
                     methods:{
                         showOptions() {
                             this.isDownloadableChecked = ! this.isDownloadableChecked;
@@ -317,6 +380,50 @@
                             })
                             .catch(error => {
                             });
+                        },
+
+                        getDownloadFiles() {           
+                            var uri = "{{ route('admin.bulk-upload.upload-file.get-uploaded') }}"
+                           
+                                this.$axios.get(uri, {
+                                    params: {
+                                        limit: this.limit,
+                                    }
+                                })
+                                .then((response) => {
+                                    this.isLoaded = true;
+                                    console.log(response.data);
+                                    
+                                    this.limit += 5;
+                                    
+                                    this.uploadFiles = response.data.files;
+                                })
+                                .catch(error => {
+                                });
+                        },
+
+                        deleteFile(file) {
+                            var uri = "{{ route('admin.bulk-upload.upload-file.run-profile.delete-csv-file') }}"
+                           
+                            this.$axios.get(uri, {
+                                params: {
+                                    id: file.id
+                                },
+                            })
+                            .then((response) => {
+                                console.log(response);
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+
+                                this.getDownloadFiles();
+                            })
+                            .catch(error => {
+                            });
+                        },
+
+                        getMoreFile() {
+                            this.isLoaded = false;
+
+                            this.getDownloadFiles();
                         }
                     },
             });

@@ -3,7 +3,6 @@ import vue from "@vitejs/plugin-vue";
 import laravel from "laravel-vite-plugin";
 import path from "path";
 
-
 export default defineConfig(({ mode }) => {
     const envDir = "../../../";
 
@@ -23,12 +22,13 @@ export default defineConfig(({ mode }) => {
 
         plugins: [
             vue(),
+
             laravel({
-                hotFile: "../../../public/bulk-upload-vite.hot",
+                hotFile: "../../../public/admin-bulk-vite.hot",
                 publicDirectory: "../../../public",
-                buildDirectory: "themes/bulk-upload/build",
+                buildDirectory: "themes/admin/bulk/build",
                 input: [
-                    "src/Resources/assets/css/app.css",
+                    "src/Resources/assets/css/bulk-app.css",
                 ],
                 refresh: true,
             }),
