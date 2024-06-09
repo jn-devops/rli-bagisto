@@ -1,3 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.highlight-key {
+  font-weight: bold; /* Make keys bold */
+  color: rgb(24, 122, 37); /* Set color for keys */
+}
+
+.highlight-value {
+  color: rgb(33, 152, 189); /* Set color for values */
+}
 
 .resizer{
   width: 10px;

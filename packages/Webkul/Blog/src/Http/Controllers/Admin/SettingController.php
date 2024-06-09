@@ -47,8 +47,7 @@ class SettingController extends Controller
     {
         $data = request()->all();
 
-        $configExceptKeys = [
-        ];
+        $configExceptKeys = [];
 
         foreach ($data ?? [] as $key => $value) {
             if (! in_array($key, $configExceptKeys)) {

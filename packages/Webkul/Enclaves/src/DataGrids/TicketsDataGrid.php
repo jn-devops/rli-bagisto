@@ -8,6 +8,28 @@ use Webkul\DataGrid\DataGrid;
 class TicketsDataGrid extends DataGrid
 {
     /**
+     * Status Resolved.
+     *
+     * @var string
+     */
+    const RESOLVED = 'Resolved';
+
+    /**
+     * Status Pending.
+     * 
+     * @var string
+     */
+    const PENDING = 'pending';
+
+
+    /**
+     * Status Rejected.
+     * 
+     * @var string
+     */
+    const REJECTED = 'Rejected';
+
+    /**
      * Primary column.
      *
      * @var string
@@ -106,17 +128,17 @@ class TicketsDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 switch ($row->status) {
-                    case 'Resolved':
+                    case self::RESOLVED:
                         return '<span class="label-active p-1">' . $row->status . '</span>';
 
                         break;
-
-                    case 'Pending':
+                    case self::PENDING:
                         return '<span class="label-pending p-1">' . $row->status . '</span>';
 
                         break;
-                    case 'Rejected':
+                    case self::REJECTED:
                         return '<span class="label-info p-1">' . $row->status . '</span>';
+                        
                         break;
                 }
             },

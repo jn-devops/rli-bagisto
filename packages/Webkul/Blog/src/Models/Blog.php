@@ -2,13 +2,11 @@
 
 namespace Webkul\Blog\Models;
 
-use Webkul\Core\Models\ChannelProxy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Webkul\Blog\Contracts\Blog as BlogContract;
-use Webkul\Blog\Database\Factories\BlogFactory;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Webkul\Core\Models\ChannelProxy;
+use Webkul\Blog\Contracts\Blog as BlogContract;
 
 class Blog extends Model implements BlogContract
 {

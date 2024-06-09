@@ -2,7 +2,7 @@
 
 namespace Webkul\Ekyc\Listeners;
 
-use Webkul\Ekyc\Helpers\EkycVerificationCreateOrUpdate;
+use Webkul\Ekyc\Helpers\EkycVerificationHelper;
 
 class EkycListener
 {
@@ -14,7 +14,7 @@ class EkycListener
      */
     public function afterCreate($payload)
     {
-        app(EkycVerificationCreateOrUpdate::class)->create($payload);
+        app(EkycVerificationHelper::class)->store($payload);
     }
 
     /**

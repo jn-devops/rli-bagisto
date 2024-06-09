@@ -1,4 +1,6 @@
+@bagistoVite(['src/Resources/assets/css/bulk-app.css'], 'bulk')
 <x-admin::layouts>
+
     <x-slot:title>
         @lang('bulkUpload::app.admin.bulk-upload.bulk-product-importer.index')
     </x-slot>

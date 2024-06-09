@@ -9,11 +9,15 @@ class FaqDataGrid extends DataGrid
 {
     /**
      * Active in string
+     * 
+     * @var string
      */
     const ACTIVE = 'Active';
 
     /**
      * Inactive in string
+     * 
+     * @var string
      */
     const INACTIVE = 'Inactive';
 

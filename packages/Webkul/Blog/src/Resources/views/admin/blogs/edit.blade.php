@@ -21,7 +21,6 @@
         method="POST"
         enctype="multipart/form-data"
     >
-
         {!! view_render_event('admin.blogs.edit.before') !!}
 
         <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
@@ -208,9 +207,7 @@
                                 :uploaded-images="$blog->src ? [['id' => 'src', 'url' => $blog->src_url]] : []"
                             >
                             </x-admin::media.images>
-
                         </div>
-
                     </div>
                 </div>
 
@@ -288,13 +285,12 @@
                         </x-admin::form.control-group>
                     </div>
                 </div>
-
             </div>
 
             <!-- Right Section -->
             <div class="flex w-[360px] max-w-full flex-col gap-2">
+                
                 <!-- Settings -->
-
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="text-4 p-3 font-semibold text-gray-600 dark:text-gray-300">
@@ -303,7 +299,6 @@
                     </x-slot:header>
 
                     <x-slot:content>
-
                         <!-- Published At -->
                         <x-admin::form.control-group class="mb-2.5 w-full">
                             <x-admin::form.control-group.label class="required">

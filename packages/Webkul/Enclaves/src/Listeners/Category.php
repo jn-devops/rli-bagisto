@@ -9,19 +9,32 @@ use Illuminate\Support\Str;
 class Category
 {
     /**
-     * After Customer is Create
-     *
+     * banner Image move one path to other path
+     * 
      * @return void
      */
-    public function afterCreateOrUpdate($category)
+    public function afterUpdateOrCreate($category)
     {
         $data = request()->all();
+
+        $images = ['logo_path', 'banner_path', 'community_banner_path'];
+
+        foreach ($images as $image) {
+            if ($fileImage = request()->input('cdn_image_' . $image)) {
+
+                $filePath = 'category/'. $category->id .'/'. Str::random(40) .'.webp';
+
+                Storage::move($fileImage, $filePath);
+
+                $category->{$image} = $filePath;
+            }
+        }
 
         $file = 'community_banner_path';
 
         $path = 'category/'. $category->id;
 
-        if (request()->hasFile($file)) {    
+        if (request()->hasFile($file)) {
             Storage::delete($path);
 
             $category->community_banner_path = $path .'/'. Str::random(40) .'.webp';

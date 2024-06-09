@@ -8,6 +8,55 @@ use Webkul\DataGrid\DataGrid;
 class TransactionDataGrid extends DataGrid
 {
     /**
+     * Status Processing.
+     *
+     * @var string
+     */
+    const PROCESSING = 'processing';
+
+    /**
+     * Status completed.
+     *
+     * @var string
+     */
+    const COMPLETED = 'completed';
+
+    /**
+     * Status canceled.
+     *
+     * @var string
+     */
+    const CANCELED = 'canceled';
+    
+    /**
+     * Status closed.
+     *
+     * @var string
+     */
+    const CLOSED = 'closed';
+  
+    /**
+     * Status pending.
+     *
+     * @var string
+     */
+    const PENDING = 'pending';
+
+    /**
+     * Status pending_payment.
+     *
+     * @var string
+     */
+    const PENDING_PAYMENT = 'pending_payment';
+
+    /**
+     * Status fraud.
+     *
+     * @var string
+     */
+    const FRAUD = 'fraud';
+
+    /**
      * Prepare query builder.
      *
      * @return void
@@ -104,31 +153,31 @@ class TransactionDataGrid extends DataGrid
                     'options' => [
                         [
                             'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.processing'),
-                            'value'  => 'processing',
+                            'value'  => self::PROCESSING,
                         ],
                         [
                             'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.completed'),
-                            'value'  => 'completed',
+                            'value'  => self::COMPLETED,
                         ],
                         [
                             'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.canceled'),
-                            'value'  => 'canceled',
+                            'value'  => self::CANCELED,
                         ],
                         [
                             'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.closed'),
-                            'value'  => 'closed',
+                            'value'  => self::CLOSED,
                         ],
                         [
                             'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending'),
-                            'value'  => 'pending',
+                            'value'  => self::PENDING,
                         ],
                         [
                             'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending-payment'),
-                            'value'  => 'pending_payment',
+                            'value'  => self::PENDING_PAYMENT,
                         ],
                         [
                             'label'  => trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.fraud'),
-                            'value'  => 'fraud',
+                            'value'  => self::FRAUD,
                         ],
                     ],
                 ],
@@ -138,32 +187,33 @@ class TransactionDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($row) {
                 switch ($row->status) {
-                    case 'processing':
+                    case self::PROCESSING:
                         return '<span class="success">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.processing') . '</span>';
+                        
                         break;
-
-                    case 'completed':
+                    case self::COMPLETED:
                         return '<span class="success">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.completed') . '</span>';
+                        
                         break;
-
-                    case 'canceled':
+                    case self::CANCELED:
                         return '<span class="danger">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.canceled') . '</span>';
+                        
                         break;
-
-                    case 'closed':
+                    case self::CLOSED:
                         return '<span class="info">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.closed') . '</span>';
+                        
                         break;
-
-                    case 'pending':
+                    case self::PENDING:
                         return '<span class="warning">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending') . '</span>';
+                        
                         break;
-
-                    case 'pending_payment':
+                    case self::PENDING_PAYMENT:
                         return '<span class="success">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.pending-payment') . '</span>';
+                        
                         break;
-
-                    case 'fraud':
+                    case self::FRAUD:
                         return '<span class="danger">' . trans('enclaves::app.shop.customers.account.transactions.datagrid.status.options.fraud') . '</span>';
+                        
                         break;
                 }
             },

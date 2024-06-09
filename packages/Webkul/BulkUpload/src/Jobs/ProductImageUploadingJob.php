@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Webkul\BulkUpload\Helpers\ResultHelper;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Product\Repositories\ProductImageRepository;
 
@@ -79,24 +80,27 @@ class ProductImageUploadingJob implements ShouldQueue
         
                         $image = $manager->make($response->body())->encode('webp');
                         
-
                         Storage::put($file, $image);
 
                         app(ProductImageRepository::class)->create([
                             'path'       => $file,
                             'product_id' => $product->id,
                         ]);
-
                     } elseif($response->status() === 404) {
-                        Log::info('================ Bulk Image Uploader: if Image Not Found ================');
-
-                        Log::info($image);
+                        // Prepare data
+                        $data = [
+                            'url' => $image,
+                        ];
+                        
+                        app(ResultHelper::class)->result($data, 'image_not_found.json');
                     }
                 } catch (\Throwable $th) {
-                    //throw $th;
-                    Log::info('================ Bulk Image Uploader: if Image Not Found ================');
-
-                    Log::info($image);
+                    // Prepare data
+                    $data = [
+                        'url' => $image,
+                    ];
+                    
+                    app(ResultHelper::class)->result($data, 'image_not_found.json');
                 }
             }
         }

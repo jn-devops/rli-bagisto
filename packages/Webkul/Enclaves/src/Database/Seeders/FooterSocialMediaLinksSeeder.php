@@ -5,8 +5,7 @@ namespace Webkul\Enclaves\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 
-// Path: php artisan db:seed --class="Webkul\\Enclaves\\Database\\Seeders\\FooterSocalMediaLinksSeeder"
-class FooterSocalMediaLinksSeeder extends Seeder
+class FooterSocialMediaLinksSeeder extends Seeder
 {
     public function run()
     {
@@ -31,7 +30,9 @@ class FooterSocalMediaLinksSeeder extends Seeder
             ],
         ];
 
-        $footerLinks = app(ThemeCustomizationRepository::class)->where('type', 'footer_links')->first();
+        $footerLinks = app(ThemeCustomizationRepository::class)
+                            ->where('type', 'footer_links')
+                            ->first();
 
         if(! empty($footerLinks->translations->first())) {
             $savedLinks = $footerLinks->translations->first()->options;

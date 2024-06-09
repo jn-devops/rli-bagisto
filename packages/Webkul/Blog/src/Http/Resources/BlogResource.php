@@ -2,7 +2,6 @@
 
 namespace Webkul\Blog\Http\Resources;
 
-use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;

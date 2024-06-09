@@ -56,6 +56,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
         Route::post('category/{id}', [ReadUrlCategoryController::class, 'index'])
             ->name('enclaves.admin.category.image.url');
 
+        Route::post('category', [ReadUrlCategoryController::class, 'store'])
+            ->name('enclaves.admin.category.image.upload');
+
         Route::post('product/{id}', [ReadUrlProductController::class, 'index'])
             ->name('enclaves.admin.product.image.url');
 

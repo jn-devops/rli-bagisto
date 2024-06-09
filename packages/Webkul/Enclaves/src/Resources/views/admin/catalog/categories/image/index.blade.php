@@ -1,7 +1,7 @@
-<v-category-url></v-category-url>
+<v-category-url-create></v-category-url-create>
 
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-category-url-template">
+    <script type="text/x-template" id="v-category-url-create-template">
         <div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900">
             <!-- Panel -->
             <x-admin::form
@@ -13,6 +13,10 @@
                         <div class="flex flex-col gap-2">
                             <p class="text-base font-semibold text-gray-800 dark:text-white">
                                 @lang('enclaves::app.admin.catalog.category.image.title')
+                            </p>
+
+                            <p class="text-xs text-gray-500">
+                                @lang('enclaves::app.admin.catalog.category.image.info')
                             </p>
                         </div>
 
@@ -39,6 +43,7 @@
                         <x-admin::form.control-group.control
                             type="select"
                             name="type"
+                            v-model="type"
                             :value="old('type') ?: ''"
                             rules="required"
                             :label="trans('enclaves::app.admin.catalog.category.image.type')"
@@ -66,6 +71,7 @@
                             type="text"
                             name="url"
                             :value="old('url') ?: ''"
+                            v-model="url"
                             rules="required"
                             :label="trans('url.url')"
                             :placeholder="trans('enclaves::app.admin.catalog.category.image.url')"
@@ -80,23 +86,43 @@
                     
                     <div class="flex flex-wrap gap-1">
                         <!-- Uploaded Images -->
-                        <div v-for="image, index in images" class="group relative grid max-h-[120px] min-w-[120px] justify-items-center overflow-hidden rounded transition-all hover:border-gray-400">
+                        <div v-for="image, index in images">
                             <!-- Image Preview -->
+                       
                             <img
-                                :src="image.url"
+                                :src="`{{ Storage::url(`+ image +`) }}` + image"
                                 style="width: 120px; height: 120px"
+                                class="rounded"
                             />
 
-                            <div class="invisible absolute bottom-0 top-0 flex w-full flex-col justify-between bg-white p-3 opacity-80 transition-all group-hover:visible dark:bg-gray-900">
-
-                            <!-- Image Name -->
-                            <p class="break-all text-xs font-semibold text-gray-600 dark:text-gray-300"></p>
-                            
-                            </div>
+                            <p class="break-all text-xs font-semibold text-gray-600 dark:text-gray-300" >@{{ index }}</p>
                         </div>
                     </div>
                 </form>
             </x-admin::form>
+
+            <div v-for="image, index in images">
+                <input
+                    v-if="index == 'logo_path'"
+                    type="hidden"
+                    name="cdn_image_logo_path"
+                    :value="images.logo_path"
+                >
+
+                <input
+                    v-if="index == 'banner_path'"
+                    type="hidden"
+                    name="cdn_image_banner_path"
+                    :value="images.banner_path"
+                >
+
+                <input
+                    v-if="index == 'community_banner_path'"
+                    type="hidden"
+                    name="cdn_image_community_banner_path"
+                    :value="images.community_banner_path"
+                >
+            </div>
 
             <div v-if="! status">
                 <p class="text-base font-semibold text-gray-800 dark:text-white" v-text="message"></p>
@@ -116,14 +142,17 @@
     </script>
 
     <script type="module">
-        app.component('v-category-url', {
-            template: '#v-category-url-template',
+        app.component('v-category-url-create', {
+            template: '#v-category-url-create-template',
 
             data() {
                 return {
                     isLoading: false,
                     not_found: null,
                     message: null,
+                    images: [],
+                    type: null,
+                    url: null,
                 }
             },
 
@@ -133,19 +162,25 @@
                     
                     self.isLoading = true;
                     
-                    this.$axios.post("{{ route('enclaves.admin.category.image.url', $category->id) }}", params)
-                        .then(function(response) {
-                            self.isLoading = false;
+                    this.$axios.post("{{ route('enclaves.admin.category.image.upload') }}", {
+                        url: this.url,
+                        type: this.type,
+                        images: this.images,
+                    })
+                    .then(function(response) {
+                        self.isLoading = false;
+                        
+                        self.images = response.data.images;
 
-                            self.status = response.data.status;
+                        self.status = response.data.status;
 
-                            self.message = response.data.message;
+                        self.message = response.data.message;
 
-                            self.not_found = response.data.not_found;
-                        })
-                        .catch(function(error) {
-                            console.log(error);
-                        });
+                        self.not_found = response.data.not_found;
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
                 },
             }
         });

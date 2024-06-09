@@ -4,6 +4,7 @@ namespace Webkul\KrayinConnector\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Webkul\KrayinConnector\Listeners\ProductListener;
 
 class KrayinConnectorServiceProvider extends ServiceProvider
 {
@@ -24,15 +25,15 @@ class KrayinConnectorServiceProvider extends ServiceProvider
         ]);
 
         Event::listen('catalog.product.update.after', function ($product) {
-            app(\Webkul\KrayinConnector\Listeners\ProductListener::class)->createProductInKrayin($product);
+            app(ProductListener::class)->createProductInKrayin($product);
         });
 
         Event::listen('catalog.product.delete.after', function ($product) {
-            app(\Webkul\KrayinConnector\Listeners\ProductListener::class)->deleteProductInKrayin($product);
+            app(ProductListener::class)->deleteProductInKrayin($product);
         });
 
         Event::listen('sales.refund.save.after', function ($refund) {
-            app(\Webkul\KrayinConnector\Listeners\ProductListener::class)->updateProductQtyInKrayin($refund);
+            app(ProductListener::class)->updateProductQtyInKrayin($refund);
         });
     }
 }

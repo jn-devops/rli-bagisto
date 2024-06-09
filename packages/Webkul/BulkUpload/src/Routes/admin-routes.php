@@ -69,16 +69,19 @@ Route::middleware(['web', 'admin', 'bulkUpload'])
                 Route::post('/delete-file', [UploadFileController::class, 'deleteProductFile'])
                     ->name('admin.bulk-upload.upload-file.delete');
 
+                Route::get('/get-uploaded-file', [UploadFileController::class, 'getUploaded'])
+                    ->name('admin.bulk-upload.upload-file.get-uploaded');
+
                 // Read csv file and execute the uploading product
                 Route::post('/read-csv', [UploadFileController::class, 'readCSVData'])
                     ->name('admin.bulk-upload.upload-file.run-profile.read-csv');
 
                 // get error after product uploading
-                Route::get('/download-csv', [UploadFileController::class, 'downloadCsv'])
-                    ->name('admin.bulk-upload.upload-file.run-profile.download-csv');
+                Route::get('/results', [UploadFileController::class, 'getFinalResult'])
+                    ->name('admin.bulk-upload.upload-file.run-profile.results');
 
                 // Delete the csv error file
-                Route::post('/delete-csv', [UploadFileController::class, 'deleteCSV'])
+                Route::get('/delete-csv', [UploadFileController::class, 'deleteCSV'])
                     ->name('admin.bulk-upload.upload-file.run-profile.delete-csv-file');
 
                 // Get uploaded and not uploaded product records

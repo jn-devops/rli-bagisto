@@ -1,5 +1,6 @@
-<x-admin::layouts>
+@bagistoVite(['src/Resources/assets/css/bulk-app.css'], 'bulk')
 
+<x-admin::layouts>
     <x-slot:title>
         @lang('bulkUpload::app.admin.bulk-upload.run-profile.index')
     </x-slot>
@@ -17,9 +18,8 @@
             <!-- Full Panel -->
             <div class="mt-3.5 flex gap-2 max-xl:flex-wrap">
                 <!-- Left Section -->
-                <div class="flex flex-1 flex-col gap-2 max-xl:flex-auto">
+                <div class="flex w-[30%] max-w-full flex-col gap-2 max-sm:w-full">
                     <div class="box-shadow rounded-1 bg-white p-4 dark:bg-gray-900">
-
                         <x-admin::form>
                             <x-admin::form.control-group>
                                 <x-admin::form.control-group.label>
@@ -92,7 +92,7 @@
                             </x-admin::form.control-group>
                             
                             <div class="control-group product-uploading-message">
-                                <p v-if="running" class="dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.upload-product-time'): @{{ formattedTime }}</p> 
+                                <p v-if="running" class="dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.run-profile.upload-product-time'): @{{ formattedTime }}</p> 
                             </div>
                             
                             <div class="flex gap-2.5"  v-if="this.product_file_id != '' && this.product_file_id != 'Please Select'">
@@ -106,58 +106,70 @@
                             </div>
                         </x-admin::form>
                     </div>
-
-                    <div  v-if="errorCsvFile" class="box-shadow rounded-1 bg-white p-2.5 dark:bg-gray-900">
-                        <p
-                            class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
-                            @lang('bulkUpload::app.admin.bulk-upload.run-profile.error')
-                        </p>
-                        
-                        <div v-for="(item, index) in errorCsvFile" :key="index">
-                            <div class="row grid grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center border-b-2 px-4 py-2.5 dark:border-gray-800">
-                                <div class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
-                                    @lang('bulkUpload::app.admin.bulk-upload.upload-files.profiler-name'):- @{{ profilerNames[index] }}
-                                </div>
-                            </div>
-
-                            <div class="row grid grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center border-b-2 px-4 py-2.5 dark:border-gray-800">
-                                <div class="gap-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.csv-link')</div>
-                                <div class="gap-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.date-and-time')</div>
-                                <div class="gap-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.delete-file')</div>
-                            </div>
-
-                            <div v-for="(record) in item" class="row border-b-2.5 grid grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center px-4 py-2.5 dark:border-gray-800">
-                                <div class="flex select-none items-center gap-2.5">
-                                    <a :href="record.link" class="text-blue-700 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-file.download-file')</a>
-                                </div>
-                                
-                                <div class="flex select-none items-center gap-2.5 dark:text-white">
-                                    @{{ record.time }}
-                                </div>
-
-                                <div class="flex select-none items-center gap-2.5">
-                                    <button @click="deleteCSV(index, record.fileName)" class="primary-button">@lang('bulkUpload::app.admin.bulk-upload.upload-file.delete')</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- Right Section -->
-                <div class="flex w-[360px] max-w-full flex-col gap-2">
-                    <div class="box-shadow rounded-1 bg-white p-2.5 dark:bg-gray-900">
+                <div class="flex w-[70%] flex-1 flex-col gap-2 max-xl:flex-auto">
+                    <div class="box-shadow rounded-1 p-2">
+                        <div class="flex justify-between">
+                            <div class="">
+                                <p class="mb-3 text-base font-semibold text-gray-800 dark:text-white">
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.uploaded-product')
+                                </p>
 
-                        <!-- Uploaded product records -->
-                        <p v-if="isProductUploaded" class="mb-[16px] text-base font-semibold text-gray-800 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.run-profile.uploaded-product')</p>
-                        <p class="mb-2.5 dark:text-white">@lang('bulkUpload::app.admin.bulk-upload.upload-files.uploaded-product')</p>
+                                <p class="mb-3 text-xs text-gray-500">
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.uploaded-product-info')
+                                </p>
+                            </div>
 
-                        <ul class="border-3 h-40 rounded border-gray-800 bg-gray-200 p-4 dark:border-gray-800 dark:bg-gray-200" style="max-height: 250px;overflow: auto;">
-                            <li v-for="(item, index) in uploadedProductList" :key="index" class="mb-3">
-                                <p class="text-sm">Product id: <span class="italic">@{{ item.id }}</span></p>
-                                <p class="text-sm">Product SKU: <span class="italic">@{{ item.sku }}</span></p>
-                                <p class="text-sm">Product type: <span class="italic">@{{ item.type }}</span></p>
-                            </li>
-                        </ul>
+                            <div v-if="responseResult.product_uploaded.data">
+                                <a :href="responseResult.product_uploaded.url" class="text-blue-700 underline" download>
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.download')
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 max-h-[250px] overflow-auto rounded-md bg-gray-300 p-3 dark:bg-gray-500">
+                            <code v-if="responseResult.product_uploaded.data" v-for="product in responseResult.product_uploaded.data">
+                                <pre v-html="'{<br/>' + highlightJSON(product) + ' <br/>},'"></pre>
+                            </code>
+                            
+                            <code v-else>
+                                <pre>Result Not Found!</pre>
+                            </code>
+                        </div>
+                    </div>
+
+                    <div class="box-shadow rounded-1 p-4">
+                        <div class="flex justify-between">
+                            <div class="">
+                                <p class="text-base font-semibold text-gray-800 dark:text-white">
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.image-not-found')
+                                </p>
+
+                                <p class="mb-3 text-xs text-gray-500">
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.uploaded-product-info')
+                                </p>
+                            </div>
+
+                            <div v-if="responseResult.image_not_found.data">
+                                <a :href="responseResult.image_not_found.url" class="text-blue-700 underline" download>
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.download')
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 max-h-[250px] overflow-auto bg-white dark:bg-gray-900">
+                            <div class="max-h-[440px] overflow-auto rounded-md bg-gray-300 p-3 dark:bg-gray-500">
+                                <code v-if="responseResult.image_not_found.data" v-for="url in responseResult.image_not_found.data">
+                                    <pre v-html="'{<br/>' + highlightJSON(url) + ' <br/>},'"></pre>
+                                </code>
+
+                                <code v-else>
+                                    <pre>Result Not Found!</pre>
+                                </code>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -176,14 +188,7 @@
                         product_importer: [],
                         attribute_family_id: null,
                         bulk_product_importer_id: null,
-                        uploadedProductList:[],
-                        notUploadedProductList:[],
-                        errorCsvFile: [],
-                        profilerNames: null,
-                        stopInterval: null,
-                        status:false,
                         isProductUploaded: false,
-                        isProductError: false,
                         startTime: 0,   
                         timer: {
                             seconds: 0,
@@ -191,12 +196,12 @@
                             interval: null,
                         },
                         running: false,
+                        responseResult: {},
                     }
                 },
 
                 mounted() {
                     this.loadStoredTimer();
-                    this.getUploadedProductAndProductValidation(this.status = this.running);
                 },
 
                 computed: {
@@ -214,7 +219,7 @@
                 },
 
                 created() {
-                    this.getErrorCsvFile();
+                    this.getResults();
                     
                     this.resetTimer();
                 },
@@ -253,12 +258,11 @@
                             // If an item with the specified id is found, set this.product_file to its import_product property
                             this.product_file = selectedProfile.import_product;
                         }
-                        
                     },
 
                     async deleteFile() {
-
-                        if (this.product_file_id === '' || this.product_file_id === 'Please Select') {
+                        if (this.product_file_id === '' 
+                            || this.product_file_id === 'Please Select') {
                             
                             return; // Exit early if product_file_id is empty or 'Please Select'
                         }
@@ -301,136 +305,75 @@
                         
                         const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.read-csv') }}";
                         
-                        this.getUploadedProductAndProductValidation(this.status = true);
                         this.$axios.post(uri, {
                             product_file_id: id,
                             bulk_product_importer_id: this.bulk_product_importer_id
                         })
-
                         .then((result) => {
                             const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.read-csv') }}";
 
                             this.$emitter.emit('add-flash', { type: 'success', message: result.data.message });
-                            console.log(result.data);
+                           
                             if (result.data.success == true) {
-                                this.getUploadedProductAndProductValidation(this.status = false);
-                            
                                 this.stopTimer();
-                                
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 500);
                             }
-                            
                         })
                         .catch((error) =>{
                         })
                         .finally(() => {
-                            this.getErrorCsvFile();
+                            this.getResults();
                         });
                     },
                     
-                    // Get CSV file error 
-                    getErrorCsvFile() {
-                        const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.download-csv') }}"
+                    // Get all Result
+                    getResults() {
+                        const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.results') }}"
                         
-                        this.$axios.get(uri)
+                        this.$axios
+                            .get(uri)
                             .then((result) => {
-                                this.errorCsvFile = result.data.resultArray;
-                                this.profilerNames = result.data.profilerNames;
+                                this.responseResult = result.data;
                             })
                             .catch(function (error) {
                                 console.log(error);
                             });
-                    },
-
-                    // Delete CSV file
-                    deleteCSV(id, name) {
-                        
-                        const uri = "{{ route('admin.bulk-upload.upload-file.run-profile.delete-csv-file') }}"
-
-                        this.$axios.post(uri, {id: id, name:name})
-                            .then((result) => {
-                                this.$emitter.emit('add-flash', { type: 'success', message: result.data.message });
-                                this.getErrorCsvFile();
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-                    },
-                    
-                    // Get record uploaded and not uploaded product due to validation error
-                    getUploadedProductAndProductValidation() {
-                        const uri = "{{ route('admin.bulk-upload.upload-file.get-uploaded-and-not-uploaded-product') }}"
-                        var self = this;
-                        
-                        this.$axios.post(uri,{
-                            status:this.status
-                        })
-
-                        .then((result) => {
-                            this.isProductUploaded = true;
-                            this.isProductError = true;
-                            
-                            if (result.data.response.length == 0) {
-                                this.isProductUploaded = false;
-                                this.isProductError = false;
-                            }
-
-                            this.uploadedProductList = result.data.response.uploadedProduct;
-                            this.notUploadedProductList = result.data.response.notUploadedProduct;
-                            
-                            if (result.data.success) {
-                                this.stopTimer();
-                                
-                                this.$emitter.emit('add-flash', { type: 'success', message: result.data.response.completionMessage });
-                                
-                                this.running = true;
-                                // Remove a specific item from localStorage
-                                localStorage.removeItem('timerState');
-
-                                // Remove a specific item from session storage
-                                @php
-                                    Illuminate\Support\Facades\Session::forget('completionMessage');
-                                @endphp
-                            }
-                            
-                            if (result.data.status == true) {
-                                // setTimeout(function() {
-                                //     self.getUploadedProductAndProductValidation(this.status = true);
-                                // }, 3000);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
                     },
 
                     startTimer() {
                         if (! this.running) {
                             this.startTime = new Date().getTime() - (this.timer.seconds * 1000);
+                            
                             this.timer.interval = setInterval(this.updateTimer, 1000); // Update every second
+                            
                             this.running = true;
+                            
                             this.storeTimerState();
                         }
                     },
 
                     resetTimer() {
                         this.timer.seconds = 0;
+                        
                         this.startTime = new Date().getTime();
+
                         this.storeTimerState();
                     },
 
                     updateTimer() {
-                        let constcurrentTime = new Date().getTime();
-                        let constelapsedTime = Math.floor((constcurrentTime - this.startTime) / 1000);
-                        this.timer.seconds = constelapsedTime;
+                        let constCurrentTime = new Date().getTime();
+                        
+                        let constElapsedTime = Math.floor((constCurrentTime - this.startTime) / 1000);
+                        
+                        this.timer.seconds = constElapsedTime;
+                        
                         this.storeTimerState();
                     },
 
                     stopTimer() {
                         clearInterval(this.timer.interval);
+                        
                         this.running = false;
+                        
                         this.storeTimerState();
                     },
 
@@ -443,10 +386,10 @@
                     },
 
                     loadStoredTimer() {
-                        let conststoredState = localStorage.getItem('timerState');
+                        let constStoredState = localStorage.getItem('timerState');
                         
-                        if (conststoredState) {
-                            const { running, startTime, seconds } = JSON.parse(conststoredState);
+                        if (constStoredState) {
+                            const { running, startTime, seconds } = JSON.parse(constStoredState);
                            
                             this.running = running;
                             this.startTime = startTime;
@@ -457,6 +400,28 @@
                             }
                         }
                     },
+
+                    highlightJSON(data) {
+                        let highlightedJSON = '';
+                        // Parse JSON data
+                        const parsedData = data;
+
+                        // Iterate over each key-value pair
+                        for (const key in parsedData) {
+                            if (parsedData.hasOwnProperty(key)) {
+                                // Highlight key
+                                highlightedJSON += `   <span class="highlight-key">"${key}"</span>: `;
+
+                                // Highlight value
+                                highlightedJSON += `<span class="highlight-value">${JSON.stringify(parsedData[key])}</span>, <br/>`;
+                            }
+                        }
+
+                        // Remove trailing comma
+                        highlightedJSON = highlightedJSON.slice(0, -2);
+
+                        return highlightedJSON;
+                    }
                 }
             });
         </script>

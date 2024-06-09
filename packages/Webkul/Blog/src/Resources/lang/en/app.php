@@ -2,6 +2,14 @@
 
 return [
     'config' => [
+        'acl' => [
+            'title'   => 'News & Updates',
+            'post'    => 'Post',
+            'add'     => 'Add',
+            'edit'    => 'Edit',
+            'delete'  => 'Delete',
+            'setting' => 'Settings',
+        ],
         'admin-menu' => [
             'title'      => 'News & Updates',
             'posts'      => 'Posts',
@@ -11,14 +19,14 @@ return [
             'setting'    => 'Settings',
         ],
         'settings' => [
-            'title'     => 'Blog',
+            'title'     => 'News & Updates',
             'info'      => 'Configure',
             'settings'  => 'Settings',
             'info'      => 'Configure',
             'mega-info' => 'Update Status',
             
             'general' => [
-                'title'     => 'Blog General',
+                'title'     => 'News & Updates General',
                 'mega-info' => 'Update Status',
                 'status'    => 'Status',
             ],

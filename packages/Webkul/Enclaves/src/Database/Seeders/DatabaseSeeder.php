@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TicketsReasonsSeeder::class);
         $this->call(TicketsStatusSeeder::class);
         $this->call(CustomerAttributeAndOptions::class);
+        $this->call(FooterSocialMediaLinksSeeder::class);
     }
 }
