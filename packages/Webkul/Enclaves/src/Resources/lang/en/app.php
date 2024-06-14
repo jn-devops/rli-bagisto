@@ -332,7 +332,7 @@ return [
         ],
 
         'product' => [
-            'reserve-now'     => 'Reserve Now',
+            'avail-now'       => 'Avail Now',
             'select-area'     => 'Check & Select Area',
             'reservation-fee' => 'Reservation Fee: ',
             'contract-price'  => 'Total Contract Price:',
@@ -606,7 +606,19 @@ return [
                     'url'         => 'URL',
                     'not-found'   => "System can't find the image at the web address you provided.",
                 ],
-            ]
+
+                'condition' => [
+                    'title'         => 'Conditions',
+                    'heading'       => 'Heading',
+                    'condition'     => 'Condition',
+                    'add-btn'       => 'Add',
+                    'remove-btn'    => 'Remove',
+                    'add-condition' => 'Add Condition',
+                    'save-btn'      => 'Save',
+                    'description'   => 'Description',
+                    'info'          => '',
+                ],
+            ],
         ],
     ],
 ];

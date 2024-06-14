@@ -20,5 +20,6 @@ class ModuleServiceProvider extends CoreModuleServiceProvider
         \Webkul\Enclaves\Models\CustomerAttributeOption::class,
         \Webkul\Enclaves\Models\CustomerAttributeValue::class,
         \Webkul\Enclaves\Models\Faq::class,
+        \Webkul\Enclaves\Models\ProductCondition::class,
     ];
 }

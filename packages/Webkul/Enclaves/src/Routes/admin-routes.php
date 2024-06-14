@@ -5,6 +5,7 @@ use Webkul\Enclaves\Http\Controllers\Admin\Ticket\FaqController;
 use Webkul\Enclaves\Http\Controllers\Admin\Theme\ThemeController;
 use Webkul\Enclaves\Http\Controllers\Admin\Ticket\TicketsController;
 use Webkul\Enclaves\Http\Controllers\Admin\Product\ReadUrlProductController;
+use Webkul\Enclaves\Http\Controllers\Admin\Product\ProductController;
 use Webkul\Enclaves\Http\Controllers\Admin\Channel\ReadUrlChannelController;
 use Webkul\Enclaves\Http\Controllers\Admin\Category\ReadUrlCategoryController;
 
@@ -64,5 +65,12 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
 
         Route::post('channel', [ReadUrlChannelController::class, 'index'])
             ->name('enclaves.admin.channel.image.url');
+    });
+
+    // Product condition
+    Route::controller(ProductController::class)->group(function () {
+        Route::post('store', 'store')->name('enclaves.admin.product.conditions.store');
+
+        Route::post('delete/{id}', 'destroy')->name('enclaves.admin.product.conditions.destroy');
     });
 });

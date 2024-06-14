@@ -1,5 +1,6 @@
 @inject ('reviewHelper', 'Webkul\Product\Helpers\Review')
 @inject ('productViewHelper', 'Webkul\Product\Helpers\View')
+@inject('productConditionRepository', 'Webkul\Enclaves\Repositories\ProductConditionRepository')
 
 @php
     $avgRatings = round($reviewHelper->getAverageRating($product));
@@ -146,7 +147,7 @@
                             >
 
                             <div class="mt-12 flex gap-[7px] max-lg:mt-0 max-lg:gap-y-6 max-md:flex-wrap lg:gap-[54px]">
-                                <div class="w-[70%] max-md:w-full">
+                                <div class="w-[60%] max-md:w-full">
                                     <!-- Gallery Blade Inclusion -->
                                     @include('shop::products.view.gallery')
 
@@ -162,7 +163,7 @@
                                     {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                                 </div>
 
-                                <div class="w-[30%] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-lg:p-[25px] max-md:w-full">
+                                <div class="w-[40%] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-lg:p-[25px] max-md:w-full">
                                     
                                     <!-- Price -->
                                     <div class="grid gap-[10px]">
@@ -187,7 +188,7 @@
                                         </p>
                                     </div>
 
-                                    @if(count($attributeData))
+                                    @if (count($attributeData))
                                         <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                             @foreach ($customAttributeValues as $customAttributeValue)
                                                 @if (! empty($customAttributeValue['value']))
@@ -208,7 +209,7 @@
                                                                 download="{{ $customAttributeValue['label'] }}"
                                                             >
                                                                 <img 
-                                                                    class="h-5 min-h-5 w-5 min-w-5" 
+                                                                    class="min-h-5 min-w-5 h-5 w-5" 
                                                                     src="{{ Storage::url($customAttributeValue['value']) }}" 
                                                                 />
                                                             </a>
@@ -247,7 +248,38 @@
                                             @lang('shop::app.products.view.add-to-cart')
                                         </button>
                                     @endif
-                                    
+
+                                    <!-- product Conditions -->
+                                    <div class="mt-[20px] grid gap-[10px] rounded-lg bg-gray-200 p-4">
+                                        <p class="ml-[20px] text-[15px] font-semibold italic text-[#CC035C]">
+                                            Remember
+                                        </p>
+                                        
+                                        <div v-for="condition in productConditions">
+                                            <div class="flex items-start gap-2">
+                                                <input class="h-6 w-4 rounded text-[#CC035C] dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" 
+                                                    type="checkbox" 
+                                                    :id="`condition-${condition.id}`" 
+                                                    v-model="checkedConditions[condition.id]"
+                                                >
+                                                <span 
+                                                    class="text-[15px] font-bold" 
+                                                    v-text="condition.heading">
+                                                </span>
+                                            </div>
+                                            <span 
+                                                class="pl-5 text-[12px]" 
+                                                v-html="condition.description">
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <span v-if="errorMessage"
+                                        class="mt-1 text-xs italic text-red-500" 
+                                        v-text="errorMessage">
+                                    </span>
+                                    <!-- product Conditions -->
+
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
                                     
                                     <!-- Buy Now Button -->
@@ -256,21 +288,20 @@
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
                                         <button
                                             v-if="isAdding"
-                                            class="mx-auto ml-[0px] mt-[30px] block w-full cursor-not-allowed rounded-[18px] border-[3px] border-[#e785b0] px-[43px] py-[16px] text-center font-medium text-[#e785b0] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
+                                            class="mx-auto ml-[0px] mt-[20px] block rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[15px] text-center font-medium text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
-                                            disabled
                                         >
-                                            @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
+                                            @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.avail-now')
                                         </button>
                                         
                                         <button
                                             v-else
-                                            class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] border-[3px] border-[#CC035C] px-[43px] py-[16px] text-center font-medium text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
+                                            class="mx-auto ml-[0px] mt-[20px] block rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[15px] text-center font-medium text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
                                             @click="is_buy_now=1; is_kyc_process=1;"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                             {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                         >
-                                            @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
+                                            @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.avail-now')
                                         </button>
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
                                 </div>
@@ -301,11 +332,39 @@
                             product: @json($product),
 
                             isAdding: 0,
+
+                            errorMessage: '',
+
+                            productConditions: @json($productConditionRepository->findWhere(['product_id' => $product->id])),
+
+                            checkedConditions: {},
+
+                            errorMessage: '',
                         }
                     },
 
+                    created() {
+                        if (this.productConditions && Array.isArray(this.productConditions)) {
+                            this.productConditions.forEach(condition => {
+                                this.checkedConditions[condition.id] = false;
+                            });
+                        }
+                    },
+
+                    computed: {
+                        allConditionsChecked() {
+                            return Object.values(this.checkedConditions).every(checked => checked);
+                        },
+                    },
+
                     methods: {
-                        addToCart(params) {
+                            addToCart(params) {
+                                if (! this.allConditionsChecked) {
+                                    this.errorMessage = 'Please check all conditions before proceeding';
+
+                                    return;
+                                }
+
                                 this.isAdding = 1;
                                 
                                 let formData = new FormData(this.$refs.formData);
