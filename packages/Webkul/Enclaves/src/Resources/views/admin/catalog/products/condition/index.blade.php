@@ -2,6 +2,23 @@
 
 <v-product-conditions></v-product-conditions>
 
+@push ('styles')
+    <style>
+        ul, ol {
+            padding-left: 40px;
+            list-style: disc;
+        }
+        
+        ol {
+            list-style: decimal;
+        }
+        
+        ol li, ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+@endpush
+
 @pushOnce('scripts')
     <script type="text/x-template" id="v-product-conditions-template">
         <div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900">

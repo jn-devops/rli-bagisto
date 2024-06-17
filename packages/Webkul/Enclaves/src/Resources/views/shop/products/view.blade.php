@@ -12,6 +12,21 @@
     $attributeData = collect($customAttributeValues)->filter(fn ($item) => ! empty($item['value']));
 @endphp
 
+@push ('styles')
+    <style>
+        ul, ol {
+            padding-left: 40px;
+            list-style: disc;
+        }
+        ol {
+            list-style: decimal;
+        }
+        ol li, ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+@endpush
+
 <!-- SEO Meta Content -->
 @push('meta')
     <meta name="description" content="{{ trim($product->meta_description) != "" ? $product->meta_description : \Illuminate\Support\Str::limit(strip_tags($product->description), 120, '') }}"/>
@@ -120,6 +135,79 @@
         @pushOnce('scripts')
             <script type="text/x-template" id="v-product-template">
                 <div>
+                    <!-- Quick Guide Modal Popup -->
+                    <div>
+                        <!-- Add Options Model Form -->
+                        <x-shop::modal
+                            ref="quickGuideCreateModal"
+                            class="rounded-[20px]"
+                        >
+                            <!-- Modal Header !-->
+                            <x-slot:header>
+                                <p class="mx-auto items-center text-lg font-bold text-gray-800 dark:text-white">
+                                    @lang('enclaves::app.shop.product.quick-guide')
+                                </p>
+                            </x-slot>
+
+                            <!-- Modal Content !-->
+                            <x-slot:content>
+                                <div class="grid gap-2 px-[10px] py-[10px] sm:grid-cols-1 lg:grid-cols-2">
+                                    <div class="flex gap-2">
+                                        <img src="https://via.placeholder.com/60" alt="Step 1" class="h-20 w-20 rounded-[20px]">
+
+                                        <div class="">
+                                            <div class="flex gap-2">
+                                                <span class="bg-yellow-100">1</span>
+                                                <h3 class="text-lg font-bold">User Authentication</h3>
+                                            </div>
+                                            
+                                            <p>To complete the user authentication using e-KYC technology, we will simply scan your ID and take a selfie.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <img src="https://via.placeholder.com/60" alt="Step 1" class="h-20 w-20 rounded-[20px]">
+
+                                        <div class="">
+                                            <div class="flex gap-2">
+                                                <span>2</span>
+                                                <h3 class="text-lg font-bold">Additional Data Form</h3>
+                                            </div>
+                                            
+                                            <p>Fill out the client information form for your application to complete your application.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <img src="https://via.placeholder.com/60" alt="Step 1" class="h-20 w-20 rounded-[20px]">
+
+                                        <div class="">
+                                            <div class="flex gap-2">
+                                                <span class="rounded-[20px] p-1">3</span>
+                                                <h3 class="text-lg font-bold">Payment</h3>
+                                            </div>
+                                            
+                                            <p class ="items-start">Finish the application by paying through Gcash or credit card.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <img src="https://via.placeholder.com/60" alt="Step 1" class="h-20 w-20 rounded-[20px]">
+
+                                        <div class="">
+                                            <div class="flex gap-2">
+                                                <span>4</span>
+                                                <h3 class="text-lg font-bold">Pag-IBIG online sync</h3>
+                                            </div>
+                                            
+                                            <p>Link your Pag-IBIG online account for additional loan application.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </x-slot:content>
+                        </x-shop::modal>
+                    </div>
+                    
                     <x-shop::form
                         v-slot="{ meta, errors, handleSubmit }"
                         as="div"
@@ -161,6 +249,7 @@
                                     {!! view_render_event('bagisto.shop.products.description.before', ['product' => $product]) !!}
                                         <p class="mt-[26px] text-[20px] max-lg:text-[12px] max-md:leading-6" v-html="product.description"></p>
                                     {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
+ 
                                 </div>
 
                                 <div class="w-[40%] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-lg:p-[25px] max-md:w-full">
@@ -250,27 +339,31 @@
                                     @endif
 
                                     <!-- product Conditions -->
-                                    <div class="mt-[20px] grid gap-[10px] rounded-lg bg-gray-200 p-4">
-                                        <p class="ml-[20px] text-[15px] font-semibold italic text-[#CC035C]">
-                                            Remember
+                                    <div class="mt-[20px] grid gap-[10px] rounded-lg bg-gray-100 p-4">
+                                        <p 
+                                            class="text-[20px] font-semibold italic text-[#CC035C]"
+                                            style="margin-left:22px"
+                                        >
+                                            @lang('enclaves::app.shop.product.checklist')
                                         </p>
                                         
-                                        <div v-for="condition in productConditions">
-                                            <div class="flex items-start gap-2">
-                                                <input class="h-6 w-4 rounded text-[#CC035C] dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" 
+                                        <div class="grid" v-for="(condition in productConditions">
+                                            <div class="flex gap-2">
+                                                <input class="h-8 w-5 rounded text-[#CC035C] dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" 
                                                     type="checkbox" 
                                                     :id="`condition-${condition.id}`" 
-                                                    v-model="checkedConditions[condition.id]"
+                                                    v-model="checkedConditions[condition.id + 1]"
                                                 >
-                                                <span 
-                                                    class="text-[15px] font-bold" 
+                                                <div 
+                                                    class="text-[20px] font-bold" 
                                                     v-text="condition.heading">
-                                                </span>
+                                                </div>
                                             </div>
-                                            <span 
-                                                class="pl-5 text-[12px]" 
+                                            <div
+                                                class="mt-1 text-[16px]" 
+                                                style="margin-left:26px"
                                                 v-html="condition.description">
-                                            </span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -286,9 +379,20 @@
                                     {!! $product->button_text != '0' && $product->button_text ? $product->button_information : '' !!}
 
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
+                                    <div> 
+ 
+                                        <button
+                                            type ="button"
+                                            class="rounded-[20px] bg-gray-200 px-[40px] py-[10px] text-center font-[24px] text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
+                                            @click="$refs.quickGuideCreateModal.toggle()"
+                                        >
+                                            <!-- <img class="" src="{{ asset('themes/shop/enclaves/build/assets/quickGuide.gif') }}" width="30" height="30" /> -->
+                                            @lang('enclaves::app.shop.product.quick-guide')
+                                        </button>
+                                        
                                         <button
                                             v-if="isAdding"
-                                            class="mx-auto ml-[0px] mt-[20px] block rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[15px] text-center font-medium text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
+                                            class="mx-auto ml-1 mt-[20px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[40px] py-[10px] text-center font-[24px] text-white max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                         >
                                             @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.avail-now')
@@ -296,13 +400,15 @@
                                         
                                         <button
                                             v-else
-                                            class="mx-auto ml-[0px] mt-[20px] block rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[60px] py-[15px] text-center font-medium text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
+                                            class="mx-auto ml-1 mt-[20px] rounded-[20px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-[40px] py-[10px] text-center font-[24px] text-white max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
                                             @click="is_buy_now=1; is_kyc_process=1;"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                             {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                         >
                                             @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.avail-now')
                                         </button>
+
+                                    </div>
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
                                 </div>
                             </div>
@@ -344,7 +450,10 @@
                     },
 
                     created() {
-                        if (this.productConditions && Array.isArray(this.productConditions)) {
+                        if (
+                            this.productConditions 
+                            && Array.isArray(this.productConditions)
+                        ) {
                             this.productConditions.forEach(condition => {
                                 this.checkedConditions[condition.id] = false;
                             });
