@@ -347,21 +347,25 @@
                                             @lang('enclaves::app.shop.product.checklist')
                                         </p>
                                         
-                                        <div class="grid" v-for="(condition in productConditions">
+                                        <div v-for="condition in productConditions"
+                                            :key="condition.id" 
+                                            class="grid"
+                                        >
                                             <div class="flex gap-2">
-                                                <input class="h-8 w-5 rounded text-[#CC035C] dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" 
-                                                    type="checkbox" 
+                                                <input 
+                                                    type="checkbox"
+                                                    class="h-8 w-5 rounded text-[#CC035C] dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
                                                     :id="`condition-${condition.id}`" 
-                                                    v-model="checkedConditions[condition.id + 1]"
+                                                    v-model="checkedConditions[condition.id]"
                                                 >
-                                                <div 
+                                                <div
                                                     class="text-[20px] font-bold" 
                                                     v-text="condition.heading">
                                                 </div>
                                             </div>
                                             <div
                                                 class="mt-1 text-[16px]" 
-                                                style="margin-left:26px"
+                                                style="margin-left:26px" 
                                                 v-html="condition.description">
                                             </div>
                                         </div>
@@ -450,10 +454,7 @@
                     },
 
                     created() {
-                        if (
-                            this.productConditions 
-                            && Array.isArray(this.productConditions)
-                        ) {
+                        if ( this.productConditions && Array.isArray(this.productConditions)) {
                             this.productConditions.forEach(condition => {
                                 this.checkedConditions[condition.id] = false;
                             });
@@ -468,6 +469,7 @@
 
                     methods: {
                             addToCart(params) {
+                                debugger
                                 if (! this.allConditionsChecked) {
                                     this.errorMessage = 'Please check all conditions before proceeding';
 
