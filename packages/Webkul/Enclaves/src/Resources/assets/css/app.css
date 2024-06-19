@@ -727,6 +727,11 @@
   }
   .icon-uncheck:before {
     content: "\e941";
+    color: #
+  }
+  .icon-check:before {
+    content: "\e90f";
+    color: #CC035C;
   }
   .icon-users:before {
     content: "\e942";

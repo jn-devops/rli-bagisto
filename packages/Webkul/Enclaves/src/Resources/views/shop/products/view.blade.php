@@ -138,10 +138,9 @@
                     <!-- Quick Guide Modal Popup -->
                     <div>
                         <!-- Add Options Model Form -->
-                        <x-shop::modal
+                        <x-shop::modal.quick
                             ref="quickGuideCreateModal"
-                            class="rounded-[20px]"
-                        >
+                            >
                             <!-- Modal Header !-->
                             <x-slot:header>
                                 <p class="mx-auto items-center text-[35px] font-bold text-gray-800 dark:text-white">
@@ -151,17 +150,17 @@
 
                             <!-- Modal Content !-->
                             <x-slot:content>
-                                <div class="grid gap-2 px-[10px] py-[10px] sm:grid-cols-1 lg:grid-cols-2">
+                                <div class="grid gap-8 px-[10px] py-[10px] mt-[20px] sm:grid-cols-1 lg:grid-cols-2">
                                     <div class="flex gap-2">
                                         <img src="{{ bagisto_asset('images/quick-view-image1.png') }}" alt="Step 1" class="h-20 w-20 rounded-[40px]">
 
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[40px]">1</span>
-                                                <h3 class="text-[25px] font-bold">User Authentication</h3>
+                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">1</span>
+                                                <h3 class="text-[25px] text-left font-bold">User Authentication</h3>
                                             </div>
                                             
-                                            <p class="text-[20px]">To complete the user authentication using e-KYC technology, we will simply scan your ID and take a selfie.</p>
+                                            <p class="text-[20px] mt-2 text-left">To complete the user authentication using e-KYC technology, we will simply scan your ID and take a selfie.</p>
                                         </div>
                                     </div>
 
@@ -170,11 +169,11 @@
 
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[40px]">2</span>
-                                                <h3 class="text-[25px] font-bold">Additional Data Form</h3>
+                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">2</span>
+                                                <h3 class="text-[25px] text-left font-bold">Additional Data Form</h3>
                                             </div>
                                             
-                                            <p class="text-[20px]">Fill out the client information form for your application to complete your application.</p>
+                                            <p class="text-[20px] mt-2 text-left">Fill out the client information form for your application to complete your application.</p>
                                         </div>
                                     </div>
 
@@ -183,11 +182,11 @@
 
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[40px]">3</span>
-                                                <h3 class="text-[25px] font-bold">Payment</h3>
+                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">3</span>
+                                                <h3 class="text-[25px] text-left font-bold">Payment</h3>
                                             </div>
                                             
-                                            <p class="text-[20px]">Finish the application by paying through Gcash or credit card.</p>
+                                            <p class="text-[20px] mt-2 text-left">Finish the application by paying through Gcash or credit card.</p>
                                         </div>
                                     </div>
 
@@ -196,16 +195,16 @@
                                         
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[40px]">4</span>
-                                            <h3 class="text-[25px] font-bold">Pag-IBIG online sync</h3>
+                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">4</span>
+                                            <h3 class="text-[25px] text-left font-bold">Pag-IBIG online sync</h3>
                                             </div>
                                             
-                                            <p class="text-[20px]">Link your Pag-IBIG online account for additional loan application.</p>
+                                            <p class="text-[20px] mt-2 text-left">Link your Pag-IBIG online account for additional loan application.</p>
                                         </div>
                                     </div>
                                 </div>
                             </x-slot:content>
-                        </x-shop::modal>
+                        </x-shop::modal.quick>
                     </div>
                     
                     <x-shop::form
@@ -358,7 +357,7 @@
                                                 >
 
                                                 <label
-                                                    class="icon-cart peer-checked:icon-users cursor-pointer"
+                                                    class="icon-uncheck peer-checked:icon-check cursor-pointer mt-[8px]"
                                                     :for="`condition-${condition.id}`"
                                                 >
                                                 </label>
@@ -390,11 +389,10 @@
                                     <div class="flex gap-2 mt-5">
  
                                         <div
-                                            class="h-[90px] leading-5 text-[20px] flex items-center rounded-[100px] bg-gray-200 px-[10px] text-[#CC035C] w-[45%]"
+                                            class="h-[90px] leading-5 text-[20px] flex gap-1 items-center rounded-[100px] bg-gray-200 px-[10px] text-[#CC035C] w-[45%]"
                                             @click="$refs.quickGuideCreateModal.toggle()"
                                         >
                                             <img
-                                                class=""
                                                 src="{{ bagisto_asset('images/info.png') }}" 
                                                 width="30"
                                                 height="30" 
