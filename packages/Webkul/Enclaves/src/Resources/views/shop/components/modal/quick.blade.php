@@ -68,7 +68,7 @@
                     v-show="isOpen"
                 >
                     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                        <div class="box-shadow absolute left-[50%] top-[55%] z-[999] mt-[30px] w-full max-w-[950px] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white max-md:w-[90%] dark:bg-gray-900 pb-[40px] px-[20px]">
+                        <div class="box-shadow absolute left-[50%] md:top-[55%] top-[45%] z-[999] mt-[30px] w-full max-w-[950px] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white max-md:w-[90%] dark:bg-gray-900 pb-[40px] px-[20px]">
 
                             <div class="shadow-md">
                                 <div class="flex items-center justify-between gap-[20px] border-[#E9E9E9] bg-white p-[20px]">

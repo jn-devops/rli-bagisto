@@ -143,63 +143,63 @@
                             >
                             <!-- Modal Header !-->
                             <x-slot:header>
-                                <p class="mx-auto items-center text-[35px] font-bold text-gray-800 dark:text-white">
+                                <p class="mx-auto items-center md:text-[35px] text-[25px] font-bold text-gray-800 dark:text-white">
                                     @lang('enclaves::app.shop.product.quick-guide')
                                 </p>
                             </x-slot>
 
                             <!-- Modal Content !-->
                             <x-slot:content>
-                                <div class="grid gap-8 px-[10px] py-[10px] mt-[20px] sm:grid-cols-1 lg:grid-cols-2">
+                                <div class="grid md:gap-8 md:px-[10px] md:py-[10px] md:mt-[20px] md:grid-cols-2 grid-cols-1 gap-4 px-[5px] py-[5px] mt-[10px]">
                                     <div class="flex gap-2">
-                                        <img src="{{ bagisto_asset('images/quick-view-image1.png') }}" alt="Step 1" class="h-20 w-20 rounded-[40px]">
+                                        <img src="{{ bagisto_asset('images/quick-view-image1.png') }}" alt="Step 1" class="md:h-20 md:w-20 h-10 w-10 rounded-[40px]">
 
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">1</span>
-                                                <h3 class="text-[25px] text-left font-bold">User Authentication</h3>
+                                            <span class="bg-[#C38400] text-white md:p-[10px] rounded-[50%] md:h-[38px] md:w-[38px] h-[22px] w-[22px] font-bold text-center">1</span>
+                                                <p class="md:text-[25px] text-[20px] text-left font-bold">User Authentication</p>
                                             </div>
                                             
-                                            <p class="text-[20px] mt-2 text-left">To complete the user authentication using e-KYC technology, we will simply scan your ID and take a selfie.</p>
+                                            <p class="md:text-[20px] text-[15px] mt-2 text-left">To complete the user authentication using e-KYC technology, we will simply scan your ID and take a selfie.</p>
                                         </div>
                                     </div>
 
                                     <div class="flex gap-2">
-                                        <img src="{{ bagisto_asset('images/quick-view-image2.png') }}" alt="Step 2" class="h-20 w-20 rounded-[40px]">
+                                        <img src="{{ bagisto_asset('images/quick-view-image2.png') }}" alt="Step 2" class="md:h-20 md:w-20 h-10 w-10 rounded-[40px]">
 
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">2</span>
-                                                <h3 class="text-[25px] text-left font-bold">Additional Data Form</h3>
+                                            <span class="bg-[#C38400] text-white md:p-[10px] rounded-[50%] md:h-[38px] md:w-[38px] h-[22px] w-[22px] font-bold text-center">2</span>
+                                                <p class="md:text-[25px] text-[20px] text-left font-bold">Additional Data Form</p>
                                             </div>
                                             
-                                            <p class="text-[20px] mt-2 text-left">Fill out the client information form for your application to complete your application.</p>
+                                            <p class="md:text-[20px] text-[15px] mt-2 text-left">Fill out the client information form for your application to complete your application.</p>
                                         </div>
                                     </div>
 
                                     <div class="flex gap-2">
-                                        <img src="{{ bagisto_asset('images/quick-view-image3.png') }}"  alt="Step 1" class="h-20 w-20 rounded-[40px]">
+                                        <img src="{{ bagisto_asset('images/quick-view-image3.png') }}"  alt="Step 3" class="md:h-20 md:w-20 h-10 w-10 rounded-[40px]">
 
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">3</span>
-                                                <h3 class="text-[25px] text-left font-bold">Payment</h3>
+                                            <span class="bg-[#C38400] text-white md:p-[10px] rounded-[50%] md:h-[38px] md:w-[38px] h-[22px] w-[22px] font-bold text-center">3</span>
+                                                <h3 class="md:text-[25px] text-[20px] text-left font-bold">Payment</h3>
                                             </div>
                                             
-                                            <p class="text-[20px] mt-2 text-left">Finish the application by paying through Gcash or credit card.</p>
+                                            <p class="md:text-[20px] text-[15px] mt-2 text-left">Finish the application by paying through Gcash or credit card.</p>
                                         </div>
                                     </div>
 
                                     <div class="flex gap-2">
-                                        <img src="{{ bagisto_asset('images/quick-view-image4.png') }}"   alt="Step 1" class="h-20 w-20 rounded-[40px]">
+                                        <img src="{{ bagisto_asset('images/quick-view-image4.png') }}"   alt="Step 4" class="md:h-20 md:w-20 h-10 w-10 rounded-[40px]">
                                         
                                         <div class="">
                                             <div class="flex gap-2">
-                                            <span class="flex bg-[#C38400] text-white p-[10px] rounded-[50%] h-[38px] font-bold text-center">4</span>
-                                            <h3 class="text-[25px] text-left font-bold">Pag-IBIG online sync</h3>
+                                            <span class="bg-[#C38400] text-white md:p-[10px] rounded-[50%] md:h-[38px] md:w-[38px] h-[22px] w-[22px] font-bold text-center">4</span>
+                                            <h3 class="md:text-[25px] text-[20px] text-left font-bold">Pag-IBIG online sync</h3>
                                             </div>
                                             
-                                            <p class="text-[20px] mt-2 text-left">Link your Pag-IBIG online account for additional loan application.</p>
+                                            <p class="md:text-[20px] text-[15px] mt-2 text-left">Link your Pag-IBIG online account for additional loan application.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -357,7 +357,7 @@
                                                 >
 
                                                 <label
-                                                    class="icon-uncheck peer-checked:icon-check cursor-pointer mt-[8px]"
+                                                    class="icon-uncheck peer-checked:icon-check cursor-pointer mt-[6px] text-[24px]"
                                                     :for="`condition-${condition.id}`"
                                                 >
                                                 </label>
@@ -389,7 +389,7 @@
                                     <div class="flex gap-2 mt-5">
  
                                         <div
-                                            class="h-[90px] leading-5 text-[20px] flex gap-1 items-center rounded-[100px] bg-gray-200 px-[10px] text-[#CC035C] w-[45%]"
+                                            class="flex md:h-[60px] md:leading-5 md:text-[20px] items-center rounded-[100px] bg-gray-200 md:px-[2px] text-[#CC035C] w-[48%] h-[60px] text-[15px] px-[10px]"
                                             @click="$refs.quickGuideCreateModal.toggle()"
                                         >
                                             <img
@@ -403,7 +403,7 @@
                                         
                                         <button
                                             v-if="isAdding"
-                                            class="h-[90px] leading-5 text-[20px] w-[55%] rounded-[100px] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-center text-white"
+                                            class="md:h-[60px] md:leading-5 md:text-[20px] rounded-[100px] w-[52%] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-center text-white h-[60px] text-[15px]"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                         >
                                             @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.avail-now')
@@ -411,7 +411,7 @@
                                         
                                         <button
                                             v-else
-                                            class="h-[90px] leading-5 text-[20px] rounded-[100px] w-[55%] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-center text-white"
+                                            class="md:h-[60px] md:leading-5 md:text-[20px] rounded-[100px] w-[52%] bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-center text-white h-[60px] text-[15px]"
                                             @click="is_buy_now=1; is_kyc_process=1;"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                             {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
