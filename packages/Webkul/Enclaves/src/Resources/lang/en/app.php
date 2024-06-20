@@ -335,6 +335,7 @@ return [
             'avail-now'       => 'Avail Now',
             'checklist'       => 'Checklist',
             'quick-guide'     => 'Quick Guide',
+            'continue'        => 'Continue',
             'select-area'     => 'Check & Select Area',
             'reservation-fee' => 'Reservation Fee: ',
             'contract-price'  => 'Total Contract Price:',
