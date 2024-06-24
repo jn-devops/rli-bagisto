@@ -17,24 +17,18 @@
                 >
 
                 <div
-                    class="mt-[20px]"
+                    class="relative mt-5"
                     v-for='(attribute, index) in childAttributes'
                 >
                     <!-- Dropdown Options Container -->
                     <template
                         v-if="! attribute.swatch_type || attribute.swatch_type == '' || attribute.swatch_type == 'dropdown'"
                     >
-                        <!-- Dropdown Label -->
-                        <h3
-                            class="mb-[15px] text-[20px] max-lg:text-[12px]"
-                            v-text="attribute.label"
-                        ></h3>
-                        
                         <!-- Dropdown Options -->
                         <v-field
                             as="select"
                             :name="'super_attribute[' + attribute.id + ']'"
-                            class="custom-select block w-full cursor-pointer rounded-lg border border-[#E9E9E9] bg-white p-[14px] pr-[36px] text-[16px] text-[#6E6E6E] focus:border-blue-500 focus:ring-blue-500 max-md:w-[200px] max-md:border-0 max-md:outline-none"
+                            class="relative flex w-full appearance-none items-center justify-between gap-4 rounded-full border border-[#D9D9D9] bg-white px-[38px] py-[28px]"
                             :class="[errors['super_attribute[' + attribute.id + ']'] ? 'border border-red-500' : '']"
                             :id="'attribute_' + attribute.id"
                             rules="required"
@@ -51,13 +45,47 @@
                                 @{{ option.label }}
                             </option>
                         </v-field>
+
+                        <p class="absolute right-6 top-[30px] flex items-center gap-1.5 text-base font-normal text-[#CC035C] max-sm:text-[18px]">
+                            <span v-if="attribute.options.length" class="text-[#CC035C]">
+                                @lang('enclaves::app.shop.product.select')
+                            </span>
+                            <span class="text-[#898386]" v-else>
+                                @lang('enclaves::app.shop.product.select')
+                            </span>
+
+                            <svg
+                                v-if="attribute.options.length"
+                                width="20" 
+                                height="12" 
+                                viewBox="0 0 20 12" 
+                                fill="none" 
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M9.66732 11.3781L0.703827 2.36689C0.0751711 1.73489 0.52645 0.659683 1.41787 0.663007L18.8104 0.727855C19.6853 0.731117 20.1345 1.77702 19.5344 2.41372L11.1039 11.3586C10.7164 11.7697 10.0657 11.7786 9.66732 11.3781Z"
+                                    fill="#CC035C"
+                                />
+                            </svg>
+
+                            <svg
+                                v-else
+                                width="20" 
+                                height="12" 
+                                viewBox="0 0 20 12" 
+                                fill="none" 
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path d="M9.66732 11.3781L0.703827 2.36689C0.0751711 1.73489 0.52645 0.659683 1.41787 0.663007L18.8104 0.727855C19.6853 0.731117 20.1345 1.77702 19.5344 2.41372L11.1039 11.3586C10.7164 11.7697 10.0657 11.7786 9.66732 11.3781Z" fill="#8b8b8b"></path>
+                            </svg>
+                        </p>
                     </template>
 
                     <!-- Swatch Options Container -->
                     <template v-else>
                         <!-- Option Label -->
                         <h3
-                            class="mb-[15px] text-[20px] max-lg:text-[12px]"
+                            class="mb-[15px] text-xl max-lg:text-[18px]"
                             v-text="attribute.label"
                         ></h3>
 
@@ -324,10 +352,10 @@
                             j;
 
                         this.clearSelect(attribute)
-
+                        
                         attribute.options = [{
                             'id': '',
-                            'label': "@lang('shop::app.products.view.type.configurable.select-options')",
+                            'label': attribute.label + '?',
                             'products': []
                         }];
 

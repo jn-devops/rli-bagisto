@@ -1,11 +1,15 @@
 @if ($product->processing_fee)
-    <div class="mt-[40px] grid gap-[6px]">
-        <p class="processing_fee_text text-nowrap text-[25px] font-bold max-lg:text-[22px]">@lang('enclaves::app.shop.product.reservation-fee')</p>
+        <p class="processing_fee_text font-roboto text-[25px] font-normal leading-[25px] text-[#8B8B8B] max-sm:text-[18px]">
+            @lang('enclaves::app.shop.product.processing')
+        </p>
 
-        <p class="processing_fee text-[40px] font-bold text-[#CC035C] max-lg:text-[40px]">{{ core()->formatPrice($product->processing_fee) }}</p>
-    </div>
+        <p class="processing_fee text-6xl font-bold text-[#C38400] max-sm:text-4xl">
+            {{ core()->formatPrice($product->processing_fee) }}
+        </p>
 @else
-    <p class="processing_fee_text text-nowrap text-[25px] font-bold max-lg:text-[22px]" style="display:none;">@lang('enclaves::app.shop.product.reservation-fee')</p>
+    <p class="processing_fee_text font-roboto text-[25px] font-normal leading-[25px] text-[#8B8B8B] max-sm:text-[18px]" style="display:none;">
+        @lang('enclaves::app.shop.product.processing')
+    </p>
 
-    <p class="processing_fee text-[40px] font-bold text-[#CC035C] max-lg:text-[40px]"></p>
+    <p class="processing_fee text-6xl font-bold text-[#C38400] max-sm:text-4xl"></p>
 @endif

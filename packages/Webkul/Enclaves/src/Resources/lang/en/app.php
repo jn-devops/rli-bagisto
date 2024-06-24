@@ -344,6 +344,8 @@ return [
             'unit'            => 'Unit',
             'property-code'   => 'Property Code: ',
             'reserve'         => 'Reserve',
+            'processing'      => 'Processing Fee',
+            'select'          => 'Select',
             
             'cart'            => [
                 'add-to-cart' => 'Choose Unit',
