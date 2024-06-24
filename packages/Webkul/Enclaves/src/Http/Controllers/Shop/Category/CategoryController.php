@@ -49,8 +49,6 @@ class CategoryController extends Controller
         ];
 
         $categories = $this->categoryRepository
-                            ->leftJoin('category_translations', 'category_translations.category_id', '=', 'categories.id')
-                            ->where($defaultParams)
                             ->whereNotNull('parent_id')
                             ->where('categories.communities_status', '!=', 0)
                             ->limit(request('limit') ?? self::LIMIT)

@@ -64,7 +64,7 @@ class ProductImageUploadingJob implements ShouldQueue
                 continue;
             }
 
-            foreach (json_decode($images['url_links']) as $image) {
+            foreach (json_decode($images['url_links']) ?? [] as $image) {
 
                 try {
                     $response = Http::get(trim($image));
