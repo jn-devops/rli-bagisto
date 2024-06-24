@@ -120,7 +120,7 @@ class SimpleProductRepository extends BaseRepository
         }
 
         // URL Slug Update
-        if(! empty($csvData['name'])) {
+        if(! empty($csvData['url_key'])) {
             $csvData['url_key'] = Str::slug(strtolower($csvData['name']));
         }
 

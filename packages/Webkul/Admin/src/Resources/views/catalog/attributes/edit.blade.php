@@ -802,7 +802,7 @@
                 v-slot="{ meta, errors, handleSubmit }"
                 as="div"
                 ref="modelForm"
-            >
+                >
                 <form
                     @submit.prevent="handleSubmit($event, storeOptions)"
                     enctype="multipart/form-data"

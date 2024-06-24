@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Webkul\Enclaves\Http\Controllers\Admin\Ticket\FaqController;
 use Webkul\Enclaves\Http\Controllers\Admin\Theme\ThemeController;
 use Webkul\Enclaves\Http\Controllers\Admin\Ticket\TicketsController;
-use Webkul\Enclaves\Http\Controllers\Admin\Product\ReadUrlProductController;
 use Webkul\Enclaves\Http\Controllers\Admin\Channel\ReadUrlChannelController;
+use Webkul\Enclaves\Http\Controllers\Admin\Product\ReadUrlProductController;
 use Webkul\Enclaves\Http\Controllers\Admin\Category\ReadUrlCategoryController;
 
 /**
@@ -48,7 +48,6 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
         Route::post('delete/{id}', 'destroy')->name('enclaves.admin.inquiries.faq.destroy');
 
         Route::post('mass-delete', 'massDestroy')->name('enclaves.admin.inquiries.faq.mass-destroy');
-
     });
 
     // CDN Link Url

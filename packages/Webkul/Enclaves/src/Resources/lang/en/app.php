@@ -606,7 +606,7 @@ return [
                     'url'         => 'URL',
                     'not-found'   => "System can't find the image at the web address you provided.",
                 ],
-            ]
+            ],
         ],
     ],
 ];
