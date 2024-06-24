@@ -606,17 +606,6 @@ return [
                     'url'         => 'URL',
                     'not-found'   => "System can't find the image at the web address you provided.",
                 ],
-
-                'condition' => [
-                    'title'         => 'Conditions',
-                    'heading'       => 'Heading',
-                    'condition'     => 'Condition',
-                    'add-btn'       => 'Add',
-                    'add-condition' => 'Add Condition',
-                    'save-btn'      => 'Save',
-                    'description'   => 'Description',
-                    'info'          => '',
-                ],
             ],
         ],
     ],
