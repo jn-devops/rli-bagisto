@@ -46,6 +46,14 @@
     <meta property="og:url" content="{{ route('shop.product_or_category.index', $product->url_key) }}" />
 @endPush
 
+@push ('styles')
+    <style>
+        ul {
+            padding-left: 40px;
+            list-style: disc;
+        }
+    </style>
+@endpush
 @pushOnce('scripts')
     <script>
 		document.addEventListener("DOMContentLoaded", () => {
@@ -90,7 +98,7 @@
 
 <!-- Page Layout -->
 <x-shop::layouts>
-    <div class="container px-[60px] max-lg:px-[30px] max-lg:px-[15px]">
+    <div class="container px-[60px] max-lg:px-[15px]">
         <!-- Page Title -->
         <x-slot:title>
             {{ trim($product->meta_title) != "" ? $product->meta_title : $product->name }}
@@ -102,7 +110,7 @@
         <x-shop::breadcrumbs name="product" :entity="$product"></x-shop::breadcrumbs>
 
         <!-- Product Information Vue Component -->
-        <v-product :product-id="{{ $product->id }}">
+        <v-product ref="details" :product-id="{{ $product->id }}">
             <x-shop::shimmer.products.view/>
         </v-product>
 
@@ -137,31 +145,35 @@
                                 :value="qty"
                             >
 
-                            <div class="mt-12 flex gap-[54px] max-1180:flex-wrap max-lg:mt-0 max-lg:gap-y-6">
-                                <div class="w-full">
+                            <div class="mt-12 flex gap-[7px] max-lg:mt-0 max-lg:gap-y-6 max-md:flex-wrap lg:gap-[54px]">
+                                <div class="w-[70%] max-md:w-full">
                                     <!-- Gallery Blade Inclusion -->
                                     @include('shop::products.view.gallery')
 
                                     <!-- Product Name -->
                                     {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
                                     
-                                    <h1 class="mt-[26px] text-[40px] font-bold leading-[48px] max-md:text-xl max-md:leading-6">
+                                    <h1 class="mt-[26px] text-[40px] font-bold leading-[48px] max-lg:text-[30px] max-md:leading-6">
                                         {{ $product->name }}
                                     </h1>
 
                                     {!! view_render_event('bagisto.shop.products.description.before', ['product' => $product]) !!}
-                                        {!! $product->description !!}
+                                        <p class="mt-[26px] text-[20px] max-lg:text-[12px] max-md:leading-6" v-html="product.description"></p>
                                     {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                                 </div>
 
-                                <div class="rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-lg:p-[25px] md:w-full lg:w-[40%]">
+                                <div class="w-[30%] rounded-[20px] p-[50px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-lg:p-[25px] max-md:w-full">
+                                    
                                     <!-- Price -->
-                                    <div class="grid gap-[10px] max-md:hidden">
-                                        <p class="text-[20px] font-semibold max-lg:text-[18px]">@lang('enclaves::app.shop.product.contract-price')</p>
+                                    <div class="grid gap-[10px]">
+                                        <p class="text-[20px] font-semibold max-lg:text-[15px]">
+                                            @lang('enclaves::app.shop.product.contract-price')
+                                        </p>
                                         
-                                        <p class="text-[22px] max-lg:text-[20px]">
+                                        <p class="text-[22px] max-lg:text-[15px]">
                                             {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
-                                                {!! $product->getTypeInstance()->getPriceHtml() !!}
+                                                
+                                            {!! $product->getTypeInstance()->getPriceHtml() !!}
 
                                                 <span class="text-[18px] text-[#6E6E6E]">
                                                     @if (
@@ -176,17 +188,17 @@
                                     </div>
 
                                     @if(count($attributeData))
-                                        <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px] max-md:hidden">
+                                        <div class="mt-[10px] flex flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                             @foreach ($customAttributeValues as $customAttributeValue)
                                                 @if (! empty($customAttributeValue['value']))
                                                     <div class="flex flex-wrap gap-[6px]">
-                                                        <p class="text-[20px] font-bold max-lg:text-[18px]">{!! $customAttributeValue['label'] !!}: </p>
+                                                        <p class="text-[20px] font-bold max-lg:text-[15px]">{!! $customAttributeValue['label'] !!}: </p>
 
                                                         @if ($customAttributeValue['type'] == 'file')
                                                             <a 
                                                                 href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
                                                                 download="{{ $customAttributeValue['label'] }}"
-                                                                class="text-[20px] max-lg:text-[18px]"
+                                                                class="text-[20px] max-lg:text-[15px]"
                                                             >
                                                                 <span class="icon-download text-2xl"></span>
                                                             </a>
@@ -201,23 +213,20 @@
                                                                 />
                                                             </a>
                                                         @else
-                                                            <p class="text-[20px] max-lg:text-[18px]">
+                                                            <p class="text-[20px] max-lg:text-[15px]">
                                                                 {!! $customAttributeValue['value'] !!}
                                                             </p>
                                                         @endif
                                                     </div>
-
                                                 @endif
                                             @endforeach
                                         </div>
                                     @endif
 
-                                    <div class="flex max-w-[400px] flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
+                                    <div v-if="product.short_description" class="flex max-w-[400px] flex-col gap-[20px] border-b-[1px] border-[#D9D9D9] pb-[42px]">
                                         {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
-                                        <p class="mt-[25px] text-[18px] text-[#6E6E6E] max-lg:mt-[15px] max-lg:text-[14px]">
-                                            {!! $product->short_description !!}
-                                        </p>
+                                        <p class="mt-[25px] text-[18px] text-[#6E6E6E] max-lg:mt-[15px] max-lg:text-[12px]" v-html="product.short_description"></p>
 
                                         {!! view_render_event('bagisto.shop.products.short_description.after', ['product' => $product]) !!}
                                     </div>
@@ -225,22 +234,6 @@
                                     <div class="flex flex-col">
                                         @include('shop::products.view.types.configurable')
                                     </div>
-
-                                    <!-- Seller detail -->
-                                    <!-- <div class="mt-[28px] flex flex-col gap-[20px]">
-                                        
-                                        <div class="flex">
-                                            <p class="text-[20px] font-bold max-lg:text-[18px]"> Seller Details:</p>
-                                        </div>
-                                        <div class="flex flex-wrap gap-[6px]">
-                                            <p class="text-[20px] font-bold max-lg:text-[18px]">Name:</p>
-                                            <p class="text-[20px] max-lg:text-[18px]">Charles Ley Baldmor</p>
-                                        </div>
-                                        <div class="flex flex-wrap gap-[6px]">
-                                            <p class="text-[20px] font-bold max-lg:text-[18px]">Email:</p>
-                                            <p class="text-[20px] max-lg:text-[18px]">cbbaldemor@joy-notal.com</p>
-                                        </div>
-                                    </div> -->
 
                                     <!-- Add To Cart Button -->
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
@@ -261,8 +254,18 @@
                                     {!! $product->button_text != '0' && $product->button_text ? $product->button_information : '' !!}
 
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
-                                        <button 
-                                            class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] border-[3px] border-[#CC035C] px-[43px] py-[16px] text-center font-medium text-[#CC035C] max-md:hidden"
+                                        <button
+                                            v-if="isAdding"
+                                            class="mx-auto ml-[0px] mt-[30px] block w-full cursor-not-allowed rounded-[18px] border-[3px] border-[#e785b0] px-[43px] py-[16px] text-center font-medium text-[#e785b0] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
+                                            style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
+                                            disabled
+                                        >
+                                            @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
+                                        </button>
+                                        
+                                        <button
+                                            v-else
+                                            class="mx-auto ml-[0px] mt-[30px] block w-full rounded-[18px] border-[3px] border-[#CC035C] px-[43px] py-[16px] text-center font-medium text-[#CC035C] max-lg:border-[1px] max-lg:px-[20px] max-lg:py-[10px] max-lg:text-[12px]"
                                             @click="is_buy_now=1; is_kyc_process=1;"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                             {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
@@ -270,92 +273,6 @@
                                             @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
                                         </button>
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
-                                </div>
-                            </div>
-
-                            <div class="fixed bottom-0 z-[1000] -ml-[15px] w-full border-t border-[#D9D9D9] bg-white md:hidden lg:hidden">
-                                <div class="flex items-center justify-between gap-2 bg-gradient-to-l from-[#E9E9E9] to-[#FFFFFF] px-7 py-6">
-                                    <!-- Price -->
-                                    <div class="flex flex-col gap-2.5 font-montserrate text-xs font-semibold">
-                                        <h3>@lang('enclaves::app.shop.product.contract-price')</h3>
-                                        
-                                        <p>
-                                            {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
-                                                {!! $product->getTypeInstance()->getPriceHtml() !!}
-
-                                                <span class="text-[18px] text-[#6E6E6E]">
-                                                    @if (
-                                                        (bool) core()->getConfigData('taxes.catalogue.pricing.tax_inclusive') 
-                                                        && $product->getTypeInstance()->getTaxCategory()
-                                                    )
-                                                        @lang('shop::app.products.view.tax-inclusive')
-                                                    @endif
-                                                </span>
-                                            {!! view_render_event('bagisto.shop.products.price.after', ['product' => $product]) !!}
-                                        </p>
-                                    </div>
-
-                                    {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
-                                        <button 
-                                            class="max-w-fit rounded-[0.625rem] border border-[#cc035c] px-8 py-5 font-montserrate text-sm font-medium text-[#cc035c]"
-                                            @click="is_buy_now=1; is_kyc_process=1;"
-                                            style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
-                                            {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
-                                        >
-                                            @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve')
-                                            
-                                            @if ($product->processing_fee)
-                                                <p class="processing_fee_mobile font-bold text-[#CC035C]">{{ core()->formatPrice($product->processing_fee) }}</p>
-                                            @else
-                                                <p class="processing_fee_mobile font-bold text-[#CC035C]"></p>
-                                            @endif
-                                        </button>
-                                    {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
-                                </div>
-
-                                <div class="divide-y divide-[#D9D9D9] px-5 py-6">
-                                    <div class="flex flex-col gap-3.5">
-                                        @if($product->sku)
-                                            <p class="font-montserrate text-xs text-black">
-                                                <span class="font-semibold">
-                                                    @lang('enclaves::app.shop.product.property-code')
-                                                </span>
-                                                {{ $product->sku }}
-                                            </p>
-                                        @endif
-
-                                        @if(count($attributeData))
-                                            @foreach ($customAttributeValues as $customAttributeValue)
-                                                @if (! empty($customAttributeValue['value']))
-                                                    @if ($customAttributeValue['type'] == 'file')
-                                                        {!! $customAttributeValue['label'] !!}: 
-                                                        <a 
-                                                            href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
-                                                            download="{{ $customAttributeValue['label'] }}"
-                                                            class="text-[20px] max-lg:text-[18px]"
-                                                        >
-                                                            <span class="icon-download text-2xl"></span>
-                                                        </a>
-                                                    @elseif ($customAttributeValue['type'] == 'image')
-                                                        {!! $customAttributeValue['label'] !!}: 
-                                                        <a 
-                                                            href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
-                                                            download="{{ $customAttributeValue['label'] }}"
-                                                        >
-                                                            <img 
-                                                                class="h-5 min-h-5 w-5 min-w-5" 
-                                                                src="{{ Storage::url($customAttributeValue['value']) }}" 
-                                                            />
-                                                        </a>
-                                                    @else
-                                                        <p class="font-montserrate text-xs text-black">
-                                                            <span class="font-semibold">{!! $customAttributeValue['label'] !!}: </span>  {!! $customAttributeValue['value'] !!}
-                                                        </p>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -380,11 +297,17 @@
                             is_kyc_process: 0,
                             
                             qty: 1,
+
+                            product: @json($product),
+
+                            isAdding: 0,
                         }
                     },
 
                     methods: {
                         addToCart(params) {
+                                this.isAdding = 1;
+                                
                                 let formData = new FormData(this.$refs.formData);
 
                                 this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
@@ -393,6 +316,8 @@
                                         }
                                     })
                                     .then(response => {
+                                        this.isAdding = 0;
+
                                         if (response.data.message) {
                                             this.$emitter.emit('update-mini-cart', response.data.data);
 
