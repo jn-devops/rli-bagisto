@@ -52,6 +52,10 @@
             padding-left: 40px;
             list-style: disc;
         }
+
+        .product-price p {
+            color: black !important;
+        }
     </style>
 @endpush
 @pushOnce('scripts')
@@ -150,20 +154,33 @@
                                     <!-- Gallery Blade Inclusion -->
                                     @include('shop::products.view.gallery')
 
+                                    <!-- Product Price -->
+                                    <div class="product-price mb-[18px] mt-[34px] flex flex-col gap-1.5 px-4 sm:px-0">
+                                        <p class="font-roboto font-normal text-[20xp] text-black sm:text-[30px] sm:leading-[30px]">
+                                            {!! $product->getTypeInstance()->getPriceHtml() !!}
+                                        </p>
+                                        
+                                        <h5 class="font-roboto text-[12px] font-normal text-[#8B8B8B] sm:text-[20px] sm:leading-[30px]">
+                                            @lang('enclaves::app.shop.product.contract-price')
+                                        </h5>
+                                    </div>
+
+                                    <hr class="mb-6 mt-6 h-px border-t border-[#D9D9D9]" />
+
                                     <!-- Product Name -->
                                     {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
-                                    
-                                    <h1 class="mt-[26px] text-[40px] font-bold leading-[48px] max-lg:text-[30px] max-md:leading-6">
-                                        {{ $product->name }}
-                                    </h1>
+                                        <h1 class="text-[40px] font-bold leading-[48px] tracking-tighter max-sm:text-[20px] max-sm:leading-[24px]">
+                                            {{ $product->name }}
+                                        </h1>
+                                    {!! view_render_event('bagisto.shop.products.name.after', ['product' => $product]) !!}
 
+                                    <!-- Product description -->
                                     {!! view_render_event('bagisto.shop.products.description.before', ['product' => $product]) !!}
                                         <p class="mt-[26px] text-xl max-lg:text-[12px] max-md:leading-6" v-html="product.description"></p>
                                     {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                                 </div>
 
                                 <div class="relative top-12 -mt-12 flex hidden h-fit w-full max-w-[781px] flex-col rounded-3xl px-10 py-12 shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-6 md:flex">
-
                                     <!-- Price -->
                                     <div class="flex gap-x-4 gap-y-5">
                                         <div class="flex flex-col gap-4 pt-0.5">
@@ -171,7 +188,7 @@
                                                 @lang('enclaves::app.shop.product.contract-price')
                                             </p>
 
-                                            <p class="font-roboto text-xl font-normal text-black max-sm:text-lg">
+                                            <p class="product-price font-roboto text-xl font-normal text-black max-sm:text-lg">
                                                 {!! $product->getTypeInstance()->getPriceHtml() !!}
                                             </p>
                                         </div>
@@ -200,6 +217,7 @@
 
                                     <hr class="mb-6 mt-10 h-px border-t border-[#D9D9D9]" />
 
+                                    <!-- Product Option -->
                                     <div class="flex flex-col">
                                         @include('shop::products.view.types.configurable')
                                     </div>
