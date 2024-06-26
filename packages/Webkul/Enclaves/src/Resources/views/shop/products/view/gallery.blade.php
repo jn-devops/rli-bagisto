@@ -19,7 +19,7 @@
                     >
                     </x-shop::media.images.lazy>
                 </div>
-                
+
                 <div class="relative">
                     <div class="scrollbar-hide relative mt-[10px] flex w-auto gap-[10px] overflow-auto scroll-smooth">
                         <template v-for="(image, index) in media.images">
@@ -39,6 +39,56 @@
                         @click="productSliderModel()"
                     ></p>
                 </div>
+
+                <!-- Product Price -->
+                <div class="product-price mb-[18px] mt-[34px] flex flex-col gap-1.5 px-4 sm:px-0">
+                    <p class="font-roboto font-normal text-[20xp] text-black sm:text-[30px] sm:leading-[30px]">
+                        {!! $product->getTypeInstance()->getPriceHtml() !!}
+                    </p>
+                    
+                    <h5 class="font-roboto text-[12px] font-normal text-[#8B8B8B] sm:text-[20px] sm:leading-[30px]">
+                        @lang('enclaves::app.shop.product.contract-price')
+                    </h5>
+                </div>
+
+                <hr class="mb-6 mt-6 h-px border-t border-[#D9D9D9]" />
+
+                <!-- Product Name -->
+                {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
+                    <h1 class="text-[40px] font-bold leading-[48px] tracking-tighter max-sm:text-[20px] max-sm:leading-[24px]">
+                        {{ $product->name }}
+                    </h1>
+                {!! view_render_event('bagisto.shop.products.name.after', ['product' => $product]) !!}
+
+                <!-- Location -->
+                <h2 class="text-[24px] font-bold leading-[36px] text-[#C38400]" v-if="location">
+                    <span v-text="location"></span>
+                </h2>
+
+                <!-- Option -->
+                <div v-if="options.length">
+                    <h3 class="font-roboto hidden pt-[23px] text-[15px] font-normal leading-[18px] text-[#8B8B8B] sm:flex sm:text-[20px] sm:leading-[50px]">
+                        @lang('enclaves::app.shop.product.product-specification')
+                    </h3>
+
+                    <div class="hidden flex-wrap items-start gap-[40px] pt-[11px] max-sm:gap-[30px] md:flex">
+                        <template v-for="option in options">    
+                            <span v-show="option.value" class="mt-[10px] flex gap-[10px]">
+                                <span class="flex">
+                                    <span :class="`icon-` + option.code + ` bg-white text-[30px] text-[#1e1e1e] max-sm:text-[19px]`"></span>
+                                </span>
+
+                                <div class="grid gap-[12px] max-lg:gap-[5px]">
+                                    <p class="text-[15px] leading-4 text-[#989898] max-sm:text-[12px]" v-text="option.label"></p>
+                                    
+                                    <p class="text-[18px] leading-4 max-sm:text-[14px]"  v-text="option.value"></p>
+                                </div>
+                            </span>
+                        </template>
+                    </div>
+
+                    <hr class="mb-6 mt-6 h-px border-t border-[#D9D9D9]" />
+                </div>
             </div>
 
             <!-- Product slider Image with shimmer -->
@@ -52,23 +102,8 @@
                 >
                 </x-shop::media.images.lazy>
             </div>
-
-            <div class="flex flex-wrap lg:gap-[30px]">
-                <template v-for="option in options">    
-                    <span v-show="option.value" class="mt-[40px] flex gap-[10px] max-lg:mt-[10px]">
-                        <span class="flex">
-                            <span :class="`icon-` + option.code + ` bg-white text-[19px] text-[#CC035C] max-sm:text-[12px]`"></span>
-                        </span>
-
-                        <div class="grid gap-[12px] max-lg:gap-[5px]">
-                            <p class="text-[15px] leading-4 text-[#989898] max-sm:text-[12px]" v-text="option.label"></p>
-                            
-                            <p class="text-[18px] leading-4 max-sm:text-[14px]"  v-text="option.value"></p>
-                        </div>
-                    </span>
-                </template>
-            </div>
             
+             <!-- Image Slider modal -->
             <x-shop::modal.image-slider ref="imageSliderModel">
                 <!-- Modal Content Id -->
                 <x-slot:content>
@@ -136,6 +171,8 @@
 
                         path: ''
                     },
+
+                    location: null,
 
                     activeIndex: 0,
 

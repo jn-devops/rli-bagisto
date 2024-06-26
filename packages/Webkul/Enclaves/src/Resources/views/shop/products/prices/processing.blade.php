@@ -3,7 +3,7 @@
             @lang('enclaves::app.shop.product.processing')
         </p>
 
-        <p class="processing_fee text-6xl font-bold text-[#C38400] max-sm:text-4xl">
+        <p class="processing_fee text-[40px] font-bold text-[#C38400] max-sm:text-2xl">
             {{ core()->formatPrice($product->processing_fee) }}
         </p>
 @else
@@ -11,5 +11,5 @@
         @lang('enclaves::app.shop.product.processing')
     </p>
 
-    <p class="processing_fee text-6xl font-bold text-[#C38400] max-sm:text-4xl"></p>
+    <p class="processing_fee text-[40px] font-bold text-[#C38400] max-sm:text-2xl"></p>
 @endif

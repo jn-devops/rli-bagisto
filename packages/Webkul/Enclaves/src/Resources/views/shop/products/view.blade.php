@@ -13,9 +13,15 @@
 
 <!-- SEO Meta Content -->
 @push('meta')
-    <meta name="description" content="{{ trim($product->meta_description) != "" ? $product->meta_description : \Illuminate\Support\Str::limit(strip_tags($product->description), 120, '') }}"/>
+    <meta 
+        name="description" 
+        content="{{ trim($product->meta_description) != "" ? $product->meta_description : \Illuminate\Support\Str::limit(strip_tags($product->description), 120, '') }}"
+    />
 
-    <meta name="keywords" content="{{ $product->meta_keywords }}"/>
+    <meta 
+        name="keywords" 
+        content="{{ $product->meta_keywords }}"
+    />
 
     @if (core()->getConfigData('catalog.rich_snippets.products.enable'))
         <script type="application/ld+json">
@@ -25,25 +31,55 @@
 
     <?php $productBaseImage = product_image()->getProductBaseImage($product); ?>
 
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta 
+        name="twitter:card" 
+        content="summary_large_image"
+    />
 
-    <meta name="twitter:title" content="{{ $product->name }}" />
+    <meta 
+        name="twitter:title" 
+        content="{{ $product->name }}" 
+    />
 
-    <meta name="twitter:description" content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}" />
+    <meta 
+        name="twitter:description" 
+        content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}"
+    />
 
-    <meta name="twitter:image:alt" content="" />
+    <meta 
+        name="twitter:image:alt" 
+        content="" 
+    />
 
-    <meta name="twitter:image" content="{{ $productBaseImage['medium_image_url'] }}" />
+    <meta 
+        name="twitter:image" 
+        content="{{ $productBaseImage['medium_image_url'] }}"
+    />
 
-    <meta property="og:type" content="og:product" />
+    <meta 
+        property="og:type" 
+        content="og:product" 
+    />
 
-    <meta property="og:title" content="{{ $product->name }}" />
+    <meta 
+        property="og:title" 
+        content="{{ $product->name }}"
+    />
 
-    <meta property="og:image" content="{{ $productBaseImage['medium_image_url'] }}" />
+    <meta 
+        property="og:image" 
+        content="{{ $productBaseImage['medium_image_url'] }}" 
+    />
 
-    <meta property="og:description" content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}" />
+    <meta 
+        property="og:description" 
+        content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}" 
+    />
 
-    <meta property="og:url" content="{{ route('shop.product_or_category.index', $product->url_key) }}" />
+    <meta 
+        property="og:url" 
+        content="{{ route('shop.product_or_category.index', $product->url_key) }}" 
+    />
 @endPush
 
 @push ('styles')
@@ -58,6 +94,7 @@
         }
     </style>
 @endpush
+
 @pushOnce('scripts')
     <script>
 		document.addEventListener("DOMContentLoaded", () => {
@@ -154,47 +191,33 @@
                                     <!-- Gallery Blade Inclusion -->
                                     @include('shop::products.view.gallery')
 
-                                    <!-- Product Price -->
-                                    <div class="product-price mb-[18px] mt-[34px] flex flex-col gap-1.5 px-4 sm:px-0">
-                                        <p class="font-roboto font-normal text-[20xp] text-black sm:text-[30px] sm:leading-[30px]">
-                                            {!! $product->getTypeInstance()->getPriceHtml() !!}
-                                        </p>
-                                        
-                                        <h5 class="font-roboto text-[12px] font-normal text-[#8B8B8B] sm:text-[20px] sm:leading-[30px]">
-                                            @lang('enclaves::app.shop.product.contract-price')
-                                        </h5>
-                                    </div>
-
-                                    <hr class="mb-6 mt-6 h-px border-t border-[#D9D9D9]" />
-
-                                    <!-- Product Name -->
-                                    {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
-                                        <h1 class="text-[40px] font-bold leading-[48px] tracking-tighter max-sm:text-[20px] max-sm:leading-[24px]">
-                                            {{ $product->name }}
-                                        </h1>
-                                    {!! view_render_event('bagisto.shop.products.name.after', ['product' => $product]) !!}
-
                                     <!-- Product description -->
                                     {!! view_render_event('bagisto.shop.products.description.before', ['product' => $product]) !!}
-                                        <p class="mt-[26px] text-xl max-lg:text-[12px] max-md:leading-6" v-html="product.description"></p>
+                                        <h3 class="font-roboto hidden pt-[23px] text-[15px] font-normal leading-[18px] text-[#8B8B8B] sm:flex sm:text-[20px] sm:leading-[50px]">
+                                            Product Description
+                                        </h3>
+                                        
+                                        <p class="text-xl max-lg:text-[12px] max-md:leading-6" v-html="product.description"></p>
                                     {!! view_render_event('bagisto.shop.products.description.after', ['product' => $product]) !!}
                                 </div>
 
-                                <div class="relative top-12 -mt-12 flex hidden h-fit w-full max-w-[781px] flex-col rounded-3xl px-10 py-12 shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-6 md:flex">
+                                <div class="top-12 hidden h-fit max-w-[781px] flex-col rounded-[20px] px-[38px] py-[46px] shadow-[0px_4px_40px_0px_rgba(220,_228,_240,_1)] max-sm:p-[25px] md:flex">
                                     <!-- Price -->
-                                    <div class="flex gap-x-4 gap-y-5">
-                                        <div class="flex flex-col gap-4 pt-0.5">
+                                    <div class="grid grid-cols-2 gap-y-5">
+                                        <div class="flex w-[180px] flex-col gap-4 pt-0.5">
                                             <p class="font-roboto text-[25px] font-normal leading-[25px] text-[#8B8B8B] max-sm:text-[18px]">
                                                 @lang('enclaves::app.shop.product.contract-price')
                                             </p>
 
                                             <p class="product-price font-roboto text-xl font-normal text-black max-sm:text-lg">
-                                                {!! $product->getTypeInstance()->getPriceHtml() !!}
+                                                <div class="price-in-final text-[25px]">
+                                                    {!! $product->getTypeInstance()->getPriceHtml() !!}
+                                                </div>
                                             </p>
                                         </div>
 
                                         <!-- reservation fee -->
-                                        <div class="flex flex-col gap-3">
+                                        <div class="flex flex-col gap-3 break-words">
                                             {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
 
                                             {!! view_render_event('bagisto.shop.products.price.after', ['product' => $product]) !!}
@@ -222,16 +245,15 @@
                                         @include('shop::products.view.types.configurable')
                                     </div>
 
-                                    <hr class="mb-11 mt-16 h-px border-t border-[#D9D9D9]" />
-
                                     <!-- button -->
                                     <div class="flex items-center gap-4">
-                                        <a 
-                                            class="mx-auto block h-full w-full rounded-full bg-[#FFFBF1] py-7 py-8 text-center text-base font-normal tracking-tighter text-[#C38400] underline underline-offset-2 md:text-2xl"
-                                            href="#"
-                                        >
-                                            View Financing Scheme
-                                        </a>
+                                        <button
+                                            type="button"
+                                            @click="productSliderModel()"
+                                            class="mx-auto block h-full w-full text-nowrap rounded-full bg-[#FFFBF1] p-[10px] text-center text-[20px] font-normal tracking-tighter text-[#C38400] underline underline-offset-2 md:text-[15px]"
+                                            >
+                                            @lang('enclaves::app.shop.product.load-calculator')
+                                        </button>
 
                                         <!-- Add To Cart Button -->
                                         {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
@@ -258,19 +280,13 @@
                                                 style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                                 disabled
                                                 >
-                                                <span 
-                                                    class="flex flex-col gap-1 whitespace-nowrap py-[18px] pl-[32px] text-left text-lg font-normal tracking-tighter text-white">
-                                                    <span>
-                                                        {{ core()->formatPrice($product->processing_fee) }}
-                                                    </span>
-                                                    <span>
-                                                        @lang('enclaves::app.shop.product.processing')
-                                                    </span>
-                                                </span>
+                                                <p class="flex flex-col gap-1 whitespace-nowrap py-[18px] pl-[32px] text-left text-lg font-normal tracking-tighter text-white">
+                                                    <p class="processing_fee_btn">{{ core()->formatPrice($product->processing_fee) }}</p>
 
-                                                <span 
-                                                    class="whitespace-nowrap py-[18px] pl-2 pr-[22px] tracking-tighter text-white underline underline-offset-2"
-                                                    >
+                                                    <span>@lang('enclaves::app.shop.product.processing')</span>
+                                                </p>
+
+                                                <span class="whitespace-nowrap py-[18px] pl-2 pr-[22px] tracking-tighter text-white underline underline-offset-2">
                                                     @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
                                                 </span>
                                             </button>
@@ -282,19 +298,13 @@
                                                 style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                                 {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                                 >
-                                                <span 
-                                                    class="flex flex-col gap-1 whitespace-nowrap py-[18px] pl-[32px] text-left text-lg font-normal tracking-tighter text-white">
-                                                    <span>
-                                                        {{ core()->formatPrice($product->processing_fee) }}
-                                                    </span>
-                                                    <span>
-                                                        @lang('enclaves::app.shop.product.processing')
-                                                    </span>
+                                                <span class="flex flex-col gap-1 whitespace-nowrap py-[18px] pl-[32px] text-left text-lg font-normal tracking-tighter text-white">
+                                                    <p class="processing_fee_btn">{{ core()->formatPrice($product->processing_fee) }}</p>
+
+                                                    <span>@lang('enclaves::app.shop.product.processing')</span>
                                                 </span>
 
-                                                <span 
-                                                    class="whitespace-nowrap py-[18px] pl-2 pr-[22px] tracking-tighter text-white underline underline-offset-2"
-                                                    >
+                                                <span class="whitespace-nowrap py-[18px] pl-2 pr-[22px] tracking-tighter text-white underline underline-offset-2">
                                                     @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
                                                 </span>
                                             </button>
@@ -302,6 +312,15 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <!-- Image Slider modal -->
+                            <x-shop::modal.image-slider ref="imageSliderModel">
+                                <!-- Modal Content Id -->
+                                <x-slot:content>
+                                    Loan Calculator
+                                </x-slot:content>
+                            </x-shop::modal.image-slider>
                         </form>
                     </x-shop::form>
                 </div>
@@ -332,34 +351,38 @@
                     },
 
                     methods: {
+                        productSliderModel() {
+                            this.$refs.imageSliderModel.toggle();
+                        },
+
                         addToCart(params) {
-                                this.isAdding = 1;
-                                
-                                let formData = new FormData(this.$refs.formData);
+                            this.isAdding = 1;
+                            
+                            let formData = new FormData(this.$refs.formData);
 
-                                this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
-                                        headers: {
-                                            'Content-Type': 'multipart/form-data'
-                                        }
-                                    })
-                                    .then(response => {
-                                        this.isAdding = 0;
+                            this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data'
+                                    }
+                                })
+                                .then(response => {
+                                    this.isAdding = 0;
 
-                                        if (response.data.message) {
-                                            this.$emitter.emit('update-mini-cart', response.data.data);
+                                    if (response.data.message) {
+                                        this.$emitter.emit('update-mini-cart', response.data.data);
 
-                                            this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
-                                            
-                                            if (response.data.redirect && ! this.is_kyc_process) {
-                                                window.location.href = response.data.redirect;
-                                            } else {
-                                                window.location.href = response.data.ekyc_redirect;
-                                            }
+                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                        
+                                        if (response.data.redirect && ! this.is_kyc_process) {
+                                            window.location.href = response.data.redirect;
                                         } else {
-                                            this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                                            window.location.href = response.data.ekyc_redirect;
                                         }
-                                    })
-                                    .catch(error => {});
+                                    } else {
+                                        this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                                    }
+                                })
+                                .catch(error => {});
                         },
 
                         addToWishlist() {

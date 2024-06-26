@@ -346,10 +346,13 @@ return [
             'reserve'         => 'Reserve',
             'processing'      => 'Processing Fee',
             'select'          => 'Select',
+            'load-calculator' => 'Loan Calculator',
             
             'cart'            => [
                 'add-to-cart' => 'Choose Unit',
             ],
+
+            'product-specification'  => 'Product Specification',
         ],
 
         'authentication' => [
