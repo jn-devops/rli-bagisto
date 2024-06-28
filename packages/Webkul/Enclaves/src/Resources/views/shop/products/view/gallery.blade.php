@@ -66,13 +66,13 @@
                 </h2>
 
                 <!-- Option -->
-                <div v-if="options.length">
-                    <h3 class="font-roboto hidden pt-[23px] text-[15px] font-normal leading-[18px] text-[#8B8B8B] sm:flex sm:text-[20px] sm:leading-[50px]">
+                <div v-if="options">
+                    <h3 v-if="options" class="font-roboto pt-[23px] text-[15px] font-normal leading-[18px] text-[#8B8B8B] sm:flex sm:text-[20px] sm:leading-[50px]">
                         @lang('enclaves::app.shop.product.product-specification')
                     </h3>
 
-                    <div class="hidden flex-wrap items-start gap-[40px] pt-[11px] max-sm:gap-[30px] md:flex">
-                        <template v-for="option in options">    
+                    <div v-if="options" class="flex-wrap items-start gap-[40px] pt-[11px] max-sm:gap-[30px] md:flex">
+                        <template v-for="option in options"> 
                             <span v-show="option.value" class="mt-[10px] flex gap-[10px]">
                                 <span class="flex">
                                     <span :class="`icon-` + option.code + ` bg-white text-[30px] text-[#1e1e1e] max-sm:text-[19px]`"></span>

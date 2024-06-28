@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-534fad85.css",
+    "file": "assets/app-7ae2f4b2.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -171,6 +171,26 @@
   "src/Resources/assets/images/paypal.png": {
     "file": "assets/paypal-df581855.png",
     "src": "src/Resources/assets/images/paypal.png"
+  },
+  "src/Resources/assets/images/phone1.png": {
+    "file": "assets/phone1-79e9671d.png",
+    "src": "src/Resources/assets/images/phone1.png"
+  },
+  "src/Resources/assets/images/phone2.png": {
+    "file": "assets/phone2-87d40ae1.png",
+    "src": "src/Resources/assets/images/phone2.png"
+  },
+  "src/Resources/assets/images/phone3.png": {
+    "file": "assets/phone3-34eb4cb6.png",
+    "src": "src/Resources/assets/images/phone3.png"
+  },
+  "src/Resources/assets/images/phone4.png": {
+    "file": "assets/phone4-19fa764b.png",
+    "src": "src/Resources/assets/images/phone4.png"
+  },
+  "src/Resources/assets/images/phone5.png": {
+    "file": "assets/phone5-0d81b9ff.png",
+    "src": "src/Resources/assets/images/phone5.png"
   },
   "src/Resources/assets/images/review.png": {
     "file": "assets/review-342fab8f.png",

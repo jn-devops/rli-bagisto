@@ -1,7 +1,6 @@
 @props([
     'isActive' => false,
 ])
-
 <v-modal
     is-active="{{ $isActive }}"
     {{ $attributes }}

@@ -496,7 +496,7 @@
                         this.galleryImages.forEach(function(image) {
                             galleryImages.push(image)
                         });
-
+                        
                         if(this.config.variants.options[this.simpleProduct]) {
                             this.$parent.$parent.$refs.gallery.options = this.config.variants.options[this.simpleProduct];
                         }
