@@ -11,6 +11,15 @@
     @endif
 @endPush
 
+
+@push ('styles')
+    <style>
+        .product-price p {
+            color: black !important;
+        }
+    </style>
+@endpush
+
 <x-shop::layouts>
     <!-- Page Title -->
     <x-slot:title>
@@ -132,7 +141,7 @@
                                             </div>
 
                                             <div class="grid flex-wrap items-center justify-between gap-5 max-425:grid">
-                                                <div class="grid gap-[12px]">
+                                                <div class="product-price grid gap-[12px]">
 
                                                     <p class="font-popins text-[20px] font-medium" v-html="product.price_html"></p>
 
@@ -218,11 +227,11 @@
                                                 </div>
 
                                                 <div class="flex flex-wrap justify-between">
-                                                    <div class="max-lg:mb-4">
-                                                        <div 
+                                                    <div class="product-price max-lg:mb-4">
+                                                        <p 
                                                             class="font-popins text-wrap text-[15px] font-medium" 
                                                             v-html="product.price_html">
-                                                        </div>
+                                                        </p>
 
                                                         <p class="font-popins text-[11px] font-medium text-[#A0A0A0]">
                                                             @lang('enclaves::app.shop.customers.total-contract-price')

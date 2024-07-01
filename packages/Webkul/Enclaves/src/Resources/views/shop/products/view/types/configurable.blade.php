@@ -23,7 +23,7 @@
                     <!-- Dropdown Options Container -->
                     <template
                         v-if="! attribute.swatch_type || attribute.swatch_type == '' || attribute.swatch_type == 'dropdown'"
-                    >
+                        >
                         <!-- Dropdown Options -->
                         <v-field
                             as="select"
@@ -215,7 +215,9 @@
                         >
                         </p>
                     </v-error-message>
+
                 </div>
+                <hr v-if="childAttributes.length" class="mb-11 mt-16 h-px border-t border-[#D9D9D9]" />
             </div>
         </script>
 
@@ -314,6 +316,7 @@
 
                         this.reloadPrice();
                         this.changeProductImages();
+                        this.loadLocation();
                     },
 
                     getSelectedIndex(attribute, value) {
@@ -442,21 +445,25 @@
 
                         let priceElement = document.querySelector('.special-price') ? document.querySelector('.special-price') : document.querySelector('.final-price');
                         
+                        let priceInElement = document.querySelector('.price-in-final');
+
+                        let processingFeeBtn = document.querySelector('.processing_fee_btn');
+
                         let regularPriceElement = document.querySelector('.special-price');
                         
                         let processingFee = document.querySelector('.processing_fee');
 
                         let processingFeeText = document.querySelector('.processing_fee_text');
 
-                        //let processingFeeMobile = document.querySelector('.processing_fee_mobile');
-
                         if (this.childAttributes.length == selectedOptionCount) {
                             priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
-                            
+
+                            priceInElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
+
+                            processingFeeBtn.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
+
                             processingFee.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
-
-                           // processingFeeMobile.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
-
+                            
                             processingFeeText.style.display = 'block';
 
                             if (regularPriceElement) {
@@ -489,7 +496,7 @@
                         this.galleryImages.forEach(function(image) {
                             galleryImages.push(image)
                         });
-
+                        
                         if(this.config.variants.options[this.simpleProduct]) {
                             this.$parent.$parent.$refs.gallery.options = this.config.variants.options[this.simpleProduct];
                         }
@@ -503,6 +510,10 @@
                         }
 
                         ++this.$parent.$parent.$refs.gallery.refreshBaseImageComponent;
+                    },
+
+                    loadLocation() {
+                        this.$parent.$parent.$refs.gallery.location = this.config.variant_location[this.simpleProduct].label;
                     },
                 }
             });

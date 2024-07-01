@@ -5,6 +5,7 @@ namespace Webkul\Product\Helpers;
 use Webkul\Product\Facades\ProductImage;
 use Webkul\Product\Facades\ProductVideo;
 use Webkul\Product\Helpers\View as ProductViewHelper;
+use Webkul\Attribute\Repositories\AttributeOptionRepository;
 
 class ConfigurableOption
 {
@@ -65,16 +66,17 @@ class ConfigurableOption
         $options = $this->getOptions($product, $this->getAllowedVariants($product));
 
         $config = [
-            'attributes'     => $this->getAttributesData($product, $options),
-            'index'          => $options['index'] ?? [],
+            'attributes'       => $this->getAttributesData($product, $options),
+            'index'            => $options['index'] ?? [],
             
             // Customization Start
-            'variants'       => $this->getVariants($product),
+            'variants'         => $this->getVariants($product),
+            'variant_location' => $this->getVariantLocation($product),
             // Customization End
 
-            'variant_prices' => $this->getVariantPrices($product),
-            'variant_images' => $this->getVariantImages($product),
-            'variant_videos' => $this->getVariantVideos($product),
+            'variant_prices'   => $this->getVariantPrices($product),
+            'variant_images'   => $this->getVariantImages($product),
+            'variant_videos'   => $this->getVariantVideos($product),
         ];
 
         return array_merge($config, $product->getTypeInstance()->getProductPrices());
@@ -252,5 +254,22 @@ class ConfigurableOption
         }
 
         return $videos;
+    }
+
+    /**
+     * Get product location for configurable variations.
+     *
+     * @param  \Webkul\Product\Contracts\Product  $product
+     * @return array
+     */
+    protected function getVariantLocation($product)
+    {
+        $location = [];
+
+        foreach ($this->getAllowedVariants($product) as $variant) {
+            $location[$variant->id] = app(AttributeOptionRepository::class)->where('id', $variant->location)->first();
+        }
+
+        return $location;
     }
 }
