@@ -1,0 +1,16 @@
+{
+  "src/Resources/assets/css/app.css": {
+    "file": "assets/app-d021c92d.css",
+    "isEntry": true,
+    "src": "src/Resources/assets/css/app.css"
+  },
+  "src/Resources/assets/fonts/icomoon.woff": {
+    "file": "assets/icomoon-c9b961b5.woff",
+    "src": "src/Resources/assets/fonts/icomoon.woff"
+  },
+  "src/Resources/assets/js/app.js": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "src/Resources/assets/js/app.js"
+  }
+}

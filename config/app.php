@@ -243,6 +243,7 @@ return [
         Webkul\Blog\Providers\BlogServiceProvider::class,
         Webkul\Ekyc\Providers\EkycServiceProvider::class,
         Webkul\KrayinConnector\Providers\KrayinConnectorServiceProvider::class,
+        Webkul\GoogleShoppingFeed\Providers\GShoppingFeedServiceProvider::class,
 
         RLI\Attribute\Providers\AttributeServiceProvider::class,
         RLI\Category\Providers\CategoryServiceProvider::class,
