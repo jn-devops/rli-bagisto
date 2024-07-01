@@ -40,5 +40,11 @@ return [
             'build_directory'          => 'themes/blog/default/build',
             'package_assets_directory' => 'src/Resources/assets',
         ],
+
+        'google_feed' => [
+            'hot_file'                 => 'google-feed-default-vite.hot',
+            'build_directory'          => 'themes/google_feed/default/build',
+            'package_assets_directory' => 'src/Resources/assets',
+        ],
     ],
 ];
