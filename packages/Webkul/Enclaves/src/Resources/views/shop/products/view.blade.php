@@ -299,7 +299,7 @@
                             </div>
 
                             <!-- Mobile button -->
-                            <div 
+                            <div
                                 id="show-div"
                                 class="fixed bottom-0 z-[9999] -ml-[15px] w-full border-t-2 bg-white p-[15px] md:hidden"
                                 >
