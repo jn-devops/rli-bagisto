@@ -615,7 +615,11 @@
 
                     methods: {
                         productQuickGuideRedirect() {
-                            window.location.href = this.product.ekyc_redirect_uri;
+                            if (this.product.ekyc_redirect_uri) {   
+                                window.location.href = this.product.ekyc_redirect_uri;
+                            } else {
+                                this.$emitter.emit('add-flash', { type: 'warning', message: 'URL Not Found!' });
+                            }
                         },
 
                         productLoan() {
