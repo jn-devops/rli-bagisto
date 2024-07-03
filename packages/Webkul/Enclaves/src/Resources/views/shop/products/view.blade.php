@@ -275,21 +275,21 @@
                                         {!! $product->button_text != '0' && $product->button_text ? $product->button_information : '' !!}
 
                                         {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
-                                            
                                             <button
-                                                type="button"
-                                                @click="productQuickGuide()"
-                                                class="mx-auto flex w-full items-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-center text-base font-normal text-[#C38400] md:text-2xl"
+                                                @click="is_buy_now=1; is_kyc_process=1;"
+                                                class="mx-auto flex items-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-center text-[15px] font-normal text-[#C38400]"
                                                 style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                                 {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
-                                                >
-                                                <span class="max-md:whitespace-wrap flex flex-col gap-1 whitespace-nowrap py-[18px] pl-[32px] text-left text-lg font-normal tracking-tighter text-white">
+                                            >
+                                                <span class="max-md:whitespace-wrap flex flex-col gap-1 whitespace-nowrap py-[10px] pl-[10px] text-left text-[15px] font-normal tracking-tighter text-white">
                                                     <p class="processing_fee_btn">{{ core()->formatPrice($product->processing_fee) }}</p>
 
-                                                    <span>@lang('enclaves::app.shop.product.processing')</span>
+                                                    <span>
+                                                        @lang('enclaves::app.shop.product.processing')
+                                                    </span>
                                                 </span>
 
-                                                <span class="min-md:whitespace-nowrap max-md:whitespace-wrap py-[18px] pl-2 pr-[22px] tracking-tighter text-white underline underline-offset-2">
+                                                <span class="min-md:whitespace-nowrap max-md:whitespace-wrap text-nowrap px-[10px] py-[10px] tracking-tighter text-white underline underline-offset-2">
                                                     @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
                                                 </span>
                                             </button>
@@ -299,7 +299,7 @@
                             </div>
 
                             <!-- Mobile button -->
-                            <div
+                            <div 
                                 id="show-div"
                                 class="fixed bottom-0 z-[9999] -ml-[15px] w-full border-t-2 bg-white p-[15px] md:hidden"
                                 >
@@ -317,19 +317,20 @@
 
                                     {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
                                         <button
-                                            type="button"
-                                            @click="productQuickGuide()"
+                                            @click="is_buy_now=1; is_kyc_process=1;"
                                             class="mx-auto flex items-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] text-center text-[10px] font-normal text-[#C38400]"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
                                             {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
-                                            >
+                                        >
                                             <span class="max-md:whitespace-wrap flex flex-col gap-1 whitespace-nowrap py-[10px] pl-[10px] text-left text-[10px] font-normal tracking-tighter text-white">
-                                                <p class="processing_fee_btn">{{ core()->formatPrice($product->processing_fee) }}</p>
+                                                <p class="processing_fee_btn text-[15px]">{{ core()->formatPrice($product->processing_fee) }}</p>
 
-                                                <span>@lang('enclaves::app.shop.product.processing')</span>
+                                                <span>
+                                                    @lang('enclaves::app.shop.product.processing')
+                                                </span>
                                             </span>
 
-                                            <span class="min-md:whitespace-nowrap max-md:whitespace-wrap px-[10px] py-[10px] tracking-tighter text-white underline underline-offset-2">
+                                            <span class="min-md:whitespace-nowrap max-md:whitespace-wrap text-nowrap px-[10px] py-[10px] tracking-tighter text-white underline underline-offset-2">
                                                 @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
                                             </span>
                                         </button>
@@ -426,22 +427,10 @@
                                 <!-- Modal Footer -->
                                 <x-slot:footer>
                                     <button
-                                        v-if="isAdding"
-                                        style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
-                                        class="mx-auto flex w-full cursor-not-allowed items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#f58fbc_7.47%,_#fde4af_98.92%)] p-[25px] text-center text-[15px] font-normal text-white"
-                                        disabled
-                                    >
-                                        @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
-                                    </button>
-
-                                    <button
-                                        v-else
-                                        @click="is_buy_now=1; is_kyc_process=1;"
-                                        style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
+                                        @click="productQuickGuideRedirect()"
                                         class="mx-auto flex w-full items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[25px] text-center text-[15px] font-normal text-white"
-                                        {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                     >
-                                        @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
+                                        @lang('enclaves::app.shop.product.reserve-now')
                                     </button>
                                 </x-slot:footer>
                             </x-enclaves-shop::modal.product-pricing>
@@ -625,8 +614,8 @@
                     },
 
                     methods: {
-                        productQuickGuide() {
-                            this.$refs.productQuickGuideModal.toggle();
+                        productQuickGuideRedirect() {
+                            window.location.href = this.product.ekyc_redirect_uri;
                         },
 
                         productLoan() {
@@ -651,11 +640,21 @@
 
                                         this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
                                         
-                                        if (response.data.redirect && ! this.is_kyc_process) {
-                                            window.location.href = response.data.redirect;
-                                        } else {
-                                            window.location.href = response.data.ekyc_redirect;
-                                        }
+                                        this.$refs.productQuickGuideModal.toggle();
+
+                                        /**
+                                         * 
+                                         * NOTE: FOR FUTURE USE. DON'T REMOVE IT.
+                                            if (this.product.ekyc_redirect_uri) {
+                                                window.location.href = this.product.ekyc_redirect_uri;
+                                            } else {
+                                                if (response.data.redirect && ! this.is_kyc_process) {
+                                                    window.location.href = response.data.redirect;
+                                                } else {
+                                                    window.location.href = response.data.ekyc_redirect;
+                                                }
+                                            } 
+                                        **/
                                     } else {
                                         this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
                                     }

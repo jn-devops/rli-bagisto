@@ -46,7 +46,7 @@
                             </option>
                         </v-field>
 
-                        <p class="absolute right-6 top-[30px] flex items-center gap-1.5 text-base font-normal text-[#CC035C] max-md:top-[12px] max-md:text-[12px] max-sm:text-[18px]">
+                        <p class="absolute right-6 top-[30px] flex items-center gap-1.5 text-base font-normal text-[#CC035C] max-md:top-[10px] max-md:text-[12px] max-sm:text-[18px]">
                             <span v-if="attribute.options.length" class="text-[#CC035C] max-md:text-[12px]">
                                 @lang('enclaves::app.shop.product.select')
                             </span>
