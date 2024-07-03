@@ -28,7 +28,7 @@
                         <v-field
                             as="select"
                             :name="'super_attribute[' + attribute.id + ']'"
-                            class="relative flex w-full appearance-none items-center justify-between gap-4 rounded-full border border-[#D9D9D9] bg-white px-[38px] py-[28px]"
+                            class="relative flex w-full appearance-none items-center justify-between gap-4 rounded-full border border-[#D9D9D9] bg-white px-[38px] py-[28px] max-md:px-[15px] max-md:py-[10px] max-md:text-[12px]"
                             :class="[errors['super_attribute[' + attribute.id + ']'] ? 'border border-red-500' : '']"
                             :id="'attribute_' + attribute.id"
                             rules="required"
@@ -46,11 +46,11 @@
                             </option>
                         </v-field>
 
-                        <p class="absolute right-6 top-[30px] flex items-center gap-1.5 text-base font-normal text-[#CC035C] max-sm:text-[18px]">
-                            <span v-if="attribute.options.length" class="text-[#CC035C]">
+                        <p class="absolute right-6 top-[30px] flex items-center gap-1.5 text-base font-normal text-[#CC035C] max-md:top-[10px] max-md:text-[12px] max-sm:text-[18px]">
+                            <span v-if="attribute.options.length" class="text-[#CC035C] max-md:text-[12px]">
                                 @lang('enclaves::app.shop.product.select')
                             </span>
-                            <span class="text-[#898386]" v-else>
+                            <span class="text-[#898386] max-md:text-[12px]" v-else>
                                 @lang('enclaves::app.shop.product.select')
                             </span>
 

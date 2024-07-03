@@ -613,5 +613,11 @@ return [
                 ],
             ],
         ],
+
+        'seeders' => [
+            'attribute' => [
+                'redirect_uri' => 'Ekyc Redirect Url',
+            ],
+        ],
     ],
 ];

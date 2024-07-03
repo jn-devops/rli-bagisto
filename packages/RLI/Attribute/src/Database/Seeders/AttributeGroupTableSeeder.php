@@ -49,6 +49,7 @@ class AttributeGroupTableSeeder extends Seeder
                 'position'            => 1,
                 'attribute_family_id' => $attribute_family_id,
             ]);
+            
             $general_group_id = self::$attribute_family_groups[$attribute_family_id][self::GENERAL_GROUP] = DB::getPdo()->lastInsertId();
 
             DB::table('attribute_group_mappings')->insert([
