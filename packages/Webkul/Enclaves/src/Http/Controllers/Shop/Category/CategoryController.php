@@ -43,11 +43,6 @@ class CategoryController extends Controller
          * These are the default parameters. By default, only the enabled category
          * will be shown in the current locale.
          */
-        $defaultParams = [
-            'status' => self::ENABLED,
-            'locale' => app()->getLocale(),
-        ];
-
         $categories = $this->categoryRepository
                             ->whereNotNull('parent_id')
                             ->where('categories.communities_status', '!=', 0)

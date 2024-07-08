@@ -18,7 +18,7 @@
                 {{ $header }}
 
                 <span
-                    class="icon-cancel cursor-pointer rounded-full bg-[#F3F4F6] p-[10px] text-[15px] text-[#989898]"
+                    class="icon-cancel cursor-pointer rounded-full bg-[#F3F4F6] p-[10px] text-[15px] text-[#989898] max-md:text-[10px]"
                     @click="toggle"
                 >
                 </span>
@@ -28,7 +28,7 @@
 
     @isset($content)
         <template v-slot:content>
-            <div {{ $content->attributes->merge(['class' => 'bg-white p-2 max-sm:p-5']) }}>
+            <div {{ $content->attributes->merge(['class' => 'bg-white p-2']) }}>
                 {{ $content }}
             </div>
         </template>
