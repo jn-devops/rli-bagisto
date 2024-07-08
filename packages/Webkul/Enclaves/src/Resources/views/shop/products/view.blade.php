@@ -251,7 +251,7 @@
                                         <button
                                             type="button"
                                             @click="productLoan()"
-                                            class="mx-auto block h-full w-full text-nowrap rounded-full bg-[#FFFBF1] p-[10px] text-center text-[20px] font-normal tracking-tighter text-[#C38400] underline underline-offset-2 md:text-[15px]"
+                                            class="mx-auto block h-full w-full text-nowrap rounded-full bg-[#ffe39c] p-[15px] text-center text-[20px] font-normal tracking-tighter text-[#C38400] underline underline-offset-2 md:text-[15px]"
                                             >
                                             @lang('enclaves::app.shop.product.load-calculator')
                                         </button>
@@ -301,13 +301,13 @@
                             <!-- Mobile button -->
                             <div 
                                 id="show-div"
-                                class="fixed bottom-0 z-[9999] -ml-[15px] w-full border-t-2 bg-white p-[15px] md:hidden"
+                                class="fixed bottom-0 z-[9999] -ml-[15px] w-full border-t-2 bg-white p-[15px] max-md:p-[10px] md:hidden"
                                 >
                                 <div class="flex items-center gap-2">
                                     <button
                                         type="button"
                                         @click="productLoan()"
-                                        class="mx-auto block h-full w-full text-nowrap rounded-full bg-[#FFFBF1] p-[10px] text-center text-[10px] font-normal tracking-tighter text-[#C38400] underline underline-offset-2 md:text-[15px]"
+                                        class="mx-auto block h-full w-full text-nowrap rounded-full bg-[#ffe196ad] p-[10px] text-center text-[10px] font-normal tracking-tighter text-[#ff6200] underline underline-offset-2 md:text-[15px]"
                                         >
                                         @lang('enclaves::app.shop.product.load-calculator')
                                     </button>
@@ -343,7 +343,7 @@
                                 <!-- Modal Header -->
                                 <x-slot:header>
                                     <div class="flex w-full justify-center">
-                                        <h2 class="text-2xl text-[25px] font-bold">
+                                        <h2 class="text-[25px] font-bold max-md:text-[10px]">
                                             @lang('Quick Guide')
                                         </h2>
                                     </div>
@@ -354,71 +354,71 @@
                                     <div class="flex h-[320px] flex-col gap-2 overflow-auto px-[50px] max-md:px-[10px] md:gap-5">
                                         <div class="flex items-start gap-5">
                                             <img 
-                                                class="h-[90px] w-[90px] rounded-full object-cover" 
+                                                class="h-[90px] w-[90px] rounded-full object-cover max-md:h-[50px] max-md:w-[60px]" 
                                                 src="{{ bagisto_asset('images/phone1.png') }}" />
 
-                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white">
+                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white max-md:h-[20px] max-md:w-[20px] max-md:min-w-[20px] max-md:text-[10px]">
                                                     @lang('1')
                                                 </div>
                                             <div class="flex flex-col gap-2">
-                                                <p class="text-[20px] font-bold">@lang('Register')</p>
-                                                <p class="text-[15px] font-normal">@lang('Provide your email address and mobile number.')</p>
+                                                <p class="text-[20px] font-bold max-md:text-[15px]">@lang('Register')</p>
+                                                <p class="text-[15px] font-normal max-md:text-[10px]">@lang('Provide your email address and mobile number.')</p>
                                             </div>
                                         </div>
 
                                         <div class="flex items-start gap-5">
                                             <img 
-                                                class="h-[90px] w-[90px] rounded-full object-cover" 
+                                                class="h-[90px] w-[90px] rounded-full object-cover max-md:h-[50px] max-md:w-[60px]" 
                                                 src="{{ bagisto_asset('images/phone2.png') }}" 
                                             />
-                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white">
+                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white max-md:h-[20px] max-md:w-[20px] max-md:min-w-[20px] max-md:text-[10px]">
                                                     @lang('2')
                                                 </div>
                                             <div class="flex flex-col gap-3">
-                                                <p class="text-[20px] font-bold">@lang('Verify your Identity')</p>
-                                                <p class="text-[15px] font-normal">@lang('Scan a valid Government Id and complete with a selfie')</p>
+                                                <p class="text-[20px] font-bold max-md:text-[15px]">@lang('Verify your Identity')</p>
+                                                <p class="text-[15px] font-normal max-md:text-[10px]">@lang('Scan a valid Government Id and complete with a selfie')</p>
                                             </div>
                                         </div>
 
                                         <div class="flex items-start gap-5">
                                             <img 
-                                                class="h-[90px] w-[90px] rounded-full object-cover" 
+                                                class="h-[90px] w-[90px] rounded-full object-cover max-md:h-[50px] max-md:w-[60px]" 
                                                 src="{{ bagisto_asset('images/phone3.png') }}" 
                                             />
-                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white">
+                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white max-md:h-[20px] max-md:w-[20px] max-md:min-w-[20px] max-md:text-[10px]">
                                                     @lang('3')
                                                 </div>
                                             <div class="flex flex-col gap-3">
-                                                <p class="text-[20px] font-bold">@lang('Complete Data Form')</p>
-                                                <p class="text-[15px] font-normal">@lang('Fill-out the Buyer Information Sheet.')</p>
+                                                <p class="text-[20px] font-bold max-md:text-[15px]">@lang('Complete Data Form')</p>
+                                                <p class="text-[15px] font-normal max-md:text-[10px]">@lang('Fill-out the Buyer Information Sheet.')</p>
                                             </div>
                                         </div>
 
                                         <div class="flex items-start gap-5">
                                             <img 
-                                                class="h-[90px] w-[90px] rounded-full object-cover" 
+                                                class="h-[90px] w-[90px] rounded-full object-cover max-md:h-[50px] max-md:w-[60px]" 
                                                 src="{{ bagisto_asset('images/phone4.png') }}" 
                                             />
-                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white">
+                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white max-md:h-[20px] max-md:w-[20px] max-md:min-w-[20px] max-md:text-[10px]">
                                                     @lang('4')
                                                 </div>
                                             <div class="flex flex-col gap-3">
-                                                <p class="text-[20px] font-bold">@lang('Pay Online')</p>
-                                                <p class="text-[15px] font-normal">@lang('Select from available payment option')</p>
+                                                <p class="text-[20px] font-bold max-md:text-[15px]">@lang('Pay Online')</p>
+                                                <p class="text-[15px] font-normal max-md:text-[10px]">@lang('Select from available payment option')</p>
                                             </div>
                                         </div>
 
                                         <div class="flex items-start gap-5">
                                             <img 
-                                                class="h-[90px] w-[90px] rounded-full object-cover" 
+                                                class="h-[90px] w-[90px] rounded-full object-cover max-md:h-[50px] max-md:w-[60px]" 
                                                 src="{{ bagisto_asset('images/phone5.png') }}" 
                                             />
-                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white">
+                                                <div class="flex h-[24px] w-[24px] min-w-[24px] items-center justify-center rounded-full bg-[#1973E8] text-[15px] font-normal text-white max-md:h-[20px] max-md:w-[20px] max-md:min-w-[20px] max-md:text-[10px]">
                                                     @lang('5')
                                                 </div>
                                             <div class="flex flex-col gap-3">
-                                                <p class="text-[20px] font-bold">@lang('Get Qualified')</p>
-                                                <p class="text-[15px] font-normal">@lang('Wait for notification via SMS and Email')</p>
+                                                <p class="text-[20px] font-bold max-md:text-[15px]">@lang('Get Qualified')</p>
+                                                <p class="text-[15px] font-normal max-md:text-[10px]">@lang('Wait for notification via SMS and Email')</p>
                                             </div>
                                         </div>
                                     </div>
@@ -428,7 +428,7 @@
                                 <x-slot:footer>
                                     <button
                                         @click="productQuickGuideRedirect()"
-                                        class="mx-auto flex w-full items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[25px] text-center text-[15px] font-normal text-white"
+                                        class="mx-auto flex w-full items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[15px] text-center text-[15px] font-normal text-white max-md:p-[10px]"
                                     >
                                         @lang('enclaves::app.shop.product.reserve-now')
                                     </button>
@@ -440,7 +440,7 @@
                                 <!-- Modal Header -->
                                 <x-slot:header>
                                     <div class="flex w-full justify-center">
-                                        <h2 class="text-2xl text-[25px] font-bold">
+                                        <h2 class="text-2xl text-[25px] font-bold max-md:text-base">
                                             @lang('Loan Calculator')
                                         </h2>
                                     </div>
@@ -469,12 +469,12 @@
                                             @lang('Sample Computation')
                                         </p>
                                         
-                                        <div class="flex w-full items-center justify-between gap-4 rounded-full border border-[#D9D9D9] bg-white px-[20px] py-[20px]">
-                                            <p class="text-[20px] font-normal md:text-[14px]">
+                                        <div class="flex w-full items-center justify-between gap-4 rounded-full border border-[#D9D9D9] bg-white px-[20px] py-[10px] max-md:px-[10px]">
+                                            <p class="text-[20px] font-normal max-md:text-[14px]">
                                                 @lang('Years')
                                             </p>
                                                 
-                                            <p class="flex items-center gap-1.5 text-[20px] font-normal text-[#CC035C] md:text-[14px]">
+                                            <p class="flex items-center gap-1.5 text-[20px] font-normal text-[#CC035C] max-md:text-[14px]">
                                                 @lang('30 years')
                                                 
                                                 <svg
@@ -492,20 +492,20 @@
                                             </p>
                                         </div>
 
-                                        <div class="mb-[15px] mt-[15px] flex items-center gap-2 rounded-[10px] bg-[#f6faff] px-6 py-6">
+                                        <div class="mb-[15px] mt-[15px] flex items-center gap-2 rounded-[10px] bg-[#f6faff] px-6 py-6 max-md:mb-[10px] max-md:mt-[10px]">
                                             <div class="flex flex-col gap-px">
                                                 <p class="text-[15px] font-bold text-[#000]">@lang('₱840,000')</p>
-                                                <p class="text-[15px] font-normal text-[#b8b8b8]">@lang('Total Contract Price')</p>
+                                                <p class="text-nowrap text-[15px] font-normal text-[#b8b8b8]">@lang('Total Contract Price')</p>
                                             </div>
 
                                             <div class="flex flex-col gap-px">
                                                 <p class="text-[15px] font-bold text-[#000]">@lang('₱80,000')</p>
-                                                <p class="text-[15px] font-normal text-[#b8b8b8]">@lang('Processing Fee')</p>
+                                                <p class="text-nowrap text-[15px] font-normal text-[#b8b8b8]">@lang('Processing Fee')</p>
                                             </div>
 
                                             <div class="hidden flex-col gap-px md:flex">
                                                 <p class="text-[15px] font-bold text-[#000]">@lang('₱60,000')</p>
-                                                <p class="text-[15px] font-normal text-[#b8b8b8]">@lang('Monthly DP')</p>
+                                                <p class="text-nowrap text-[15px] font-normal text-[#b8b8b8]">@lang('Monthly DP')</p>
                                             </div>
                                         </div>
 
@@ -566,7 +566,7 @@
                                         <button
                                             v-if="isAdding"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
-                                            class="mx-auto flex w-full cursor-not-allowed items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#f58fbc_7.47%,_#fde4af_98.92%)] p-[25px] text-center text-[15px] font-normal text-white"
+                                            class="mx-auto flex w-full cursor-not-allowed items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#f58fbc_7.47%,_#fde4af_98.92%)] p-[10px] text-center text-[15px] font-normal text-white"
                                             disabled
                                         >
                                             @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
@@ -576,7 +576,7 @@
                                             v-else
                                             @click="is_buy_now=1; is_kyc_process=1;"
                                             style="color: {{ $product->button_color_text }}; background-color: {{ $product->button_background_color }}; border: {{ $product->button_border_color != '0' && $product->button_border_color ? '3px solid ' . $product->button_border_color: '' }}"
-                                            class="mx-auto flex w-full items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[25px] text-center text-[15px] font-normal text-white"
+                                            class="mx-auto flex w-full items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[15px] text-center text-[15px] font-normal text-white"
                                             {{ ! $product->isSaleable(1) ? 'disabled' : '' }}
                                         >
                                             @lang($product->button_text != '0' && $product->button_text ? $product->button_text : 'enclaves::app.shop.product.reserve-now')
