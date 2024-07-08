@@ -7,8 +7,6 @@
             
             <div class="shimmer mt-2.5 h-[30px] w-full max-lg:h-[14px]"></div>
 
-            <div class="shimmer mt-2.5 h-[30px] w-[60%] max-lg:h-[14px]"></div>
-            
             <div class="mt-2.5 grid grid-cols-2 gap-2 max-lg:grid-cols-1">
                 <div class="shimmer h-[40px] w-full max-lg:h-[20px]"></div>
             </div>
