@@ -150,10 +150,10 @@
 
         <!-- Breadcrumbs -->
         <x-shop::breadcrumbs name="product" :entity="$product"></x-shop::breadcrumbs>
-
+        
         <!-- Product Information Vue Component -->
         <v-product ref="details" :product-id="{{ $product->id }}">
-            <x-shop::shimmer.products.view/>
+            <x-shop::shimmer.products.view />
         </v-product>
 
         {!! view_render_event('bagisto.shop.products.view.after', ['product' => $product]) !!}
@@ -427,6 +427,7 @@
                                 <!-- Modal Footer -->
                                 <x-slot:footer>
                                     <button
+                                        type="button"
                                         @click="productQuickGuideRedirect()"
                                         class="mx-auto flex w-full items-center justify-center gap-2 divide-x rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] p-[15px] text-center text-[15px] font-normal text-white max-md:p-[10px]"
                                     >

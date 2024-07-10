@@ -43,8 +43,26 @@
     }
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply font-montserrate;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(rgb(204, 3, 92), rgb(252, 177, 21));
+    border-radius: 5px;
   }
 
   .two-range-slider {

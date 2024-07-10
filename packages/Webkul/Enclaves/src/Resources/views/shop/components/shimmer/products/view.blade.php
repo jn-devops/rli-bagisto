@@ -1,5 +1,5 @@
 <div class="mt-12 flex gap-2 max-lg:mt-0 max-lg:gap-y-6 max-md:flex-wrap lg:gap-[54px]">
-    <div class="min-w-[52%] max-md:w-full">
+    <div class="min-w-[58%] max-md:w-full">
         <x-shop::shimmer.products.gallery />
 
         <div class="mb-[26px] mt-[26px] flex flex-wrap gap-[60px] max-lg:gap-[30px]">
