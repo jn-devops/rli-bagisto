@@ -28,7 +28,7 @@
                     @lang('enclaves::app.shop.components.products.made-just')
                 </h1>
                 
-                <div class="relative top-[130px] z-10 -m-8 flex justify-between max-md:top-[80px]" v-if="products.length">
+                <div class="relative top-[130px] z-10 -m-8 flex justify-between max-md:!top-[75px]" v-if="products.length">
                     <span 
                         class="icon-arrow-left inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-lg:p-[8px]"
                         @click="swipeLeft"

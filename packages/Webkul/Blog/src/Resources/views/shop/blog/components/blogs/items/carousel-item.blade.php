@@ -6,7 +6,7 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-blog-card-template">
-        <div class="max-w-[280px] cursor-pointer shadow-inner max-lg:min-w-[122px] md:min-w-64 lg:min-w-[300px]">
+        <div class="max-w-[280px] cursor-pointer max-lg:max-w-[122px] md:max-w-[256px] lg:max-w-[300px]">
             <x-shop::media.images.lazy
                 class="w-full rounded-3xl shadow-inner transition-all duration-300 group-hover:scale-105 max-lg:h-32 md:h-60 lg:h-64"
                 ::src="blog.base_image"

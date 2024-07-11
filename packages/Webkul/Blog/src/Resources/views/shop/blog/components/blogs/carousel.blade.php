@@ -27,17 +27,17 @@
 
             <div>
                 <div 
-                    class="relative top-[130px] z-10 -m-8 flex justify-between max-md:top-[80px]" 
+                    class="relative top-[130px] z-10 -m-8 flex justify-between max-md:!top-[60px]" 
                     v-if="blogs.length"
                     >
                     <span 
-                        class="icon-arrow-left inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-sm:p-[8px]"
+                        class="icon-arrow-left inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-lg:p-[8px]"
                         @click="swipeLeft"
                     >
                     </span>
 
                     <span 
-                        class="icon-arrow-right inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-sm:p-[8px]"
+                        class="icon-arrow-right inline-block cursor-pointer border-2 border-[#E9E9E9] bg-white p-[15px] text-[20px] text-[#111111] max-lg:p-[8px]"
                         @click="swipeRight"
                         >
                     </span>

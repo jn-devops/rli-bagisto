@@ -21,7 +21,7 @@
                 </div>
 
                 <div 
-                    class="relative top-[130px] z-10 -m-8 flex justify-between max-md:top-[80px]" 
+                    class="relative top-[130px] z-10 -m-8 flex justify-between max-md:!top-[60px]" 
                     v-if="categories.length"
                     >
                     <span 
@@ -43,7 +43,7 @@
                     >
 
                     <div 
-                        class="max-w-[280px] cursor-pointer max-lg:min-w-[122px] md:min-w-64 lg:min-w-[300px]" 
+                        class="max-w-[280px] cursor-pointer max-lg:min-w-[122px] max-lg:max-w-[122px] md:max-w-[256px] lg:max-w-[300px]" 
                         v-for="category in categories"
                     >
                         <x-shop::media.images.lazy
