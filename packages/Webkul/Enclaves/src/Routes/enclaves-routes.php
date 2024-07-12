@@ -84,11 +84,11 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
     Route::group(['prefix' => 'api'], function () {
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-            Route::get('', 'index')->name('enclaves.api.categories.index');
+            Route::get('', 'index')->name('shop.api.categories.index');
         });
 
         Route::controller(EkycController::class)->prefix('ekyc')->group(function () {
-            Route::get('', 'index')->name('enclaves.api.property.verfiy-url.index');
+            Route::get('', 'index')->name('enclaves.api.property.verify-url.index');
         });
     });
 });

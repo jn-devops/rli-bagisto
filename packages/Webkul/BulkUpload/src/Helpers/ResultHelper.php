@@ -29,6 +29,7 @@ class ResultHelper
                 'bulk_upload_error.json',
                 'image_not_found.json',
                 'product_uploaded.json',
+                'product_not_upload.json',
             ];
 
         foreach ($files as $file) {

@@ -135,7 +135,9 @@
                             </code>
                             
                             <code v-else>
-                                <pre>Result Not Found!</pre>
+                                <pre>
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.result-not-found')
+                                </pre>
                             </code>
                         </div>
                     </div>
@@ -166,7 +168,43 @@
                                 </code>
 
                                 <code v-else>
-                                    <pre>Result Not Found!</pre>
+                                    <pre>
+                                        @lang('bulkUpload::app.admin.bulk-upload.run-profile.result-not-found')
+                                    </pre>
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-shadow rounded-1 p-4">
+                        <div class="flex justify-between">
+                            <div class="">
+                                <p class="text-base font-semibold text-gray-800 dark:text-white">
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.product-not-upload')
+                                </p>
+
+                                <p class="mb-3 text-xs text-gray-500">
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.product-not-upload-info')
+                                </p>
+                            </div>
+
+                            <div v-if="responseResult.product_not_upload.data">
+                                <a :href="responseResult.product_not_upload.url" class="text-blue-700 underline" download>
+                                    @lang('bulkUpload::app.admin.bulk-upload.run-profile.download')
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 max-h-[250px] overflow-auto bg-white dark:bg-gray-900">
+                            <div class="max-h-[440px] overflow-auto rounded-md bg-gray-300 p-3 dark:bg-gray-500">
+                                <code v-if="responseResult.product_not_upload.data" v-for="url in responseResult.product_not_upload.data">
+                                    <pre v-html="'{<br/>' + highlightJSON(url) + ' <br/>},'"></pre>
+                                </code>
+
+                                <code v-else>
+                                    <pre>
+                                        @lang('bulkUpload::app.admin.bulk-upload.run-profile.result-not-found')
+                                    </pre>
                                 </code>
                             </div>
                         </div>

@@ -41,6 +41,10 @@
     .rli-title {
       @apply leading-[40px];
     }
+
+    ::-webkit-scrollbar {
+      width: 4px !important;
+    }
   }
 
   html {

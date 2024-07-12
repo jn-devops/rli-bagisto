@@ -290,16 +290,16 @@ class UploadFileController extends Controller
 
         $chunks = array_chunk($csvData, 100);
 
-        $batch = Bus::batch([])->dispatch();
-
         /**
          * Deleting all result file.
          */
         app(ResultHelper::class)->removeAllFile();
 
-        $batch->add(new ProductUploadJob($productFileRecord, $chunks, $countCSV));
+        $chain[] = new ProductUploadJob($productFileRecord, $chunks, $countCSV);
         
-        $batch->add(new ProductImageUploadingJob($csvImageData));
+        $chain[] = new ProductImageUploadingJob($csvImageData);
+
+        Bus::chain($chain)->dispatch();
 
         return response()->json([
             'success' => true,
@@ -374,22 +374,29 @@ class UploadFileController extends Controller
     {
         /**
          * image_not_found
-         * bulk_upload_error
          * product_uploaded
+         * product_not_upload.json
          */
         $imageNotUploaded = Storage::get('imported-products/admin/result/image_not_found.json');
 
         $productUploaded = Storage::get('imported-products/admin/result/product_uploaded.json');
 
+        $productNotFound = Storage::get('imported-products/admin/result/product_not_upload.json');
+        
         $data = [
             'image_not_found'  => [
                 'data' => json_decode($imageNotUploaded),
-                'url' => Storage::url('imported-products/admin/result/image_not_found.json'),
+                'url'  => Storage::url('imported-products/admin/result/image_not_found.json'),
             ],
             
             'product_uploaded' => [
                 'data' => json_decode($productUploaded),
-                'url' => Storage::url('imported-products/admin/result/product_uploaded.json'),
+                'url'  => Storage::url('imported-products/admin/result/product_uploaded.json'),
+            ],
+
+            'product_not_upload' => [
+                'data' => json_decode($productNotFound),
+                'url'  => Storage::url('imported-products/admin/result/product_not_upload.json'),
             ],
         ];
 
