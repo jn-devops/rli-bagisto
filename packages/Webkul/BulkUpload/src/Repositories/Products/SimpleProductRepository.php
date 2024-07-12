@@ -80,7 +80,10 @@ class SimpleProductRepository extends BaseRepository
             return trim($inventory_sources);
         });
 
-        $csvData['inventories'] = $this->inventorySourceRepository->findWhereIn('code', $inventory_sources->toArray())->pluck('id')->toArray();
+        $csvData['inventories'] = $this->inventorySourceRepository
+                                        ->findWhereIn('code', $inventory_sources->toArray())
+                                        ->pluck('id')
+                                        ->toArray();
 
         $csvData['weight'] = 1;
 
@@ -97,15 +100,16 @@ class SimpleProductRepository extends BaseRepository
 
             if (! isset($superAttributes['super_attributes'])
                     || empty($superAttributes['super_attributes'])) {
-                return [
+                $error = [
                     'error' => [trans('admin::app.catalog.products.configurable-error')],
                 ];
+
+                app(ResultHelper::class)->result($error, 'product_not_upload.json');
             }
 
             $productSuperAttributes = [];
 
             foreach (explode(',', $superAttributes['super_attributes']) as $super_attributes) {
-
                 $super_attributes = trim($super_attributes);
 
                 $attributeOption = $this->attributeOptionRepository->findOneByField([
@@ -183,6 +187,14 @@ class SimpleProductRepository extends BaseRepository
 
         // Process categories
         $categories = $this->processProductCategories($csvData);
+
+        $categories = array_filter($categories, function ($value) {
+            if(! isset($value['error'])) {
+                return true;
+            }
+
+            app(ResultHelper::class)->result($value, 'product_not_upload.json');
+        });
 
         if (isset($categories[0]['error'])) {
             $this->helperRepository->deleteProductIfNotValidated($product->id);
@@ -407,7 +419,7 @@ class SimpleProductRepository extends BaseRepository
      * Process product categories and update $data array
      *
      * @param  array  $csvData
-     * @return int $categoryID
+     * @return array $categoryID
      */
     private function processProductCategories($csvData)
     {
@@ -424,7 +436,11 @@ class SimpleProductRepository extends BaseRepository
                     return $this->categoryRepository->findBySlugOrFail(Str::slug(strtolower($value)))->id;
                 } catch (\Exception $e) {
                     return [
-                        'error' => ['category not found', $e->getMessage()],
+                        'error' => [
+                            'Category Name' => $value,
+                            'Category Slug' => Str::slug(strtolower($value)),
+                            'reason'        => 'Category Slug is not match with database category slug',
+                        ],
                     ];
                 }
             }, $categoryData);
