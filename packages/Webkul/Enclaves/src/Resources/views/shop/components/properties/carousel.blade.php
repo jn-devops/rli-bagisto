@@ -10,7 +10,7 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-properties-carousel-template">
         <!-- Section new place made just for you -->
-        <div class="sm:mt-[50px] md:mt-[50px] lg:mt-[20px]">
+        <div class="sm:mt-[50px] md:mt-[50px] lg:mt-[20px]" v-if="categories.length">
             <div class="relative h-full w-full">
                 <div class="absolute inset-0 h-[750px] bg-[url('../images/community-bg.png')] bg-no-repeat [background-size:85%] before:bg-[0%_-70%]"></div>
             </div>
@@ -73,7 +73,7 @@
         </div>
 
         <!-- Product Card Listing -->
-        <template v-if="isLoading">
+        <template v-if="isLoading && categories.length">
             <x-shop::shimmer.properties.carousel
                 :navigation-link="$navigationLink ?? false"
             >

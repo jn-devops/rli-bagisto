@@ -32,11 +32,11 @@ class BlogServiceProvider extends ServiceProvider
 
         require __DIR__ . '/../Routes/breadcrumbs.php';
 
-        if(core()->getConfigData('blog.settings.general.status')) {
+        // if(core()->getConfigData('blog.settings.general.status')) {
             $this->mergeConfigFrom(
                 dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
             );
-        }
+        // }
         
         $this->app->register(EventServiceProvider::class);
     }
