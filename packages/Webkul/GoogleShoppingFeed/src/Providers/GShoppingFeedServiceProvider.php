@@ -29,11 +29,11 @@ class GShoppingFeedServiceProvider extends ServiceProvider
             __DIR__ . '/../Resources/views/admin/catalog/products/edit.blade.php' => resource_path('views/vendor/admin/catalog/products/edit.blade.php'),
         ]);
 
-        if (core()->getConfigData('google_feed.settings.general.package_status')) {
+        // if (core()->getConfigData('google_feed.settings.general.package_status')) {
             $this->mergeConfigFrom(
                 dirname(__DIR__) . '/Config/menu.php', 'menu.admin'
             );
-        }
+        // }
 
         Event::listen('bagisto.admin.layout.head', function ($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('google_feed::admin.components.style');

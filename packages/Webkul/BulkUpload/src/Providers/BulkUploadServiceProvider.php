@@ -49,11 +49,11 @@ class BulkUploadServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'bulkUpload');
 
-        if(core()->getConfigData('bulkUpload.settings.general.status')) {
+        // if(core()->getConfigData('bulkUpload.settings.general.status')) {
             $this->mergeConfigFrom(
                 dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
             );
-        }
+        // }
 
         $this->app->register(ModuleServiceProvider::class);
 
