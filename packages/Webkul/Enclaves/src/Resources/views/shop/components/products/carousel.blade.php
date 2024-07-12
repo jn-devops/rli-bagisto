@@ -8,7 +8,7 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-products-carousel-template">
-        <template v-if="products.length">
+        <div v-if="products.length">
             <div v-if="isLoading">
                 <x-shop::shimmer.products.carousel 
                     :navigation-link="$navigationLink ?? false"
