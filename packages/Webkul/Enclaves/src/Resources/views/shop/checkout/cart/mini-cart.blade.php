@@ -204,7 +204,7 @@
                 },
 
                 getRedirectURL() {
-                    this.$axios.get("{{ route('enclaves.api.property.verfiy-url.index') }}")
+                    this.$axios.get("{{ route('enclaves.api.property.verify-url.index') }}")
                         .then(response => {
                             this.verificationUrl = response.data.data.ekyc_redirect;
 
