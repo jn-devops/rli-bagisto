@@ -66,7 +66,8 @@
                         @lang('enclaves::app.shop.components.layouts.footer.follow-us')
                     </h1>
 
-                    @if (! empty($customization->options) && isset($customization->options['column_3']))
+                    @if (! empty($customization->options) 
+                            && isset($customization->options['column_3']))
                         <div class="flex gap-[20px]">
                             @foreach ($customization->options['column_3'] as $socialLinkSection)
 
