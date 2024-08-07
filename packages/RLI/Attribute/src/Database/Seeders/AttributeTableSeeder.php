@@ -35,13 +35,27 @@ class AttributeTableSeeder extends Seeder
 
     public static int $parking;
 
+
     public static int $inventory_sources;
 
-    public static int $style;
+    public static int $style_id;
 
-    public static int $balcony;
+    public static int $balcony_id;
 
-    public static int $unit_type;
+    public static int $unit_type_id;
+
+    public static int $property_type_id;
+
+    public static int $firewall_id;
+
+    public static int $eaves_id;
+
+    public static int $brand_id;
+
+    public static int $color_id;
+
+
+
 
     public function run(): void
     {
@@ -115,7 +129,7 @@ class AttributeTableSeeder extends Seeder
         DB::table('attributes')->insert([
             'code'                => 'lot_area',
             'admin_name'          => 'Lot Area (sqm)',
-            'type'                => 'text',
+            'type'                => 'select',
             'validation'          => null, // 'number',
             'regex'               => null, // '0',
             'position'            => null,
@@ -342,7 +356,7 @@ class AttributeTableSeeder extends Seeder
             'updated_at'          => $now,
             'is_comparable'       => 1,
         ]);
-        self::$style = DB::getPdo()->lastInsertId();
+        self::$style_id = DB::getPdo()->lastInsertId();
 
         DB::table('attributes')->insert([
             'code'                => 'balcony',
@@ -363,7 +377,7 @@ class AttributeTableSeeder extends Seeder
             'updated_at'          => $now,
             'is_comparable'       => 1,
         ]);
-        self::$balcony = DB::getPdo()->lastInsertId();
+        self::$balcony_id = DB::getPdo()->lastInsertId();
 
         DB::table('attributes')->insert([
             'code'                => 'unit_type',
@@ -384,7 +398,114 @@ class AttributeTableSeeder extends Seeder
             'updated_at'          => $now,
             'is_comparable'       => 1,
         ]);
-        self::$unit_type = DB::getPdo()->lastInsertId();
+        self::$unit_type_id = DB::getPdo()->lastInsertId();
+
+        DB::table('attributes')->insert([
+            'code'                => 'property_type',
+            'admin_name'          => 'Property Type',
+            'type'                => 'select',
+            'validation'          => null,
+            'position'            => null,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => null,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$property_type_id = DB::getPdo()->lastInsertId();
+
+        DB::table('attributes')->insert([
+            'code'                => 'firewall',
+            'admin_name'          => 'Firewall',
+            'type'                => 'select',
+            'validation'          => null,
+            'position'            => null,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => null,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$firewall_id = DB::getPdo()->lastInsertId();
+
+        DB::table('attributes')->insert([
+            'code'                => 'eaves',
+            'admin_name'          => 'Eaves',
+            'type'                => 'select',
+            'validation'          => null,
+            'position'            => null,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => null,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$eaves_id = DB::getPdo()->lastInsertId();
+
+        DB::table('attributes')->insert([
+            'code'                => 'brand',
+            'admin_name'          => 'Brand',
+            'type'                => 'select',
+            'validation'          => null,
+            'position'            => null,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => null,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$brand_id = DB::getPdo()->lastInsertId();
+
+        DB::table('attributes')->insert([
+            'code'                => 'color',
+            'admin_name'          => 'Color',
+            'type'                => 'select',
+            'validation'          => null,
+            'position'            => null,
+            'is_required'         => 0,
+            'is_unique'           => 0,
+            'value_per_locale'    => 0,
+            'value_per_channel'   => 0,
+            'default_value'       => null,
+            'is_filterable'       => 0,
+            'is_configurable'     => 1,
+            'is_user_defined'     => 1,
+            'is_visible_on_front' => 1,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+            'is_comparable'       => 1,
+        ]);
+        self::$color_id = DB::getPdo()->lastInsertId();
+
+
 
         DB::table('attribute_translations')->insert([
             [
@@ -454,23 +575,54 @@ class AttributeTableSeeder extends Seeder
                 'attribute_id' => self::$inventory_sources,
             ],
             [
-                'id'           => self::$balcony,
+                'id'           => self::$balcony_id,
                 'locale'       => 'en',
                 'name'         => 'Balcony',
-                'attribute_id' => self::$balcony,
+                'attribute_id' => self::$balcony_id,
             ],
             [
-                'id'           => self::$style,
+                'id'           => self::$style_id,
                 'locale'       => 'en',
                 'name'         => 'Style',
-                'attribute_id' => self::$style,
+                'attribute_id' => self::$style_id,
             ],
             [
-                'id'           => self::$unit_type,
+                'id'           => self::$unit_type_id,
                 'locale'       => 'en',
                 'name'         => 'Unit Type',
-                'attribute_id' => self::$unit_type,
+                'attribute_id' => self::$unit_type_id,
             ],
+            [
+                'id'           => self::$property_type_id,
+                'locale'       => 'en',
+                'name'         => 'Property Type',
+                'attribute_id' => self::$property_type_id,
+            ],
+            [
+                'id'           => self::$firewall_id,
+                'locale'       => 'en',
+                'name'         => 'Firewall',
+                'attribute_id' => self::$firewall_id,
+            ],
+            [
+                'id'           => self::$eaves_id,
+                'locale'       => 'en',
+                'name'         => 'Eaves',
+                'attribute_id' => self::$eaves_id,
+            ],
+            [
+                'id'           => self::$brand_id,
+                'locale'       => 'en',
+                'name'         => 'Brand',
+                'attribute_id' => self::$brand_id,
+            ],
+            [
+                'id'           => self::$color_id,
+                'locale'       => 'en',
+                'name'         => 'Color',
+                'attribute_id' => self::$color_id,
+            ],
+
         ]);
 
         foreach (AttributeGroupTableSeeder::$attribute_family_groups as $attribute_family => $groups) {
@@ -527,19 +679,38 @@ class AttributeTableSeeder extends Seeder
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 111,
                             ], [
-                                'attribute_id'        => self::$style,
+                                'attribute_id'        => self::$style_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 113,
                             ], [
-                                'attribute_id'        => self::$balcony,
+                                'attribute_id'        => self::$balcony_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 114,
                             ], [
-                                'attribute_id'        => self::$unit_type,
+                                'attribute_id'        => self::$unit_type_id,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 115,
+                            ], [
+                                'attribute_id'        => self::$property_type_id,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 115,
+                            ], [
+                                'attribute_id'        => self::$firewall_id,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 115,
+                            ], [
+                                'attribute_id'        => self::$eaves_id,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 115,
+                            ], [
+                                'attribute_id'        => self::$brand_id,
+                                'attribute_group_id'  => $group_id,
+                                'position'            => 115,
+                            ], [
+                                'attribute_id'        => self::$color_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 115,
                             ],
-
                         ]);
                         break;
                     case AttributeGroupTableSeeder::PRICE_GROUP:
