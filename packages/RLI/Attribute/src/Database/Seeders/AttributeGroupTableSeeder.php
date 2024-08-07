@@ -36,9 +36,10 @@ class AttributeGroupTableSeeder extends Seeder
     public function run(): void
     {
         $attribute_family_ids = [
-            AttributeFamilyTableSeeder::HOUSE_LOT_ATTRIBUTE_FAMILY_ID,
-            AttributeFamilyTableSeeder::CONDOMINIUM_ATTRIBUTE_FAMILY_ID,
-            AttributeFamilyTableSeeder::MARKET_SEGMENT_ATTRIBUTE_FAMILY_ID,
+            AttributeFamilyTableSeeder::ELANVITAL_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID,
+            AttributeFamilyTableSeeder::ELANVITAL_CONDOMINIUM_ATTRIBUTE_FAMILY_ID,
+            AttributeFamilyTableSeeder::EXTRAORDINARY_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID,
+            AttributeFamilyTableSeeder::EVERYHOME_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID,
         ];
 
         foreach ($attribute_family_ids as $attribute_family_id) {
@@ -49,7 +50,7 @@ class AttributeGroupTableSeeder extends Seeder
                 'position'            => 1,
                 'attribute_family_id' => $attribute_family_id,
             ]);
-            
+
             $general_group_id = self::$attribute_family_groups[$attribute_family_id][self::GENERAL_GROUP] = DB::getPdo()->lastInsertId();
 
             DB::table('attribute_group_mappings')->insert([
