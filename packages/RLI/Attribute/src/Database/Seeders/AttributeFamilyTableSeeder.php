@@ -7,31 +7,39 @@ use Illuminate\Support\Facades\DB;
 
 class AttributeFamilyTableSeeder extends Seeder
 {
-    const HOUSE_LOT_ATTRIBUTE_FAMILY_ID = 2;
+    const ELANVITAL_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID = 2;
 
-    const CONDOMINIUM_ATTRIBUTE_FAMILY_ID = 3;
+    const ELANVITAL_CONDOMINIUM_ATTRIBUTE_FAMILY_ID = 3;
 
-    const MARKET_SEGMENT_ATTRIBUTE_FAMILY_ID = 4;
+    const EXTRAORDINARY_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID = 4;
+
+    const EVERYHOME_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID = 5;
 
     public function run(): void
     {
         DB::table('attribute_families')->insert([
             [
-                'id'              => self::HOUSE_LOT_ATTRIBUTE_FAMILY_ID,
-                'code'            => 'house_and_lot',
-                'name'            => 'House & Lot',
+                'id'              => self::ELANVITAL_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID,
+                'code'            => 'elanvital_house_and_lot',
+                'name'            => 'Elanvital House & Lot',
                 'status'          => 0,
                 'is_user_defined' => 1,
             ], [
-                'id'              => self::CONDOMINIUM_ATTRIBUTE_FAMILY_ID,
-                'code'            => 'condominium',
-                'name'            => 'Condominium',
+                'id'              => self::ELANVITAL_CONDOMINIUM_ATTRIBUTE_FAMILY_ID,
+                'code'            => 'elanvital_condominium',
+                'name'            => 'Elanvital Condominium',
                 'status'          => 0,
                 'is_user_defined' => 1,
             ], [
-                'id'              => self::MARKET_SEGMENT_ATTRIBUTE_FAMILY_ID,
-                'code'            => 'market_segment',
-                'name'            => 'Market Segment',
+                'id'              => self::EXTRAORDINARY_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID,
+                'code'            => 'extraordinary_house_and_lot',
+                'name'            => 'Extraordinary House & Lot',
+                'status'          => 0,
+                'is_user_defined' => 1,
+            ], [
+                'id'              => self::EVERYHOME_HOUSE_AND_LOT_ATTRIBUTE_FAMILY_ID,
+                'code'            => 'everyhome_house_and_lot',
+                'name'            => 'Everyhome House & Lot',
                 'status'          => 0,
                 'is_user_defined' => 1,
             ],
