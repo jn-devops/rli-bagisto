@@ -332,7 +332,7 @@ return [
         ],
 
         'product' => [
-            'reserve-now'     => 'Reserve Now',
+            'reserve-now'     => 'Avail Now',
             'select-area'     => 'Check & Select Area',
             'reservation-fee' => 'Reservation Fee: ',
             'contract-price'  => 'Total Contract Price:',
@@ -344,7 +344,7 @@ return [
             'unit'            => 'Unit',
             'property-code'   => 'Property Code: ',
             'reserve'         => 'Reserve',
-            'processing'      => 'Processing Fee',
+            'processing'      => 'Loan Consulting Fee',
             'select'          => 'Select',
             'load-calculator' => 'Loan Calculator',
             
