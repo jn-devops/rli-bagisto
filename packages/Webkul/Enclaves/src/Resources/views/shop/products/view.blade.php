@@ -501,7 +501,7 @@
 
                                             <div class="flex flex-col gap-px">
                                                 <p class="text-[15px] font-bold text-[#000]">@lang('₱80,000')</p>
-                                                <p class="text-nowrap text-[15px] font-normal text-[#b8b8b8]">@lang('Processing Fee')</p>
+                                                <p class="text-nowrap text-[15px] font-normal text-[#b8b8b8]">@lang('Loan Consulting Fee')</p>
                                             </div>
 
                                             <div class="hidden flex-col gap-px md:flex">
@@ -560,7 +560,7 @@
                                             </span>
                                             
                                             <span class="whitespace-nowrap text-[15px] font-normal tracking-tighter text-[#8b8b8b]">
-                                                @lang('Processing Fee')
+                                                @lang('Loan Consulting Fee')
                                             </span>
                                         </div>
 
