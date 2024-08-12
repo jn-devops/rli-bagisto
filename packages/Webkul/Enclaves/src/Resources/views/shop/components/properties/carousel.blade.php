@@ -51,7 +51,7 @@
                             ::src="category.images.community_banner_path ?? category.images.banner_url"
                         ></x-shop::media.images.lazy>
 
-                        <div class="grid content-start gap-2.5 min-w-[280px]">
+                        <div class="mt-[10px] grid content-start gap-3 text-black min-w-[280px]">
                             <p
                                 class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-[20px] font-bold max-lg:text-[14px]" 
                                 v-text="category.name"
