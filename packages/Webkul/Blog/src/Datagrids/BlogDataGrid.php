@@ -23,7 +23,6 @@ class BlogDataGrid extends DataGrid
             'blogs.description',
             'blogs.channels',
             'blogs.published_at',
-            'blogs.tags',
             'blogs.src',
             'blogs.author',
             'blogs.status',
