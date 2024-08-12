@@ -51,7 +51,7 @@
                             ::src="category.images.community_banner_path ?? category.images.banner_url"
                         ></x-shop::media.images.lazy>
 
-                        <div class="grid content-start gap-2.5">
+                        <div class="grid content-start gap-2.5 min-w-[280px]">
                             <p
                                 class="font-popins overflow-hidden text-ellipsis whitespace-nowrap text-[20px] font-bold max-lg:text-[14px]" 
                                 v-text="category.name"
@@ -59,7 +59,7 @@
 
                             <button
                                 @click="redirectCategory(category)"
-                                class="rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-lg:text-[14px] lg:text-nowrap"
+                                class="rounded-[20px] border-[2px] border-[#CC035C] bg-white p-[5px] font-semibold text-[#CC035C] max-lg:text-[10px] lg:text-nowrap"
                                 :style="{color: category.btn_color, borderColor: category.btn_border_color, background: category.btn_background_color, width:'fit-content'}"
                             >
                                 <span v-if="category.btn_text" v-text="category.btn_text"></span>
@@ -130,7 +130,9 @@
                 },
 
                 redirectCategory(category) {
-                    window.location.href = `{{ route('shop.product_or_category.index', '') }}/` + category.url_path;
+                    let uri = category.url_path === null ? category.slug : category.url_path;
+
+                    window.location.href = `{{ route('shop.product_or_category.index', '') }}/` + uri;
                 }
             },
         });

@@ -235,6 +235,7 @@
                     </a>
 
                     <span
+                        v-if="category.children.length"
                         class="cursor-pointer text-[24px]"
                         :class="{'icon-arrow-down': category.isOpen, 'icon-arrow-right': ! category.isOpen}"
                         @click="toggle(category)"
@@ -257,6 +258,7 @@
                                 </a>
 
                                 <span
+                                    v-if="secondLevelCategory.children.length"
                                     class="cursor-pointer text-[24px]"
                                     :class="{
                                         'icon-arrow-down': secondLevelCategory.category_show,
@@ -280,23 +282,9 @@
                                         </div>
                                     </li>
                                 </ul>
-
-                                <span
-                                    class="ml-2"
-                                    v-else
-                                >
-                                    @lang('No category found.')
-                                </span>
                             </div>
                         </li>
                     </ul>
-
-                    <span
-                        class="ml-2"
-                        v-else
-                    >
-                        @lang('No category found.')
-                    </span>
                 </div>
             </template>
         </div>
