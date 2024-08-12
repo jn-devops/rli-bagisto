@@ -259,7 +259,7 @@ return [
                         'property'       => 'Property',
                         'sku'            => 'SKU',
                         'contract'       => 'Contract',
-                        'reservation'    => 'Reservation Fee',
+                        'reservation'    => 'Loan Consulting Fee',
                         'status'         => [
                             'title' => 'Status',
                             'options' => [
@@ -334,7 +334,7 @@ return [
         'product' => [
             'reserve-now'     => 'Avail Now',
             'select-area'     => 'Check & Select Area',
-            'reservation-fee' => 'Reservation Fee: ',
+            'reservation-fee' => 'Loan Consulting Fee: ',
             'contract-price'  => 'Total Contract Price:',
             'first-floor'     => '1st Floor',
             'floor-area'      => 'Floor Area',
