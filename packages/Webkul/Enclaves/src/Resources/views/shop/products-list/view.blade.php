@@ -14,8 +14,8 @@
     <v-category></v-category>
 
     @pushOnce('scripts')
-        <script 
-            type="text/x-template" 
+        <script
+            type="text/x-template"
             id="v-category-template"
             >
             <div class="container px-[60px] max-lg:px-[30px]">
@@ -33,8 +33,8 @@
                         <!-- //v-if="products.length" -->
                         <template v-if="products.length || isLoading">
                             <!-- Product List Card Container -->
-                            <div 
-                                v-if="filters.toolbar.mode === 'list'" 
+                            <div
+                                v-if="filters.toolbar.mode === 'list'"
                                 class="mt-8 grid grid-cols-1 gap-6"
                                 >
                                 <!-- Product Card Shimmer Effect -->
@@ -56,7 +56,7 @@
                                                 ::src="product.base_image.medium_image_url"
                                             ></x-shop::media.images.lazy>
 
-                                            <div class="action-items bg-black"> 
+                                            <div class="action-items bg-black">
                                                 <p
                                                     class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-[#E51A1A] px-[10px] text-[14px] text-white"
                                                     v-if="product.on_sale"
@@ -75,14 +75,14 @@
 
                                         <div class="relative grid w-full content-start gap-2.5">
                                             <div class="flex gap-[16px]">
-                                                <div 
-                                                    class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
+                                                <div
+                                                    class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold"
                                                     v-text="product.name"
                                                     @click="redirectToProduct(product)"
                                                 >
                                                 </div>
 
-                                                <div 
+                                                <div
                                                     class="absolute right-[0px] cursor-pointer text-2xl"
                                                     :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
                                                     role="button"
@@ -106,9 +106,9 @@
                                                 <p class="text-[14px] text-[#6E6E6E]" v-if="! product.avg_ratings">
                                                     @lang('shop::app.components.products.card.review-description')
                                                 </p>
-                                            
+
                                                 <p v-else class="text-[14px] text-[#6E6E6E]">
-                                                    <x-shop::products.star-rating 
+                                                    <x-shop::products.star-rating
                                                         ::value="product && product.avg_ratings ? product.avg_ratings : 0"
                                                         :is-editable=false
                                                     >
@@ -142,7 +142,7 @@
                                                     ::src="product.base_image.medium_image_url"
                                                 ></x-shop::media.images.lazy>
 
-                                                <div class="action-items bg-black"> 
+                                                <div class="action-items bg-black">
                                                     <p
                                                         class="absolute left-[20px] top-[20px] inline-block rounded-[44px] bg-[#E51A1A] px-[10px] text-[14px] text-white"
                                                         v-if="product.on_sale"
@@ -161,13 +161,13 @@
 
                                             <div class="grid grid-cols-1 gap-5 max-lg:grid-cols-1">
                                                 <div class="flex gap-[16px]">
-                                                    <p 
-                                                        class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold" 
+                                                    <p
+                                                        class="font-popins cursor-pointer pr-[30px] text-[16px] font-bold"
                                                         v-text="product.name"
                                                         @click="redirectToProduct(product)"
                                                     ></p>
-                                                
-                                                    <span 
+
+                                                    <span
                                                         class="absolute right-[10px] cursor-pointer text-2xl"
                                                         :class="product.is_wishlist ? 'icon-heart-fill' : 'icon-heart'"
                                                         role="button"
@@ -180,8 +180,8 @@
 
                                                 <div class="flex flex-wrap justify-between">
                                                     <div class="max-lg:mb-4">
-                                                        <div 
-                                                            class="font-popins text-wrap text-[15px] font-medium" 
+                                                        <div
+                                                            class="font-popins text-wrap text-[15px] font-medium"
                                                             v-html="product.price_html">
                                                         </div>
 
@@ -204,18 +204,18 @@
 
                                 <template v-else>
                                     <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
-                                </template> 
+                                </template>
                             </div>
                         </template>
-                        
+
                         <!-- Empty Products Container -->
                         <template v-else>
                             <div class="m-auto grid h-[476px] w-[100%] place-content-center items-center justify-items-center text-center">
-                                <img 
+                                <img
                                     src="{{ bagisto_asset('images/thank-you.png') }}"
                                     alt="placeholder"
                                 />
-                        
+
                                 <p class="text-[20px]">
                                     @lang('shop::app.categories.view.empty')
                                 </p>
@@ -227,8 +227,8 @@
                             <x-shop::shimmer.products.cards.grid count="6"></x-shop::shimmer.products.cards.grid>
                         </template>
 
-                        <div 
-                            class="row mt-12 text-center" 
+                        <div
+                            class="row mt-12 text-center"
                             v-if="links.next"
                             >
                             <button
@@ -257,13 +257,13 @@
 
                         isDrawerActive: {
                             toolbar: false,
-                            
+
                             filter: false,
                         },
 
                         filters: {
                             toolbar: {},
-                            
+
                             filter: {},
                         },
 
@@ -309,12 +309,12 @@
                     getProducts() {
                         this.isDrawerActive = {
                             toolbar: false,
-                            
+
                             filter: false,
                         };
 
                         this.$axios.get("{{ route('shop.api.products.index') }}", {
-                            params: this.queryParams 
+                            params: this.queryParams
                         })
                         .then(response => {
                             this.isLoading = false;
@@ -333,7 +333,7 @@
                         if (this.links.next) {
                             this.$axios.get(this.links.next).then(response => {
                                 this.products = [...this.products, ...response.data.data];
-                                
+
                                 this.isMoreLoading = false;
 
                                 this.links = response.data.links;

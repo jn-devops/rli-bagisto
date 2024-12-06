@@ -148,7 +148,7 @@ return [
                         'no_record'        => 'No Record Found!',
                         'add_record'       => 'Add Details to go',
                         'personal_details' => [
-                            'full_name'       => 'Full Name', 
+                            'full_name'       => 'Full Name',
                             'dob'             => 'Date of Birth',
                             'email'           => 'Email',
                             'phone'           => 'Phone',
@@ -277,7 +277,7 @@ return [
 
                 'inquiries' => [
                     'submit-heading' => 'Submit A Heading',
-                    
+
                     'title'         => 'Inquiries',
                     'help_test'     => 'How can we help you?',
                     'submit-header' => 'Submit Ticket',
@@ -337,7 +337,7 @@ return [
             'reservation-fee' => 'Loan Consulting Fee: ',
             'contract-price'  => 'Total Contract Price:',
             'first-floor'     => '1st Floor',
-            'floor-area'      => 'Floor Area',
+            'floor-area'      => 'Floor Area:',
             'location'        => 'Location: ',
             'bedrooms'        => 'Bedrooms',
             't_and_b'         => 'Toilet and Bath:',
@@ -347,7 +347,17 @@ return [
             'processing'      => 'Loan Consulting Fee',
             'select'          => 'Select',
             'load-calculator' => 'Loan Calculator',
-            
+            'features'        => 'House Features',
+            'house-type'      => 'House Type:',
+            'bedroom'         => 'Bedroom:',
+            'lot-area'        => 'Lot Area:',
+            'carport'         => 'Carport:',
+            'project-details' => 'Project Details',
+            'store-details'   => 'Store Details',
+            'price-start-at'  => 'Price Starts At',
+            'total-unit-sold' => 'Total Units Sold',
+            'schedule-visit'  => 'Schedule Visit',
+
             'cart'            => [
                 'add-to-cart' => 'Choose Unit',
             ],
@@ -380,20 +390,39 @@ return [
                 'header' => [
                     'login'           => 'Log in',
                     'manage-property' => 'Manage your property.',
+                    'features'        => [
+                        'free-shipping' => 'Free Shipping',
+                        'free-shipping-desc' => 'If goods have problems, Lorem Ipsum is dummy text',
+                        'product-replace' => 'Product Replace',
+                        'product-replace-desc' => 'If goods have problems, Lorem Ipsum is dummy text',
+                        'emi-available' => 'Emi Available',
+                        'emi-available-desc' => 'If goods have problems, Lorem Ipsum is dummy text',
+                        'support' => '24/7 Support',
+                        'support-desc' => 'If goods have problems, Lorem Ipsum is dummy text',
+                    ],
                 ],
 
                 'footer' => [
-                    'address'       => '17 ADB Ave, Ortigas Center, Pasig, Metro Manila',
-                    'email'         => 'admin@homeful.com',
-                    'mobile-number' => '+63 9456677654',
-                    'quick-links'    => 'Quicklinks',
-                    'follow-us'     => 'Follow Us',
-                    'search'        => 'Search',
-                    'email-address' => 'Email Address',
-                    'subscribe'     => 'Subscribe',
-                    'copyright'     => 'Copyright © 2010 - :current_year, Raemulan Lands Inc. All rights reserved.',
-
+                    'address'              => '17 ADB Ave, Ortigas Center, Pasig, Metro Manila',
+                    'email'                => 'info@homeful.com',
+                    'mobile-number'        => '+63 9456677654',
+                    'quick-links'          => 'Quicklinks',
+                    'contact-us'           => 'Contact Us',
+                    'follow-us'            => 'Follow Us',
+                    'search'               => 'Search',
+                    'email-address'        => 'Email Address',
+                    'subscribe'            => 'Subscribe',
+                    'copyright'            => 'Copyright © 2010 - :current_year, Raemulan Lands Inc. All rights reserved.',
                     'subscribe-stay-touch' => 'Subscribe to stay in touch.',
+                ],
+
+                'carousel' => [
+                    'categories' => [
+                        'view-project'     => 'View Project',
+                        'start-at'         => 'Starts at',
+                        'total-units-sold' => 'Total Units Sold',
+                        'product-type'     => 'Product type',
+                    ],
                 ],
             ],
 
@@ -405,6 +434,65 @@ return [
                 'all-products'  => 'All Products',
             ],
         ],
+
+        'partners' => [
+            'braedcurmb' => 'Partner with Us',
+            'title'      => 'Partner with Us',
+            'read-more'  => 'Read more',
+            'join-us'    => 'Join Us',
+            'form'       => [
+                'title'      => 'Join as Affiliate Marketer',
+                'first-name' => 'First Name',
+                'last-name'  => 'Last Name ',
+                'email'      => 'Email Address ',
+                'mobile'     => 'Mobile Number ',
+                'work'       => 'Work ',
+                'submit'     => 'Submit',
+                'termsplit1'   => 'By clicking Submit, you agree to Homeful.ph\'s',
+                'termsplit2'   => 'Privacy ',
+                'termsplit3'   => 'and',
+                'termsplit4'   => 'Terms of Use.',
+            ],
+        ],
+
+        'properties' => [
+            'title' => 'Our Brands',
+            'visit-store' => 'Visit Store',
+        ],
+
+        'ask-to-joy' => [
+            'modal' => [
+                'title' => [
+                    'split1' => 'I\'m Joy, here to help you figure out which',
+                    'split2' => 'home',
+                    'split3' => 'to buy.',
+                ],
+                'start' => 'Start',
+                'all-kinds' => 'All Kinds',
+                'by-amortization' => 'By Monthly Amortization Budget',
+                'by-location' => 'By Location',
+                'by-price_range' => 'By Price Range',
+            ],
+            'braedcurmb' => 'Ask To Joy',
+            'title'      => 'Ask To Joy',
+            'load-more'  => 'Load More',
+            'need-help'  => 'Need Help in deciding what product to buy?',
+            'ask-joy'    => 'Ask Joy',
+        ],
+
+        'menus' => [
+            'homepage' => 'Homepage',
+            'about-us' => 'About Us',
+            'ask-joy' => 'Ask Joy',
+            'our-brands' => 'Our Brands',
+            'partner-with-us' => 'Partner With Us',
+            'announcements' => 'Announcements',
+            'contact-us' => 'Contact Us',
+        ],
+
+        'actions' => [
+            'page-loading' => 'Page Loading...',
+        ],
     ],
 
     'admin' => [
@@ -412,7 +500,7 @@ return [
             'title'     => 'Button Setting',
             'btn-title' => 'Button Title',
         ],
-        
+
         'settings' => [
             'themes' => [
                 'edit' => [
@@ -587,14 +675,14 @@ return [
                 'image' => [
                     'error-message'   => "System can't find the image at the web address you provided",
                     'success-message' => "Image Uploaded successfully",
-                    'is-loading'      => "Loading...", 
+                    'is-loading'      => "Loading...",
                     'title'           => 'Image CDN',
                     'info'            => '',
                     'add-btn'         => 'Upload Image',
                     'review-btn'      => 'Review',
                     'url'             => 'URL',
                     'type'            => 'Type',
-                    
+
                     'logo_path'             => 'Logo Path',
                     'banner_path'           => 'Banner Path',
                     'reload'                => 'Page Reload',
@@ -607,7 +695,7 @@ return [
                     'title'       => 'Image CDN',
                     'info'        => 'Add Image CDN Url with comma(,) separated',
                     'add-btn'     => 'Review Image',
-                    'is-loading'  => "Loading...", 
+                    'is-loading'  => "Loading...",
                     'url'         => 'URL',
                     'not-found'   => "System can't find the image at the web address you provided.",
                 ],
@@ -616,8 +704,54 @@ return [
 
         'seeders' => [
             'attribute' => [
-                'redirect_uri' => 'Ekyc Redirect Url',
+                'redirect_uri'                => 'Ekyc Redirect Url',
+                'schedule_visit_redirect_url' => 'Schedule Visit Redirect Url',
+                'avail_now_redirect_url'      => 'Avail Now Redirect Url',
+                'monthly_amortization'        => 'Monthly Amortization',
+                'monthly_amortization_options'        => [
+                    'label'    => 'Monthly Amortization',
+                    'option_1' => 'Starts at 3,450',
+                    'option_2' => 'Starts at 8,270',
+                    'option_3' => 'Starts at 10,400',
+                    'option_4' => 'Starts at 18,800',
+                    'option_5' => 'Starts at 19,900',
+                    'option_6' => 'Starts at 20,950',
+                    'option_7' => 'Starts at 22,350',
+                    'option_8' => 'Starts at 23,900',
+                    'option_9' => 'Starts at 29,350',
+                    'option_10' => 'Starts at 40,500',
+                ],
+                'price_range'  => 'Price Range',
+                'price_range_options'                  => [
+                    'label'     => 'Price Range',
+                    'option_1'  => 'Socialized Housing (750,000)',
+                    'option_2'  => 'Economic Housing (1,200,000)',
+                    'option_3'  => 'Economic Housing (1,500,000)',
+                    'option_4'  => 'Middle Housing (starts at 2,850,000)',
+                    'option_5'  => 'Middle Housing (starts at 3,420,000)',
+                    'option_6'  => 'Middle Housing (starts at 5,800,000)',
+                    'option_7'  => 'Middle Condominium Studio (starts at 2,700,000)',
+                    'option_8'  => 'Middle Condominium studio w/ Balcony (starts at 3,000,000)',
+                    'option_9'  => 'Middle Condominium 1BR (starts at 3,200,000)',
+                    'option_10' => 'Middle Condominium 2BR (starts at 4,200,000)',
+                ],
             ],
+
+            'pages' => [
+                'about-us'   => [
+                    'title'   => 'About Us',
+                ],
+
+                'contact-us'   => [
+                    'title'   => 'Contact Us',
+                ],
+            ],
+
+            'theme' => [
+                'about-homeful' => [
+                    'title' => 'About Homeful'
+                ]
+            ]
         ],
     ],
 ];

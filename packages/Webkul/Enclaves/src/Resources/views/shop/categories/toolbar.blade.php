@@ -10,7 +10,7 @@
     <script type="text/x-template" id='v-toolbar-template'>
         <div>
             <!-- Desktop Toolbar -->
-            <div class="flex justify-between max-md:hidden">
+            {{-- <div class="flex justify-between max-md:hidden">
                 <!-- Product Sorting Filters -->
                 <x-shop::dropdown position="bottom-left">
                     <x-slot:toggle>
@@ -21,7 +21,7 @@
                             <span class="icon-arrow-down text-[24px]"></span>
                         </button>
                     </x-slot:toggle>
-                
+
                     <!-- Dropdown Content -->
                     <x-slot:menu>
                         <x-shop::dropdown.menu.item
@@ -46,7 +46,7 @@
                                 <span class="icon-arrow-down text-[24px]"></span>
                             </button>
                         </x-slot:toggle>
-                    
+
                         <!-- Dropdown Content -->
                         <x-slot:menu>
                             <x-shop::dropdown.menu.item
@@ -76,10 +76,10 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Mobile Toolbar -->
-            <div class="md:hidden">
+            {{-- <div class="md:hidden">
                 <ul>
                     <li
                         class="p-[10px]"
@@ -90,7 +90,7 @@
                         @{{ sort.title }}
                     </li>
                 </ul>
-            </div>
+            </div> --}}
         </div>
     </script>
 

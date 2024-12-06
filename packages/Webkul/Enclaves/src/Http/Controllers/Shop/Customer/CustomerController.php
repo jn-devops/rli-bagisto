@@ -26,8 +26,7 @@ class CustomerController extends Controller
         protected SubscribersListRepository $subscriptionRepository,
         protected CustomerAttributeRepository $customerAttributeRepository,
         protected CustomerAttributeValueRepository $customerAttributeValueRepository,
-    ) {
-    }
+    ) {}
 
     /**
      * customer to profile id.
@@ -47,15 +46,15 @@ class CustomerController extends Controller
 
     /**
      * customer to profile.
-     * 
+     *
      * @param int $id
      * @return mixed
      */
     private function getAttributesValues($id)
     {
         return $this->customerAttributeValueRepository
-                                    ->findWhere(['customer_id' => $id])
-                                    ->groupBy('form_type');
+            ->findWhere(['customer_id' => $id])
+            ->groupBy('form_type');
     }
 
     /**
@@ -80,7 +79,7 @@ class CustomerController extends Controller
     public function edit()
     {
         $customer = self::getCustomer();
-        
+
         return view('shop::customers.account.profile.edit', compact('customer'));
     }
 

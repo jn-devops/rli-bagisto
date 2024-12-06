@@ -15,14 +15,14 @@
     <script type="text/x-template" id="v-user-kyc-summary-template">
         <!-- Page Content -->
         <div class="lg:container">
-            <div 
-                class="m-[20px] p-[20px]" 
+            <div
+                class="m-[20px] p-[20px]"
                 v-if="! sended && ! embedURL"
             >
                 <div class="flex w-full justify-center gap-x-[40px] max-[1180px]:gap-x-[20px]"
                     v-if="isLoaded"
                 >
-                    <h1 
+                    <h1
                         class="text-[40px] font-bold leading-[48px] max-lg:text-[26px] max-lg:leading-[36px]"
                         v-text="crmPage.page_title"
                     >
@@ -34,7 +34,7 @@
                 </div>
 
                 <div v-if="isLoaded">
-                    <p 
+                    <p
                         class="mt-[50px] text-[20px] max-lg:mt-[25px] max-lg:text-[16px]"
                         v-html="crmPage.html_content"
                     >
@@ -74,12 +74,12 @@
             </div>
 
             <div v-else>
-                <div v-if="isIframeLoaded" 
+                <div v-if="isIframeLoaded"
                     class="mt-4 flex justify-center border-2"
                 >
                     <iframe
                         :src="embedURL"
-                        width="1160" 
+                        width="1160"
                         height="700"
                         style="overflow:auto;"
                     >
@@ -88,7 +88,7 @@
 
                 <div v-else class="mt-4 flex justify-center border-2">
                     <div class="shimmer flex h-[700px] w-full items-center justify-center">
-                        <span>Page Loading...</span>
+                        <span>lang('enclaves::app.shop.actions.page-loading')</span>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                     isLoaded: false,
                 }
             },
-            
+
             mounted() {
                 if (this.verification) {
                     this.sended = true;
@@ -179,7 +179,7 @@
                         .catch(error => console.log(error));
                     }, 5000);
                 },
-                
+
                 customerLogin(transaction_id) {
                     if (this.alreadyRedirect > 1) {
                         return;

@@ -56,10 +56,10 @@
 
                             <svg
                                 v-if="attribute.options.length"
-                                width="20" 
-                                height="12" 
-                                viewBox="0 0 20 12" 
-                                fill="none" 
+                                width="20"
+                                height="12"
+                                viewBox="0 0 20 12"
+                                fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
@@ -70,10 +70,10 @@
 
                             <svg
                                 v-else
-                                width="20" 
-                                height="12" 
-                                viewBox="0 0 20 12" 
-                                fill="none" 
+                                width="20"
+                                height="12"
+                                viewBox="0 0 20 12"
+                                fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path d="M9.66732 11.3781L0.703827 2.36689C0.0751711 1.73489 0.52645 0.659683 1.41787 0.663007L18.8104 0.727855C19.6853 0.731117 20.1345 1.77702 19.5344 2.41372L11.1039 11.3586C10.7164 11.7697 10.0657 11.7786 9.66732 11.3781Z" fill="#8b8b8b"></path>
@@ -127,7 +127,7 @@
                                     </label>
 
                                     <!-- Image Swatch Options -->
-                                    <label 
+                                    <label
                                         class="group relative flex h-[60px] w-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-full border bg-white font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-lg:h-[35px] max-lg:w-[35px] sm:py-6"
                                         :class="{'ring-2 ring-navyBlue' : index == attribute.selectedIndex }"
                                         :title="option.label"
@@ -160,7 +160,7 @@
                                     </label>
 
                                     <!-- Text Swatch Options -->
-                                    <label 
+                                    <label
                                         class="group relative flex h-[60px] min-w-[60px] cursor-pointer items-center justify-center rounded-full border bg-white px-4 py-3 font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none max-lg:h-[35px] max-lg:w-[35px] sm:py-6"
                                         :class="{'ring-2 ring-navyBlue' : index == attribute.selectedIndex }"
                                         :title="option.label"
@@ -355,7 +355,7 @@
                             j;
 
                         this.clearSelect(attribute)
-                        
+
                         attribute.options = [{
                             'id': '',
                             'label': attribute.label + '?',
@@ -444,31 +444,21 @@
                         });
 
                         let priceElement = document.querySelector('.special-price') ? document.querySelector('.special-price') : document.querySelector('.final-price');
-                        
-                        let priceInElement = document.querySelector('.price-in-final');
 
-                        let processingFeeBtn = document.querySelector('.processing_fee_btn');
+                        let availNowPrice = document.querySelector('.avail_now_price .special-price');
 
                         let regularPriceElement = document.querySelector('.special-price');
-                        
-                        let processingFee = document.querySelector('.processing_fee');
-
-                        let processingFeeText = document.querySelector('.processing_fee_text');
 
                         if (this.childAttributes.length == selectedOptionCount) {
                             priceElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
 
-                            priceInElement.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
-
-                            processingFeeBtn.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
-
-                            processingFee.innerHTML = this.config.variant_prices[this.simpleProduct].processing_fee.formatted_price;
-                            
-                            processingFeeText.style.display = 'block';
+                            availNowPrice.innerHTML = this.config.variant_prices[this.simpleProduct].final.formatted_price;
 
                             if (regularPriceElement) {
                                 regularPriceElement.innerHTML = this.config.variant_prices[this.simpleProduct].regular.formatted_price;
-                                
+
+                                availNowPrice.innerHTML = this.config.variant_prices[this.simpleProduct].regular.formatted_price;
+
                                 regularPriceElement.style.display = 'inline-block';
                             }
 
@@ -482,7 +472,7 @@
 
                     changeProductImages () {
                         galleryImages.splice(0, galleryImages.length)
-                        
+
                         if (this.simpleProduct) {
                             this.config.variant_images[this.simpleProduct].forEach(function(image) {
                                 galleryImages.push(image)
@@ -496,7 +486,7 @@
                         this.galleryImages.forEach(function(image) {
                             galleryImages.push(image)
                         });
-                        
+
                         if(this.config.variants.options[this.simpleProduct]) {
                             this.$parent.$parent.$refs.gallery.options = this.config.variants.options[this.simpleProduct];
                         }

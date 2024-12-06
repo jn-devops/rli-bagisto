@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 /*
  * Command: php artisan db:seed --class="Webkul\\Enclaves\\Database\\Seeders\\DatabaseSeeder"
  */
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CustomerAttributeAndOptions::class);
         $this->call(FooterSocialMediaLinksSeeder::class);
         $this->call(AttributeTableSeeder::class);
+        $this->call(CmsTableSeeder::class);
+        $this->call(ThemeTableSeeder::class);
     }
 }

@@ -31,8 +31,11 @@
         <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" as="style">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
 
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" as="style">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap">
+        {{-- <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" as="style"> --}}
+        {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"> --}}
+
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="preload">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 
         @stack('styles')
 
@@ -43,7 +46,7 @@
         {!! view_render_event('bagisto.shop.layout.head') !!}
     </head>
 
-    <body>
+    <body class="font-dm-sans">
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
         <div id="app">
@@ -52,6 +55,9 @@
 
             <!-- Confirm Modal Blade Component -->
             <x-shop::modal.confirm />
+
+            <!-- Ask to Joy Modal Blade Component -->
+            <x-shop::modal.ask-to-joy />
 
                 <!-- Page Header Blade Component -->
                 @if ($hasHeader)

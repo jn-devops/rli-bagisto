@@ -1,13 +1,12 @@
-<div class="container max-lg:px-[30px] max-lg:mt-[30px]">
-    <div class="item-center mt-[30px] flex justify-center">
-        <h3 class="shimmer h-[40px] w-full"></h3>
+<section class="py-14">
+    <div class="container">
+        <div class="h-10 w-44 mx-auto rounded-[30px] shimmer"></div>
+        <div class="mt-14 grid grid-cols-3 gap-4 max-lg:grid-cols-2 max-md:grid-cols-1">
+            <x-shop::shimmer.properties.cards.grid
+                class="min-w-[260px]"
+                :count="3"
+                >
+            </x-shop::shimmer.properties.cards.grid>
+        </div>
     </div>
-
-    <div class="scrollbar-hide mt-[30px] flex gap-14 overflow-auto max-lg:mt-[20px]">
-        <x-shop::shimmer.properties.cards.grid
-            class="min-w-[260px]"
-            :count="4"
-        >
-        </x-shop::shimmer.properties.cards.grid>
-    </div>
-</div>
+</section>
