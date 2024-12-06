@@ -11,6 +11,7 @@
 }
 
 @layer components {
+
   [class^="icon-"],
   [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
@@ -51,19 +52,20 @@
     scroll-behavior: smooth;
   }
 
-  body {
+  /* body {
     @apply font-montserrate;
-  }
+  } */
 
   ::-webkit-scrollbar {
     width: 10px;
   }
 
   ::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
   }
+
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(rgb(204, 3, 92), rgb(252, 177, 21));
     border-radius: 5px;
@@ -130,9 +132,9 @@
     @apply text-[70px] font-normal text-navyBlue text-center px-[15px] leading-[90px] max-lg:text-[32px] max-lg:leading-normal font-dmserif;
   }
 
-  * {
+  /* * {
     @apply box-border font-montserrate;
-  }
+  } */
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -435,72 +437,78 @@
   }
 
   .warning {
-      display: flex;
-      color: white;
-      border-radius: 20px 20px 20px 20px;
-      background-color: #F39C12;
-      padding: 10px;
+    display: flex;
+    color: white;
+    border-radius: 20px 20px 20px 20px;
+    background-color: #F39C12;
+    padding: 10px;
   }
 
   .success {
-      display: flex;
-      color: white;
-      border-radius: 20px 20px 20px 20px;
-      background-color: #5BA34B;
-      padding: 10px;
+    display: flex;
+    color: white;
+    border-radius: 20px 20px 20px 20px;
+    background-color: #5BA34B;
+    padding: 10px;
   }
 
   .danger {
-      display: flex;
-      color: white;
-      border-radius: 20px 20px 20px 20px;
-      background-color: rgb(255, 50, 35);
-      padding: 10px;
+    display: flex;
+    color: white;
+    border-radius: 20px 20px 20px 20px;
+    background-color: rgb(255, 50, 35);
+    padding: 10px;
   }
-  
+
   .cancel {
-      display: flex;
-      color: #a0a0a0;
-      border-radius: 20px 20px 20px 20px;
-      background-color: #F5F5F5;
-      padding: 10px;
+    display: flex;
+    color: #a0a0a0;
+    border-radius: 20px 20px 20px 20px;
+    background-color: #F5F5F5;
+    padding: 10px;
   }
 
   .info {
-      display: flex;
-      color: white;
-      border-radius: 20px 20px 20px 20px;
-      background-color: rgb(11, 31, 68);
+    display: flex;
+    color: white;
+    border-radius: 20px 20px 20px 20px;
+    background-color: rgb(11, 31, 68);
   }
 
   .link {
-      color: #5388e9;
-      text-decoration-line: underline;
+    color: #5388e9;
+    text-decoration-line: underline;
   }
 
   /* Icons style */
   .icon-bedrooms:before {
     content: "\e94d";
   }
+
   .icon-carports:before {
     content: "\e94e";
   }
+
   .icon-floor_area:before {
     content: "\e94f";
   }
+
   .icon-first_floor:before {
     content: "\e950";
   }
+
   .icon-ground_floor:before {
     content: "\e950";
   }
+
   .icon-lot_area:before {
     content: "\e951";
   }
+
   .icon-t_and_b:before {
     content: "\e952";
   }
-  
+
   .icon-unit_type:before {
     content: "\e953";
   }
@@ -508,10 +516,11 @@
   .icon-end_unit:before {
     content: "\e953";
   }
+
   .icon-finished:before {
     content: "\e90f";
   }
-  
+
   .icon-parking:before {
     content: "\e940";
   }
@@ -519,16 +528,19 @@
   .icon-balcony:before {
     content: "\e92b";
   }
-  
+
   .icon-contact-us:before {
     content: "\e94a";
   }
+
   .icon-location:before {
     content: "\e94b";
   }
+
   .icon-mail-us:before {
     content: "\e94c";
   }
+
   .icon-dashboard:before {
     content: "\e943";
   }
@@ -540,217 +552,287 @@
   .icon-enquiries:before {
     content: "\e945";
   }
+
   .icon-help-seminar:before {
     content: "\e946";
   }
+
   .icon-News-and-updates:before {
     content: "\e947";
   }
+
   .icon-profile:before {
     content: "\e948";
   }
+
   .icon-transactions:before {
     content: "\e949";
   }
+
   .icon-add-new:before {
     content: "\e900";
   }
+
   .icon-arrow-down:before {
     content: "\e901";
   }
+
   .icon-arrow-left-stylish:before {
     content: "\e902";
   }
+
   .icon-arrow-left:before {
     content: "\e903";
   }
+
   .icon-arrow-right-stylish:before {
     content: "\e904";
   }
+
   .icon-arrow-right:before {
     content: "\e905";
   }
+
   .icon-arrow-up:before {
     content: "\e906";
   }
+
   .icon-astreisk:before {
     content: "\e907";
   }
+
   .icon-bin:before {
     content: "\e908";
   }
+
   .icon-box-fill:before {
     content: "\e909";
   }
+
   .icon-calendar:before {
     content: "\e90a";
   }
+
   .icon-camera-fill:before {
     content: "\e90b";
   }
+
   .icon-camera:before {
     content: "\e90c";
   }
+
   .icon-cancel:before {
     content: "\e90d";
   }
+
   .icon-cart:before {
     content: "\e90e";
   }
+
   .icon-check-box:before {
     content: "\e90f";
   }
+
   .icon-compare-1:before {
     content: "\e910";
   }
+
   .icon-compare:before {
     content: "\e911";
   }
+
   .icon-dislike:before {
     content: "\e912";
   }
+
   .icon-dollar-sign:before {
     content: "\e913";
   }
+
   .icon-double-arrow:before {
     content: "\e914";
   }
+
   .icon-download:before {
     content: "\e915";
   }
+
   .icon-email:before {
     content: "\e916";
   }
+
   .icon-error:before {
     content: "\e917";
   }
+
   .icon-eye:before {
     content: "\e918";
   }
+
   .icon-filter-1:before {
     content: "\e919";
   }
+
   .icon-filter-fill:before {
     content: "\e91a";
   }
+
   .icon-filter:before {
     content: "\e91b";
   }
+
   .icon-flate-rate:before {
     content: "\e91c";
   }
+
   .icon-Free-Shipping:before {
     content: "\e91d";
   }
+
   .icon-grid-view-fill:before {
     content: "\e91e";
   }
+
   .icon-grid-view:before {
     content: "\e91f";
   }
+
   .icon-hamburger:before {
     content: "\e920";
   }
+
   .icon-heart-1:before {
     content: "\e921";
   }
+
   .icon-heart-2:before {
     content: "\e922";
   }
+
   .icon-heart-fill:before {
     content: "\e923";
   }
+
   .icon-heart:before {
     content: "\e924";
   }
+
   .icon-left-arrow:before {
     content: "\e925";
   }
+
   .icon-like:before {
     content: "\e926";
   }
+
   .icon-listing-1:before {
     content: "\e927";
   }
+
   .icon-listing:before {
     content: "\e928";
   }
+
   .icon-minus:before {
     content: "\e92a";
   }
+
   .icon-more:before {
     content: "\e92b";
     color: #7d7d7d;
   }
+
   .icon-orders:before {
     content: "\e92c";
   }
+
   .icon-pen:before {
     content: "\e92d";
   }
+
   .icon-plus:before {
     content: "\e92e";
   }
+
   .icon-product:before {
     content: "\e92f";
   }
+
   .icon-radio-select:before {
     content: "\e930";
   }
+
   .icon-radio-unselect:before {
     content: "\e931";
   }
+
   .icon-right-arrow:before {
     content: "\e932";
   }
+
   .icon-search:before {
     content: "\e933";
   }
+
   .icon-share:before {
     content: "\e934";
   }
+
   .icon-sort-1:before {
     content: "\e935";
   }
+
   .icon-sort-by:before {
     content: "\e936";
   }
+
   .icon-sort:before {
     content: "\e937";
     color: #7d7d7d;
   }
+
   .icon-star-fill:before {
     content: "\e938";
     color: #ffb600;
   }
+
   .icon-star:before {
     content: "\e939";
   }
+
   .icon-support:before {
     content: "\e93a";
   }
+
   .icon-tick:before {
     content: "\e93b";
   }
+
   .icon-toast-done:before {
     content: "\e93c";
   }
+
   .icon-toast-error:before {
     content: "\e93d";
   }
+
   .icon-toast-exclamation-mark:before {
     content: "\e93e";
   }
+
   .icon-toast-info:before {
     content: "\e93f";
   }
+
   .icon-truck:before {
     content: "\e940";
   }
+
   .icon-uncheck:before {
     content: "\e941";
   }
+
   .icon-users:before {
     content: "\e942";
-  }  
+  }
 }

@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Event::listen('bagisto.shop.layout.content.after', function ($viewRenderEventManager) {
-            if(core()->getConfigData('blog.settings.general.status')) {
+            if (core()->getConfigData('blog.settings.general.status')) {
                 $viewRenderEventManager->addTemplate('blog::shop.blog.post.layouts.index');
             }
         });

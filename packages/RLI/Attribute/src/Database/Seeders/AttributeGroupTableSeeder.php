@@ -61,19 +61,23 @@ class AttributeGroupTableSeeder extends Seeder
                     'attribute_id'        => 1,
                     'attribute_group_id'  => $general_group_id,
                     'position'            => 1,
-                ], [
+                ],
+                [
                     'attribute_id'        => 27,
                     'attribute_group_id'  => $general_group_id,
                     'position'            => 2,
-                ], [
+                ],
+                [
                     'attribute_id'        => 2,
                     'attribute_group_id'  => $general_group_id,
                     'position'            => 3,
-                ], [
+                ],
+                [
                     'attribute_id'        => 3,
                     'attribute_group_id'  => $general_group_id,
                     'position'            => 4,
-                ], [
+                ],
+                [
                     'attribute_id'        => 4,
                     'attribute_group_id'  => $general_group_id,
                     'position'            => 5,
@@ -88,11 +92,11 @@ class AttributeGroupTableSeeder extends Seeder
                 //                    'attribute_group_id'  => $general_group_id,
                 //                    'position'            => 7,
                 //                ],
-                [
-                    'attribute_id'        => 25,
-                    'attribute_group_id'  => $general_group_id,
-                    'position'            => 8,
-                ],
+                // [
+                //     'attribute_id'        => 25,
+                //     'attribute_group_id'  => $general_group_id,
+                //     'position'            => 8,
+                // ],
             ]);
 
             DB::table('attribute_groups')->insert([
@@ -113,7 +117,8 @@ class AttributeGroupTableSeeder extends Seeder
                     'attribute_id'        => 9,
                     'attribute_group_id'  => $description_group_id,
                     'position'            => 1,
-                ], [
+                ],
+                [
                     'attribute_id'        => 10,
                     'attribute_group_id'  => $description_group_id,
                     'position'            => 2,
@@ -138,11 +143,13 @@ class AttributeGroupTableSeeder extends Seeder
                     'attribute_id'        => 13,
                     'attribute_group_id'  => $meta_description_group_id,
                     'position'            => 3,
-                ], [
+                ],
+                [
                     'attribute_id'        => 14,
                     'attribute_group_id'  => $meta_description_group_id,
                     'position'            => 4,
-                ], [
+                ],
+                [
                     'attribute_id'        => 15,
                     'attribute_group_id'  => $meta_description_group_id,
                     'position'            => 5,
@@ -177,11 +184,13 @@ class AttributeGroupTableSeeder extends Seeder
                     'attribute_id'        => 16,
                     'attribute_group_id'  => $price_group_id,
                     'position'            => 1,
-                ], [
+                ],
+                [
                     'attribute_id'        => 17,
                     'attribute_group_id'  => $price_group_id,
                     'position'            => 2,
-                ], [
+                ],
+                [
                     'attribute_id'        => 18,
                     'attribute_group_id'  => $price_group_id,
                     'position'            => 3,
@@ -242,19 +251,23 @@ class AttributeGroupTableSeeder extends Seeder
                     'attribute_id'        => 5,
                     'attribute_group_id'  => $settings_group_id,
                     'position'            => 1,
-                ], [
+                ],
+                [
                     'attribute_id'        => 6,
                     'attribute_group_id'  => $settings_group_id,
                     'position'            => 2,
-                ], [
+                ],
+                [
                     'attribute_id'        => 7,
                     'attribute_group_id'  => $settings_group_id,
                     'position'            => 3,
-                ], [
+                ],
+                [
                     'attribute_id'        => 8,
                     'attribute_group_id'  => $settings_group_id,
                     'position'            => 4,
-                ], [
+                ],
+                [
                     'attribute_id'        => 26,
                     'attribute_group_id'  => $settings_group_id,
                     'position'            => 5,

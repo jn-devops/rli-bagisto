@@ -17,7 +17,7 @@
     <x-slot:title>
         {{  $channel->home_seo['meta_title'] ?? '' }}
     </x-slot>
-    
+
     <!-- Loop over the theme customization -->
     @foreach ($customizations as $customization)
         @php ($data = $customization->options)
@@ -47,7 +47,7 @@
                 <!-- category Theme used for properties carousel -->
                 <x-shop::properties.carousel
                     :title="$customization['name'] ?? ''"
-                    :src="route('shop.api.categories.index', $data['filters'] ?? [])"
+                    :src="route('enclaves.api.categories.index', $data['filters'] ?? [])"
                     :navigation-link="route('shop.home.index')"
                 >
                 </x-shop::properties.carousel>

@@ -27,22 +27,22 @@
         <div class="container px-[60px] max-lg:px-[30px]">
             <template v-if="isLoading">
                 <!-- Shimmer Load -->
-                <div class="shimmer rounded-1xl mt-[10px] h-[65px] w-[30%]"></div>
-                
+                <div class="shimmer rounded-1xl mb-3 mt-[30px] h-[24px] w-[30%]"></div>
+
                 <x-blog::shimmer.blogs.item count="6"/>
             </template>
 
             <template v-else>
                 <!-- Breadcrumbs -->
                 <x-shop::breadcrumbs name="blogs"></x-shop::breadcrumbs>
-                
-                <div class="mt-10 grid grid-cols-3 gap-6 max-lg:grid-cols-2">
+
+                <div class="mt-10 grid grid-cols-4 gap-6 max-lg:grid-cols-2">
                     <x-blog::blogs.items.post-item v-for="blog in blogs"/>
                 </div>
 
-                <div class="mt-3 text-center"
-                    v-if="limit < blogs.length"
-                >
+                <div
+                    v-if="limit < allBlogs.length"
+                    class="mt-3 text-center">
                     <button
                         class="rounded-[20px] bg-[#CC035C] px-[25px] py-[10px] text-white"
                         @click="getMoreBlogs()"
@@ -62,8 +62,9 @@
                 return {
                     isLoading: true,
                     blogs: {},
-                    limit: `{{ $limit }}`,
+                    limit: `{{ $limit }}` > 0 ? `{{ $limit }}` : 4,
                     loadMoreTxt: `{{ trans('blog::app.shop.blog.load-more') }}`,
+                    allBlogs:{},
                 };
             },
 
@@ -73,25 +74,19 @@
 
             methods: {
                 getMoreBlogs() {
-                    this.limit += `{{ $limit }}`;
-
-                    this.loadMoreTxt = `{{ trans('blog::app.shop.blog.loading') }}`;
-
-                    this.getPosts();
+                    this.limit += this.limit;
+                    this.blogs = this.allBlogs.slice(0, this.limit);
                 },
 
                 getPosts() {
-                    this.$axios.get("{{ route('shop.blogs.front-end') }}", {
-                        params: {
-                            limit: this.limit,
-                        }
-                    })
+                    this.$axios.get("{{ route('shop.blogs.front-end') }}")
                     .then(response => {
                         this.isLoading = false;
 
                         this.loadMoreTxt = `{{ trans('blog::app.shop.blog.load-more') }}`;
+                        this.allBlogs = response.data.data
+                        this.blogs = this.allBlogs.slice(0, this.limit);
 
-                        this.blogs = response.data.data;
                     }).catch(error => {
                         console.log(error);
                     });

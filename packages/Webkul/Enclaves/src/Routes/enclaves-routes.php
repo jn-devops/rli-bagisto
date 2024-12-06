@@ -14,14 +14,22 @@ use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\InquiriesController;
 use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\HelpSeminarController;
 use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\NewsUpdatesController;
 use Webkul\Enclaves\Http\Controllers\Shop\Customer\Account\TransactionController;
+use Webkul\Enclaves\Http\Controllers\Shop\Partner\PartnersController;
+use Webkul\Enclaves\Http\Controllers\Shop\EnclaveMenu\EnclaveMenuController;
+use Webkul\Enclaves\Http\Controllers\Shop\Attribute\AttributeController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
     Route::controller(ProductController::class)->prefix('products')->group(function () {
         Route::get('', 'index')->name('enclaves.products.index');
-        
+
         Route::post('customer-profile-update', 'profileUpdate')->name('enclaves.customers.account.profile.update');
     });
+
+    Route::controller(ProductController::class)->prefix('ask-to-joy')->group(function () {
+        Route::get('', 'askToJoyProductsview')->name('enclaves.products.ask_to_joy');
+    });
+
 
     Route::prefix('customer')->group(function () {
         Route::group(['middleware' => ['customer']], function () {
@@ -84,11 +92,37 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
     Route::group(['prefix' => 'api'], function () {
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-            Route::get('', 'index')->name('shop.api.categories.index');
+            Route::get('enclave-categories', 'index')->name('enclaves.api.categories.index');
+        });
+
+        Route::controller(ProductController::class)->prefix('products')->group(function () {
+            Route::get('enclave-products', 'getProducts')->name('enclaves.api.product.index');
+
+            Route::get('soldout-products', 'getSoldOutProducts')->name('enclaves.api.product.soldout.index');
+
+            Route::get('ask-to-joy-products', 'getAskToJoyProducts')->name('enclaves.api.product.ask_to_joy');
         });
 
         Route::controller(EkycController::class)->prefix('ekyc')->group(function () {
             Route::get('', 'index')->name('enclaves.api.property.verify-url.index');
         });
+
+        Route::controller(EnclaveMenuController::class)->prefix('menus')->group(function () {
+            Route::get('', 'menuItems')->name('enclaves.api.menus');
+        });
+
+        Route::controller(AttributeController::class)->prefix('enclave/attributes')->group(function () {
+            Route::get('{code}', 'getAttributes')->name('enclaves.api.attribute');
+        });
+    });
+
+    Route::controller(PartnersController::class)->prefix('partners')->group(function () {
+        Route::get('webhook', 'handle')->name('shop.partners.webhook.request');
+
+        Route::get('/', 'index')->name('shop.partners.index');
+
+        Route::get('list', 'blogFrontEnd')->name('shop.partners.list');
+
+        Route::get('{id}', 'view')->name('shop.partner.view');
     });
 });

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 /*
 * Note: this seeder should be run in the same script as AttributeTableSeeder
 */
+
 class AttributeOptionTableSeeder extends Seeder
 {
     protected array $locations = ['Laguna', 'Cavite', 'Rizal', 'Bulacan'];
@@ -34,7 +35,7 @@ class AttributeOptionTableSeeder extends Seeder
 
     protected array $styles = ['Slant', 'Flat'];
     protected array $lot_areas =
-        ['30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100', '101', '102', '103', '104', '105', '106', '107', '108', '109', '110', '111', '112', '113', '114', '115', '116', '117', '118', '119', '120', '121', '122', '123', '124', '125', '126', '127', '128', '129', '130', '131', '132', '133', '134', '135', '136', '137', '138', '139', '140', '141', '142', '143', '144', '145', '146', '147', '148', '149', '150'];
+    ['30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100', '101', '102', '103', '104', '105', '106', '107', '108', '109', '110', '111', '112', '113', '114', '115', '116', '117', '118', '119', '120', '121', '122', '123', '124', '125', '126', '127', '128', '129', '130', '131', '132', '133', '134', '135', '136', '137', '138', '139', '140', '141', '142', '143', '144', '145', '146', '147', '148', '149', '150'];
 
     public function run(): void
     {
@@ -151,7 +152,7 @@ class AttributeOptionTableSeeder extends Seeder
             ]);
         }
 
-        $firewall_id= AttributeTableSeeder::$firewall_id;
+        $firewall_id = AttributeTableSeeder::$firewall_id;
         $sort_order = 1;
         foreach ($this->firewall_option as $firewall) {
             DB::table('attribute_options')->insert([
@@ -167,7 +168,7 @@ class AttributeOptionTableSeeder extends Seeder
             ]);
         }
 
-        $eaves_id= AttributeTableSeeder::$eaves_id;
+        $eaves_id = AttributeTableSeeder::$eaves_id;
         $sort_order = 1;
         foreach ($this->eaves_option as $eaves) {
             DB::table('attribute_options')->insert([
@@ -183,20 +184,27 @@ class AttributeOptionTableSeeder extends Seeder
             ]);
         }
 
-        $brand_id= AttributeTableSeeder::$brand_id;
-        $sort_order = 1;
-        foreach ($this->brands as $brand) {
-            DB::table('attribute_options')->insert([
-                'admin_name'   => $brand,
-                'sort_order'   => $sort_order++,
-                'attribute_id' => $brand_id,
-            ]);
-            $attribute_option_id = DB::getPdo()->lastInsertId();
-            DB::table('attribute_option_translations')->insert([
-                'locale'              => 'en',
-                'label'               => $brand,
-                'attribute_option_id' => $attribute_option_id,
-            ]);
+        // $brand_id= AttributeTableSeeder::$brand_id;
+
+        $brandAttr = DB::table('attributes')->where('code', 'brand')->first();
+
+        if (isset($brandAttr->id)) {
+            $brand_id = $brandAttr->id;
+
+            $sort_order = 1;
+            foreach ($this->brands as $brand) {
+                DB::table('attribute_options')->insert([
+                    'admin_name'   => $brand,
+                    'sort_order'   => $sort_order++,
+                    'attribute_id' => $brand_id,
+                ]);
+                $attribute_option_id = DB::getPdo()->lastInsertId();
+                DB::table('attribute_option_translations')->insert([
+                    'locale'              => 'en',
+                    'label'               => $brand,
+                    'attribute_option_id' => $attribute_option_id,
+                ]);
+            }
         }
 
         $unit_type_id = AttributeTableSeeder::$unit_type_id;
@@ -215,26 +223,26 @@ class AttributeOptionTableSeeder extends Seeder
             ]);
         }
 
-        $color_id= AttributeTableSeeder::$color_id;
-        $sort_order = 1;
-        foreach ($this->colors as $color) {
-            DB::table('attribute_options')->insert([
-                'admin_name'   => $color,
-                'sort_order'   => $sort_order++,
-                'attribute_id' => $color_id,
-            ]);
-            $attribute_option_id = DB::getPdo()->lastInsertId();
-            DB::table('attribute_option_translations')->insert([
-                'locale'              => 'en',
-                'label'               => $color,
-                'attribute_option_id' => $attribute_option_id,
-            ]);
-        }
+        // $color_id = AttributeTableSeeder::$color_id;
+        // $sort_order = 1;
+        // foreach ($this->colors as $color) {
+        //     DB::table('attribute_options')->insert([
+        //         'admin_name'   => $color,
+        //         'sort_order'   => $sort_order++,
+        //         'attribute_id' => $color_id,
+        //     ]);
+        //     $attribute_option_id = DB::getPdo()->lastInsertId();
+        //     DB::table('attribute_option_translations')->insert([
+        //         'locale'              => 'en',
+        //         'label'               => $color,
+        //         'attribute_option_id' => $attribute_option_id,
+        //     ]);
+        // }
 
-        $lot_area_id= AttributeTableSeeder::$lot_area_id;
+        $lot_area_id = AttributeTableSeeder::$lot_area_id;
         $sort_order = 1;
         foreach ($this->lot_areas as $lot_area) {
-            DB::table('lot_area_options')->insert([
+            DB::table('attribute_options')->insert([
                 'admin_name'   => $lot_area,
                 'sort_order'   => $sort_order++,
                 'attribute_id' => $lot_area_id,
@@ -246,6 +254,5 @@ class AttributeOptionTableSeeder extends Seeder
                 'attribute_option_id' => $attribute_option_id,
             ]);
         }
-
     }
 }

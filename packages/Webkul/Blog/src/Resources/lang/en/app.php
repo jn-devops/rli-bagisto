@@ -24,7 +24,7 @@ return [
             'settings'  => 'Settings',
             'info'      => 'Configure',
             'mega-info' => 'Update Status',
-            
+
             'general' => [
                 'title'     => 'News & Updates General',
                 'mega-info' => 'Update Status',
@@ -160,7 +160,7 @@ return [
                 'tag-post-count'      => 'Show Tags With Posts Count',
                 'author-page'         => 'Show Author Page',
             ],
-            
+
             'seo' => [
                 'title'            => 'Default Blog SEO Setting',
                 'meta-title'       => 'Meta Title',
@@ -174,6 +174,7 @@ return [
         'blog' => [
             'title'            => 'Blog',
             'news_and_updates' => "News & Updates",
+            'announcements'    => "Announcements",
             'details_page'     => "Details Page",
             'read-more'        => 'Read More',
             'load-more'        => 'Load More',
@@ -185,7 +186,7 @@ return [
                     'date-published' => 'Date published:',
                     'check-out-news' => 'Check out our other news & updates',
                 ],
-    
+
                 'index' => [
                     'title'     => 'News & Updates',
                     'no-record' => 'No Records available!',

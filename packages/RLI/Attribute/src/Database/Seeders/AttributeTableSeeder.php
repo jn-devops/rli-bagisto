@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 /*
 * Note: this seeder should be run in the same script as AttributeGroupTableSeeder
 */
+
 class AttributeTableSeeder extends Seeder
 {
     public static int $processing_fee_id;
@@ -463,165 +464,158 @@ class AttributeTableSeeder extends Seeder
         ]);
         self::$eaves_id = DB::getPdo()->lastInsertId();
 
-        DB::table('attributes')->insert([
-            'code'                => 'brand',
-            'admin_name'          => 'Brand',
-            'type'                => 'select',
-            'validation'          => null,
-            'position'            => null,
-            'is_required'         => 0,
-            'is_unique'           => 0,
-            'value_per_locale'    => 0,
-            'value_per_channel'   => 0,
-            'default_value'       => null,
-            'is_filterable'       => 0,
-            'is_configurable'     => 1,
-            'is_user_defined'     => 1,
-            'is_visible_on_front' => 1,
-            'created_at'          => $now,
-            'updated_at'          => $now,
-            'is_comparable'       => 1,
-        ]);
-        self::$brand_id = DB::getPdo()->lastInsertId();
+        // DB::table('attributes')->insert([
+        //     'code'                => 'brand',
+        //     'admin_name'          => 'Brand',
+        //     'type'                => 'select',
+        //     'validation'          => null,
+        //     'position'            => null,
+        //     'is_required'         => 0,
+        //     'is_unique'           => 0,
+        //     'value_per_locale'    => 0,
+        //     'value_per_channel'   => 0,
+        //     'default_value'       => null,
+        //     'is_filterable'       => 0,
+        //     'is_configurable'     => 1,
+        //     'is_user_defined'     => 1,
+        //     'is_visible_on_front' => 1,
+        //     'created_at'          => $now,
+        //     'updated_at'          => $now,
+        //     'is_comparable'       => 1,
+        // ]);
+        // self::$brand_id = DB::getPdo()->lastInsertId();
 
-        DB::table('attributes')->insert([
-            'code'                => 'color',
-            'admin_name'          => 'Color',
-            'type'                => 'select',
-            'validation'          => null,
-            'position'            => null,
-            'is_required'         => 0,
-            'is_unique'           => 0,
-            'value_per_locale'    => 0,
-            'value_per_channel'   => 0,
-            'default_value'       => null,
-            'is_filterable'       => 0,
-            'is_configurable'     => 1,
-            'is_user_defined'     => 1,
-            'is_visible_on_front' => 1,
-            'created_at'          => $now,
-            'updated_at'          => $now,
-            'is_comparable'       => 1,
-        ]);
-        self::$color_id = DB::getPdo()->lastInsertId();
+        // DB::table('attributes')->insert([
+        //     'code'                => 'color',
+        //     'admin_name'          => 'Color',
+        //     'type'                => 'select',
+        //     'validation'          => null,
+        //     'position'            => null,
+        //     'is_required'         => 0,
+        //     'is_unique'           => 0,
+        //     'value_per_locale'    => 0,
+        //     'value_per_channel'   => 0,
+        //     'default_value'       => null,
+        //     'is_filterable'       => 0,
+        //     'is_configurable'     => 1,
+        //     'is_user_defined'     => 1,
+        //     'is_visible_on_front' => 1,
+        //     'created_at'          => $now,
+        //     'updated_at'          => $now,
+        //     'is_comparable'       => 1,
+        // ]);
+        // self::$color_id = DB::getPdo()->lastInsertId();
 
 
 
         DB::table('attribute_translations')->insert([
             [
-                'id'           => self::$processing_fee_id,
                 'locale'       => 'en',
                 'name'         => 'Processing Fee',
                 'attribute_id' => self::$processing_fee_id,
-            ], [
-                'id'           => self::$location_id,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Location',
                 'attribute_id' => self::$location_id,
-            ], [
-                'id'           => self::$floor_area_id,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Floor Area (sqm)',
                 'attribute_id' => self::$floor_area_id,
-            ], [
-                'id'           => self::$lot_area_id,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Lot Area (sqm)',
                 'attribute_id' => self::$lot_area_id,
-            ], [
-                'id'           => self::$finish_id,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Finished',
                 'attribute_id' => self::$finish_id,
-            ], [
-                'id'           => self::$veranda_id,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Veranda',
                 'attribute_id' => self::$veranda_id,
-            ], [
-                'id'           => self::$end_unit_id,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'End Unit',
                 'attribute_id' => self::$end_unit_id,
-            ], [
-                'id'           => self::$ground_floor,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Ground Floor',
                 'attribute_id' => self::$ground_floor,
-            ], [
-                'id'           => self::$bedrooms,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Bedrooms',
                 'attribute_id' => self::$bedrooms,
-            ], [
-                'id'           => self::$t_and_b,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'T and B',
                 'attribute_id' => self::$t_and_b,
-            ], [
-                'id'           => self::$carports,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Carports',
                 'attribute_id' => self::$carports,
-            ], [
-                'id'           => self::$parking,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Parking',
                 'attribute_id' => self::$parking,
-            ], [
-                'id'           => self::$inventory_sources,
+            ],
+            [
                 'locale'       => 'en',
                 'name'         => 'Inventory Sources',
                 'attribute_id' => self::$inventory_sources,
             ],
             [
-                'id'           => self::$balcony_id,
                 'locale'       => 'en',
                 'name'         => 'Balcony',
                 'attribute_id' => self::$balcony_id,
             ],
             [
-                'id'           => self::$style_id,
                 'locale'       => 'en',
                 'name'         => 'Style',
                 'attribute_id' => self::$style_id,
             ],
             [
-                'id'           => self::$unit_type_id,
                 'locale'       => 'en',
                 'name'         => 'Unit Type',
                 'attribute_id' => self::$unit_type_id,
             ],
             [
-                'id'           => self::$property_type_id,
                 'locale'       => 'en',
                 'name'         => 'Property Type',
                 'attribute_id' => self::$property_type_id,
             ],
             [
-                'id'           => self::$firewall_id,
                 'locale'       => 'en',
                 'name'         => 'Firewall',
                 'attribute_id' => self::$firewall_id,
             ],
             [
-                'id'           => self::$eaves_id,
                 'locale'       => 'en',
                 'name'         => 'Eaves',
                 'attribute_id' => self::$eaves_id,
             ],
-            [
-                'id'           => self::$brand_id,
-                'locale'       => 'en',
-                'name'         => 'Brand',
-                'attribute_id' => self::$brand_id,
-            ],
-            [
-                'id'           => self::$color_id,
-                'locale'       => 'en',
-                'name'         => 'Color',
-                'attribute_id' => self::$color_id,
-            ],
+            // [
+            //     'id'           => self::$brand_id,
+            //     'locale'       => 'en',
+            //     'name'         => 'Brand',
+            //     'attribute_id' => self::$brand_id,
+            // ],
+            // [
+            //     'id'           => self::$color_id,
+            //     'locale'       => 'en',
+            //     'name'         => 'Color',
+            //     'attribute_id' => self::$color_id,
+            // ],
 
         ]);
 
@@ -634,83 +628,102 @@ class AttributeTableSeeder extends Seeder
                                 'attribute_id'        => self::$location_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 100,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$floor_area_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 101,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$lot_area_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 102,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$finish_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 103,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$veranda_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 104,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$end_unit_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 105,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$ground_floor,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 106,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$bedrooms,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 107,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$t_and_b,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 108,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$carports,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 109,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$parking,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 110,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$inventory_sources,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 111,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$style_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 113,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$balcony_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 114,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$unit_type_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 115,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$property_type_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 115,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$firewall_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 115,
-                            ], [
+                            ],
+                            [
                                 'attribute_id'        => self::$eaves_id,
                                 'attribute_group_id'  => $group_id,
                                 'position'            => 115,
-                            ], [
-                                'attribute_id'        => self::$brand_id,
-                                'attribute_group_id'  => $group_id,
-                                'position'            => 115,
-                            ], [
-                                'attribute_id'        => self::$color_id,
-                                'attribute_group_id'  => $group_id,
-                                'position'            => 115,
                             ],
+                            // [
+                            //     'attribute_id'        => self::$brand_id,
+                            //     'attribute_group_id'  => $group_id,
+                            //     'position'            => 115,
+                            // ],
+                            // [
+                            //     'attribute_id'        => self::$color_id,
+                            //     'attribute_group_id'  => $group_id,
+                            //     'position'            => 115,
+                            // ],
                         ]);
                         break;
                     case AttributeGroupTableSeeder::PRICE_GROUP:

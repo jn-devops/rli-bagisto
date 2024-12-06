@@ -19,7 +19,7 @@ module.exports = {
             sm: '525px',
             md: '768px',
             lg: '1024px',
-            xl: '1240px',
+            xl: '1200px',
             '1920': '1920px',
             '2xl': '1572px',
             '1280': '1280px',
@@ -31,7 +31,8 @@ module.exports = {
             '768': '768px',
             '668': '668px',
             '425': '425px',
-            '1366' : '1366px',
+            '385': '385px',
+            '1366': '1366px',
         },
 
         extend: {
@@ -39,13 +40,19 @@ module.exports = {
                 'navyBlue': '#060C3B',
                 'lightOrange': '#F6F2EB',
                 'light-black': '#7D7D7D',
+                'nero': '#fff',
+                'dark': '#000',
+                'primary': '#CC035C',
+                'secondary': '#FCB115',
+                'text-gray': '#6E6E6E',
             },
 
             fontFamily: {
                 poppins: ["Poppins"],
                 dmserif: ["DM Serif Display"],
                 montserrate: ['Montserrat'],
-                icon: ['icomoon']
+                icon: ['icomoon'],
+                'dm-sans': ['DM Sans'],
             },
         },
         keyframes: {
