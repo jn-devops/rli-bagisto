@@ -41,7 +41,7 @@
 						<div class="absolute bottom-0 left-0 right-0 flex items-start justify-between gap-4 bg-[linear-gradient(180deg,_#00000000_0%,_#000000_100%)] px-9 pb-9 pt-20 group-[.next]:hidden group-[.prev]:hidden max-sm:flex-wrap max-sm:px-4">
 							<div class="">
 								<h2 class="text-3xl font-bold text-white">@{{product.name}}</h2>
-								<p class="mt-1 text-xl font-normal text-[#CDCDCD]">@{{ product.attributes.find(attr => attr.code === 'location').value }}</p>
+								<p class="mt-1 text-xl font-normal text-[#CDCDCD]">@{{ product.attributes.find(attr => attr.code === 'location')?.value }}</p>
 							</div>
 							<span
 								class="flex items-center gap-2 rounded-full bg-[linear-gradient(268.1deg,_#CC035C_7.47%,_#FCB115_98.92%)] px-4 py-[14px] text-center text-[15px] font-medium text-white cursor-pointer"
@@ -177,11 +177,13 @@
 								if(this.sliderData.length === 1){
 									this.activeData = this.sliderData[0];
 									this.setProductSlides(this.activeData.products);
-                    				this.isLoading = false;
+									this.isLoading = false;
 								}
 							}
 
 						}
+
+						this.isLoading = false;
 					}
                 },
 
