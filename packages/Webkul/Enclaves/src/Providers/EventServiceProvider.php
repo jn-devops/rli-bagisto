@@ -94,12 +94,12 @@ class EventServiceProvider extends ServiceProvider
             $viewRenderEventManager->addTemplate('enclaves::shop.checkout.onepage.properties.index');
         });
 
-        if (core()->getCurrentChannel()->theme == 'enclaves') {
-            Event::listen('bagisto.shop.layout.content.after', function ($viewRenderEventManager) {
+        Event::listen('bagisto.shop.layout.content.after', function ($viewRenderEventManager) {
+            if (core()->getCurrentChannel()->theme == 'enclaves') {
                 $viewRenderEventManager->addTemplate('enclaves::shop.ask-to-joy.layouts.index');
                 $viewRenderEventManager->addTemplate('enclaves::shop.partners.layouts.index');
-            });
-        }
+            }
+        });
 
         Event::listen('bagisto.shop.categories.view.after', function ($viewRenderEventManager) {
             if (core()->getConfigData('blog.settings.general.status')) {
