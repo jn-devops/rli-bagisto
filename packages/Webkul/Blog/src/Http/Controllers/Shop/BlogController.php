@@ -22,12 +22,12 @@ class BlogController extends Controller
     public function index()
     {
         $limit = (int)$this->getConfigByKey('blog_post_per_page');
-        
+
         $blogs = $this->blogRepository
-                    ->where('status', 1)
-                    ->orderBy('id', 'desc')
-                    ->take($limit)
-                    ->get();
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->take($limit)
+            ->get();
 
         $enableBlogSeoMetaTitle = $this->getConfigByKey('blog_seo_meta_title');
 
@@ -53,8 +53,8 @@ class BlogController extends Controller
     public function view($slug)
     {
         $blog = $this->blogRepository
-                        ->where('slug', $slug)
-                        ->firstOrFail();
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         $blogSeoMetaTitle = $this->getConfigByKey('blog_seo_meta_title');
 
@@ -62,7 +62,7 @@ class BlogController extends Controller
 
         $blogSeoMetaDescription = $this->getConfigByKey('blog_seo_meta_description');
 
-        if(request()->ajax()) {
+        if (request()->ajax()) {
             return new JsonResponse(['blog' => $blog]);
         }
 
@@ -84,13 +84,13 @@ class BlogController extends Controller
     {
         $blogs = $this->blogRepository->where('status', 1);
 
-        if(! empty(request('limit'))) {
+        if (! empty(request('limit'))) {
             $limit = (int)request('limit');
 
             $blogs->skip(0)->take($limit);
         }
 
-        if(! empty(request('id'))) {
+        if (! empty(request('id'))) {
             $blogs = $blogs->whereNotIn('id', [(int)request('id')]);
         }
 

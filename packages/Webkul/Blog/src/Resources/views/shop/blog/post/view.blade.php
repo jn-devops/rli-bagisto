@@ -1,30 +1,30 @@
 
 <x-shop::layouts>
-    <link 
-        rel="preload" 
-        as="image" 
-        href="{{ Storage::url($blog->src ?? 'placeholder-thumb.jpg') }}" 
+    <link
+        rel="preload"
+        as="image"
+        href="{{ Storage::url($blog->src ?? 'placeholder-thumb.jpg') }}"
     />
-    
+
     @php
         $channel = core()->getCurrentChannel();
     @endphp
 
     <!-- SEO Meta Content -->
     @push ('meta')
-        <meta 
-            name="title" 
-            content="{{ $blog->meta_title ?? ( $blogSeoMetaTitle ?? ( $channel->home_seo['meta_title'] ?? '' ) ) }}" 
+        <meta
+            name="title"
+            content="{{ $blog->meta_title ?? ( $blogSeoMetaTitle ?? ( $channel->home_seo['meta_title'] ?? '' ) ) }}"
         />
 
-        <meta 
-            name="description" 
-            content="{{ $blog->meta_description ?? ( $blogSeoMetaKeywords ?? ( $channel->home_seo['meta_description'] ?? '' ) ) }}" 
+        <meta
+            name="description"
+            content="{{ $blog->meta_description ?? ( $blogSeoMetaKeywords ?? ( $channel->home_seo['meta_description'] ?? '' ) ) }}"
         />
 
-        <meta 
-            name="keywords" 
-            content="{{ $blog->meta_keywords ?? ( $blogSeoMetaDescription ?? ( $channel->home_seo['meta_keywords'] ?? '' ) ) }}" 
+        <meta
+            name="keywords"
+            content="{{ $blog->meta_keywords ?? ( $blogSeoMetaDescription ?? ( $channel->home_seo['meta_keywords'] ?? '' ) ) }}"
         />
     @endPush
 
@@ -70,17 +70,19 @@
                         </div>
 
                         <div class="max-md:w-full max-sm:w-full lg:w-[40%]">
-                            <h3 class="text-[40px] font-bold max-md:text-[20px]">
-                                {{ $blog->name }}
-                            </h3>
-
-                            <p class="text-[25px] max-sm:text-[12px]">
-                                @lang('blog::app.shop.blog.post.view.author') {{ $blog->author }}
-                            </p>
-
-                            <p class="text-[25px] max-sm:text-[12px]">
-                                @lang('blog::app.shop.blog.post.view.date-published') {{ date('M d, Y', strtotime($blog->created_at)) }}
-                            </p>
+                            <div class="w-full h-full flex flex-wrap items-center">
+                                <div>
+                                    <h3 class="text-[40px] font-bold max-md:text-[20px]">
+                                        {{ $blog->name }}
+                                    </h3>
+                                    <p class="mt-3 text-[25px] max-sm:text-[12px]">
+                                        @lang('blog::app.shop.blog.post.view.author') {{ $blog->author }}
+                                    </p>
+                                    <p class="text-[25px] max-sm:text-[12px]">
+                                        @lang('blog::app.shop.blog.post.view.date-published') {{ date('M d, Y', strtotime($blog->created_at)) }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -101,7 +103,7 @@
                     <div v-if="isRelativeLoading">
                         <x-blog::shimmer.blogs.item count=4 />
                     </div>
-                    
+
                     <div class="mt-5 flex justify-center">
                         <button
                             @click="getMoreBlogs()"
@@ -150,7 +152,7 @@
 
                     getRelatedPost() {
                         console.log(this.limit);
-                        
+
                         this.$axios.get("{{ route('shop.blogs.front-end') }}", {
                             params: {
                                 limit: this.limit,
