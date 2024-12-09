@@ -161,7 +161,9 @@
 
                                 <div class="max-md:w-full max-sm:grid">
                                     <h1 class="text-3xl font-medium text-dark max-sm:mt-6 max-sm:text-xl">{{$product->name}}</h1>
-                                    <p class="mt-2 text-lg font-normal text-primary max-sm:text-sm max-sm:font-semibold">{{ $attributeDatakeyValue['location'] }}</p>
+                                    @if (isset($attributeDatakeyValue['location']))
+                                        <p class="mt-2 text-lg font-normal text-primary max-sm:text-sm max-sm:font-semibold">{{ $attributeDatakeyValue['location'] }}</p>
+                                    @endif
                                     <div class="mt-8 flex gap-5 max-sm:-order-1 max-sm:mt-0">
                                         <div class="">
                                             <p class="text-sm font-normal text-[#8B8B8B] max-sm:text-[12px]">

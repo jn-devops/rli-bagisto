@@ -218,9 +218,6 @@
 
                     this.baseFile.path = this.media.videos[0].video_url;
                 }
-
-            console.log('media', this.media);
-
             },
 
             beforeDestroy() {

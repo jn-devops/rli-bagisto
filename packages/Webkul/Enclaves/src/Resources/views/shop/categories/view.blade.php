@@ -96,7 +96,7 @@
                                                         class="mt-5 text-xl font-bold text-dark"
                                                         v-text="product.name"
                                                         ></h2>
-                                                    <p class="mt-1 text-lg font-normal text-primary">@{{ product.attributes.find(attr => attr.code === 'location').value }}</p>
+                                                    <p class="mt-1 text-lg font-normal text-primary">@{{ product.attributes.find(attr => attr.code === 'location')?.value }}</p>
                                                     <p class="mt-2 text-sm font-normal text-[#8B8B8B]">Price starts at</p>
                                                     <p
                                                         class="mt-1 text-xl font-bold text-dark"
@@ -128,7 +128,7 @@
                                                         class="mt-5 text-xl font-bold text-dark"
                                                         v-text="product.name"
                                                         ></h2>
-                                                    <p class="mt-1 text-lg font-normal text-primary">@{{ product.attributes.find(attr => attr.code === 'location').value }}</p>
+                                                    <p class="mt-1 text-lg font-normal text-primary">@{{ product.attributes.find(attr => attr.code === 'location')?.value }}</p>
                                                     <p class="mt-2 text-sm font-normal text-[#8B8B8B]">Price starts at</p>
                                                     <p
                                                         class="mt-1 text-xl font-bold text-dark"
@@ -376,8 +376,6 @@
                         this.$axios.get("{{ route('enclaves.api.product.soldout.index', ['category_id' => $category->id]) }}")
                         .then(response => {
                             this.soldOutProducts = response.data.data;
-
-                            console.log(this.soldOutProducts);
 
                         }).catch(error => {
                             console.log(error);
