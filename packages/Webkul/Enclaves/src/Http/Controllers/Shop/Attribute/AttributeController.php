@@ -27,8 +27,7 @@ class AttributeController extends Controller
     public function getAttributes($code = null)
     {
         if ($code) {
-            $data = $this->attributeRepository->where('code', $code)->first();
-            $data->options;
+            $data = $this->attributeRepository->with('options')->where('code', $code)->first();
 
             return response()->json([
                 'data' => $data,

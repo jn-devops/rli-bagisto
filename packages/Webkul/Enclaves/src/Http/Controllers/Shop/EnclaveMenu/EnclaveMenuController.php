@@ -58,20 +58,24 @@ class EnclaveMenuController extends Controller
                 'visible' => true,
                 'submenu' => []
             ],
-            [
+        ];
+
+        if (core()->getConfigData('blog.settings.general.status')) {
+            $menuItems[] = [
                 'label' => trans('enclaves::app.shop.menus.announcements'),
                 'type'  => 'link',
                 'url'   => route('shop.article.index'),
                 'visible' => true,
                 'submenu' => []
-            ],
-            [
-                'label' => trans('enclaves::app.shop.menus.contact-us'),
-                'type'  => 'link',
-                'url'   => route('shop.cms.page', 'contact-us'),
-                'visible' => true,
-                'submenu' => []
-            ]
+            ];
+        }
+
+        $menuItems[] = [
+            'label' => trans('enclaves::app.shop.menus.contact-us'),
+            'type'  => 'link',
+            'url'   => route('shop.cms.page', 'contact-us'),
+            'visible' => true,
+            'submenu' => []
         ];
 
         return response()->json([

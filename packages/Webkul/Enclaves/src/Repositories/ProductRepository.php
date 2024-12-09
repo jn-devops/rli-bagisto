@@ -201,4 +201,19 @@ class ProductRepository extends BaseProductRepository
 
         return $query->paginate($limit);
     }
+
+    /**
+     * Get all sold out products.
+     */
+    public function getAllWithNoInventory(array $params = [])
+    {
+        $query = $this->getAll($params);
+        $productIds = $query->pluck('id');
+
+        return $this->model->whereIn('id', $productIds)
+            ->whereDoesntHave('inventories', function ($query) {
+                $query->where('qty', '>', 0);
+            })
+            ->paginate($query->perPage());
+    }
 }

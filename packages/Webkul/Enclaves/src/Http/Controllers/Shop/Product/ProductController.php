@@ -10,7 +10,7 @@ use Webkul\Enclaves\Helpers\Customer\CustomerHelper;
 use Webkul\Enclaves\Http\Controllers\Controller;
 use Webkul\Product\Helpers\View as ProductViewHelper;
 use Webkul\Enclaves\Http\Resources\ProductResource;
-use Webkul\Enclaves\Repositories\ProductRepository as BaseProductRepository;
+use Webkul\Enclaves\Repositories\ProductRepository as EnclaveProductRepository;
 
 class ProductController extends Controller
 {
@@ -29,7 +29,7 @@ class ProductController extends Controller
     public function __construct(
         protected ProductRepository $productRepository,
         protected ProductViewHelper $productViewHelper,
-        protected BaseProductRepository $baseProductRepository,
+        protected EnclaveProductRepository $enclaveProductRepository,
     ) {}
 
     /**
@@ -96,7 +96,7 @@ class ProductController extends Controller
      */
     public function getSoldOutProducts(): JsonResource
     {
-        $products = $this->productRepository->getAllWithNoInventory(request()->query());
+        $products = $this->enclaveProductRepository->getAllWithNoInventory(request()->query());
 
         if (! empty(request()->query('query'))) {
             /**
@@ -132,7 +132,7 @@ class ProductController extends Controller
 
     public function getAskToJoyProducts()
     {
-        $products = $this->baseProductRepository
+        $products = $this->enclaveProductRepository
             ->getAll(array_merge(request()->query(), [
                 'channel_id'           => core()->getCurrentChannel()->id,
                 'status'               => 1,
